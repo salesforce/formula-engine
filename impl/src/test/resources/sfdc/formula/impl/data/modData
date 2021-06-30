@@ -1,0 +1,34 @@
+0,1
+20,-1
+20.12345, 2
+20.123444,13
+20.123445,7
+20.12345,23
+20.12,1
+-1,2
+-1,2654
+-123456789.123456789, 2
+123456789.123456789,2
+46,-456
+-0,-1
+-0.00034,3
+-.244,2
+-0.244,2
+-0.245,23223244
+.24456,123456789
+0.24456,0.000045
+,16
+,2
+-256,16
+#ABS(MOD({!customnumber1__c},{!customnumber2__c}))
+#EXP(MOD({!customnumber1__c},{!customnumber2__c}))
+#FLOOR(MOD({!customnumber1__c},{!customnumber2__c}))
+#CEILING(MOD({!customnumber1__c},{!customnumber2__c}))
+#MOD({!customnumber1__c},{!customnumber2__c})
+#MOD(EXP({!customnumber1__c}),CEILING({!customnumber2__c}))
+#MOD(FLOOR({!customnumber1__c}),ABS({!customnumber2__c}))
+#MOD(LOG({!customnumber1__c}),{!customnumber2__c})
+#MOD(LN({!customnumber1__c}),{!customnumber2__c})
+#MOD(SQRT({!customnumber1__c}),{!customnumber2__c})
+#Log(MOD({!customnumber1__c},{!customnumber2__c}))
+#LN(MOD({!customnumber1__c},{!customnumber2__c}))

@@ -1,0 +1,7 @@
+true,100,200,400
+false,123456789,123456789,123456789
+true,45.4356,45,900
+true,0.00000984,0.9,0.4560001
+false,-200,-0.000000008,-0.0000012
+#ROUND(IF({!customcheckbox1__c},{!customnumber1__c},{!customnumber2__c}),{!customnumber3__c})
+#MOD(IF({!customcheckbox1__c},{!customnumber1__c},{!customnumber2__c}),{!customnumber3__c})

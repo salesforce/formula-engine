@@ -1,0 +1,7 @@
+http://salesforce.com,Not Null
+https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&setupid=AccountFields,Not Null
+,Is Null
+email@email.com,Not Null
+mailto:syendluri@salesforce.com,Not Null
+ui/layoutfieldlist.jsp,Not Null
+,

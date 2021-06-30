@@ -1,0 +1,354 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.salesforce.formula</groupId>
+  <artifactId>formula-engine</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Formula Engine</name>
+  <description>
+    Implementation of a formula engine in the "salesforce" style, which
+    supports the standard force.com syntax, support for generation of
+    sql and javascript, and extensibility for reuse as an email
+    templating language.
+  </description>
+  <properties>
+        <guava.version>30.0-jre</guava.version>
+        <graalvm.version>20.3.0</graalvm.version>
+        <javax.annotation.version>1.2</javax.annotation.version>
+        <!-- If the coverage threshold for a project is not met, the build will warn if false and fail if true -->
+        <coverage.failIfBelowThreshold>true</coverage.failIfBelowThreshold>
+        <!-- When true, the build will fail if there are no tests present in a project -->
+        <coverage.failIfNoTests>false</coverage.failIfNoTests>
+        <!-- Each project can override this threshold -->
+        <coverage.threshold>0.80</coverage.threshold>
+        <coverage.skip>true</coverage.skip>
+        <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+        <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
+        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+        <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+        <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
+        <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
+  </properties>
+
+  <packaging>pom</packaging>
+  <modules>
+    <module>api</module>
+    <module>impl</module>
+  </modules>
+
+  <scm>
+    <connection>scm:git:https://github.com/salesforce/formula-engine.git</connection>
+    <developerConnection>scm:git:https://github.com/salesforce/formula-engine.git</developerConnection>
+    <url>https://github.com/salesforce/formula-engine</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>nexus</id>
+      <url>https://nexus.soma.salesforce.com/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus</id>
+      <url>https://nexus.soma.salesforce.com/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+  
+  <dependencyManagement>
+    <dependencies>
+      <!-- This is an optional dependency because the groupId/versioning differs in open-source -->
+      <dependency>
+        <groupId>com.salesforce.grammaticus</groupId>
+        <artifactId>grammaticus</artifactId>
+        <version>1.0.0</version>
+	    <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr-complete</artifactId>
+        <version>3.5.2</version>
+      </dependency>
+      <dependency>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>
+	<version>4.13.1</version>
+	<scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4</artifactId>
+        <version>4.5</version>
+      </dependency>
+      
+      <dependency>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+          <version>${guava.version}</version>
+      </dependency>
+      <dependency>
+	<groupId>jakarta.xml.bind</groupId>
+	<artifactId>jakarta.xml.bind-api</artifactId>
+	<version>2.3.2</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>javax.annotation-api</artifactId>
+        <version>${javax.annotation.version}</version>
+      </dependency>
+      
+      
+      <!-- GraalJS impl -->
+      <dependency>
+        <groupId>org.graalvm.sdk</groupId>
+        <artifactId>graal-sdk</artifactId>
+        <version>${graalvm.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.graalvm.js</groupId>
+        <artifactId>js</artifactId>
+        <version>${graalvm.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.graalvm.regex</groupId>
+        <artifactId>regex</artifactId>
+        <version>${graalvm.version}</version>
+        <scope>test</scope>
+      </dependency>      
+    </dependencies>
+  </dependencyManagement>
+
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${springframework.boot.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.6</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven-assembly-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${maven-clean-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>${maven-install-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <releaseProfiles>releases</releaseProfiles>
+                    <scmCommentPrefix>release: </scmCommentPrefix>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                  <execution>
+                      <id>attach-sources</id>
+                      <goals>
+                          <goal>jar</goal>
+                      </goals>
+                  </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- Runs the unit tests -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <failIfNoTests>${coverage.failIfNoTests}</failIfNoTests>
+                    <skip>${test.skipUnitTests}</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec-maven-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven-pmd-plugin.version}</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>${project.parent.basedir}/pmd-ruleset.xml</ruleset>
+                    </rulesets>
+                    <excludeRoots>
+                        <excludeRoot>target/generated-sources</excludeRoot>
+                    </excludeRoots>
+                    <verbose>true</verbose>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                        <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- JaCoCo for Java code coverage metrics -->
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.6</version>
+                <configuration>
+                    <skip>${coverage.skip}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!-- Prepares a property pointing to the JaCoCo runtime agent that can be passed as a VM argument to the application under test. -->
+                        <id>prepare unit test JaCoCo runtime agent property</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <!-- Create a code coverage report -->
+                        <id>create unit test code coverage report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <!-- Verifies that code coverage thresholds are met, checking instruction coverage per bundle by default -->
+                        <id>check code coverage threshold</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <haltOnFailure>${coverage.failIfBelowThreshold}</haltOnFailure>
+                            <rules>
+                                <rule>
+                                    <limits>
+                                        <limit>
+                                            <minimum>${coverage.threshold}</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+	<profiles>
+		<profile>
+			<id>Code Coverage</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>coverage</name>
+				</property>
+			</activation>
+			<modules>
+				<module>coverage</module>
+			</modules>
+			<properties>
+				<coverage.skip>false</coverage.skip>
+			</properties>
+		</profile>
+
+		<!-- Include graaljs in the classpath on stock JDKs. -->
+		<profile>
+			<id>graaljs</id>
+			<activation>
+				<file>
+					<!-- This may not be the best way to prove non-graal -->
+					<missing>${java.home}/../bin/gu</missing>
+				</file>
+			</activation>
+			<dependencies>
+				<!-- Reinclude these to get the transitive dependencies and compile scope -->
+				<dependency>
+					<groupId>org.graalvm.sdk</groupId>
+					<artifactId>graal-sdk</artifactId>
+					<version>${graalvm.version}</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.graalvm.js</groupId>
+					<artifactId>js</artifactId>
+					<version>${graalvm.version}</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.graalvm.regex</groupId>
+					<artifactId>regex</artifactId>
+					<version>${graalvm.version}</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.graalvm.truffle</groupId>
+					<artifactId>truffle-api</artifactId>
+					<version>${graalvm.version}</version>
+					<scope>compile</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+  
+</project>

@@ -1,0 +1,6 @@
+100.1234,400,.2212,lengthisten,.01,500
+,200.134,100,text,,-200,100
+0.144,0.0023456,200,,,20
+-1,-1,-1,-1,-1,-1
+0,0,0,0,0,0
+#({!customnumber1__c}+VALUE({!customtext1__c})+{!customnumber2__c}+LEN({!customtext2__c})+({!custompercent1__c}*{!customcurrency1__c}))

@@ -1,0 +1,5 @@
+email@aa.com,.com,200,300
+works@bvv.net,works@,200,300
+works@bvv.net,WORKS@,200,300
+a@salesforce.com,salesforce.com,200,300
+#IF(BEGINS({!customemail1__c},{!customtext1__c}),{!customnumber1__c},{!customcurrency1__c})

@@ -1,0 +1,31 @@
+20,40
+12.234, 46.456
+-200, -200
+0, 0
+123456789,123456789
+123456789.123456789,123456789.123456789
+0.0024, 0.0050
+0.00000009, 0.000000009
+-1, -1
+-123456789.123456789,-0.00
+-0,-0
+#({!customcurrency1__c}*{!customcurrency2__c})
+#({!customcurrency2__c}*{!customcurrency1__c})
+#({!customnumber1__c}*{!customnumber2__c})
+#({!customnumber1__c}*{!customnumber2__c})
+#({!customnumber1__c}*{!customnumber2__c})
+#({!customnumber1__c}*{!customcurrency1__c})
+#({!customnumber1__c}*{!customcurrency1__c})
+#({!customnumber1__c}*{!customcurrency1__c})
+#({!customnumber1__c}*{!custompercent1__c})
+#({!customnumber1__c}*{!custompercent1__c})
+#({!customnumber1__c}*{!custompercent1__c})
+#({!custompercent1__c}*{!customcurrency1__c})
+#({!custompercent1__c}*{!customcurrency1__c})
+#({!custompercent1__c}*{!customcurrency1__c})
+#({!custompercent1__c}*{!custompercent2__c})
+#({!custompercent1__c}*{!custompercent2__c})
+#({!custompercent1__c}*{!custompercent2__c})
+#({!customcurrency1__c}*{!customcurrency2__c})
+#({!customcurrency1__c}*{!customcurrency2__c})
+#({!customcurrency1__c}*{!customcurrency2__c})

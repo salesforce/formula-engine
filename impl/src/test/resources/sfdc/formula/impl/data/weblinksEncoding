@@ -1,0 +1,18 @@
+true, http://www.example.com, http://salesforce.com
+false, http://www.EXAMPLE.cOm, http://SaLeSForce.cOm
+true, http://www.example.com/, http://salesforce.com/
+false, https://www.example.com, https://salesforce.com
+true, ftp://www.EXAMPLE.cOm, ftp://salesforce.com
+false, http://www.example.com:8080, http://salesforce.com:8080
+true, http://www.example.com/foo/bar, http://salesforce.com/foo/bar
+false, http://www.example.com/f00/b@r, http://salesforce.com/f00/b@r
+true, http://www.example.com?foo=B@r, http://salesforce.com?foo=B@r
+false, http://www.example.com?foo=bar, http://salesforce.com?foo=bar
+true, http://www.example.com#fooBar, http://salesforce.com#fooBar
+false, http://www.example.com:8080/foo/bar, http://salesforce.com:8080/foo/bar
+true, http://www.example.com|http://www.yahoo.com, http://salesforce.com|http://www.yahoo.com
+false, http://www.example.com/foo/捦挺挎/bar, http://salesforce.com/foo/捦挺挎/bar
+true, http://عمان.icom.museum, عمان.icom.museum
+false, 1964thetribute.com, 1964thetributeme.com
+true, http://www.example.com/foo/bar?a=b&c=d , http://salesforce.com/foo/bar?a=b&c=d 
+false, http://www.example.com# foo #bar, http://salesforce.com# foo #bar

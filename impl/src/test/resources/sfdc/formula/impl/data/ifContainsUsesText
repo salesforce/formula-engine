@@ -1,0 +1,14 @@
+Golden File,Gold,200,300
+Golden File,File,200,300
+Golden File,n F,200,300
+Golden File,gold,200,300
+Golden File,n f,200,300
+This is a very long text and works very well with this type of test and works better with more department wise contract and @ this # this $ this % this ^ this & this * this ( this ) this) this,contract,200,300
+This is a very long text and works very well with this type of test and works better with more department wise contract and @ this # this $ this % this ^ this & this * this ( this ) this) this,Works,200,300
+Hello World!,!,200,300
+Works Great and \" and Works Greate Twoo \\,\\,200,300
+510 797 4647,510 797 4647,200,300
+510-797-4647,510 797 4647,200,300
+#IF(CONTAINS({!customtext1__c},{!customtext2__c}),{!customnumber1__c},{!custompercent1__c})
+#IF(CONTAINS({!customtextarea1__c},{!customtext1__c}),{!customcurrency1__c},{!custompercent1__c})
+#IF(CONTAINS({!customphone1__c},{!customtext1__c}),{!customnumber1__c},{!custompercent1__c})

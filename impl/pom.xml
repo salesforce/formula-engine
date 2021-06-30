@@ -1,0 +1,120 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>formula-engine-impl</artifactId>
+    <name>Formula Engine Impl</name>
+    <description>
+    The api to the formula engine, with the minimum objects needed
+  </description>
+
+    <parent>
+        <groupId>com.salesforce.formula</groupId>
+        <artifactId>formula-engine</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.salesforce.formula</groupId>
+            <artifactId>formula-engine-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+	    <dependency>
+	      <groupId>com.google.guava</groupId>
+	      <artifactId>guava</artifactId>
+	    </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr-complete</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.coveo</groupId>
+            <artifactId>nashorn-commonjs-modules</artifactId>
+            <version>1.0.9</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>graal-sdk</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+		<dependency>
+		  <groupId>jakarta.xml.bind</groupId>
+		  <artifactId>jakarta.xml.bind-api</artifactId>
+		  <scope>runtime</scope>
+		</dependency>
+		<dependency>
+		  <groupId>org.glassfish.jaxb</groupId>
+		  <artifactId>jaxb-runtime</artifactId>
+		  <version>2.3.0</version>
+		  <scope>runtime</scope>
+		</dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>antlr-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <grammars>*.g</grammars>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>4.5.3</version>
+                <executions>
+                    <execution>
+                        <id>antlr4</id>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/Formula.g4</include>
+                            </includes>
+                            <visitor>
+                                true
+                            </visitor>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- This plugin is required to run a single test
+                 Command below will run only one test. 
+                 mvn test -Dtest=TestExtendedFormulas#testAddWithCaseExpr -DfailIfNoTests=false 
+                 
+                 Command below will run test in the debug mode. 
+                 mvn test -Dtest=TestExtendedFormulas#testAddWithCaseExpr -DfailIfNoTests=false -Dmaven.surefire.debug
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

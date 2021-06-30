@@ -1,0 +1,11 @@
+Partner,Partner,200,Reseller,400,100,400,200,100
+Reseller,Partner,200,Reseller,400,100,400,200,100
+Partner,Partner,200,Reseller,400,100,400,200,100
+,Partner,200,Reseller,400,100,400,200,100
+Partner,,200,Reseller,400,100,400,200,100
+Var,Partner,200,Reseller,400,100,400,200,100
+Partner,Partner,,Reseller,400,100,400,200,100
+Partner,Partner,200,Reseller,400,,400,200,100
+Partner,Partner,200,Reseller,400,,400,,100
+Partner,Partner,200,Reseller,400,,400,200,100
+#(CASE({!customtext1__c},{!customtext2__c},{!custompercent1__c},{!customtext3__c},{!customcurrency1__c},{!customnumber1__c})+{!customcurrency2__c}+({!custompercent2__c}+{!customnumber2__c}))

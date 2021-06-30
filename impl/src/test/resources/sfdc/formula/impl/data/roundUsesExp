@@ -1,0 +1,13 @@
+0,0
+0,1
+1,2
+2,4
+-1,-12
+-10,2
+-100,-1
+56,5
+56,0
+56,12
+,
+,2
+#ROUND(EXP({!customnumber1__c}),CEILING({!customnumber2__c}))
