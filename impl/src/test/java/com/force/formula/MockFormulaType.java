@@ -3,8 +3,6 @@
  */
 package com.force.formula;
 
-import com.force.formula.*;
-
 /**
  * @author stamm
  *
@@ -36,31 +34,6 @@ public enum MockFormulaType implements FormulaTypeSpec {
 	}
 
 	@Override
-	public boolean allowsEncryptedAtRestFields() {
-		return false;
-	}
-
-	@Override
-	public boolean allowsLegacyEncryptedFields() {
-		return false;
-	}
-
-	@Override
-	public boolean isFilter() {
-		return false;
-	}
-
-	@Override
-	public boolean allowSpanningFormulas() {
-		return false;
-	}
-
-	@Override
-	public boolean allowMultiEnumFields() {
-		return false;
-	}
-
-	@Override
 	public int getMaxTreeDepth() {
         return 10;
 	}
@@ -69,14 +42,5 @@ public enum MockFormulaType implements FormulaTypeSpec {
 	public String getDisplay() {
 		return name();
 	}
-
-	@Override
-    public boolean allowPicklistTextConversion() {
-        return false;  // TODO: Should support this eventually
-    }
-
-    @Override
-	public boolean allowSObjectRowReference() {
-		return false;
-	}
 }
+

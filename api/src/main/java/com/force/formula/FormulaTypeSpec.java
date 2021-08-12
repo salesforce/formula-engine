@@ -20,32 +20,39 @@ public interface FormulaTypeSpec {
      */
     public int getMaxLength();
     
-    public FormulaProperties getDefaultProperties();
-    
-    public boolean isTemplate();
-    
-    public boolean allowsEncryptedAtRestFields();
-    
-    public boolean allowsLegacyEncryptedFields();
-    
-    public boolean isFilter();
-    
-    public boolean allowSpanningFormulas();
-    
-    public boolean allowMultiEnumFields();
-    
-    public int getMaxTreeDepth();
-    
     public String getDisplay();
     
+    public FormulaProperties getDefaultProperties();
+    
+    default boolean isTemplate() {
+        return false;
+    }
+   
+    default boolean allowsLegacyEncryptedFields() {
+        return false;
+    }
+    
+    default boolean allowSpanningFormulas() {
+        return false;
+    }
+    
+    // Max depth of the AST tree
+    default int getMaxTreeDepth() {
+        return 10;
+    }
+           
     /**
      * @return whether this formula type supports picklists.  
      */
-    public boolean allowPicklistTextConversion();
+    default boolean allowPicklistTextConversion() {
+        return false;
+    }
     
     /**
      * Return true if sobjectrow self referencing is allowed ("this").
      */
-    public boolean allowSObjectRowReference();
+    default boolean allowSObjectRowReference() {
+        return false;
+    }
     
 }

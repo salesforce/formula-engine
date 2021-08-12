@@ -7,9 +7,6 @@
 package com.force.formula;
 
 
-import java.text.MessageFormat;
-
-import com.force.formula.FormulaDataType;
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -49,13 +46,6 @@ public enum MockFormulaDataType implements FormulaDataType {
         return name();
     }
 
-    /**
-     * @return the single char datatype stored in the database for the datatype of a custom field of this type
-     */
-    @Override
-    public String getDatatype() {
-        return name();
-    }
 
     public char getDatatypeLetter() {
         return (char)('A' + ordinal());
@@ -121,11 +111,6 @@ public enum MockFormulaDataType implements FormulaDataType {
     }
 
     @Override
-    public boolean isPhone() {
-    	return false;
-    }
-
-    @Override
     public boolean isPercent() {
         return this == PERCENT;
     }
@@ -148,11 +133,6 @@ public enum MockFormulaDataType implements FormulaDataType {
     @Override
     public boolean isNumber() {
         return isDecimal() || isInteger();
-    }
-
-    @Override
-    public boolean isNumberOrDynamicEnum() {
-        return isNumber();
     }
 
      @Override
@@ -192,16 +172,6 @@ public enum MockFormulaDataType implements FormulaDataType {
 
     @Override
     public boolean isBlob() {
-        return false;
-    }
-
-    @Override
-    public boolean isFfxBlob() {
-        return false;
-    }
-
-    @Override
-    public boolean isFile() {
         return false;
     }
 
@@ -247,121 +217,18 @@ public enum MockFormulaDataType implements FormulaDataType {
         return false;
     }
 
-    /**
-     * @return whether the field can be translated by toLabel() API call
-     */
-    @Override
-    public boolean isTranslatable() {
-        return isPickval();
-    }
 
-    /**
-     * @return whether the field contains some dynamic enum column
-     */
-    @Override
-    public boolean containsSomeDynamicEnum() {
-        return false;
-    }
-
-    /**
-     * @return whether the field has at least one column based on a dynamic picklist field
-     */
-    @Override
-    public boolean containsSomeDynamicPicklist() {
-        return containsSomeDynamicEnum() ;
-    }
-
-    @Override
-    public boolean isSingleColumn() {
-        return !isCompound();
-    }
-
-    @Override
-    public boolean isSingleConcreteColumn() {
-        // File is included here because, in File, The first column is the "real" column.
-        // The rest are derived fields.
-        return isSingleColumn() || isFile();
-    }
-
-    @Override
-    public boolean isCompound() {
-    	return false;
-    }
 
     @Override
     public boolean isClob() {
     	return false;
     }
 
-    public boolean isComplex() {
-        return isCompound();
-    }
-
-    @Override
-    public boolean isExternal() {
-    	return false;
-    }
-
-
     @Override
     public boolean isId() {
     	return this == ENTITYID;
-    }
-
-    @Override
-    public boolean isIndexable() {
-    	return false;
-    }
-
-
-
-    @Override
-    public boolean canBeMarkedExternalId() {
-    	return false;
-    }
-
-    @Override
-    public boolean canBeMarkedUnique() {
-    	return false;
-    }
-
-    @Override
-    public boolean canBeMasked() {
-    	return false;
-    }
-
-    /**g
-     * @return whether the column has a specified length.
-     * Certain column types like checkbox and number fields do not have a concept of length.
-     * Number fields have precision and scale, and checkboxes have none of the three.
-     */
-    @Override
-    public boolean hasLength() {
-    	return false;
-    }
-
-    /**
-     * @return whether both the precision and scale are defined (number columns)
-     */
-    @Override
-    public boolean hasPrecisionAndScale() {
-        return isNumber();
-    }
-
-    @Override
-    public boolean hasPrecision() {
-        return isNumber();
-    }
-
-    @Override
-    public boolean hasScale() {
-        return isNumber();
-    }
-
-    @Override
-    public boolean canBeMarkedCaseInsensitive() {
-        return this == TEXT;
-    }
+    } 
+   
 
     @Override
     public boolean isLocation() {
@@ -380,25 +247,6 @@ public enum MockFormulaDataType implements FormulaDataType {
     @Override
     public String toString() {
         return "ColumnType." + name();
-    }
-
-    /**
-     * Output the Oracle data type for this column type (for documentation)
-     */
-    @Override
-    public String toOracleString(int length) {
-        if (isInteger() || isDecimal())
-            return "NUMBER";
-        else if (isDate())
-            return "DATE";
-        else if (isId())
-            return "CHAR(15)";
-        else if (isBoolean())
-            return "CHAR(1)";
-        else if (isText())
-            return MessageFormat.format("VARCHAR2({0})", length);
-        else
-            return toString();
     }
     
     private static final ImmutableMap<String, MockFormulaDataType> byCamelCaseName;

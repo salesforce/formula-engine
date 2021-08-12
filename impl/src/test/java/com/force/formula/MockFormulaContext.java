@@ -1,6 +1,5 @@
 package com.force.formula;
 
-import com.force.formula.*;
 import com.force.formula.impl.NullFormulaContext;
 
 /**

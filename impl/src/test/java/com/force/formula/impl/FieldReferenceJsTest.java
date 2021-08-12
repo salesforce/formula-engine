@@ -4,7 +4,6 @@ import java.util.*;
 
 import com.force.formula.*;
 import com.force.formula.commands.FormulaJsTestUtils;
-import com.force.formula.impl.FormulaInfoFactory;
 import com.google.common.collect.ImmutableMap;
 
 /**

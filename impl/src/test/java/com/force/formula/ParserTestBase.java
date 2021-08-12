@@ -5,7 +5,6 @@ import java.util.Date;
 
 import org.junit.Assert;
 
-import com.force.formula.*;
 import com.force.formula.impl.FormulaUtils;
 import com.force.formula.impl.FormulaWithSql;
 

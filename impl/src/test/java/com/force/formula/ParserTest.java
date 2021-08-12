@@ -1,7 +1,5 @@
 package com.force.formula;
 
-import com.force.formula.FormulaException;
-
 /**
  * Test all combinations and permutations of valid formula syntax/semantics 
  * 

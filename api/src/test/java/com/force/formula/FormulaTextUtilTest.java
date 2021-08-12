@@ -7,7 +7,6 @@ import java.util.*;
 
 import org.junit.Assert;
 
-import com.force.formula.FormulaTextUtil;
 import com.force.formula.FormulaTextUtil.TrieMatcher;
 
 import junit.framework.TestCase;

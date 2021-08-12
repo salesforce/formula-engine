@@ -154,7 +154,7 @@ public class FormulaTypeUtils {
      * @param obj an object returned from nashorn
      * @return a formula engine useful version.
      */
-    @SuppressWarnings("restriction")
+    @SuppressWarnings({ "restriction", "deprecation" })
     public static Object convertFromNashorn(ScriptEngine engine, Object obj) {
         if (obj instanceof Number) {
             if (obj instanceof BigDecimal) {

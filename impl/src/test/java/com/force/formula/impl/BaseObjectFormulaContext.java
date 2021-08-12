@@ -13,8 +13,6 @@ import com.force.formula.*;
 import com.force.formula.FormulaFieldInfo.FormulaFieldType;
 import com.force.formula.FormulaSchema.Entity;
 import com.force.formula.FormulaSchema.Field;
-import com.force.formula.impl.BaseCompositeFormulaContext;
-import com.force.formula.impl.ContextualFormulaFieldInfoImpl;
 import com.force.formula.template.SystemFormulaContext;
 import com.google.common.collect.ImmutableSet;
 

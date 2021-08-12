@@ -26,5 +26,7 @@ public interface FormulaReturnType {
     /**
      * @return the FieldOrColumnInfo backing this formula.  This may return null as some formulas are not applicable to fields or columns.
      */
-    FormulaSchema.FieldOrColumn getFieldOrColumnInfo();
+    default FormulaSchema.FieldOrColumn getFieldOrColumnInfo() {
+        return null;
+    }
 }

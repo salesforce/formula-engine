@@ -8,7 +8,6 @@ package com.force.formula.impl;
 import java.util.*;
 
 import com.force.formula.*;
-import com.force.formula.impl.FormulaUtils;
 import com.google.common.collect.ImmutableSet;
 
 /**

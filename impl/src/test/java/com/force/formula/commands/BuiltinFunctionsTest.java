@@ -10,7 +10,6 @@ import java.util.*;
 import org.junit.Assert;
 
 import com.force.formula.*;
-import com.force.formula.commands.OperatorAddOrSubtractFormulaCommand;
 import com.force.i18n.BaseLocalizer;
 
 /*

@@ -200,7 +200,7 @@ public class BigDecimalHelper {
     public static final BigDecimal roundNumberToScale(Number n, int scale) {
         if(n != null) {
             BigDecimal bd = (n instanceof BigDecimal) ? (BigDecimal)n : new BigDecimal(String.valueOf(n.doubleValue()));
-            return bd.setScale(scale, BigDecimal.ROUND_HALF_UP);
+            return bd.setScale(scale, RoundingMode.HALF_UP);
         }
         return null;
     }

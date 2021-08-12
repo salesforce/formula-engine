@@ -7,8 +7,6 @@ package com.force.formula;
 
 import java.util.Date;
 
-import com.force.formula.FormulaCurrencyData;
-
 /**
  * Describe your class here.
  *

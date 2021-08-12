@@ -7,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.force.formula.*;
-import com.force.formula.impl.FormulaInfoFactory;
-import com.force.formula.impl.JSTooBigException;
 
 /**
  * Tests specific to JS code generation

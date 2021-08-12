@@ -2,8 +2,6 @@ package com.force.formula.impl;
 
 import org.junit.Test;
 
-import com.force.formula.impl.FormulaUtils;
-
 import static org.junit.Assert.assertTrue;
 
 public class FormulaUtilsTest {

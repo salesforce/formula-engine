@@ -24,7 +24,6 @@ import org.xml.sax.SAXException;
 
 import com.force.formula.*;
 import com.force.formula.commands.FormulaJsTestUtils;
-import com.force.formula.impl.FormulaImpl;
 import com.force.formula.impl.FormulaTestCaseInfo.CompareType;
 import com.force.formula.impl.FormulaTestCaseInfo.EvaluationContext;
 

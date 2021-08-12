@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 import org.junit.Test;
 
 import com.force.formula.*;
-import com.force.formula.commands.FunctionIf;
 import com.force.formula.impl.*;
 import com.google.common.collect.Maps;
 
