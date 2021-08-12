@@ -4,10 +4,10 @@ header {
  * All Rights Reserved
  * Company Confidential
  */
-package sfdc.formula.parser.gen;
+package com.force.formula.parser.gen;
 
 import antlr.collections.AST;
-import sfdc.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaAST;
 
 }
 
