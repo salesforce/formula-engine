@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  browser-tools: circleci/browser-tools@1.1.3
-
 executors:
   jdk11:
     working_directory: ~/formula-engine

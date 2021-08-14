@@ -21,3 +21,4 @@ out/
 **/test-output
 application.yml
 release.properties
+*~

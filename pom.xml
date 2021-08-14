@@ -252,7 +252,6 @@
                 <!-- JaCoCo for Java code coverage metrics -->
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.6</version>
                 <configuration>
                     <skip>${coverage.skip}</skip>
                 </configuration>
