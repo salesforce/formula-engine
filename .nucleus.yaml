@@ -1,0 +1,12 @@
+project-type: core-jar
+core-deploy:
+  enabled: false
+steps:
+  mvn-build-command:
+    name: mvn-build-command
+    description: run mvn build
+    run:
+      command: mvn clean install {mvnArgs} 
+    params:
+      mvnArgs: --batch-mode
+
