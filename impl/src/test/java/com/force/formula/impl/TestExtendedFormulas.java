@@ -14,6 +14,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.AllTests;
 import org.xml.sax.SAXException;
 
+import com.force.formula.FormulaEngine;
+import com.force.formula.impl.BaseFieldReferenceTest.FieldTestFormulaValidationHooks;
+
 import junit.framework.TestSuite;
 
 /**
@@ -40,6 +43,13 @@ public class TestExtendedFormulas extends FormulaGenericTests {
     @Override
     protected boolean filterTests(FormulaTestCaseInfo testCase) {
         return testCase.getTestLabels().contains("extended");
+    }
+    
+
+    @Override
+    protected void setUpTest(BaseFormulaGenericTest test) {
+        FormulaEngine.setHooks(new FieldTestFormulaValidationHooks());
+        FormulaEngine.setFactory(BaseFieldReferenceTest.TEST_FACTORY);
     }
 
 }

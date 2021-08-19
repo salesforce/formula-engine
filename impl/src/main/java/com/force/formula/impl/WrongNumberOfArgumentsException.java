@@ -1,7 +1,7 @@
 package com.force.formula.impl;
 
 import com.force.formula.FormulaException;
-import com.force.formula.FormulaI18nUtils;
+import com.force.formula.util.FormulaI18nUtils;
 
 import antlr.Token;
 

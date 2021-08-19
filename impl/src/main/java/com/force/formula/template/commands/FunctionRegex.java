@@ -13,6 +13,7 @@ import com.force.formula.template.commands.AccessCountedCharSequence.AccessCount
 import java.util.Deque;
 
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.sql.SQLPair;
 
 @AllowedContext(section=SelectorSection.ADVANCED, changeOnly=true, isJavascript=false)
 public class FunctionRegex extends FormulaCommandInfoImpl implements FormulaCommandValidator {

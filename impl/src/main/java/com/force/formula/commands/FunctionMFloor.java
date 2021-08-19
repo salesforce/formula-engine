@@ -9,6 +9,7 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.JsValue;
+import com.force.formula.sql.SQLPair;
 
 
 /**

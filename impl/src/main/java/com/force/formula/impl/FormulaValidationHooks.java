@@ -9,6 +9,7 @@ import java.util.*;
 
 import com.force.formula.*;
 import com.force.formula.commands.*;
+import com.force.formula.sql.*;
 import com.google.common.base.CharMatcher;
 
 /**

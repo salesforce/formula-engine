@@ -15,6 +15,8 @@ import com.force.formula.impl.*;
 
 import antlr.collections.AST;
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaI18nUtils;
 
 /**
  * Formula command info/command for a dynamic field reference <expr>[b] or <expr>.c

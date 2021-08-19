@@ -10,6 +10,7 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.commands.*;
 import com.force.formula.impl.*;
+import com.force.formula.sql.SQLPair;
 /**
  * Formula Command Info/Command for a dynamic reference field element; i.e. in an expression like a[b].c, the .c part.   
  * @author aballard

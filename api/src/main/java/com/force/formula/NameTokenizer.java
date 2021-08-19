@@ -6,6 +6,8 @@
 package com.force.formula;
 
 /**
+ * Convert references suitable for humans (apinames) into references suitable
+ * for storage in the DB (based on primary-keys, ids, etc)
  * @author dchasman
  * @since 150
  */

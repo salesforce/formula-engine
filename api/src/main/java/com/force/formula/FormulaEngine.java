@@ -51,7 +51,7 @@ public class FormulaEngine {
             } catch (NoSuchMethodException | SecurityException e) {
                 throw new RuntimeException(e);
             }
-            if (!CONSTRUCTOR.isAccessible()) {
+            if (!CONSTRUCTOR.canAccess(null)) {
                 CONSTRUCTOR.setAccessible(true);
             }
         } else {
@@ -94,8 +94,8 @@ public class FormulaEngine {
         hooksRef.set((FormulaEngineHooks) Proxy.newProxyInstance(FormulaEngine.class.getClassLoader(), hooksClasses.toArray(new Class[hooksClasses.size()]), call_default_handler));
 
         try {
-            factoryRef.set(Class.forName(FACTORYIMPLCLASSNAME).asSubclass(FormulaFactory.class).newInstance());
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            factoryRef.set(Class.forName(FACTORYIMPLCLASSNAME).asSubclass(FormulaFactory.class).getDeclaredConstructor().newInstance());
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             // We don't have the impl... Don't die yet.  put in an invalid one.
             factoryRef.set((FormulaFactory) Proxy.newProxyInstance(FormulaEngine.class.getClassLoader(), new Class[]{FormulaFactory.class}, unsupported));
         }

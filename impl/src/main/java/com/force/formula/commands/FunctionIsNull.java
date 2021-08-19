@@ -13,6 +13,7 @@ import com.force.formula.impl.*;
 import com.google.common.base.Splitter;
 
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.sql.SQLPair;
 
 /**
  * Describe your class here.

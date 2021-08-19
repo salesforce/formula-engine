@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.force.formula.FormulaException;
-import com.force.formula.FormulaI18nUtils;
 
 import antlr.*;
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.util.FormulaI18nUtils;
 
 /**
  * @author dchasman

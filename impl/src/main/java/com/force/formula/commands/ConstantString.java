@@ -8,6 +8,8 @@ import java.io.Serializable;
 
 import com.force.formula.*;
 import com.force.formula.impl.*;
+import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaTextUtil;
 import com.google.common.base.CharMatcher;
 
 /**

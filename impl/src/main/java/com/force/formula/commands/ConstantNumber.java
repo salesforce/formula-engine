@@ -8,6 +8,7 @@ import java.util.Deque;
 
 import com.force.formula.*;
 import com.force.formula.impl.*;
+import com.force.formula.sql.SQLPair;
 
 /**
  * Push the command's associated numeric value onto the stack

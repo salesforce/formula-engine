@@ -6,7 +6,7 @@
 package com.force.formula.impl;
 
 import com.force.formula.FormulaEvaluationException;
-import com.force.formula.FormulaI18nUtils;
+import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.commons.text.TextUtil;
 
 /**

@@ -3,13 +3,15 @@ package com.force.formula.commands;
 
 
 
+import java.util.Deque;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.force.formula.*;
-import com.force.formula.impl.*;
-
-import java.util.Deque;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.sql.ITableAliasRegistry;
+import com.force.formula.util.BaseCompositeFormulaContext;
+import com.force.formula.util.FormulaTextUtil;
 
 /**
  * Retrieve the value for associated field from the context and push onto the stack.

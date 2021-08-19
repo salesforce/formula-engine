@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.force.formula.*;
-import com.force.formula.impl.*;
+import com.force.formula.impl.FormulaContextSwitcher;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.sql.ITableAliasRegistry;
+import com.force.formula.util.BaseCompositeFormulaContext;
 
 /**
  * Represents a composed sub formula when referenced in another formula through a field reference.

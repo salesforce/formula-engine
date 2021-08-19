@@ -14,6 +14,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.AllTests;
 import org.xml.sax.SAXException;
 
+import com.force.formula.FormulaEngine;
+import com.force.formula.impl.BaseFieldReferenceTest.FieldTestFormulaValidationHooks;
+
 import junit.framework.TestSuite;
 
 /**
@@ -43,4 +46,11 @@ public class TestStandardFormulas extends FormulaGenericTests {
         return testCase.getTestLabels().size() == 0 || testCase.getTestLabels().contains("basic");
     }
 
+    @Override
+    protected void setUpTest(BaseFormulaGenericTest test) {
+        FormulaEngine.setHooks(new FieldTestFormulaValidationHooks());
+        FormulaEngine.setFactory(BaseFieldReferenceTest.TEST_FACTORY);
+    }
+
+    
 }

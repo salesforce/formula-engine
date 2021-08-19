@@ -11,6 +11,7 @@ import com.force.i18n.commons.text.TextUtil;
 import com.google.common.base.Joiner;
 
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.sql.SQLPair;
 
 /**
  * Extend this class with the specific implementation of

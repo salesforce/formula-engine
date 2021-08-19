@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.force.formula.*;
-import com.force.formula.impl.*;
+import com.force.formula.impl.FormulaRuntimeTypeException;
+import com.force.formula.sql.ITableAliasRegistry;
 
 public abstract class AbstractFormulaCommand implements FormulaCommand {
 

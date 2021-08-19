@@ -19,8 +19,8 @@
         <!-- When true, the build will fail if there are no tests present in a project -->
         <coverage.failIfNoTests>false</coverage.failIfNoTests>
         <!-- Each project can override this threshold -->
-        <coverage.threshold>0.80</coverage.threshold>
-        <coverage.skip>true</coverage.skip>
+        <coverage.threshold>0.65</coverage.threshold>
+        <coverage.skip>false</coverage.skip>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -45,6 +45,7 @@
   <modules>
     <module>api</module>
     <module>impl</module>
+    <module>test-utils</module>
   </modules>
 
   <scm>
@@ -72,7 +73,7 @@
         <groupId>com.salesforce.grammaticus</groupId>
         <artifactId>grammaticus</artifactId>
         <version>1.0.0</version>
-	    <optional>true</optional>
+	<optional>true</optional>
       </dependency>
       <dependency>
         <groupId>org.antlr</groupId>
@@ -83,7 +84,6 @@
 	<groupId>junit</groupId>
 	<artifactId>junit</artifactId>
 	<version>4.13.1</version>
-	<scope>test</scope>
       </dependency>
 
       <dependency>
@@ -93,9 +93,9 @@
       </dependency>
       
       <dependency>
-          <groupId>com.google.guava</groupId>
-          <artifactId>guava</artifactId>
-          <version>${guava.version}</version>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
       </dependency>
       <dependency>
 	<groupId>jakarta.xml.bind</groupId>
@@ -114,19 +114,16 @@
         <groupId>org.graalvm.sdk</groupId>
         <artifactId>graal-sdk</artifactId>
         <version>${graalvm.version}</version>
-        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.graalvm.js</groupId>
         <artifactId>js</artifactId>
         <version>${graalvm.version}</version>
-        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.graalvm.regex</groupId>
         <artifactId>regex</artifactId>
         <version>${graalvm.version}</version>
-        <scope>test</scope>
       </dependency>      
     </dependencies>
   </dependencyManagement>

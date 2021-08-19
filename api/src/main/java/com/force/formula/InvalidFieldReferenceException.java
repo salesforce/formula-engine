@@ -3,6 +3,8 @@
  */
 package com.force.formula;
 
+import com.force.formula.util.FormulaI18nUtils;
+
 /**
  * Thrown when a reference is encountered to a field that is not visible in the current formula context
  *

@@ -3,6 +3,8 @@
  */
 package com.force.formula;
 
+import com.force.formula.util.FormulaI18nUtils;
+
 /**
  * Thrown when use of an unsupported data type is encountered in a formula
  *

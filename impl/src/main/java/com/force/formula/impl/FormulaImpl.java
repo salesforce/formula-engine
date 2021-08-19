@@ -6,19 +6,18 @@ package com.force.formula.impl;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.force.formula.*;
-import com.force.formula.commands.FormulaCommand;
-import com.force.formula.commands.FormulaCommandInfoRegistry;
 import com.force.formula.commands.ConstantNumber.NumberConstantCommand;
 import com.force.formula.commands.ConstantString.StringWrapper;
+import com.force.formula.commands.FormulaCommandInfoRegistry;
 import com.force.formula.commands.FunctionDateValue.OperatorDateValueFormulaCommand;
 import com.force.formula.commands.FunctionNullValue.FunctionNullValueFormulaCommand;
-import com.force.formula.util.BigDecimalHelper;
-import com.google.common.base.Joiner;
+import com.force.formula.sql.FormulaTableRegistry;
+import com.force.formula.sql.FormulaWithSql;
+import com.force.formula.util.FormulaI18nUtils;
 
 /**
  * Used for the runtime evaluation of a formula in both pointwise and bulk contexts.
@@ -109,7 +108,7 @@ public class FormulaImpl implements FormulaWithSql {
     @Override
     public Object evaluate(FormulaRuntimeContext context) throws Exception {
         assert commands != null;
-        return formatResult(context, context.getFormulaReturnType(), evaluateRaw(context));
+        return FormulaI18nUtils.formatResult(context, context.getFormulaReturnType(), evaluateRaw(context));
     }
 
     /**
@@ -146,40 +145,6 @@ public class FormulaImpl implements FormulaWithSql {
         return result;
     }
 
-    public static Object formatResult(FormulaRuntimeContext context, FormulaReturnType formulaFieldInfo,
-            Object result) throws Exception{
-        if (result != null) {
-            if (formulaFieldInfo.getDataType().isSimpleText()) {
-                // Truncate strings to max string length
-                String stringValue;
-                if (result instanceof String) {
-                    stringValue = (String)result;
-                } else {
-                    stringValue = Joiner.on("").join((Object[])result);
-                }
-
-                result = stringValue.substring(0, Math.min(stringValue.length(), FormulaInfo.MAX_STRING_VALUE_LENGTH));
-            } else if (formulaFieldInfo.getDataType().isInteger()) {
-                result = new BigDecimal(new BigInteger(result.toString()));
-            } else if (formulaFieldInfo.getDataType().isPercent()) {
-                // Set the scale as determined by the field
-                // Multiply percent field by 100 for display
-                result = BigDecimalHelper.round(((BigDecimal)result).movePointRight(2), formulaFieldInfo.getScale());
-            } else if (formulaFieldInfo.getDataType().isDecimal()) {
-                final int scale = ((BigDecimal)result).scale();
-                final int MAX_FORMULA_LENGTH = 3900;
-                // Prevent evaluating numbers with negative scales that are beyond the max formula length,
-                // as this evaluation can be extremely CPU intensive and slow
-                if (scale < 0 && Math.abs(scale) > MAX_FORMULA_LENGTH) {
-                    throw new FormulaEvaluationException(new FormulaTooLongException(scale, MAX_FORMULA_LENGTH));
-                }
-                // Set the scale as determined by the field
-                result = BigDecimalHelper.round((BigDecimal)result, formulaFieldInfo.getScale());
-            }
-        }
-
-        return result;
-    }
 
     @Override
     public void bulkProcessingBeforeEvaluation(List<FormulaRuntimeContext> contexts) throws Exception {
@@ -277,7 +242,7 @@ public class FormulaImpl implements FormulaWithSql {
 
     @Override
     public boolean isDeterministic(FormulaContext formulaContext) {
-        FormulaCommandVisitor.DeterministicFormula visitor = new FormulaCommandVisitor.DeterministicFormula(
+        FormulaCommandVisitorImpl.DeterministicFormula visitor = new FormulaCommandVisitorImpl.DeterministicFormula(
                 formulaContext);
         visitFormulaCommands(visitor);
         return visitor.isDeterministic();
@@ -285,7 +250,7 @@ public class FormulaImpl implements FormulaWithSql {
 
     @Override
     public boolean hasAIPredictionFieldReference(FormulaContext formulaContext) {
-        FormulaCommandVisitor.AIPredictionFieldReference visitor = new FormulaCommandVisitor.AIPredictionFieldReference(
+        FormulaCommandVisitorImpl.AIPredictionFieldReference visitor = new FormulaCommandVisitorImpl.AIPredictionFieldReference(
                 formulaContext);
         visitFormulaCommands(visitor);
         return visitor.hasAIPredictionFieldReference();
@@ -294,7 +259,7 @@ public class FormulaImpl implements FormulaWithSql {
 
     @Override
     public boolean isCustomIndexable(FormulaContext formulaContext) {
-        FormulaCommandVisitor.CustomIndexableFormula visitor = new FormulaCommandVisitor.CustomIndexableFormula(
+        FormulaCommandVisitorImpl.CustomIndexableFormula visitor = new FormulaCommandVisitorImpl.CustomIndexableFormula(
                 formulaContext);
         visitFormulaCommands(visitor);
         return visitor.isCustomIndexable();
@@ -302,7 +267,7 @@ public class FormulaImpl implements FormulaWithSql {
 
     @Override
     public boolean isFlexIndexable(FormulaContext formulaContext) {
-        FormulaCommandVisitor.FlexIndexableFormula visitor = new FormulaCommandVisitor.FlexIndexableFormula(
+        FormulaCommandVisitorImpl.FlexIndexableFormula visitor = new FormulaCommandVisitorImpl.FlexIndexableFormula(
                 formulaContext);
         visitFormulaCommands(visitor);
         return visitor.isFlexIndexable();
@@ -310,7 +275,7 @@ public class FormulaImpl implements FormulaWithSql {
 
     @Override
     public boolean isPostSaveIndexUpdated(FormulaContext formulaContext, FormulaDmlType dmlType) {
-        FormulaCommandVisitor.CustomIndexablePostSaveIndexUpdated visitor = new FormulaCommandVisitor.CustomIndexablePostSaveIndexUpdated(
+        FormulaCommandVisitorImpl.CustomIndexablePostSaveIndexUpdated visitor = new FormulaCommandVisitorImpl.CustomIndexablePostSaveIndexUpdated(
                 formulaContext, dmlType);
         visitFormulaCommands(visitor);
         return visitor.isPostSaveIndexUpdated();
@@ -349,7 +314,7 @@ public class FormulaImpl implements FormulaWithSql {
 
     @Override
     public boolean isStale(FormulaContext formulaContext) {
-        FormulaCommandVisitor.StaleSummaryField visitor = new FormulaCommandVisitor.StaleSummaryField(formulaContext);
+        FormulaCommandVisitorImpl.StaleSummaryField visitor = new FormulaCommandVisitorImpl.StaleSummaryField(formulaContext);
         visitFormulaCommands(visitor);
         return visitor.isStale();
     }

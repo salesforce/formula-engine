@@ -4,6 +4,7 @@
 package com.force.formula.impl;
 
 import com.force.formula.*;
+import com.force.formula.sql.RuntimeSqlFormulaInfo;
 
 
 /**

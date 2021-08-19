@@ -1,5 +1,7 @@
 package com.force.formula;
 
+import com.force.formula.util.FormulaI18nUtils;
+
 /**
  * Used when global properties is set to require a field value for all field references
  *

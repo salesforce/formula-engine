@@ -1,5 +1,7 @@
 package com.force.formula;
 
+import com.force.formula.util.FormulaI18nUtils;
+
 /**
  * Used for merge fields that cannot be accessed in the current formula context.
  *

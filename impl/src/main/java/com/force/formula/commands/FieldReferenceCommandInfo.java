@@ -13,9 +13,10 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.FormulaSchema.FieldOrColumn;
 import com.force.formula.impl.*;
-import com.google.common.base.Splitter;
-
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.sql.*;
+import com.force.formula.util.BaseCompositeFormulaContext;
+import com.google.common.base.Splitter;
 
 /**
  * Abstract way to retrieve the value for associated field from the context and push onto the stack.
@@ -232,7 +233,7 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
             sql = formula.getSQLRaw();
             guard = formula.getGuard();
 
-            TableAliasRegistry nestedRegistry = formula.getTableAliasRegistry();
+            ITableAliasRegistry nestedRegistry = formula.getTableAliasRegistry();
             sql = registry.translate(sql, nestedRegistry, fieldPath);
             guard = registry.translate(guard, nestedRegistry, fieldPath);
         }        

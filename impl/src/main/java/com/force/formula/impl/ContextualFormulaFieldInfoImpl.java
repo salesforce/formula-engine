@@ -10,6 +10,7 @@ import java.lang.reflect.Proxy;
 import com.force.formula.*;
 import com.force.formula.FormulaSchema.Entity;
 import com.force.formula.FormulaSchema.FieldOrColumn;
+import com.force.formula.util.FormulaFieldInfoImpl;
 
 /**
  * Simple implementation of ContextualFormulaFieldInfo, that actually has context

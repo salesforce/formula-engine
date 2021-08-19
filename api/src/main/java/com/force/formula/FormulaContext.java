@@ -38,10 +38,22 @@ public interface FormulaContext extends Tokenizer {
      */
     String getFullName(boolean useDurableName, FormulaContext relativeToContext);
 
+    /**
+     * @return the return type of this formula.  This is used to validate if doing execute(), but is required
+     */
     FormulaReturnType getFormulaReturnType();
 
-    ContextualFormulaFieldInfo lookup(FormulaFieldReference field) throws InvalidFieldReferenceException, UnsupportedTypeException;
-    ContextualFormulaFieldInfo lookup(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    default ContextualFormulaFieldInfo lookup(FormulaFieldReference field) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        return lookup(field.getElement(), false);
+    }
+    default ContextualFormulaFieldInfo lookup(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        return lookup(fieldName, false);
+    }
+    /**
+     * @return the FieldInfo represented by fieldName, with this context attached
+     * @param fieldName
+     * @param isDynamicRefBase if the context could be dynamic (useful in templates)
+     */
     ContextualFormulaFieldInfo lookup(String fieldName, boolean isDynamicRefBase) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
     DisplayField[] getDisplayFields(FormulaSchema.Entity entityInfo);
@@ -75,10 +87,20 @@ public interface FormulaContext extends Tokenizer {
      */
     default boolean isGlobalVariableSupportedOffline(String variableType) { return false; }
 
-    FormulaContext[] getAdditionalContexts() throws InvalidFieldReferenceException;
+    /**
+     * @return the set of additional contexts referencable from this one.
+     */
+    default FormulaContext[] getAdditionalContexts() throws InvalidFieldReferenceException {
+        return null;
+    }
 
-    FormulaContext getParentContext();
-
+    /**
+     * @return the parent context that this is composited to.  
+     */
+    default FormulaContext getParentContext() {
+        return null;
+    }
+    
     GlobalFormulaProperties getGlobalProperties();
 
     <T> T getProperty(String name);
@@ -91,7 +113,9 @@ public interface FormulaContext extends Tokenizer {
      *
      * @return true if this context should not be displayed on the UI.
      */
-    boolean isUIDeprecated();
+    default boolean isUIDeprecated() {
+        return false;
+    }
 
     /**
      * Used for internal debugging purposes
@@ -148,9 +172,12 @@ public interface FormulaContext extends Tokenizer {
     }
     
     /**
-     * @return <tt>true</tt> if postgres syntax should be used for SQL expressions
+     * @return <tt>true</tt> if postgres syntax should be used for SQL expressions.
+     * Override for performance.
      */
-    boolean isSqlPostgresStyle(); 
+    default boolean isSqlPostgresStyle() {
+        return FormulaEngine.getHooks().isSqlPostgresStyle();
+    }
 
     
     /**

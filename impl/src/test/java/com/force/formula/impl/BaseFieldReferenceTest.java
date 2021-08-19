@@ -17,6 +17,7 @@ import com.force.formula.impl.BeanFormulaContext.BeanEntity;
 import com.force.formula.impl.BeanFormulaContext.BeanFormulaType;
 import com.force.formula.template.commands.DynamicReference;
 import com.force.formula.util.BigDecimalHelper;
+import com.force.formula.util.FormulaDateUtil;
 
 /**
  * FieldReferenceTest that includes a "bare" set of functions to validate
@@ -37,7 +38,7 @@ public abstract class BaseFieldReferenceTest extends ParserTestBase {
     protected boolean nullAsNull;
     
     public BaseFieldReferenceTest(String name) {
-        super(name, false);
+        super(name);
     }
     
     FormulaEngineHooks oldHooks = FormulaEngine.getHooks();
@@ -406,7 +407,7 @@ public abstract class BaseFieldReferenceTest extends ParserTestBase {
     static class TestAccount {
         private String id;
         private Date createdDate;
-		private boolean isActive;
+        //private boolean isActive;
         private BigDecimal amount;
         private BigDecimal secondNumber;
         private BigDecimal percent;
@@ -480,7 +481,7 @@ public abstract class BaseFieldReferenceTest extends ParserTestBase {
     static class TestParentAccount {
         private String id;
         private String name;
-		private boolean isActive;
+        //private boolean isActive;
         public TestParentAccount(String id, String name) {
             this.id = id;
             this.name = name;
