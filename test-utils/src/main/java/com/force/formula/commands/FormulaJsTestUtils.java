@@ -29,21 +29,31 @@ import com.google.common.base.Charsets;
 public class FormulaJsTestUtils {
     private static final Logger logger = Logger.getLogger("com.force.formula.js");
 
+    private static final AtomicReference<FormulaJsTestUtils> INSTANCE = new AtomicReference<>(new FormulaJsTestUtils());
+    
+    public static final FormulaJsTestUtils get() {
+        return INSTANCE.get();
+    }
+    
+    protected static void setTestUtils(FormulaJsTestUtils override) {
+        INSTANCE.set(override);
+    }
+    
     /**
      * Whether we are in GraalVM or not.  This is set to true to use graaljs even on openjdk
      */
     //public final static boolean IS_GRAAL = System.getProperty("java.vendor.version", "").contains("GraalVM");
 	public final static boolean IS_GRAAL = Boolean.TRUE;
 
-    private static AtomicReference<Bindings> BINDINGS = new AtomicReference<>();
-    private static AtomicReference<ScriptEngine> BINDINGS_ENGINE = new AtomicReference<>();
+    private AtomicReference<Bindings> BINDINGS = new AtomicReference<>();
+    private AtomicReference<ScriptEngine> BINDINGS_ENGINE = new AtomicReference<>();
 
     /**
      * @return a script engine with an appropriate global context for $Api so that we don't have to revaluate the
      *         functions constantly If you want to add stuff to bindings while running tests, just comment out the if
      *         and the closing brace
      */
-    public static ScriptEngine getScriptEngine() {
+    public ScriptEngine getScriptEngine() {
         if (IS_GRAAL) {
             return getGraalEngine();
         } else {
@@ -51,7 +61,7 @@ public class FormulaJsTestUtils {
         }
     }
 
-    public static Object evaluateFormula(Formula formula, FormulaDataType columnType, FormulaContext context,
+    public Object evaluateFormula(Formula formula, FormulaDataType columnType, FormulaContext context,
             Map<String, Object> jsMap) {
         return evaluateFormula(formula, columnType, context, jsMap, null);
     }
@@ -73,7 +83,7 @@ public class FormulaJsTestUtils {
      *            semi-permanently.
      * @return
      */
-    public static Object evaluateFormula(Formula formula, FormulaDataType columnType, FormulaContext context,
+    public Object evaluateFormula(Formula formula, FormulaDataType columnType, FormulaContext context,
             Map<String, Object> jsMap, Map<String, Object> globalMap) {
         // Establish the context for the Javascript engine
    	
@@ -92,7 +102,7 @@ public class FormulaJsTestUtils {
         } else {
             Object result;
             try {
-                ScriptEngine engine = FormulaJsTestUtils.getScriptEngine();
+                ScriptEngine engine = getScriptEngine();
                 if (jsMap != null) {
                     convertToNashorn(engine, jsMap, context);
                     engine.getBindings(ScriptContext.GLOBAL_SCOPE).put("context", jsMap);
@@ -109,7 +119,7 @@ public class FormulaJsTestUtils {
         }
     }
 
-    static String getApiContextScript() {
+    String getApiContextScript() {
         // Minified to18 function
         String toCaseSafeIdFunction = "function(r){if(null==r||18==r.length||15!=r.length)return r;if(r=r.replace(/\\\"/g,\"\"),15!=r.length)return null;for(var t=\"\",n=0;3>n;n++){for(var a=0,l=0;5>l;l++){var e=r.charAt(5*n+l);e>=\"A\"&&\"Z\">=e&&(a+=1<<l)}t+=25>=a?\"ABCDEFGHIJKLMNOPQRSTUVWXYZ\".charAt(a):\"012345\".charAt(a-26)}return r+t};";
         // Fill in $Api; set Enterprise_Server_URL for FormulaGenericTests - Account - testApiUrl
@@ -119,7 +129,7 @@ public class FormulaJsTestUtils {
         return apiContext.toString();
     }
 
-    static String getFunctionScript() {
+    String getFunctionScript() {
         StringBuilder fContext = new StringBuilder();
         fContext.append("var $F={};").append("$F.nvl=function(a,b){return a!=null?a:b};")
                 .append("$F.anl=function(a) {for (var i in a) {"
@@ -139,7 +149,7 @@ public class FormulaJsTestUtils {
         return fContext.toString();
     }
 
-    static String getSystemContextScript() {
+    String getSystemContextScript() {
         // Setting the $System.originDateTime for FormulaGenericTests - Account - testOriginDateTime
         StringBuilder systemContext = new StringBuilder();
         systemContext.append("var $System={};").append("$System.OriginDateTime= '1900-01-01 00:00:00.000';") // for
@@ -147,57 +157,38 @@ public class FormulaJsTestUtils {
                 .append("$System");
         return systemContext.toString();
     }
+    
+    // Nashorn only
+    String getLowerUpperScript() {
+        // Nashorn only
+        StringBuilder lowerUpper = new StringBuilder();
+        lowerUpper.append(
+                "String.prototype.toLocaleUpperCase = function(s){ if (!s.startsWith('tr')) return toUpperCase(this);"
+                        + "var string = this;"
+                        + "var letters = { \"i\": \"İ\", \"ş\": \"Ş\", \"ğ\": \"Ğ\", \"ü\": \"Ü\", \"ö\": \"Ö\", \"ç\": \"Ç\", \"ı\": \"I\" };"
+                        + "string = string.replace(/(([iışğüçö]))+/g, function(letter){ return letters[letter]; });"
+                        + "return string.toUpperCase();};");
+        lowerUpper.append(
+                "String.prototype.toLocaleLowerCase = function(s){ if (!s.startsWith('tr')) return toLowerCase(this);"
+                        + "var string = this;"
+                        + "var letters = { \"İ\": \"i\", \"I\": \"ı\", \"Ş\": \"ş\", \"Ğ\": \"ğ\", \"Ü\": \"ü\", \"Ö\": \"ö\", \"Ç\": \"ç\" };"
+                        + "string = string.replace(/(([İIŞĞÜÇÖ]))+/g, function(letter){ return letters[letter]; });"
+                        + "return string.toUpperCase();};");
+        lowerUpper.append("String");
+        return lowerUpper.toString();
+    }
 
-    public static ScriptEngine getNashornEngine() {
+    public ScriptEngine getNashornEngine() {
         Bindings bindings = BINDINGS.get();
         if (bindings == null) {
             // Create an engine just to compile the $AP
             ScriptEngine compEngine = new ScriptEngineManager().getEngineByName("JavaScript");
             BINDINGS_ENGINE.set(compEngine);
 
-            // Nashorn only
-            StringBuilder lowerUpper = new StringBuilder();
-            lowerUpper.append(
-                    "String.prototype.toLocaleUpperCase = function(s){ if (!s.startsWith('tr')) return toUpperCase(this);"
-                            + "var string = this;"
-                            + "var letters = { \"i\": \"İ\", \"ş\": \"Ş\", \"ğ\": \"Ğ\", \"ü\": \"Ü\", \"ö\": \"Ö\", \"ç\": \"Ç\", \"ı\": \"I\" };"
-                            + "string = string.replace(/(([iışğüçö]))+/g, function(letter){ return letters[letter]; });"
-                            + "return string.toUpperCase();};");
-            lowerUpper.append(
-                    "String.prototype.toLocaleLowerCase = function(s){ if (!s.startsWith('tr')) return toLowerCase(this);"
-                            + "var string = this;"
-                            + "var letters = { \"İ\": \"i\", \"I\": \"ı\", \"Ş\": \"ş\", \"Ğ\": \"ğ\", \"Ü\": \"ü\", \"Ö\": \"ö\", \"Ç\": \"ç\" };"
-                            + "string = string.replace(/(([İIŞĞÜÇÖ]))+/g, function(letter){ return letters[letter]; });"
-                            + "return string.toUpperCase();};");
-            lowerUpper.append("String");
 
             try {
                 bindings = compEngine.getBindings(ScriptContext.GLOBAL_SCOPE);
-                bindings.put("$Api", compEngine.eval(getApiContextScript(), bindings));
-                bindings.put("$F", compEngine.eval(getFunctionScript()));
-                bindings.put("$System", compEngine.eval(getSystemContextScript()));
-                bindings.put("module", compEngine.eval("new Object()"));
-                bindings.put("String", compEngine.eval(lowerUpper.toString()));
-
-                ResourceFolder folder = ResourceFolder.create(FormulaJsTestUtils.class.getClassLoader(), "com/force/formula",
-                        Charsets.UTF_8.toString());
-                // We want to load Decimal as a module into the bidnings, but the coveo stuff's interface is
-                // weird and requires access to the NashornScriptEngine directly. That's not cool.
-                for (Method m : Require.class.getDeclaredMethods()) {
-                    if (m.getParameterCount() == 3) {
-                        assert "enable".equals(m.getName()); // Avoid referencing NashornScriptEngine directly to avoid
-                                                             // "restriction" error
-                        try {
-                            m.invoke(null, compEngine, folder, bindings);
-                        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException x) {
-                            throw new RuntimeException(x);
-                        }
-                    }
-                }
-                Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
-                Object decimal = compEngine.eval("require('./decimal.js')", engineBindings);
-                engineBindings.put("Decimal", decimal);
-                bindings.put("$F.Decimal", compEngine.eval("Object.defineProperty($F, 'Decimal', { value : Decimal});"));
+                makeNashornBindings(compEngine, bindings);
                 BINDINGS.set(bindings);
             } catch (ScriptException x) {
                 logger.log(Level.INFO, "Cannot compute generic bindings", x);
@@ -208,8 +199,8 @@ public class FormulaJsTestUtils {
         engine.setBindings(bindings, ScriptContext.GLOBAL_SCOPE);
         return engine;
     }
-
-    public static ScriptEngine getBindingsEngineForUnwrappingStuff() {
+    
+    public ScriptEngine getBindingsEngineForUnwrappingStuff() {
         return BINDINGS_ENGINE.get();
     }
 
@@ -221,7 +212,7 @@ public class FormulaJsTestUtils {
      * @param columnType
      * @return
      */
-    public static Object convertResultFromJs(Object result, ScriptEngine engine, FormulaDataType columnType) {
+    public Object convertResultFromJs(Object result, ScriptEngine engine, FormulaDataType columnType) {
         if (IS_GRAAL) {
             return convertResultFromGraal(result, columnType);
         } else {
@@ -237,14 +228,14 @@ public class FormulaJsTestUtils {
      * @param columnType
      * @return
      */
-    public static Object convertResultFromNashorn(Object result, ScriptEngine engine, FormulaDataType columnType) {
+    public Object convertResultFromNashorn(Object result, ScriptEngine engine, FormulaDataType columnType) {
         try {
             result = convertFromNashorn(engine, result);
         } catch (IllegalArgumentException ex) {
             // If the date object is returned from a function in the bindings, it, uh, freaks out, because the engines
             // are different
             // This uses a hidden variable. Annoying, but necessary. That's also why this is in test code. Sorry.
-            result = convertFromNashorn(FormulaJsTestUtils.getBindingsEngineForUnwrappingStuff(),
+            result = convertFromNashorn(getBindingsEngineForUnwrappingStuff(),
                     result);
         }
         if (columnType.isDateTime() && result instanceof Date) {
@@ -264,7 +255,7 @@ public class FormulaJsTestUtils {
      * @param columnType
      * @return
      */
-    public static Object convertResultFromGraal(Object result, FormulaDataType columnType) {
+    public Object convertResultFromGraal(Object result, FormulaDataType columnType) {
         if (result instanceof Value) {
             Value val = (Value)result;
             if (val.isHostObject()) {
@@ -317,8 +308,8 @@ public class FormulaJsTestUtils {
         }
         return result;
     }
-
-    public static ScriptEngine getGraalEngine() {
+    
+    public ScriptEngine getGraalEngine() {
         Bindings bindings = BINDINGS.get();
         if (bindings == null) {
             ScriptEngine compEngine = new ScriptEngineManager().getEngineByName("graal.js");
@@ -326,23 +317,7 @@ public class FormulaJsTestUtils {
 
             try {
                 bindings = compEngine.getBindings(ScriptContext.GLOBAL_SCOPE);
-                bindings.put("$Api", compEngine.eval(getApiContextScript()));
-                bindings.put("$F", compEngine.eval(getFunctionScript()));
-                bindings.put("$System", compEngine.eval(getSystemContextScript()));
-
-                // Need native access for this. :-/
-                // URL decimalUrl = FormulaJsTestUtils.class.getClassLoader().getResource("com/force/formula/decimal.js");
-                // Object decObj = compEngine.eval("load('"+new File(decimalUrl.toURI()).getAbsolutePath()+"')");
-                try (Reader decimal = new InputStreamReader(
-                        FormulaJsTestUtils.class.getClassLoader().getResourceAsStream("com/force/formula/decimal.js"))) {
-                    Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
-                    compEngine.eval(decimal);
-                    Object decObj = compEngine.eval("Decimal");
-                    engineBindings.put("Decimal", decObj);
-                    bindings.put("$F.Decimal", compEngine.eval("Object.defineProperty($F, 'Decimal', { value : Decimal});"));
-                } catch (IOException e) {
-                    logger.log(Level.CONFIG, "Cannot load decimal.js", e);
-                }
+                makeGraalBindings(compEngine, bindings);
                 BINDINGS.set(bindings);
             } catch (ScriptException x) {
                 logger.log(Level.CONFIG, "Cannot evaluate graal bindings", x);
@@ -353,10 +328,69 @@ public class FormulaJsTestUtils {
         engine.setBindings(bindings, ScriptContext.GLOBAL_SCOPE);
         return engine;
     }
+    
+    /**
+     * Set the global context for nashorn evaluation 
+     * @return
+     */
+    protected void makeNashornBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
+        bindings.put("$Api", compEngine.eval(getApiContextScript(), bindings));
+        bindings.put("$F", compEngine.eval(getFunctionScript()));
+        bindings.put("$System", compEngine.eval(getSystemContextScript()));
+        bindings.put("module", compEngine.eval("new Object()"));
+        bindings.put("String", compEngine.eval(getLowerUpperScript()));
 
-    private static AtomicReference<Context> ROOT_CONTEXT = new AtomicReference<>();
+        ResourceFolder folder = ResourceFolder.create(FormulaJsTestUtils.class.getClassLoader(), "com/force/formula",
+                Charsets.UTF_8.toString());
+        // We want to load Decimal as a module into the bidnings, but the coveo stuff's interface is
+        // weird and requires access to the NashornScriptEngine directly. That's not cool.
+        for (Method m : Require.class.getDeclaredMethods()) {
+            if (m.getParameterCount() == 3) {
+                assert "enable".equals(m.getName()); // Avoid referencing NashornScriptEngine directly to avoid
+                                                     // "restriction" error
+                try {
+                    m.invoke(null, compEngine, folder, bindings);
+                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException x) {
+                    throw new RuntimeException(x);
+                }
+            }
+        }
+        Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
+        Object decimal = compEngine.eval("require('./decimal.js')", engineBindings);
+        engineBindings.put("Decimal", decimal);
+        bindings.put("$F.Decimal", compEngine.eval("Object.defineProperty($F, 'Decimal', { value : Decimal});"));        
+    }
+    
+    /**
+     * Set the global context for nashorn evaluation 
+     * @return
+     */
+    protected void makeGraalBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
+        bindings.put("$Api", compEngine.eval(getApiContextScript()));
+        bindings.put("$F", compEngine.eval(getFunctionScript()));
+        bindings.put("$System", compEngine.eval(getSystemContextScript()));
 
-    public static Context getGraalContext() {
+        // Need native access for this. :-/
+        // URL decimalUrl = FormulaJsTestUtils.class.getClassLoader().getResource("com/force/formula/decimal.js");
+        // Object decObj = compEngine.eval("load('"+new File(decimalUrl.toURI()).getAbsolutePath()+"')");
+        try (Reader decimal = new InputStreamReader(
+                FormulaJsTestUtils.class.getClassLoader().getResourceAsStream("com/force/formula/decimal.js"))) {
+            Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
+            compEngine.eval(decimal);
+            Object decObj = compEngine.eval("Decimal");
+            engineBindings.put("Decimal", decObj);
+            bindings.put("$F.Decimal", compEngine.eval("Object.defineProperty($F, 'Decimal', { value : Decimal});"));
+        } catch (IOException e) {
+            logger.log(Level.CONFIG, "Cannot load decimal.js", e);
+        }       
+    }
+
+    
+    
+
+    private AtomicReference<Context> ROOT_CONTEXT = new AtomicReference<>();
+
+    public Context getGraalContext() {
         Context context = ROOT_CONTEXT.get();
         if (context == null) {
             Context.Builder builder = Context.newBuilder("js");
@@ -389,7 +423,7 @@ public class FormulaJsTestUtils {
      * @return a graal useful version.
      */
     @SuppressWarnings("unchecked")
-    public static Object convertToGraal(Context context, Object obj, FormulaContext jsContext) {
+    public Object convertToGraal(Context context, Object obj, FormulaContext jsContext) {
         if (obj == null) { return null; }
         if (obj instanceof Date) {
             return context.eval("js", "new Date(" + ((Date)obj).getTime() + ")");
@@ -415,7 +449,7 @@ public class FormulaJsTestUtils {
      *            - the object
      * @return
      */
-    public static Map<String, Object> makeJSMap(Map<String, Object> apiMap) {
+    public Map<String, Object> makeJSMap(Map<String, Object> apiMap) {
         Map<String, Object> jsMap = new HashMap<>();
         SimpleDateFormat apiDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         for (String field : apiMap.keySet()) {
@@ -435,7 +469,7 @@ public class FormulaJsTestUtils {
      * @return a formula engine useful version.
      */
     @SuppressWarnings({ "removal", "deprecation" })
-    public static Object convertFromNashorn(ScriptEngine engine, Object obj) {
+    public Object convertFromNashorn(ScriptEngine engine, Object obj) {
         if (obj instanceof Number) {
             if (obj instanceof BigDecimal) {
                 return obj;
@@ -480,7 +514,7 @@ public class FormulaJsTestUtils {
      * @param obj an object returned from nashorn
      * @return a formula engine useful version.
      */
-    public static Object convertFromGraal(Object obj, FormulaDataType type) {
+    public Object convertFromGraal(Object obj, FormulaDataType type) {
         if (obj instanceof Number) {
             if (obj instanceof BigDecimal) {
                 return obj;
@@ -521,7 +555,7 @@ public class FormulaJsTestUtils {
      * @return a nashorn useful version.
      */
     @SuppressWarnings("unchecked")
-    public static Object convertToNashorn(ScriptEngine engine, Object obj, FormulaContext context) {
+    public Object convertToNashorn(ScriptEngine engine, Object obj, FormulaContext context) {
         try {
             if (obj instanceof Date) {
                 return engine.eval("new Date("+((Date)obj).getTime()+")");

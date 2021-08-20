@@ -165,9 +165,13 @@ public class FormulaTestUtils {
     }
 
     public static List<List<String>> getDataFromFile(String fileName) throws IOException, FileNotFoundException {
+        return getDataFromFile(FormulaTestUtils.class, "/com/force/formula/impl/data/", fileName);
+    }
+    
+    public static List<List<String>> getDataFromFile(Class<?> testClass, String dir, String fileName) throws IOException, FileNotFoundException {
 
         List<List<String>> dataSet = new ArrayList<List<String>>();
-        BufferedReader input = new BufferedReader(new InputStreamReader(FormulaTestUtils.class.getResourceAsStream("/com/force/formula/impl/data/"
+        BufferedReader input = new BufferedReader(new InputStreamReader(testClass.getResourceAsStream(dir
             + fileName), "UTF-8"));
         String temp;
         while ((temp = input.readLine()) != null) {

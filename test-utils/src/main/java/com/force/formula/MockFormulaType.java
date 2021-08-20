@@ -11,7 +11,8 @@ public enum MockFormulaType implements FormulaTypeSpec {
 	DEFAULT,
 	NULLASNULL,
 	JAVASCRIPT,
-	JAVASCRIPT_NULLASNULL;
+	JAVASCRIPT_NULLASNULL,
+	TEMPLATE;
 
 	@Override
 	public int getMaxLength() {
@@ -25,12 +26,15 @@ public enum MockFormulaType implements FormulaTypeSpec {
 		if (this == NULLASNULL || this == JAVASCRIPT_NULLASNULL) {
 		    result.setTreatNullNumberAsZero(false);
 		}
+		if (this == TEMPLATE) {
+		    result.setGenerateSQL(false);
+		}
 		return result;
 	}
 
 	@Override
 	public boolean isTemplate() {
-		return false;
+		return this == TEMPLATE;
 	}
 
 	@Override

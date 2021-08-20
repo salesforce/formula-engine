@@ -18,6 +18,16 @@ public class MockFormulaContext extends NullFormulaContext {
     }
 
     @Override
+    public boolean isNew() {
+        return getProperty("test.ISNEW") != null;
+    }
+
+    @Override
+    public boolean isClone() {
+        return getProperty("test.ISCLONE") != null;
+    }
+
+    @Override
     public GlobalFormulaProperties getGlobalProperties() {
         return globalFormulaProperties;
     }

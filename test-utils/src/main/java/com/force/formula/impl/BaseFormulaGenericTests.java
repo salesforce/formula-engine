@@ -45,7 +45,18 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 	public BaseFormulaGenericTests(String owner, String testLabelsAttribute, boolean swapResultTypes) throws FileNotFoundException, ParserConfigurationException, SAXException,
 	IOException {
 		super(owner);
-		createTestCases(this, "/com/force/formula/impl/formulatests.xml", "Positive Tests", true, owner, testLabelsAttribute, swapResultTypes);
+		createTestCases(this, getTestCaseLocation(), "Positive Tests", true, owner, testLabelsAttribute, swapResultTypes);
+	}
+	
+	/**
+	 * @return the location of the xml that contains the data
+	 */
+	protected String getTestCaseLocation() {
+	    return "/com/force/formula/impl/formulatests.xml";
+	}
+	
+	protected String getDataDir() {
+        return "/com/force/formula/impl/data/";
 	}
 
 	private void createTestCases(TestSuite parentRootSuite, String xmlTestDefFile, String rootNodeName,
@@ -106,13 +117,11 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 	/**
 	 * Allow the test to override the hooks and factory.
-	 * @param positive
-	 * @param entity
-	 * @param testCase
+	 * @param test the test to override
 	 */
 	abstract protected void setUpTest(BaseFormulaGenericTest test);
 	
-	abstract static class BaseFormulaGenericTest extends FormulaTestBase {
+	abstract protected static class BaseFormulaGenericTest extends FormulaTestBase {
 		MapEntity mapEntity;
 		Map<String,Map<String,Object>> objects = new HashMap<>();
 		private final BaseFormulaGenericTests suite;
@@ -262,7 +271,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 			if (testCase.getDataFileName() != null) {
 				try {
-					testData = FormulaTestUtils.getDataFromFile(testCase.getDataFileName());
+					testData = FormulaTestUtils.getDataFromFile(suite.getClass(), suite.getDataDir(), testCase.getDataFileName());
 				} catch (IOException e) {
 					testFailureMsg.append("\n\nError: Data File for testCase: " + testCase.getName() + " is missing\n");
 					testFailureMsg.append("\n" + getStackTrace(e));

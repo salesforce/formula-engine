@@ -10,6 +10,7 @@ import java.util.*;
 import org.junit.Assert;
 
 import com.force.formula.*;
+import com.force.formula.impl.FormulaValidationHooks;
 import com.force.formula.util.FormulaDateUtil;
 import com.force.i18n.BaseLocalizer;
 
@@ -27,6 +28,37 @@ import com.force.i18n.BaseLocalizer;
 public class BuiltinFunctionsTest extends ParserTestBase {
     public BuiltinFunctionsTest(String name) {
         super(name);
+    }
+
+
+    static final BaseLocalizer GMT_LOCALIZER = new MockLocalizerContext.MockLocalizer();
+    static final BaseLocalizer PST_LOCALIZER = new MockLocalizerContext.MockLocalizer(Locale.US, Locale.US, 
+            TimeZone.getTimeZone("PST"), GMT_LOCALIZER.getUserLanguage(), MockLocalizerContext.getLabels());
+    static final FormulaValidationHooks GMT_LOCALIZED_HOOKS = new FormulaValidationHooks() {
+        @Override
+        public BaseLocalizer getLocalizer() {
+            return GMT_LOCALIZER;
+        }
+    };
+    static final FormulaValidationHooks PST_LOCALIZED_HOOKS = new FormulaValidationHooks() {
+        @Override
+        public BaseLocalizer getLocalizer() {
+            return PST_LOCALIZER;
+        }
+    };
+    
+    private FormulaEngineHooks oldHooks = null;
+    
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        oldHooks = FormulaEngine.getHooks();
+        FormulaEngine.setHooks(GMT_LOCALIZED_HOOKS);
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        FormulaEngine.setHooks(oldHooks);
     }
 
     /**
@@ -608,16 +640,25 @@ public class BuiltinFunctionsTest extends ParserTestBase {
     public void testDATEVALUE() throws Exception {
         Date today = FormulaDateUtil.todayGmt();
         assertEquals(today, evaluateDate("dateValue(now())"));
+
         assertEquals(evaluateDate("date(2005,1,3)"), evaluateDate("dateValue(dateTimeValue(\"2004-12-31 11:32:10\")+3.00)"));
         assertEquals(evaluateDate("date(2005,1,4)"), evaluateDate("dateValue(dateTimeValue(\"2004-12-31 11:32:10\")+3.60)"));
         assertEquals(evaluateDate("date(2004,3,4)"), evaluateDate("dateValue(dateTimeValue(\"2004-02-28 10:34:00\")+4.60)"));
+
+        if (!isJs()) {
+            // DateValue uses the user's timezone.  This tests with PST.  Setting the timezone in the browser is harder.
+            FormulaEngine.setHooks(PST_LOCALIZED_HOOKS);
+            assertEquals(evaluateDate("date(2005,1,3)"), evaluateDate("dateValue(dateTimeValue(\"2004-12-31 11:32:10\")+3.00)"));
+            assertEquals(evaluateDate("date(2005,1,3)"), evaluateDate("dateValue(dateTimeValue(\"2004-12-31 11:32:10\")+3.60)"));
+            assertEquals(evaluateDate("date(2004,3,3)"), evaluateDate("dateValue(dateTimeValue(\"2004-02-28 10:34:00\")+4.60)"));
+        }
+
     }
 
     public void testDATE() throws Exception {
         parseTest("date(1958, 1, 15)", " ( date 1958 1 15 )");
-        Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance(BaseLocalizer.GMT_TZ);
         c.clear();
-        c.setTimeZone(TimeZone.getTimeZone("GMT"));  // TODO SLT: Had to add this in.
         c.set(1958, 0, 15);
         assertEquals(c.getTime(), evaluateDate("date(1958, 1, 15)"));
         if (!isJs()) { // null vs 0 in js is not worth figuring out
@@ -773,5 +814,6 @@ public class BuiltinFunctionsTest extends ParserTestBase {
         assertTrue( evaluateBoolean("ISNUMBER(\"+5.0\")")); 
         assertTrue( evaluateBoolean("ISNUMBER(\"-5.0\")")); 
         assertFalse( evaluateBoolean("ISNUMBER(\"No\")")); 
-    }
+    } 
+
 }

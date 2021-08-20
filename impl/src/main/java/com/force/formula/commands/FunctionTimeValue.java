@@ -155,6 +155,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             }
             SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
             dateFormat.setLenient(false);
+            dateFormat.setTimeZone(BaseLocalizer.GMT_TZ);
             ParsePosition p = new ParsePosition(0);
             Date d = dateFormat.parse(input, p);
             FormulaTime ret = null;

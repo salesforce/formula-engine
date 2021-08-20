@@ -3,10 +3,7 @@
  */
 package com.force.formula;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Represents a Formula Command (i.e. an operator or formula function)
@@ -42,8 +39,8 @@ public interface FormulaCommandType {
 	    /** Is this function available in the offline context?  This means it has *the same behavior* as java and SQL.  Higher bar<br>Default: false **/
 	    boolean isOffline() default false;
 	    
-	    /** Allowed only in the 62 org and various de orgs */
-	    boolean isInternalSfdcOnly() default false;
+	    /** A customer defined access check variable to control access to formulas that aren't "public".  */
+	    String access() default "";
 	    
 	    // The following contexts are deprecated because they were too confusing and don't make sense.
 	    /** Allowed only if you are in a change context (validation rules, workflow, field updates, default values) */

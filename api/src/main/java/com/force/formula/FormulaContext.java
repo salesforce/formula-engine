@@ -75,7 +75,7 @@ public interface FormulaContext extends Tokenizer {
     /** Allows a context to distinguish support for a function by the number of arguments. e.g. "4 - 5" vs "-5" */
     default boolean isFunctionSupportedOffline(FormulaCommandType command, int numberOfArguments) {
         FormulaCommandType.AllowedContext context = command.getAllowedContext();
-        return !context.isInternalSfdcOnly()
+        return "".equals(context.access())
                 && (context.isOffline() || ("-".equals(command.getName()) && numberOfArguments == 1));
     }
 

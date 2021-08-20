@@ -746,7 +746,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
         return source;
     }
 
-    static Set<String> getReferencedNames(FormulaAST ast, FormulaProperties properties) throws FormulaException {
+    public static Set<String> getReferencedNames(FormulaAST ast, FormulaProperties properties) throws FormulaException {
         // Get the list of field references
         final Set<String> references = new HashSet<String>();
         FormulaASTVisitor visitor = new FormulaASTVisitor() {

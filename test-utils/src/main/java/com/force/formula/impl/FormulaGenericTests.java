@@ -124,13 +124,13 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				Map<String,Object> record = entityObject != null ? new HashMap<String,Object>(entityObject) : new HashMap<String,Object>();
 				// TODO: LDT - Add Profile and RecordType contexts
 				Map<String,Object> jsMap = new HashMap<>();
-				jsMap.put("record", FormulaJsTestUtils.makeJSMap(record));
+				jsMap.put("record", FormulaJsTestUtils.get().makeJSMap(record));
 
 				FormulaTypeSpec type = nullAsNull ? MockFormulaType.JAVASCRIPT_NULLASNULL: MockFormulaType.JAVASCRIPT;
 				RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(type, formulaContext, formulaSource);
 				Formula formula = formulaInfo.getFormula();
 
-				Object value = FormulaJsTestUtils.evaluateFormula(formula, formulaContext.getFormulaReturnType().getDataType(), formulaContext, jsMap);
+				Object value = FormulaJsTestUtils.get().evaluateFormula(formula, formulaContext.getFormulaReturnType().getDataType(), formulaContext, jsMap);
 
 				// The formula needs to be "processed" for display by doing the right scale
 				value = FormulaI18nUtils.formatResult(formulaContext, formulaContext.getFormulaReturnType(), value);

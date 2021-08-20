@@ -1,6 +1,7 @@
 package com.force.formula.impl;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.force.formula.*;
 import com.force.formula.commands.FormulaJsTestUtils;
@@ -32,7 +33,7 @@ public class FieldReferenceJsTest extends BaseFieldReferenceTest {
         BeanFormulaContext context = setupMockContext(columnType);
         RuntimeFormulaInfo formulaInfo = FormulaInfoFactory.create(getFormulaType(), context, formulaSource);
         Formula formula = formulaInfo.getFormula();
-        return FormulaJsTestUtils.evaluateFormula(formula, columnType, context, getJsMap(context));
+        return FormulaJsTestUtils.get().evaluateFormula(formula, columnType, context, getJsMap(context));
     }
 
 }

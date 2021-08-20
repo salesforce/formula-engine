@@ -518,7 +518,6 @@ public final class FormulaTextUtil {
                 || block == Character.UnicodeBlock.HIGH_PRIVATE_USE_SURROGATES || block == Character.UnicodeBlock.LOW_SURROGATES);
     }
 
-
     // These are from SFDC's commons-text.  The grammaticus version was rather stripped down, but we need the full one here.
     /**
      * An immutable trie used for fast multiple string search and replace.
