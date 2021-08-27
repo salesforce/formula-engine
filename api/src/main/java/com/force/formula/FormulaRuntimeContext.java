@@ -30,50 +30,137 @@ public interface FormulaRuntimeContext extends FormulaContext {
      */
     public static enum InaccessibleFieldStrategy {ALLOW, THROW_EXCEPTION, REPLACE_WITH_NULL};
 
-    BigDecimal getNumber(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    default BigDecimal getNumber(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        if (fieldName.getBase() != null) {
+            throw new UnsupportedOperationException();
+        }
+        return getNumber(fieldName.getElement());
+    }
     BigDecimal getNumber(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
     /**
-     * Get a masked string, for encrypted field types.  Null if the field isn't encrypted
+     * Get a masked string, for encrypted field types.  Null if the field isn't encrypted.  Probably *****
      */
-    String getMaskedString(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    default String getMaskedString(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        if (fieldName.getBase() != null) {
+            throw new UnsupportedOperationException();
+        }
+        return getMaskedString(fieldName.getElement());
+    }
     String getMaskedString(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
-    String getString(FormulaFieldReference fieldName, boolean useNative) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    /**
+     * @return the 
+     * @param fieldName
+     * @param useNative use the "unmasked" format if there's.
+     */
+    default String getString(FormulaFieldReference fieldName, boolean useNative) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        if (fieldName.getBase() != null) {
+            throw new UnsupportedOperationException();
+        }
+        return getString(fieldName.getElement(), useNative);
+    }
     String getString(String fieldName, boolean useNative) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
-    FormulaDateTime getDateTime(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    default FormulaDateTime getDateTime(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException{
+        if (fieldName.getBase() != null) {
+            throw new UnsupportedOperationException();
+        }
+        return getDateTime(fieldName.getElement());
+    }
     FormulaDateTime getDateTime(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
-    FormulaTime getTime(FormulaFieldReference fieldReference) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    default FormulaTime getTime(FormulaFieldReference fieldReference) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        if (fieldReference.getBase() != null) {
+            throw new UnsupportedOperationException();
+        }
+        return getTime(fieldReference.getElement());
+    }
     FormulaTime getTime(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
-    Date getDate(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    default Date getDate(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        if (fieldName.getBase() != null) {
+            throw new UnsupportedOperationException();
+        }
+        return getDate(fieldName.getElement());
+    }
     Date getDate(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
-    Boolean getBoolean(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    default Boolean getBoolean(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        if (fieldName.getBase() != null) {
+            throw new UnsupportedOperationException();
+        }
+        return getBoolean(fieldName.getElement());
+    }
     Boolean getBoolean(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
-    FormulaCurrencyData getCurrency(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    default FormulaCurrencyData getCurrency(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        if (fieldName.getBase() != null) {
+            throw new UnsupportedOperationException();
+        }
+        return getCurrency(fieldName.getElement());
+    }
     FormulaCurrencyData getCurrency(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
-    Object getObject(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    default Object getObject(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        if (fieldName.getBase() != null) {
+            throw new UnsupportedOperationException();
+        }
+        return getObject(fieldName.getElement());
+    }
     Object getObject(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
-    Object getMapElement(Map<?,?> base, Object key) throws UnsupportedTypeException, InvalidFieldReferenceException;
-    Object getListElement(List<?> base, int intNum) throws UnsupportedTypeException, InvalidFieldReferenceException;
+    default Object getMapElement(Map<?,?> base, Object key) throws UnsupportedTypeException, InvalidFieldReferenceException {
+        throw new UnsupportedOperationException();
+    }
+    default Object getListElement(List<?> base, int intNum) throws UnsupportedTypeException, InvalidFieldReferenceException  {
+        throw new UnsupportedOperationException();
+    }
 
-    FormulaRuntimeContext getOriginalValuesContext() throws FormulaException;
+    /**
+     * To support PriorValue, override this to return the formula context of the prior value.
+     */
+    default FormulaRuntimeContext getOriginalValuesContext() throws FormulaException {
+        return this;
+    }
 
+    /**
+     * @return the currency associated with this context, if available
+     */
     String getCurrencyIsoCode() throws FormulaException;
-    String getCurrencyIsoCode(FormulaFieldReference fieldName) throws FormulaException;
-    String getCurrencyIsoCode(String fieldName) throws FormulaException;
+    default String getCurrencyIsoCode(FormulaFieldReference fieldName) throws FormulaException {
+        return getCurrencyIsoCode(fieldName.getElement());
+    }
+    /**
+     * @return the currency associated with that field, if available
+     */
+    default String getCurrencyIsoCode(String fieldName) throws FormulaException {
+        return getCurrencyIsoCode();
+    }
 
-    FormulaGeolocation getLocation(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
+    default FormulaGeolocation getLocation(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
+        return getLocation(fieldName.getElement());
+    }
     FormulaGeolocation getLocation(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
-    boolean convertIdto18Digits();
-    boolean isNew();
-    boolean isClone();
+    /**
+     * Salesforce-ism to return primary keys in they 18char format, not 15char format.  Reuse this for any purpose
+     * that requires IDs to be "fixed" on return
+     */
+    default boolean convertIdto18Digits() {
+        return false;
+    }
+    /**
+     * @return <tt>true</tt> if this represents a clone to support ISNEW()
+     */
+    default boolean isNew() {
+        return false;
+    }
+    /**
+     * @return <tt>true</tt> if this represents a clone to support ISCLONE()
+     */
+    default boolean isClone() {
+        return false;
+    }
 
 }

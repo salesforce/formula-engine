@@ -5,7 +5,8 @@
  */
 package com.force.formula.impl;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.force.formula.*;
 import com.google.common.collect.ImmutableSet;
@@ -62,5 +63,33 @@ public class FieldReferenceTest extends BaseFieldReferenceTest {
         assertTrue(decoded + "!=" + formulaSource, decoded.equalsIgnoreCase(formulaSource));
     }
     
+    /**
+     * Test the command visitors based on a formlu
+     * @throws Exception
+     */
+    public void testCommandVisitor() throws Exception {            
+        FormulaRuntimeContext context = setupMockContext(MockFormulaDataType.BOOLEAN);
+        RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(getFormulaType(), context, "Account.OptIn");
+        assertFalse(formulaInfo.hasFormatCurrencyCommand());
+        assertFalse(formulaInfo.hasAIPredictionFieldReference());
+        assertFalse(formulaInfo.referenceEncryptedFields());
+        assertTrue(formulaInfo.isDeterministic());
+    }
+
+    
+    /**
+     * This works like "Contact", where you can access Contact fields 
+     * @throws Exception
+     */
+    public void testArgumentTypes() throws Exception {            
+        FormulaRuntimeContext context = setupMockContext(MockFormulaDataType.BOOLEAN);
+        try {
+            FormulaEngine.getFactory().create(getFormulaType(), context, "Account.OptIn=Account.CreatedDate");
+            fail("Can't compare these types");
+        } catch (WrongArgumentTypeException ex) {
+            assertEquals("Incorrect parameter type for operator '='. Expected Boolean, received Date", ex.getMessage());
+        }
+    }
+
 
 }

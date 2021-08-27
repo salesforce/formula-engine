@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.force.formula.*;
+import com.force.formula.sql.FormulaTableRegistry;
+import com.force.formula.sql.FormulaWithSql;
 
 /**
  * Describe your class here.

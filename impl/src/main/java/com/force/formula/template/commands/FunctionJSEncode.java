@@ -3,9 +3,9 @@ package com.force.formula.template.commands;
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.commands.FormulaCommand;
 import com.force.formula.commands.FormulaCommandInfo;
 import com.force.formula.impl.FormulaAST;
+import com.force.formula.util.FormulaTextUtil;
 
 @AllowedContext(section=SelectorSection.TEXT, displayOnly=true,isJavascript=false)
 public class FunctionJSEncode extends EncodingFunctionBase {

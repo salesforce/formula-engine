@@ -3,7 +3,8 @@ package com.force.formula.impl;
 import java.util.*;
 
 import com.force.formula.FormulaFieldReferenceInfo;
-import com.force.formula.FormulaTextUtil;
+import com.force.formula.sql.*;
+import com.force.formula.util.FormulaTextUtil;
 import com.google.common.collect.Lists;
 
 /**

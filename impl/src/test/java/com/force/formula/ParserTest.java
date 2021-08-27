@@ -8,7 +8,7 @@ package com.force.formula;
  */
 public class ParserTest extends ParserTestBase {
     public ParserTest(String name) {
-        super(name, false);
+        super(name);
     }
 
     public void testCaseInsensitivity() throws FormulaException {

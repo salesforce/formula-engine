@@ -1,12 +1,10 @@
 package com.force.formula.impl;
 
+import java.util.Deque;
 import java.util.List;
 
-import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.*;
 import com.force.formula.commands.AbstractFormulaCommand;
-import com.force.formula.commands.FormulaCommand;
-
-import java.util.Deque;
 
 /**
  * A list of commands that will be executed later. Used to delay evaluation of

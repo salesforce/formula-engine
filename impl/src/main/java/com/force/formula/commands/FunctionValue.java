@@ -7,6 +7,7 @@ import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
+import com.force.formula.sql.SQLPair;
 import com.force.formula.template.commands.FunctionIsNumber;
 
 /**

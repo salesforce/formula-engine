@@ -3,6 +3,8 @@
  */
 package com.force.formula;
 
+import com.force.formula.util.FormulaI18nUtils;
+
 /**
  * Some fields are not allowed in certain functions.  For instance, you cannot use a related object fields in
  * the ISCHANGED() or PRIORVALUE() functions.

@@ -1,15 +1,10 @@
 package com.force.formula;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import org.junit.Assert;
 
 import com.force.formula.impl.FormulaUtils;
-import com.force.formula.impl.FormulaWithSql;
 
 import antlr.collections.AST;
-import junit.framework.TestCase;
 
 /**
  * Describe your class here.
@@ -17,9 +12,9 @@ import junit.framework.TestCase;
  * @author dchasman
  * @since 140
  */
-public abstract class ParserTestBase extends TestCase {
+public abstract class ParserTestBase extends FormulaTestBase {
 
-    public ParserTestBase(String name, boolean establishContexts) {
+    public ParserTestBase(String name) {
         super(name);
     }
 
@@ -45,60 +40,5 @@ public abstract class ParserTestBase extends TestCase {
     protected AST parseWithANTLR4(String expression) throws FormulaException {
         FormulaProperties properties = new FormulaProperties();
         return FormulaUtils.parseWithANTLR4(expression, properties).getFirstChild();
-    }
-
-    protected String fieldName(String mergeFieldName) {
-        return mergeFieldName.replaceFirst("\\{\\!", "").replaceFirst("\\}", "");
-    }
-
-    protected BigDecimal evaluateBigDecimal(String formulaSource) throws Exception {
-        return (BigDecimal)evaluate(formulaSource, MockFormulaDataType.DOUBLE);
-    }
-
-    protected Boolean evaluateBoolean(String formulaSource) throws Exception {
-        return (Boolean)evaluate(formulaSource, MockFormulaDataType.BOOLEAN);
-    }
-
-    protected String evaluateString(String formulaSource) throws Exception {
-        return (String)evaluate(formulaSource, MockFormulaDataType.TEXT);
-    }
-
-    protected Date evaluateDate(String formulaSource) throws Exception {
-        return (Date)evaluate(formulaSource, MockFormulaDataType.DATEONLY);
-    }
-
-    protected FormulaDateTime evaluateDateTime(String formulaSource) throws Exception {
-        return (FormulaDateTime)evaluate(formulaSource, MockFormulaDataType.DATETIME);
-    }
-
-    protected FormulaTime evaluateTime(String formulaSource) throws Exception {
-        return (FormulaTime)evaluate(formulaSource, MockFormulaDataType.TIMEONLY);
-    }
-    
-    protected MockFormulaType getFormulaType() {
-        return MockFormulaType.DEFAULT;
-    }
-
-    protected Object evaluate(String formulaSource, FormulaDataType columnType) throws Exception {
-        FormulaRuntimeContext context = setupMockContext(columnType);
-        RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(getFormulaType(), context, formulaSource);
-        Formula formula = formulaInfo.getFormula();
-        return formula.evaluate(context);
-    }
-
-    protected String getSqlGuard(String formulaSource, FormulaDataType columnType) throws Exception {
-        FormulaRuntimeContext context = setupMockContext(columnType);
-        RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(getFormulaType(), context, formulaSource);
-        Formula formula = formulaInfo.getFormula();
-        return ((FormulaWithSql)formula).getGuard();
-    }
-    
-    @Override
-	protected void setUp() throws Exception {
-		MockLocalizerContext.establishMock();
-	}
-
-    protected FormulaRuntimeContext setupMockContext(FormulaDataType columnType) {
-    	return new MockFormulaContext(getFormulaType(), columnType);
     }
 }

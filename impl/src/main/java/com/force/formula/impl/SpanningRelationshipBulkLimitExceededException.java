@@ -3,7 +3,7 @@ package com.force.formula.impl;
 import java.util.Map;
 
 import com.force.formula.FormulaException;
-import com.force.formula.FormulaI18nUtils;
+import com.force.formula.util.FormulaI18nUtils;
 /*******
  * 
  * Exception thrown when the limit of spanning relationships was exceeded in reports

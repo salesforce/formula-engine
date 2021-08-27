@@ -6,6 +6,7 @@ package com.force.formula.impl;
 import java.util.*;
 
 import com.force.formula.*;
+import com.force.formula.util.BaseCompositeFormulaContext;
 
 /**
  * Switch between FormulaContexts for evaluating formulas on different entities.

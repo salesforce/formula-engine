@@ -12,6 +12,8 @@ import com.force.formula.impl.*;
 import com.google.common.collect.Lists;
 
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaTextUtil;
 
 /**
  * Implementation of CASE that relies on some code in BaseIsPicklistVal

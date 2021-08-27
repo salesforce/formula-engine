@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.force.formula.*;
 import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.JsValue;
+import com.force.formula.sql.SQLPair;
 
 /**
  * Describe your class here.

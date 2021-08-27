@@ -7,6 +7,9 @@ import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
+import com.force.formula.sql.ITableAliasRegistry;
+import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaTextUtil;
 
 /**
  * These objects are shared per command type. No mutable instance-level data is allowed in the object, and there's an

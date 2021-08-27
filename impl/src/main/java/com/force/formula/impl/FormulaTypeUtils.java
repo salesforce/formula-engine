@@ -6,17 +6,11 @@
 package com.force.formula.impl;
 
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.Map;
-
-import javax.script.*;
 
 import com.force.formula.*;
 import com.force.formula.commands.ConstantNull;
 import com.force.formula.commands.RuntimeType;
+import com.force.formula.util.FormulaI18nUtils;
 import com.google.common.base.Objects;
 
 /**
@@ -145,114 +139,6 @@ public class FormulaTypeUtils {
         }
         // No common denominator.
         return null;
-    }
-
+    }   
     
-
-    /**
-     * Convert an object from a nashorn type to a formula type.  Mostly around date & number convertion.
-     * @param obj an object returned from nashorn
-     * @return a formula engine useful version.
-     */
-    @SuppressWarnings({ "restriction", "deprecation" })
-    public static Object convertFromNashorn(ScriptEngine engine, Object obj) {
-        if (obj instanceof Number) {
-            if (obj instanceof BigDecimal) {
-                return obj;
-            } else if (obj instanceof Double) {
-                double val = ((Number)obj).doubleValue();
-                if (Double.isNaN(val) || Double.isInfinite(val)) return null;
-                if (val == 0) return BigDecimal.ZERO;
-                if (val == 1) return BigDecimal.ONE;
-                return new BigDecimal(val).setScale(7, RoundingMode.HALF_EVEN).stripTrailingZeros(); // NOPMD
-            } else {
-                return new BigDecimal(((Number)obj).intValue());
-            }
-        }
-        
-        if (obj instanceof jdk.nashorn.api.scripting.ScriptObjectMirror) {
-            jdk.nashorn.api.scripting.ScriptObjectMirror mirror = (jdk.nashorn.api.scripting.ScriptObjectMirror) obj;
-            if (mirror.hasMember("getTime")) {
-                // It's a ScriptObjectMirror with 'time'.  Assume date
-                JsDateWrapper wrapper = ((Invocable)engine).getInterface(obj, JsDateWrapper.class);
-                return new Date(wrapper.getTime());
-            } else {
-                return new BigDecimal((String)mirror.callMember("toString"));
-            }
-        }
-        if ("".equals(obj)) return null;  // Oracle stupidity
-        return obj;
-    }
-    
-    
-    /**
-     * Convert an object from a Graal type to a formula type.  Mostly around date & number convertion.
-     * @param obj an object returned from nashorn
-     * @return a formula engine useful version.
-     */
-    public static Object convertFromGraal(Object obj, FormulaDataType type) {
-        if (obj instanceof Number) {
-            if (obj instanceof BigDecimal) {
-                return obj;
-            } else if (obj instanceof Double) {
-                double val = ((Number)obj).doubleValue();
-                if (Double.isNaN(val) || Double.isInfinite(val)) return null;
-                if (val == 0) return BigDecimal.ZERO;
-                if (val == 1) return BigDecimal.ONE;
-                BigDecimal result = new BigDecimal(val).setScale(7, RoundingMode.HALF_EVEN).stripTrailingZeros();  // NOPMD
-                if (result.scale() < 0) {
-                    result = result.setScale(0);  // No 3E+2
-                }
-                return result;
-            } else {
-                return new BigDecimal(((Number)obj).intValue());
-            }
-        }
-        
-        if (obj instanceof Map) {
-        	if (type.isDate() || type.isTimeOnly()) {
-        		// Get the tostring and parse it
-        		try {
-					return FormulaDateUtil.parseISO8601(obj.toString());
-				} catch (ParseException e) {
-					throw new RuntimeException(e);
-				}
-        	} else if (type.isNumber()) {
-        		return new BigDecimal(obj.toString());
-        	} 
-        }
-        if ("".equals(obj)) return null;  // Oracle stupidity
-        return obj;
-    }    
-    
-    // 
-    public interface JsDateWrapper {
-        long getTime();
-        int getTimezoneOffset();
-    }
-    
-    
-    /**
-     * Convert an object from a formula type to a nashorn type.  Mostly to fix dates
-     * @param obj an object returned from formulas
-     * @return a nashorn useful version.
-     */
-    public static Object convertToNashorn(ScriptEngine engine, Object obj, FormulaContext context) {
-        try {
-            if (obj instanceof Date) {
-                return engine.eval("new Date("+((Date)obj).getTime()+")");
-            } else if (obj instanceof FormulaDateTime) {
-                return engine.eval("new Date("+((FormulaDateTime)obj).getTime()+")");
-            } else if (obj instanceof Number && context.useHighPrecisionJs()) {
-                return engine.eval("new $F.Decimal("+((Number)obj).toString()+")");
-            } else if (obj instanceof Map) {
-                // This'll help convert deep objects.  We'll do it in place to keep the cost down.
-                ((Map<?,Object>)obj).entrySet().stream().forEach((e)->e.setValue(FormulaTypeUtils.convertToNashorn(engine, e.getValue(), context)));
-            }
-            // TODO: Convert BigDecimal -> Double?
-        } catch (ScriptException x) { // NOPMD
-            // Ignore it for now
-        }
-        return obj;
-    }
 }

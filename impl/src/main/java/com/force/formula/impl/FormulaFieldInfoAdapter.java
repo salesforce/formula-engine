@@ -1,6 +1,8 @@
 package com.force.formula.impl;
 
 import com.force.formula.*;
+import com.force.formula.sql.FormulaSQLProvider;
+import com.force.formula.util.FormulaFieldInfoImpl;
 
 /**
  * Simple base for formula fields that aren't dynamic.  See the tests for an example

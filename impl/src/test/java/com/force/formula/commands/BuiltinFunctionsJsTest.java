@@ -34,7 +34,7 @@ public class BuiltinFunctionsJsTest extends BuiltinFunctionsTest {
         FormulaRuntimeContext context = setupMockContext(columnType);
         RuntimeFormulaInfo formulaInfo = FormulaInfoFactory.create(MockFormulaType.JAVASCRIPT, context, formulaSource);
         Formula formula = formulaInfo.getFormula();
-        return FormulaJsTestUtils.evaluateFormula(formula, columnType, context, null);
+        return FormulaJsTestUtils.get().evaluateFormula(formula, columnType, context, null);
     }
 
     // Not really applicable or requires fancy functions

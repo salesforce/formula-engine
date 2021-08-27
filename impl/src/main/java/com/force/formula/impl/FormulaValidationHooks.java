@@ -4,11 +4,14 @@
 package com.force.formula.impl;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.time.Duration;
 import java.util.*;
 
 import com.force.formula.*;
 import com.force.formula.commands.*;
+import com.force.formula.sql.*;
+import com.force.i18n.BaseLocalizer;
 import com.google.common.base.CharMatcher;
 
 /**
@@ -425,7 +428,26 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     	return constructIdType(field.getFieldInfo().getFormulaForeignKeyDomains());
     }
 
+    /**
+     * Method used by FunctionFormat for validating values passing into MessageFormat.  
+     * @param pattern the pattern passed into the function
+     * @param args the arguments being passed in to messageformat
+     * @return the pattern to use to evaluate the arguments.  
+     * @throws FormulaEvaluationException if the pattern is invalid
+     */
+    default String validateMessageFormat(String pattern, Object[] args) throws FormulaEvaluationException {
+        return pattern;
+    }
 
+    /**
+     * Get the correct time format, where the symbols are converted properly to
+     * the users language. This is non-trivial to implement so 
+     */
+    default DateFormat getCorrectShortTimeFormat(BaseLocalizer localizer) throws FormulaEvaluationException {
+        return localizer.getTimeFormat();
+    }
+
+    
     /**
      * Oracle has a different notion of upper case vs java, especially around Szet and
      * sigma and the turkish I.

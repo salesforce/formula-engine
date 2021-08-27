@@ -13,12 +13,15 @@ import java.util.regex.Matcher;
 import com.force.formula.*;
 import com.force.formula.FormulaRuntimeContext.InaccessibleFieldStrategy;
 import com.force.formula.commands.*;
-import com.force.formula.template.ConstantFormulaContext;
+import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.sql.FormulaWithSql;
+import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaI18nUtils;
+import com.force.formula.util.FormulaTextUtil;
 import com.google.common.base.Joiner;
 import com.google.common.base.Utf8;
 
 import antlr.Token;
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
 
 /**
  * @author dchasman
@@ -743,7 +746,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
         return source;
     }
 
-    static Set<String> getReferencedNames(FormulaAST ast, FormulaProperties properties) throws FormulaException {
+    public static Set<String> getReferencedNames(FormulaAST ast, FormulaProperties properties) throws FormulaException {
         // Get the list of field references
         final Set<String> references = new HashSet<String>();
         FormulaASTVisitor visitor = new FormulaASTVisitor() {
@@ -791,7 +794,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
 
     @Override
     public void validateMergeFieldsForFormulaType() throws FormulaException {
-        FormulaCommandVisitor.MergeFieldValidator visitor = new FormulaCommandVisitor.MergeFieldValidator(context);
+        FormulaCommandVisitorImpl.MergeFieldValidator visitor = new FormulaCommandVisitorImpl.MergeFieldValidator(context);
         formula.visitFormulaCommands(visitor);
         visitor.throwIfNecessary();
     }
