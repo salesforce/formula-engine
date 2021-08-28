@@ -3,7 +3,9 @@
  */
 package com.force.formula.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.time.Duration;
 import java.util.*;
@@ -524,5 +526,37 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
         // return "sfdc_util.ts_minus_ts(%s,%s)";
         return "(EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))";
     }
+    
 
+    /**
+     * @return the URL encoding to use when rendering static markup from a template.
+     */
+    default String getTemplateUrlEncoding(FormulaRuntimeContext context) {
+        return null;
+        /*
+         * MergeMap mergeMap = (MergeMap)context.getProperty(FormulaTemplateContext.INPUTS_PROPERTY);
+         * String urlEncoding = (mergeMap != null) ? mergeMap.getOptions().getUrlEncoding() : null;
+         */
+    }
+    
+    /**
+     * @return the URL encoding to use when calling URLEncoding.  Defaults to UTF_8
+     */
+    default String getUrlEncoding() {
+        return null;
+        // return Globals.getPageEncoding()
+    }
+    
+    /**
+     * Encode the given string as a URL for use in embedding in a template.  If you do not want to do URL encoding, 
+     * override to just return string.
+     * @param string the string to encode
+     * @param urlEncoding the encoding to use, derived from getUrlEncoding, will possibly be null
+     * @return the function encoded
+     * @throws UnsupportedEncodingException if the urlEncoding cannot be used to encode string
+     */
+    default String templateUrlEncodeString(String string, String urlEncoding) throws UnsupportedEncodingException {
+        // retrun OptimizedURLEncoder.encode(TextUtil.replaceIncompatibleCharacters(entry.toString(), urlEncoding), urlEncoding);
+        return URLEncoder.encode(string, urlEncoding);
+    }
 }
