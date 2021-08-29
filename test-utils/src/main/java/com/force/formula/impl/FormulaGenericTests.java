@@ -68,7 +68,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 
 		@Override
 		protected String getDirectory() {
-			return "../src/test/goldfiles/FormulaFields";
+			return "src/test/goldfiles/FormulaFields";
 		}
 
 		@Override

@@ -29,7 +29,7 @@ public class FormulaStack extends AbstractCollection<Object> implements Deque<Ob
 	}
 	
 	/**
-	 * @return the contents of this stack in FIFO order (the opposite of Deque)
+	 * @return the contents of this stack in LIFO order (the opposite of Queue)
 	 */
 	@Override
 	public Object[] toArray() {
