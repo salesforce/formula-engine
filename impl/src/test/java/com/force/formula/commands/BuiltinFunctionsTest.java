@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Assert;
 
 import com.force.formula.*;
-import com.force.formula.impl.FormulaValidationHooks;
 import com.force.formula.util.FormulaDateUtil;
 import com.force.i18n.BaseLocalizer;
 
@@ -30,22 +30,6 @@ public class BuiltinFunctionsTest extends ParserTestBase {
         super(name);
     }
 
-
-    static final BaseLocalizer GMT_LOCALIZER = new MockLocalizerContext.MockLocalizer();
-    static final BaseLocalizer PST_LOCALIZER = new MockLocalizerContext.MockLocalizer(Locale.US, Locale.US, 
-            TimeZone.getTimeZone("PST"), GMT_LOCALIZER.getUserLanguage(), MockLocalizerContext.getLabels());
-    static final FormulaValidationHooks GMT_LOCALIZED_HOOKS = new FormulaValidationHooks() {
-        @Override
-        public BaseLocalizer getLocalizer() {
-            return GMT_LOCALIZER;
-        }
-    };
-    static final FormulaValidationHooks PST_LOCALIZED_HOOKS = new FormulaValidationHooks() {
-        @Override
-        public BaseLocalizer getLocalizer() {
-            return PST_LOCALIZER;
-        }
-    };
     
     private FormulaEngineHooks oldHooks = null;
     
@@ -53,7 +37,7 @@ public class BuiltinFunctionsTest extends ParserTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         oldHooks = FormulaEngine.getHooks();
-        FormulaEngine.setHooks(GMT_LOCALIZED_HOOKS);
+        FormulaEngine.setHooks(getHooksOverrideLocalizer(oldHooks, GMT_LOCALIZER));
     }
 
     @Override
@@ -647,7 +631,7 @@ public class BuiltinFunctionsTest extends ParserTestBase {
 
         if (!isJs()) {
             // DateValue uses the user's timezone.  This tests with PST.  Setting the timezone in the browser is harder.
-            FormulaEngine.setHooks(PST_LOCALIZED_HOOKS);
+            FormulaEngine.setHooks(getHooksOverrideLocalizer(oldHooks, PST_LOCALIZER));
             assertEquals(evaluateDate("date(2005,1,3)"), evaluateDate("dateValue(dateTimeValue(\"2004-12-31 11:32:10\")+3.00)"));
             assertEquals(evaluateDate("date(2005,1,3)"), evaluateDate("dateValue(dateTimeValue(\"2004-12-31 11:32:10\")+3.60)"));
             assertEquals(evaluateDate("date(2004,3,3)"), evaluateDate("dateValue(dateTimeValue(\"2004-02-28 10:34:00\")+4.60)"));

@@ -1,16 +1,16 @@
 /**
  * 
  */
-package com.force.formula.commands;
+package com.force.formula.template.commands;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import com.force.formula.*;
+import com.force.formula.commands.FormulaCommandInfo;
+import com.force.formula.commands.FunctionFormat;
 import com.force.formula.impl.*;
-import com.force.formula.sql.RuntimeSqlFormulaInfo;
-import com.force.formula.template.commands.FunctionTemplate;
 
 /**
  * TODO Describe your class here.
@@ -35,7 +35,7 @@ public class TemplateFunctionsTest extends ParserTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         oldHooks = FormulaEngine.getHooks();
-        FormulaEngine.setHooks(BuiltinFunctionsTest.GMT_LOCALIZED_HOOKS);
+        FormulaEngine.setHooks(getHooksOverrideLocalizer(oldHooks, GMT_LOCALIZER));
     }
 
     @Override
@@ -43,27 +43,6 @@ public class TemplateFunctionsTest extends ParserTestBase {
         FormulaEngine.setHooks(oldHooks);
     }
 
-    private static final FormulaProperties properties;
-    static {
-        properties = new FormulaProperties();
-        properties.setGenerateSQL(false);
-        properties.setAllowCycles(false);
-        properties.setPolymorphicReturnType(true);
-        properties.setParseAsTemplate(true);
-    }
-
-    /**
-     * Parse the expression like a template (with {!...} syntax) and validate that it matches
-     * @param expectedResult the result of the text
-     * @param expression the expression to parse
-     */
-    public void assertTemplateFormula(String expectedResult, String expression) throws Exception {
-        FormulaRuntimeContext context  = setupMockContext(MockFormulaDataType.TEXT);
-        RuntimeSqlFormulaInfo formulaInfo = FormulaInfoFactory.create(context, expression, properties);
-        Formula formula = formulaInfo.getFormula();
-        String result = (String)formula.evaluate(context);
-        assertEquals(expectedResult, result);
-    }
     
 
     static final FormulaFactoryImpl TEST_FACTORY;
@@ -109,7 +88,7 @@ public class TemplateFunctionsTest extends ParserTestBase {
             assertEquals("2005-01-03",  evaluateString("TEXT(date(2005,1,3))")); 
             assertEquals("08:34:56.789",  evaluateString("TEXT(timeValue(\"08:34:56.789\"))")); 
 
-            FormulaEngine.setHooks(BuiltinFunctionsTest.PST_LOCALIZED_HOOKS);
+            FormulaEngine.setHooks(getHooksOverrideLocalizer(oldHooks, PST_LOCALIZER));
             assertEquals("2/29/2016, 5:15 AM",  evaluateString("FORMAT(DATETIMEVALUE(\"" + LEAP + "\"))")); 
             assertEquals("1/3/2005",  evaluateString("FORMAT(date(2005,1,3))")); 
             assertEquals("12:34 AM",  evaluateString("FORMAT(timeValue(\"08:34:56.789\"))")); 
@@ -294,5 +273,7 @@ public class TemplateFunctionsTest extends ParserTestBase {
             FormulaEngine.setFactory(oldFactory);
         }
     }
+
+
 
 }

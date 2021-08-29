@@ -202,12 +202,12 @@ public class FormulaTestCaseInfo {
         List<FormulaTestRunnable> resultList = new LinkedList<FormulaTestRunnable>();
         Map<String, FieldDefinitionInfo> listOfFieldsUsedForRunnables = new HashMap<String, FieldDefinitionInfo>();
 
-        for (List perm : FormulaTestUtils.getSwapSets(swappableFieldCount)) {
+        for (List<String> perm : FormulaTestUtils.getSwapSets(swappableFieldCount)) {
 
             // If we've been told not to generate multiple result types (visualforce usage) then
             // filter out everything that isn't for the correct result type.
             if (!multipleResultTypes) {
-                String resultType = (String)perm.get(perm.size()-1);
+                String resultType = perm.get(perm.size()-1);
                 if (!resultType.equals(testCaseFieldInfo.getReturnType().getName())) {
                     continue;
                 }
@@ -223,10 +223,10 @@ public class FormulaTestCaseInfo {
             // to match the current swap set in loop.
             for (int i = perm.size() - 1; i >= 0; i--) {
                 if (i == perm.size() - 1) {
-                    newTcField.setReturnType(FormulaTestUtils.getDataType((String)perm.get(i)));
+                    newTcField.setReturnType(FormulaTestUtils.getDataType(perm.get(i)));
                     continue;
                 }
-                String newType = (String)perm.get(i);
+                String newType = perm.get(i);
                 FieldDefinitionInfo fieldInfo = this.referenceFields.get(i).clone();
                 String fieldName = fieldInfo.getDevName();
                 fieldInfo.setDevName(fieldName.replaceAll(fieldInfo.getReturnType().getName(), newType));

@@ -2,7 +2,8 @@ package com.force.formula.template.commands;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.Date;
+import java.util.Deque;
 
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
@@ -12,7 +13,6 @@ import com.force.formula.impl.*;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
-import com.google.common.collect.Lists;
 
 /**
  * @author dchasman
@@ -58,6 +58,7 @@ public class FunctionTemplate extends FormulaCommandInfoImpl {
 }
 
 class FunctionTemplateCommand extends AbstractFormulaCommand {
+    private static final long serialVersionUID = 1L;
     public FunctionTemplateCommand(FormulaCommandInfo formulaCommandInfo) {
         super(formulaCommandInfo);
     }
@@ -69,8 +70,9 @@ class FunctionTemplateCommand extends AbstractFormulaCommand {
         // Dethunk all of the template() arguments and evaluate each one using its own isolated stack to handle exceptions on a
         // per expression block basis
 
-        // Note, that Deque toArray is in LIFO order, but it needs to be put in reverse order when pushing for thunks
-        Object[] result = Lists.reverse(new ArrayList<Object>(stack)).toArray();
+        // Note, that Deque toArray is in LIFO order, but FormulaStack uses FIFO order.
+        // If you pass in a stack other than FormulaStack, this will probably not work.
+        Object[] result = stack.toArray();
 
         for (int n = 0; n < result.length; n++) {
             Object entry = result[n];

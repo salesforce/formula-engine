@@ -25,6 +25,7 @@ public class FunctionUrlEncode extends EncodingFunctionBase {
     }
 
     static class UrlencodeCommand extends EncodingCommand {
+        private static final long serialVersionUID = 1L;
         public UrlencodeCommand(FormulaCommandInfo formulaCommandInfo) {
             super(formulaCommandInfo);
         }

@@ -2,7 +2,6 @@ package com.force.formula.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -99,33 +98,7 @@ public final class FormulaDateUtil {
         return translate(l.getCalendar(BaseLocalizer.GMT), l.getCalendar(BaseLocalizer.LOCAL), date, toMidnight);
     }
     
-    /**
-     * Truncates a date to a users localtime midnight, and then converts that date
-     * to a Gmt midnight date only.
-     */
-    public static Date truncateDateToOwnersGmtMidnight(String ownerId, Date date) throws SQLException {
-        if (date == null) {
-            return null;
-        }
 
-        // ownerId must be specified.  If it's the same as userId, use the
-        // user's timezone (this is more efficient).  Otherwise, get the
-        // owner's timezone from the DB.
-        
-        TimeZone tz = FormulaI18nUtils.getLocalizer().getTimeZone();
-        /*
-        //String userId = UddUtil.getUserContext().getUserId();
-        TimeZone tz;
-        if (userId.equals(ownerId)) {
-            tz = I18nUtils.getLocalizer().getTimeZone();
-        } else {
-            throw new IllegalStateException("");
-            //tz = getTimeZoneFromId(ownerId); TODO SLT only used in EventApi50Test
-        }
-        */
-
-        return truncateDateToOwnersGmtMidnight(tz, date);
-    }
     /**
      * Truncates a date to a users localtime midnight, and then converts that date
      * to a Gmt midnight date only.
@@ -204,13 +177,14 @@ public final class FormulaDateUtil {
     
     public static Calendar translateCal(Calendar from, Calendar to, Date date, boolean toMidnight) {
         from.setTime(date);
-        to.set(from.get(Calendar.YEAR), from.get(Calendar.MONTH), from.get(Calendar.DAY_OF_MONTH));
+                to.set(from.get(Calendar.YEAR), from.get(Calendar.MONTH), from.get(Calendar.DAY_OF_MONTH));
         if (toMidnight) {
             to = toMidnight(to);
         } else {
             to.set(Calendar.HOUR_OF_DAY, from.get(Calendar.HOUR_OF_DAY));
             to.set(Calendar.MINUTE, from.get(Calendar.MINUTE));
             to.set(Calendar.SECOND, from.get(Calendar.SECOND));
+            to.set(Calendar.MILLISECOND, from.get(Calendar.MILLISECOND));
         }
         return to;
     }
