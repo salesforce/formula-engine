@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesIf">
+   <testInstance formula="LN(IF(false,customnumber1__c,customnumber2__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>LN(NVL($!s0s!$.customnumber2__c, 0))</Sql><Guard>NVL($!s0s!$.customnumber2__c, 0)&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>LN($!s0s!$.customnumber2__c)</Sql><Guard>$!s0s!$.customnumber2__c&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>LN(NVL($!s0s!$.customnumber2__c, 0))</Sql><Guard>NVL($!s0s!$.customnumber2__c, 0)&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>LN($!s0s!$.customnumber2__c)</Sql><Guard>$!s0s!$.customnumber2__c&lt;=0       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))).ln()</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber2__c!=null)?((context.record.customnumber2__c).ln()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.log($F.nvl(context.record.customnumber2__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber2__c!=null)?(Math.log(context.record.customnumber2__c)):null</JsOutput>
+      <result>
+      <inputvalues>[, 24]</inputvalues>
+         <formula>3.1780538303479458</formula>
+         <javascript>3.1780538303479458</javascript>
+         <javascriptLp>3.1780538</javascriptLp>
+         <formulaNullAsNull>3.1780538303479458</formulaNullAsNull>
+         <javascriptNullAsNull>3.1780538303479458</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3.1780538</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, 0.0]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.00, 0.00]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.000, 0.000]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.0, 99.0]</inputvalues>
+         <formula>4.59511985013459</formula>
+         <javascript>4.59511985013459</javascript>
+         <javascriptLp>4.5951199</javascriptLp>
+         <formulaNullAsNull>4.59511985013459</formulaNullAsNull>
+         <javascriptNullAsNull>4.59511985013459</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4.5951199</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[99,  -1]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-20, -40]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.1111, 1.1111]</inputvalues>
+         <formula>0.10535051560782595</formula>
+         <javascript>0.10535051560782596</javascript>
+         <javascriptLp>0.1053505</javascriptLp>
+         <formulaNullAsNull>0.10535051560782595</formulaNullAsNull>
+         <javascriptNullAsNull>0.10535051560782596</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.1053505</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.11114, 0.00000]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.11115, 0.00000]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.111112, 0.000043]</inputvalues>
+         <formula>-10.054310442270712</formula>
+         <javascript>-10.054310442270712</javascript>
+         <javascriptLp>-10.0543104</javascriptLp>
+         <formulaNullAsNull>-10.054310442270712</formulaNullAsNull>
+         <javascriptNullAsNull>-10.054310442270712</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-10.0543104</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789, 123456789]</inputvalues>
+         <formula>18.63140176616802</formula>
+         <javascript>18.63140176616802</javascript>
+         <javascriptLp>18.6314018</javascriptLp>
+         <formulaNullAsNull>18.63140176616802</formulaNullAsNull>
+         <javascriptNullAsNull>18.63140176616802</javascriptNullAsNull>
+         <javascriptLpNullAsNull>18.6314018</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, 123456789.123456789]</inputvalues>
+         <formula>18.63140176716802</formula>
+         <javascript>18.63140176716802</javascript>
+         <javascriptLp>18.6314018</javascriptLp>
+         <formulaNullAsNull>18.63140176716802</formulaNullAsNull>
+         <javascriptNullAsNull>18.63140176716802</javascriptNullAsNull>
+         <javascriptLpNullAsNull>18.6314018</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, -123456789.123456789]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-123456789.123456789, -123456789.123456789]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[600,  0.000600]</inputvalues>
+         <formula>-7.418580902748128</formula>
+         <javascript>-7.418580902748127</javascript>
+         <javascriptLp>-7.4185809</javascriptLp>
+         <formulaNullAsNull>-7.418580902748128</formulaNullAsNull>
+         <javascriptNullAsNull>-7.418580902748127</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-7.4185809</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[600,  -600]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.2345,  1.2345]</inputvalues>
+         <formula>0.2106660298030971</formula>
+         <javascript>0.21066602980309715</javascript>
+         <javascriptLp>0.210666</javascriptLp>
+         <formulaNullAsNull>0.2106660298030971</formulaNullAsNull>
+         <javascriptNullAsNull>0.21066602980309715</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.210666</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.245,  0]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, ]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 12.123456789]</inputvalues>
+         <formula>2.495142153589359</formula>
+         <javascript>2.495142153589359</javascript>
+         <javascriptLp>2.4951422</javascriptLp>
+         <formulaNullAsNull>2.495142153589359</formulaNullAsNull>
+         <javascriptNullAsNull>2.495142153589359</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2.4951422</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.00596, 240]</inputvalues>
+         <formula>5.480638923341991</formula>
+         <javascript>5.480638923341991</javascript>
+         <javascriptLp>5.4806389</javascriptLp>
+         <formulaNullAsNull>5.480638923341991</formulaNullAsNull>
+         <javascriptNullAsNull>5.480638923341991</javascriptNullAsNull>
+         <javascriptLpNullAsNull>5.4806389</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 240]</inputvalues>
+         <formula>5.480638923341991</formula>
+         <javascript>5.480638923341991</javascript>
+         <javascriptLp>5.4806389</javascriptLp>
+         <formulaNullAsNull>5.480638923341991</formulaNullAsNull>
+         <javascriptNullAsNull>5.480638923341991</javascriptNullAsNull>
+         <javascriptLpNullAsNull>5.4806389</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.0000000000001, 1000]</inputvalues>
+         <formula>6.907755278982137</formula>
+         <javascript>6.907755278982137</javascript>
+         <javascriptLp>6.9077553</javascriptLp>
+         <formulaNullAsNull>6.907755278982137</formulaNullAsNull>
+         <javascriptNullAsNull>6.907755278982137</javascriptNullAsNull>
+         <javascriptLpNullAsNull>6.9077553</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.0000000000001, -1000]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

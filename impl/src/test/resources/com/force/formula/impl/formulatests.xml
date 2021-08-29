@@ -55,13 +55,11 @@ author: Srikanth Yendluri/Doug Chasman
          code="Second(TIMEVALUE(&quot;10:40:55.666&quot;))">
      </testcase>
      
-     <!--  Unsupported
      <testcase name="testMillisecWithValidString" devName="testMillisecWithValidString"
          labelName="testMillisecWithValidString" dataType="Double" eval="formula,template"
          scale="2" precision="12"
          code="MilliSecond(TIMEVALUE(&quot;10:40:55.666&quot;))">
      </testcase>
-     -->
      
      <testcase name="testTimeValueWithValidInValid" devName="testTimeValueWithValidInValid"
          labelName="testTimeValueWithValidInValid" dataType="TimeOnly" eval="formula,template" dataFile="functiondatevalue-dateandtime"

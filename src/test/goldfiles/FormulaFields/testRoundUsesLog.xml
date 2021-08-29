@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRoundUsesLog">
+   <testInstance formula="ROUND(LOG(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>ROUND(LOG(10, NVL($!s0s!$.customnumber1__c, 0)), NVL($!s0s!$.customnumber2__c, 0))</Sql><Guard>NVL($!s0s!$.customnumber1__c, 0)&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>ROUND(LOG(10, $!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c)</Sql><Guard>$!s0s!$.customnumber1__c&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>ROUND(LOG(10, NVL($!s0s!$.customnumber1__c, 0)), NVL($!s0s!$.customnumber2__c, 0))</Sql><Guard>NVL($!s0s!$.customnumber1__c, 0)&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>ROUND(LOG(10, $!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c)</Sql><Guard>$!s0s!$.customnumber1__c&lt;=0       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).log(10)).mul('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0)).round().div('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(((context.record.customnumber1__c).log(10)).mul('1e'+context.record.customnumber2__c.toFixed(0)).round().div('1e'+context.record.customnumber2__c.toFixed(0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">($F.nvl(context.record.customnumber2__c,0)&gt;0)?Number(Number(Math.log($F.nvl(context.record.customnumber1__c,0))/Math.LN10).toFixed($F.nvl(context.record.customnumber2__c,0)&lt;=20?$F.nvl(context.record.customnumber2__c,0):20)):Math.round((Math.log($F.nvl(context.record.customnumber1__c,0))/Math.LN10)*('1e'+$F.nvl(context.record.customnumber2__c,0)))/('1e'+$F.nvl(context.record.customnumber2__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?((context.record.customnumber2__c&gt;0)?Number(Number(Math.log(context.record.customnumber1__c)/Math.LN10).toFixed(context.record.customnumber2__c&lt;=20?context.record.customnumber2__c:20)):Math.round((Math.log(context.record.customnumber1__c)/Math.LN10)*('1e'+context.record.customnumber2__c))/('1e'+context.record.customnumber2__c)):null</JsOutput>
+      <result>
+      <inputvalues>[1, 0]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2, 1]</inputvalues>
+         <formula>0.3</formula>
+         <javascript>0.3</javascript>
+         <javascriptLp>0.3</javascriptLp>
+         <formulaNullAsNull>0.3</formulaNullAsNull>
+         <javascriptNullAsNull>0.3</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.3</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3, 2]</inputvalues>
+         <formula>0.48</formula>
+         <javascript>0.48</javascript>
+         <javascriptLp>0.48</javascriptLp>
+         <formulaNullAsNull>0.48</formulaNullAsNull>
+         <javascriptNullAsNull>0.48</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.48</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[4.1234, 2]</inputvalues>
+         <formula>0.62</formula>
+         <javascript>0.62</javascript>
+         <javascriptLp>0.62</javascriptLp>
+         <formulaNullAsNull>0.62</formulaNullAsNull>
+         <javascriptNullAsNull>0.62</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.62</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[5.000000008, 8]</inputvalues>
+         <formula>0.69897001</formula>
+         <javascript>0.69897001</javascript>
+         <javascriptLp>0.69897</javascriptLp>
+         <formulaNullAsNull>0.69897001</formulaNullAsNull>
+         <javascriptNullAsNull>0.69897001</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.69897</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-200, 2]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10000, -2]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, 10]</inputvalues>
+         <formula>1.0</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1.0</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[16, 16]</inputvalues>
+         <formula>1.2041199826559246</formula>
+         <javascript>1.2041199826559248</javascript>
+         <javascriptLp>1.20412</javascriptLp>
+         <formulaNullAsNull>1.2041199826559246</formulaNullAsNull>
+         <javascriptNullAsNull>1.2041199826559248</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.20412</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2.56, 19]</inputvalues>
+         <formula>0.40823996531184953</formula>
+         <javascript>0.4082399653118496</javascript>
+         <javascriptLp>0.40824</javascriptLp>
+         <formulaNullAsNull>0.40823996531184953</formulaNullAsNull>
+         <javascriptNullAsNull>0.4082399653118496</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.40824</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, 12]</inputvalues>
+         <formula>8.091514977604</formula>
+         <javascript>8.091514977604</javascript>
+         <javascriptLp>8.091515</javascriptLp>
+         <formulaNullAsNull>8.091514977604</formulaNullAsNull>
+         <javascriptNullAsNull>8.091514977604</javascriptNullAsNull>
+         <javascriptLpNullAsNull>8.091515</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNSimple">
+   <testInstance formula="LN(customnumber1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>LN(NVL($!s0s!$.customnumber1__c, 0))</Sql><Guard>NVL($!s0s!$.customnumber1__c, 0)&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>LN($!s0s!$.customnumber1__c)</Sql><Guard>$!s0s!$.customnumber1__c&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>LN(NVL($!s0s!$.customnumber1__c, 0))</Sql><Guard>NVL($!s0s!$.customnumber1__c, 0)&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>LN($!s0s!$.customnumber1__c)</Sql><Guard>$!s0s!$.customnumber1__c&lt;=0       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).ln()</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?((context.record.customnumber1__c).ln()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.log($F.nvl(context.record.customnumber1__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.log(context.record.customnumber1__c)):null</JsOutput>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>0.0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2]</inputvalues>
+         <formula>0.6931471805599453</formula>
+         <javascript>0.6931471805599453</javascript>
+         <javascriptLp>0.6931472</javascriptLp>
+         <formulaNullAsNull>0.6931471805599453</formulaNullAsNull>
+         <javascriptNullAsNull>0.6931471805599453</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.6931472</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3]</inputvalues>
+         <formula>1.0986122886681098</formula>
+         <javascript>1.0986122886681098</javascript>
+         <javascriptLp>1.0986123</javascriptLp>
+         <formulaNullAsNull>1.0986122886681098</formulaNullAsNull>
+         <javascriptNullAsNull>1.0986122886681098</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.0986123</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[4]</inputvalues>
+         <formula>1.3862943611198906</formula>
+         <javascript>1.3862943611198906</javascript>
+         <javascriptLp>1.3862944</javascriptLp>
+         <formulaNullAsNull>1.3862943611198906</formulaNullAsNull>
+         <javascriptNullAsNull>1.3862943611198906</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.3862944</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[5]</inputvalues>
+         <formula>1.6094379124341003</formula>
+         <javascript>1.6094379124341003</javascript>
+         <javascriptLp>1.6094379</javascriptLp>
+         <formulaNullAsNull>1.6094379124341003</formulaNullAsNull>
+         <javascriptNullAsNull>1.6094379124341003</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.6094379</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[6]</inputvalues>
+         <formula>1.791759469228055</formula>
+         <javascript>1.791759469228055</javascript>
+         <javascriptLp>1.7917595</javascriptLp>
+         <formulaNullAsNull>1.791759469228055</formulaNullAsNull>
+         <javascriptNullAsNull>1.791759469228055</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.7917595</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10000]</inputvalues>
+         <formula>9.210340371976184</formula>
+         <javascript>9.210340371976184</javascript>
+         <javascriptLp>9.2103404</javascriptLp>
+         <formulaNullAsNull>9.210340371976184</formulaNullAsNull>
+         <javascriptNullAsNull>9.210340371976184</javascriptNullAsNull>
+         <javascriptLpNullAsNull>9.2103404</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10]</inputvalues>
+         <formula>2.302585092994046</formula>
+         <javascript>2.302585092994046</javascript>
+         <javascriptLp>2.3025851</javascriptLp>
+         <formulaNullAsNull>2.302585092994046</formulaNullAsNull>
+         <javascriptNullAsNull>2.302585092994046</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2.3025851</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[16]</inputvalues>
+         <formula>2.772588722239781</formula>
+         <javascript>2.772588722239781</javascript>
+         <javascriptLp>2.7725887</javascriptLp>
+         <formulaNullAsNull>2.772588722239781</formulaNullAsNull>
+         <javascriptNullAsNull>2.772588722239781</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2.7725887</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2.56]</inputvalues>
+         <formula>0.9400072584914712</formula>
+         <javascript>0.9400072584914712</javascript>
+         <javascriptLp>0.9400073</javascriptLp>
+         <formulaNullAsNull>0.9400072584914712</formulaNullAsNull>
+         <javascriptNullAsNull>0.9400072584914712</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.9400073</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789]</inputvalues>
+         <formula>18.63140176716802</formula>
+         <javascript>18.63140176716802</javascript>
+         <javascriptLp>18.6314018</javascriptLp>
+         <formulaNullAsNull>18.63140176716802</formulaNullAsNull>
+         <javascriptNullAsNull>18.63140176716802</javascriptNullAsNull>
+         <javascriptLpNullAsNull>18.6314018</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTime">
+   <testInstance formula="(customdatetime1__c-customdatetime2__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>(EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>(EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000):null</JsOutput>
+      <result>
+      <inputvalues>[2004:12:31:11:00:00, 2004:12:25:11:00:00]</inputvalues>
+         <formula>6</formula>
+         <javascript>6</javascript>
+         <javascriptLp>6</javascriptLp>
+         <formulaNullAsNull>6</formulaNullAsNull>
+         <javascriptNullAsNull>6</javascriptNullAsNull>
+         <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:11:00:00, 2004:02:27:02:00:00]</inputvalues>
+         <formula>1.375</formula>
+         <javascript>1.375</javascript>
+         <javascriptLp>1.375</javascriptLp>
+         <formulaNullAsNull>1.375</formulaNullAsNull>
+         <javascriptNullAsNull>1.375</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.375</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:00:00, 2005:01:01:11:00:00]</inputvalues>
+         <formula>-1</formula>
+         <javascript>-1</javascript>
+         <javascriptLp>-1</javascriptLp>
+         <formulaNullAsNull>-1</formulaNullAsNull>
+         <javascriptNullAsNull>-1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:11:00:00, 2004:03:01:02:00:00]</inputvalues>
+         <formula>-1.625</formula>
+         <javascript>-1.625</javascript>
+         <javascriptLp>-1.625</javascriptLp>
+         <formulaNullAsNull>-1.625</formulaNullAsNull>
+         <javascriptNullAsNull>-1.625</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-1.625</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:00:00]</inputvalues>
+         <formula>0.02083333333333333333333333333333</formula>
+         <javascript>0.020833333333333332</javascript>
+         <javascriptLp>0.0208333</javascriptLp>
+         <formulaNullAsNull>0.02083333333333333333333333333333</formulaNullAsNull>
+         <javascriptNullAsNull>0.020833333333333332</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.0208333</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:23:30:00, 2004:02:28:24:00:00]</inputvalues>
+         <formula>-0.02083333333333333333333333333333</formula>
+         <javascript>-0.020833333333333332</javascript>
+         <javascriptLp>-0.0208333</javascriptLp>
+         <formulaNullAsNull>-0.02083333333333333333333333333333</formulaNullAsNull>
+         <javascriptNullAsNull>-0.020833333333333332</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-0.0208333</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+   <testInstance formula="(customdatetime2__c-customdatetime1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>(EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>(EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000):null</JsOutput>
+      <result>
+      <inputvalues>[2004:12:25:11:00:00, 2004:12:31:11:00:00]</inputvalues>
+         <formula>-6</formula>
+         <javascript>-6</javascript>
+         <javascriptLp>-6</javascriptLp>
+         <formulaNullAsNull>-6</formulaNullAsNull>
+         <javascriptNullAsNull>-6</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-6</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:27:02:00:00, 2004:02:28:11:00:00]</inputvalues>
+         <formula>-1.375</formula>
+         <javascript>-1.375</javascript>
+         <javascriptLp>-1.375</javascriptLp>
+         <formulaNullAsNull>-1.375</formulaNullAsNull>
+         <javascriptNullAsNull>-1.375</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-1.375</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005:01:01:11:00:00, 2004:12:31:11:00:00]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:03:01:02:00:00, 2004:02:28:11:00:00]</inputvalues>
+         <formula>1.625</formula>
+         <javascript>1.625</javascript>
+         <javascriptLp>1.625</javascriptLp>
+         <formulaNullAsNull>1.625</formulaNullAsNull>
+         <javascriptNullAsNull>1.625</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.625</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:00:00, 2004:12:31:11:30:00]</inputvalues>
+         <formula>-0.02083333333333333333333333333333</formula>
+         <javascript>-0.020833333333333332</javascript>
+         <javascriptLp>-0.0208333</javascriptLp>
+         <formulaNullAsNull>-0.02083333333333333333333333333333</formulaNullAsNull>
+         <javascriptNullAsNull>-0.020833333333333332</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-0.0208333</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:24:00:00, 2004:02:28:23:30:00]</inputvalues>
+         <formula>0.02083333333333333333333333333333</formula>
+         <javascript>0.020833333333333332</javascript>
+         <javascriptLp>0.0208333</javascriptLp>
+         <formulaNullAsNull>0.02083333333333333333333333333333</formulaNullAsNull>
+         <javascriptNullAsNull>0.020833333333333332</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.0208333</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

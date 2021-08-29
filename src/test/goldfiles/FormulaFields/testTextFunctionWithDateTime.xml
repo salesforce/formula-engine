@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextFunctionWithDateTime">
+   <testInstance formula="TEXT(DATETIMEVALUE('2013-12-31 01:02:03'))" returntype="Text">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>'2013-12-31 01:02:03Z'</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>'2013-12-31 01:02:03Z'</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>'2013-12-31 01:02:03Z'</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>'2013-12-31 01:02:03Z'</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>2013-12-31 01:02:03Z</formula>
+         <javascript>2013-12-31 01:02:03Z</javascript>
+         <javascriptLp>2013-12-31 01:02:03Z</javascriptLp>
+         <formulaNullAsNull>2013-12-31 01:02:03Z</formulaNullAsNull>
+         <javascriptNullAsNull>2013-12-31 01:02:03Z</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2013-12-31 01:02:03Z</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

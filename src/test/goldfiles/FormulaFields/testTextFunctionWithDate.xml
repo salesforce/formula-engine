@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextFunctionWithDate">
+   <testInstance formula="TEXT(DATE(2013,12,31))" returntype="Text">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>'2013-12-31'</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>'2013-12-31'</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>'2013-12-31'</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>'2013-12-31'</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">&quot;2013-12-31&quot;</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">&quot;2013-12-31&quot;</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">&quot;2013-12-31&quot;</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">&quot;2013-12-31&quot;</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>2013-12-31</formula>
+         <javascript>2013-12-31</javascript>
+         <javascriptLp>2013-12-31</javascriptLp>
+         <formulaNullAsNull>2013-12-31</formulaNullAsNull>
+         <javascriptNullAsNull>2013-12-31</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2013-12-31</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddHoursWithTwoCustFields">
+   <testInstance formula="TimeValue(timeString__c) + customnumber1__c" returntype="TimeOnly">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000+ROUND(MOD(TO_NUMBER(NVL($!s0s!$.customnumber1__c, 0)), 86400000))+86400000,86400000)</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.timeString__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000+ROUND(MOD(TO_NUMBER($!s0s!$.customnumber1__c), 86400000))+86400000,86400000)</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.timeString__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000+ROUND(MOD(TO_NUMBER(NVL($!s0s!$.customnumber1__c, 0)), 86400000))+86400000,86400000)</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.timeString__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000+ROUND(MOD(TO_NUMBER($!s0s!$.customnumber1__c), 86400000))+86400000,86400000)</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.timeString__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.timeString__c!=null)?(new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber())):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.timeString__c!=null&amp;&amp;context.record.customnumber1__c!=null)?(new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+context.record.customnumber1__c.toNumber())):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.timeString__c!=null)?(new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+$F.nvl(context.record.customnumber1__c,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.timeString__c!=null&amp;&amp;context.record.customnumber1__c!=null)?(new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+context.record.customnumber1__c)):null</JsOutput>
+      <result>
+      <inputvalues>[10:34:55.666,  10800000]</inputvalues>
+         <formula>13:34:55.666</formula>
+         <javascript>13:34:55.666</javascript>
+         <javascriptLp>13:34:55.666</javascriptLp>
+         <formulaNullAsNull>13:34:55.666</formulaNullAsNull>
+         <javascriptNullAsNull>13:34:55.666</javascriptNullAsNull>
+         <javascriptLpNullAsNull>13:34:55.666</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:56:45.898,  -3600000]</inputvalues>
+         <formula>22:56:45.898</formula>
+         <javascript>22:56:45.898</javascript>
+         <javascriptLp>22:56:45.898</javascriptLp>
+         <formulaNullAsNull>22:56:45.898</formulaNullAsNull>
+         <javascriptNullAsNull>22:56:45.898</javascriptNullAsNull>
+         <javascriptLpNullAsNull>22:56:45.898</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:14:23.345, ]</inputvalues>
+         <formula>01:14:23.345</formula>
+         <javascript>01:14:23.345</javascript>
+         <javascriptLp>01:14:23.345</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:66:29.345,  0]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>00:00</javascript>
+         <javascriptLp>00:00</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>00:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:00.123,  5400000]</inputvalues>
+         <formula>01:30:00.123</formula>
+         <javascript>01:30:00.123</javascript>
+         <javascriptLp>01:30:00.123</javascriptLp>
+         <formulaNullAsNull>01:30:00.123</formulaNullAsNull>
+         <javascriptNullAsNull>01:30:00.123</javascriptNullAsNull>
+         <javascriptLpNullAsNull>01:30:00.123</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:00.789,  -6300000]</inputvalues>
+         <formula>Error: java.time.DateTimeException</formula>
+         <javascript>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -6299211000000</javascript>
+         <javascriptLp>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -6299211000000</javascriptLp>
+         <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -6299211000000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -6299211000000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10:34:55.666,  1080000000]</inputvalues>
+         <formula>22:34:55.666</formula>
+         <javascript>22:34:55.666</javascript>
+         <javascriptLp>22:34:55.666</javascriptLp>
+         <formulaNullAsNull>22:34:55.666</formulaNullAsNull>
+         <javascriptNullAsNull>22:34:55.666</javascriptNullAsNull>
+         <javascriptLpNullAsNull>22:34:55.666</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:34:55.666,  -1441800000]</inputvalues>
+         <formula>Error: java.time.DateTimeException</formula>
+         <javascript>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -53704334000000</javascript>
+         <javascriptLp>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -53704334000000</javascriptLp>
+         <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -53704334000000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -53704334000000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:00.001,  -2]</inputvalues>
+         <formula>Error: java.time.DateTimeException</formula>
+         <javascript>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -1000000</javascript>
+         <javascriptLp>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -1000000</javascriptLp>
+         <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -1000000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -1000000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[11:59:59.999,  2]</inputvalues>
+         <formula>12:00:00.001</formula>
+         <javascript>12:00:00.001</javascript>
+         <javascriptLp>12:00:00.001</javascriptLp>
+         <formulaNullAsNull>12:00:00.001</formulaNullAsNull>
+         <javascriptNullAsNull>12:00:00.001</javascriptNullAsNull>
+         <javascriptLpNullAsNull>12:00:00.001</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

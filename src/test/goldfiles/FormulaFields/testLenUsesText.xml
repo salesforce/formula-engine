@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Note: Results for different evaluation methods not compared for this test due to compareType="none" . Check results carefully -->
+<testCase name="testLenUsesText">
+   <testInstance formula="LEN(Text(customnumber1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>NVL(LENGTH((TO_CHAR(NVL($!s0s!$.customnumber1__c, 0)))),0)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>NVL(LENGTH((TO_CHAR($!s0s!$.customnumber1__c))),0)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>NVL(LENGTH((TO_CHAR(NVL($!s0s!$.customnumber1__c, 0)))),0)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>NVL(LENGTH((TO_CHAR($!s0s!$.customnumber1__c))),0)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((&quot;&quot;+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).length)))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(((&quot;&quot;+context.record.customnumber1__c).length)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((&quot;&quot;+$F.nvl(context.record.customnumber1__c,0)).length)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((&quot;&quot;+context.record.customnumber1__c).length)</JsOutput>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[4]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[7]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[12]</inputvalues>
+         <formula>2</formula>
+         <javascript>2</javascript>
+         <javascriptLp>2</javascriptLp>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <javascriptNullAsNull>2</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[16]</inputvalues>
+         <formula>2</formula>
+         <javascript>2</javascript>
+         <javascriptLp>2</javascriptLp>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <javascriptNullAsNull>2</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[256]</inputvalues>
+         <formula>3</formula>
+         <javascript>3</javascript>
+         <javascriptLp>3</javascriptLp>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <javascriptNullAsNull>3</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[65536.00]</inputvalues>
+         <formula>5</formula>
+         <javascript>5</javascript>
+         <javascriptLp>5</javascriptLp>
+         <formulaNullAsNull>5</formulaNullAsNull>
+         <javascriptNullAsNull>5</javascriptNullAsNull>
+         <javascriptLpNullAsNull>5</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[65536.16]</inputvalues>
+         <formula>8</formula>
+         <javascript>8</javascript>
+         <javascriptLp>8</javascriptLp>
+         <formulaNullAsNull>8</formulaNullAsNull>
+         <javascriptNullAsNull>8</javascriptNullAsNull>
+         <javascriptLpNullAsNull>8</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[65536.64]</inputvalues>
+         <formula>8</formula>
+         <javascript>8</javascript>
+         <javascriptLp>8</javascriptLp>
+         <formulaNullAsNull>8</formulaNullAsNull>
+         <javascriptNullAsNull>8</javascriptNullAsNull>
+         <javascriptLpNullAsNull>8</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[65536.4816]</inputvalues>
+         <formula>10</formula>
+         <javascript>10</javascript>
+         <javascriptLp>10</javascriptLp>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <javascriptNullAsNull>10</javascriptNullAsNull>
+         <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

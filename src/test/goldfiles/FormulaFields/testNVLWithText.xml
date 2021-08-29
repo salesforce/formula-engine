@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNVLWithText">
+   <testInstance formula="NULLVALUE(customtext1__c,customtextarea1__c)" returntype="Text">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>$!s0s!$.customtext1__c</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>$!s0s!$.customtext1__c</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>$!s0s!$.customtext1__c</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>$!s0s!$.customtext1__c</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">context.record.customtext1__c</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">context.record.customtext1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">context.record.customtext1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">context.record.customtext1__c</JsOutput>
+      <result>
+      <inputvalues>[Has it,  Not Null]</inputvalues>
+         <formula>Has it</formula>
+         <javascript>Has it</javascript>
+         <javascriptLp>Has it</javascriptLp>
+         <formulaNullAsNull>Has it</formulaNullAsNull>
+         <javascriptNullAsNull>Has it</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Has it</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[,  Is Null]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Has It, ]</inputvalues>
+         <formula>Has It</formula>
+         <javascript>Has It</javascript>
+         <javascriptLp>Has It</javascriptLp>
+         <formulaNullAsNull>Has It</formulaNullAsNull>
+         <javascriptNullAsNull>Has It</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Has It</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[I, Not Null]</inputvalues>
+         <formula>I</formula>
+         <javascript>I</javascript>
+         <javascriptLp>I</javascriptLp>
+         <formulaNullAsNull>I</formulaNullAsNull>
+         <javascriptNullAsNull>I</javascriptNullAsNull>
+         <javascriptLpNullAsNull>I</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

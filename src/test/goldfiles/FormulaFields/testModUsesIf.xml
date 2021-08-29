@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testModUsesIf">
+   <testInstance formula="MOD(IF(customcheckbox1__c,customnumber1__c,customnumber2__c),customnumber3__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>MOD(CASE WHEN (NVL($!s0s!$.customcheckbox1__c, '0') = '1') THEN NVL($!s0s!$.customnumber1__c, 0) ELSE NVL($!s0s!$.customnumber2__c, 0) END, NVL($!s0s!$.customnumber3__c, 0))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>MOD(CASE WHEN (NVL($!s0s!$.customcheckbox1__c, '0') = '1') THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customnumber2__c END, $!s0s!$.customnumber3__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>MOD(CASE WHEN (NVL($!s0s!$.customcheckbox1__c, '0') = '1') THEN NVL($!s0s!$.customnumber1__c, 0) ELSE NVL($!s0s!$.customnumber2__c, 0) END, NVL($!s0s!$.customnumber3__c, 0))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>MOD(CASE WHEN (NVL($!s0s!$.customcheckbox1__c, '0') = '1') THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customnumber2__c END, $!s0s!$.customnumber3__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customcheckbox1__c?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')):$F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))).mod($F.nvl(context.record.customnumber3__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">((context.record.customcheckbox1__c?context.record.customnumber1__c:context.record.customnumber2__c)!=null&amp;&amp;context.record.customnumber3__c!=null)?((context.record.customcheckbox1__c?context.record.customnumber1__c:context.record.customnumber2__c).mod(context.record.customnumber3__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(((context.record.customcheckbox1__c?$F.nvl(context.record.customnumber1__c,0):$F.nvl(context.record.customnumber2__c,0)))%($F.nvl(context.record.customnumber3__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((context.record.customcheckbox1__c?context.record.customnumber1__c:context.record.customnumber2__c)!=null&amp;&amp;context.record.customnumber3__c!=null)?((((context.record.customcheckbox1__c?context.record.customnumber1__c:context.record.customnumber2__c))%(context.record.customnumber3__c))):null</JsOutput>
+      <result>
+      <inputvalues>[true, 100, 200, 400]</inputvalues>
+         <formula>100</formula>
+         <javascript>100</javascript>
+         <javascriptLp>100</javascriptLp>
+         <formulaNullAsNull>100</formulaNullAsNull>
+         <javascriptNullAsNull>100</javascriptNullAsNull>
+         <javascriptLpNullAsNull>100</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[false, 123456789, 123456789, 123456789]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[true, 45.4356, 45, 900]</inputvalues>
+         <formula>45.4356</formula>
+         <javascript>45.4356</javascript>
+         <javascriptLp>45.4356</javascriptLp>
+         <formulaNullAsNull>45.4356</formulaNullAsNull>
+         <javascriptNullAsNull>45.4356</javascriptNullAsNull>
+         <javascriptLpNullAsNull>45.4356</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[true, 0.00000984, 0.9, 0.4560001]</inputvalues>
+         <formula>0.00000984</formula>
+         <javascript>0.00000984</javascript>
+         <javascriptLp>0.0000098</javascriptLp>
+         <formulaNullAsNull>0.00000984</formulaNullAsNull>
+         <javascriptNullAsNull>0.00000984</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.0000098</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[false, -200, -0.000000008, -0.0000012]</inputvalues>
+         <formula>-0.000000008</formula>
+         <javascript>-8E-9</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>-0.000000008</formulaNullAsNull>
+         <javascriptNullAsNull>-8E-9</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

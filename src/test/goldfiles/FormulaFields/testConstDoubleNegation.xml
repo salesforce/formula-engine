@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testConstDoubleNegation">
+   <testInstance formula="customnumber__c -- 2 + customnumber__c - (2-4) + customnumber__c - (-2)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>(((((NVL($!s0s!$.customnumber__c, 0)-(-2))+NVL($!s0s!$.customnumber__c, 0))-(-2))+NVL($!s0s!$.customnumber__c, 0))-(-2))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>((((($!s0s!$.customnumber__c-(-2))+$!s0s!$.customnumber__c)-(-2))+$!s0s!$.customnumber__c)-(-2))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>(((((NVL($!s0s!$.customnumber__c, 0)-(-2))+NVL($!s0s!$.customnumber__c, 0))-(-2))+NVL($!s0s!$.customnumber__c, 0))-(-2))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>((((($!s0s!$.customnumber__c-(-2))+$!s0s!$.customnumber__c)-(-2))+$!s0s!$.customnumber__c)-(-2))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber__c,new $F.Decimal('0')).sub(new $F.Decimal('2').neg()).add($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))).sub(new $F.Decimal('2').neg()).add($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))).sub(new $F.Decimal('2').neg())</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null)?(context.record.customnumber__c.sub(new $F.Decimal('2').neg()).add(context.record.customnumber__c).sub(new $F.Decimal('2').neg()).add(context.record.customnumber__c).sub(new $F.Decimal('2').neg())):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customnumber__c,0)-(-2)+$F.nvl(context.record.customnumber__c,0)-(-2)+$F.nvl(context.record.customnumber__c,0)-(-2)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null)?(context.record.customnumber__c-(-2)+context.record.customnumber__c-(-2)+context.record.customnumber__c-(-2)):null</JsOutput>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>6</formula>
+         <javascript>6</javascript>
+         <javascriptLp>6</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0]</inputvalues>
+         <formula>6.0</formula>
+         <javascript>6</javascript>
+         <javascriptLp>6</javascriptLp>
+         <formulaNullAsNull>6.0</formulaNullAsNull>
+         <javascriptNullAsNull>6</javascriptNullAsNull>
+         <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24]</inputvalues>
+         <formula>78</formula>
+         <javascript>78</javascript>
+         <javascriptLp>78</javascriptLp>
+         <formulaNullAsNull>78</formulaNullAsNull>
+         <javascriptNullAsNull>78</javascriptNullAsNull>
+         <javascriptLpNullAsNull>78</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.99]</inputvalues>
+         <formula>8.97</formula>
+         <javascript>8.97</javascript>
+         <javascriptLp>8.97</javascriptLp>
+         <formulaNullAsNull>8.97</formulaNullAsNull>
+         <javascriptNullAsNull>8.97</javascriptNullAsNull>
+         <javascriptLpNullAsNull>8.97</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-24]</inputvalues>
+         <formula>-66</formula>
+         <javascript>-66</javascript>
+         <javascriptLp>-66</javascriptLp>
+         <formulaNullAsNull>-66</formulaNullAsNull>
+         <javascriptNullAsNull>-66</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-66</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

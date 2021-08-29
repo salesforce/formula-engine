@@ -120,7 +120,7 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
             throws InvalidFieldReferenceException, UnsupportedTypeException {
         ObjectField<T> field = getField(devName);
         if (field != null) {
-            return new ContextualFormulaFieldInfoImpl(this, field, field.getFormulaSource());
+            return new BeanFormulaFieldInfoImpl(this, field, field.getFormulaSource());
         }
         return super.lookup(devName, isDynamicRefBase);
     }
@@ -395,5 +395,21 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
         public String toString() {
             return "MapField[" + getEntityInfo().getName() + "." + this.getName() + "]";
         }
+    }
+    
+    protected static class BeanFormulaFieldInfoImpl extends ContextualFormulaFieldInfoImpl {
+
+		public BeanFormulaFieldInfoImpl(FormulaContext context, ObjectField<?> field, String formulaSource) {
+			super(context, field, formulaSource);
+		}
+
+		public BeanFormulaFieldInfoImpl(FormulaContext context, ObjectField<?> field) {
+			super(context, field);
+		}
+
+		@Override
+		public String getDbColumn(String standardTablAlias, String customTableAlias) {
+			return standardTablAlias + "." + getFieldOrColumnInfo().getName();
+		}
     }
 }

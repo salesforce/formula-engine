@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesLen">
+   <testInstance formula="LN(LEN(customtext1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>LN(NVL(LENGTH($!s0s!$.customtext1__c),0))</Sql><Guard>NVL(LENGTH($!s0s!$.customtext1__c),0)&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>LN(NVL(LENGTH($!s0s!$.customtext1__c),0))</Sql><Guard>NVL(LENGTH($!s0s!$.customtext1__c),0)&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>LN(NVL(LENGTH($!s0s!$.customtext1__c),0))</Sql><Guard>NVL(LENGTH($!s0s!$.customtext1__c),0)&lt;=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>LN(NVL(LENGTH($!s0s!$.customtext1__c),0))</Sql><Guard>NVL(LENGTH($!s0s!$.customtext1__c),0)&lt;=0       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))).ln()</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))).ln()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.log(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">Math.log(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))</JsOutput>
+      <result>
+      <inputvalues>[This is too good to be true]</inputvalues>
+         <formula>3.295836866004329</formula>
+         <javascript>3.295836866004329</javascript>
+         <javascriptLp>3.2958369</javascriptLp>
+         <formulaNullAsNull>3.295836866004329</formulaNullAsNull>
+         <javascriptNullAsNull>3.295836866004329</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3.2958369</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[making a way]</inputvalues>
+         <formula>2.4849066497880004</formula>
+         <javascript>2.4849066497880004</javascript>
+         <javascriptLp>2.4849066</javascriptLp>
+         <formulaNullAsNull>2.4849066497880004</formulaNullAsNull>
+         <javascriptNullAsNull>2.4849066497880004</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2.4849066</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blunder]</inputvalues>
+         <formula>1.9459101490553132</formula>
+         <javascript>1.9459101490553132</javascript>
+         <javascriptLp>1.9459101</javascriptLp>
+         <formulaNullAsNull>1.9459101490553132</formulaNullAsNull>
+         <javascriptNullAsNull>1.9459101490553132</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.9459101</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[makesense]</inputvalues>
+         <formula>2.1972245773362196</formula>
+         <javascript>2.1972245773362196</javascript>
+         <javascriptLp>2.1972246</javascriptLp>
+         <formulaNullAsNull>2.1972245773362196</formulaNullAsNull>
+         <javascriptNullAsNull>2.1972245773362196</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2.1972246</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[does not make sense]</inputvalues>
+         <formula>2.9444389791664403</formula>
+         <javascript>2.9444389791664403</javascript>
+         <javascriptLp>2.944439</javascriptLp>
+         <formulaNullAsNull>2.9444389791664403</formulaNullAsNull>
+         <javascriptNullAsNull>2.9444389791664403</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2.944439</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[working my way]</inputvalues>
+         <formula>2.6390573296152584</formula>
+         <javascript>2.6390573296152584</javascript>
+         <javascriptLp>2.6390573</javascriptLp>
+         <formulaNullAsNull>2.6390573296152584</formulaNullAsNull>
+         <javascriptNullAsNull>2.6390573296152584</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2.6390573</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[e]</inputvalues>
+         <formula>0.0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
+         <formula>5.147494476813453</formula>
+         <javascript>5.147494476813453</javascript>
+         <javascriptLp>5.1474945</javascriptLp>
+         <formulaNullAsNull>5.147494476813453</formulaNullAsNull>
+         <javascriptNullAsNull>5.147494476813453</javascriptNullAsNull>
+         <javascriptLpNullAsNull>5.1474945</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
+         <formula>3.9512437185814275</formula>
+         <javascript>3.9512437185814275</javascript>
+         <javascriptLp>3.9512437</javascriptLp>
+         <formulaNullAsNull>3.9512437185814275</formulaNullAsNull>
+         <javascriptNullAsNull>3.9512437185814275</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3.9512437</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
+         <formula>4.04305126783455</formula>
+         <javascript>4.04305126783455</javascript>
+         <javascriptLp>4.0430513</javascriptLp>
+         <formulaNullAsNull>4.04305126783455</formulaNullAsNull>
+         <javascriptNullAsNull>4.04305126783455</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4.0430513</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

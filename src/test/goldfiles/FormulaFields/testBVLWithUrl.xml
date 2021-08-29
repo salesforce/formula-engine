@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBVLWithUrl">
+   <testInstance formula="BLANKVALUE(customurl1__c,customtextarea1__c)" returntype="Text">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>NVL($!s0s!$.customurl1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>NVL($!s0s!$.customurl1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>NVL($!s0s!$.customurl1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>NVL($!s0s!$.customurl1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customurl1__c,context.record.customtextarea1__c)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.nvl(context.record.customurl1__c,context.record.customtextarea1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customurl1__c,context.record.customtextarea1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.nvl(context.record.customurl1__c,context.record.customtextarea1__c)</JsOutput>
+      <result>
+      <inputvalues>[http://salesforce.com, Not Null]</inputvalues>
+         <formula>http://salesforce.com</formula>
+         <javascript>http://salesforce.com</javascript>
+         <javascriptLp>http://salesforce.com</javascriptLp>
+         <formulaNullAsNull>http://salesforce.com</formulaNullAsNull>
+         <javascriptNullAsNull>http://salesforce.com</javascriptNullAsNull>
+         <javascriptLpNullAsNull>http://salesforce.com</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields, Not Null]</inputvalues>
+         <formula>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</formula>
+         <javascript>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</javascript>
+         <javascriptLp>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</javascriptLp>
+         <formulaNullAsNull>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</formulaNullAsNull>
+         <javascriptNullAsNull>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</javascriptNullAsNull>
+         <javascriptLpNullAsNull>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, Is Null]</inputvalues>
+         <formula>Is Null</formula>
+         <javascript>Is Null</javascript>
+         <javascriptLp>Is Null</javascriptLp>
+         <formulaNullAsNull>Is Null</formulaNullAsNull>
+         <javascriptNullAsNull>Is Null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Is Null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[email@email.com, Not Null]</inputvalues>
+         <formula>email@email.com</formula>
+         <javascript>email@email.com</javascript>
+         <javascriptLp>email@email.com</javascriptLp>
+         <formulaNullAsNull>email@email.com</formulaNullAsNull>
+         <javascriptNullAsNull>email@email.com</javascriptNullAsNull>
+         <javascriptLpNullAsNull>email@email.com</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[mailto:syendluri@salesforce.com, Not Null]</inputvalues>
+         <formula>mailto:syendluri@salesforce.com</formula>
+         <javascript>mailto:syendluri@salesforce.com</javascript>
+         <javascriptLp>mailto:syendluri@salesforce.com</javascriptLp>
+         <formulaNullAsNull>mailto:syendluri@salesforce.com</formulaNullAsNull>
+         <javascriptNullAsNull>mailto:syendluri@salesforce.com</javascriptNullAsNull>
+         <javascriptLpNullAsNull>mailto:syendluri@salesforce.com</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ui/layoutfieldlist.jsp, Not Null]</inputvalues>
+         <formula>ui/layoutfieldlist.jsp</formula>
+         <javascript>ui/layoutfieldlist.jsp</javascript>
+         <javascriptLp>ui/layoutfieldlist.jsp</javascriptLp>
+         <formulaNullAsNull>ui/layoutfieldlist.jsp</formulaNullAsNull>
+         <javascriptNullAsNull>ui/layoutfieldlist.jsp</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ui/layoutfieldlist.jsp</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

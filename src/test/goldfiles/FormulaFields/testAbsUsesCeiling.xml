@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAbsUsesCeiling">
+   <testInstance formula="ABS(CEILING(customnumber1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>ABS(CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>ABS(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber1__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber1__c,33)) END)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>ABS(CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>ABS(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber1__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber1__c,33)) END)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).isPos()?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).ceil():$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).floor()).abs()</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?((context.record.customnumber1__c.isPos()?context.record.customnumber1__c.toDP(18).ceil():context.record.customnumber1__c.toDP(18).floor()).abs()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.abs((($F.nvl(context.record.customnumber1__c,0))&gt;=0?Math.ceil($F.nvl(context.record.customnumber1__c,0)):Math.floor($F.nvl(context.record.customnumber1__c,0))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.abs(((context.record.customnumber1__c)&gt;=0?Math.ceil(context.record.customnumber1__c):Math.floor(context.record.customnumber1__c)))):null</JsOutput>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20]</inputvalues>
+         <formula>20</formula>
+         <javascript>20</javascript>
+         <javascriptLp>20</javascriptLp>
+         <formulaNullAsNull>20</formulaNullAsNull>
+         <javascriptNullAsNull>20</javascriptNullAsNull>
+         <javascriptLpNullAsNull>20</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20.12345]</inputvalues>
+         <formula>21</formula>
+         <javascript>21</javascript>
+         <javascriptLp>21</javascriptLp>
+         <formulaNullAsNull>21</formulaNullAsNull>
+         <javascriptNullAsNull>21</javascriptNullAsNull>
+         <javascriptLpNullAsNull>21</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-123456789.123456789]</inputvalues>
+         <formula>123456790</formula>
+         <javascript>123456790</javascript>
+         <javascriptLp>123456790</javascriptLp>
+         <formulaNullAsNull>123456790</formulaNullAsNull>
+         <javascriptNullAsNull>123456790</javascriptNullAsNull>
+         <javascriptLpNullAsNull>123456790</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789]</inputvalues>
+         <formula>123456790</formula>
+         <javascript>123456790</javascript>
+         <javascriptLp>123456790</javascriptLp>
+         <formulaNullAsNull>123456790</formulaNullAsNull>
+         <javascriptNullAsNull>123456790</javascriptNullAsNull>
+         <javascriptLpNullAsNull>123456790</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[46]</inputvalues>
+         <formula>46</formula>
+         <javascript>46</javascript>
+         <javascriptLp>46</javascriptLp>
+         <formulaNullAsNull>46</formulaNullAsNull>
+         <javascriptNullAsNull>46</javascriptNullAsNull>
+         <javascriptLpNullAsNull>46</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0.00034]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.244]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0.244]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0.245]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.24456]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.24456]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[16]</inputvalues>
+         <formula>16</formula>
+         <javascript>16</javascript>
+         <javascriptLp>16</javascriptLp>
+         <formulaNullAsNull>16</formulaNullAsNull>
+         <javascriptNullAsNull>16</javascriptNullAsNull>
+         <javascriptLpNullAsNull>16</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[256]</inputvalues>
+         <formula>256</formula>
+         <javascript>256</javascript>
+         <javascriptLp>256</javascriptLp>
+         <formulaNullAsNull>256</formulaNullAsNull>
+         <javascriptNullAsNull>256</javascriptNullAsNull>
+         <javascriptLpNullAsNull>256</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-256]</inputvalues>
+         <formula>256</formula>
+         <javascript>256</javascript>
+         <javascriptLp>256</javascriptLp>
+         <formulaNullAsNull>256</formulaNullAsNull>
+         <javascriptNullAsNull>256</javascriptNullAsNull>
+         <javascriptLpNullAsNull>256</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
