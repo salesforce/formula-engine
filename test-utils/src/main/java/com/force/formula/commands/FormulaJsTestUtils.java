@@ -5,8 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -25,10 +23,12 @@ import com.coveo.nashorn_modules.ResourceFolder;
 import com.force.formula.*;
 import com.force.formula.util.FormulaDateUtil;
 import com.google.common.base.Charsets;
+import com.google.common.io.ByteStreams;
+import com.google.common.io.Files;
 
 public class FormulaJsTestUtils {
     private static final Logger logger = Logger.getLogger("com.force.formula.js");
-
+    
     private static final AtomicReference<FormulaJsTestUtils> INSTANCE = new AtomicReference<>(new FormulaJsTestUtils());
     
     public static final FormulaJsTestUtils get() {
@@ -403,12 +403,16 @@ public class FormulaJsTestUtils {
                 context.eval("js", getFunctionScript());
                 context.eval("js", getSystemContextScript());
 
-                // Need native access for this. :-/
-                URL decimalUrl = FormulaJsTestUtils.class.getClassLoader().getResource("com/force/formula/decimal.js");
-                context.eval("js", "load('" + new File(decimalUrl.toURI()).getAbsolutePath() + "')");
+                // Need native access for this. :-/.  It also requires a file on disk.
+                InputStream decimalUrlStream = FormulaJsTestUtils.class.getClassLoader().getResourceAsStream("com/force/formula/decimal.js");
+                byte[] buffer = ByteStreams.toByteArray(decimalUrlStream);
+                File tmp = File.createTempFile("decimal", ".js");
+                tmp.deleteOnExit();
+                Files.write(buffer, tmp);
+                context.eval("js", "load('" + tmp.getAbsolutePath() + "')");
                 context.eval("js",  "Object.defineProperty($F, 'Decimal', { value : Decimal});");
                 ROOT_CONTEXT.set(context);
-            } catch (URISyntaxException x) {
+            } catch (IOException x) {
                 throw new RuntimeException(x);
             }
         }

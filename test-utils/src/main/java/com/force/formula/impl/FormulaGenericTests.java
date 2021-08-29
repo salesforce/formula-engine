@@ -12,6 +12,8 @@ import java.math.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -39,6 +41,7 @@ import com.force.formula.util.FormulaI18nUtils;
  * @since 140
  */
 public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
+    private static final Logger logger = Logger.getLogger("com.force.formula");
 
 	private static String[] KEYS = new String[] {"formula", "javascript", "javascriptLp", "formulaNullAsNull", "javascriptNullAsNull", "javascriptLpNullAsNull"};
 
@@ -136,7 +139,9 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				value = FormulaI18nUtils.formatResult(formulaContext, formulaContext.getFormulaReturnType(), value);
 				return value == null ? null : String.valueOf(value);
 			} catch (Throwable e) {
+				logger.log(Level.FINER, "Error in javascript", e);
 				return "Error: " + e.getMessage();
+				
 			}
 		}
 
