@@ -209,7 +209,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @return which ANTLR version to use to parse or use both
      */
     default ParseOption parseHook_getParseOption(String formula, FormulaProperties properties) {
-        return ParseOption.PARSE_USING_ANTLR2_ONLY;
+        return ParseOption.PARSE_USING_ANTLR4_ONLY;
     }
 
     /**
