@@ -27,6 +27,7 @@ public interface FormulaContext extends Tokenizer {
     public static final String JS_DATES_ARE_STRINGS = "com.force.formula.impl.JS_DATES_ARE_STRINGS";
 
     public static final String IS_CREATE_OR_EDIT_FORMULA = "com.force.formula.impl.IS_CREATE_OR_EDIT_FORMULA";
+    public static final String FORCE_DISABLED = "com.force.formula.impl.FORCE_DISABLED";
 
     String getName();
 

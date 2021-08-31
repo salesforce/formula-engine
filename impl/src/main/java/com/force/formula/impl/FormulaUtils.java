@@ -13,6 +13,7 @@ import com.force.formula.*;
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
 import com.force.formula.parser.gen4.*;
 import com.force.formula.sql.FormulaWithSql;
+import com.force.formula.sql.InvalidFormula;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.commons.text.TextUtil;
 import com.google.common.base.Stopwatch;

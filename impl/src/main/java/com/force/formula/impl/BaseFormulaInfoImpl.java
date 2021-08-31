@@ -14,8 +14,7 @@ import com.force.formula.*;
 import com.force.formula.FormulaRuntimeContext.InaccessibleFieldStrategy;
 import com.force.formula.commands.*;
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
-import com.force.formula.sql.FormulaWithSql;
-import com.force.formula.sql.SQLPair;
+import com.force.formula.sql.*;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.formula.util.FormulaTextUtil;
 import com.google.common.base.Joiner;
@@ -42,7 +41,9 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
         try {
             boolean isCheckingSqlLengthLimit = (isCreateOrEditFormula && !FormulaValidationHooks.get().parseHook_ignoreSqlTextLengthLimit());
             this.context.setProperty(FormulaContext.CHECK_SQL_LENGTH_LIMIT, isCheckingSqlLengthLimit);
-        
+            this.context.setProperty(FormulaContext.IS_CREATE_OR_EDIT_FORMULA, isCreateOrEditFormula);
+            this.context.setProperty(FormulaContext.FORCE_DISABLED, isCreateOrEditFormula);
+            
             // Propagating the info if FormulaInfo is being created for Runtime/Design time.
             this.properties.setExistingFormula(existingFormula);
     
