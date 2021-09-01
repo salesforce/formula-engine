@@ -4,9 +4,10 @@ import static com.force.formula.commands.FormulaCommandInfoImpl.jsMathPkg;
 
 import java.math.*;
 
-import com.force.formula.*;
+import com.force.formula.Formula;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
+import com.force.formula.FormulaContext;
 import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.JsValue;
 import com.force.formula.sql.SQLPair;
@@ -48,7 +49,7 @@ public class FunctionMCeiling extends UnaryMathCommandBehavior {
     
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) {
-        // See the oracle function above for the stupidity of this functionality.
+        // See the oracle function above for the questionable implementation.
         if (context.useHighPrecisionJs()) {
             // We can be sure it isn't null because we're already guarding against args[0]
             return JsValue.forNonNullResult("("+args[0]+").toDP(18).ceil()", args);

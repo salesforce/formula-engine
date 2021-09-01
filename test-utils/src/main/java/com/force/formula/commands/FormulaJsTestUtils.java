@@ -273,7 +273,7 @@ public class FormulaJsTestUtils {
                     break;
                 case "string":
                     String strVal = val.asString();
-                    return (!"".equals(strVal)) ? strVal : null; // Oracle stupidity. Sorry.
+                    return (!"".equals(strVal)) ? strVal : null; // Oracle compatibility. Sorry.
                 // Old GraalVM
                 case "Date":
                     try {
@@ -282,6 +282,9 @@ public class FormulaJsTestUtils {
                         throw new RuntimeException(x);
                     }
                     break;
+                case "undefined":
+                    // I'm not sure this is right, but missing fields end up as undefined, not null in JS.
+                    return null;
                 case "Object":
                     return new BigDecimal(val.invokeMember("toNumber").toString());
                 default:
@@ -538,7 +541,7 @@ public class FormulaJsTestUtils {
                 return new BigDecimal((String)mirror.callMember("toString"));
             }
         }
-        if ("".equals(obj)) return null;  // Oracle stupidity
+        if ("".equals(obj)) return null;  // Oracle compatibility
         return obj;
     }
     
@@ -589,7 +592,7 @@ public class FormulaJsTestUtils {
                 return new BigDecimal(obj.toString());
             } 
         }
-        if ("".equals(obj)) return null;  // Oracle stupidity
+        if ("".equals(obj)) return null;  // Oracle compatibility
         return obj;
     }  
     
