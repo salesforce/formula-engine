@@ -119,17 +119,17 @@ public class FormulaJsTestUtils {
         }
     }
 
-    String getApiContextScript() {
-        // Minified to18 function
-        String toCaseSafeIdFunction = "function(r){if(null==r||18==r.length||15!=r.length)return r;if(r=r.replace(/\\\"/g,\"\"),15!=r.length)return null;for(var t=\"\",n=0;3>n;n++){for(var a=0,l=0;5>l;l++){var e=r.charAt(5*n+l);e>=\"A\"&&\"Z\">=e&&(a+=1<<l)}t+=25>=a?\"ABCDEFGHIJKLMNOPQRSTUVWXYZ\".charAt(a):\"012345\".charAt(a-26)}return r+t};";
-        // Fill in $Api; set Enterprise_Server_URL for FormulaGenericTests - Account - testApiUrl
-        StringBuilder apiContext = new StringBuilder();
-        apiContext.append("var $Api={};").append("$Api.toCaseSafeId=").append(toCaseSafeIdFunction).append(";")
-                .append("$Api.getSessionId=function(){return \"NULL_SESSION_ID\";};").append("$Api");
-        return apiContext.toString();
+    /**
+     * @return a string to create a "$Api" variable for evaluating FormulaEngine helper functions.
+     */
+    protected String getApiContextScript() {
+        return null;
     }
 
-    String getFunctionScript() {
+    /**
+     * @return a string to create a "$F" variable for evaluating FormulaEngine helper functions.
+     */
+    protected String getFunctionScript() {
         StringBuilder fContext = new StringBuilder();
         fContext.append("var $F={};").append("$F.nvl=function(a,b){return a!=null?a:b};")
                 .append("$F.anl=function(a) {for (var i in a) {"
@@ -141,20 +141,21 @@ public class FormulaJsTestUtils {
                         + "return value;};")
                 .append("$F.lpad=function(a,b,c) {return !a||!b||b<1?null:(b<=a.length?a.substring(0,b):((Array(256).join(c)+'').substring(0,b-a.length))+a)};")
                 // Note, this does what java does, but might not do what oracle does
-                .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime());d.setUTCDate(d.getUTCDate()+1);d.setUTCMonth(d.getUTCMonth()+b);d.setUTCDate(d.getUTCDate()-1);return d;};")
+                .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime());d.setUTCDate(d.getUTCDate()+1);d.setUTCMonth(d.getUTCMonth()+b);d.setUTCDate(d.getUTCDate()-1);return d;};");
                 // .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime());d=new
                 // Date(d.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+b);d=new Date(d.getTime()-86400000);return
                 // d;};") // Note, this does what java does, but might not do what oracle does
-                .append("$F");
         return fContext.toString();
     }
 
-    String getSystemContextScript() {
+    /**
+     * @return a string to create a "$System" variable for evaluating SystemFormulaContext
+     */
+    protected String getSystemContextScript() {
         // Setting the $System.originDateTime for FormulaGenericTests - Account - testOriginDateTime
         StringBuilder systemContext = new StringBuilder();
-        systemContext.append("var $System={};").append("$System.OriginDateTime= '1900-01-01 00:00:00.000';") // for
+        systemContext.append("var $System={};").append("$System.OriginDateTime= '1900-01-01 00:00:00.000';"); // for
                                                                                                              // testOriginTime
-                .append("$System");
         return systemContext.toString();
     }
     
@@ -330,19 +331,46 @@ public class FormulaJsTestUtils {
     }
     
     /**
+     * Bind the script to the given bindings.  Evals the script and then the global and then binds.
+     * @param compEngine the scriptengine to use to evaluate
+     * @param bindings the bindings to assign the global variable to
+     * @param eval the script that creates the global
+     * @param global the global variable, "usually $..."
+     * @throws ScriptException
+     */
+    protected void bindScriptEngineGlobal(ScriptEngine compEngine, Bindings bindings, String eval, String global) throws ScriptException {
+        if (eval != null) {
+            bindings.put(global, compEngine.eval(eval, bindings) + "\n" + global);
+        }
+    }
+    
+    /**
+     * Bind the global script to the given bindings.  Calls bindScriptEngineGlobal for
+     * $F, $Api, and $System.
+     * @param compEngine the scriptengine to use to evaluate
+     * @param bindings the bindings to assign the global variables to (global scope)
+     * @param bindings the bindings with engine scope.  Not sure it's needed, but if you don't bind modules, it causes issues.
+     * @throws ScriptException
+     */
+    protected void bindScriptEngineGlobals(ScriptEngine compEngine, Bindings bindings, Bindings engineBindings)  throws ScriptException {
+        bindScriptEngineGlobal(compEngine, bindings, getApiContextScript(), "$Api");
+        bindScriptEngineGlobal(compEngine, bindings, getFunctionScript(), "$F");
+        bindScriptEngineGlobal(compEngine, bindings, getSystemContextScript(), "$System");
+    }
+    
+    /**
      * Set the global context for nashorn evaluation 
      * @return
      */
     protected void makeNashornBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
-        bindings.put("$Api", compEngine.eval(getApiContextScript(), bindings));
-        bindings.put("$F", compEngine.eval(getFunctionScript()));
-        bindings.put("$System", compEngine.eval(getSystemContextScript()));
+        Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
+        bindScriptEngineGlobals(compEngine, bindings, engineBindings);
         bindings.put("module", compEngine.eval("new Object()"));
         bindings.put("String", compEngine.eval(getLowerUpperScript()));
 
         ResourceFolder folder = ResourceFolder.create(FormulaJsTestUtils.class.getClassLoader(), "com/force/formula",
                 Charsets.UTF_8.toString());
-        // We want to load Decimal as a module into the bidnings, but the coveo stuff's interface is
+        // We want to load Decimal as a module into the bindngs, but the coveo stuff's interface is
         // weird and requires access to the NashornScriptEngine directly. That's not cool.
         for (Method m : Require.class.getDeclaredMethods()) {
             if (m.getParameterCount() == 3) {
@@ -355,27 +383,24 @@ public class FormulaJsTestUtils {
                 }
             }
         }
-        Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
         Object decimal = compEngine.eval("require('./decimal.js')", engineBindings);
         engineBindings.put("Decimal", decimal);
         bindings.put("$F.Decimal", compEngine.eval("Object.defineProperty($F, 'Decimal', { value : Decimal});"));        
     }
     
     /**
-     * Set the global context for nashorn evaluation 
-     * @return
+     * Set the global context for graal evaluation  using the javax.script.ScriptEngine 
+     * Avoid it
      */
     protected void makeGraalBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
-        bindings.put("$Api", compEngine.eval(getApiContextScript()));
-        bindings.put("$F", compEngine.eval(getFunctionScript()));
-        bindings.put("$System", compEngine.eval(getSystemContextScript()));
+        Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
+        bindScriptEngineGlobals(compEngine, bindings, engineBindings);
 
         // Need native access for this. :-/
         // URL decimalUrl = FormulaJsTestUtils.class.getClassLoader().getResource("com/force/formula/decimal.js");
         // Object decObj = compEngine.eval("load('"+new File(decimalUrl.toURI()).getAbsolutePath()+"')");
         try (Reader decimal = new InputStreamReader(
                 FormulaJsTestUtils.class.getClassLoader().getResourceAsStream("com/force/formula/decimal.js"))) {
-            Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
             compEngine.eval(decimal);
             Object decObj = compEngine.eval("Decimal");
             engineBindings.put("Decimal", decObj);
@@ -386,6 +411,23 @@ public class FormulaJsTestUtils {
     }
 
     
+
+    
+    /**
+     * Evaluate the global context for Graal.  Doesn't need the same rigamarole as ScriptEngine
+     * $F, $Api, and $System.  Override this to load other modules for testing
+     * @param context the bindings to assign the global variables to
+     * @throws ScriptException
+     */
+    protected void evalGraalContextGlobals(Context context) {
+        context.eval("js", getFunctionScript());
+        if (getApiContextScript() != null) {
+            context.eval("js", getApiContextScript());
+        }
+        if (getSystemContextScript() != null) {
+            context.eval("js", getSystemContextScript());
+        }
+    }
     
 
     private AtomicReference<Context> ROOT_CONTEXT = new AtomicReference<>();
@@ -399,9 +441,7 @@ public class FormulaJsTestUtils {
             context = builder.build();
 
             try {
-                context.eval("js", getApiContextScript());
-                context.eval("js", getFunctionScript());
-                context.eval("js", getSystemContextScript());
+                evalGraalContextGlobals(context);
 
                 // Need native access for this. :-/.  It also requires a file on disk.
                 InputStream decimalUrlStream = FormulaJsTestUtils.class.getClassLoader().getResourceAsStream("com/force/formula/decimal.js");
