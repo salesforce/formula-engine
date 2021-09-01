@@ -5,8 +5,7 @@ package com.force.formula.commands;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
@@ -323,7 +322,7 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
     private String makeGuardForGlobalVariableField(String value) {
         StringBuilder guard = new StringBuilder();
 
-        List<String> path = Splitter.on('.').splitToList(value);
+        List<String> path = new ArrayList<String>(Splitter.on('.').splitToList(value));
 
         if (path.size() > 2) {
             StringBuilder accumulatedPath = new StringBuilder();
