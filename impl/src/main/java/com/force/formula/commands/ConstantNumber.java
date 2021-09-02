@@ -9,6 +9,7 @@ import java.util.Deque;
 import com.force.formula.*;
 import com.force.formula.impl.*;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.BigDecimalHelper;
 
 /**
  * Push the command's associated numeric value onto the stack
@@ -23,7 +24,7 @@ public class ConstantNumber extends ConstantBase {
 
     @Override
     public FormulaCommand getCommand(final FormulaAST node, FormulaContext context) {
-        return new NumberConstantCommand(this, new BigDecimal(node.getText(), Formula.MC_PRECISION_INTERNAL));
+        return new NumberConstantCommand(this, new BigDecimal(node.getText(), BigDecimalHelper.MC_PRECISION_INTERNAL));
     }
 
     @Override

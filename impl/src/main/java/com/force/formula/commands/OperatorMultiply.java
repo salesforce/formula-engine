@@ -12,6 +12,7 @@ import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.JsValue;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.BigDecimalHelper;
 
 /**
  * @author dchasman
@@ -28,7 +29,7 @@ public class OperatorMultiply extends BinaryMathCommandBehavior {
 
 			@Override
             protected BigDecimal execute(BigDecimal lhs, BigDecimal rhs) {
-                return lhs.multiply(rhs, Formula.MC_PRECISION_INTERNAL);
+                return lhs.multiply(rhs, BigDecimalHelper.MC_PRECISION_INTERNAL);
             }
         };
     }

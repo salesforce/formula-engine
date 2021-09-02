@@ -103,14 +103,14 @@ public interface FormulaTime {
 		}
 		@Override
 		public int getMillisecond() {
-			return this.delegate.get(ChronoField.MILLI_OF_DAY);
+			return this.delegate.get(ChronoField.MILLI_OF_SECOND);
 		}
 		@Override
 		public boolean equals(Object obj) {
 			if (obj instanceof TimeWrapper) {
 				return delegate.equals(((TimeWrapper)obj).delegate);
 			} else if (obj instanceof FormulaTime) {
-				return getMillisecond() == (((FormulaTime)obj).getMillisecond());
+				return getTimeInMillis() == (((FormulaTime)obj).getTimeInMillis());
 			}
 			return false;
 		}

@@ -22,6 +22,12 @@ import com.google.common.base.Stopwatch;
  * Formula Utils
  */
 public class FormulaUtils {
+    // Some standard bits to use
+    public static final int PRODUCES_SQL_ERROR_COLUMN = 0;   // If you need a guard
+    public static final int JS_COULD_BE_NULL = 1;  // 
+    public static final int REFERENCES_SUBFORMULA = 2;  // If a formula references another formula (custom formula field)
+    public static final int PRODUCES_HTML = 3;  // If a formula produces HTML.
+	
     static final Pattern REFERENCE_PATTERN = Pattern.compile("\\{!([^}]+)\\}");
     static final String TREAT_NULL_AS_NULL_ANNOTATION = "[treatNullAsNull]";
     private static final Pattern ANNOTATION_PATTERN = Pattern.compile("(\\{\\!)?(\\[\\w+\\])(.*)", Pattern.DOTALL);

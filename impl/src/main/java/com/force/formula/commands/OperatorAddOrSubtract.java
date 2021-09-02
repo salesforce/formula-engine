@@ -14,6 +14,7 @@ import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.BigDecimalHelper;
 import com.force.formula.util.FormulaDateUtil;
 
 /**
@@ -369,7 +370,7 @@ class OperatorAddOrSubtractFormulaCommand extends AbstractFormulaCommand {
                 BigDecimal lhsValue = (BigDecimal)lhs;
 
                 if (rhs instanceof BigDecimal) {
-                    value = (performAddition) ? lhsValue.add((BigDecimal)rhs, Formula.MC_PRECISION_INTERNAL) : lhsValue.subtract((BigDecimal)rhs, Formula.MC_PRECISION_INTERNAL);
+                    value = (performAddition) ? lhsValue.add((BigDecimal)rhs, BigDecimalHelper.MC_PRECISION_INTERNAL) : lhsValue.subtract((BigDecimal)rhs, BigDecimalHelper.MC_PRECISION_INTERNAL);
                 } else if (rhs instanceof Date) {
                     value = addDurationToDate((Date)rhs, lhsValue, true);
                 } else if (rhs instanceof FormulaDateTime) {
@@ -380,14 +381,14 @@ class OperatorAddOrSubtractFormulaCommand extends AbstractFormulaCommand {
                     value = addDurationToDate((Date)lhs, (BigDecimal)rhs, true);
                 } else if (rhs instanceof Date && !performAddition) {
                     // this is fine since there is no DST in GMT timezone
-                    value = new BigDecimal((((Date)lhs).getTime() - ((Date)rhs).getTime())).divide(FormulaDateUtil.MILLISECONDSPERDAY, Formula.MC_PRECISION_INTERNAL);
+                    value = new BigDecimal((((Date)lhs).getTime() - ((Date)rhs).getTime())).divide(FormulaDateUtil.MILLISECONDSPERDAY, BigDecimalHelper.MC_PRECISION_INTERNAL);
                 }
             } else if (lhs instanceof FormulaDateTime) {
                 if (rhs instanceof BigDecimal) {
                     value = addDurationToDateTime((FormulaDateTime)lhs, (BigDecimal)rhs);
                 } else if (rhs instanceof FormulaDateTime && !performAddition) {
                     // this is fine because we're just concerned about 24 hour periods, not calendar days
-                    value = new BigDecimal(((FormulaDateTime)lhs).getDate().getTime() - ((FormulaDateTime)rhs).getDate().getTime()).divide(FormulaDateUtil.MILLISECONDSPERDAY, Formula.MC_PRECISION_INTERNAL);
+                    value = new BigDecimal(((FormulaDateTime)lhs).getDate().getTime() - ((FormulaDateTime)rhs).getDate().getTime()).divide(FormulaDateUtil.MILLISECONDSPERDAY, BigDecimalHelper.MC_PRECISION_INTERNAL);
                 }
             } else if (lhs instanceof FormulaTime) {
                 if (rhs instanceof BigDecimal) {
@@ -398,7 +399,7 @@ class OperatorAddOrSubtractFormulaCommand extends AbstractFormulaCommand {
                 else if (rhs instanceof FormulaTime) {
                     long millisecsToSubtract = ((FormulaTime)rhs).getTimeInMillis();
                     // we can only subtract 2 time fields
-                    value = new BigDecimal(((FormulaTime)lhs).getTimeInMillis() - millisecsToSubtract).add(FormulaDateUtil.MILLISECONDSPERDAY).remainder(FormulaDateUtil.MILLISECONDSPERDAY, Formula.MC_PRECISION_INTERNAL);
+                    value = new BigDecimal(((FormulaTime)lhs).getTimeInMillis() - millisecsToSubtract).add(FormulaDateUtil.MILLISECONDSPERDAY).remainder(FormulaDateUtil.MILLISECONDSPERDAY, BigDecimalHelper.MC_PRECISION_INTERNAL);
                 }
             }else if (lhs instanceof String && rhs instanceof String && performAddition) {
                 // Handle string concatenation
