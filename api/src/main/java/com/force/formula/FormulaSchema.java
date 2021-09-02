@@ -66,7 +66,9 @@ public final class FormulaSchema  {
 		 * @return Whether this field is calculated or not.
 		 * Used to deal with the weird DB null semantics of booleans
 		 */
-		boolean isCalculated();
+		default boolean isCalculated() {
+			return false;
+		}
 		
 		/**
 		 * @return the field type of the formula
@@ -78,7 +80,9 @@ public final class FormulaSchema  {
 		 * resolving javascript references
 		 * @return the foreign key relationship api name, or null if this isn't a foreign key
 		 */
-	    String getForeignKeyRelationshipName();
+	    default String getForeignKeyRelationshipName() {
+	    	return null;
+	    }
 
 	}
 	

@@ -13,6 +13,7 @@ import java.util.*;
 import com.force.formula.*;
 import com.force.formula.commands.*;
 import com.force.formula.sql.*;
+import com.force.formula.util.FormulaFieldReferenceInfoImpl;
 import com.force.i18n.BaseLocalizer;
 import com.google.common.base.CharMatcher;
 

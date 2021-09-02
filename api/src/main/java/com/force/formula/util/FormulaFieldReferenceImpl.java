@@ -3,7 +3,7 @@
  * All Rights Reserved
  * Company Confidential
  */
-package com.force.formula.impl;
+package com.force.formula.util;
 
 import javax.annotation.concurrent.Immutable;
 

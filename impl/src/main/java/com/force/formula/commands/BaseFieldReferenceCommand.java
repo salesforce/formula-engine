@@ -6,8 +6,8 @@
 package com.force.formula.commands;
 
 import com.force.formula.*;
-import com.force.formula.impl.FormulaFieldReferenceImpl;
 import com.force.formula.template.commands.DynamicReference.DynamicReferenceCommand;
+import com.force.formula.util.FormulaFieldReferenceImpl;
 
 /**
  * Common base class used by StaticFieldReferenceCommand and DynamicReferenceCommand
