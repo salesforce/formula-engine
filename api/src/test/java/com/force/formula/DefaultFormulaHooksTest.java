@@ -25,5 +25,9 @@ public class DefaultFormulaHooksTest extends TestCase {
 
         FormulaTime time = def.constructTime(8640000);
         assertEquals(8640000, time.getMillisecond());
+        
+        assertNull(def.constructGeolocation(null, null));
     }
+    
+    
 }

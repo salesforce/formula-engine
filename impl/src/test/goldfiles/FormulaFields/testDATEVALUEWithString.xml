@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDATEVALUEWithString">
+   <testInstance formula="datevalue(customtext1__c)" returntype="DateOnly">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>TO_DATE($!s0s!$.customtext1__c, 'YYYY-MM-DD')</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>TO_DATE($!s0s!$.customtext1__c, 'YYYY-MM-DD')</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>TO_DATE($!s0s!$.customtext1__c, 'YYYY-MM-DD')</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>TO_DATE($!s0s!$.customtext1__c, 'YYYY-MM-DD')</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+      <result>
+      <inputvalues>[2005-01-02]</inputvalues>
+         <formula>Sun Jan 02 00:00:00 GMT 2005</formula>
+         <javascript>Sun Jan 02 00:00:00 GMT 2005</javascript>
+         <javascriptLp>Sun Jan 02 00:00:00 GMT 2005</javascriptLp>
+         <formulaNullAsNull>Sun Jan 02 00:00:00 GMT 2005</formulaNullAsNull>
+         <javascriptNullAsNull>Sun Jan 02 00:00:00 GMT 2005</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Sun Jan 02 00:00:00 GMT 2005</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-1-2]</inputvalues>
+         <formula>Sun Jan 02 00:00:00 GMT 2005</formula>
+         <javascript>Sun Jan 02 00:00:00 GMT 2005</javascript>
+         <javascriptLp>Sun Jan 02 00:00:00 GMT 2005</javascriptLp>
+         <formulaNullAsNull>Sun Jan 02 00:00:00 GMT 2005</formulaNullAsNull>
+         <javascriptNullAsNull>Sun Jan 02 00:00:00 GMT 2005</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Sun Jan 02 00:00:00 GMT 2005</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[9999-01-15]</inputvalues>
+         <formula>Fri Jan 15 00:00:00 GMT 9999</formula>
+         <javascript>Fri Jan 15 00:00:00 GMT 9999</javascript>
+         <javascriptLp>Fri Jan 15 00:00:00 GMT 9999</javascriptLp>
+         <formulaNullAsNull>Fri Jan 15 00:00:00 GMT 9999</formulaNullAsNull>
+         <javascriptNullAsNull>Fri Jan 15 00:00:00 GMT 9999</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Fri Jan 15 00:00:00 GMT 9999</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0001-01-15]</inputvalues>
+         <formula>Sat Jan 15 00:00:00 GMT 1</formula>
+         <javascript>Mon Jan 17 00:00:00 GMT 1</javascript>
+         <javascriptLp>Mon Jan 17 00:00:00 GMT 1</javascriptLp>
+         <formulaNullAsNull>Sat Jan 15 00:00:00 GMT 1</formulaNullAsNull>
+         <javascriptNullAsNull>Mon Jan 17 00:00:00 GMT 1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Mon Jan 17 00:00:00 GMT 1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200-01-03]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Fri Jan 04 00:00:00 GMT 200</javascript>
+         <javascriptLp>Fri Jan 04 00:00:00 GMT 200</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Fri Jan 04 00:00:00 GMT 200</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Fri Jan 04 00:00:00 GMT 200</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200-1-3]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Fri Jan 04 00:00:00 GMT 200</javascript>
+         <javascriptLp>Fri Jan 04 00:00:00 GMT 200</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Fri Jan 04 00:00:00 GMT 200</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Fri Jan 04 00:00:00 GMT 200</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2-1-3]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Sat Feb 01 00:00:00 GMT 2003</javascript>
+         <javascriptLp>Sat Feb 01 00:00:00 GMT 2003</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Sat Feb 01 00:00:00 GMT 2003</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Sat Feb 01 00:00:00 GMT 2003</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-13-02]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
+         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-02-31]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Thu Mar 03 00:00:00 GMT 2005</javascript>
+         <javascriptLp>Thu Mar 03 00:00:00 GMT 2005</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Thu Mar 03 00:00:00 GMT 2005</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Thu Mar 03 00:00:00 GMT 2005</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-03-32]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
+         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[crapola]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
+         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000-0-2]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
+         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0000-12-12]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Tue Dec 14 00:00:00 GMT 1</javascript>
+         <javascriptLp>Tue Dec 14 00:00:00 GMT 1</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Tue Dec 14 00:00:00 GMT 1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Tue Dec 14 00:00:00 GMT 1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0-12-12]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Tue Dec 12 00:00:00 GMT 2000</javascript>
+         <javascriptLp>Tue Dec 12 00:00:00 GMT 2000</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Tue Dec 12 00:00:00 GMT 2000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Tue Dec 12 00:00:00 GMT 2000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2020-11-00]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
+         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

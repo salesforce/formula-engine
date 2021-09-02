@@ -134,8 +134,8 @@ public class FormulaTestUtils {
     }
 
     // TODO: SY - get rid of this clugy stuff, and implement a generic one
-    public static List<List> getSwapSets(int noOfArgs) {
-        List<List> swapSets = new ArrayList<List>();
+    public static List<List<String>> getSwapSets(int noOfArgs) {
+        List<List<String>> swapSets = new ArrayList<List<String>>();
 
         if (noOfArgs > 1) {
             String[][] combinations = { { "number", "number", "number" }, { "number", "number", "currency" },

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCommentsInsideFormula">
+   <testInstance formula="/* comment */ IF /* comment */(YEAR(TODAY()) = 2009 /* comment */, 0,0) /** comment **/" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>CASE WHEN (EXTRACT (YEAR FROM __TODAY__)::numeric=2009) THEN 0 ELSE 0 END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>CASE WHEN (EXTRACT (YEAR FROM __TODAY__)::numeric=2009) THEN 0 ELSE 0 END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>CASE WHEN (EXTRACT (YEAR FROM __TODAY__)=2009) THEN 0 ELSE 0 END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>CASE WHEN (EXTRACT (YEAR FROM __TODAY__)=2009) THEN 0 ELSE 0 END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">((new $F.Decimal(new Date(new Date().setUTCHours(0,0,0,0)).getUTCFullYear())).eq(new $F.Decimal('2009'))?new $F.Decimal('0'):new $F.Decimal('0'))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">((new $F.Decimal(new Date(new Date().setUTCHours(0,0,0,0)).getUTCFullYear())).eq(new $F.Decimal('2009'))?new $F.Decimal('0'):new $F.Decimal('0'))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((new Date(new Date().setUTCHours(0,0,0,0)).getUTCFullYear())==(2009)?0:0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((new Date(new Date().setUTCHours(0,0,0,0)).getUTCFullYear())==(2009)?0:0)</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

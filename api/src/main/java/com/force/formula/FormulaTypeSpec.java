@@ -20,19 +20,22 @@ public interface FormulaTypeSpec {
      */
     public int getMaxLength();
     
+    /**
+     * @return a display suitable for putting in errors
+     */
     public String getDisplay();
     
+    /**
+     * @return the default properties to use with this FormulaType
+     */
     public FormulaProperties getDefaultProperties();
     
     default boolean isTemplate() {
         return false;
     }
    
+    // Set to true if encrypted fields should be returned as text
     default boolean allowsLegacyEncryptedFields() {
-        return false;
-    }
-    
-    default boolean allowSpanningFormulas() {
         return false;
     }
     

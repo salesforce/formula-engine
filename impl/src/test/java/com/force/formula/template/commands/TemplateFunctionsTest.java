@@ -1,13 +1,15 @@
 /**
  * 
  */
-package com.force.formula.commands;
+package com.force.formula.template.commands;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import com.force.formula.*;
+import com.force.formula.commands.FormulaCommandInfo;
+import com.force.formula.commands.FunctionFormat;
 import com.force.formula.impl.*;
 
 /**
@@ -33,7 +35,7 @@ public class TemplateFunctionsTest extends ParserTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         oldHooks = FormulaEngine.getHooks();
-        FormulaEngine.setHooks(BuiltinFunctionsTest.GMT_LOCALIZED_HOOKS);
+        FormulaEngine.setHooks(getHooksOverrideLocalizer(oldHooks, GMT_LOCALIZER));
     }
 
     @Override
@@ -41,11 +43,14 @@ public class TemplateFunctionsTest extends ParserTestBase {
         FormulaEngine.setHooks(oldHooks);
     }
 
+    
 
     static final FormulaFactoryImpl TEST_FACTORY;
     static {
         List<FormulaCommandInfo> types = new ArrayList<>(FormulaCommandTypeRegistryImpl.getDefaultCommands());
+        // Test format and template parsing
         types.add(new FunctionFormat());
+        types.add(new FunctionTemplate());
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
     }
 
@@ -83,7 +88,7 @@ public class TemplateFunctionsTest extends ParserTestBase {
             assertEquals("2005-01-03",  evaluateString("TEXT(date(2005,1,3))")); 
             assertEquals("08:34:56.789",  evaluateString("TEXT(timeValue(\"08:34:56.789\"))")); 
 
-            FormulaEngine.setHooks(BuiltinFunctionsTest.PST_LOCALIZED_HOOKS);
+            FormulaEngine.setHooks(getHooksOverrideLocalizer(oldHooks, PST_LOCALIZER));
             assertEquals("2/29/2016, 5:15 AM",  evaluateString("FORMAT(DATETIMEVALUE(\"" + LEAP + "\"))")); 
             assertEquals("1/3/2005",  evaluateString("FORMAT(date(2005,1,3))")); 
             assertEquals("12:34 AM",  evaluateString("FORMAT(timeValue(\"08:34:56.789\"))")); 
@@ -158,4 +163,117 @@ public class TemplateFunctionsTest extends ParserTestBase {
         }
         return result;
     }
+    
+
+    /**
+     * Verify various formats for number formula type ( valid and invalid)
+     * @priority Medium
+     * @hierarchy Declarative App Builder.Formula Fields.Format
+     * @userStory Annotation Debt
+     *
+     */
+    public void testTemplateFormatNumber() throws Exception {
+        FormulaFactory oldFactory = FormulaEngine.getFactory();
+        try {
+            FormulaEngine.setFactory(TEST_FACTORY);
+            String expression = "This is a test of format {!format(100.0)}";
+            assertTemplateFormula("This is a test of format 100", expression);
+    
+            expression = "This is a test of format {!format(10000.05)}";
+            assertTemplateFormula("This is a test of format 10,000.05", expression);
+    
+            expression = "This is a test of format {!format(100.0,\"0.0#'%'\")}";
+            assertTemplateFormula("This is a test of format 100.0%", expression);
+    
+            expression = "This is a test of format {!format(100.0,\"INVALID\")}";
+            assertTemplateFormula("This is a test of format INVALID100", expression);
+        } finally {
+            FormulaEngine.setFactory(oldFactory);
+        }
+    }
+
+    /**
+     * Verify various formats for Date formula type ( valid and invalid)
+     * @priority Medium
+     * @hierarchy Declarative App Builder.Formula Fields.Format
+     * @userStory Annotation Debt
+     *
+     */
+    public void testTemplateFormatDate() throws Exception {
+        FormulaFactory oldFactory = FormulaEngine.getFactory();
+        try {
+            FormulaEngine.setFactory(TEST_FACTORY);
+             String expression = "This is a test of format {!format(DATE(2007,7,26))}";
+            assertTemplateFormula("This is a test of format 7/26/2007", expression);
+    
+            expression = "This is a test of format {!format(DATE(2007,7,26),\"yyyy-MM-dd\")}";
+            assertTemplateFormula("This is a test of format 2007-07-26", expression);
+    
+    
+            expression = "This is a test of format {!format(DATE(2007,7,26),\"INVALID\")}";
+            try {
+                assertTemplateFormula(null, expression);
+                fail();
+            } catch (FormulaEvaluationException ex) {
+                assertTrue(ex.getMessage(), ex.getMessage().contains("Illegal pattern character"));
+            }
+        } finally {
+            FormulaEngine.setFactory(oldFactory);
+        }
+    }
+
+
+
+    /**
+     * Verify various formats for Text formula type ( valid and invalid)
+     * @priority Medium
+     * @hierarchy Declarative App Builder.Formula Fields.Format
+     * @userStory Annotation Debt
+     *
+     */
+    public void testTemplateFormatText() throws Exception {
+        FormulaFactory oldFactory = FormulaEngine.getFactory();
+        try {
+            FormulaEngine.setFactory(TEST_FACTORY);
+            String expression = "This is a test of format {!format()}";
+            try {
+                assertTemplateFormula(null, expression);
+                fail();
+            } catch (WrongNumberOfArgumentsException ex) {
+                assertTrue(ex.getMessage(), ex.getMessage().contains("Incorrect number of parameters"));
+            }
+    
+            expression = "This is a test of format {!format(\"USD\")}";
+            assertTemplateFormula("This is a test of format USD", expression);
+    
+            expression = "This is a test of format {!format(\"USD\",\"USD\")}";
+            assertTemplateFormula("This is a test of format USD", expression);
+    
+            expression = "This is a test of format {!format(\"Test {1}\",\"USD\",\"USD\")}";
+            assertTemplateFormula("This is a test of format Test USD", expression);
+    
+            expression = "This is a test of format {!format(\"Test {0}\",\"USD\",\"USD\")}";
+            assertTemplateFormula("This is a test of format Test USD", expression);
+    
+            expression = "This is a test of format {!format(\"Test {0}\",null,\"USD\")}";
+            assertTemplateFormula("This is a test of format Test ", expression);
+    
+            try {
+                expression = "This is a test of format {!format(\"Test {0}\",10.0,\"USD\")}";
+                assertTemplateFormula("This is a test of format Test null", expression);
+                fail();
+            }
+            catch (WrongArgumentTypeException ex) {
+                assertTrue(ex.getMessage(), ex.getMessage().contains("Incorrect parameter type"));
+            }
+    
+            expression = "This is a test of format {!format(\"Test {3}\",\"USD\",\"USD\")}";
+            assertTemplateFormula("This is a test of format Test {3}", expression);
+        } finally {
+            FormulaEngine.setFactory(oldFactory);
+        }
+    }
+
+
+
 }

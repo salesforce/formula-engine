@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfReturningNullForDateTimeType">
+   <testInstance formula="if(true, if(false, null, null), NOW())" returntype="DateTime">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>NULL</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>NULL</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>NULL</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>NULL</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">null</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -12,6 +12,8 @@ import java.math.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -20,7 +22,7 @@ import org.xml.sax.SAXException;
 import com.force.formula.*;
 import com.force.formula.commands.FormulaJsTestUtils;
 import com.force.formula.impl.FormulaTestCaseInfo.CompareType;
-import com.force.formula.impl.FormulaTestCaseInfo.EvaluationContext;
+import com.force.formula.impl.FormulaTestCaseInfo.DefaultEvaluationContext;
 import com.force.formula.util.FormulaI18nUtils;
 
 /*
@@ -39,6 +41,7 @@ import com.force.formula.util.FormulaI18nUtils;
  * @since 140
  */
 public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
+    private static final Logger logger = Logger.getLogger("com.force.formula");
 
 	private static String[] KEYS = new String[] {"formula", "javascript", "javascriptLp", "formulaNullAsNull", "javascriptNullAsNull", "javascriptLpNullAsNull"};
 
@@ -61,14 +64,14 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		return true;
 	}
 
-	private static class FormulaGenericTest extends BaseFormulaGenericTest {
+	protected static class FormulaGenericTest extends BaseFormulaGenericTest {
 		public FormulaGenericTest(FormulaTestCaseInfo testCase, String name, boolean positive, FormulaGenericTests suite) {
 			super(testCase, name, positive, suite);
 		}
 
 		@Override
 		protected String getDirectory() {
-			return "target/FormulaFields";
+			return "src/test/goldfiles/FormulaFields";
 		}
 
 		@Override
@@ -112,7 +115,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		protected void getResultsViaMultiplePaths(Map<String, String> results, FieldDefinitionInfo fieldInfo,
 				String entityRecId) throws Exception {
 			Map<String,Object> entityObject = getData(entityRecId);
-			if (getTestCaseInfo().evalForContext(EvaluationContext.Formula)) {
+			if (getTestCaseInfo().evalForContext(DefaultEvaluationContext.Formula)) {
 				getFormulaValues(results, fieldInfo, entityObject, false);
 				getFormulaValues(results, fieldInfo, entityObject, true);
 			}
@@ -136,11 +139,13 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				value = FormulaI18nUtils.formatResult(formulaContext, formulaContext.getFormulaReturnType(), value);
 				return value == null ? null : String.valueOf(value);
 			} catch (Throwable e) {
+				logger.log(Level.FINER, "Error in javascript", e);
 				return "Error: " + e.getMessage();
+				
 			}
 		}
 
-		private void getFormulaValues(Map<String, String> results, FieldDefinitionInfo fieldInfo, Map<String,Object> entityObject, boolean nullAsNull) throws Exception {
+		protected void getFormulaValues(Map<String, String> results, FieldDefinitionInfo fieldInfo, Map<String,Object> entityObject, boolean nullAsNull) throws Exception {
 			String keySuffix = nullAsNull ? "NullAsNull" : "";
 			String valueViaJavascript = null;
 			String valueViaJavascriptLp = null;  // Low precision

@@ -89,7 +89,16 @@ public class FormulaEngine {
         try {
             hooksClasses.add(Class.forName("com.force.formula.impl.FormulaValidationHooks"));
         } catch (ClassNotFoundException e1) {
-        	throw new RuntimeException(e1); // Mabye assume we're in test.  It's ok.
+        	boolean isInTest = false;
+			for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+				if (element.getClassName().startsWith("junit.framework.")) {
+					isInTest = true;
+					break;
+				}
+			}
+			if (!isInTest) {
+				throw new RuntimeException(e1);
+			}
         }
         hooksRef.set((FormulaEngineHooks) Proxy.newProxyInstance(FormulaEngine.class.getClassLoader(), hooksClasses.toArray(new Class[hooksClasses.size()]), call_default_handler));
 

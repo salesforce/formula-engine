@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFindOnText">
+   <testInstance formula="FIND(&quot;Text&quot;, customText1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>NVL(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>NVL(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>NVL(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>NVL(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)</JsOutput>
+      <result>
+      <inputvalues>[Text]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Hello]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

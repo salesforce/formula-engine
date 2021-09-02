@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfOrNull">
+   <testInstance formula="IF(OR(null,customcheckbox1__c),&quot;T&quot;,&quot;F&quot;) &amp; IF(OR(customcheckbox1__c,null),&quot;T&quot;,&quot;F&quot;)" returntype="Text">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>CASE WHEN ((1=0) OR (NVL($!s0s!$.customcheckbox1__c, '0') = '1')) THEN 'T' ELSE 'F' END || CASE WHEN ((NVL($!s0s!$.customcheckbox1__c, '0') = '1') OR (1=0)) THEN 'T' ELSE 'F' END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>CASE WHEN ((1=0) OR (NVL($!s0s!$.customcheckbox1__c, '0') = '1')) THEN 'T' ELSE 'F' END || CASE WHEN ((NVL($!s0s!$.customcheckbox1__c, '0') = '1') OR (1=0)) THEN 'T' ELSE 'F' END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>CASE WHEN ((1=0) OR (NVL($!s0s!$.customcheckbox1__c, '0') = '1')) THEN 'T' ELSE 'F' END || CASE WHEN ((NVL($!s0s!$.customcheckbox1__c, '0') = '1') OR (1=0)) THEN 'T' ELSE 'F' END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>CASE WHEN ((1=0) OR (NVL($!s0s!$.customcheckbox1__c, '0') = '1')) THEN 'T' ELSE 'F' END || CASE WHEN ((NVL($!s0s!$.customcheckbox1__c, '0') = '1') OR (1=0)) THEN 'T' ELSE 'F' END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(($F.nvl((null)||(context.record.customcheckbox1__c),false)?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl(($F.nvl((context.record.customcheckbox1__c)||(null),false)?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.nvl(($F.nvl((null)||(context.record.customcheckbox1__c),false)?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl(($F.nvl((context.record.customcheckbox1__c)||(null),false)?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(($F.nvl((null)||(context.record.customcheckbox1__c),false)?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl(($F.nvl((context.record.customcheckbox1__c)||(null),false)?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.nvl(($F.nvl((null)||(context.record.customcheckbox1__c),false)?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl(($F.nvl((context.record.customcheckbox1__c)||(null),false)?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+      <result>
+      <inputvalues>[true]</inputvalues>
+         <formula>TT</formula>
+         <javascript>TT</javascript>
+         <javascriptLp>TT</javascriptLp>
+         <formulaNullAsNull>TT</formulaNullAsNull>
+         <javascriptNullAsNull>TT</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TT</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[false]</inputvalues>
+         <formula>FF</formula>
+         <javascript>FF</javascript>
+         <javascriptLp>FF</javascriptLp>
+         <formulaNullAsNull>FF</formulaNullAsNull>
+         <javascriptNullAsNull>FF</javascriptNullAsNull>
+         <javascriptLpNullAsNull>FF</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSqrtUsesFloor">
+   <testInstance formula="SQRT(FLOOR(customnumber1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>SQRT(CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END)</Sql><Guard>CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END&lt;0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>SQRT(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END)</Sql><Guard>CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END&lt;0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>SQRT(CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END)</Sql><Guard>CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END&lt;0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>SQRT(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END)</Sql><Guard>CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END&lt;0       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.sqrt(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).isPos()?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).floor():$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).ceil()))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?($F.Decimal.sqrt((context.record.customnumber1__c.isPos()?context.record.customnumber1__c.toDP(18).floor():context.record.customnumber1__c.toDP(18).ceil()))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.sqrt((($F.nvl(context.record.customnumber1__c,0))&gt;=0?Math.floor($F.nvl(context.record.customnumber1__c,0)):Math.ceil($F.nvl(context.record.customnumber1__c,0))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.sqrt(((context.record.customnumber1__c)&gt;=0?Math.floor(context.record.customnumber1__c):Math.ceil(context.record.customnumber1__c)))):null</JsOutput>
+      <result>
+      <inputvalues>[20.842345]</inputvalues>
+         <formula>4.47213595499958</formula>
+         <javascript>4.47213595499958</javascript>
+         <javascriptLp>4.472136</javascriptLp>
+         <formulaNullAsNull>4.47213595499958</formulaNullAsNull>
+         <javascriptNullAsNull>4.47213595499958</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4.472136</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.54321]</inputvalues>
+         <formula>11111.111060555555</formula>
+         <javascript>11111.111060555555</javascript>
+         <javascriptLp>11111.1110606</javascriptLp>
+         <formulaNullAsNull>11111.111060555555</formulaNullAsNull>
+         <javascriptNullAsNull>11111.111060555555</javascriptNullAsNull>
+         <javascriptLpNullAsNull>11111.1110606</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789]</inputvalues>
+         <formula>11111.111060555555</formula>
+         <javascript>11111.111060555555</javascript>
+         <javascriptLp>11111.1110606</javascriptLp>
+         <formulaNullAsNull>11111.111060555555</formulaNullAsNull>
+         <javascriptNullAsNull>11111.111060555555</javascriptNullAsNull>
+         <javascriptLpNullAsNull>11111.1110606</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[49.55]</inputvalues>
+         <formula>7.0</formula>
+         <javascript>7</javascript>
+         <javascriptLp>7</javascriptLp>
+         <formulaNullAsNull>7.0</formulaNullAsNull>
+         <javascriptNullAsNull>7</javascriptNullAsNull>
+         <javascriptLpNullAsNull>7</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.00034]</inputvalues>
+         <formula>0.0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.244]</inputvalues>
+         <formula>0.0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[25.7456]</inputvalues>
+         <formula>5.0</formula>
+         <javascript>5</javascript>
+         <javascriptLp>5</javascriptLp>
+         <formulaNullAsNull>5.0</formulaNullAsNull>
+         <javascriptNullAsNull>5</javascriptNullAsNull>
+         <javascriptLpNullAsNull>5</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[64.456]</inputvalues>
+         <formula>8.0</formula>
+         <javascript>8</javascript>
+         <javascriptLp>8</javascriptLp>
+         <formulaNullAsNull>8.0</formulaNullAsNull>
+         <javascriptNullAsNull>8</javascriptNullAsNull>
+         <javascriptLpNullAsNull>8</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.4]</inputvalues>
+         <formula>0.0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.7]</inputvalues>
+         <formula>0.0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.4]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.7]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

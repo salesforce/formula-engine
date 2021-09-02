@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubtractTwoTimeFields">
+   <testInstance formula="TimeValue(timeString2__c) - TimeValue(timeString1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000-TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000+86400000,86400000)</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.timeString1__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */  OR  NOT REGEXP_LIKE ($!s0s!$.timeString2__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000-TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000+86400000,86400000)</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.timeString1__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */  OR  NOT REGEXP_LIKE ($!s0s!$.timeString2__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000-TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000+86400000,86400000)</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.timeString1__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */  OR  NOT REGEXP_LIKE ($!s0s!$.timeString2__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000-TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000+86400000,86400000)</Sql><Guard> NOT REGEXP_LIKE ($!s0s!$.timeString1__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */  OR  NOT REGEXP_LIKE ($!s0s!$.timeString2__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */        </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?((new $F.Decimal(new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000).mod(86400000))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?((new $F.Decimal(new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000).mod(86400000))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?(((new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000)%86400000)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?(((new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000)%86400000)):null</JsOutput>
+      <result>
+      <inputvalues>[10:34:55.666, 23:59:59.999]</inputvalues>
+         <formula>48304333</formula>
+         <javascript>48304333</javascript>
+         <javascriptLp>48304333</javascriptLp>
+         <formulaNullAsNull>48304333</formulaNullAsNull>
+         <javascriptNullAsNull>48304333</javascriptNullAsNull>
+         <javascriptLpNullAsNull>48304333</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:59:59.999, 10:34:55.666]</inputvalues>
+         <formula>38095667</formula>
+         <javascript>38095667</javascript>
+         <javascriptLp>38095667</javascriptLp>
+         <formulaNullAsNull>38095667</formulaNullAsNull>
+         <javascriptNullAsNull>38095667</javascriptNullAsNull>
+         <javascriptLpNullAsNull>38095667</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:56:45.898, 01:00:00.000]</inputvalues>
+         <formula>3794102</formula>
+         <javascript>3794102</javascript>
+         <javascriptLp>3794102</javascriptLp>
+         <formulaNullAsNull>3794102</formulaNullAsNull>
+         <javascriptNullAsNull>3794102</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3794102</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 23:56:45.898]</inputvalues>
+         <formula>82605898</formula>
+         <javascript>82605898</javascript>
+         <javascriptLp>82605898</javascriptLp>
+         <formulaNullAsNull>82605898</formulaNullAsNull>
+         <javascriptNullAsNull>82605898</javascriptNullAsNull>
+         <javascriptLpNullAsNull>82605898</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.345, 00:00:29.245]</inputvalues>
+         <formula>86399900</formula>
+         <javascript>86399900</javascript>
+         <javascriptLp>86399900</javascriptLp>
+         <formulaNullAsNull>86399900</formulaNullAsNull>
+         <javascriptNullAsNull>86399900</javascriptNullAsNull>
+         <javascriptLpNullAsNull>86399900</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.245, 00:00:29.345]</inputvalues>
+         <formula>100</formula>
+         <javascript>100</javascript>
+         <javascriptLp>100</javascriptLp>
+         <formulaNullAsNull>100</formulaNullAsNull>
+         <javascriptNullAsNull>100</javascriptNullAsNull>
+         <javascriptLpNullAsNull>100</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:00.000, 01:00:00.000]</inputvalues>
+         <formula>3600000</formula>
+         <javascript>3600000</javascript>
+         <javascriptLp>3600000</javascriptLp>
+         <formulaNullAsNull>3600000</formulaNullAsNull>
+         <javascriptNullAsNull>3600000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3600000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:00.000]</inputvalues>
+         <formula>82800000</formula>
+         <javascript>82800000</javascript>
+         <javascriptLp>82800000</javascriptLp>
+         <formulaNullAsNull>82800000</formulaNullAsNull>
+         <javascriptNullAsNull>82800000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>82800000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, ]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 01:00:00.000]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 01:66:29.345]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>82800000</javascript>
+         <javascriptLp>82800000</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>82800000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>82800000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:66:29.345, 01:00:00.000]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <javascript>3600000</javascript>
+         <javascriptLp>3600000</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <javascriptNullAsNull>3600000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3600000</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -23,7 +23,11 @@ public class FormulaTestCaseInfo {
     // Whether to compare the results of the different evaluation methods.
     public static enum CompareType {Number, Text, Approximate, None, Date, DateTime, Default }
     // TODO: Make this an extensible enum to  be generic
-    public static enum EvaluationContext {Formula, Template, Visualforce, Workflow}
+    
+    public static interface EvaluationContext {
+    	
+    }
+    public static enum DefaultEvaluationContext implements EvaluationContext {Formula, Template}
 
     public FormulaTestCaseInfo(String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
                                List<FieldDefinitionInfo> referenceFields, String owner, String compareType, String evalContexts,  String compareTemplate,
@@ -57,27 +61,20 @@ public class FormulaTestCaseInfo {
         this.multipleResultTypes = multipleResultTypes;
     }
 
-    private Set<EvaluationContext> parseContext(String contexts) {
+    protected Set<EvaluationContext> parseContext(String contexts) {
         Set<EvaluationContext> ctx = new HashSet<EvaluationContext>(3);
         if ("none".equals(contexts)) {
             return ctx;
         }
         if ("formula".equals(contexts)) {
-           ctx.add(EvaluationContext.Formula);
+           ctx.add(DefaultEvaluationContext.Formula);
         }
         if ("template".equals(contexts)) {
-            ctx.add(EvaluationContext.Template);
-        }
-        if ("visualforce".equals(contexts)) {
-            ctx.add(EvaluationContext.Visualforce);
-        }
-        if ("workflow".equals(contexts)) {
-            ctx.add(EvaluationContext.Workflow);
+            ctx.add(DefaultEvaluationContext.Template);
         }
         if (ctx.size() == 0) {
-            ctx.add(EvaluationContext.Formula);
-            ctx.add(EvaluationContext.Template);
-            ctx.add(EvaluationContext.Visualforce);
+            ctx.add(DefaultEvaluationContext.Formula);
+            ctx.add(DefaultEvaluationContext.Template);
         }
         return ctx;
     }
@@ -202,12 +199,12 @@ public class FormulaTestCaseInfo {
         List<FormulaTestRunnable> resultList = new LinkedList<FormulaTestRunnable>();
         Map<String, FieldDefinitionInfo> listOfFieldsUsedForRunnables = new HashMap<String, FieldDefinitionInfo>();
 
-        for (List perm : FormulaTestUtils.getSwapSets(swappableFieldCount)) {
+        for (List<String> perm : FormulaTestUtils.getSwapSets(swappableFieldCount)) {
 
             // If we've been told not to generate multiple result types (visualforce usage) then
             // filter out everything that isn't for the correct result type.
             if (!multipleResultTypes) {
-                String resultType = (String)perm.get(perm.size()-1);
+                String resultType = perm.get(perm.size()-1);
                 if (!resultType.equals(testCaseFieldInfo.getReturnType().getName())) {
                     continue;
                 }
@@ -223,10 +220,10 @@ public class FormulaTestCaseInfo {
             // to match the current swap set in loop.
             for (int i = perm.size() - 1; i >= 0; i--) {
                 if (i == perm.size() - 1) {
-                    newTcField.setReturnType(FormulaTestUtils.getDataType((String)perm.get(i)));
+                    newTcField.setReturnType(FormulaTestUtils.getDataType(perm.get(i)));
                     continue;
                 }
-                String newType = (String)perm.get(i);
+                String newType = perm.get(i);
                 FieldDefinitionInfo fieldInfo = this.referenceFields.get(i).clone();
                 String fieldName = fieldInfo.getDevName();
                 fieldInfo.setDevName(fieldName.replaceAll(fieldInfo.getReturnType().getName(), newType));

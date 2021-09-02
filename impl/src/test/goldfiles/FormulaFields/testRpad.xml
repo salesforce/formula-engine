@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRpad">
+   <testInstance formula="rpad(customText1__c,customNumber1__c)" returntype="Text">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>RPAD($!s0s!$.customText1__c, GREATEST(NVL($!s0s!$.customNumber1__c, 0), 0))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>RPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c, 0))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>RPAD($!s0s!$.customText1__c, GREATEST(NVL($!s0s!$.customNumber1__c, 0), 0))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>RPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c, 0))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?((context.record.customText1__c+Array(256).join(' ')).substring(0,$F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber())):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null&amp;&amp;context.record.customNumber1__c!=null)?((context.record.customText1__c+Array(256).join(' ')).substring(0,context.record.customNumber1__c.toNumber())):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null)?((context.record.customText1__c+Array(256).join(' ')).substring(0,$F.nvl(context.record.customNumber1__c,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null&amp;&amp;context.record.customNumber1__c!=null)?((context.record.customText1__c+Array(256).join(' ')).substring(0,context.record.customNumber1__c)):null</JsOutput>
+      <result>
+      <inputvalues>[, 0]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 5]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, -1]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 0]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 1]</inputvalues>
+         <formula>s</formula>
+         <javascript>s</javascript>
+         <javascriptLp>s</javascriptLp>
+         <formulaNullAsNull>s</formulaNullAsNull>
+         <javascriptNullAsNull>s</javascriptNullAsNull>
+         <javascriptLpNullAsNull>s</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 5]</inputvalues>
+         <formula>strin</formula>
+         <javascript>strin</javascript>
+         <javascriptLp>strin</javascriptLp>
+         <formulaNullAsNull>strin</formulaNullAsNull>
+         <javascriptNullAsNull>strin</javascriptNullAsNull>
+         <javascriptLpNullAsNull>strin</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 6]</inputvalues>
+         <formula>string</formula>
+         <javascript>string</javascript>
+         <javascriptLp>string</javascriptLp>
+         <formulaNullAsNull>string</formulaNullAsNull>
+         <javascriptNullAsNull>string</javascriptNullAsNull>
+         <javascriptLpNullAsNull>string</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, ]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

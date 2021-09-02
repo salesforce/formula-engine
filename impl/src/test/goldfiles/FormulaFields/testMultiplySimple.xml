@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMultiplySimple">
+   <testInstance formula="(customcurrency1__c*customcurrency2__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>(NVL($!s0s!$.customcurrency1__c, 0) * NVL($!s0s!$.customcurrency2__c, 0))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>($!s0s!$.customcurrency1__c * $!s0s!$.customcurrency2__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>(NVL($!s0s!$.customcurrency1__c, 0) * NVL($!s0s!$.customcurrency2__c, 0))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>($!s0s!$.customcurrency1__c * $!s0s!$.customcurrency2__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')).mul($F.nvl(context.record.customcurrency2__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null)?(context.record.customcurrency1__c.mul(context.record.customcurrency2__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customcurrency1__c,0)*$F.nvl(context.record.customcurrency2__c,0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null)?(context.record.customcurrency1__c*context.record.customcurrency2__c):null</JsOutput>
+      <result>
+      <inputvalues>[20, 40]</inputvalues>
+         <formula>800</formula>
+         <javascript>800</javascript>
+         <javascriptLp>800</javascriptLp>
+         <formulaNullAsNull>800</formulaNullAsNull>
+         <javascriptNullAsNull>800</javascriptNullAsNull>
+         <javascriptLpNullAsNull>800</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[12.234,  46.456]</inputvalues>
+         <formula>568.342704</formula>
+         <javascript>568.342704</javascript>
+         <javascriptLp>568.342704</javascriptLp>
+         <formulaNullAsNull>568.342704</formulaNullAsNull>
+         <javascriptNullAsNull>568.342704</javascriptNullAsNull>
+         <javascriptLpNullAsNull>568.342704</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-200,  -200]</inputvalues>
+         <formula>40000</formula>
+         <javascript>40000</javascript>
+         <javascriptLp>40000</javascriptLp>
+         <formulaNullAsNull>40000</formulaNullAsNull>
+         <javascriptNullAsNull>40000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>40000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0,  0]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789, 123456789]</inputvalues>
+         <formula>15241578750190521</formula>
+         <javascript>15241578750190520</javascript>
+         <javascriptLp>15241578750190520</javascriptLp>
+         <formulaNullAsNull>15241578750190521</formulaNullAsNull>
+         <javascriptNullAsNull>15241578750190520</javascriptNullAsNull>
+         <javascriptLpNullAsNull>15241578750190520</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, 123456789.123456789]</inputvalues>
+         <formula>15241578780673678.515622620750190521</formula>
+         <javascript>15241578780673678</javascript>
+         <javascriptLp>15241578780673680</javascriptLp>
+         <formulaNullAsNull>15241578780673678.515622620750190521</formulaNullAsNull>
+         <javascriptNullAsNull>15241578780673678</javascriptNullAsNull>
+         <javascriptLpNullAsNull>15241578780673680</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0024,  0.0050]</inputvalues>
+         <formula>0.00001200</formula>
+         <javascript>0.000012</javascript>
+         <javascriptLp>0.000012</javascriptLp>
+         <formulaNullAsNull>0.00001200</formulaNullAsNull>
+         <javascriptNullAsNull>0.000012</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.000012</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.00000009,  0.000000009]</inputvalues>
+         <formula>0.00000000000000081</formula>
+         <javascript>8.1E-16</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0.00000000000000081</formulaNullAsNull>
+         <javascriptNullAsNull>8.1E-16</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1,  -1]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-123456789.123456789, -0.00]</inputvalues>
+         <formula>0.00000000000</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0.00000000000</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0, -0]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

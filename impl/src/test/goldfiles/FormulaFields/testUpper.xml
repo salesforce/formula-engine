@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testUpper">
+   <testInstance formula="upper(customText1__c)" returntype="Text">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>UPPER($!s0s!$.customText1__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>UPPER($!s0s!$.customText1__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>NLS_UPPER($!s0s!$.customText1__c,'NLS_SORT=xwest_european')</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>NLS_UPPER($!s0s!$.customText1__c,'NLS_SORT=xwest_european')</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+      <result>
+      <inputvalues>[﻿]</inputvalues>
+         <formula>﻿</formula>
+         <javascript>﻿</javascript>
+         <javascriptLp>﻿</javascriptLp>
+         <formulaNullAsNull>﻿</formulaNullAsNull>
+         <javascriptNullAsNull>﻿</javascriptNullAsNull>
+         <javascriptLpNullAsNull>﻿</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CASES]</inputvalues>
+         <formula>CASES</formula>
+         <javascript>CASES</javascript>
+         <javascriptLp>CASES</javascriptLp>
+         <formulaNullAsNull>CASES</formulaNullAsNull>
+         <javascriptNullAsNull>CASES</javascriptNullAsNull>
+         <javascriptLpNullAsNull>CASES</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[cases]</inputvalues>
+         <formula>CASES</formula>
+         <javascript>CASES</javascript>
+         <javascriptLp>CASES</javascriptLp>
+         <formulaNullAsNull>CASES</formulaNullAsNull>
+         <javascriptNullAsNull>CASES</javascriptNullAsNull>
+         <javascriptLpNullAsNull>CASES</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CaSeS]</inputvalues>
+         <formula>CASES</formula>
+         <javascript>CASES</javascript>
+         <javascriptLp>CASES</javascriptLp>
+         <formulaNullAsNull>CASES</formulaNullAsNull>
+         <javascriptNullAsNull>CASES</javascriptNullAsNull>
+         <javascriptLpNullAsNull>CASES</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[große]</inputvalues>
+         <formula>GROSSE</formula>
+         <javascript>GROSSE</javascript>
+         <javascriptLp>GROSSE</javascriptLp>
+         <formulaNullAsNull>GROSSE</formulaNullAsNull>
+         <javascriptNullAsNull>GROSSE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>GROSSE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ångstrom]</inputvalues>
+         <formula>ÅNGSTROM</formula>
+         <javascript>ÅNGSTROM</javascript>
+         <javascriptLp>ÅNGSTROM</javascriptLp>
+         <formulaNullAsNull>ÅNGSTROM</formulaNullAsNull>
+         <javascriptNullAsNull>ÅNGSTROM</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ÅNGSTROM</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ÅNGSTROM]</inputvalues>
+         <formula>ÅNGSTROM</formula>
+         <javascript>ÅNGSTROM</javascript>
+         <javascriptLp>ÅNGSTROM</javascriptLp>
+         <formulaNullAsNull>ÅNGSTROM</formulaNullAsNull>
+         <javascriptNullAsNull>ÅNGSTROM</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ÅNGSTROM</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[idempotent]</inputvalues>
+         <formula>IDEMPOTENT</formula>
+         <javascript>IDEMPOTENT</javascript>
+         <javascriptLp>IDEMPOTENT</javascriptLp>
+         <formulaNullAsNull>IDEMPOTENT</formulaNullAsNull>
+         <javascriptNullAsNull>IDEMPOTENT</javascriptNullAsNull>
+         <javascriptLpNullAsNull>IDEMPOTENT</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ıdempotent]</inputvalues>
+         <formula>IDEMPOTENT</formula>
+         <javascript>IDEMPOTENT</javascript>
+         <javascriptLp>IDEMPOTENT</javascriptLp>
+         <formulaNullAsNull>IDEMPOTENT</formulaNullAsNull>
+         <javascriptNullAsNull>IDEMPOTENT</javascriptNullAsNull>
+         <javascriptLpNullAsNull>IDEMPOTENT</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[IDEMPOTENT]</inputvalues>
+         <formula>IDEMPOTENT</formula>
+         <javascript>IDEMPOTENT</javascript>
+         <javascriptLp>IDEMPOTENT</javascriptLp>
+         <formulaNullAsNull>IDEMPOTENT</formulaNullAsNull>
+         <javascriptNullAsNull>IDEMPOTENT</javascriptNullAsNull>
+         <javascriptLpNullAsNull>IDEMPOTENT</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[İDEMPOTENT]</inputvalues>
+         <formula>İDEMPOTENT</formula>
+         <javascript>İDEMPOTENT</javascript>
+         <javascriptLp>İDEMPOTENT</javascriptLp>
+         <formulaNullAsNull>İDEMPOTENT</formulaNullAsNull>
+         <javascriptNullAsNull>İDEMPOTENT</javascriptNullAsNull>
+         <javascriptLpNullAsNull>İDEMPOTENT</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

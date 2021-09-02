@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISBLANKWithEmail">
+   <testInstance formula="if(isblank(customemail1__c),null,customtextarea1__c)" returntype="Text">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customemail1__c IS NULL) THEN NULL ELSE $!s0s!$.customtextarea1__c END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>CASE WHEN ($!s0s!$.customemail1__c IS NULL) THEN NULL ELSE $!s0s!$.customtextarea1__c END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customemail1__c IS NULL) THEN NULL ELSE $!s0s!$.customtextarea1__c END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>CASE WHEN ($!s0s!$.customemail1__c IS NULL) THEN NULL ELSE $!s0s!$.customtextarea1__c END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">((null==context.record.customemail1__c)?null:context.record.customtextarea1__c)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">((null==context.record.customemail1__c)?null:context.record.customtextarea1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((null==context.record.customemail1__c)?null:context.record.customtextarea1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((null==context.record.customemail1__c)?null:context.record.customtextarea1__c)</JsOutput>
+      <result>
+      <inputvalues>[syendluri@yahoo.com, Not Null]</inputvalues>
+         <formula>Not Null</formula>
+         <javascript>Not Null</javascript>
+         <javascriptLp>Not Null</javascriptLp>
+         <formulaNullAsNull>Not Null</formulaNullAsNull>
+         <javascriptNullAsNull>Not Null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Not Null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[aa@ss.com,  Not Null]</inputvalues>
+         <formula> Not Null</formula>
+         <javascript> Not Null</javascript>
+         <javascriptLp> Not Null</javascriptLp>
+         <formulaNullAsNull> Not Null</formulaNullAsNull>
+         <javascriptNullAsNull> Not Null</javascriptNullAsNull>
+         <javascriptLpNullAsNull> Not Null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, Is Null]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

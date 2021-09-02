@@ -38,7 +38,7 @@ public enum FormulaI18nUtils {
                 if (result instanceof String) {
                     stringValue = (String)result;
                 } else {
-                    stringValue = Joiner.on("").join((Object[])result);
+                    stringValue = Joiner.on("").useForNull("null").join((Object[])result);
                 }
 
                 result = stringValue.substring(0, Math.min(stringValue.length(), FormulaInfo.MAX_STRING_VALUE_LENGTH));

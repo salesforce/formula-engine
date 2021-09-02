@@ -18,6 +18,7 @@ import com.force.formula.*;
 import com.force.formula.impl.FormulaTestCaseInfo.CompareType;
 import com.force.formula.impl.MapFormulaContext.MapEntity;
 import com.force.formula.impl.MapFormulaContext.MapFieldInfo;
+import com.force.formula.sql.FormulaWithSql;
 import com.force.formula.util.FormulaTextUtil;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
@@ -320,11 +321,17 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 			}
 			xmlOut.println("</testCase>");
 			xmlOut.flush();
+			xmlOut.close();
 
 			try {
 				File f = new File(getDirectory() + "/" + testCase.getName() + ".xml");
 				f.getParentFile().mkdirs();
-				Files.write(xml.toByteArray(), f);
+				
+				byte[] results = xml.toByteArray();
+				if (f.exists()) {
+					testPassed = compareXmlResults(f, results, testFailureMsg);
+				}				
+				Files.write(results, f);
 
 				Gson gson = new GsonBuilder().setPrettyPrinting()
 								.disableHtmlEscaping().serializeNulls().create();
@@ -341,7 +348,6 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 				testPassed = false;
 			}
 
-			xmlOut.close();
 
 			// If any test case resulted in mismatched results, fail now.
 			if (testPassed && firstValueMismatchMessage != null) {
@@ -351,6 +357,37 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 				testPassed = false;
 			}
 			return testPassed;
+		}
+		
+		protected boolean compareXmlResults(File f, byte[] xml, StringBuilder testFailureMsg) throws IOException {
+			byte[] contents = Files.asByteSource(f).read();
+			
+			if (!Arrays.equals(contents, xml)) {
+				testFailureMsg.append("\n\nTESTCASE: " + testCase.getName() +
+						" results changed from expected results.  Check gold file.\n");
+				return false;
+			} else {
+				return true;
+			}
+
+		}
+		
+		
+		/**
+		 * Print the evaluation expressions at the beginning of the goldfile.
+		 * @throws Exception 
+		 */
+		protected void outputEvalutionExpressions(FieldDefinitionInfo fieldInfo, PrintStream xmlOut, JestDataModel jestDataModel) throws Exception {
+			printOutputSql(fieldInfo, xmlOut, true, true);
+			printOutputSql(fieldInfo, xmlOut, false, true);
+			printOutputSql(fieldInfo, xmlOut, true, false);
+			printOutputSql(fieldInfo, xmlOut, false, false);
+			printOutputJavascript(fieldInfo, xmlOut, true, false, jestDataModel);
+			printOutputJavascript(fieldInfo, xmlOut, true, true, jestDataModel);
+			printOutputJavascript(fieldInfo, xmlOut, false, false, jestDataModel);
+			printOutputJavascript(fieldInfo, xmlOut, false, true, jestDataModel);
+
+
 		}
 
 		/**
@@ -369,10 +406,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 			try {
 				createTestFormulas(fieldInfo, entityRecId);
 
-				printOutputJavascript(fieldInfo, xmlOut, true, false, jestDataModel);
-				printOutputJavascript(fieldInfo, xmlOut, true, true, jestDataModel);
-				printOutputJavascript(fieldInfo, xmlOut, false, false, jestDataModel);
-				printOutputJavascript(fieldInfo, xmlOut, false, true, jestDataModel);
+				outputEvalutionExpressions(fieldInfo, xmlOut, jestDataModel);
 
 				List<FieldDefinitionInfo> fieldList = instance.getFieldNames();
 				if (fieldList.size() > 0) {
@@ -473,6 +507,34 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 			jscode.javascript = formula.toJavascript();
 			jestDataModel.jsCodes.add(jscode);
 		}
+		
+
+		/**
+		 * Get formula sizes for both SQL and guard and print them in the results file.
+		 *
+		 * These formula sizes are evaluated for Postgres Oracle and therefore different for
+		 * Sayonara DB. Please talk to Declarative App Builder team for further assistance.
+		 */
+		private void printOutputSql(FieldDefinitionInfo fieldInfo, PrintStream xmlOut, boolean nullAsNull, final boolean psql) throws Exception {
+			FormulaTypeSpec type = nullAsNull ? MockFormulaType.DEFAULT: MockFormulaType.NULLASNULL;
+			FormulaRuntimeContext formulaContext =  new MapFormulaContext(super.setupMockContext(fieldInfo.getReturnType()), mapEntity, type, null) {
+				@Override
+			    public boolean isSqlPostgresStyle() {
+			    	return psql;
+			    }
+			};
+			RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(type, formulaContext, fieldInfo.getFormula());
+			FormulaWithSql formula = (FormulaWithSql) formulaInfo.getFormula();
+
+			xmlOut.println("    <SqlOutput psql=\""+psql+"\" nullAsNull=\""+nullAsNull+"\">");
+			xmlOut.print("       <Sql>");
+			xmlOut.print(FormulaTextUtil.escapeToXml(formula.getSQLRaw()));
+			xmlOut.print("</Sql><Guard>");
+			xmlOut.print(FormulaTextUtil.escapeToXml(formula.getGuard()));
+			xmlOut.println("       </Guard>");
+			xmlOut.println("</SqlOutput>");
+		}
+
 
 		// This should return if it correctly fails to create the formula and
 		// throw exception if it creates it, or fails for some unexpected reason.
@@ -612,6 +674,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 				objects.put(entityRecId2, fieldData);
 			}
 		}
+		
 
 		// Adjust numeric results so gold file doesn't differ between machine architectures.
 		// This is used for template and visualforce evaluations which don't know about the precision specified

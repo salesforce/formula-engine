@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMCeilRound">
+   <testInstance formula="MCEILING((customnumber1__c/customnumber2__c)*customnumber2__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>CEIL(ROUND(((NVL($!s0s!$.customnumber1__c, 0)/NVL($!s0s!$.customnumber2__c, 0)) * NVL($!s0s!$.customnumber2__c, 0)),33))</Sql><Guard>NVL($!s0s!$.customnumber2__c, 0)=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>CEIL(ROUND((($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) * $!s0s!$.customnumber2__c),33))</Sql><Guard>$!s0s!$.customnumber2__c=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>CEIL(ROUND(((NVL($!s0s!$.customnumber1__c, 0)/NVL($!s0s!$.customnumber2__c, 0)) * NVL($!s0s!$.customnumber2__c, 0)),33))</Sql><Guard>NVL($!s0s!$.customnumber2__c, 0)=0       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>CEIL(ROUND((($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) * $!s0s!$.customnumber2__c),33))</Sql><Guard>$!s0s!$.customnumber2__c=0       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).div($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))).mul($F.nvl(context.record.customnumber2__c,new $F.Decimal('0')))).toDP(18).ceil()</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber2__c!=null)?((context.record.customnumber1__c.div(context.record.customnumber2__c).mul(context.record.customnumber2__c)).toDP(18).ceil()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(Math).ceil(($F.nvl(context.record.customnumber1__c,0)/$F.nvl(context.record.customnumber2__c,0))*$F.nvl(context.record.customnumber2__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber2__c!=null)?((Math).ceil((context.record.customnumber1__c/context.record.customnumber2__c)*context.record.customnumber2__c)):null</JsOutput>
+      <result>
+      <inputvalues>[1, 9]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2, 9]</inputvalues>
+         <formula>2</formula>
+         <javascript>2</javascript>
+         <javascriptLp>2</javascriptLp>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <javascriptNullAsNull>2</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3, 9]</inputvalues>
+         <formula>3</formula>
+         <javascript>3</javascript>
+         <javascriptLp>3</javascriptLp>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <javascriptNullAsNull>3</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[4, 9]</inputvalues>
+         <formula>4</formula>
+         <javascript>4</javascript>
+         <javascriptLp>4</javascriptLp>
+         <formulaNullAsNull>4</formulaNullAsNull>
+         <javascriptNullAsNull>4</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[5, 9]</inputvalues>
+         <formula>5</formula>
+         <javascript>5</javascript>
+         <javascriptLp>5</javascriptLp>
+         <formulaNullAsNull>5</formulaNullAsNull>
+         <javascriptNullAsNull>5</javascriptNullAsNull>
+         <javascriptLpNullAsNull>5</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[6, 9]</inputvalues>
+         <formula>6</formula>
+         <javascript>6</javascript>
+         <javascriptLp>6</javascriptLp>
+         <formulaNullAsNull>6</formulaNullAsNull>
+         <javascriptNullAsNull>6</javascriptNullAsNull>
+         <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[7, 9]</inputvalues>
+         <formula>7</formula>
+         <javascript>7</javascript>
+         <javascriptLp>7</javascriptLp>
+         <formulaNullAsNull>7</formulaNullAsNull>
+         <javascriptNullAsNull>7</javascriptNullAsNull>
+         <javascriptLpNullAsNull>7</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[8, 9]</inputvalues>
+         <formula>8</formula>
+         <javascript>8</javascript>
+         <javascriptLp>8</javascriptLp>
+         <formulaNullAsNull>8</formulaNullAsNull>
+         <javascriptNullAsNull>8</javascriptNullAsNull>
+         <javascriptLpNullAsNull>8</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 11]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2, 11]</inputvalues>
+         <formula>2</formula>
+         <javascript>2</javascript>
+         <javascriptLp>2</javascriptLp>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <javascriptNullAsNull>2</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3, 11]</inputvalues>
+         <formula>3</formula>
+         <javascript>3</javascript>
+         <javascriptLp>3</javascriptLp>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <javascriptNullAsNull>3</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[4, 11]</inputvalues>
+         <formula>4</formula>
+         <javascript>4</javascript>
+         <javascriptLp>4</javascriptLp>
+         <formulaNullAsNull>4</formulaNullAsNull>
+         <javascriptNullAsNull>4</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[5, 11]</inputvalues>
+         <formula>5</formula>
+         <javascript>5</javascript>
+         <javascriptLp>5</javascriptLp>
+         <formulaNullAsNull>5</formulaNullAsNull>
+         <javascriptNullAsNull>5</javascriptNullAsNull>
+         <javascriptLpNullAsNull>5</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[6, 11]</inputvalues>
+         <formula>6</formula>
+         <javascript>6</javascript>
+         <javascriptLp>6</javascriptLp>
+         <formulaNullAsNull>6</formulaNullAsNull>
+         <javascriptNullAsNull>6</javascriptNullAsNull>
+         <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[7, 11]</inputvalues>
+         <formula>7</formula>
+         <javascript>7</javascript>
+         <javascriptLp>7</javascriptLp>
+         <formulaNullAsNull>7</formulaNullAsNull>
+         <javascriptNullAsNull>7</javascriptNullAsNull>
+         <javascriptLpNullAsNull>7</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[8, 11]</inputvalues>
+         <formula>8</formula>
+         <javascript>8</javascript>
+         <javascriptLp>8</javascriptLp>
+         <formulaNullAsNull>8</formulaNullAsNull>
+         <javascriptNullAsNull>8</javascriptNullAsNull>
+         <javascriptLpNullAsNull>8</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[9, 11]</inputvalues>
+         <formula>9</formula>
+         <javascript>9</javascript>
+         <javascriptLp>9</javascriptLp>
+         <formulaNullAsNull>9</formulaNullAsNull>
+         <javascriptNullAsNull>9</javascriptNullAsNull>
+         <javascriptLpNullAsNull>9</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, 11]</inputvalues>
+         <formula>10</formula>
+         <javascript>10</javascript>
+         <javascriptLp>10</javascriptLp>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <javascriptNullAsNull>10</javascriptNullAsNull>
+         <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, 9]</inputvalues>
+         <formula>10</formula>
+         <javascript>10</javascript>
+         <javascriptLp>10</javascriptLp>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <javascriptNullAsNull>10</javascriptNullAsNull>
+         <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[11, 9]</inputvalues>
+         <formula>11</formula>
+         <javascript>11</javascript>
+         <javascriptLp>11</javascriptLp>
+         <formulaNullAsNull>11</formulaNullAsNull>
+         <javascriptNullAsNull>11</javascriptNullAsNull>
+         <javascriptLpNullAsNull>11</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[12, 9]</inputvalues>
+         <formula>12</formula>
+         <javascript>12</javascript>
+         <javascriptLp>12</javascriptLp>
+         <formulaNullAsNull>12</formulaNullAsNull>
+         <javascriptNullAsNull>12</javascriptNullAsNull>
+         <javascriptLpNullAsNull>12</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[13, 9]</inputvalues>
+         <formula>13</formula>
+         <javascript>13</javascript>
+         <javascriptLp>13</javascriptLp>
+         <formulaNullAsNull>13</formulaNullAsNull>
+         <javascriptNullAsNull>13</javascriptNullAsNull>
+         <javascriptLpNullAsNull>13</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[14, 9]</inputvalues>
+         <formula>14</formula>
+         <javascript>14</javascript>
+         <javascriptLp>14</javascriptLp>
+         <formulaNullAsNull>14</formulaNullAsNull>
+         <javascriptNullAsNull>14</javascriptNullAsNull>
+         <javascriptLpNullAsNull>14</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[15, 9]</inputvalues>
+         <formula>15</formula>
+         <javascript>15</javascript>
+         <javascriptLp>15</javascriptLp>
+         <formulaNullAsNull>15</formulaNullAsNull>
+         <javascriptNullAsNull>15</javascriptNullAsNull>
+         <javascriptLpNullAsNull>15</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[16, 9]</inputvalues>
+         <formula>16</formula>
+         <javascript>16</javascript>
+         <javascriptLp>16</javascriptLp>
+         <formulaNullAsNull>16</formulaNullAsNull>
+         <javascriptNullAsNull>16</javascriptNullAsNull>
+         <javascriptLpNullAsNull>16</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[17, 9]</inputvalues>
+         <formula>17</formula>
+         <javascript>17</javascript>
+         <javascriptLp>17</javascriptLp>
+         <formulaNullAsNull>17</formulaNullAsNull>
+         <javascriptNullAsNull>17</javascriptNullAsNull>
+         <javascriptLpNullAsNull>17</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[18, 9]</inputvalues>
+         <formula>18</formula>
+         <javascript>18</javascript>
+         <javascriptLp>18</javascriptLp>
+         <formulaNullAsNull>18</formulaNullAsNull>
+         <javascriptNullAsNull>18</javascriptNullAsNull>
+         <javascriptLpNullAsNull>18</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[19, 9]</inputvalues>
+         <formula>19</formula>
+         <javascript>19</javascript>
+         <javascriptLp>19</javascriptLp>
+         <formulaNullAsNull>19</formulaNullAsNull>
+         <javascriptNullAsNull>19</javascriptNullAsNull>
+         <javascriptLpNullAsNull>19</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

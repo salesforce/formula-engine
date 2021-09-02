@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextNum2">
+   <testInstance formula="Text(customnumber1__c)" returntype="Text">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>(TO_CHAR(NVL($!s0s!$.customnumber1__c, 0)))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>(TO_CHAR($!s0s!$.customnumber1__c))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>(TO_CHAR(NVL($!s0s!$.customnumber1__c, 0)))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>(TO_CHAR($!s0s!$.customnumber1__c))</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">&quot;&quot;+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(&quot;&quot;+context.record.customnumber1__c):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">&quot;&quot;+$F.nvl(context.record.customnumber1__c,0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(&quot;&quot;+context.record.customnumber1__c):null</JsOutput>
+      <result>
+      <inputvalues>[1234567890.0]</inputvalues>
+         <formula>1234567890</formula>
+         <javascript>1234567890</javascript>
+         <javascriptLp>1234567890</javascriptLp>
+         <formulaNullAsNull>1234567890</formulaNullAsNull>
+         <javascriptNullAsNull>1234567890</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1234567890</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1234567891.0]</inputvalues>
+         <formula>1234567891</formula>
+         <javascript>1234567891</javascript>
+         <javascriptLp>1234567891</javascriptLp>
+         <formulaNullAsNull>1234567891</formulaNullAsNull>
+         <javascriptNullAsNull>1234567891</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1234567891</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1234567890]</inputvalues>
+         <formula>1234567890</formula>
+         <javascript>1234567890</javascript>
+         <javascriptLp>1234567890</javascriptLp>
+         <formulaNullAsNull>1234567890</formulaNullAsNull>
+         <javascriptNullAsNull>1234567890</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1234567890</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1234567891]</inputvalues>
+         <formula>1234567891</formula>
+         <javascript>1234567891</javascript>
+         <javascriptLp>1234567891</javascriptLp>
+         <formulaNullAsNull>1234567891</formulaNullAsNull>
+         <javascriptNullAsNull>1234567891</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1234567891</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

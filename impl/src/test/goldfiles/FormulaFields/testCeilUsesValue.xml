@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCeilUsesValue">
+   <testInstance formula="CEILING(VALUE(customtext1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>CASE WHEN TO_NUMBER($!s0s!$.customtext1__c)&gt;=0 THEN CEIL(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) ELSE FLOOR(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) END</Sql><Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>CASE WHEN TO_NUMBER($!s0s!$.customtext1__c)&gt;=0 THEN CEIL(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) ELSE FLOOR(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) END</Sql><Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>CASE WHEN TO_NUMBER($!s0s!$.customtext1__c)&gt;=0 THEN CEIL(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) ELSE FLOOR(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) END</Sql><Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>CASE WHEN TO_NUMBER($!s0s!$.customtext1__c)&gt;=0 THEN CEIL(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) ELSE FLOOR(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) END</Sql><Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c).isPos()?$F.Decimal(context.record.customtext1__c).toDP(18).ceil():$F.Decimal(context.record.customtext1__c).toDP(18).floor())):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c).isPos()?$F.Decimal(context.record.customtext1__c).toDP(18).ceil():$F.Decimal(context.record.customtext1__c).toDP(18).floor())):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(((Number(context.record.customtext1__c))&gt;=0?Math.ceil(Number(context.record.customtext1__c)):Math.floor(Number(context.record.customtext1__c)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(((Number(context.record.customtext1__c))&gt;=0?Math.ceil(Number(context.record.customtext1__c)):Math.floor(Number(context.record.customtext1__c)))):null</JsOutput>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2]</inputvalues>
+         <formula>2</formula>
+         <javascript>2</javascript>
+         <javascriptLp>2</javascriptLp>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <javascriptNullAsNull>2</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1]</inputvalues>
+         <formula>-1</formula>
+         <javascript>-1</javascript>
+         <javascriptLp>-1</javascriptLp>
+         <formulaNullAsNull>-1</formulaNullAsNull>
+         <javascriptNullAsNull>-1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-10]</inputvalues>
+         <formula>-10</formula>
+         <javascript>-10</javascript>
+         <javascriptLp>-10</javascriptLp>
+         <formulaNullAsNull>-10</formulaNullAsNull>
+         <javascriptNullAsNull>-10</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-10</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-100]</inputvalues>
+         <formula>-100</formula>
+         <javascript>-100</javascript>
+         <javascriptLp>-100</javascriptLp>
+         <formulaNullAsNull>-100</formulaNullAsNull>
+         <javascriptNullAsNull>-100</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-100</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[56]</inputvalues>
+         <formula>56</formula>
+         <javascript>56</javascript>
+         <javascriptLp>56</javascriptLp>
+         <formulaNullAsNull>56</formulaNullAsNull>
+         <javascriptNullAsNull>56</javascriptNullAsNull>
+         <javascriptLpNullAsNull>56</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[110]</inputvalues>
+         <formula>110</formula>
+         <javascript>110</javascript>
+         <javascriptLp>110</javascriptLp>
+         <formulaNullAsNull>110</formulaNullAsNull>
+         <javascriptNullAsNull>110</javascriptNullAsNull>
+         <javascriptLpNullAsNull>110</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20]</inputvalues>
+         <formula>20</formula>
+         <javascript>20</javascript>
+         <javascriptLp>20</javascriptLp>
+         <formulaNullAsNull>20</formulaNullAsNull>
+         <javascriptNullAsNull>20</javascriptNullAsNull>
+         <javascriptLpNullAsNull>20</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

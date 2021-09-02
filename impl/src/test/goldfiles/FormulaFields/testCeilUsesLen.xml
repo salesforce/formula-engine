@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCeilUsesLen">
+   <testInstance formula="CEILING(LEN(customtext1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>CASE WHEN NVL(LENGTH($!s0s!$.customtext1__c),0)&gt;=0 THEN CEIL(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) ELSE FLOOR(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>CASE WHEN NVL(LENGTH($!s0s!$.customtext1__c),0)&gt;=0 THEN CEIL(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) ELSE FLOOR(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>CASE WHEN NVL(LENGTH($!s0s!$.customtext1__c),0)&gt;=0 THEN CEIL(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) ELSE FLOOR(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>CASE WHEN NVL(LENGTH($!s0s!$.customtext1__c),0)&gt;=0 THEN CEIL(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) ELSE FLOOR(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).isPos()?(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).toDP(18).ceil():(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).toDP(18).floor())</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).isPos()?(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).toDP(18).ceil():(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).toDP(18).floor())</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))&gt;=0?Math.ceil(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)):Math.floor(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))&gt;=0?Math.ceil(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)):Math.floor(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)))</JsOutput>
+      <result>
+      <inputvalues>[This is too good to be true]</inputvalues>
+         <formula>27</formula>
+         <javascript>27</javascript>
+         <javascriptLp>27</javascriptLp>
+         <formulaNullAsNull>27</formulaNullAsNull>
+         <javascriptNullAsNull>27</javascriptNullAsNull>
+         <javascriptLpNullAsNull>27</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[making a way]</inputvalues>
+         <formula>12</formula>
+         <javascript>12</javascript>
+         <javascriptLp>12</javascriptLp>
+         <formulaNullAsNull>12</formulaNullAsNull>
+         <javascriptNullAsNull>12</javascriptNullAsNull>
+         <javascriptLpNullAsNull>12</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blunder]</inputvalues>
+         <formula>7</formula>
+         <javascript>7</javascript>
+         <javascriptLp>7</javascriptLp>
+         <formulaNullAsNull>7</formulaNullAsNull>
+         <javascriptNullAsNull>7</javascriptNullAsNull>
+         <javascriptLpNullAsNull>7</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[makesense]</inputvalues>
+         <formula>9</formula>
+         <javascript>9</javascript>
+         <javascriptLp>9</javascriptLp>
+         <formulaNullAsNull>9</formulaNullAsNull>
+         <javascriptNullAsNull>9</javascriptNullAsNull>
+         <javascriptLpNullAsNull>9</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[does not make sense]</inputvalues>
+         <formula>19</formula>
+         <javascript>19</javascript>
+         <javascriptLp>19</javascriptLp>
+         <formulaNullAsNull>19</formulaNullAsNull>
+         <javascriptNullAsNull>19</javascriptNullAsNull>
+         <javascriptLpNullAsNull>19</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[working my way]</inputvalues>
+         <formula>14</formula>
+         <javascript>14</javascript>
+         <javascriptLp>14</javascriptLp>
+         <formulaNullAsNull>14</formulaNullAsNull>
+         <javascriptNullAsNull>14</javascriptNullAsNull>
+         <javascriptLpNullAsNull>14</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[e]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
+         <formula>172</formula>
+         <javascript>172</javascript>
+         <javascriptLp>172</javascriptLp>
+         <formulaNullAsNull>172</formulaNullAsNull>
+         <javascriptNullAsNull>172</javascriptNullAsNull>
+         <javascriptLpNullAsNull>172</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
+         <formula>52</formula>
+         <javascript>52</javascript>
+         <javascriptLp>52</javascriptLp>
+         <formulaNullAsNull>52</formulaNullAsNull>
+         <javascriptNullAsNull>52</javascriptNullAsNull>
+         <javascriptLpNullAsNull>52</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
+         <formula>57</formula>
+         <javascript>57</javascript>
+         <javascriptLp>57</javascriptLp>
+         <formulaNullAsNull>57</formulaNullAsNull>
+         <javascriptNullAsNull>57</javascriptNullAsNull>
+         <javascriptLpNullAsNull>57</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTimeCorners2">
+   <testInstance formula="(ceiling((customdatetime1__c-customdatetime2__c)*1440*60))" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>CASE WHEN (((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)) * 1440) * 60),33)) ELSE FLOOR(ROUND((((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)) * 1440) * 60),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>CASE WHEN (((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)) * 1440) * 60),33)) ELSE FLOOR(ROUND((((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)) * 1440) * 60),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>CASE WHEN ((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) ELSE FLOOR(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>CASE WHEN ((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) ELSE FLOOR(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?((new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).isPos()?new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).toDP(18).ceil():new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).toDP(18).floor())):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?((new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).isPos()?new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).toDP(18).ceil():new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).toDP(18).floor())):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?((((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000*1440*60)&gt;=0?Math.ceil((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000*1440*60):Math.floor((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000*1440*60))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?((((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000*1440*60)&gt;=0?Math.ceil((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000*1440*60):Math.floor((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000*1440*60))):null</JsOutput>
+      <result>
+      <inputvalues>[2004:12:31:11:01:00, 2004:12:31:11:00:00]</inputvalues>
+         <formula>60</formula>
+         <javascript>61</javascript>
+         <javascriptLp>60</javascriptLp>
+         <formulaNullAsNull>60</formulaNullAsNull>
+         <javascriptNullAsNull>61</javascriptNullAsNull>
+         <javascriptLpNullAsNull>60</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:01:00, 2004:12:31:09:00:00]</inputvalues>
+         <formula>7260</formula>
+         <javascript>7261</javascript>
+         <javascriptLp>7261</javascriptLp>
+         <formulaNullAsNull>7260</formulaNullAsNull>
+         <javascriptNullAsNull>7261</javascriptNullAsNull>
+         <javascriptLpNullAsNull>7261</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:01:00, 2004:12:30:11:00:00]</inputvalues>
+         <formula>86460</formula>
+         <javascript>86461</javascript>
+         <javascriptLp>86461</javascriptLp>
+         <formulaNullAsNull>86460</formulaNullAsNull>
+         <javascriptNullAsNull>86461</javascriptNullAsNull>
+         <javascriptLpNullAsNull>86461</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:01:00, 2004:12:20:11:00:00]</inputvalues>
+         <formula>950460</formula>
+         <javascript>950461</javascript>
+         <javascriptLp>950460</javascriptLp>
+         <formulaNullAsNull>950460</formulaNullAsNull>
+         <javascriptNullAsNull>950461</javascriptNullAsNull>
+         <javascriptLpNullAsNull>950460</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:12:00:00, 2004:12:30:11:00:00]</inputvalues>
+         <formula>90000</formula>
+         <javascript>90001</javascript>
+         <javascriptLp>90000</javascriptLp>
+         <formulaNullAsNull>90000</formulaNullAsNull>
+         <javascriptNullAsNull>90001</javascriptNullAsNull>
+         <javascriptLpNullAsNull>90000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:12:00:01, 2004:12:30:12:00:00]</inputvalues>
+         <formula>86401</formula>
+         <javascript>86401</javascript>
+         <javascriptLp>86401</javascriptLp>
+         <formulaNullAsNull>86401</formulaNullAsNull>
+         <javascriptNullAsNull>86401</javascriptNullAsNull>
+         <javascriptLpNullAsNull>86401</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+   <testInstance formula="(ceiling((customdatetime2__c-customdatetime1__c)*1440*60))" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>CASE WHEN (((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)) * 1440) * 60),33)) ELSE FLOOR(ROUND((((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)) * 1440) * 60),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>CASE WHEN (((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)) * 1440) * 60),33)) ELSE FLOOR(ROUND((((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)) * 1440) * 60),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>CASE WHEN ((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60),33)) ELSE FLOOR(ROUND(((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>CASE WHEN ((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60),33)) ELSE FLOOR(ROUND(((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60),33)) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).isPos()?new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).toDP(18).ceil():new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).toDP(18).floor())):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).isPos()?new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).toDP(18).ceil():new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000).mul(new $F.Decimal('1440')).mul(new $F.Decimal('60')).toDP(18).floor())):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000*1440*60)&gt;=0?Math.ceil((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000*1440*60):Math.floor((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000*1440*60))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000*1440*60)&gt;=0?Math.ceil((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000*1440*60):Math.floor((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000*1440*60))):null</JsOutput>
+      <result>
+      <inputvalues>[2004:12:31:11:00:00, 2004:12:31:11:01:00]</inputvalues>
+         <formula>-60</formula>
+         <javascript>-61</javascript>
+         <javascriptLp>-60</javascriptLp>
+         <formulaNullAsNull>-60</formulaNullAsNull>
+         <javascriptNullAsNull>-61</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-60</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:09:00:00, 2004:12:31:11:01:00]</inputvalues>
+         <formula>-7260</formula>
+         <javascript>-7261</javascript>
+         <javascriptLp>-7261</javascriptLp>
+         <formulaNullAsNull>-7260</formulaNullAsNull>
+         <javascriptNullAsNull>-7261</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-7261</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:30:11:00:00, 2004:12:31:11:01:00]</inputvalues>
+         <formula>-86460</formula>
+         <javascript>-86461</javascript>
+         <javascriptLp>-86461</javascriptLp>
+         <formulaNullAsNull>-86460</formulaNullAsNull>
+         <javascriptNullAsNull>-86461</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-86461</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:20:11:00:00, 2004:12:31:11:01:00]</inputvalues>
+         <formula>-950460</formula>
+         <javascript>-950461</javascript>
+         <javascriptLp>-950460</javascriptLp>
+         <formulaNullAsNull>-950460</formulaNullAsNull>
+         <javascriptNullAsNull>-950461</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-950460</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:30:11:00:00, 2004:12:31:12:00:00]</inputvalues>
+         <formula>-90000</formula>
+         <javascript>-90001</javascript>
+         <javascriptLp>-90000</javascriptLp>
+         <formulaNullAsNull>-90000</formulaNullAsNull>
+         <javascriptNullAsNull>-90001</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-90000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:30:12:00:00, 2004:12:31:12:00:01]</inputvalues>
+         <formula>-86401</formula>
+         <javascript>-86401</javascript>
+         <javascriptLp>-86401</javascriptLp>
+         <formulaNullAsNull>-86401</formulaNullAsNull>
+         <javascriptNullAsNull>-86401</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-86401</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

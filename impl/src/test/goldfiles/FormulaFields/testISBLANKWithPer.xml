@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISBLANKWithPer">
+   <testInstance formula="if(isblank(custompercent1__c), 0,customnumber1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>CASE WHEN (NVL(($!s0s!$.custompercent1__c / 100.0), 0) IS NULL) THEN 0 ELSE NVL($!s0s!$.customnumber1__c, 0) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / 100.0) IS NULL) THEN 0 ELSE $!s0s!$.customnumber1__c END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>CASE WHEN (NVL(($!s0s!$.custompercent1__c / 100.0), 0) IS NULL) THEN 0 ELSE NVL($!s0s!$.customnumber1__c, 0) END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / 100.0) IS NULL) THEN 0 ELSE $!s0s!$.customnumber1__c END</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">((null==$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))?new $F.Decimal('0'):$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(!(context.record.custompercent1__c!=null)||(null==context.record.custompercent1__c.div(100))?new $F.Decimal('0'):context.record.customnumber1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((null==$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0))?0:$F.nvl(context.record.customnumber1__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(!(context.record.custompercent1__c!=null)||(null==context.record.custompercent1__c/100.0)?0:context.record.customnumber1__c)</JsOutput>
+      <result>
+      <inputvalues>[10, 10]</inputvalues>
+         <formula>10</formula>
+         <javascript>10</javascript>
+         <javascriptLp>10</javascriptLp>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <javascriptNullAsNull>10</javascriptNullAsNull>
+         <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 10]</inputvalues>
+         <formula>10</formula>
+         <javascript>10</javascript>
+         <javascriptLp>10</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, ]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0000009, 10]</inputvalues>
+         <formula>10</formula>
+         <javascript>10</javascript>
+         <javascriptLp>10</javascriptLp>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <javascriptNullAsNull>10</javascriptNullAsNull>
+         <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, 10]</inputvalues>
+         <formula>10</formula>
+         <javascript>10</javascript>
+         <javascriptLp>10</javascriptLp>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <javascriptNullAsNull>10</javascriptNullAsNull>
+         <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0.0009]</inputvalues>
+         <formula>0.0009</formula>
+         <javascript>0.0009</javascript>
+         <javascriptLp>0.0009</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 10]</inputvalues>
+         <formula>10</formula>
+         <javascript>10</javascript>
+         <javascriptLp>10</javascriptLp>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <javascriptNullAsNull>10</javascriptNullAsNull>
+         <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, 4]</inputvalues>
+         <formula>4</formula>
+         <javascript>4</javascript>
+         <javascriptLp>4</javascriptLp>
+         <formulaNullAsNull>4</formulaNullAsNull>
+         <javascriptNullAsNull>4</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0]</inputvalues>
+         <formula>0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0.0]</inputvalues>
+         <formula>0.0</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0.0000000]</inputvalues>
+         <formula>0.0000000</formula>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 10.1234]</inputvalues>
+         <formula>10.1234</formula>
+         <javascript>10.1234</javascript>
+         <javascriptLp>10.1234</javascriptLp>
+         <formulaNullAsNull>10.1234</formulaNullAsNull>
+         <javascriptNullAsNull>10.1234</javascriptNullAsNull>
+         <javascriptLpNullAsNull>10.1234</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10.1234, 1]</inputvalues>
+         <formula>1</formula>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

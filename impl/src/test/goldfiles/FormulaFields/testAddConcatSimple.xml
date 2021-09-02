@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddConcatSimple">
+   <testInstance formula="(customtext1__c+customtext2__c)" returntype="Text">
+    <SqlOutput psql="true" nullAsNull="true">
+       <Sql>($!s0s!$.customtext1__c||$!s0s!$.customtext2__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="true" nullAsNull="false">
+       <Sql>($!s0s!$.customtext1__c||$!s0s!$.customtext2__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="true">
+       <Sql>($!s0s!$.customtext1__c||$!s0s!$.customtext2__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <SqlOutput psql="false" nullAsNull="false">
+       <Sql>($!s0s!$.customtext1__c||$!s0s!$.customtext2__c)</Sql><Guard>null       </Guard>
+</SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customtext1__c,'')+$F.nvl(context.record.customtext2__c,''))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">($F.nvl(context.record.customtext1__c,'')+$F.nvl(context.record.customtext2__c,''))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">($F.nvl(context.record.customtext1__c,'')+$F.nvl(context.record.customtext2__c,''))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">($F.nvl(context.record.customtext1__c,'')+$F.nvl(context.record.customtext2__c,''))</JsOutput>
+      <result>
+      <inputvalues>[aaaa, aaaa]</inputvalues>
+         <formula>aaaaaaaa</formula>
+         <javascript>aaaaaaaa</javascript>
+         <javascriptLp>aaaaaaaa</javascriptLp>
+         <formulaNullAsNull>aaaaaaaa</formulaNullAsNull>
+         <javascriptNullAsNull>aaaaaaaa</javascriptNullAsNull>
+         <javascriptLpNullAsNull>aaaaaaaa</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[aaaa, bbbb]</inputvalues>
+         <formula>aaaabbbb</formula>
+         <javascript>aaaabbbb</javascript>
+         <javascriptLp>aaaabbbb</javascriptLp>
+         <formulaNullAsNull>aaaabbbb</formulaNullAsNull>
+         <javascriptNullAsNull>aaaabbbb</javascriptNullAsNull>
+         <javascriptLpNullAsNull>aaaabbbb</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[aaaa, ]</inputvalues>
+         <formula>aaaa</formula>
+         <javascript>aaaa</javascript>
+         <javascriptLp>aaaa</javascriptLp>
+         <formulaNullAsNull>aaaa</formulaNullAsNull>
+         <javascriptNullAsNull>aaaa</javascriptNullAsNull>
+         <javascriptLpNullAsNull>aaaa</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, bbbb]</inputvalues>
+         <formula>bbbb</formula>
+         <javascript>bbbb</javascript>
+         <javascriptLp>bbbb</javascriptLp>
+         <formulaNullAsNull>bbbb</formulaNullAsNull>
+         <javascriptNullAsNull>bbbb</javascriptNullAsNull>
+         <javascriptLpNullAsNull>bbbb</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[aaaa, aaaa]</inputvalues>
+         <formula>aaaaaaaa</formula>
+         <javascript>aaaaaaaa</javascript>
+         <javascriptLp>aaaaaaaa</javascriptLp>
+         <formulaNullAsNull>aaaaaaaa</formulaNullAsNull>
+         <javascriptNullAsNull>aaaaaaaa</javascriptNullAsNull>
+         <javascriptLpNullAsNull>aaaaaaaa</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[aaaa, aaaa]</inputvalues>
+         <formula>aaaaaaaa</formula>
+         <javascript>aaaaaaaa</javascript>
+         <javascriptLp>aaaaaaaa</javascriptLp>
+         <formulaNullAsNull>aaaaaaaa</formulaNullAsNull>
+         <javascriptNullAsNull>aaaaaaaa</javascriptNullAsNull>
+         <javascriptLpNullAsNull>aaaaaaaa</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

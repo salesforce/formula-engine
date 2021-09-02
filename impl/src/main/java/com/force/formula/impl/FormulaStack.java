@@ -6,6 +6,7 @@ package com.force.formula.impl;
 import java.util.*;
 
 import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
 
 /**
  * Deque doesn't support NULL as a valid value, and we support pushing bare
@@ -25,6 +26,22 @@ public class FormulaStack extends AbstractCollection<Object> implements Deque<Ob
 
 	public FormulaStack(int size) {
 		this.delegate = new ArrayDeque<>(size);
+	}
+	
+	/**
+	 * @return the contents of this stack in LIFO order (the opposite of Queue)
+	 */
+	@Override
+	public Object[] toArray() {
+		return toArray(new Object[size()]);
+	}
+	
+	@Override
+	public <T> T[] toArray(T[] a) {
+		List<Object> tmp = new ArrayList<Object>(delegate);
+		tmp.replaceAll((o)->unmaskNull(o));
+		tmp = Lists.reverse(tmp);
+		return tmp.toArray(a);
 	}
 
 	// Mask methods

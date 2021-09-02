@@ -123,6 +123,7 @@ public class FunctionFormat extends FormulaCommandInfoImpl implements FormulaCom
 }
 
 class FunctionFormatCommand extends AbstractFormulaCommand {
+    private static final long serialVersionUID = 1L;
     private final int numNodes;
     public FunctionFormatCommand(FormulaCommandInfo info, int numNodes) {
         super(info);

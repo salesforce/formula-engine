@@ -41,4 +41,6 @@ public abstract class ParserTestBase extends FormulaTestBase {
         FormulaProperties properties = new FormulaProperties();
         return FormulaUtils.parseWithANTLR4(expression, properties).getFirstChild();
     }
+   
+
 }
