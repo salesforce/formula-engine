@@ -91,7 +91,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
                     this.referenceEncryptedFields = false;
                 }
     
-                BitSet propertyBits = new BitSet(NUM_PROPERTIES);
+                BitSet propertyBits = new BitSet();
     
                 // This has utility value, really only if we trying to generate SQL or operating
                 // on the results in bulk.
@@ -102,8 +102,6 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
     
                 List<FormulaCommand> commandList = new LinkedList<FormulaCommand>();
                 propertyBits.or(generate(ast, commandList, context, properties));
-                boolean producesHTML = propertyBits.get(PRODUCES_HTML_INDEX);
-                boolean getsSessionId = propertyBits.get(GETS_SESSION_ID_INDEX);
     
                 TableAliasRegistry registry = new TableAliasRegistry();
                 SQLPair sqlPair;
@@ -148,22 +146,22 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
                     javascript = JsValue.NULL;
                 }
     
-                boolean usesCustomFields = false;
+                boolean referencesSubFormula = false;
                 for (FormulaFieldInfo formulaFieldInfo : getReferences()) {
                     if ((formulaFieldInfo instanceof FormulaProvider)
                         && (((FormulaProvider)formulaFieldInfo).getFormula() != null)) {
                         Formula formula = ((FormulaProvider)formulaFieldInfo).getFormula();
-                        if (formula.hasAttribute(Formula.REFERENCES_CUSTOM_FIELDS)) {
-                            usesCustomFields = true;
+                        if (formula.hasAttribute(FormulaUtils.REFERENCES_SUBFORMULA)) {
+                            referencesSubFormula = true;
                         }
                     } else if (formulaFieldInfo.isCustom()) {
-                        usesCustomFields = true;
+                        referencesSubFormula = true;
                     }
                 }
     
                 this.formula = new FormulaImpl(commandList.toArray(new FormulaCommand[commandList.size()]), sqlPair.sql,
-                    sqlPair.guard, javascript, properties, context.getFormulaReturnType(), ast.getDataType(), producesHTML, getsSessionId,
-                    usesCustomFields, registry);
+                    sqlPair.guard, javascript, properties, context.getFormulaReturnType(), ast.getDataType(),
+                    propertyBits, referencesSubFormula, registry);
     
                 logSuccess(startTime, isCreateOrEditFormula, source, astRoot, javascript);
             }
@@ -809,10 +807,11 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
     private final boolean referenceEncryptedFields;
 
     // Derived properties of formulas. Indices are into the BitSet returned by
-    // the generate methods.
-    public static final int NUM_PROPERTIES = 2;
-    public static final int PRODUCES_HTML_INDEX = 0;
-    public static final int GETS_SESSION_ID_INDEX = 1;
+    // the generate methods.  This is extensible if you need to know if a particular
+    // variable or function is referenced at all.
+//    public static final int NUM_PROPERTIES = 2;
+//    public static final int PRODUCES_HTML_INDEX = 0;
+//    public static final int GETS_SESSION_ID_INDEX = 1;
 
     protected static final String ID_PREFIX = "ID:";
 
@@ -847,7 +846,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
     }
 
     private static BitSet generateOne(FormulaAST ast, List<FormulaCommand> result, FormulaContext context,FormulaProperties formulaProperties) throws FormulaException {
-        BitSet properties = new BitSet(NUM_PROPERTIES);
+        BitSet properties = new BitSet();
 
         FormulaCommand command = null;
 

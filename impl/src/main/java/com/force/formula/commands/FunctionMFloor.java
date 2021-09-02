@@ -10,6 +10,7 @@ import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.JsValue;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.BigDecimalHelper;
 
 
 /**
@@ -21,7 +22,7 @@ import com.force.formula.sql.SQLPair;
 @AllowedContext(section = SelectorSection.MATH, isOffline = true)
 public class FunctionMFloor extends UnaryMathCommandBehavior {
     private static final long serialVersionUID = 1L;
-	private static final MathContext MC = new MathContext(Formula.NUMBER_PRECISION_EXTERNAL, RoundingMode.HALF_UP);
+	private static final MathContext MC = new MathContext(BigDecimalHelper.NUMBER_PRECISION_EXTERNAL, RoundingMode.HALF_UP);
     
     @Override
     public UnaryMathCommand getCommand(FormulaCommandInfo info) {
@@ -39,7 +40,7 @@ public class FunctionMFloor extends UnaryMathCommandBehavior {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
-        String sql = "FLOOR(ROUND(" + args[0] + ","+Formula.NUMBER_PRECISION_EXTERNAL+"))";
+        String sql = "FLOOR(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+"))";
         return new SQLPair(sql, guards[0]);
     }
     

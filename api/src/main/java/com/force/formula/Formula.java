@@ -5,8 +5,6 @@ package com.force.formula;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -17,27 +15,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @since 140
  */
 public interface Formula extends Comparable<Formula>, Serializable {
-    // Some standard bits to use
-    public static final int GETS_SESSION_ID = 1;
-    public static final int PRODUCES_HTML = 2;
-    public static final int PRODUCES_SQL_ERROR_COLUMN = 3;
-    public static final int REFERENCES_CUSTOM_FIELDS = 4;
-    public static final int JS_COULD_BE_NULL = 5;
-
-    // Comments in BigDecimalHelper
-    /**
-     * This is Oracle's precision.
-     */
-    public static final int NUMBER_PRECISION_INTERNAL = 39;
-    public static MathContext MC_PRECISION_INTERNAL = new MathContext(NUMBER_PRECISION_INTERNAL, RoundingMode.HALF_UP);
-    /**
-     * 6 digits fudge, to guarantee that date-diff operations are second-accurate
-     * (Oracle stores these diffs in fractions of days which is 86400 secs, or order 10^5).
-     * This is needed to cover inexact to exact transitions (floor/ceil) on number that cannot be
-     * represented as decimals (like 1/3 or 1/11).
-     */
-    public static final int NUMBER_PRECISION_EXTERNAL = NUMBER_PRECISION_INTERNAL - 6;
-
     /**
      * Execute the formula based on field data retrieved from the provided context
      *

@@ -123,12 +123,8 @@ public class CompositeCommand extends AbstractFormulaCommand {
         }
     }
 
-    public boolean producesHTML() {
-        return formula.hasAttribute(Formula.PRODUCES_HTML);
-    }
-
-    public boolean getsSessionId() {
-        return formula.hasAttribute(Formula.GETS_SESSION_ID);
+    public boolean hasAttribute(int bit) {
+        return formula.hasAttribute(bit);
     }
 
     @Override

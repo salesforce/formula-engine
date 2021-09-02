@@ -34,7 +34,7 @@ public class FormulaImpl implements FormulaWithSql {
     }
 
     public FormulaImpl(FormulaCommand[] commands, String sqlInitial, String guard, JsValue javascript, FormulaProperties properties, FormulaReturnType formulaFieldInfo,  // NOPMD
-            Type actualReturnType, boolean producesHTML, boolean getsSessionId, boolean usesCustomFields, 
+            Type actualReturnType, BitSet inputAttributes, boolean referencesSubFormula, 
             TableAliasRegistry registry) { 
         this.commands = commands;
         this.sqlRaw = sqlInitial;
@@ -46,22 +46,19 @@ public class FormulaImpl implements FormulaWithSql {
         this.dataType = formulaFieldInfo.getDataType();
 
         this.attributes = new BitSet();
+        this.attributes.or(inputAttributes);
 
         // only text fields can produce html
-        if (producesHTML && formulaFieldInfo.getDataType().isSimpleText()) {
-            attributes.set(PRODUCES_HTML);
+        if (this.attributes.get(FormulaUtils.PRODUCES_HTML) && !formulaFieldInfo.getDataType().isSimpleText()) {
+            attributes.clear(FormulaUtils.PRODUCES_HTML);
         }
 
-        if (getsSessionId) {
-            attributes.set(GETS_SESSION_ID);
-        }
-
-        if (usesCustomFields) {
-            attributes.set(REFERENCES_CUSTOM_FIELDS);
+        if (referencesSubFormula) {
+            attributes.set(FormulaUtils.REFERENCES_SUBFORMULA);
         }
 
         if (javascript != null && javascript.couldBeNull) {
-            attributes.set(JS_COULD_BE_NULL);
+            attributes.set(FormulaUtils.JS_COULD_BE_NULL);
         }
 
         String tempSql = massageSqlForType(formulaFieldInfo, sqlInitial);
@@ -70,7 +67,7 @@ public class FormulaImpl implements FormulaWithSql {
         // is determined by the Oracle guard presense.
         if (guard != null) {
             tempSql = "CASE WHEN " + guard + " THEN NULL ELSE " + tempSql + " END";
-            attributes.set(PRODUCES_SQL_ERROR_COLUMN);
+            attributes.set(FormulaUtils.PRODUCES_SQL_ERROR_COLUMN);
         }
 
         if (this.sqlRaw != null && this.sqlRaw.length() > 0 && tempSql.length() > this.sqlRaw.length()) {
@@ -204,7 +201,7 @@ public class FormulaImpl implements FormulaWithSql {
 
     @Override
     public boolean couldJavascriptBeNull() {
-        return attributes.get(JS_COULD_BE_NULL);
+        return attributes.get(FormulaUtils.JS_COULD_BE_NULL);
     }
 
     @Override

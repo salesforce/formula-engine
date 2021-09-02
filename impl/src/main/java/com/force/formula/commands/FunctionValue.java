@@ -9,6 +9,7 @@ import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.template.commands.FunctionIsNumber;
+import com.force.formula.util.BigDecimalHelper;
 
 /**
  * Describe your class here.
@@ -55,7 +56,7 @@ class OperatorValueFormulaCommand extends AbstractFormulaCommand {
         BigDecimal num = null;
         if (input != null) {
             try {
-                num = new BigDecimal(input, Formula.MC_PRECISION_INTERNAL);
+                num = new BigDecimal(input, BigDecimalHelper.MC_PRECISION_INTERNAL);
             } catch (NumberFormatException ex) {
                 if (!FormulaEngine.getHooks().isFormulaContainerCompiling()) {
                     // set to null for GDPR compliance

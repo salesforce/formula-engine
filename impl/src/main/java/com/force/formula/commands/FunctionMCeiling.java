@@ -4,13 +4,13 @@ import static com.force.formula.commands.FormulaCommandInfoImpl.jsMathPkg;
 
 import java.math.*;
 
-import com.force.formula.Formula;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.FormulaContext;
 import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.JsValue;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.BigDecimalHelper;
 
 /**
  * MCEILING = Mathematical Ceiling, which will return the integer greater than or equal to the given number,
@@ -21,7 +21,7 @@ import com.force.formula.sql.SQLPair;
 @AllowedContext(section = SelectorSection.MATH, isOffline = true)
 public class FunctionMCeiling extends UnaryMathCommandBehavior {
     private static final long serialVersionUID = 1L;
-	private static final MathContext MC = new MathContext(Formula.NUMBER_PRECISION_EXTERNAL, RoundingMode.HALF_DOWN);
+	private static final MathContext MC = new MathContext(BigDecimalHelper.NUMBER_PRECISION_EXTERNAL, RoundingMode.HALF_DOWN);
 
     @Override
     public UnaryMathCommand getCommand(FormulaCommandInfo info) {
@@ -43,7 +43,7 @@ public class FunctionMCeiling extends UnaryMathCommandBehavior {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
-        String sql = "CEIL(ROUND(" + args[0] + ","+Formula.NUMBER_PRECISION_EXTERNAL+"))";
+        String sql = "CEIL(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+"))";
         return new SQLPair(sql, guards[0]);
     }
     

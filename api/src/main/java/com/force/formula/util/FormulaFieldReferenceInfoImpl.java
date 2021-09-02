@@ -1,4 +1,4 @@
-package com.force.formula.impl;
+package com.force.formula.util;
 
 import com.force.formula.FormulaFieldReferenceInfo;
 import com.force.formula.FormulaSchema;
@@ -33,7 +33,7 @@ public class FormulaFieldReferenceInfoImpl implements FormulaFieldReferenceInfo 
     @Override
     public String toString(){
         return "fid:" + (fieldOrColumnId != null ? fieldOrColumnId.toString() : "" ) +
-                "domain: " + (foreignKeyDomain != null ? foreignKeyDomain.toString() : "" );
+                " domain: " + (foreignKeyDomain != null ? foreignKeyDomain.toString() : "" );
     }
     @Override
     public int hashCode() {

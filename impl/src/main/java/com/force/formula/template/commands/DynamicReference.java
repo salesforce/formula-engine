@@ -16,6 +16,7 @@ import com.force.formula.impl.*;
 import antlr.collections.AST;
 import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaFieldReferenceImpl;
 import com.force.formula.util.FormulaI18nUtils;
 
 /**
