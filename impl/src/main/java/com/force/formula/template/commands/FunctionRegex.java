@@ -12,7 +12,7 @@ import com.force.formula.template.commands.AccessCountedCharSequence.AccessCount
 
 import java.util.Deque;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
 @AllowedContext(section=SelectorSection.ADVANCED, changeOnly=true, isJavascript=false)
@@ -51,7 +51,7 @@ public class FunctionRegex extends FormulaCommandInfoImpl implements FormulaComm
     public FormulaCommand getCommand(FormulaAST node, FormulaContext context) throws FormulaException {
         Pattern p = null;
         FormulaAST regexNode = (FormulaAST)node.getFirstChild().getNextSibling();
-        if (regexNode.getType() == SfdcFormulaTokenTypes.STRING_LITERAL) {
+        if (regexNode.getType() == FormulaTokenTypes.STRING_LITERAL) {
             p = Pattern.compile(ConstantString.getStringValue(regexNode, true));
         }
         return new FunctionRegexCommand(this, p);

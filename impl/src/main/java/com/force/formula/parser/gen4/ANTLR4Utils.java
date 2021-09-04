@@ -6,7 +6,7 @@ import java.util.Map;
 import org.antlr.v4.runtime.LexerNoViableAltException;
 import org.antlr.v4.runtime.misc.Interval;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 
 import antlr.*;
 
@@ -45,110 +45,110 @@ public class ANTLR4Utils {
     }
 
     //This needs to be done because ANTLR2 and ANTLR4 are going to live side by side for a while.
-    //Formula Engine users might use the SfdcFormulaTokenTypes types to do work, but if they are using ANTLR4,
+    //Formula Engine users might use the FormulaTokenTypes types to do work, but if they are using ANTLR4,
     //those values will not match to ANTLR4's types' values (e.g. will be using an ANTLR2 type on an AST generated
     //by ANTLR4 with ANTLR types' values.
-    //TODO(arman): remove this when ANTLR2 is removed completely and ANTLR4 automatically generates SfdcFormulaTokenTypes
+    //TODO(arman): remove this when ANTLR2 is removed completely and ANTLR4 automatically generates FormulaTokenTypes
     static int convertANTLR4TypeToANTLR2Type(int antrl4Type) {
         switch (antrl4Type) {
             case FormulaParser.LPAREN:
-                return SfdcFormulaTokenTypes.LPAREN;
+                return FormulaTokenTypes.LPAREN;
             case FormulaParser.RPAREN:
-                return SfdcFormulaTokenTypes.RPAREN;
+                return FormulaTokenTypes.RPAREN;
             case FormulaParser.LSQUAREBRACKET:
-                return SfdcFormulaTokenTypes.LSQUAREBRACKET;
+                return FormulaTokenTypes.LSQUAREBRACKET;
             case FormulaParser.RSQUAREBRACKET:
-                return SfdcFormulaTokenTypes.RSQUAREBRACKET;
+                return FormulaTokenTypes.RSQUAREBRACKET;
             case FormulaParser.COLON:
-                return SfdcFormulaTokenTypes.COLON;
+                return FormulaTokenTypes.COLON;
             case FormulaParser.COMMA:
-                return SfdcFormulaTokenTypes.COMMA;
+                return FormulaTokenTypes.COMMA;
             case FormulaParser.BANG:
-                return SfdcFormulaTokenTypes.BANG;
+                return FormulaTokenTypes.BANG;
             case FormulaParser.BNOT:
-                return SfdcFormulaTokenTypes.BNOT;
+                return FormulaTokenTypes.BNOT;
             case FormulaParser.DIV:
-                return SfdcFormulaTokenTypes.DIV;
+                return FormulaTokenTypes.DIV;
             case FormulaParser.PLUS:
-                return SfdcFormulaTokenTypes.PLUS;
+                return FormulaTokenTypes.PLUS;
             case FormulaParser.MINUS:
-                return SfdcFormulaTokenTypes.MINUS;
+                return FormulaTokenTypes.MINUS;
             case FormulaParser.STAR:
-                return SfdcFormulaTokenTypes.STAR;
+                return FormulaTokenTypes.STAR;
             case FormulaParser.GE:
-                return SfdcFormulaTokenTypes.GE;
+                return FormulaTokenTypes.GE;
             case FormulaParser.GT:
-                return SfdcFormulaTokenTypes.GT;
+                return FormulaTokenTypes.GT;
             case FormulaParser.LE:
-                return SfdcFormulaTokenTypes.LE;
+                return FormulaTokenTypes.LE;
             case FormulaParser.LT:
-                return SfdcFormulaTokenTypes.LT;
+                return FormulaTokenTypes.LT;
             case FormulaParser.SEMI:
-                return SfdcFormulaTokenTypes.SEMI;
+                return FormulaTokenTypes.SEMI;
             case FormulaParser.DOT:
-                return SfdcFormulaTokenTypes.DOT;
+                return FormulaTokenTypes.DOT;
             case FormulaParser.CONCAT:
-                return SfdcFormulaTokenTypes.CONCAT;
+                return FormulaTokenTypes.CONCAT;
             case FormulaParser.EXPONENT:
-                return SfdcFormulaTokenTypes.EXPONENT;
+                return FormulaTokenTypes.EXPONENT;
             case FormulaParser.MAPTO:
-                return SfdcFormulaTokenTypes.MAPTO;
+                return FormulaTokenTypes.MAPTO;
             case FormulaParser.INFIX_OR:
-                return SfdcFormulaTokenTypes.INFIX_OR;
+                return FormulaTokenTypes.INFIX_OR;
             case FormulaParser.INFIX_AND:
-                return SfdcFormulaTokenTypes.INFIX_AND;
+                return FormulaTokenTypes.INFIX_AND;
             case FormulaParser.EQUAL:
-                return SfdcFormulaTokenTypes.EQUAL;
+                return FormulaTokenTypes.EQUAL;
             case FormulaParser.EQUAL2:
-                return SfdcFormulaTokenTypes.EQUAL2;
+                return FormulaTokenTypes.EQUAL2;
             case FormulaParser.NOT_EQUAL:
-                return SfdcFormulaTokenTypes.NOT_EQUAL;
+                return FormulaTokenTypes.NOT_EQUAL;
             case FormulaParser.NOT_EQUAL2:
-                return SfdcFormulaTokenTypes.NOT_EQUAL2;
+                return FormulaTokenTypes.NOT_EQUAL2;
             case FormulaParser.OR:
-                return SfdcFormulaTokenTypes.OR;
+                return FormulaTokenTypes.OR;
             case FormulaParser.AND:
-                return SfdcFormulaTokenTypes.AND;
+                return FormulaTokenTypes.AND;
             case FormulaParser.NOT:
-                return SfdcFormulaTokenTypes.NOT;
+                return FormulaTokenTypes.NOT;
             case FormulaParser.TRUE:
-                return SfdcFormulaTokenTypes.TRUE;
+                return FormulaTokenTypes.TRUE;
             case FormulaParser.FALSE:
-                return SfdcFormulaTokenTypes.FALSE;
+                return FormulaTokenTypes.FALSE;
             case FormulaParser.NULL:
-                return SfdcFormulaTokenTypes.NULL;
+                return FormulaTokenTypes.NULL;
             case FormulaParser.WS:
-                return SfdcFormulaTokenTypes.WS;
+                return FormulaTokenTypes.WS;
             case FormulaParser.STRING_LITERAL:
-                return SfdcFormulaTokenTypes.STRING_LITERAL;
+                return FormulaTokenTypes.STRING_LITERAL;
             case FormulaParser.COMMENT:
-                return SfdcFormulaTokenTypes.COMMENT;
+                return FormulaTokenTypes.COMMENT;
             case FormulaParser.IDENT:
-                return SfdcFormulaTokenTypes.IDENT;
+                return FormulaTokenTypes.IDENT;
             case FormulaParser.NUMBER:
-                return SfdcFormulaTokenTypes.NUMBER;
+                return FormulaTokenTypes.NUMBER;
             case FormulaParser.ROOT:
-                return SfdcFormulaTokenTypes.ROOT;
+                return FormulaTokenTypes.ROOT;
             case FormulaParser.TEMPLATE:
-                return SfdcFormulaTokenTypes.TEMPLATE;
+                return FormulaTokenTypes.TEMPLATE;
             case FormulaParser.UNARY_MINUS:
-                return SfdcFormulaTokenTypes.UNARY_MINUS;
+                return FormulaTokenTypes.UNARY_MINUS;
             case FormulaParser.UNARY_PLUS:
-                return SfdcFormulaTokenTypes.UNARY_PLUS;
+                return FormulaTokenTypes.UNARY_PLUS;
             case FormulaParser.FUNCTION_CALL:
-                return SfdcFormulaTokenTypes.FUNCTION_CALL;
+                return FormulaTokenTypes.FUNCTION_CALL;
             case FormulaParser.NOUNESCAPE_STRING_LITERAL:
-                return SfdcFormulaTokenTypes.NOUNESCAPE_STRING_LITERAL;
+                return FormulaTokenTypes.NOUNESCAPE_STRING_LITERAL;
             case FormulaParser.TEMPLATE_STRING_LITERAL:
-                return SfdcFormulaTokenTypes.TEMPLATE_STRING_LITERAL;
+                return FormulaTokenTypes.TEMPLATE_STRING_LITERAL;
             case FormulaParser.DYNAMIC_REF:
-                return SfdcFormulaTokenTypes.DYNAMIC_REF;
+                return FormulaTokenTypes.DYNAMIC_REF;
             case FormulaParser.DYNAMIC_REF_ROOT:
-                return SfdcFormulaTokenTypes.DYNAMIC_REF_ROOT;
+                return FormulaTokenTypes.DYNAMIC_REF_ROOT;
             case FormulaParser.DYNAMIC_REF_IDENT:
-                return SfdcFormulaTokenTypes.DYNAMIC_REF_IDENT;
+                return FormulaTokenTypes.DYNAMIC_REF_IDENT;
             case FormulaParser.EOF:
-                return SfdcFormulaTokenTypes.EOF;
+                return FormulaTokenTypes.EOF;
             //default should never happen, unless a new token is added to ANTLR4 grammar but not ANTLR2 grammar and also not added to the above list
             default:
                 throw new RuntimeException("Failed to convert ANTLR4 token type to ANTLR2 token type.");

@@ -11,7 +11,7 @@ import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
 import com.google.common.collect.Lists;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaTextUtil;
 
@@ -129,7 +129,7 @@ public class FunctionCase extends FormulaCommandInfoImpl implements FormulaComma
             // Check the case type
             currentNode = (FormulaAST)currentNode.getNextSibling();
             if (isPicklistCase) {
-                if (currentNode.getType() != SfdcFormulaTokenTypes.STRING_LITERAL){
+                if (currentNode.getType() != FormulaTokenTypes.STRING_LITERAL){
                     throw new WrongArgumentTypeException(node.getText(), new Class[] {}, currentNode); // TODO fix this
                 }
             } else {

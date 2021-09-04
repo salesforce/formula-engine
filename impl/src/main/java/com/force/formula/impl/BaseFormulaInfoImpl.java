@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import com.force.formula.*;
 import com.force.formula.FormulaRuntimeContext.InaccessibleFieldStrategy;
 import com.force.formula.commands.*;
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.*;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.formula.util.FormulaTextUtil;
@@ -249,13 +249,13 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
             @Override
             public void visit(FormulaAST node) throws FormulaException {
                 // Only look at field references
-                if (node.getType() == SfdcFormulaTokenTypes.IDENT) {
+                if (node.getType() == FormulaTokenTypes.IDENT) {
                     ContextualFormulaFieldInfo fieldReference = context.lookup(node.getText());
                     if (fieldReference.getFieldOrColumnInfo() != null &&
                             !FormulaEngine.getHooks().isFieldReadable(fieldReference.getFieldOrColumnInfo().getFieldInfo())) {
                         switch (strategy) {
                         case REPLACE_WITH_NULL:
-                            node.setType(SfdcFormulaTokenTypes.NULL);
+                            node.setType(FormulaTokenTypes.NULL);
                             node.setText("null");
                             node.setCanBeNull(true);
                             break;
@@ -297,7 +297,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
             @Override
             public void visit(FormulaAST node) throws FormulaException {
                 String fieldName = node.getText();
-                if (node.getType() == SfdcFormulaTokenTypes.IDENT) {
+                if (node.getType() == FormulaTokenTypes.IDENT) {
                     if (!hasPolymorphicFields.get() && fieldName.contains(":")) {
                         hasPolymorphicFields.set(true);
                     }
@@ -309,9 +309,9 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
                             globalVariables.add(fieldName.substring(0, i).toUpperCase());
                         }
                     }
-                } else if (node.getType() != SfdcFormulaTokenTypes.ROOT && !node.isLiteral()
-                        && node.getType() != SfdcFormulaTokenTypes.TEMPLATE_STRING_LITERAL
-                        && node.getType() != SfdcFormulaTokenTypes.DYNAMIC_REF_IDENT
+                } else if (node.getType() != FormulaTokenTypes.ROOT && !node.isLiteral()
+                        && node.getType() != FormulaTokenTypes.TEMPLATE_STRING_LITERAL
+                        && node.getType() != FormulaTokenTypes.DYNAMIC_REF_IDENT
                         && node.getText() != null && !"template".equals(node.getText())) {
                     commands.add(node.getText().toUpperCase());
                 }
@@ -356,7 +356,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
         FormulaASTVisitor visitor = new FormulaASTVisitor() {
             @Override
             public void visit(FormulaAST node) throws FormulaException {
-                if (node.getType() == SfdcFormulaTokenTypes.IDENT) {
+                if (node.getType() == FormulaTokenTypes.IDENT) {
                     tokens.add(node.getToken());
                 }
             }
@@ -470,7 +470,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
                     // These are the types we support conversion
                     (actualType == BigDecimal.class || actualType == FormulaDateTime.class || actualType == Date.class || FormulaTypeUtils.isTypePicklist(actualType))) {
                 FormulaAST newParent = new FormulaAST();
-                newParent.setType(SfdcFormulaTokenTypes.FUNCTION_CALL);
+                newParent.setType(FormulaTokenTypes.FUNCTION_CALL);
                 newParent.setText("TEXT");
                 newParent.setDataType(String.class);
                 ast.reparent(newParent);
@@ -547,12 +547,12 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
         // leaves
         if (ast.getNumberOfChildren() == 0) {
             isConstant = ast.isLiteral();
-            canBeNull = ast.getType() == SfdcFormulaTokenTypes.NULL || ast.getType() == SfdcFormulaTokenTypes.IDENT;
+            canBeNull = ast.getType() == FormulaTokenTypes.NULL || ast.getType() == FormulaTokenTypes.IDENT;
         }
 
         // 1/3 is a more efficient representation than 0.33333333333333333333333333333333333333333333333
         // We also may lose precision, so do not precompile divisions and let SQL deal with it.
-        if (ast.getType() == SfdcFormulaTokenTypes.DIV) {
+        if (ast.getType() == FormulaTokenTypes.DIV) {
             isConstant = false;
         }
 
@@ -597,7 +597,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
                ast.removeChildren();
                Object res = stack.pop();
                if (res == null) {
-                   ast.setType(SfdcFormulaTokenTypes.NULL);
+                   ast.setType(FormulaTokenTypes.NULL);
                    ast.setText("null");
                    ast.setCanBeNull(true);
                } else if (res instanceof BigDecimal) {
@@ -606,7 +606,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
                    if (num.compareTo(BigDecimal.ZERO) == -1) {
                        // constants like -1 are normally parsed into two nodes: '-' and '1'
                        // this makes sure that we create the same parse tree.
-                       ast.setType(SfdcFormulaTokenTypes.MINUS);
+                       ast.setType(FormulaTokenTypes.MINUS);
                        ast.setText("-");
                        ast.setCanBeNull(false);
                        node = new FormulaAST();
@@ -616,16 +616,16 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
                        node = ast;
                    }
                    // add the value node
-                   node.setType(SfdcFormulaTokenTypes.NUMBER);
+                   node.setType(FormulaTokenTypes.NUMBER);
                    node.setText(num.toPlainString());
                    node.setCanBeNull(false);
                } else if (res instanceof Boolean) {
                    boolean tmp = (Boolean) res;
-                   ast.setType(tmp ? SfdcFormulaTokenTypes.TRUE : SfdcFormulaTokenTypes.FALSE);
+                   ast.setType(tmp ? FormulaTokenTypes.TRUE : FormulaTokenTypes.FALSE);
                    ast.setText(""+tmp);
                    ast.setCanBeNull(false);
                } else if (res instanceof String) {
-                   ast.setType(SfdcFormulaTokenTypes.STRING_LITERAL);
+                   ast.setType(FormulaTokenTypes.STRING_LITERAL);
                    ast.setText("\""+FormulaTextUtil.escapeForFormulaString(res.toString())+"\"");
                    ast.setCanBeNull(false);
                } else {
@@ -723,7 +723,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
 
         // Turn the entire expression into an empty string
         node.removeChildren();
-        node.setType(SfdcFormulaTokenTypes.STRING_LITERAL);
+        node.setType(FormulaTokenTypes.STRING_LITERAL);
         node.setText("\"\"");
 
         visitor.visit(node);
@@ -751,7 +751,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
         FormulaASTVisitor visitor = new FormulaASTVisitor() {
             @Override
             public void visit(FormulaAST node) throws FormulaException {
-                if (node.getType() == SfdcFormulaTokenTypes.IDENT) {
+                if (node.getType() == FormulaTokenTypes.IDENT) {
                     // Strip off ID prefix
                     String reference = node.getText();
                     if (reference.startsWith(ID_PREFIX)) {
@@ -851,7 +851,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
         FormulaCommand command = null;
 
         String name = ast.getText().toUpperCase();
-        if (ast.getType() != SfdcFormulaTokenTypes.TEMPLATE_STRING_LITERAL) {
+        if (ast.getType() != FormulaTokenTypes.TEMPLATE_STRING_LITERAL) {
             FormulaValidationHooks.ShortCircuitBehavior scb = FormulaValidationHooks.get().parseHook_caseShortCircuit(name);
             
             FormulaAST current = (FormulaAST)ast.getFirstChild();

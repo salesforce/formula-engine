@@ -10,7 +10,7 @@ import com.force.formula.impl.*;
 
 import java.util.Deque;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -41,10 +41,10 @@ public class FunctionOr extends FormulaCommandInfoImpl implements FormulaCommand
     @Override
     public FormulaAST optimize(FormulaAST ast, FormulaContext context) throws FormulaException {
         FormulaAST child = (FormulaAST) ast.getFirstChild();
-        while (child != null && child.getType() == SfdcFormulaTokenTypes.FALSE) {
+        while (child != null && child.getType() == FormulaTokenTypes.FALSE) {
             child = (FormulaAST) child.getNextSibling();
         }
-        if (child != null && child.getType() == SfdcFormulaTokenTypes.TRUE) {
+        if (child != null && child.getType() == FormulaTokenTypes.TRUE) {
             ast = ast.replace(child);
         }
         return ast;

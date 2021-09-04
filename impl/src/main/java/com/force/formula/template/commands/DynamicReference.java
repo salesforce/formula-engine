@@ -14,7 +14,7 @@ import com.force.formula.commands.*;
 import com.force.formula.impl.*;
 
 import antlr.collections.AST;
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaFieldReferenceImpl;
 import com.force.formula.util.FormulaI18nUtils;
@@ -61,7 +61,7 @@ public class DynamicReference extends FormulaCommandInfoImpl implements FormulaC
             child = child.getNextSibling();
         }
         // Determine if this is an <expr>[y] reference or an <expr>.y reference
-        boolean fieldref = child != null && child.getType() == SfdcFormulaTokenTypes.DYNAMIC_REF_IDENT;
+        boolean fieldref = child != null && child.getType() == FormulaTokenTypes.DYNAMIC_REF_IDENT;
 
         return new DynamicReferenceCommand(getName(), FormulaAST.isTopOfReferenceFormula(node), fieldref, node.isDynamicReferenceBase());
     }

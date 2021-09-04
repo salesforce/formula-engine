@@ -67,7 +67,7 @@ public interface FormulaDataType {
 
     /**
      * Returns true if the contents of fields of this type are *always* encrypted. This is true only for legacy
-     * encrypted fields types (ENCRYPTEDTEXT and SFDCENCRYPTEDTEXT).
+     * encrypted fields types (ENCRYPTEDTEXT).
      *
      * Please try to avoid using this; where possible, use FieldInfo.getEncryption() instead.
      */

@@ -12,7 +12,7 @@ import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.BigDecimalHelper;
 import com.force.formula.util.FormulaDateUtil;
@@ -137,7 +137,7 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
             ast.setConstantExpression(false);
         }
         if (ast.getDataType() == ConstantNull.class) {
-            ast.setType(SfdcFormulaTokenTypes.NULL);
+            ast.setType(FormulaTokenTypes.NULL);
             ast.setText("null");
             ast.setCanBeNull(true);
             ast.setConstantExpression(true);

@@ -9,7 +9,7 @@ import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
 import com.force.i18n.BaseLocalizer;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
 
@@ -75,7 +75,7 @@ public class FunctionDate extends FormulaCommandInfoImpl {
     }
 
     private int getInt(FormulaAST currentNode) {
-        if (currentNode.getType() != SfdcFormulaTokenTypes.NUMBER)
+        if (currentNode.getType() != FormulaTokenTypes.NUMBER)
             return BAD_VALUE;
         try {
             return Integer.parseInt(currentNode.getText());

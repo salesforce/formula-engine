@@ -10,7 +10,7 @@ import java.util.Set;
 import com.force.formula.*;
 import com.force.formula.commands.*;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 
 /**
  * Traverses AST and decorates nodes with data type information, checks for type mismatches, records field references,
@@ -72,7 +72,7 @@ public class AnnotationVisitor implements FormulaASTVisitor {
 
         node.setDataType(nodeDataType);
 
-        if (node.getType() == SfdcFormulaTokenTypes.IDENT) {
+        if (node.getType() == FormulaTokenTypes.IDENT) {
             // Add to the referenced field set
             ContextualFormulaFieldInfo referencedFieldInfo = context.lookup(node.getText(), node.isDynamicReferenceBase());
             // if this is a custom field column, add the field as well

@@ -39,7 +39,7 @@ public class FunctionTimeNow extends FormulaCommandInfoImpl {
         } 
         else {
             return FormulaCommandInfoImpl.shouldGeneratePsql(context) ? 
-                    new SQLPair("EXTRACT(EPOCH FROM AGE(SFDC_TIMESTAMP(), DATE_TRUNC('day', SFDC_TIMESTAMP())))::BIGINT::NUMERIC", null)
+                    new SQLPair(FormulaValidationHooks.get().psqlTimeNow(), null)
                     : new SQLPair("TO_NUMBER(TO_CHAR(SYSTIMESTAMP, 'SSSSS.ff3'))*1000", null);
         }
     }

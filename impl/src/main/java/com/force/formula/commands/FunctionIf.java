@@ -10,7 +10,7 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -101,14 +101,14 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
 
         if ((argType == FormulaDateTime.class) || (argType == Date.class) && node.canBeNull()) {
             return String.format("NVL(%s,TO_DATE(NULL))", expression);
-        } else if (argType == BigDecimal.class && node.canBeNull() && node.getType() != SfdcFormulaTokenTypes.IDENT) {
+        } else if (argType == BigDecimal.class && node.canBeNull() && node.getType() != FormulaTokenTypes.IDENT) {
             return String.format("NVL(%s,TO_NUMBER(NULL))", expression);
         } else if (argType == Boolean.class) {
             // convert boolean back to number for comparison
             int nodeType = node.getType();
-            if (nodeType == SfdcFormulaTokenTypes.TRUE)
+            if (nodeType == FormulaTokenTypes.TRUE)
                 return "1";
-            else if (nodeType == SfdcFormulaTokenTypes.FALSE)
+            else if (nodeType == FormulaTokenTypes.FALSE)
                 return "0";
             else
                 return String.format("CASE WHEN %s THEN 1 ELSE 0 END", expression);
@@ -125,9 +125,9 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
     public FormulaAST optimize(FormulaAST ast, FormulaContext context) throws FormulaException {
         Type dataType = ast.getDataType();
         FormulaAST first = (FormulaAST)ast.getFirstChild();
-        if (first.getType() == SfdcFormulaTokenTypes.TRUE) {
+        if (first.getType() == FormulaTokenTypes.TRUE) {
             ast = ast.replace((FormulaAST)first.getNextSibling());
-        } else if (first.getType() == SfdcFormulaTokenTypes.FALSE) {
+        } else if (first.getType() == FormulaTokenTypes.FALSE) {
             ast = ast.replace((FormulaAST)first.getNextSibling().getNextSibling());
         }
 

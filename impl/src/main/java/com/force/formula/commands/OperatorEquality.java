@@ -10,7 +10,7 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -50,9 +50,9 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
         FormulaAST lhs = (FormulaAST)node.getFirstChild();
         FormulaAST rhs = (FormulaAST)lhs.getNextSibling();
 
-        if (lhs.getType() == SfdcFormulaTokenTypes.STRING_LITERAL && isTextPicklistCase(rhs))  {
+        if (lhs.getType() == FormulaTokenTypes.STRING_LITERAL && isTextPicklistCase(rhs))  {
             return optimize(node, rhs, lhs, "<>".equals(getName()));
-        } else if (rhs.getType() == SfdcFormulaTokenTypes.STRING_LITERAL && isTextPicklistCase(lhs))  {
+        } else if (rhs.getType() == FormulaTokenTypes.STRING_LITERAL && isTextPicklistCase(lhs))  {
             return optimize(node, lhs, rhs, "<>".equals(getName()));
         }
         return node;
@@ -80,7 +80,7 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
 
         FormulaAST pickval = new FormulaAST("ispickval");
 
-        pickval.setType(SfdcFormulaTokenTypes.FUNCTION_CALL);
+        pickval.setType(FormulaTokenTypes.FUNCTION_CALL);
         pickval.setCanBeNull(false);
         pickval.setDataType(Boolean.class);
 
@@ -89,7 +89,7 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
 
         if (negate) {
             FormulaAST not = new FormulaAST("not");
-            not.setType(SfdcFormulaTokenTypes.NOT);
+            not.setType(FormulaTokenTypes.NOT);
             not.setDataType(Boolean.class);
             not.addChild(pickval);
             return ast.replace(not);
@@ -100,9 +100,9 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
     private String wrapBoolean(String arg, Type argType, int nodeType) {
         // convert boolean back to number for comparison
         if (argType == Boolean.class) {
-            if (nodeType == SfdcFormulaTokenTypes.TRUE)
+            if (nodeType == FormulaTokenTypes.TRUE)
                 return "1";
-            else if (nodeType == SfdcFormulaTokenTypes.FALSE)
+            else if (nodeType == FormulaTokenTypes.FALSE)
                 return "0";
             else
                 return String.format("CASE WHEN %s THEN 1 ELSE 0 END", arg);
@@ -220,11 +220,11 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
             // the other side unless both are null. Cool eh? Note this relies on (null || 'x')
             // being 'x'.
             Object saveRhs = rhs;
-            if (rhsType != SfdcFormulaTokenTypes.STRING_LITERAL)
+            if (rhsType != FormulaTokenTypes.STRING_LITERAL)
                 rhs = "nvl(" + rhs + ", " + lhs + "||'x')";
             else if ("''".equals(rhs))
                 rhs = lhs + "||'x'";
-            if (lhsType != SfdcFormulaTokenTypes.STRING_LITERAL)
+            if (lhsType != FormulaTokenTypes.STRING_LITERAL)
                 lhs = "nvl(" + lhs + ", " + saveRhs + "||'x')";
             else if ("''".equals(lhs))
                 lhs = saveRhs + "||'x'";
@@ -241,12 +241,12 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
 
         if (treatAsString) {
             String saveRhs = rhs;
-            if (rhsType != SfdcFormulaTokenTypes.STRING_LITERAL)
+            if (rhsType != FormulaTokenTypes.STRING_LITERAL)
                 rhs = jsNoe(rhs, jsNvl(lhs, "''") + "+'x'");
             else if ("''".equals(rhs) || "\"\"".equals(rhs))
             	rhs = jsNvl(lhs, "''") + "+'x'";
             
-            if (lhsType != SfdcFormulaTokenTypes.STRING_LITERAL)
+            if (lhsType != FormulaTokenTypes.STRING_LITERAL)
                 lhs = jsNoe(lhs, jsNvl(saveRhs, "''") + "+'x'");
             else if ("''".equals(lhs) || "\"\"".equals(lhs))
                 lhs = jsNvl(saveRhs, "''") + "+'x'";

@@ -10,7 +10,7 @@ import com.force.formula.impl.*;
 import com.force.i18n.commons.text.TextUtil;
 import com.google.common.base.Joiner;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -56,7 +56,7 @@ public class FunctionIsPickVal extends FormulaCommandInfoImpl
     public static FormulaFieldInfo getFormulaFieldInfo(FormulaAST targetNode, FormulaContext context)
             throws InvalidFieldReferenceException, UnsupportedTypeException {
         String name = targetNode.getText();
-        if ((targetNode.getType() == SfdcFormulaTokenTypes.FUNCTION_CALL) && "PRIORVALUE".equalsIgnoreCase(name)) {
+        if ((targetNode.getType() == FormulaTokenTypes.FUNCTION_CALL) && "PRIORVALUE".equalsIgnoreCase(name)) {
             // Use the first arg to PriorValue() as the actual target
             name = targetNode.getFirstChild().getText();
         }
@@ -84,7 +84,7 @@ public class FunctionIsPickVal extends FormulaCommandInfoImpl
                     new Class[] { FormulaEngine.getHooks().getPicklistType() }, fieldReferenceArgument);
         }
         FormulaAST targetArgument = (FormulaAST) fieldReferenceArgument.getNextSibling();
-        if (targetArgument != null && targetArgument.getType() != SfdcFormulaTokenTypes.STRING_LITERAL) {
+        if (targetArgument != null && targetArgument.getType() != FormulaTokenTypes.STRING_LITERAL) {
             throw new WrongArgumentTypeException(node.getText(), new Class[] { ConstantString.class }, targetArgument);
         }
 

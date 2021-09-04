@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import com.force.formula.impl.FormulaAST;
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 
 import antlr.CommonToken;
 import antlr.Token;
@@ -55,7 +55,7 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
     public FormulaAST visitFormula(FormulaParser.FormulaContext ctx) {
         FormulaAST ast = new FormulaAST();
         ast.setText("root");
-        ast.setType(SfdcFormulaTokenTypes.ROOT);
+        ast.setType(FormulaTokenTypes.ROOT);
         ast.setFirstChild(visit(ctx.expression()));
         return ast;
     }
@@ -79,13 +79,13 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
     public FormulaAST visitMap_content_ident(FormulaParser.Map_content_identContext ctx) {
         FormulaAST ast = new FormulaAST();
         ast.setText("map");
-        ast.setType(SfdcFormulaTokenTypes.FUNCTION_CALL);
+        ast.setType(FormulaTokenTypes.FUNCTION_CALL);
 
         List<TerminalNode> idents = ctx.IDENT();
         List<FormulaParser.ExpressionContext> expressions = ctx.expression();
         for(int i = 0; i < idents.size(); i++) {
             FormulaAST identAST = visit(idents.get(i));
-            identAST.setType(SfdcFormulaTokenTypes.NOUNESCAPE_STRING_LITERAL);
+            identAST.setType(FormulaTokenTypes.NOUNESCAPE_STRING_LITERAL);
             identAST.setToken(null);
             ast.addChild(identAST);
             ast.addChild(visit(expressions.get(i)));
@@ -98,7 +98,7 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
     public FormulaAST visitMap_content_string_literal(FormulaParser.Map_content_string_literalContext ctx) {
         FormulaAST ast = new FormulaAST();
         ast.setText("map");
-        ast.setType(SfdcFormulaTokenTypes.FUNCTION_CALL);
+        ast.setType(FormulaTokenTypes.FUNCTION_CALL);
 
         List<TerminalNode> stringLiterals = ctx.STRING_LITERAL();
         List<FormulaParser.ExpressionContext> expressions = ctx.expression();
@@ -123,7 +123,7 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
             if(ctx.getChild(i) instanceof TerminalNode) { //infix_or operator
                 FormulaAST operatorAST = visit(ctx.getChild(i));
                 operatorAST.setText("or");
-                operatorAST.setType(SfdcFormulaTokenTypes.OR);
+                operatorAST.setType(FormulaTokenTypes.OR);
                 operatorAST.addChild(curr);
                 curr = operatorAST;
             }
@@ -143,7 +143,7 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
             if(ctx.getChild(i) instanceof TerminalNode) { //infix_or operator
                 FormulaAST operatorAST = visit(ctx.getChild(i));
                 operatorAST.setText("and");
-                operatorAST.setType(SfdcFormulaTokenTypes.AND);
+                operatorAST.setType(FormulaTokenTypes.AND);
                 operatorAST.addChild(curr);
                 curr = operatorAST;
             }
@@ -166,12 +166,12 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
                 curr = operatorAST;
 
                 //convert NOT_EQUAL2 to NOT_EQUAL and EQUAL2 to EQUAL so consumers of FormulaAST don't have to care which one was used
-                if(operatorAST.getType() == SfdcFormulaTokenTypes.NOT_EQUAL2) {
-                    operatorAST.setType(SfdcFormulaTokenTypes.NOT_EQUAL);
+                if(operatorAST.getType() == FormulaTokenTypes.NOT_EQUAL2) {
+                    operatorAST.setType(FormulaTokenTypes.NOT_EQUAL);
                     operatorAST.setText("<>");
                 }
-                else if(operatorAST.getType() == SfdcFormulaTokenTypes.EQUAL2) {
-                    operatorAST.setType(SfdcFormulaTokenTypes.EQUAL);
+                else if(operatorAST.getType() == FormulaTokenTypes.EQUAL2) {
+                    operatorAST.setType(FormulaTokenTypes.EQUAL);
                     operatorAST.setText("=");
                 }
             }
@@ -228,7 +228,7 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
     @Override
     public FormulaAST visitUnaryExpression_plus(FormulaParser.UnaryExpression_plusContext ctx) {
         FormulaAST plusAST = visit(ctx.PLUS());
-        plusAST.setType(SfdcFormulaTokenTypes.UNARY_PLUS);
+        plusAST.setType(FormulaTokenTypes.UNARY_PLUS);
         plusAST.addChild(visit(ctx.unaryExpression()));
         return plusAST;
     }
@@ -236,7 +236,7 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
     @Override
     public FormulaAST visitUnaryExpression_minus(FormulaParser.UnaryExpression_minusContext ctx) {
         FormulaAST minusAST = visit(ctx.MINUS());
-        minusAST.setType(SfdcFormulaTokenTypes.UNARY_MINUS);
+        minusAST.setType(FormulaTokenTypes.UNARY_MINUS);
         minusAST.addChild(visit(ctx.unaryExpression()));
         return minusAST;
     }
@@ -252,7 +252,7 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
     public FormulaAST visitUnaryExpression_bang(FormulaParser.UnaryExpression_bangContext ctx) {
         FormulaAST bangAST = visit(ctx.BANG());
         bangAST.setText("not");
-        bangAST.setType(SfdcFormulaTokenTypes.NOT);
+        bangAST.setType(FormulaTokenTypes.NOT);
         bangAST.addChild(visit(ctx.unaryExpression()));
         return bangAST;
     }
@@ -269,8 +269,8 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
     @Override
     public FormulaAST visitFunctionCall(FormulaParser.FunctionCallContext ctx) {
         FormulaAST ast = visit(ctx.IDENT()); //function name
-        ast.getToken().setType(SfdcFormulaTokenTypes.IDENT);
-        ast.setType(SfdcFormulaTokenTypes.FUNCTION_CALL);
+        ast.getToken().setType(FormulaTokenTypes.IDENT);
+        ast.setType(FormulaTokenTypes.FUNCTION_CALL);
 
         List<FormulaParser.ExpressionContext> expressions = ctx.expression();
         for(int i = 0; i < expressions.size(); i++) {
@@ -284,7 +284,7 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
     public FormulaAST visitFieldReferenceRoot(FormulaParser.FieldReferenceRootContext ctx) {
         FormulaAST ast = new FormulaAST();
         ast.setText("referenceroot");
-        ast.setType(SfdcFormulaTokenTypes.DYNAMIC_REF_ROOT);
+        ast.setType(FormulaTokenTypes.DYNAMIC_REF_ROOT);
         ast.addChild(visit(ctx.fieldReference()));
         return ast;
     }
@@ -322,7 +322,7 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
         FormulaAST ast = getDynamicRefAST(ctx);
 
         FormulaAST identAST = visit(ctx.IDENT());
-        identAST.setType(SfdcFormulaTokenTypes.DYNAMIC_REF_IDENT);
+        identAST.setType(FormulaTokenTypes.DYNAMIC_REF_IDENT);
         ast.addChild(identAST);
 
         return ast;
@@ -335,7 +335,7 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
         FormulaAST ast = new FormulaAST();
         ast.setToken(antlr2Token);
         ast.setText("[]");
-        ast.setType(SfdcFormulaTokenTypes.DYNAMIC_REF);
+        ast.setType(FormulaTokenTypes.DYNAMIC_REF);
         return ast;
     }
 
