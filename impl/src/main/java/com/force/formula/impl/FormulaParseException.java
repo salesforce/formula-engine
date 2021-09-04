@@ -10,7 +10,7 @@ import java.util.Map;
 import com.force.formula.FormulaException;
 
 import antlr.*;
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.util.FormulaI18nUtils;
 
 /**
@@ -78,15 +78,15 @@ public class FormulaParseException extends FormulaException {
             NoViableAltException nvae = (NoViableAltException)e;
 
             Token token = nvae.token;
-            return (token.getType() != SfdcFormulaTokenTypes.EOF) ? token.getText() : FormulaI18nUtils.getLocalizer().getLabel(
+            return (token.getType() != FormulaTokenTypes.EOF) ? token.getText() : FormulaI18nUtils.getLocalizer().getLabel(
                     "FormulaFieldExceptionMessages", "EndOfFormula");
         } else if (e instanceof MismatchedTokenException) {
             MismatchedTokenException mte = (MismatchedTokenException)e;
 
-            if (mte.expecting == SfdcFormulaTokenTypes.EOF) {
-                String found = (mte.token.getType() != SfdcFormulaTokenTypes.EOF) ? mte.token.getText() : FormulaI18nUtils.getLocalizer().getLabel(
+            if (mte.expecting == FormulaTokenTypes.EOF) {
+                String found = (mte.token.getType() != FormulaTokenTypes.EOF) ? mte.token.getText() : FormulaI18nUtils.getLocalizer().getLabel(
                         "FormulaFieldExceptionMessages", "EndOfFormula");
-                if (mte.token.getType() != SfdcFormulaTokenTypes.IDENT) {
+                if (mte.token.getType() != FormulaTokenTypes.IDENT) {
                     found = "'" + found + "'";
                 }
 
@@ -123,7 +123,7 @@ public class FormulaParseException extends FormulaException {
         } else if (e instanceof MismatchedTokenException) {
             MismatchedTokenException mte = (MismatchedTokenException)e;
 
-            if (mte.expecting != SfdcFormulaTokenTypes.EOF) {
+            if (mte.expecting != FormulaTokenTypes.EOF) {
                 return FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages",
                         "FormulaParseException" + "_DETAILED", mte.getLine(), mte.getColumn(),
                         tokenTextFromId(mte.expecting));
@@ -141,9 +141,9 @@ public class FormulaParseException extends FormulaException {
 
         if (tokenText != null) {
             return "'" + tokenText + "'";
-        } else if (token == SfdcFormulaTokenTypes.EOF) {
+        } else if (token == FormulaTokenTypes.EOF) {
             return "'" + FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages", "EndOfFormula") + "'";
-        } else if (token == SfdcFormulaTokenTypes.IDENT) {
+        } else if (token == FormulaTokenTypes.IDENT) {
             return FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages", "FieldReference");
         } else {
             return "Unknown token: " + String.valueOf(token);
@@ -156,19 +156,19 @@ public class FormulaParseException extends FormulaException {
     private static final Map<Integer, String> mapTokenToText = new HashMap<Integer, String>();
 
     static {
-        mapTokenToText.put(SfdcFormulaTokenTypes.BEGIN_EMBEDDED_FORMULA, "{");
-        mapTokenToText.put(SfdcFormulaTokenTypes.END_EMBEDDED_FORMULA, "}");
+        mapTokenToText.put(FormulaTokenTypes.BEGIN_EMBEDDED_FORMULA, "{");
+        mapTokenToText.put(FormulaTokenTypes.END_EMBEDDED_FORMULA, "}");
 
-        mapTokenToText.put(SfdcFormulaTokenTypes.LPAREN, "(");
-        mapTokenToText.put(SfdcFormulaTokenTypes.RPAREN, ")");
+        mapTokenToText.put(FormulaTokenTypes.LPAREN, "(");
+        mapTokenToText.put(FormulaTokenTypes.RPAREN, ")");
 
-        mapTokenToText.put(SfdcFormulaTokenTypes.BANG, "!");
-        mapTokenToText.put(SfdcFormulaTokenTypes.COMMA, ",");
+        mapTokenToText.put(FormulaTokenTypes.BANG, "!");
+        mapTokenToText.put(FormulaTokenTypes.COMMA, ",");
         
-        mapTokenToText.put(SfdcFormulaTokenTypes.LSQUAREBRACKET, "[");
-        mapTokenToText.put(SfdcFormulaTokenTypes.RSQUAREBRACKET, "]");
+        mapTokenToText.put(FormulaTokenTypes.LSQUAREBRACKET, "[");
+        mapTokenToText.put(FormulaTokenTypes.RSQUAREBRACKET, "]");
         
-        mapTokenToText.put(SfdcFormulaTokenTypes.EQUAL, "=");
+        mapTokenToText.put(FormulaTokenTypes.EQUAL, "=");
     }
 
 }

@@ -178,7 +178,7 @@ public class BaseCompositeFormulaContext implements FormulaRuntimeContext {
     @Override
     public ContextualFormulaFieldInfo lookup(String devName, boolean isDynamicRefBase) throws InvalidFieldReferenceException, UnsupportedTypeException {
         FormulaRuntimeContext context = getContextFromReference(devName);
-        //context.setProperty(FormulaContext.FILTER_ENCRYPTED_FIELDS, new Boolean(true));  // Unused in SFDC since 204
+        //context.setProperty(FormulaContext.FILTER_ENCRYPTED_FIELDS, new Boolean(true));  // Unused in Salesforce since 204
         String fieldName = getFieldName(devName);
         return context.lookup(fieldName, isDynamicRefBase);
     }

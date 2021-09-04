@@ -7,7 +7,7 @@ package com.force.formula.impl;
 import antlr.CommonAST;
 import antlr.Token;
 import antlr.collections.AST;
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 
 import java.lang.reflect.Type;
 import java.util.LinkedList;
@@ -171,7 +171,7 @@ public class FormulaAST extends CommonAST {
         FormulaAST grandparent = parent.getParent();
         FormulaAST nextSibling = (FormulaAST)node.getNextSibling();
         return (isFunctionNode(grandparent, "template") && isFunctionNode(parent, "nullvalue") &&
-                 nextSibling != null && nextSibling.token != null && nextSibling.token.getType() == SfdcFormulaTokenTypes.STRING_LITERAL);
+                 nextSibling != null && nextSibling.token != null && nextSibling.token.getType() == FormulaTokenTypes.STRING_LITERAL);
     }
 
     public static boolean isFunctionNode(FormulaAST node, String function) {
@@ -179,25 +179,25 @@ public class FormulaAST extends CommonAST {
             return false;
         }
 
-        return ((node.getType() == SfdcFormulaTokenTypes.FUNCTION_CALL && node.getText().equalsIgnoreCase(function)));
+        return ((node.getType() == FormulaTokenTypes.FUNCTION_CALL && node.getText().equalsIgnoreCase(function)));
     }
 
     public static boolean isTopOfReferenceFormula(FormulaAST node) {
         FormulaAST parent = node.getParent();
-        return parent.getType() == SfdcFormulaTokenTypes.DYNAMIC_REF_ROOT;
+        return parent.getType() == FormulaTokenTypes.DYNAMIC_REF_ROOT;
     }
 
     public boolean isLiteral() {
         switch(getType()) {
-        case SfdcFormulaTokenTypes.TRUE:
+        case FormulaTokenTypes.TRUE:
             return true;
-        case SfdcFormulaTokenTypes.FALSE:
+        case FormulaTokenTypes.FALSE:
             return true;
-        case SfdcFormulaTokenTypes.NUMBER:
+        case FormulaTokenTypes.NUMBER:
             return true;
-        case SfdcFormulaTokenTypes.NULL:
+        case FormulaTokenTypes.NULL:
             return true;
-        case SfdcFormulaTokenTypes.STRING_LITERAL:
+        case FormulaTokenTypes.STRING_LITERAL:
             return true;
         default:
             return false;
@@ -222,8 +222,8 @@ public class FormulaAST extends CommonAST {
 
     public boolean isDynamicReferenceBase() {
         // a[b] : a is dynamic ref base;  or a[b].c  a[b] is dynamic ref base
-        return parent != null && parent.getType() == SfdcFormulaTokenTypes.DYNAMIC_REF && parent.down == this
-          || this.getType() == SfdcFormulaTokenTypes.DYNAMIC_REF && this.right != null && this.right.getType() == SfdcFormulaTokenTypes.DYNAMIC_REF_IDENT;
+        return parent != null && parent.getType() == FormulaTokenTypes.DYNAMIC_REF && parent.down == this
+          || this.getType() == FormulaTokenTypes.DYNAMIC_REF && this.right != null && this.right.getType() == FormulaTokenTypes.DYNAMIC_REF_IDENT;
     }
 
     private void setParentToThis(AST child) {

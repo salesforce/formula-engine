@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import com.force.formula.*;
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.parser.gen4.*;
 import com.force.formula.sql.FormulaWithSql;
 import com.force.formula.sql.InvalidFormula;
@@ -260,11 +260,11 @@ public class FormulaUtils {
     private static FormulaAST parseTemplateWithANTLR4(String source, FormulaProperties properties) throws FormulaException {
         FormulaAST root = new FormulaAST();
         root.setText("root");
-        root.setType(SfdcFormulaTokenTypes.ROOT);
+        root.setType(FormulaTokenTypes.ROOT);
 
         FormulaAST templateAST = new FormulaAST();
         templateAST.setText("template");
-        templateAST.setType(SfdcFormulaTokenTypes.FUNCTION_CALL);
+        templateAST.setType(FormulaTokenTypes.FUNCTION_CALL);
         root.addChild(templateAST);
 
         //we are differentiating single and double quotes to avoid closing a double quote with a single quote and vice versa ( e.g {!func("someone's text")} )
@@ -320,7 +320,7 @@ public class FormulaUtils {
         }
 
         if(inFormula) { //never closed embedded formula
-            antlr.CommonToken eofToken = new antlr.CommonToken(SfdcFormulaTokenTypes.EOF, null);
+            antlr.CommonToken eofToken = new antlr.CommonToken(FormulaTokenTypes.EOF, null);
             eofToken.setLine(1);
             eofToken.setColumn(source.length() + 1);
 
@@ -335,7 +335,7 @@ public class FormulaUtils {
                 e = createMismatchCharException('\uFFFF', '"', 1, source.length() + 1);
             }
             else {
-                e = new antlr.MismatchedTokenException(null, eofToken, SfdcFormulaTokenTypes.END_EMBEDDED_FORMULA, false, null);
+                e = new antlr.MismatchedTokenException(null, eofToken, FormulaTokenTypes.END_EMBEDDED_FORMULA, false, null);
             }
 
             throw new FormulaParseException(e);
@@ -378,14 +378,14 @@ public class FormulaUtils {
 
         FormulaAST ast = new FormulaAST();
         ast.setText(str);
-        ast.setType(SfdcFormulaTokenTypes.TEMPLATE_STRING_LITERAL);
+        ast.setType(FormulaTokenTypes.TEMPLATE_STRING_LITERAL);
         return ast;
     }
 
     private static FormulaAST createEmptyStringAST() {
         FormulaAST ast = new FormulaAST();
         ast.setText("\"\"");
-        ast.setType(SfdcFormulaTokenTypes.STRING_LITERAL);
+        ast.setType(FormulaTokenTypes.STRING_LITERAL);
         return ast;
     }
 

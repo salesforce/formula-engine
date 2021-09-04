@@ -279,7 +279,7 @@ public abstract class BaseFieldReferenceTest extends ParserTestBase {
     }
     
     static {
-        // Register all of the commands defined in SFDC, and then use provider factory to get the rest.
+        // Register all of the commands needed for field references, and then use provider factory to get the rest.
         List<FormulaCommandInfo> types = new ArrayList<>(FormulaCommandTypeRegistryImpl.getDefaultCommands());
         types.add(new FieldReferenceCommandInfo());
         types.add(new DynamicReference());

@@ -12,7 +12,7 @@ import com.force.formula.commands.FunctionNullValue.FunctionNullValueFormulaComm
 import com.force.formula.impl.*;
 import com.google.common.base.Splitter;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -70,7 +70,7 @@ public class FunctionIsNull extends FormulaCommandInfoImpl implements FormulaCom
     @Override
     public FormulaAST optimize(FormulaAST ast, FormulaContext context) throws FormulaException {
         if (treatAsString(context, ast)) {
-            ast.setType(SfdcFormulaTokenTypes.FALSE);
+            ast.setType(FormulaTokenTypes.FALSE);
             ast.setText("false");
             ast.setCanBeNull(false);
             ast.setConstantExpression(true);

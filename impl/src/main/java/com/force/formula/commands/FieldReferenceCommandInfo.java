@@ -12,7 +12,7 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.FormulaSchema.FieldOrColumn;
 import com.force.formula.impl.*;
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.*;
 import com.force.formula.util.BaseCompositeFormulaContext;
 import com.force.formula.util.FormulaFieldReferenceImpl;
@@ -128,7 +128,7 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
         } else if (columnType.isCurrency()) {
             // Wrap the argument node in an explicit ConvertCurrencyToNumber node
             FormulaAST newParent = new FormulaAST();
-            newParent.setType(SfdcFormulaTokenTypes.FUNCTION_CALL);
+            newParent.setType(FormulaTokenTypes.FUNCTION_CALL);
             newParent.setText("ConvertCurrencyToNumber");
             newParent.setDataType(BigDecimal.class);
             node.reparent(newParent);
@@ -142,12 +142,12 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
         if (properties.getTreatNullNumberAsZero()) {
             // Wrap the argument node in an explicit NVL node
             FormulaAST newParent = new FormulaAST();
-            newParent.setType(SfdcFormulaTokenTypes.FUNCTION_CALL);
+            newParent.setType(FormulaTokenTypes.FUNCTION_CALL);
             newParent.setText("NULLVALUE");
             newParent.setDataType(BigDecimal.class);
 
             FormulaAST zeroNode = new FormulaAST();
-            zeroNode.setType(SfdcFormulaTokenTypes.NUMBER);
+            zeroNode.setType(FormulaTokenTypes.NUMBER);
             zeroNode.setText("0");
             zeroNode.setDataType(BigDecimal.class);
 

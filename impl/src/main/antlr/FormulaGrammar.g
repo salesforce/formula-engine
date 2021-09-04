@@ -15,7 +15,7 @@ class FormulaParser extends Parser;
 
 options {
     k = 2;							// two token lookahead
-    exportVocab=SfdcFormula;	    // Call its vocabulary "SfdcFormula"
+    exportVocab=Formula;	    // Call its vocabulary "Formula"
     codeGenMakeSwitchThreshold = 2;	// Some optimizations
     codeGenBitsetTestThreshold = 3;
     defaultErrorHandler = false;	// Don't generate parser error handlers
@@ -227,7 +227,7 @@ fieldSelector
 class FormulaLexer extends Lexer;
 
 options {
-    exportVocab=SfdcFormula;	// call the vocabulary "SfdcFormula"
+    exportVocab=Formula;	// call the vocabulary "Formula"
     testLiterals=false;			// don't automatically test for literals
     k=4;						// four characters of lookahead
     charVocabulary='\u0003'..'\uFFFE';

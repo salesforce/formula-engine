@@ -20,7 +20,7 @@ import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
 
 /**
- * Format a value into text in the SFDC format, or using a java based format the same as the one
+ * Format a value into text in the Grammaticus format, or using a java based format the same as the one
  * used in apex:outputText
  * FORMAT(value[, format]);
  * Value can be a decimal, a date, or a datetime

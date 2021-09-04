@@ -8,7 +8,7 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaTextUtil;
 
@@ -40,10 +40,10 @@ public class FunctionAnd extends FormulaCommandInfoImpl implements FormulaComman
     @Override
     public FormulaAST optimize(FormulaAST ast, FormulaContext context) throws FormulaException {
         FormulaAST child = (FormulaAST)ast.getFirstChild();
-        while(child != null && child.getType() == SfdcFormulaTokenTypes.TRUE) {
+        while(child != null && child.getType() == FormulaTokenTypes.TRUE) {
             child = (FormulaAST)child.getNextSibling();
         }
-        if (child != null && child.getType() == SfdcFormulaTokenTypes.FALSE) {
+        if (child != null && child.getType() == FormulaTokenTypes.FALSE) {
             ast = ast.replace(child);
         }
         return ast;

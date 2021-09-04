@@ -12,7 +12,7 @@ import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.InvalidFunctionReferenceException;
 
 import antlr.Token;
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 
 /**
  * Describe your class here.
@@ -75,16 +75,16 @@ public class FormulaCommandInfoRegistry {
 
     static {
         // Basic "hardwired" engine functions
-        typeToName.put(SfdcFormulaTokenTypes.IDENT, "IDENT");
-        typeToName.put(SfdcFormulaTokenTypes.NUMBER, "NUMBER");
-        typeToName.put(SfdcFormulaTokenTypes.STRING_LITERAL, "STRING_LITERAL");
-        typeToName.put(SfdcFormulaTokenTypes.NOUNESCAPE_STRING_LITERAL, "NOUNESCAPE_STRING_LITERAL");
-        typeToName.put(SfdcFormulaTokenTypes.TEMPLATE_STRING_LITERAL, "TEMPLATE_STRING_LITERAL");
-        typeToName.put(SfdcFormulaTokenTypes.TRUE, "TRUE");
-        typeToName.put(SfdcFormulaTokenTypes.FALSE, "FALSE");
-        typeToName.put(SfdcFormulaTokenTypes.NULL, "NULL");
-        typeToName.put(SfdcFormulaTokenTypes.DYNAMIC_REF, DYNAMIC_REF);
-        typeToName.put(SfdcFormulaTokenTypes.DYNAMIC_REF_IDENT, DYNAMIC_REF_IDENT);
+        typeToName.put(FormulaTokenTypes.IDENT, "IDENT");
+        typeToName.put(FormulaTokenTypes.NUMBER, "NUMBER");
+        typeToName.put(FormulaTokenTypes.STRING_LITERAL, "STRING_LITERAL");
+        typeToName.put(FormulaTokenTypes.NOUNESCAPE_STRING_LITERAL, "NOUNESCAPE_STRING_LITERAL");
+        typeToName.put(FormulaTokenTypes.TEMPLATE_STRING_LITERAL, "TEMPLATE_STRING_LITERAL");
+        typeToName.put(FormulaTokenTypes.TRUE, "TRUE");
+        typeToName.put(FormulaTokenTypes.FALSE, "FALSE");
+        typeToName.put(FormulaTokenTypes.NULL, "NULL");
+        typeToName.put(FormulaTokenTypes.DYNAMIC_REF, DYNAMIC_REF);
+        typeToName.put(FormulaTokenTypes.DYNAMIC_REF_IDENT, DYNAMIC_REF_IDENT);
     }
 
 }

@@ -91,7 +91,7 @@ public class FieldDefinitionInfo implements Cloneable {
         if (this.isStandard)
             return this.devName;
         else
-            return this.devName + "__c";  // SFDC Convention
+            return this.devName + "__c";  // Salesforce specifc Convention
     }
 
     public boolean isFormula() {
@@ -240,7 +240,7 @@ public class FieldDefinitionInfo implements Cloneable {
     }
 
     /**
-     * @param fieldId - Store the SFDC ID created for this field at run time.
+     * @param fieldId - Store the ID created for this field at run time.
      */
     public void setFieldId(String fieldId) {
         this.fieldId = fieldId;

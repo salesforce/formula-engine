@@ -53,7 +53,7 @@ public class BigDecimalHelper {
         BigDecimal result = value.abs();
         if (result.compareTo(BigDecimal.ONE) < 0) {
             // Special handling for numbers < 1 is so that e.g. 0.003 rounds to 2 places as 0.00 instead of 0.0.
-            // SFDC treats 0.003 as having precision 4, scale 3, instead of precision 1 scale 3.
+            // Salesforce semantics treats 0.003 as having precision 4, scale 3, instead of precision 1 scale 3.
             // This is for consistency with prior releases, though not consistent with SQL version.
             result = result.add(BigDecimal.ONE, MC_PRECISION_INTERNAL);
             final int newPrec = scale + 1;

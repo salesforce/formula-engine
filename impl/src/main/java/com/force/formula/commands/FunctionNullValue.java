@@ -10,7 +10,7 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
 
-import com.force.formula.parser.gen.SfdcFormulaTokenTypes;
+import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -50,7 +50,7 @@ public class FunctionNullValue extends FormulaCommandInfoImpl implements Formula
 
     @Override
     public FormulaAST optimize(FormulaAST ast, FormulaContext context) throws FormulaException {
-        if (!((FormulaAST)ast.getFirstChild()).canBeNull() || ast.getFirstChild().getNextSibling().getType() == SfdcFormulaTokenTypes.NULL) {
+        if (!((FormulaAST)ast.getFirstChild()).canBeNull() || ast.getFirstChild().getNextSibling().getType() == FormulaTokenTypes.NULL) {
             return ast.replace((FormulaAST)ast.getFirstChild());
         }
         return ast;

@@ -528,6 +528,24 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
         return "(EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))";
     }
     
+    
+    /**
+     * @return the the date.  Overridable in case you want to change the timezone functionality with ::timestamp.
+     */
+    default String psqlNow() {
+        // return "SFDC_DATE()";
+        return "NOW()";
+    }
+    
+    /**
+     * @return the the current milliseconds of the day suitable.  You may want to use ::time instead, so overridable
+     */
+    default String psqlTimeNow() {
+        // return "EXTRACT(EPOCH FROM AGE(SFDC_TIMESTAMP(), DATE_TRUNC('day', SFDC_TIMESTAMP())))::BIGINT::NUMERIC";
+        return "EXTRACT(EPOCH FROM AGE(NOW()::timestamp, DATE_TRUNC('day', NOW()::timestamp)))::BIGINT::NUMERIC";
+    }
+    
+    
 
     /**
      * @return the URL encoding to use when rendering static markup from a template.
