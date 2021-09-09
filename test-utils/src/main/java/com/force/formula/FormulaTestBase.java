@@ -5,8 +5,7 @@ import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
 import java.util.*;
 
-import com.force.formula.sql.FormulaWithSql;
-import com.force.formula.sql.RuntimeSqlFormulaInfo;
+import com.force.formula.sql.*;
 import com.force.i18n.BaseLocalizer;
 
 import junit.framework.TestCase;
@@ -62,11 +61,11 @@ public abstract class FormulaTestBase extends TestCase {
         return formula.evaluate(context);
     }
 
-    protected String getSqlGuard(String formulaSource, FormulaDataType columnType) throws Exception {
+    protected SQLPair getSqlPair(String formulaSource, FormulaDataType columnType) throws Exception {
         FormulaRuntimeContext context = setupMockContext(columnType);
         RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(getFormulaType(), context, formulaSource);
-        Formula formula = formulaInfo.getFormula();
-        return ((FormulaWithSql)formula).getGuard();
+        FormulaWithSql formula = (FormulaWithSql) formulaInfo.getFormula();
+        return new SQLPair(formula.getSQLRaw(), formula.getGuard());
     }
     
     /**

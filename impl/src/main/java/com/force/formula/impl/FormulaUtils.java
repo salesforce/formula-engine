@@ -239,7 +239,9 @@ public class FormulaUtils {
     public static FormulaAST parseWithANTLR4(String source, FormulaProperties properties) throws FormulaException {
         try {
             if(properties.getParseAsTemplate()) {
-                return parseTemplateWithANTLR4(source, properties);
+                Antlr4FormulaTemplateParser parser = new Antlr4FormulaTemplateParser(properties);
+                parseTemplate(source, parser);
+                return parser.getRoot();
             }
 
             return parseFormulaWithANTLR4(source, properties, 0);
@@ -256,17 +258,60 @@ public class FormulaUtils {
             return parseWithANTLR2(source, properties);
         }
     }
+    
+    public static interface FormulaTemplateParser {
+        void handleFormula(String formula, int start) throws FormulaException ;
+        void handleText(String text);
+        
+    }
+    
+    static final class Antlr4FormulaTemplateParser implements FormulaTemplateParser {
+        private final FormulaProperties properties;
+        private final FormulaAST root;
+        private final FormulaAST templateAST;
+        public Antlr4FormulaTemplateParser(FormulaProperties properties) {
+            root = new FormulaAST();
+            root.setText("root");
+            root.setType(FormulaTokenTypes.ROOT);
 
-    private static FormulaAST parseTemplateWithANTLR4(String source, FormulaProperties properties) throws FormulaException {
-        FormulaAST root = new FormulaAST();
-        root.setText("root");
-        root.setType(FormulaTokenTypes.ROOT);
+            templateAST = new FormulaAST();
+            templateAST.setText("template");
+            templateAST.setType(FormulaTokenTypes.FUNCTION_CALL);
+            root.addChild(templateAST);
+            
+            this.properties = properties;
+        }
+        
+        @Override
+        public void handleFormula(String formula, int start) throws FormulaException {
+            try {
+                FormulaAST formulaAST = parseFormulaWithANTLR4(formula, properties, start);
+                templateAST.addChild(formulaAST.getFirstChild());
+            }
+            catch(FormulaException e) {
+                if(properties.getIgnoreFailOnEmbeddedFormulaParserExceptionsForParsing() || properties.getFailOnEmbeddedFormulaExceptions()) {
+                    throw e;
+                }
+                else {
+                    templateAST.addChild(createEmptyStringAST());
+                }
+            }
+            
+        }
 
-        FormulaAST templateAST = new FormulaAST();
-        templateAST.setText("template");
-        templateAST.setType(FormulaTokenTypes.FUNCTION_CALL);
-        root.addChild(templateAST);
+        @Override
+        public void handleText(String text) {
+            FormulaAST templateStringAST = createTemplateStringAST(text, 0, text.length());
+            templateAST.addChild(templateStringAST);
+        }
+        
+        public FormulaAST getRoot() {
+            return root;
+        }
+        
+    }
 
+    public static void parseTemplate(String source, FormulaTemplateParser parser) throws FormulaException {
         //we are differentiating single and double quotes to avoid closing a double quote with a single quote and vice versa ( e.g {!func("someone's text")} )
         boolean inSingleQuotes = false;
         boolean inDoubleQuotes = false;
@@ -293,29 +338,18 @@ public class FormulaUtils {
             else if(inFormula && !inComment && !inSingleQuotes && !inDoubleQuotes && source.charAt(i) == '}') {
                 inFormula = false;
                 String innerFormula = source.substring(innerFormulaStartIndex+2, i);
-
-                try {
-                    FormulaAST formulaAST = parseFormulaWithANTLR4(innerFormula, properties, innerFormulaStartIndex+2);
-                    templateAST.addChild(formulaAST.getFirstChild());
+                if (innerFormula.length() > 0) {
+                    parser.handleFormula(innerFormula, innerFormulaStartIndex+2);
                 }
-                catch(FormulaException e) {
-                    if(properties.getIgnoreFailOnEmbeddedFormulaParserExceptionsForParsing() || properties.getFailOnEmbeddedFormulaExceptions()) {
-                        throw e;
-                    }
-                    else {
-                        templateAST.addChild(createEmptyStringAST());
-                    }
-                }
-
                 previousIndex = i + 1;
             }
             else if(!inFormula && source.charAt(i) == '{' && i+1 < source.length() && source.charAt(i+1) == '!') {
                 inFormula = true;
                 innerFormulaStartIndex = i;
                 i = i+1;
-
-                FormulaAST templateStringAST = createTemplateStringAST(source, previousIndex, innerFormulaStartIndex);
-                templateAST.addChild(templateStringAST);
+                if (previousIndex < innerFormulaStartIndex) {
+                    parser.handleText(source.substring(previousIndex, innerFormulaStartIndex));
+                }
             }
         }
 
@@ -340,12 +374,9 @@ public class FormulaUtils {
 
             throw new FormulaParseException(e);
         }
-        else {
-            FormulaAST templateStringAST = createTemplateStringAST(source, previousIndex, source.length());
-            templateAST.addChild(templateStringAST);
+        else if (previousIndex < source.length()) {
+            parser.handleText(source.substring(previousIndex));
         }
-
-        return root;
     }
 
     /**

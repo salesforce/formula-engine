@@ -593,11 +593,11 @@ public class BuiltinFunctionsTest extends ParserTestBase {
     }
 
     public void testSqlTIMEVALUE() throws Exception {
-        assertEquals(null, getSqlGuard("timeValue(\"12:34:56.789\")", MockFormulaDataType.TIMEONLY));
+        assertEquals(null, getSqlPair("timeValue(\"12:34:56.789\")", MockFormulaDataType.TIMEONLY).guard);
     }
 
     public void testInvalidSqlTIMEVALUE() throws Exception {
-        assertEquals("0=0", getSqlGuard("timeValue(\"12:34:56.789Z\")", MockFormulaDataType.TIMEONLY));
+        assertEquals("0=0", getSqlPair("timeValue(\"12:34:56.789Z\")", MockFormulaDataType.TIMEONLY).guard);
     }
     
     public void testNoOpTIMEVALUE() throws Exception {
