@@ -39,7 +39,7 @@ public class FunctionIfs extends FormulaCommandInfoImpl implements FormulaComman
         boolean hasNonNullCondition = false;
         FormulaAST currentConditionNode = (FormulaAST) node.getFirstChild();
         for(int i = 0; i < args.length - 1; i += 2) {
-            if(args[i].equals("NULL")) { //treat conditions that are NULL as false
+            if("NULL".equals(args[i])) { //treat conditions that are NULL as false
                 continue;
             }
 

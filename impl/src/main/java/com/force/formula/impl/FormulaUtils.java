@@ -239,7 +239,7 @@ public class FormulaUtils {
     public static FormulaAST parseWithANTLR4(String source, FormulaProperties properties) throws FormulaException {
         try {
             if(properties.getParseAsTemplate()) {
-                Antlr4FormulaTemplateParser parser = new Antlr4FormulaTemplateParser(properties);
+                Antlr4FormulaTemplateHandler parser = new Antlr4FormulaTemplateHandler(properties);
                 parseTemplate(source, parser);
                 return parser.getRoot();
             }
@@ -259,17 +259,35 @@ public class FormulaUtils {
         }
     }
     
-    public static interface FormulaTemplateParser {
-        void handleFormula(String formula, int start) throws FormulaException ;
-        void handleText(String text);
+    /**
+     * Handler for template style parsers
+     * @see FormulaUtils#parseTemplate(CharSequence, FormulaTemplateHandler)
+     * @author stamm
+     */
+    public static interface FormulaTemplateHandler {
+    	/**
+    	 * Handle the contents of a formula inside a template
+    	 * @param formula the contents of the {!...} with the braces stripped off
+    	 * @param start the index of where this started to allow for any error handling
+    	 * @throws FormulaException to throw any exception needed
+    	 */
+        void handleFormula(CharSequence formula, int start) throws FormulaException ;
+        /**
+         * Handle any non {!...} text.
+         * @param text regular characters
+         */
+        void handleText(CharSequence text);
         
     }
     
-    static final class Antlr4FormulaTemplateParser implements FormulaTemplateParser {
+    /**
+     * Implementation that parses the contents inside the template using the Antlr4 parser
+     */
+    static final class Antlr4FormulaTemplateHandler implements FormulaTemplateHandler {
         private final FormulaProperties properties;
         private final FormulaAST root;
         private final FormulaAST templateAST;
-        public Antlr4FormulaTemplateParser(FormulaProperties properties) {
+        public Antlr4FormulaTemplateHandler(FormulaProperties properties) {
             root = new FormulaAST();
             root.setText("root");
             root.setType(FormulaTokenTypes.ROOT);
@@ -283,9 +301,9 @@ public class FormulaUtils {
         }
         
         @Override
-        public void handleFormula(String formula, int start) throws FormulaException {
+        public void handleFormula(CharSequence formula, int start) throws FormulaException {
             try {
-                FormulaAST formulaAST = parseFormulaWithANTLR4(formula, properties, start);
+                FormulaAST formulaAST = parseFormulaWithANTLR4(formula.toString(), properties, start);
                 templateAST.addChild(formulaAST.getFirstChild());
             }
             catch(FormulaException e) {
@@ -300,7 +318,7 @@ public class FormulaUtils {
         }
 
         @Override
-        public void handleText(String text) {
+        public void handleText(CharSequence text) {
             FormulaAST templateStringAST = createTemplateStringAST(text, 0, text.length());
             templateAST.addChild(templateStringAST);
         }
@@ -311,7 +329,14 @@ public class FormulaUtils {
         
     }
 
-    public static void parseTemplate(String source, FormulaTemplateParser parser) throws FormulaException {
+    /**
+     * Parse the template source as a string where {!...} parsing is handled correctly.  
+     * Supports quotation and block comments inside the braces
+     * @param source the source of the template containing {!...}
+     * @param parser the handler for the 
+     * @throws FormulaException
+     */
+    public static void parseTemplate(CharSequence source, FormulaTemplateHandler parser) throws FormulaException {
         //we are differentiating single and double quotes to avoid closing a double quote with a single quote and vice versa ( e.g {!func("someone's text")} )
         boolean inSingleQuotes = false;
         boolean inDoubleQuotes = false;
@@ -337,7 +362,7 @@ public class FormulaUtils {
             }
             else if(inFormula && !inComment && !inSingleQuotes && !inDoubleQuotes && source.charAt(i) == '}') {
                 inFormula = false;
-                String innerFormula = source.substring(innerFormulaStartIndex+2, i);
+                CharSequence innerFormula = source.subSequence(innerFormulaStartIndex+2, i);
                 if (innerFormula.length() > 0) {
                     parser.handleFormula(innerFormula, innerFormulaStartIndex+2);
                 }
@@ -348,7 +373,7 @@ public class FormulaUtils {
                 innerFormulaStartIndex = i;
                 i = i+1;
                 if (previousIndex < innerFormulaStartIndex) {
-                    parser.handleText(source.substring(previousIndex, innerFormulaStartIndex));
+                    parser.handleText(source.subSequence(previousIndex, innerFormulaStartIndex));
                 }
             }
         }
@@ -375,7 +400,7 @@ public class FormulaUtils {
             throw new FormulaParseException(e);
         }
         else if (previousIndex < source.length()) {
-            parser.handleText(source.substring(previousIndex));
+            parser.handleText(source.subSequence(previousIndex, source.length()));
         }
     }
 
@@ -383,7 +408,7 @@ public class FormulaUtils {
      * Counts the number of backslashes that precede the given index (i.e. index is excluded).
      * If index is out of range, 0 is returned.
      */
-    static int numberOfPrecedingBackslashes(String str, int index) {
+    static int numberOfPrecedingBackslashes(CharSequence str, int index) {
         if(index > str.length()) {
             return 0;
         }
@@ -401,8 +426,8 @@ public class FormulaUtils {
         return count;
     }
 
-    private static FormulaAST createTemplateStringAST(String source, int startIndex, int endIndex) {
-        String str = source.substring(startIndex, endIndex);
+    private static FormulaAST createTemplateStringAST(CharSequence source, int startIndex, int endIndex) {
+        String str = source.subSequence(startIndex, endIndex).toString();
         if (str.length() == 0) {
             return null;
         }
