@@ -5,8 +5,8 @@ import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
 import java.util.*;
 
-import com.force.formula.sql.FormulaWithSql;
-import com.force.formula.sql.RuntimeSqlFormulaInfo;
+import com.force.formula.commands.FormulaJsTestUtils;
+import com.force.formula.sql.*;
 import com.force.i18n.BaseLocalizer;
 
 import junit.framework.TestCase;
@@ -55,18 +55,75 @@ public abstract class FormulaTestBase extends TestCase {
         return MockFormulaType.DEFAULT;
     }
 
+    /**
+     * Evaluate the formula using the java engine and the mock formula context in {@link #setupMockContext(FormulaDataType)}
+     * @param formulaSource the source of the formula
+     * @param columnType the column type expected 
+     * @return the result of evaluating the formula
+     * @throws Exception if there is an issue during parsing or evaluation
+     */
     protected Object evaluate(String formulaSource, FormulaDataType columnType) throws Exception {
         FormulaRuntimeContext context = setupMockContext(columnType);
         RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(getFormulaType(), context, formulaSource);
         Formula formula = formulaInfo.getFormula();
         return formula.evaluate(context);
     }
+    
+    /**
+     * Evaluate the formula using the javascript test engine and the mock formula context in {@link #setupMockContext(FormulaDataType)}
+     * @param formulaSource the source of the formula
+     * @param columnType the column type expected 
+     * @return the result of evaluating the formula
+     * @throws Exception if there is an issue during parsing or evaluation
+     */
 
-    protected String getSqlGuard(String formulaSource, FormulaDataType columnType) throws Exception {
+    protected Object evaluateJavascript(String formulaSource, FormulaDataType columnType) throws Exception {
+        FormulaRuntimeContext context = setupMockContext(columnType);
+        RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(MockFormulaType.JAVASCRIPT, context, formulaSource);
+        Formula formula = formulaInfo.getFormula();
+        return FormulaJsTestUtils.get().evaluateFormula(formula, columnType, context, null);
+    }
+
+    /**
+     * Evaluate the formulaSource and make sure it fails during evaluation.  DataType is assumed to be text.
+     * @param formulaSource the formula to parse and evaluate.
+     * @param exceptionType the exception type expected
+     * @param message the message asso
+     * @throws Exception in case some other exception is thrown.
+     */
+    protected void evaluateFail(String formulaSource, Class<? extends Exception> exceptionType, String message) throws Exception {
+    	evaluateFail(formulaSource, MockFormulaDataType.TEXT, exceptionType, message);
+    }
+    
+    /**
+     * Evaluate the formulaSource and make sure it fails during evaluation.
+     * @param formulaSource the formula to parse and evaluate.
+     * @param dataType the data type expected fro the result
+     * @param exceptionType the exception type expected
+     * @param message the message asso
+     * @throws Exception in case some other exception is thrown.
+     */
+    protected void evaluateFail(String formulaSource, FormulaDataType dataType, Class<? extends Exception> exceptionType, String message) throws Exception {
+    	try {
+    		evaluate(formulaSource, MockFormulaDataType.TEXT);
+    		fail("Should have gotten exception: " + exceptionType.getName());
+    	} catch (Exception e) {
+    		if (exceptionType.isInstance(e)) {
+    			if (!e.getMessage().contains(message)) {
+    	    		fail("Should have gotten message: " + message + ": but was " + e.getMessage());
+    			}
+    		} else {
+        		fail("Got wrong exception: was " + e);
+    		}
+    	}
+    }
+
+
+    protected SQLPair getSqlPair(String formulaSource, FormulaDataType columnType) throws Exception {
         FormulaRuntimeContext context = setupMockContext(columnType);
         RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(getFormulaType(), context, formulaSource);
-        Formula formula = formulaInfo.getFormula();
-        return ((FormulaWithSql)formula).getGuard();
+        FormulaWithSql formula = (FormulaWithSql) formulaInfo.getFormula();
+        return new SQLPair(formula.getSQLRaw(), formula.getGuard());
     }
     
     /**

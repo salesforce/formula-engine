@@ -30,7 +30,7 @@ public class FieldReferenceTest extends BaseFieldReferenceTest {
         DisplayField[] fields = context.getDisplayFields(context.getEntity());
         Map<String,FormulaFieldInfo> ffis = new HashMap<>();
         for (DisplayField field : fields) {
-            assertEquals("BaseFieldReferenceTest$TestContact", field.getCategoryLabel());
+            assertEquals("BaseCustomizableParserTest$TestContact", field.getCategoryLabel());
             ffis.put(field.getFormulaFieldInfo().getName(), field.getFormulaFieldInfo());
         }
         assertEquals(ImmutableSet.of("account", "accountId", "createdDate", "optIn", "nullNumber", "nullAccount", "nullDate", "nullText",

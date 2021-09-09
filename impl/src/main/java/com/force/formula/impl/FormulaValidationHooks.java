@@ -391,7 +391,8 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     default ShortCircuitBehavior parseHook_caseShortCircuit(String argumentName) {
         if (argumentName == null) return ShortCircuitBehavior.EVAL_ALL;
         switch (argumentName) {
-        case "IF":
+        case "IF": 
+        case "IFS":
             // To make CASE conditional, add it to this branch
             return ShortCircuitBehavior.THUNK_REST;
         case "AND":

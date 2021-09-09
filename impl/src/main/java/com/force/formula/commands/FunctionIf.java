@@ -2,14 +2,12 @@ package com.force.formula.commands;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Deque;
+import java.util.*;
 
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
-
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
@@ -33,6 +31,7 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
         return new OperatorIfFormulaCommand(this);
     }
 
+    //TODO(ifs): can this method simply call FunctionIfs.getSQL method?
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         String sql;
@@ -61,29 +60,46 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
             }
 
             // Conditionally evaluate guards on the basis of args[0]
-            guard = guards[0];
-            if (guards[1] != null) {
-                String extra = "((" + args[0] + ") AND (" + guards[1] + "))";
-                if (guard != null)
-                    guard = guard + " OR " + extra;
-                else
-                    guard = extra;
-            }
-            if (guards[2] != null) {
-                String extra = "((CASE WHEN " + args[0] + " THEN 1 ELSE 0 END = 0" + ") AND (" + guards[2] + "))";
-                if (guard != null)
-                    guard = guard + " OR " + extra;
-                else
-                    guard = extra;
-            }
+            guard = getGuard(args[0], guards[0], guards[1], guards[2]);
         }
         return new SQLPair(sql, guard);
     }
 
+    /**
+     * Generates the guard for an IF/IFS function with 3 parameters. The format is: IF/IFS(condition, then, else).
+     * @param conditionArg The SQL for condition parameter.
+     * @param conditionGuard The guard for condition parameter.
+     * @param thenGuard The guard for then parameter.
+     * @param elseGuard The guard for else parameter.
+     * @return Final guard for the IF/IFS function.
+     */
+    protected static String getGuard(String conditionArg, String conditionGuard, String thenGuard, String elseGuard) {
+        StringJoiner sj = new StringJoiner(" OR ");
+
+        if(conditionGuard != null) {
+            sj.add(conditionGuard);
+        }
+
+        if (thenGuard != null) {
+            sj.add("((" + conditionArg + ") AND (" + thenGuard + "))");
+        }
+
+        if (elseGuard != null) {
+            //we wrap conditionArg here to ensure that if conditionArg is NULL, we still continue to evaluate
+            // elseGuard. Whereas for thenGuard, we only want to evaluate it if conditionArg is true.
+            sj.add("((CASE WHEN " + conditionArg + " THEN 1 ELSE 0 END = 0" + ") AND (" + elseGuard + "))");
+        }
+
+        String guard = sj.toString();
+        return guard.isEmpty() ? null : guard;
+    }
+
     // Prepare the arg for inclusion as then or else part of expression.  This deals with possible null expressions
     // and also, if we have a boolean, converts to numeric 1 or 0 to pass out of the generated expression
-    private String wrap(String expression, FormulaAST node, Type resultDataType, FormulaContext context) {
+    //TODO(ifs): move to a util class?
+    protected static String wrap(String expression, FormulaAST node, Type resultDataType, FormulaContext context) {
         Type argType = node.getDataType();
+        int nodeType = node.getType();
         if (argType == ConstantNull.class) {
             if ((resultDataType == FormulaDateTime.class) || (resultDataType == Date.class)) {
                 return "TO_DATE(NULL)";
@@ -105,7 +121,6 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
             return String.format("NVL(%s,TO_NUMBER(NULL))", expression);
         } else if (argType == Boolean.class) {
             // convert boolean back to number for comparison
-            int nodeType = node.getType();
             if (nodeType == FormulaTokenTypes.TRUE)
                 return "1";
             else if (nodeType == FormulaTokenTypes.FALSE)
@@ -114,7 +129,7 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
                 return String.format("CASE WHEN %s THEN 1 ELSE 0 END", expression);
         }
         else if (FormulaCommandInfoImpl.shouldGeneratePsql(context) && argType == String.class &&  "''".equals(expression)) {
-             return "NULL"; // Postgres related: W-5552193
+             return "NULL"; // SDB related: W-5552193
         }
         else {
             return expression;
@@ -129,13 +144,14 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
             ast = ast.replace((FormulaAST)first.getNextSibling());
         } else if (first.getType() == FormulaTokenTypes.FALSE) {
             ast = ast.replace((FormulaAST)first.getNextSibling().getNextSibling());
+        } else { //ast is still an IF node
+            optimizeNestedIfs(ast);
         }
 
         // slight hack to make sure the datatype of the returned null is correct
         if (ast.getDataType() == ConstantNull.class)
             ast.setDataType(dataType);
 
-        optimizeNestedIfs(ast);
         return ast;
     }
 
@@ -154,13 +170,12 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
      * the very last IF function in the nested-IFs pattern.
      */
     protected static void optimizeNestedIfs(FormulaAST ast) {
-        if(!FormulaAST.isFunctionNode(ast, FunctionIf.CAPITALIZED_NAME) ||
-                !FormulaValidationHooks.get().parseHook_shouldOptimizeNestedIfs()) {
+        if(!FormulaValidationHooks.get().parseHook_shouldOptimizeNestedIfs()) {
             return;
         }
 
         FormulaAST elseClause = (FormulaAST) ast.getFirstChild() //condition
-                .getNextSibling() //if-clause
+                .getNextSibling() //then-clause
                 .getNextSibling(); //else-clause
         if(!FormulaAST.isFunctionNode(elseClause, FunctionIf.CAPITALIZED_NAME) &&
                 !FormulaAST.isFunctionNode(elseClause, FunctionIfs.CAPITALIZED_NAME)) {
@@ -172,13 +187,13 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
 
         //remove else-clause from the tree
         ast.getFirstChild() //condition
-                .getNextSibling() //if-clause
+                .getNextSibling() //then-clause
                 .setNextSibling(null); //else-clause
         elseClause.setParent(null);
 
         //end of ast's children linked list
         FormulaAST tail = (FormulaAST) ast.getFirstChild() //condition
-                .getNextSibling(); //if-clause
+                .getNextSibling(); //then-clause
 
         //move over else-clause's children to ast
         FormulaAST elseClauseChild = (FormulaAST) elseClause.getFirstChild();

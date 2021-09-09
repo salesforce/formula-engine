@@ -16,7 +16,7 @@ import org.junit.runners.AllTests;
 import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaEngine;
-import com.force.formula.impl.BaseFieldReferenceTest.FieldTestFormulaValidationHooks;
+import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
 
 import junit.framework.TestSuite;
 

@@ -11,9 +11,6 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.force.formula.FormulaFieldInfo.FormulaFieldType;
-import com.force.formula.FormulaSchema.Entity;
-import com.force.formula.FormulaSchema.Field;
 import com.force.formula.util.FormulaFieldReferenceImpl;
 import com.force.formula.util.SystemFormulaContext;
 import com.force.i18n.grammar.GrammaticalLocalizer;
