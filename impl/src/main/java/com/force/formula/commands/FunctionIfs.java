@@ -17,7 +17,7 @@ import com.force.formula.sql.SQLPair;
  * @author ashanjani
  * @since 234
  */
-@AllowedContext(section = SelectorSection.LOGICAL, access = "beta", isJavascript = false)
+@AllowedContext(section = SelectorSection.LOGICAL, access = "beta")
 public class FunctionIfs extends FormulaCommandInfoImpl implements FormulaCommandValidator {
     public static final String CAPITALIZED_NAME = "IFS";
 
@@ -27,7 +27,7 @@ public class FunctionIfs extends FormulaCommandInfoImpl implements FormulaComman
 
     @Override
     public FormulaCommand getCommand(FormulaAST node, FormulaContext context) {
-        return new OperatorIfsFormulaCommand(this);
+        return new OperatorIfsFormulaCommand(this, node.getNumberOfChildren());
     }
 
     @Override
@@ -84,37 +84,119 @@ public class FunctionIfs extends FormulaCommandInfoImpl implements FormulaComman
     public Type validate(FormulaAST node, FormulaContext context, FormulaProperties properties) throws FormulaException {
         int numberOfParameters = node.getNumberOfChildren();
         if (numberOfParameters < 3 || numberOfParameters % 2 != 1) {
-            throw new WrongNumberOfArgumentsException(node.getText(), 3, node); //TODO(ifs): should fix the expected value because the expected value could be 3, 5, 7, ...
-
+            int expectedNumberOfChildren = Math.max(3, 1 + 2*((1+numberOfParameters)/2));
+            throw new WrongNumberOfArgumentsException(node.getText(), expectedNumberOfChildren, node);
         }
 
         if(node.getDataType() != null) {
             return node.getDataType(); //node is a converted IF node, and the data type has already been resolved.
         }
         else {
-            //TODO(ifs): in this scenario, the IFS node is not from a converted IF node, and we need to validate children's types
-            // and also resolve the return data type of the IFS node.
-            // Resolve data type similar to FunctionIf.validate(); dedup code if possible.
-            // This implementation is temporary to pass unit tests.
-            return ((FormulaAST) node.getFirstChild().getNextSibling()).getDataType();
+        	Type resultType = null; // The expected result type.  First time through is null
+        	FormulaAST currentNode = (FormulaAST) node.getFirstChild();
+        	// GO thro
+        	for (int i = 0; i < numberOfParameters-1; i+=2) {
+	            Type guardDataType = currentNode.getDataType();
+	            if (guardDataType != Boolean.class && guardDataType != RuntimeType.class)
+	                throw new WrongArgumentTypeException(node.getText(), new Type[] { Boolean.class }, currentNode);
+	            currentNode = (FormulaAST)currentNode.getNextSibling();
+	            resultType = getResultType(node, currentNode, resultType, true);
+	            currentNode = (FormulaAST)currentNode.getNextSibling();
+        	}
+        	return getResultType(node, currentNode, resultType, true);
         }
+    }
+    
+    /**
+     * Compare the current result type to the one in the provided node and return the common supertype.
+     * @param node the node of the function (ifs),  
+     * @param currentNode the node of the result to return
+     * @param currentResultType the previously evaluated result type
+     * @param checkIfTypeEquality check functionHook_validateIfFunctionTypeEquality to allow mismatched return types
+     * @return the common type between the currentResultType and the type of the currentNode
+     * @throws WrongArgumentTypeException if the types don't match and checkIfTypeEquality
+     */
+    static Type getResultType(FormulaAST node, FormulaAST currentNode, Type currentResultType, boolean checkIfTypeEquality) throws WrongArgumentTypeException {
+    	Type resultType = currentNode.getDataType();
+    	if (currentResultType == null) {
+    		return resultType;
+    	}
+        Type commonResultType = FormulaTypeUtils.getCommonSuperType(currentResultType, resultType);
+        if (commonResultType == null) {
+        	if (!checkIfTypeEquality || shouldValidateTypeEquality()) {
+        		throw new WrongArgumentTypeException(node.getText(), new Type[] { currentResultType }, currentNode);
+        	} else {
+        		return RuntimeType.class;
+        	}
+        } else {
+        	return commonResultType;
+        }
+    }
+    
+    // determines if then and else types should be validated for equality
+    protected static boolean shouldValidateTypeEquality() {
+    	return FormulaEngine.getHooks().functionHook_validateIfFunctionTypeEquality();
     }
 
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        throw new UnsupportedOperationException();
+        FormulaAST valueNode = (FormulaAST)node.getFirstChild();
+        //boolean treatAsString = treatAsString(node);
+        StringBuilder js = new StringBuilder(256);
+        
+        boolean couldBeNull = false;
+        FormulaAST whenNode;
+        for (int i = 0; i < args.length - 1; i += 2) {
+            //String condition;
+            whenNode = (FormulaAST)valueNode.getNextSibling();
+            // Make sure null != null by testings args[i]
+            js.append("("+args[i] + "?");
+            valueNode = (FormulaAST)whenNode.getNextSibling();
+            js.append("(").append(args[i+1].js).append("):");
+            couldBeNull |= args[i+1].couldBeNull;
+        }
+        //valueNode = (FormulaAST)valueNode.getNextSibling();
+        js.append(args[args.length - 1]).append(")");
+
+        couldBeNull |= args[args.length - 1].couldBeNull; 
+        return JsValue.generate(js.toString(), args, couldBeNull); 
     }
 }
 
 class OperatorIfsFormulaCommand extends AbstractFormulaCommand {
     private static final long serialVersionUID = 1L;
+    private final int numArgs;
 
-    public OperatorIfsFormulaCommand(FormulaCommandInfo formulaCommandInfo) {
+    public OperatorIfsFormulaCommand(FormulaCommandInfo formulaCommandInfo, int numArgs) {
         super(formulaCommandInfo);
+        this.numArgs = numArgs;
     }
 
     @Override
     public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
-        //TODO(ifs):
+        Thunk elseVal = (Thunk)stack.pop();
+
+        // Evaluate in short-circuit order so pull all the args off the stack first into a Deque
+        Deque<Object> ifs = new FormulaStack(numArgs);
+        for (int i = 0 ; i < numArgs-1; i++) {
+        	ifs.addFirst(stack.pop());
+        }
+        
+        for (int i = 0; i < (numArgs / 2); i++) {
+        	Object comparison = ifs.pop();
+        	// The first comparison is evaluated immediately, but the rest will be thunks
+            if (comparison instanceof Thunk) {
+            	((Thunk)comparison).executeReally(context, stack);
+            	comparison = stack.pop();
+            }
+            Boolean guard = checkBooleanType(comparison);
+            Thunk thunk = (Thunk) ifs.pop();
+            if ((guard != null) && guard.booleanValue()) { // Treat NULL as false
+            	thunk.executeReally(context, stack);
+            	return;
+            }
+        }
+        // If we're here, nothing evaluated.
+        elseVal.executeReally(context, stack);
     }
 }

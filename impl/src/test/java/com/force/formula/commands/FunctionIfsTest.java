@@ -1,13 +1,14 @@
 package com.force.formula.commands;
 
+import java.math.BigDecimal;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Test;
 
-import com.force.formula.MockFormulaDataType;
-import com.force.formula.impl.BaseCustomizableParserTest;
+import com.force.formula.*;
+import com.force.formula.impl.*;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -22,6 +23,76 @@ public class FunctionIfsTest extends BaseCustomizableParserTest {
         super(name, new FunctionIfsTestFormulaValidationHooks()) ;
     }
 
+    @Test
+    public void testIFS() throws Exception {
+        parseTest("ifs(true, 1, 0)", " ( ifs true 1 0 )");
+        parseTest("ifs(true, 1, false, 2, 0)", " ( ifs true 1 false 2 0 )");
+        assertEquals(BigDecimal.ONE, evaluateBigDecimal("ifs(1=1, 1, 0)"));
+        assertEquals(BigDecimal.ZERO, evaluateBigDecimal("ifs(1=37, 1, 0)"));
+        assertEquals(BigDecimal.ZERO, evaluateBigDecimal("ifs(1=37, 1, 2=37, 2, 0)"));
+        assertEquals(new BigDecimal("2"), evaluateBigDecimal("ifs(1=37, 1, 2<>37, 2, 0)"));
+        assertEquals(Boolean.FALSE, evaluateBoolean("5=ifs(1=37, 1, 0)"));
+        assertEquals(BigDecimal.ONE, evaluateBigDecimal("ifs(true, 1, null)"));
+        assertEquals(new BigDecimal("37"), evaluateBigDecimal("ifs(false, 1/0, 37)"));
+        assertEquals(new BigDecimal("37"), evaluateBigDecimal("ifs(true, 37, 1/0)"));
+        assertEquals(BigDecimal.ZERO, evaluateBigDecimal("ifs(1=null, 1, 0)"));
+        // Use IF(false,true,null) to confuse the parser.  This may break when optimizations are enabled.
+        assertEquals(BigDecimal.ZERO, evaluateBigDecimal("ifs(IF(false,true,null), 1, 0)"));
+        assertEquals(BigDecimal.ZERO, evaluateBigDecimal("ifs(IF(false,true,null), 1, IF(false,true,null), 2, 0)"));
+    }
+    
+    @Test
+    public void testIFSJavascript() throws Exception {
+    	testIFS();
+    }
+
+    // Validate the parsing
+    @Test
+    public void testIFSParsing() throws Exception {
+    	evaluateFail("ifs(null, 1, 0)", WrongArgumentTypeException.class, "Expected Boolean, received Null");
+    	evaluateFail("ifs(1=0, 1, 'Foo')", WrongArgumentTypeException.class, "Expected Number, received Text");
+    	evaluateFail("ifs()", WrongNumberOfArgumentsException.class, "Expected 3, received 0");
+    	evaluateFail("ifs(null)", WrongNumberOfArgumentsException.class, "Expected 3, received 1");
+    	evaluateFail("ifs(null, 1)", WrongNumberOfArgumentsException.class, "Expected 3, received 2");
+    	evaluateFail("ifs(null, 1, null, 1)", WrongNumberOfArgumentsException.class, "Expected 5, received 4");
+    	evaluateFail("ifs(null, 1, null, 1, null, 1)", WrongNumberOfArgumentsException.class, "Expected 7, received 6");
+    }
+    
+    protected void evaluateFail(String formulaSource, Class<? extends Exception> exceptionType, String message) throws Exception {
+    	try {
+    		evaluate(formulaSource, MockFormulaDataType.DOUBLE);
+    		fail("Should have gotten exception: " + exceptionType.getName());
+    	} catch (Exception e) {
+    		if (exceptionType.isInstance(e)) {
+    			if (!e.getMessage().contains(message)) {
+    	    		fail("Should have gotten message: " + message + ": but was " + e.getMessage());
+    			}
+    		} else {
+        		fail("Got wrong exception: was " + e);
+    		}
+    	}
+    }
+
+    
+    // Because IFs is in beta, keep the javascript testing local here.
+    private boolean isJs() {
+    	return getName().contains("Javascript");
+    }    
+    @Override
+    protected MockFormulaType getFormulaType() {
+    	return isJs() ? MockFormulaType.JAVASCRIPT : MockFormulaType.DEFAULT;
+    }
+    @Override
+    protected Object evaluate(String formulaSource, FormulaDataType columnType) throws Exception {
+    	if (!isJs()) {
+    		return super.evaluate(formulaSource, columnType);
+    	}
+        FormulaRuntimeContext context = setupMockContext(columnType);
+        RuntimeFormulaInfo formulaInfo = FormulaInfoFactory.create(MockFormulaType.JAVASCRIPT, context, formulaSource);
+        Formula formula = formulaInfo.getFormula();
+        return FormulaJsTestUtils.get().evaluateFormula(formula, columnType, context, null);
+    }
+    
     @Test
     public void testSql() throws Exception {
         Set<TestArguments> testcases = Stream.of(
