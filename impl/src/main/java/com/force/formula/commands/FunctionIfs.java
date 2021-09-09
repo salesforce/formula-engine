@@ -11,9 +11,8 @@ import com.force.formula.impl.*;
 import com.force.formula.sql.SQLPair;
 
 /**
- * TODO(ifs):
- *  - implement the remaining methods
- *
+ * IFS(condition, result, [condition2, condition2, ...], else)
+ * Supports shortcircuit behavior of multiple IFS in a single statement 
  * @author ashanjani
  * @since 234
  */
@@ -141,21 +140,17 @@ public class FunctionIfs extends FormulaCommandInfoImpl implements FormulaComman
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         FormulaAST valueNode = (FormulaAST)node.getFirstChild();
-        //boolean treatAsString = treatAsString(node);
         StringBuilder js = new StringBuilder(256);
         
         boolean couldBeNull = false;
         FormulaAST whenNode;
         for (int i = 0; i < args.length - 1; i += 2) {
-            //String condition;
             whenNode = (FormulaAST)valueNode.getNextSibling();
-            // Make sure null != null by testings args[i]
             js.append("("+args[i] + "?");
             valueNode = (FormulaAST)whenNode.getNextSibling();
             js.append("(").append(args[i+1].js).append("):");
             couldBeNull |= args[i+1].couldBeNull;
         }
-        //valueNode = (FormulaAST)valueNode.getNextSibling();
         js.append(args[args.length - 1]).append(")");
 
         couldBeNull |= args[args.length - 1].couldBeNull; 
