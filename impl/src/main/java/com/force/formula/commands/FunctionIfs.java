@@ -83,7 +83,7 @@ public class FunctionIfs extends FormulaCommandInfoImpl implements FormulaComman
     public Type validate(FormulaAST node, FormulaContext context, FormulaProperties properties) throws FormulaException {
         int numberOfParameters = node.getNumberOfChildren();
         if (numberOfParameters < 3 || numberOfParameters % 2 != 1) {
-            int expectedNumberOfChildren = Math.max(3, 1 + 2*((1+numberOfParameters)/2));
+            int expectedNumberOfChildren = Math.max(3, 1+numberOfParameters);
             throw new WrongNumberOfArgumentsException(node.getText(), expectedNumberOfChildren, node);
         }
 

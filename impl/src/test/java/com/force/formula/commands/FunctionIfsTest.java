@@ -58,22 +58,6 @@ public class FunctionIfsTest extends BaseCustomizableParserTest {
     	evaluateFail("ifs(null, 1, null, 1, null, 1)", WrongNumberOfArgumentsException.class, "Expected 7, received 6");
     }
     
-    protected void evaluateFail(String formulaSource, Class<? extends Exception> exceptionType, String message) throws Exception {
-    	try {
-    		evaluate(formulaSource, MockFormulaDataType.DOUBLE);
-    		fail("Should have gotten exception: " + exceptionType.getName());
-    	} catch (Exception e) {
-    		if (exceptionType.isInstance(e)) {
-    			if (!e.getMessage().contains(message)) {
-    	    		fail("Should have gotten message: " + message + ": but was " + e.getMessage());
-    			}
-    		} else {
-        		fail("Got wrong exception: was " + e);
-    		}
-    	}
-    }
-
-    
     // Because IFs is in beta, keep the javascript testing local here.
     private boolean isJs() {
     	return getName().contains("Javascript");
@@ -86,11 +70,10 @@ public class FunctionIfsTest extends BaseCustomizableParserTest {
     protected Object evaluate(String formulaSource, FormulaDataType columnType) throws Exception {
     	if (!isJs()) {
     		return super.evaluate(formulaSource, columnType);
+    	} else {
+        	return evaluateJavascript(formulaSource, columnType);
+    		
     	}
-        FormulaRuntimeContext context = setupMockContext(columnType);
-        RuntimeFormulaInfo formulaInfo = FormulaInfoFactory.create(MockFormulaType.JAVASCRIPT, context, formulaSource);
-        Formula formula = formulaInfo.getFormula();
-        return FormulaJsTestUtils.get().evaluateFormula(formula, columnType, context, null);
     }
     
     @Test

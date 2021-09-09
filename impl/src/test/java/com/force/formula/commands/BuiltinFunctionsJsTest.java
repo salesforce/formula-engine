@@ -31,10 +31,7 @@ public class BuiltinFunctionsJsTest extends BuiltinFunctionsTest {
 
     @Override
     protected Object evaluate(String formulaSource, FormulaDataType columnType) throws Exception {
-        FormulaRuntimeContext context = setupMockContext(columnType);
-        RuntimeFormulaInfo formulaInfo = FormulaInfoFactory.create(MockFormulaType.JAVASCRIPT, context, formulaSource);
-        Formula formula = formulaInfo.getFormula();
-        return FormulaJsTestUtils.get().evaluateFormula(formula, columnType, context, null);
+    	return evaluateJavascript(formulaSource, columnType);
     }
 
     // Not really applicable or requires fancy functions
