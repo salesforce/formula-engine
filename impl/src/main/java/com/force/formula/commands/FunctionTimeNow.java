@@ -38,9 +38,7 @@ public class FunctionTimeNow extends FormulaCommandInfoImpl {
             return new SQLPair(""+tt.getTimeInMillis(), null);
         } 
         else {
-            return FormulaCommandInfoImpl.shouldGeneratePsql(context) ? 
-                    new SQLPair(FormulaValidationHooks.get().psqlTimeNow(), null)
-                    : new SQLPair("TO_NUMBER(TO_CHAR(SYSTIMESTAMP, 'SSSSS.ff3'))*1000", null);
+            return new SQLPair(getSqlHooks(context).sqlTimeNow(), null);
         }
     }
     

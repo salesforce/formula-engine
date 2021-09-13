@@ -3,18 +3,14 @@
    <testInstance formula="(customformula0__c+customnumber1__c+customformula1__c+customcurrency1__c)" returntype="DateOnly">
    <customformula0 dataType="ColumnType.DATEONLY" formula="(customdate1__c+custompercent1__c)"/>
    <customformula1 dataType="ColumnType.DOUBLE" formula="(customdate2__c-customdate3__c)"/>
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>(((($!s0s!$.customdate1__c+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC(NVL(($!s0s!$.custompercent1__c / 100.0), 0))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC(NVL($!s0s!$.customnumber1__c, 0))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC(NVL((EXTRACT(EPOCH FROM $!s0s!$.customdate2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdate3__c)), 0))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC(NVL($!s0s!$.customcurrency1__c, 0))*86400))::timestamp(0)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>(((($!s0s!$.customdate1__c+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC(($!s0s!$.custompercent1__c / 100.0))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC($!s0s!$.customnumber1__c)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC((EXTRACT(EPOCH FROM $!s0s!$.customdate2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdate3__c)))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC($!s0s!$.customcurrency1__c)*86400))::timestamp(0)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>(((($!s0s!$.customdate1__c+TRUNC(NVL(($!s0s!$.custompercent1__c / 100.0), 0)))+TRUNC(NVL($!s0s!$.customnumber1__c, 0)))+TRUNC(NVL(($!s0s!$.customdate2__c-$!s0s!$.customdate3__c), 0)))+TRUNC(NVL($!s0s!$.customcurrency1__c, 0)))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>(((($!s0s!$.customdate1__c+TRUNC(($!s0s!$.custompercent1__c / 100.0)))+TRUNC($!s0s!$.customnumber1__c))+TRUNC(($!s0s!$.customdate2__c-$!s0s!$.customdate3__c)))+TRUNC($!s0s!$.customcurrency1__c))</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(((($!s0s!$.customdate1__c+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC(COALESCE($!s0s!$.customnumber1__c, 0))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC(COALESCE((EXTRACT(EPOCH FROM $!s0s!$.customdate2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdate3__c)), 0))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC(COALESCE($!s0s!$.customcurrency1__c, 0))*86400))::timestamp(0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(((($!s0s!$.customdate1__c+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC(($!s0s!$.custompercent1__c / 100.0))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC($!s0s!$.customnumber1__c)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC((EXTRACT(EPOCH FROM $!s0s!$.customdate2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdate3__c)))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,TRUNC($!s0s!$.customcurrency1__c)*86400))::timestamp(0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))|0))!=null)?(new Date(new Date(new Date(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))|0)).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))|0)).getTime()+86400000*(($F.nvl((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))!=null)?(new $F.Decimal((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())/86400000)):null,new $F.Decimal('0')))|0)).getTime()+86400000*(($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')))|0))):null</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;context.record.custompercent1__c!=null&amp;&amp;($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;context.record.custompercent1__c.div(100)!=null&amp;&amp;new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*((context.record.custompercent1__c.div(100))|0))!=null&amp;&amp;context.record.customnumber1__c!=null&amp;&amp;new $F.Decimal((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())/86400000)!=null&amp;&amp;context.record.customcurrency1__c!=null)?(new Date(new Date(new Date(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*((context.record.custompercent1__c.div(100))|0)).getTime()+86400000*((context.record.customnumber1__c)|0)).getTime()+86400000*((new $F.Decimal((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())/86400000))|0)).getTime()+86400000*((context.record.customcurrency1__c)|0))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0))|0))!=null)?(new Date(new Date(new Date(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0))|0)).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,0))|0)).getTime()+86400000*(($F.nvl((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))!=null)?((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())/86400000):null,0))|0)).getTime()+86400000*(($F.nvl(context.record.customcurrency1__c,0))|0))):null</JsOutput>
@@ -22,54 +18,66 @@
       <result>
       <inputvalues>[3998:01:31, 200, 10, 3999:12:31, 3999:12:01, 0]</inputvalues>
          <formula>Sat Mar 14 00:00:00 GMT 3998</formula>
+         <sql>11094-10-09 00:00:00</sql>
          <javascript>Sat Mar 14 00:00:00 GMT 3998</javascript>
          <javascriptLp>Sat Mar 14 00:00:00 GMT 3998</javascriptLp>
          <formulaNullAsNull>Sat Mar 14 00:00:00 GMT 3998</formulaNullAsNull>
+         <sqlNullAsNull>11094-10-09 00:00:00</sqlNullAsNull>
          <javascriptNullAsNull>Sat Mar 14 00:00:00 GMT 3998</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sat Mar 14 00:00:00 GMT 3998</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1900:01:01, .004, 1, 2004:12:31, 2004:12:31, 0]</inputvalues>
          <formula>Tue Jan 02 00:00:00 GMT 1900</formula>
+         <sql>1900-01-02 00:00:00</sql>
          <javascript>Tue Jan 02 00:00:00 GMT 1900</javascript>
          <javascriptLp>Tue Jan 02 00:00:00 GMT 1900</javascriptLp>
          <formulaNullAsNull>Tue Jan 02 00:00:00 GMT 1900</formulaNullAsNull>
+         <sqlNullAsNull>1900-01-02 00:00:00</sqlNullAsNull>
          <javascriptNullAsNull>Tue Jan 02 00:00:00 GMT 1900</javascriptNullAsNull>
          <javascriptLpNullAsNull>Tue Jan 02 00:00:00 GMT 1900</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 100, , 2004:11:31, 2004:12:31, 0]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 100, , , 2004:12:31, 0]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31, , , 2004:11:31, 2004:12:31, 0]</inputvalues>
          <formula>Wed Dec 01 00:00:00 GMT 2004</formula>
+         <sql>Error: ERROR: timestamp out of range</sql>
          <javascript>Wed Dec 01 00:00:00 GMT 2004</javascript>
          <javascriptLp>Wed Dec 01 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 100, , 2004:11:31, , 0]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

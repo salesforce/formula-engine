@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testISNULLWithDateTime">
    <testInstance formula="if(isnull(customdatetime1__c),customdatetime2__c,null)" returntype="DateTime">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>CASE WHEN ($!s0s!$.customdatetime1__c IS NULL) THEN NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) ELSE TO_DATE(NULL) END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>CASE WHEN ($!s0s!$.customdatetime1__c IS NULL) THEN NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) ELSE TO_DATE(NULL) END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>CASE WHEN ($!s0s!$.customdatetime1__c IS NULL) THEN NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) ELSE TO_DATE(NULL) END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>CASE WHEN ($!s0s!$.customdatetime1__c IS NULL) THEN NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) ELSE TO_DATE(NULL) END</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customdatetime1__c IS NULL) THEN COALESCE($!s0s!$.customdatetime2__c,CAST(NULL AS DATE)) ELSE CAST(NULL AS DATE) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ($!s0s!$.customdatetime1__c IS NULL) THEN COALESCE($!s0s!$.customdatetime2__c,CAST(NULL AS DATE)) ELSE CAST(NULL AS DATE) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">((null==($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')))?($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')):null)</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">((null==($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')))?($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')):null)</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">((null==($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')))?($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')):null)</JsOutput>
@@ -20,72 +16,88 @@
       <result>
       <inputvalues>[2004:12:31:11:32:00, 2004:12:31:11:30:00]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:10:34:00, 2008:02:28:10:34:00]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:32:00]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:10:34:00, 2004:03:01:00:00:00]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:31:11:32:00]</inputvalues>
          <formula>Fri Dec 31 11:32:00 GMT 2004</formula>
+         <sql>2004-12-31 11:32:00</sql>
          <javascript>Fri Dec 31 11:32:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 11:32:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 11:32:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-12-31 11:32:00</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 11:32:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 11:32:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:10:34:00, ]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[3999:02:28:10:34:00, 1780:02:28:10:34:00]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

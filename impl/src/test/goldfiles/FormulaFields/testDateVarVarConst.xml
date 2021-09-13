@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testDateVarVarConst">
    <testInstance formula="DATE(customnumber1__c,customnumber2__c,28)" returntype="DateOnly">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>TO_DATE(TO_CHAR(FLOOR(NVL($!s0s!$.customnumber1__c, 0))) || '-' || TO_CHAR(FLOOR(NVL($!s0s!$.customnumber2__c, 0))) || '-' || 28, 'YYYY-MM-DD')</Sql><Guard>NVL($!s0s!$.customnumber1__c, 0) is null OR NVL($!s0s!$.customnumber1__c, 0)&lt; 1 OR NVL($!s0s!$.customnumber1__c, 0)&gt; 9999 OR NVL($!s0s!$.customnumber2__c, 0) is null  OR FLOOR(NVL($!s0s!$.customnumber2__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= TO_CHAR(LAST_DAY(TO_DATE(FLOOR(NVL($!s0s!$.customnumber1__c, 0)) || '-' || FLOOR(NVL($!s0s!$.customnumber2__c, 0)),'YYYY-MM')),'DD')+1        </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>CASE WHEN $!s0s!$.customnumber1__c IS NULL THEN NULL WHEN $!s0s!$.customnumber2__c IS NULL THEN NULL ELSE TO_DATE(TO_CHAR(FLOOR($!s0s!$.customnumber1__c)) || '-' || TO_CHAR(FLOOR($!s0s!$.customnumber2__c)) || '-' || 28, 'YYYY-MM-DD') END</Sql><Guard>NOT ($!s0s!$.customnumber1__c IS NULL OR $!s0s!$.customnumber2__c IS NULL ) AND ($!s0s!$.customnumber1__c is null OR $!s0s!$.customnumber1__c&lt; 1 OR $!s0s!$.customnumber1__c&gt; 9999 OR $!s0s!$.customnumber2__c is null  OR FLOOR($!s0s!$.customnumber2__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= TO_CHAR(LAST_DAY(TO_DATE(FLOOR($!s0s!$.customnumber1__c) || '-' || FLOOR($!s0s!$.customnumber2__c),'YYYY-MM')),'DD')+1 )       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>TO_DATE(TO_CHAR(FLOOR(NVL($!s0s!$.customnumber1__c, 0))) || '-' || TO_CHAR(FLOOR(NVL($!s0s!$.customnumber2__c, 0))) || '-' || 28, 'YYYY-MM-DD')</Sql><Guard>NVL($!s0s!$.customnumber1__c, 0) is null OR NVL($!s0s!$.customnumber1__c, 0)&lt; 1 OR NVL($!s0s!$.customnumber1__c, 0)&gt; 9999 OR NVL($!s0s!$.customnumber2__c, 0) is null  OR FLOOR(NVL($!s0s!$.customnumber2__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= TO_CHAR(LAST_DAY(TO_DATE(FLOOR(NVL($!s0s!$.customnumber1__c, 0)) || '-' || FLOOR(NVL($!s0s!$.customnumber2__c, 0)),'YYYY-MM')),'DD')+1        </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>CASE WHEN $!s0s!$.customnumber1__c IS NULL THEN NULL WHEN $!s0s!$.customnumber2__c IS NULL THEN NULL ELSE TO_DATE(TO_CHAR(FLOOR($!s0s!$.customnumber1__c)) || '-' || TO_CHAR(FLOOR($!s0s!$.customnumber2__c)) || '-' || 28, 'YYYY-MM-DD') END</Sql><Guard>NOT ($!s0s!$.customnumber1__c IS NULL OR $!s0s!$.customnumber2__c IS NULL ) AND ($!s0s!$.customnumber1__c is null OR $!s0s!$.customnumber1__c&lt; 1 OR $!s0s!$.customnumber1__c&gt; 9999 OR $!s0s!$.customnumber2__c is null  OR FLOOR($!s0s!$.customnumber2__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= TO_CHAR(LAST_DAY(TO_DATE(FLOOR($!s0s!$.customnumber1__c) || '-' || FLOOR($!s0s!$.customnumber2__c),'YYYY-MM')),'DD')+1 )       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE(CAST(FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) AS TEXT) || '-' || CAST(FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) AS TEXT) || '-' || 28, 'YYYY-MM-DD')</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0) is null OR COALESCE($!s0s!$.customnumber1__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber1__c, 0)&gt; 9999 OR COALESCE($!s0s!$.customnumber2__c, 0) is null  OR FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= TO_CHAR(LAST_DAY(TO_DATE(FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) || '-' || FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)),'YYYY-MM')),'DD')+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customnumber1__c IS NULL THEN NULL WHEN $!s0s!$.customnumber2__c IS NULL THEN NULL ELSE TO_DATE(CAST(FLOOR($!s0s!$.customnumber1__c) AS TEXT) || '-' || CAST(FLOOR($!s0s!$.customnumber2__c) AS TEXT) || '-' || 28, 'YYYY-MM-DD') END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber1__c IS NULL OR $!s0s!$.customnumber2__c IS NULL ) AND ($!s0s!$.customnumber1__c is null OR $!s0s!$.customnumber1__c&lt; 1 OR $!s0s!$.customnumber1__c&gt; 9999 OR $!s0s!$.customnumber2__c is null  OR FLOOR($!s0s!$.customnumber2__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= TO_CHAR(LAST_DAY(TO_DATE(FLOOR($!s0s!$.customnumber1__c) || '-' || FLOOR($!s0s!$.customnumber2__c),'YYYY-MM')),'DD')+1 )</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber(),$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toNumber()-1,new $F.Decimal('28').toNumber()))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(new Date(Date.UTC(context.record.customnumber1__c.toNumber(),context.record.customnumber2__c.toNumber()-1,new $F.Decimal('28').toNumber()))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.customnumber1__c,0),$F.nvl(context.record.customnumber2__c,0)-1,28))</JsOutput>
@@ -20,324 +16,396 @@
       <result>
       <inputvalues>[2007, 2, 29]</inputvalues>
          <formula>Wed Feb 28 00:00:00 GMT 2007</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Wed Feb 28 00:00:00 GMT 2007</javascript>
          <javascriptLp>Wed Feb 28 00:00:00 GMT 2007</javascriptLp>
          <formulaNullAsNull>Wed Feb 28 00:00:00 GMT 2007</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Wed Feb 28 00:00:00 GMT 2007</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Feb 28 00:00:00 GMT 2007</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2008, 2, 29]</inputvalues>
          <formula>Thu Feb 28 00:00:00 GMT 2008</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Thu Feb 28 00:00:00 GMT 2008</javascript>
          <javascriptLp>Thu Feb 28 00:00:00 GMT 2008</javascriptLp>
          <formulaNullAsNull>Thu Feb 28 00:00:00 GMT 2008</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Thu Feb 28 00:00:00 GMT 2008</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Feb 28 00:00:00 GMT 2008</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2007, 3, 32]</inputvalues>
          <formula>Wed Mar 28 00:00:00 GMT 2007</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Wed Mar 28 00:00:00 GMT 2007</javascript>
          <javascriptLp>Wed Mar 28 00:00:00 GMT 2007</javascriptLp>
          <formulaNullAsNull>Wed Mar 28 00:00:00 GMT 2007</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Wed Mar 28 00:00:00 GMT 2007</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Mar 28 00:00:00 GMT 2007</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10000, 3, 2]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Tue Mar 28 00:00:00 GMT 10000</javascript>
          <javascriptLp>Tue Mar 28 00:00:00 GMT 10000</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Tue Mar 28 00:00:00 GMT 10000</javascriptNullAsNull>
          <javascriptLpNullAsNull>Tue Mar 28 00:00:00 GMT 10000</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[9999, 12, 31]</inputvalues>
          <formula>Tue Dec 28 00:00:00 GMT 9999</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Tue Dec 28 00:00:00 GMT 9999</javascript>
          <javascriptLp>Tue Dec 28 00:00:00 GMT 9999</javascriptLp>
          <formulaNullAsNull>Tue Dec 28 00:00:00 GMT 9999</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Tue Dec 28 00:00:00 GMT 9999</javascriptNullAsNull>
          <javascriptLpNullAsNull>Tue Dec 28 00:00:00 GMT 9999</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10000, 1, 1]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Fri Jan 28 00:00:00 GMT 10000</javascript>
          <javascriptLp>Fri Jan 28 00:00:00 GMT 10000</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Fri Jan 28 00:00:00 GMT 10000</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Jan 28 00:00:00 GMT 10000</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1000, 3, 2]</inputvalues>
          <formula>Thu Mar 28 00:00:00 GMT 1000</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Fri Mar 22 00:00:00 GMT 1000</javascript>
          <javascriptLp>Fri Mar 22 00:00:00 GMT 1000</javascriptLp>
          <formulaNullAsNull>Thu Mar 28 00:00:00 GMT 1000</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Fri Mar 22 00:00:00 GMT 1000</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Mar 22 00:00:00 GMT 1000</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2010, , 29]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Mon Dec 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Mon Dec 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2010, 2, ]</inputvalues>
          <formula>Sun Feb 28 00:00:00 GMT 2010</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sun Feb 28 00:00:00 GMT 2010</javascript>
          <javascriptLp>Sun Feb 28 00:00:00 GMT 2010</javascriptLp>
          <formulaNullAsNull>Sun Feb 28 00:00:00 GMT 2010</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sun Feb 28 00:00:00 GMT 2010</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sun Feb 28 00:00:00 GMT 2010</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2, 29]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Wed Feb 28 00:00:00 GMT 1900</javascript>
          <javascriptLp>Wed Feb 28 00:00:00 GMT 1900</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2010, 0, 2]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Mon Dec 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Mon Dec 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Mon Dec 28 00:00:00 GMT 2009</javascriptNullAsNull>
          <javascriptLpNullAsNull>Mon Dec 28 00:00:00 GMT 2009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , ]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Thu Dec 28 00:00:00 GMT 1899</javascript>
          <javascriptLp>Thu Dec 28 00:00:00 GMT 1899</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2010, , ]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Mon Dec 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Mon Dec 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2, ]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Wed Feb 28 00:00:00 GMT 1900</javascript>
          <javascriptLp>Wed Feb 28 00:00:00 GMT 1900</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 11]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Thu Dec 28 00:00:00 GMT 1899</javascript>
          <javascriptLp>Thu Dec 28 00:00:00 GMT 1899</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009.5, 3, 2]</inputvalues>
          <formula>Sat Mar 28 00:00:00 GMT 2009</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sat Mar 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Sat Mar 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>Sat Mar 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sat Mar 28 00:00:00 GMT 2009</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sat Mar 28 00:00:00 GMT 2009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009, 3.5, 2]</inputvalues>
          <formula>Sat Mar 28 00:00:00 GMT 2009</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sat Mar 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Sat Mar 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>Sat Mar 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sat Mar 28 00:00:00 GMT 2009</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sat Mar 28 00:00:00 GMT 2009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009, 3, 2.5]</inputvalues>
          <formula>Sat Mar 28 00:00:00 GMT 2009</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sat Mar 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Sat Mar 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>Sat Mar 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sat Mar 28 00:00:00 GMT 2009</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sat Mar 28 00:00:00 GMT 2009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009, 12.5, 31.5]</inputvalues>
          <formula>Mon Dec 28 00:00:00 GMT 2009</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Mon Dec 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Mon Dec 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>Mon Dec 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Mon Dec 28 00:00:00 GMT 2009</javascriptNullAsNull>
          <javascriptLpNullAsNull>Mon Dec 28 00:00:00 GMT 2009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009, 12, 32.1]</inputvalues>
          <formula>Mon Dec 28 00:00:00 GMT 2009</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Mon Dec 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Mon Dec 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>Mon Dec 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Mon Dec 28 00:00:00 GMT 2009</javascriptNullAsNull>
          <javascriptLpNullAsNull>Mon Dec 28 00:00:00 GMT 2009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009, 12, 0.9]</inputvalues>
          <formula>Mon Dec 28 00:00:00 GMT 2009</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Mon Dec 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Mon Dec 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>Mon Dec 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Mon Dec 28 00:00:00 GMT 2009</javascriptNullAsNull>
          <javascriptLpNullAsNull>Mon Dec 28 00:00:00 GMT 2009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009, 0.9, 26]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Wed Jan 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Wed Jan 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Wed Jan 28 00:00:00 GMT 2009</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Jan 28 00:00:00 GMT 2009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-2009, 2, 3]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Thu Mar 17 00:00:00 GMT 2010</javascript>
          <javascriptLp>Thu Mar 17 00:00:00 GMT 2010</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Thu Mar 17 00:00:00 GMT 2010</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Mar 17 00:00:00 GMT 2010</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009, -3, 4]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sun Sep 28 00:00:00 GMT 2008</javascript>
          <javascriptLp>Sun Sep 28 00:00:00 GMT 2008</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sun Sep 28 00:00:00 GMT 2008</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sun Sep 28 00:00:00 GMT 2008</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009, 3, -4]</inputvalues>
          <formula>Sat Mar 28 00:00:00 GMT 2009</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sat Mar 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Sat Mar 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>Sat Mar 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sat Mar 28 00:00:00 GMT 2009</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sat Mar 28 00:00:00 GMT 2009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-2009.2, 3, 2]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Thu Apr 14 00:00:00 GMT 2010</javascript>
          <javascriptLp>Thu Apr 14 00:00:00 GMT 2010</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Thu Apr 14 00:00:00 GMT 2010</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Apr 14 00:00:00 GMT 2010</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009, -3.2, 4]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sun Sep 28 00:00:00 GMT 2008</javascript>
          <javascriptLp>Sun Sep 28 00:00:00 GMT 2008</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sun Sep 28 00:00:00 GMT 2008</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sun Sep 28 00:00:00 GMT 2008</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2009, 2, -4.2]</inputvalues>
          <formula>Sat Feb 28 00:00:00 GMT 2009</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sat Feb 28 00:00:00 GMT 2009</javascript>
          <javascriptLp>Sat Feb 28 00:00:00 GMT 2009</javascriptLp>
          <formulaNullAsNull>Sat Feb 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sat Feb 28 00:00:00 GMT 2009</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sat Feb 28 00:00:00 GMT 2009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 2, 2]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Wed Feb 28 00:00:00 GMT 1900</javascript>
          <javascriptLp>Wed Feb 28 00:00:00 GMT 1900</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Wed Feb 28 00:00:00 GMT 1900</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Feb 28 00:00:00 GMT 1900</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012, 0, 2]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Wed Dec 28 00:00:00 GMT 2011</javascript>
          <javascriptLp>Wed Dec 28 00:00:00 GMT 2011</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Wed Dec 28 00:00:00 GMT 2011</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Dec 28 00:00:00 GMT 2011</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012, 2, 0]</inputvalues>
          <formula>Tue Feb 28 00:00:00 GMT 2012</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Tue Feb 28 00:00:00 GMT 2012</javascript>
          <javascriptLp>Tue Feb 28 00:00:00 GMT 2012</javascriptLp>
          <formulaNullAsNull>Tue Feb 28 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Tue Feb 28 00:00:00 GMT 2012</javascriptNullAsNull>
          <javascriptLpNullAsNull>Tue Feb 28 00:00:00 GMT 2012</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2013, 2, 29]</inputvalues>
          <formula>Thu Feb 28 00:00:00 GMT 2013</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Thu Feb 28 00:00:00 GMT 2013</javascript>
          <javascriptLp>Thu Feb 28 00:00:00 GMT 2013</javascriptLp>
          <formulaNullAsNull>Thu Feb 28 00:00:00 GMT 2013</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Thu Feb 28 00:00:00 GMT 2013</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Feb 28 00:00:00 GMT 2013</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2013, 2, 28]</inputvalues>
          <formula>Thu Feb 28 00:00:00 GMT 2013</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Thu Feb 28 00:00:00 GMT 2013</javascript>
          <javascriptLp>Thu Feb 28 00:00:00 GMT 2013</javascriptLp>
          <formulaNullAsNull>Thu Feb 28 00:00:00 GMT 2013</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Thu Feb 28 00:00:00 GMT 2013</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Feb 28 00:00:00 GMT 2013</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2016, 2, 28]</inputvalues>
          <formula>Sun Feb 28 00:00:00 GMT 2016</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sun Feb 28 00:00:00 GMT 2016</javascript>
          <javascriptLp>Sun Feb 28 00:00:00 GMT 2016</javascriptLp>
          <formulaNullAsNull>Sun Feb 28 00:00:00 GMT 2016</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sun Feb 28 00:00:00 GMT 2016</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sun Feb 28 00:00:00 GMT 2016</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2016, 2, 29]</inputvalues>
          <formula>Sun Feb 28 00:00:00 GMT 2016</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sun Feb 28 00:00:00 GMT 2016</javascript>
          <javascriptLp>Sun Feb 28 00:00:00 GMT 2016</javascriptLp>
          <formulaNullAsNull>Sun Feb 28 00:00:00 GMT 2016</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sun Feb 28 00:00:00 GMT 2016</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sun Feb 28 00:00:00 GMT 2016</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2016, 2, 30]</inputvalues>
          <formula>Sun Feb 28 00:00:00 GMT 2016</formula>
+         <sql>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 277</sql>
          <javascript>Sun Feb 28 00:00:00 GMT 2016</javascript>
          <javascriptLp>Sun Feb 28 00:00:00 GMT 2016</javascriptLp>
          <formulaNullAsNull>Sun Feb 28 00:00:00 GMT 2016</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function last_day(date) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 281</sqlNullAsNull>
          <javascriptNullAsNull>Sun Feb 28 00:00:00 GMT 2016</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sun Feb 28 00:00:00 GMT 2016</javascriptLpNullAsNull>
       </result>

@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testHourWithAddOperator">
    <testInstance formula="Hour(TIMEVALUE(&quot;10:40:55.666&quot;)+3600000)" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>11</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>11</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>11</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>11</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>11</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>11</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal('11')</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">new $F.Decimal('11')</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">11</JsOutput>
@@ -20,9 +16,11 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>11</formula>
+         <sql>11.00000000000000000000000000000000</sql>
          <javascript>11</javascript>
          <javascriptLp>11</javascriptLp>
          <formulaNullAsNull>11</formulaNullAsNull>
+         <sqlNullAsNull>11.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>11</javascriptNullAsNull>
          <javascriptLpNullAsNull>11</javascriptLpNullAsNull>
       </result>

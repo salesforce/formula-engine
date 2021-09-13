@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testSimpleSubstitute">
    <testInstance formula="SUBSTITUTE(customtext1__c,customtext2__c,customtext3__c)" returntype="Text">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>REPLACE($!s0s!$.customtext1__c, $!s0s!$.customtext2__c, $!s0s!$.customtext3__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>REPLACE($!s0s!$.customtext1__c, $!s0s!$.customtext2__c, $!s0s!$.customtext3__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>REPLACE($!s0s!$.customtext1__c, $!s0s!$.customtext2__c, $!s0s!$.customtext3__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>REPLACE($!s0s!$.customtext1__c, $!s0s!$.customtext2__c, $!s0s!$.customtext3__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>REPLACE($!s0s!$.customtext1__c, $!s0s!$.customtext2__c, $!s0s!$.customtext3__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>REPLACE($!s0s!$.customtext1__c, $!s0s!$.customtext2__c, $!s0s!$.customtext3__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
@@ -20,18 +16,22 @@
       <result>
       <inputvalues>[, , ]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Golden File, Golden, Platinum]</inputvalues>
          <formula>Platinum File</formula>
+         <sql>Platinum File</sql>
          <javascript>Platinum File</javascript>
          <javascriptLp>Platinum File</javascriptLp>
          <formulaNullAsNull>Platinum File</formulaNullAsNull>
+         <sqlNullAsNull>Platinum File</sqlNullAsNull>
          <javascriptNullAsNull>Platinum File</javascriptNullAsNull>
          <javascriptLpNullAsNull>Platinum File</javascriptLpNullAsNull>
       </result>

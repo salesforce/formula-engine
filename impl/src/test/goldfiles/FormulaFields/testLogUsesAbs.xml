@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testLogUsesAbs">
    <testInstance formula="Log(ABS(customnumber1__c))" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>LOG(10, ABS(NVL($!s0s!$.customnumber1__c, 0)))</Sql><Guard>ABS(NVL($!s0s!$.customnumber1__c, 0))&lt;=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>LOG(10, ABS($!s0s!$.customnumber1__c))</Sql><Guard>ABS($!s0s!$.customnumber1__c)&lt;=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>LOG(10, ABS(NVL($!s0s!$.customnumber1__c, 0)))</Sql><Guard>ABS(NVL($!s0s!$.customnumber1__c, 0))&lt;=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>LOG(10, ABS($!s0s!$.customnumber1__c))</Sql><Guard>ABS($!s0s!$.customnumber1__c)&lt;=0       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LOG(10, ABS(COALESCE($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Guard>ABS(COALESCE($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LOG(10, ABS($!s0s!$.customnumber1__c))</Sql>
+       <Guard>ABS($!s0s!$.customnumber1__c)&lt;=0</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).abs()).log(10)</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?((context.record.customnumber1__c.abs()).log(10)):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">Math.log(Math.abs($F.nvl(context.record.customnumber1__c,0)))/Math.LN10</JsOutput>
@@ -20,153 +16,187 @@
       <result>
       <inputvalues>[0]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
          <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[20]</inputvalues>
          <formula>1.301029995663981</formula>
+         <sql>1.30102999566398120000000000000000</sql>
          <javascript>1.3010299956639813</javascript>
          <javascriptLp>1.30103</javascriptLp>
          <formulaNullAsNull>1.301029995663981</formulaNullAsNull>
+         <sqlNullAsNull>1.30102999566398120000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.3010299956639813</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.30103</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[20.12345]</inputvalues>
          <formula>1.3037024389842002</formula>
+         <sql>1.30370243898420050000000000000000</sql>
          <javascript>1.3037024389842005</javascript>
          <javascriptLp>1.3037024</javascriptLp>
          <formulaNullAsNull>1.3037024389842002</formulaNullAsNull>
+         <sqlNullAsNull>1.30370243898420050000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.3037024389842005</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.3037024</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-1]</inputvalues>
          <formula>0.0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-123456789.123456789]</inputvalues>
          <formula>8.091514977603564</formula>
+         <sql>8.09151497760356500000000000000000</sql>
          <javascript>8.091514977603564</javascript>
          <javascriptLp>8.091515</javascriptLp>
          <formulaNullAsNull>8.091514977603564</formulaNullAsNull>
+         <sqlNullAsNull>8.09151497760356500000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>8.091514977603564</javascriptNullAsNull>
          <javascriptLpNullAsNull>8.091515</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789]</inputvalues>
          <formula>8.091514977603564</formula>
+         <sql>8.09151497760356500000000000000000</sql>
          <javascript>8.091514977603564</javascript>
          <javascriptLp>8.091515</javascriptLp>
          <formulaNullAsNull>8.091514977603564</formulaNullAsNull>
+         <sqlNullAsNull>8.09151497760356500000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>8.091514977603564</javascriptNullAsNull>
          <javascriptLpNullAsNull>8.091515</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[46]</inputvalues>
          <formula>1.6627578316815739</formula>
+         <sql>1.66275783168157410000000000000000</sql>
          <javascript>1.662757831681574</javascript>
          <javascriptLp>1.6627578</javascriptLp>
          <formulaNullAsNull>1.6627578316815739</formulaNullAsNull>
+         <sqlNullAsNull>1.66275783168157410000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.662757831681574</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.6627578</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-0]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
          <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-0.00034]</inputvalues>
          <formula>-3.4685210829577446</formula>
+         <sql>-3.46852108295774490000000000000000</sql>
          <javascript>-3.468521082957745</javascript>
          <javascriptLp>-3.4685211</javascriptLp>
          <formulaNullAsNull>-3.4685210829577446</formulaNullAsNull>
+         <sqlNullAsNull>-3.46852108295774490000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-3.468521082957745</javascriptNullAsNull>
          <javascriptLpNullAsNull>-3.4685211</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-.244]</inputvalues>
          <formula>-0.6126101736612705</formula>
+         <sql>-0.61261017366127060000000000000000</sql>
          <javascript>-0.6126101736612706</javascript>
          <javascriptLp>-0.6126102</javascriptLp>
          <formulaNullAsNull>-0.6126101736612705</formulaNullAsNull>
+         <sqlNullAsNull>-0.61261017366127060000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-0.6126101736612706</javascriptNullAsNull>
          <javascriptLpNullAsNull>-0.6126102</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-0.244]</inputvalues>
          <formula>-0.6126101736612705</formula>
+         <sql>-0.61261017366127060000000000000000</sql>
          <javascript>-0.6126101736612706</javascript>
          <javascriptLp>-0.6126102</javascriptLp>
          <formulaNullAsNull>-0.6126101736612705</formulaNullAsNull>
+         <sqlNullAsNull>-0.61261017366127060000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-0.6126101736612706</javascriptNullAsNull>
          <javascriptLpNullAsNull>-0.6126102</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-0.245]</inputvalues>
          <formula>-0.6108339156354675</formula>
+         <sql>-0.61083391563546750000000000000000</sql>
          <javascript>-0.6108339156354675</javascript>
          <javascriptLp>-0.6108339</javascriptLp>
          <formulaNullAsNull>-0.6108339156354675</formulaNullAsNull>
+         <sqlNullAsNull>-0.61083391563546750000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-0.6108339156354675</javascriptNullAsNull>
          <javascriptLpNullAsNull>-0.6108339</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[.24456]</inputvalues>
          <formula>-0.6116145742819675</formula>
+         <sql>-0.61161457428196760000000000000000</sql>
          <javascript>-0.6116145742819675</javascript>
          <javascriptLp>-0.6116146</javascriptLp>
          <formulaNullAsNull>-0.6116145742819675</formulaNullAsNull>
+         <sqlNullAsNull>-0.61161457428196760000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-0.6116145742819675</javascriptNullAsNull>
          <javascriptLpNullAsNull>-0.6116146</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0.24456]</inputvalues>
          <formula>-0.6116145742819675</formula>
+         <sql>-0.61161457428196760000000000000000</sql>
          <javascript>-0.6116145742819675</javascript>
          <javascriptLp>-0.6116146</javascriptLp>
          <formulaNullAsNull>-0.6116145742819675</formulaNullAsNull>
+         <sqlNullAsNull>-0.61161457428196760000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-0.6116145742819675</javascriptNullAsNull>
          <javascriptLpNullAsNull>-0.6116146</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[16]</inputvalues>
          <formula>1.2041199826559246</formula>
+         <sql>1.20411998265592480000000000000000</sql>
          <javascript>1.2041199826559248</javascript>
          <javascriptLp>1.20412</javascriptLp>
          <formulaNullAsNull>1.2041199826559246</formulaNullAsNull>
+         <sqlNullAsNull>1.20411998265592480000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.2041199826559248</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.20412</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[256]</inputvalues>
          <formula>2.408239965311849</formula>
+         <sql>2.40823996531184960000000000000000</sql>
          <javascript>2.4082399653118496</javascript>
          <javascriptLp>2.40824</javascriptLp>
          <formulaNullAsNull>2.408239965311849</formulaNullAsNull>
+         <sqlNullAsNull>2.40823996531184960000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>2.4082399653118496</javascriptNullAsNull>
          <javascriptLpNullAsNull>2.40824</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-256]</inputvalues>
          <formula>2.408239965311849</formula>
+         <sql>2.40823996531184960000000000000000</sql>
          <javascript>2.4082399653118496</javascript>
          <javascriptLp>2.40824</javascriptLp>
          <formulaNullAsNull>2.408239965311849</formulaNullAsNull>
+         <sqlNullAsNull>2.40823996531184960000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>2.4082399653118496</javascriptNullAsNull>
          <javascriptLpNullAsNull>2.40824</javascriptLpNullAsNull>
       </result>

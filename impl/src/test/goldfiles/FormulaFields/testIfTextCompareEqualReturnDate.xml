@@ -21,144 +21,176 @@
       <result>
       <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>null</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[sriKanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>null</sql>
          <javascript>Thu Jan 20 00:00:00 GMT 2005</javascript>
          <javascriptLp>Thu Jan 20 00:00:00 GMT 2005</javascriptLp>
          <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, srikaNth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>null</sql>
          <javascript>Thu Jan 20 00:00:00 GMT 2005</javascript>
          <javascriptLp>Thu Jan 20 00:00:00 GMT 2005</javascriptLp>
          <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>null</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, aa@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>null</sql>
          <javascript>Thu Jan 20 00:00:00 GMT 2005</javascript>
          <javascriptLp>Thu Jan 20 00:00:00 GMT 2005</javascriptLp>
          <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>null</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>null</sql>
          <javascript>Thu Jan 20 00:00:00 GMT 2005</javascript>
          <javascriptLp>Thu Jan 20 00:00:00 GMT 2005</javascriptLp>
          <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, , 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>null</sql>
          <javascript>Thu Jan 20 00:00:00 GMT 2005</javascript>
          <javascriptLp>Thu Jan 20 00:00:00 GMT 2005</javascriptLp>
          <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>null</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, , 2004:12:31, 20]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, , 20]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>null</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, srianth@yahoo.com, , 2004:12:31, 20]</inputvalues>
          <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>null</sql>
          <javascript>Thu Jan 20 00:00:00 GMT 2005</javascript>
          <javascriptLp>Thu Jan 20 00:00:00 GMT 2005</javascriptLp>
          <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Jan 20 00:00:00 GMT 2005</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, ]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>null</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, , , ]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , , , ]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, -30]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>null</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>

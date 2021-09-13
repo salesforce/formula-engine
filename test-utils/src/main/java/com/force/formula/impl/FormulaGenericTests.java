@@ -9,6 +9,7 @@ package com.force.formula.impl;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.*;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -23,6 +24,7 @@ import com.force.formula.*;
 import com.force.formula.commands.FormulaJsTestUtils;
 import com.force.formula.impl.FormulaTestCaseInfo.CompareType;
 import com.force.formula.impl.FormulaTestCaseInfo.DefaultEvaluationContext;
+import com.force.formula.util.FormulaDateUtil;
 import com.force.formula.util.FormulaI18nUtils;
 
 /*
@@ -43,11 +45,35 @@ import com.force.formula.util.FormulaI18nUtils;
 public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
     private static final Logger logger = Logger.getLogger("com.force.formula");
 
+	private static String[] SQL_KEYS = new String[] {"formula", "sql", "javascript", "javascriptLp", "formulaNullAsNull", "sqlNullAsNull", "javascriptNullAsNull", "javascriptLpNullAsNull"};
 	private static String[] KEYS = new String[] {"formula", "javascript", "javascriptLp", "formulaNullAsNull", "javascriptNullAsNull", "javascriptLpNullAsNull"};
 
 	public FormulaGenericTests(String name) throws FileNotFoundException, ParserConfigurationException, SAXException,
 	IOException {
 		super(name, "labels", true);
+	}
+	
+	/**
+	 * @return whether sql should be tested for these formulas.  It validates more of the functionality... but is... slower.
+	 */
+	protected boolean shouldTestSql() {
+		return false;
+	}
+	
+	private DbTester dbTester;
+	// Simplify set of the db by creating one per suite.
+	protected final DbTester getDbTester() throws IOException, SQLException {
+		if (dbTester == null) {
+			dbTester = constructDbTester();
+		}
+		return dbTester;
+	}
+	
+	/**
+	 * @return a new DbTester that will be closed at the end of thest
+	 */
+	protected DbTester constructDbTester() throws IOException, SQLException {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -78,7 +104,16 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		protected String getJsonDirectory() {
 			return "../formula-js/tests/target/formulaJson";
 		}
+		
+		protected boolean shouldTestSql() {
+			return ((FormulaGenericTests)getSuite()).shouldTestSql();
+		}
 
+		protected boolean shouldCompareSql() {
+			return shouldTestSql() && !getTestCaseInfo().ignoreSql();
+		}
+
+		
 		@Override
 		protected void createFail(FormulaTestCaseInfo testCase, FieldDefinitionInfo fieldInfo) throws Exception {
 		}
@@ -107,7 +142,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 
 		@Override
 		protected String[] getKeyNames() {
-			return KEYS;
+			return shouldTestSql() ? SQL_KEYS : KEYS;
 
 		}
 
@@ -145,11 +180,29 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			}
 		}
 
+		/**
+		 * Evaluate via t e
+		 * @param formulaContext
+		 * @param entityObject
+		 * @param formulaSource
+		 * @param nullAsNull
+		 * @return
+		 */
+		private String evaluateSql(FormulaRuntimeContext formulaContext, Map<String, Object> entityObject, String formulaSource, boolean nullAsNull) {
+			try {
+				return ((FormulaGenericTests)getSuite()).getDbTester().evaluateSql(formulaContext, entityObject, formulaSource, nullAsNull);
+			} catch (Throwable e) {
+				logger.log(Level.FINER, "Error in sql", e);
+				return "Error: " + e.getMessage();
+			}
+		}
+		
 		protected void getFormulaValues(Map<String, String> results, FieldDefinitionInfo fieldInfo, Map<String,Object> entityObject, boolean nullAsNull) throws Exception {
 			String keySuffix = nullAsNull ? "NullAsNull" : "";
 			String valueViaJavascript = null;
 			String valueViaJavascriptLp = null;  // Low precision
 			String valueViaFormula = null;
+			String valueViaSql = null;
 
 
 			if (fieldInfo.getFormula() != null) {
@@ -178,14 +231,16 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				valueViaJavascript = evaluateJavascript(formulaContext, entityObject, fieldInfo.getFormula(), nullAsNull);
 				formulaContext.setProperty(FormulaContext.HIGHPRECISION_JS, false);
 				valueViaJavascriptLp = evaluateJavascript(formulaContext, entityObject, fieldInfo.getFormula(), nullAsNull);
+				
+				if (shouldTestSql()) {
+					valueViaSql = evaluateSql(formulaContext, entityObject, fieldInfo.getFormula(), nullAsNull);
+				}
 			}
 
-			// Expand any hyperlink markers.... to be consistent with API
-			//valueViaEntityObject = CalculatedFieldTextElement.handleHyperlink(valueViaEntityObject, false, false);
-			//valueViaFormula = CalculatedFieldTextElement.handleHyperlink(valueViaFormula, false, false);
 			results.put("formula" + keySuffix , valueViaFormula);
 			results.put("javascript" + keySuffix , valueViaJavascript);
 			results.put("javascriptLp" + keySuffix , valueViaJavascriptLp);
+			results.put("sql" + keySuffix , valueViaSql);
 		}
 
 		/**         * Helper method to print a consistent error message about a mismatch between formula and
@@ -207,11 +262,11 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		@Override
 		String verifyResults(FieldDefinitionInfo fieldInfo, Map<String, String> results) {
 			String mismatchMessage = verifyMultiplePath(fieldInfo,
-					results.get("formula"), results.get("javascript"), results.get("javascriptLp"), false);
+					results.get("formula"), results.get("sql"), results.get("javascript"), results.get("javascriptLp"), false);
 			if (mismatchMessage != null) {
 				return mismatchMessage;
 			}
-			mismatchMessage = verifyMultiplePath(fieldInfo, results.get("formulaNullAsNull"), results.get("javascriptNullAsNull"), results.get("javascriptLpNullAsNull"), true);
+			mismatchMessage = verifyMultiplePath(fieldInfo, results.get("formulaNullAsNull"), results.get("sqlNullAsNull"), results.get("javascriptNullAsNull"), results.get("javascriptLpNullAsNull"), true);
 			return mismatchMessage;
 		}
 
@@ -226,7 +281,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		//  Determine if all paths resulted in same value (modulo various expected differences!)
 		//  returning null means success.
 		private String verifyMultiplePath(
-				FieldDefinitionInfo fieldInfo, String viaFormula, String viaJavascript, String viaJavascriptLp, boolean nullIsNull) {
+				FieldDefinitionInfo fieldInfo, String viaFormula, String viaSql, String viaJavascript, String viaJavascriptLp, boolean nullIsNull) {
 
 			final CompareType compareType = getTestCaseInfo().getCompareType();
 
@@ -235,6 +290,9 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			if (hasErrorMessage(viaFormula)) {
 				return null;
 			}
+            if (hasErrorMessage(viaSql)) {
+                return null;
+            }
 			if (hasErrorMessage(viaJavascript) && !getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
 				if (nullIsNull) return null;
 				if (!getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
@@ -254,8 +312,16 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 
 
 			// If one is null, they all should be (except template should be "")
-			if (viaFormula == null) {
-				// Since we didn't check javascript earlier, we need to make sure it is also null.
+			if (viaFormula == null || (shouldCompareSql() && viaSql == null)) {
+                String badNullMessage = "If one is null, they all should be null. viaFormula " + viaFormula + " viaSql " + viaSql;
+                
+                if (shouldCompareSql()) {
+	                if (viaFormula != null || viaSql != null) {
+	                    return badNullMessage;
+	                }
+                }
+                
+                // Since we didn't check javascript earlier, we need to make sure it is also null.
 				if (viaJavascript == null) {
 					if (viaJavascriptLp == null) {
 						return null;
@@ -282,23 +348,44 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 					MathContext mc = new MathContext(fieldInfo.getPrecision(), RoundingMode.HALF_UP);
 					// NOTE: Core's tests don't do RoundingMode HALF_UP because it ends up being filtered through saving to the DB.
 					BigDecimal viaFormulaDec = new BigDecimal(entityValue, mc).setScale(scale, RoundingMode.HALF_UP);
+                    BigDecimal viaSqlDec = shouldCompareSql() ? new BigDecimal(viaSql, mc).setScale(scale, RoundingMode.HALF_UP) : null; 
 					boolean compareOK;
 					String mismatchMessage = null;
 					if (!getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {  // If there's an accuracy issue with decimal, don't bother
 						BigDecimal viaJavascriptDec = viaJavascript != null ? new BigDecimal(viaJavascript, mc).setScale(scale, RoundingMode.HALF_UP) : BigDecimal.ZERO; // We can get here through nullAsNull
 						if (compareType == CompareType.Approximate) {
 							BigDecimal delta = BigDecimal.ONE.movePointLeft(scale);
-							compareOK = viaFormulaDec.subtract(viaJavascriptDec).abs().compareTo(delta) <= 0;
+			                if (shouldCompareSql()) {
+								compareOK = viaFormulaDec.subtract(viaSqlDec).abs().compareTo(delta) <= 0
+										&& viaFormulaDec.subtract(viaJavascriptDec).abs().compareTo(delta) <= 0;
+			                } else {
+			                	compareOK = viaFormulaDec.subtract(viaJavascriptDec).abs().compareTo(delta) <= 0;
+			                }
 							if (! compareOK) {
-								StringBuilder errorMsg = new StringBuilder(128).append("viaFormula ").append(viaFormulaDec.toEngineeringString())
-										.append(" is not within range ").append(delta.toEngineeringString())
-										.append(" of viaJavascript ").append(viaJavascriptDec.toEngineeringString());
-								mismatchMessage = errorMsg.toString();
+								if (shouldCompareSql() && viaFormulaDec.subtract(viaSqlDec).abs().compareTo(delta) > 0) {
+	                                mismatchMessage = "viaFormula " + viaFormulaDec.toEngineeringString() +
+	                                                  " is not within range " + delta.toEngineeringString() +
+	                                                  " of viaSql " + viaSqlDec.toEngineeringString();
+	                            } else {
+	                            	StringBuilder errorMsg = new StringBuilder(128).append("viaFormula ").append(viaFormulaDec.toEngineeringString())
+											.append(" is not within range ").append(delta.toEngineeringString())
+											.append(" of viaJavascript ").append(viaJavascriptDec.toEngineeringString());
+									mismatchMessage = errorMsg.toString();
+	                            }
 							}
 						} else {
 							compareOK = viaFormulaDec.equals(viaJavascriptDec);
+							if (shouldCompareSql()) {
+								compareOK &= viaFormulaDec.equals(viaSqlDec);
+							}
 							if (! compareOK) {
-								mismatchMessage = getGenericJavascriptValueEqualityFailMessage(viaFormulaDec.toEngineeringString(), viaJavascriptDec.toEngineeringString());
+								if (shouldCompareSql() && ! viaFormulaDec.equals(viaSqlDec)) {
+	                                mismatchMessage = "viaFormula " + viaFormulaDec.toEngineeringString() +
+	                                                  " does not equal viaSql " + viaSqlDec.toEngineeringString();
+	                            } else {
+	                            	mismatchMessage = getGenericJavascriptValueEqualityFailMessage(viaFormulaDec.toEngineeringString(), viaJavascriptDec.toEngineeringString());
+	                            
+	                            }
 							}
 						}
 					}
@@ -325,7 +412,29 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			} else if (compareType  == CompareType.Date) {
 				// API version has format yyyy-mm-dd or 2005-01-03T23:32:00.000Z.  Others are Mon Jan 03 00:00:00 GMT 2005.
 				try {
-					if (! viaFormula.equals(viaJavascript)) {
+					if (shouldCompareSql()) {
+	                    SimpleDateFormat sqlDf = new SimpleDateFormat("yyyy-MM-dd");
+	                    Date viaSqlDate = sqlDf.parse(viaSql);
+	                    SimpleDateFormat javaDf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+	                    Date viaFormulaDate = javaDf.parse(viaFormula);
+	                    // Unfortunately date arithmetic in pointwise versions tracks a time also, so it
+	                    // doesn't match the api version.  This is a historical mistake we can't correct
+	                    // without impact on existing code.
+	                    // So adjust the time part to 0 before comparing.
+	                    Calendar c = getFromDateString(viaFormula);
+	                    FormulaDateUtil.toMidnight(c);
+	                    viaFormulaDate = c.getTime();
+	                    boolean compareOK =  viaSqlDate.equals(viaFormulaDate);
+	                    if (! compareOK) {
+	                        return "viaFormula " + viaFormulaDate + " (" + viaFormula +
+	                                          ") does not equal viaSql " + viaSqlDate + "(" + viaSql + ")";
+	                    }
+					}
+				} catch (ParseException e) {
+					return "Date ParseException for one of viaFormula " + viaFormula + ", viaSql " + viaSql + " .";
+				}
+				try {
+                    if (! viaFormula.equals(viaJavascript)) {
 						Calendar c = getFromDateString(viaFormula);
 						if (c.get(Calendar.YEAR) > 1776) {
 							return getGenericJavascriptValueEqualityFailMessage(viaFormula, viaJavascript);
@@ -343,6 +452,25 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				return null;
 
 			} else if (compareType == CompareType.DateTime) {
+				if (shouldCompareSql()) {
+					try {
+	                    SimpleDateFormat sqlDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	                    Date viaSqlDate = sqlDf.parse(viaSql);
+	                    SimpleDateFormat javaDf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+	                    Date viaFormulaDate = javaDf.parse(viaFormula);
+	                    String mismatchMessage = null;
+	                    boolean compareOK = viaSqlDate.getTime() == viaFormulaDate.getTime();
+	                    if (! compareOK) {
+	                        mismatchMessage = "viaFormula " + viaFormulaDate.getTime() + " (" + viaFormula +
+	                                          ") does not equal viaApi " + viaSqlDate.getTime() + "(" + viaSql + ")";
+	                    }
+	                    return mismatchMessage;
+					} catch (ParseException e) {
+						return "Date ParseException for one of viaFormula " + viaFormula + ", viaSql " + viaSql + " .";
+					}
+				}
+
+				
 				// W-3358047; See FormulaGenericTests - Account - testOriginTime
 				try {
 					if (! viaFormula.equals(viaJavascript)) {
@@ -357,14 +485,16 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 							return getGenericJavascriptLpValueEqualityFailMessage(viaFormula, viaJavascriptLp);
 						}
 					}
+					
 				} catch (ParseException e) {
 					return "Date ParseException for one of viaFormula " + viaFormula + ", viaJavaScript " + viaJavascript + " .";
 				}
-
 				return null;
-
 			} else {
 				//  Default comparison gauntlet
+                if (shouldCompareSql() && ! viaFormula.equals(viaSql)) {
+                    return "viaFormula " + viaFormula + " does not equal viaSql " + viaSql;
+                }
 				if (! viaFormula.equals(viaJavascript) && !getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
 					return getGenericJavascriptValueEqualityFailMessage(viaFormula,  viaJavascript);
 				}
@@ -375,5 +505,6 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			}
 		}
 	}
+
 
 }

@@ -49,7 +49,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
         String sql;
         String guard;
         if (inputDataType == FormulaDateTime.class) {
-            if (FormulaCommandInfoImpl.shouldGeneratePsql(context)) {
+            if (getSqlHooks(context).isPostgresStyle()) {
                 // Postgres org (we don't need to check the DatevalueFixForDSTEnabled preference in non-oracle)
                 sql = String.format("DATE_TRUNC('DAY', (%s AT TIME ZONE 'UTC') AT TIME ZONE '%s')::timestamp", args[0],
                         USERS_TIMEZONE_ID_MARKER);
@@ -63,7 +63,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
             }
             guard = SQLPair.generateGuard(guards, null);
         } else {
-            sql = String.format("TO_DATE(%s, 'YYYY-MM-DD')", args[0]);
+            sql = String.format(getSqlHooks(context).sqlToDateIso(), args[0]);
 
             FormulaAST child = (FormulaAST)node.getFirstChild();
             if (child != null && child.isLiteral() && child.getDataType() == String.class) {
@@ -81,7 +81,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
                      .generateGuard(
                      guards,
                      String.format(
-                        " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') /*comments to keep size */ ",
+                    	getSqlHooks(context).sqlDateValueGuard(),
                         args[0]));
                /*Other 2 options of guards, probably when we get versioning we can switch to either one of these:
 

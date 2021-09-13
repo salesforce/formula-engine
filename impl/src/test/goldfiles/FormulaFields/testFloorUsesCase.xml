@@ -20,117 +20,143 @@
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>200</formula>
+         <sql>null</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:03, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>300</formula>
+         <sql>null</sql>
          <javascript>300</javascript>
          <javascriptLp>300</javascriptLp>
          <formulaNullAsNull>300</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>300</javascriptNullAsNull>
          <javascriptLpNullAsNull>300</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, 2004:12:03, 300, 400]</inputvalues>
          <formula>200</formula>
+         <sql>null</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:05, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>400</formula>
+         <sql>null</sql>
          <javascript>400</javascript>
          <javascriptLp>400</javascriptLp>
          <formulaNullAsNull>400</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>400</javascriptNullAsNull>
          <javascriptLpNullAsNull>400</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>400</formula>
+         <sql>null</sql>
          <javascript>400</javascript>
          <javascriptLp>400</javascriptLp>
          <formulaNullAsNull>400</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>400</javascriptNullAsNull>
          <javascriptLpNullAsNull>400</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>400</formula>
+         <sql>null</sql>
          <javascript>400</javascript>
          <javascriptLp>400</javascriptLp>
          <formulaNullAsNull>400</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>400</javascriptNullAsNull>
          <javascriptLpNullAsNull>400</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, , 300, 400]</inputvalues>
          <formula>200</formula>
+         <sql>null</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, , 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>300</formula>
+         <sql>null</sql>
          <javascript>300</javascript>
          <javascriptLp>300</javascriptLp>
          <formulaNullAsNull>300</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>300</javascriptNullAsNull>
          <javascriptLpNullAsNull>300</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, , 2004:12:04, 300, 400]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:05, 200, 2004:12:04, , 400]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:05, 200, 2004:12:06, , ]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:06, 2004:12:04, 200, 2004:12:04, 300, ]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , , , , ]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

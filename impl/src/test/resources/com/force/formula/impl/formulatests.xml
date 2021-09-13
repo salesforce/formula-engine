@@ -259,7 +259,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
      </testcase>
      <testcase name="testAddWithTextFunc"
-         devName="testAddWithTextFunc" labelName="testAddWithTextFunc"
+         devName="testAddWithTextFunc" labelName="testAddWithTextFunc"  whyIgnoreSql="FIXME: psql null concatenation support"
          dataType="Double" dataFile="addWithTextFunc" scale="2" precision="12"
          code="(customnumber1__c+customformula0__c+customnumber2__c+customformula1__c+customformula2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -343,7 +343,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddDateWithExpr" devName="testAddDateWithExpr"
          labelName="testAddDateWithExpr" dataType="DateOnly"
-         dataFile="addDateWithExpr" scale="2" precision="12"
+         dataFile="addDateWithExpr" scale="2" precision="12" whyIgnoreSql="Date overflow"
          code="(customformula0__c+customnumber1__c+customformula1__c+customcurrency1__c)">
          <referencefield devName="customformula0" labelName="customformula0"
              dataType="DateOnly" code="(customdate1__c+custompercent1__c)">
@@ -377,7 +377,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddMonthsDateTime" devName="testAddMonthsDateTime"
          labelName="testAddMonthsDateTime" dataType="DateTime" dataFile="addDateTime"
-         scale="2" precision="12"
+         scale="2" precision="12" whyIgnoreSql="TODO: psql fractional month support"
          code="ADDMONTHS(customdatetime1__c,customnumber1__c)">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime"/>
@@ -416,7 +416,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddDateTimeWithExpr" devName="testAddDateTimeWithExpr"
          labelName="testAddDateTimeWithExpr" dataType="DateTime" compareTemplate="formula"
-         dataFile="addDateTimeWithExpr" scale="2" precision="12"
+         dataFile="addDateTimeWithExpr" scale="2" precision="12"  whyIgnoreSql="Date overflow"
          code="(customformula0__c+custompercent2__c+customformula1__c+LEN(customtext1__c))">
          <referencefield devName="customformula0" labelName="customformula0"
              dataType="DateTime"
@@ -1795,7 +1795,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testFloorRound" devName="testFloorRound"
+     <testcase name="testFloorRound" devName="testFloorRound"  whyIgnoreSql="Psql precision differences"
          labelName="testFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="FLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1803,7 +1803,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMFloorRound" devName="testMFloorRound"
+     <testcase name="testMFloorRound" devName="testMFloorRound" whyIgnoreSql="Psql precision differences"
          labelName="testMFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MFLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1941,7 +1941,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testCeilRound" devName="testCeilRound"
+     <testcase name="testCeilRound" devName="testCeilRound" whyIgnoreSql="Psql precision differences"
          labelName="testCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="CEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1949,7 +1949,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMCeilRound" devName="testMCeilRound"
+     <testcase name="testMCeilRound" devName="testMCeilRound" whyIgnoreSql="Psql precision differences"
          labelName="testMCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MCEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -3117,12 +3117,12 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" precision="13" scale="3"/>
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
-     <testcase name="testUpper" labels="basic" devName="testUpper" labelName="testUpper"
+     <testcase name="testUpper" labels="basic" devName="testUpper" labelName="testUpper" whyIgnoreSql="Postgres ICU support"
             dataType="Text" code="upper(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
      <!-- Nashorn doesn't do toLocaleLowerCase/toLocaleUpperCase correctly.  It also creates a combining dotted mark for İ -->
-     <testcase name="testLower" devName="testLower" labelName="testLower" labels="ignore"
+     <testcase name="testLower" labels="basic" devName="testLower" labelName="testLower" whyIgnoreSql="Postgres ICU support"
             dataType="Text" code="lower(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>

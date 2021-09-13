@@ -6,6 +6,8 @@ package com.force.formula;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.force.formula.sql.FormulaSqlStyle;
+
 /**
  * Adapter interface to provide for multiple sources of pointwise data access
  *
@@ -176,8 +178,8 @@ public interface FormulaContext extends Tokenizer {
      * @return <tt>true</tt> if postgres syntax should be used for SQL expressions.
      * Override for performance.
      */
-    default boolean isSqlPostgresStyle() {
-        return FormulaEngine.getHooks().isSqlPostgresStyle();
+    default FormulaSqlStyle getSqlStyle() {
+        return FormulaEngine.getHooks().getSqlStyle();
     }
 
     

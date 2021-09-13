@@ -20,45 +20,55 @@
       <result>
       <inputvalues>[56.925559]</inputvalues>
          <formula>1.590000</formula>
+         <sql>null</sql>
          <javascript>1.59</javascript>
          <javascriptLp>1.59</javascriptLp>
          <formulaNullAsNull>1.590000</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.59</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.59</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111123]</inputvalues>
          <formula>1.230000</formula>
+         <sql>null</sql>
          <javascript>1.23</javascript>
          <javascriptLp>1.23</javascriptLp>
          <formulaNullAsNull>1.230000</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.23</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.23</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111145]</inputvalues>
          <formula>1.450000</formula>
+         <sql>null</sql>
          <javascript>1.45</javascript>
          <javascriptLp>1.45</javascriptLp>
          <formulaNullAsNull>1.450000</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.45</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.45</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111155]</inputvalues>
          <formula>1.550000</formula>
+         <sql>null</sql>
          <javascript>1.55</javascript>
          <javascriptLp>1.55</javascriptLp>
          <formulaNullAsNull>1.550000</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.55</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.55</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111160]</inputvalues>
          <formula>1.600000</formula>
+         <sql>null</sql>
          <javascript>1.6</javascript>
          <javascriptLp>1.6</javascriptLp>
          <formulaNullAsNull>1.600000</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.6</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.6</javascriptLpNullAsNull>
       </result>

@@ -22,90 +22,110 @@
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>504</formula>
+         <sql>null</sql>
          <javascript>504</javascript>
          <javascriptLp>504</javascriptLp>
          <formulaNullAsNull>504</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>504</javascriptNullAsNull>
          <javascriptLpNullAsNull>504</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Reseller, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>902</formula>
+         <sql>null</sql>
          <javascript>902</javascript>
          <javascriptLp>902</javascriptLp>
          <formulaNullAsNull>902</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>902</javascriptNullAsNull>
          <javascriptLpNullAsNull>902</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>504</formula>
+         <sql>null</sql>
          <javascript>504</javascript>
          <javascriptLp>504</javascriptLp>
          <formulaNullAsNull>504</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>504</javascriptNullAsNull>
          <javascriptLpNullAsNull>504</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>602</formula>
+         <sql>null</sql>
          <javascript>602</javascript>
          <javascriptLp>602</javascriptLp>
          <formulaNullAsNull>602</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>602</javascriptNullAsNull>
          <javascriptLpNullAsNull>602</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, , 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>602</formula>
+         <sql>null</sql>
          <javascript>602</javascript>
          <javascriptLp>602</javascriptLp>
          <formulaNullAsNull>602</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>602</javascriptNullAsNull>
          <javascriptLpNullAsNull>602</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Var, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>602</formula>
+         <sql>null</sql>
          <javascript>602</javascript>
          <javascriptLp>602</javascriptLp>
          <formulaNullAsNull>602</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>602</javascriptNullAsNull>
          <javascriptLpNullAsNull>602</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, , Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>502</formula>
+         <sql>null</sql>
          <javascript>502</javascript>
          <javascriptLp>502</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, 200, 100]</inputvalues>
          <formula>504</formula>
+         <sql>null</sql>
          <javascript>504</javascript>
          <javascriptLp>504</javascriptLp>
          <formulaNullAsNull>504</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>504</javascriptNullAsNull>
          <javascriptLpNullAsNull>504</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, , 100]</inputvalues>
          <formula>502</formula>
+         <sql>null</sql>
          <javascript>502</javascript>
          <javascriptLp>502</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, 200, 100]</inputvalues>
          <formula>504</formula>
+         <sql>null</sql>
          <javascript>504</javascript>
          <javascriptLp>504</javascriptLp>
          <formulaNullAsNull>504</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>504</javascriptNullAsNull>
          <javascriptLpNullAsNull>504</javascriptLpNullAsNull>
       </result>

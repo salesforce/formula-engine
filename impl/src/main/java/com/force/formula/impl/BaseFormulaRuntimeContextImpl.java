@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import com.force.formula.*;
+import com.force.formula.sql.FormulaSqlStyle;
 
 /**
  * Base Implementation for formula methods that use a FormulaFieldReference.  This provides compatibility for
@@ -19,7 +20,7 @@ import com.force.formula.*;
  */
 public abstract class BaseFormulaRuntimeContextImpl implements FormulaRuntimeContext {
 
-    private final boolean isPsql = FormulaEngine.getHooks().isSqlPostgresStyle();
+    private final FormulaSqlStyle sqlStyle = FormulaEngine.getHooks().getSqlStyle();
     
     @Override
     public Boolean getBoolean(FormulaFieldReference fieldName) throws InvalidFieldReferenceException,
@@ -217,7 +218,7 @@ public abstract class BaseFormulaRuntimeContextImpl implements FormulaRuntimeCon
     }
     
     @Override
-    public boolean isSqlPostgresStyle() {
-        return isPsql;
+    public FormulaSqlStyle getSqlStyle() {
+        return sqlStyle;
     }
 }

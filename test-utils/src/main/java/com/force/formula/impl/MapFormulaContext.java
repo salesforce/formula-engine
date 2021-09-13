@@ -101,15 +101,17 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
         final String name;
         final FormulaDataType dataType;
         final String formulaSource;
+        final int scale;
 
-        public MapFieldInfo(String name, FormulaDataType dataType) {
-            this(name, dataType, null);
+        public MapFieldInfo(String name, FormulaDataType dataType, int scale) {
+            this(name, dataType, null, scale);
         }
         
-        public MapFieldInfo(String name, FormulaDataType dataType, String formulaSource) {
+        public MapFieldInfo(String name, FormulaDataType dataType, String formulaSource, int scale) {
             this.name = name;
             this.dataType = dataType;
             this.formulaSource = !FormulaTextUtil.isNullEmptyOrWhitespace(formulaSource) ? formulaSource : null ;
+            this.scale = scale;
         }
         
     }
@@ -126,7 +128,7 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
         
         MapEntity(String name, Collection<MapFieldInfo> infos) {
             this.name = name;
-            this.fields = infos.stream().map((a)->new MapField(this, a.name, a.dataType, a.formulaSource, null)).collect(Collectors.toMap(TO_LOWER, (c)->c));
+            this.fields = infos.stream().map((a)->new MapField(this, a.name, a.dataType, a.formulaSource, null, a.scale)).collect(Collectors.toMap(TO_LOWER, (c)->c));
         }
         @Override
         public String getName() {
@@ -158,8 +160,8 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
      * @author stamm
      */
     static class MapField extends BaseObjectFormulaContext.BaseObjectField<Map<String,?>> {
-        public MapField(MapEntity entity, String name, FormulaDataType dataType, String formulaSource, Entity[] foreignKeys) {
-            super(entity, name, dataType, formulaSource, foreignKeys);
+        public MapField(MapEntity entity, String name, FormulaDataType dataType, String formulaSource, Entity[] foreignKeys, int scale) {
+            super(entity, name, dataType, formulaSource, foreignKeys, scale);
         }
         
         @Override

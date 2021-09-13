@@ -29,9 +29,9 @@ public class FunctionFind extends FormulaCommandInfoImpl {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         StringBuilder sql = new StringBuilder();
-        String startPosition = (args.length == 3) ? ("NVL(" + args[2] + ", 1)") : "1";
+        String startPosition = (args.length == 3) ? (getSqlHooks(context).sqlNvl() + "(" + args[2] + ", 1)") : "1";
 
-        sql.append(String.format("NVL(INSTR(%s, %s, GREATEST(%s,1)), 0)", args[1], args[0], startPosition));
+        sql.append(String.format(getSqlHooks(context).sqlNvl() + "(INSTR(%s, %s, GREATEST(%s,1)), 0)", args[1], args[0], startPosition));
 
         String guard = SQLPair.generateGuard(guards, null);
 

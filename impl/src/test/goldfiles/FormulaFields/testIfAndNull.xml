@@ -20,18 +20,22 @@
       <result>
       <inputvalues>[true]</inputvalues>
          <formula>FF</formula>
+         <sql>null</sql>
          <javascript>FF</javascript>
          <javascriptLp>FF</javascriptLp>
          <formulaNullAsNull>FF</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>FF</javascriptNullAsNull>
          <javascriptLpNullAsNull>FF</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[false]</inputvalues>
          <formula>FF</formula>
+         <sql>null</sql>
          <javascript>FF</javascript>
          <javascriptLp>FF</javascriptLp>
          <formulaNullAsNull>FF</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>FF</javascriptNullAsNull>
          <javascriptLpNullAsNull>FF</javascriptLpNullAsNull>
       </result>

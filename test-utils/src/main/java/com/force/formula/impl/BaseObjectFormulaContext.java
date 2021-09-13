@@ -320,6 +320,11 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
          * @return the formula source for this entity if it is calculated.  Mostly for testing.
          */
         String getFormulaSource();
+        
+        /**
+         * @return the scale of this field for calculations.
+         */
+        int getScale();
     }
 
 
@@ -334,12 +339,14 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
         private final FormulaDataType dataType;
         private final String formulaSource;
         private final Entity[] foreignKeys;
-        public BaseObjectField(FormulaSchema.Entity entity, String name, FormulaDataType dataType, String formulaSource, Entity[] foreignKeys) {
+        private final int scale;
+        public BaseObjectField(FormulaSchema.Entity entity, String name, FormulaDataType dataType, String formulaSource, Entity[] foreignKeys, int scale) {
             this.entity = entity;
             this.name = name;
             this.dataType = dataType;
             this.formulaSource = formulaSource;
             this.foreignKeys = foreignKeys;
+            this.scale = scale;
         }
         
         @Override
@@ -388,6 +395,11 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
         }
 
         @Override
+		public int getScale() {
+        	return this.scale;
+		}
+
+		@Override
         public String getForeignKeyRelationshipName() {
             return getName();
         }
@@ -409,7 +421,15 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
 
 		@Override
 		public String getDbColumn(String standardTablAlias, String customTableAlias) {
+			if (standardTablAlias == null) {
+				return getFieldOrColumnInfo().getName();
+			}
 			return standardTablAlias + "." + getFieldOrColumnInfo().getName();
+		}
+
+		@Override
+		public int getScale() {
+			return ((ObjectField<?>)getFieldOrColumnInfo()).getScale();
 		}
     }
 }

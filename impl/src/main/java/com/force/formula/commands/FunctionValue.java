@@ -30,8 +30,8 @@ public class FunctionValue extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String guard = SQLPair.generateGuard(guards, "NOT "+FunctionIsNumber.getSQL(args[0]));
-        return new SQLPair("TO_NUMBER(" + args[0] + ")", guard);
+        String guard = SQLPair.generateGuard(guards, "NOT "+FunctionIsNumber.getSQL(context, args[0]));
+        return new SQLPair(String.format(getSqlHooks(context).sqlToNumber(), args[0]), guard);
     }
     
     @Override

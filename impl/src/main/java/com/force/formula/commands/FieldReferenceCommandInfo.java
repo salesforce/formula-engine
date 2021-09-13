@@ -244,9 +244,9 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
         if (formulaFieldInfo.getDataType().isBoolean()) {
             // Only bother with this if we are a database field; a formula's already a boolean so NVL would be a syntax error
             if (formulaFieldInfo.getFieldOrColumnInfo() != null && formulaFieldInfo.getFieldOrColumnInfo().getFieldInfo().isCalculated()) {
-                sql = "(NVL(CASE WHEN " + sql + " THEN '1' ELSE '0' END, '0') = '1')";
+                sql = "("+getSqlHooks(context).sqlNvl()+"(CASE WHEN " + sql + " THEN '1' ELSE '0' END, '0') = '1')";
             } else {
-                sql = "(NVL(" + sql + ", '0') = '1')";
+                sql = "("+getSqlHooks(context).sqlNvl()+"(" + sql + ", '0') = '1')";
             }
         }
 

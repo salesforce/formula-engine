@@ -20,63 +20,77 @@
       <result>
       <inputvalues>[aaaa, aaaa]</inputvalues>
          <formula>true</formula>
+         <sql>null</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, bbbb]</inputvalues>
          <formula>false</formula>
+         <sql>null</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, ]</inputvalues>
          <formula>false</formula>
+         <sql>null</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, bbbb]</inputvalues>
          <formula>false</formula>
+         <sql>null</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>true</formula>
+         <sql>null</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, aaaa]</inputvalues>
          <formula>true</formula>
+         <sql>null</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, aaaa]</inputvalues>
          <formula>true</formula>
+         <sql>null</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>

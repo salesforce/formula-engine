@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testSubUnary">
    <testInstance formula="-(customnumber1__c)" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>(-NVL($!s0s!$.customnumber1__c, 0))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>(-$!s0s!$.customnumber1__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>(-NVL($!s0s!$.customnumber1__c, 0))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>(-$!s0s!$.customnumber1__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(-COALESCE($!s0s!$.customnumber1__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(-$!s0s!$.customnumber1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).neg()</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(context.record.customnumber1__c.neg()):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">(-$F.nvl(context.record.customnumber1__c,0))</JsOutput>
@@ -20,45 +16,55 @@
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0.0]</inputvalues>
          <formula>0.0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[24]</inputvalues>
          <formula>-24</formula>
+         <sql>-24.00000000000000000000000000000000</sql>
          <javascript>-24</javascript>
          <javascriptLp>-24</javascriptLp>
          <formulaNullAsNull>-24</formulaNullAsNull>
+         <sqlNullAsNull>-24.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-24</javascriptNullAsNull>
          <javascriptLpNullAsNull>-24</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[.99]</inputvalues>
          <formula>-0.99</formula>
+         <sql>-0.99000000000000000000000000000000</sql>
          <javascript>-0.99</javascript>
          <javascriptLp>-0.99</javascriptLp>
          <formulaNullAsNull>-0.99</formulaNullAsNull>
+         <sqlNullAsNull>-0.99000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-0.99</javascriptNullAsNull>
          <javascriptLpNullAsNull>-0.99</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-24]</inputvalues>
          <formula>24</formula>
+         <sql>24.00000000000000000000000000000000</sql>
          <javascript>24</javascript>
          <javascriptLp>24</javascriptLp>
          <formulaNullAsNull>24</formulaNullAsNull>
+         <sqlNullAsNull>24.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>24</javascriptNullAsNull>
          <javascriptLpNullAsNull>24</javascriptLpNullAsNull>
       </result>

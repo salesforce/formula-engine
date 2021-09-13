@@ -20,36 +20,44 @@
       <result>
       <inputvalues>[syendluri@yahoo.com, Not Null]</inputvalues>
          <formula>syendluri@yahoo.com</formula>
+         <sql>null</sql>
          <javascript>syendluri@yahoo.com</javascript>
          <javascriptLp>syendluri@yahoo.com</javascriptLp>
          <formulaNullAsNull>syendluri@yahoo.com</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>syendluri@yahoo.com</javascriptNullAsNull>
          <javascriptLpNullAsNull>syendluri@yahoo.com</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aa@ss.com,  Not Null]</inputvalues>
          <formula>aa@ss.com</formula>
+         <sql>null</sql>
          <javascript>aa@ss.com</javascript>
          <javascriptLp>aa@ss.com</javascriptLp>
          <formulaNullAsNull>aa@ss.com</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>aa@ss.com</javascriptNullAsNull>
          <javascriptLpNullAsNull>aa@ss.com</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, Is Null]</inputvalues>
          <formula>Is Null</formula>
+         <sql>null</sql>
          <javascript>Is Null</javascript>
          <javascriptLp>Is Null</javascriptLp>
          <formulaNullAsNull>Is Null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Is Null</javascriptNullAsNull>
          <javascriptLpNullAsNull>Is Null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testTimeValueWithValidString">
    <testInstance formula="TIMEVALUE(&quot;10:40:55.666&quot;)" returntype="TimeOnly">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>TO_NUMBER(TO_CHAR(TO_TIMESTAMP('10:40:55.666', 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>TO_NUMBER(TO_CHAR(TO_TIMESTAMP('10:40:55.666', 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>TO_NUMBER(TO_CHAR(TO_TIMESTAMP('10:40:55.666', 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>TO_NUMBER(TO_CHAR(TO_TIMESTAMP('10:40:55.666', 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(CAST(TO_CHAR(TO_TIMESTAMP('10:40:55.666', 'HH24:mi:ss.MS'), 'SSSS.MS') AS NUMERIC) *1000)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(CAST(TO_CHAR(TO_TIMESTAMP('10:40:55.666', 'HH24:mi:ss.MS'), 'SSSS.MS') AS NUMERIC) *1000)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
@@ -20,9 +16,11 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>10:40:55.666</formula>
+         <sql>10:40:55.666</sql>
          <javascript>10:40:55.666</javascript>
          <javascriptLp>10:40:55.666</javascriptLp>
          <formulaNullAsNull>10:40:55.666</formulaNullAsNull>
+         <sqlNullAsNull>10:40:55.666</sqlNullAsNull>
          <javascriptNullAsNull>10:40:55.666</javascriptNullAsNull>
          <javascriptLpNullAsNull>10:40:55.666</javascriptLpNullAsNull>
       </result>

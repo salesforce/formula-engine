@@ -20,126 +20,154 @@
       <result>
       <inputvalues>[10, 10]</inputvalues>
          <formula>1000</formula>
+         <sql>null</sql>
          <javascript>1000</javascript>
          <javascriptLp>1000</javascriptLp>
          <formulaNullAsNull>1000</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1000</javascriptNullAsNull>
          <javascriptLpNullAsNull>1000</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 10]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>10</javascriptNullAsNull>
          <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10, ]</inputvalues>
          <formula>1000</formula>
+         <sql>null</sql>
          <javascript>1000</javascript>
          <javascriptLp>1000</javascriptLp>
          <formulaNullAsNull>1000</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1000</javascriptNullAsNull>
          <javascriptLpNullAsNull>1000</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0.0000009, 10]</inputvalues>
          <formula>0.00009</formula>
+         <sql>null</sql>
          <javascript>0.00009</javascript>
          <javascriptLp>0.00009</javascriptLp>
          <formulaNullAsNull>0.00009</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>0.00009</javascriptNullAsNull>
          <javascriptLpNullAsNull>0.00009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, 10]</inputvalues>
          <formula>-100</formula>
+         <sql>null</sql>
          <javascript>-100</javascript>
          <javascriptLp>-100</javascriptLp>
          <formulaNullAsNull>-100</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>-100</javascriptNullAsNull>
          <javascriptLpNullAsNull>-100</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 0.0009]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0.0009</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>0.0009</javascriptNullAsNull>
          <javascriptLpNullAsNull>0.0009</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 10]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0.0, 4]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 0]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 0.0]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 0.0000000]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1, 10.1234]</inputvalues>
          <formula>100</formula>
+         <sql>null</sql>
          <javascript>100</javascript>
          <javascriptLp>100</javascriptLp>
          <formulaNullAsNull>100</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>100</javascriptNullAsNull>
          <javascriptLpNullAsNull>100</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10.1234, 1]</inputvalues>
          <formula>1012.34</formula>
+         <sql>null</sql>
          <javascript>1012.34</javascript>
          <javascriptLp>1012.34</javascriptLp>
          <formulaNullAsNull>1012.34</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1012.34</javascriptNullAsNull>
          <javascriptLpNullAsNull>1012.34</javascriptLpNullAsNull>
       </result>

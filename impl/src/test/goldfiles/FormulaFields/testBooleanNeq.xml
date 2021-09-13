@@ -3,18 +3,14 @@
    <testInstance formula="customformula1__c != OR(customcheckbox1__c,customcheckbox2__c)" returntype="Boolean">
    <customformula1 dataType="ColumnType.BOOLEAN" formula="customdate1__c &gt; customdate2__c"/>
    <customformula2 dataType="ColumnType.DATEONLY" formula="DATE(customnumber1__c,customnumber2__c,customnumber3__c)"/>
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>(CASE WHEN (NVL(CASE WHEN ($!s0s!$.customdate1__c&gt;$!s0s!$.customdate2__c) THEN '1' ELSE '0' END, '0') = '1') THEN 1 ELSE 0 END&lt;&gt;CASE WHEN ((NVL($!s0s!$.customcheckbox1__c, '0') = '1') OR (NVL($!s0s!$.customcheckbox2__c, '0') = '1')) THEN 1 ELSE 0 END)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>(CASE WHEN (NVL(CASE WHEN ($!s0s!$.customdate1__c&gt;$!s0s!$.customdate2__c) THEN '1' ELSE '0' END, '0') = '1') THEN 1 ELSE 0 END&lt;&gt;CASE WHEN ((NVL($!s0s!$.customcheckbox1__c, '0') = '1') OR (NVL($!s0s!$.customcheckbox2__c, '0') = '1')) THEN 1 ELSE 0 END)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>(CASE WHEN (NVL(CASE WHEN ($!s0s!$.customdate1__c&gt;$!s0s!$.customdate2__c) THEN '1' ELSE '0' END, '0') = '1') THEN 1 ELSE 0 END&lt;&gt;CASE WHEN ((NVL($!s0s!$.customcheckbox1__c, '0') = '1') OR (NVL($!s0s!$.customcheckbox2__c, '0') = '1')) THEN 1 ELSE 0 END)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>(CASE WHEN (NVL(CASE WHEN ($!s0s!$.customdate1__c&gt;$!s0s!$.customdate2__c) THEN '1' ELSE '0' END, '0') = '1') THEN 1 ELSE 0 END&lt;&gt;CASE WHEN ((NVL($!s0s!$.customcheckbox1__c, '0') = '1') OR (NVL($!s0s!$.customcheckbox2__c, '0') = '1')) THEN 1 ELSE 0 END)</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(CASE WHEN (COALESCE(CASE WHEN ($!s0s!$.customdate1__c&gt;$!s0s!$.customdate2__c) THEN '1' ELSE '0' END, '0') = '1') THEN 1 ELSE 0 END&lt;&gt;CASE WHEN ((COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') OR (COALESCE($!s0s!$.customcheckbox2__c, '0') = '1')) THEN 1 ELSE 0 END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(CASE WHEN (COALESCE(CASE WHEN ($!s0s!$.customdate1__c&gt;$!s0s!$.customdate2__c) THEN '1' ELSE '0' END, '0') = '1') THEN 1 ELSE 0 END&lt;&gt;CASE WHEN ((COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') OR (COALESCE($!s0s!$.customcheckbox2__c, '0') = '1')) THEN 1 ELSE 0 END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null?(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))&gt;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))):null))!=($F.nvl((context.record.customcheckbox1__c)||(context.record.customcheckbox2__c),false))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null?(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))&gt;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))):null))!=($F.nvl((context.record.customcheckbox1__c)||(context.record.customcheckbox2__c),false))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null?(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))&gt;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))):null))!=($F.nvl((context.record.customcheckbox1__c)||(context.record.customcheckbox2__c),false))</JsOutput>
@@ -22,162 +18,198 @@
       <result>
       <inputvalues>[true, false, true, 2005:12:31, , 2004, , 20]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, true, true, , 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, true, true, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>false</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, true, false, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>false</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, true, false, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>false</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, false, true, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>false</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, false, false, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>false</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[false, false, false, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, true, false, , 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, true, true, 2005:12:31, , 2004, 12, 01]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, false, true, 2005:12:31, , 2004, 12, 01]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, false, false, , , 2004, 12, 01]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, false, true, 2005:12:31, , 1900, 12, 01]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, false, true, 2005:12:31, , 2004, 01, 01]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, false, true, 2005:12:31, , 2003, 02, 28]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, false, true, 2005:12:31, , 1999, 12, 31]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, false, true, 2005:12:31, , 2004, 02, 29]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[true, false, true, 2005:12:31, , 2004, 02, 20]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: argument of CASE/WHEN must be type boolean, not type text   Position: 18</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>

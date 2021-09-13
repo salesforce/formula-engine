@@ -178,16 +178,16 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
         String sql;
         if (lhsDataType == FormulaTime.class)  {
             // if adding a number, make sure you don't add a number > FormulaDateUtil.MILLISECONDSPERDAY
-            rhsValue = rhsDataType == BigDecimal.class ? "ROUND(MOD(TO_NUMBER("+ rhsValue + ")" + ", " + FormulaDateUtil.MILLISECONDSPERDAY + "))" : rhsValue;
+            rhsValue = rhsDataType == BigDecimal.class ? "ROUND(MOD(" +String.format(getSqlHooks(context).sqlToNumber(), rhsValue) + ", " + FormulaDateUtil.MILLISECONDSPERDAY + "))" : rhsValue;
             // to prevent negative values when subtracting, always add FormulaDateUtil.MILLISECONDSPERDAY, and take the mod
             sql = "MOD(" + lhsValue + operator + rhsValue + "+" + FormulaDateUtil.MILLISECONDSPERDAY + "," + FormulaDateUtil.MILLISECONDSPERDAY + ")";
         }
         else  {
-            if (FormulaCommandInfoImpl.shouldGeneratePsql(context)) {
+            if (getSqlHooks(context).isPostgresStyle()) {
                 // operations with date|timestamp types require special handling for Psql - W-7066598
                 if (isSubtractionOfDateTimeValues(lhsDataType, rhsDataType)) {
                     // <date|timestamp> - <date|timestamp>
-                    sql = String.format(FormulaValidationHooks.get().psqlSubtractTwoTimestamps(), lhsValue, rhsValue);
+                    sql = String.format(getSqlHooks(context).psqlSubtractTwoTimestamps(), lhsValue, rhsValue);
                 } else if (isDateTimeAndNumberOperation(lhsDataType, rhsDataType)) {
                     if (isDateTimeDatatype(lhsDataType)) {
                         // <date|timestamp> <+|-> <number>
@@ -196,6 +196,8 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
                         // <number> + <date|timestamp>
                         sql = String.format("(pg_catalog.make_interval(0,0,0,0,0,0,%s*86400)%s%s)::timestamp(0)", lhsValue, operator, rhsValue);
                     }
+                } else if ("||".equals(operator)) {
+                    sql = "(" + String.format(getSqlHooks(context).sqlConcat(false), args[0], args[1]) + ")";
                 } else {
                     sql = "(" + lhsValue + operator + rhsValue + ")";
                 }

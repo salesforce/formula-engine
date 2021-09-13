@@ -28,7 +28,7 @@ public class OperatorConcat extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = args[0] + " || " + args[1];
+        String sql = String.format(getSqlHooks(context).sqlConcat(true), args[0], args[1]);
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

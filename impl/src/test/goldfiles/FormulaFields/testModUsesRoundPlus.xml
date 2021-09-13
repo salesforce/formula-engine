@@ -20,207 +20,253 @@
       <result>
       <inputvalues>[123456789, 123456789, 200, 300]</inputvalues>
          <formula>67.89</formula>
+         <sql>null</sql>
          <javascript>67.89</javascript>
          <javascriptLp>67.89</javascriptLp>
          <formulaNullAsNull>67.89</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>67.89</javascriptNullAsNull>
          <javascriptLpNullAsNull>67.89</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[12345678, 123456789, 200, 300]</inputvalues>
          <formula>456.78</formula>
+         <sql>null</sql>
          <javascript>456.78</javascript>
          <javascriptLp>456.78</javascriptLp>
          <formulaNullAsNull>456.78</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>456.78</javascriptNullAsNull>
          <javascriptLpNullAsNull>456.78</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[12345678, 1234567, 200, 300]</inputvalues>
          <formula>456.78</formula>
+         <sql>null</sql>
          <javascript>456.78</javascript>
          <javascriptLp>456.78</javascriptLp>
          <formulaNullAsNull>456.78</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>456.78</javascriptNullAsNull>
          <javascriptLpNullAsNull>456.78</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 10.24, 200, 300]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10.24, , 200, 300]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 200, 300]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 0, 200, 300]</inputvalues>
          <formula>1</formula>
+         <sql>null</sql>
          <javascript>1</javascript>
          <javascriptLp>1</javascriptLp>
          <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1</javascriptNullAsNull>
          <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 1, 200, 300]</inputvalues>
          <formula>1.2</formula>
+         <sql>null</sql>
          <javascript>1.2</javascript>
          <javascriptLp>1.2</javascriptLp>
          <formulaNullAsNull>1.2</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.2</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.2</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 2, 200, 300]</inputvalues>
          <formula>1.23</formula>
+         <sql>null</sql>
          <javascript>1.23</javascript>
          <javascriptLp>1.23</javascriptLp>
          <formulaNullAsNull>1.23</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.23</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.23</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 3, 200, 300]</inputvalues>
          <formula>1.232</formula>
+         <sql>null</sql>
          <javascript>1.232</javascript>
          <javascriptLp>1.232</javascriptLp>
          <formulaNullAsNull>1.232</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.232</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.232</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 4, 200, 300]</inputvalues>
          <formula>1.2323</formula>
+         <sql>null</sql>
          <javascript>1.2323</javascript>
          <javascriptLp>1.2323</javascriptLp>
          <formulaNullAsNull>1.2323</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.2323</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.2323</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 5, 200, 300]</inputvalues>
          <formula>1.23235</formula>
+         <sql>null</sql>
          <javascript>1.23235</javascript>
          <javascriptLp>1.23235</javascriptLp>
          <formulaNullAsNull>1.23235</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.23235</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.23235</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 6, 200, 300]</inputvalues>
          <formula>1.232346</formula>
+         <sql>null</sql>
          <javascript>1.232346</javascript>
          <javascriptLp>1.232346</javascriptLp>
          <formulaNullAsNull>1.232346</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.232346</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.232346</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 7, 200, 300]</inputvalues>
          <formula>1.2323457</formula>
+         <sql>null</sql>
          <javascript>1.2323457</javascript>
          <javascriptLp>1.2323457</javascriptLp>
          <formulaNullAsNull>1.2323457</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.2323457</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.2323457</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 8, 200, 300]</inputvalues>
          <formula>1.23234568</formula>
+         <sql>null</sql>
          <javascript>1.23234568</javascript>
          <javascriptLp>1.2323457</javascriptLp>
          <formulaNullAsNull>1.23234568</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.23234568</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.2323457</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 9, 200, 300]</inputvalues>
          <formula>1.232345679</formula>
+         <sql>null</sql>
          <javascript>1.232345679</javascript>
          <javascriptLp>1.2323457</javascriptLp>
          <formulaNullAsNull>1.232345679</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.232345679</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.2323457</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456780, 123.123456789, 200, 300]</inputvalues>
          <formula>1.232345678</formula>
+         <sql>null</sql>
          <javascript>1.232345678</javascript>
          <javascriptLp>1.2323457</javascriptLp>
          <formulaNullAsNull>1.232345678</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.232345678</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.2323457</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 123.123456780, 200, 300]</inputvalues>
          <formula>1.2323456789</formula>
+         <sql>null</sql>
          <javascript>1.2323456789</javascript>
          <javascriptLp>1.2323457</javascriptLp>
          <formulaNullAsNull>1.2323456789</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>1.2323456789</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.2323457</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-200.434, 200.434,  200,  300]</inputvalues>
          <formula>-2.00434</formula>
+         <sql>null</sql>
          <javascript>-2.00434</javascript>
          <javascriptLp>-2.00434</javascriptLp>
          <formulaNullAsNull>-2.00434</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>-2.00434</javascriptNullAsNull>
          <javascriptLpNullAsNull>-2.00434</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[200,  -200.434,  200, 300]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , , ]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
          <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[200, , , ]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
          <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 1, , 10]</inputvalues>
          <formula>0</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

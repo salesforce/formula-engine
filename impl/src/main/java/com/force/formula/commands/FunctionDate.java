@@ -42,9 +42,9 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         FormulaAST dayNode = (FormulaAST)monthNode.getNextSibling();
         int dayValue = getInt(dayNode);
 
-        String year = (yearValue != BAD_VALUE) ? String.valueOf(yearValue) : "TO_CHAR(FLOOR(" + args[0] + "))";
-        String month = (monthValue != BAD_VALUE) ? String.valueOf(monthValue) : "TO_CHAR(FLOOR(" + args[1] + "))";
-        String day = (dayValue != BAD_VALUE) ? String.valueOf(dayValue) : "TO_CHAR(FLOOR(" + args[2] + "))";
+        String year = (yearValue != BAD_VALUE) ? String.valueOf(yearValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[0] + ")");
+        String month = (monthValue != BAD_VALUE) ? String.valueOf(monthValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[1] + ")");
+        String day = (dayValue != BAD_VALUE) ? String.valueOf(dayValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[2] + ")");
         String date = "TO_DATE(" + year + " || '-' || " + month + " || '-' || " + day + ", 'YYYY-MM-DD')";
 
         String nullBits = "";

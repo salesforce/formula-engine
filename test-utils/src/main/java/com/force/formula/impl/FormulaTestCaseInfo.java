@@ -31,6 +31,7 @@ public class FormulaTestCaseInfo {
 
     public FormulaTestCaseInfo(String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
                                List<FieldDefinitionInfo> referenceFields, String owner, String compareType, String evalContexts,  String compareTemplate,
+                               String whyIgnoreSql, 
                                boolean multipleResultTypes) {
         this.testCaseName = tcName;
         this.testLabels = testLabels.length() > 0 ? Splitter.on(',').splitToList(testLabels) : Collections.emptySet();
@@ -56,6 +57,7 @@ public class FormulaTestCaseInfo {
             } else
                 this.compare = CompareType.Text;
         }
+        this.whyIgnoreSql = whyIgnoreSql.length() > 0 ? whyIgnoreSql : null;
         this.evalContexts = parseContext(evalContexts);
         this.compareContexts = parseContext(compareTemplate);
         this.multipleResultTypes = multipleResultTypes;
@@ -122,6 +124,14 @@ public class FormulaTestCaseInfo {
 
     public boolean isSwapTypes() {
         return this.swapTypes;
+    }
+    
+    public boolean ignoreSql() {
+    	return this.whyIgnoreSql != null;
+    }
+    
+    public String getWhyIgnoreSql() {
+    	return this.whyIgnoreSql;
     }
     
     public String getOwner() {
@@ -367,6 +377,7 @@ public class FormulaTestCaseInfo {
     private boolean swapTypes = false;
     private boolean swapArgs = false;
     private boolean isNegative = false;
+    private String whyIgnoreSql = null;
     private String errorCode = null;
     private String errorMsg = null;
     private String encoding = null;

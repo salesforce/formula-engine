@@ -85,6 +85,7 @@ public class FormulaTestUtils {
             String eval = testCase.getAttribute("eval");
             String compareTemplate = testCase.getAttribute("compareTemplate");
             String domain = testCase.getAttribute("domain");
+            String whyIgnoreSql = testCase.getAttribute("whyIgnoreSql");
 
             String scale = testCase.getAttribute("scale");
             int tcScale = (scale.length() > 0) ? Integer.parseInt(scale) : DEFAULT_SCALE;
@@ -108,7 +109,7 @@ public class FormulaTestUtils {
             }
 
             FormulaTestCaseInfo tcInfo = new FormulaTestCaseInfo(tcName, testLabels, accuracyIssue, tcFormulaFieldInfo,
-                referenceFields, owner, compareType, eval, compareTemplate, swapResultTypes);
+                referenceFields, owner, compareType, eval, compareTemplate, whyIgnoreSql, swapResultTypes);
 
             if (filter != null && !filter.test(tcInfo)) {
                 continue;

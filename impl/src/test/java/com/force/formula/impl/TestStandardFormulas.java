@@ -27,6 +27,7 @@ import junit.framework.TestSuite;
 @RunWith(AllTests.class)
 public class TestStandardFormulas extends FormulaGenericTests {
 
+	
     public TestStandardFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
         super("StandardFormulaTests");
     }
@@ -51,6 +52,16 @@ public class TestStandardFormulas extends FormulaGenericTests {
         FormulaEngine.setHooks(new FieldTestFormulaValidationHooks());
         FormulaEngine.setFactory(BaseFieldReferenceTest.TEST_FACTORY);
     }
+
+	@Override
+	protected boolean shouldTestSql() {
+		return true;
+	}
+
+	@Override
+	protected DbTester constructDbTester() throws IOException {
+		return new EmbeddedPostgresqlTester();
+	}
 
     
 }

@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testBigDivideWithFunc">
    <testInstance formula="( ( (customnumber1__c * customnumber2__c )/(value(text(customnumber2__c )) ^ customnumber2__c ) )*(customnumber3__c ^ customnumber3__c ))" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>(((NVL($!s0s!$.customnumber1__c, 0) * NVL($!s0s!$.customnumber2__c, 0))/POWER(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0)))), NVL($!s0s!$.customnumber2__c, 0))) * POWER(NVL($!s0s!$.customnumber3__c, 0), NVL($!s0s!$.customnumber3__c, 0)))</Sql><Guard>TRUNC(NVL($!s0s!$.customnumber3__c, 0))&lt;&gt;NVL($!s0s!$.customnumber3__c, 0) OR(NVL($!s0s!$.customnumber3__c, 0)&lt;&gt;0 AND LOG(10,ABS(NVL($!s0s!$.customnumber3__c, 0)))*NVL($!s0s!$.customnumber3__c, 0)&gt;38) OR NOT REGEXP_LIKE(REGEXP_REPLACE((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0))),'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$') OR TRUNC(NVL($!s0s!$.customnumber2__c, 0))&lt;&gt;NVL($!s0s!$.customnumber2__c, 0) OR(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0))))&lt;&gt;0 AND LOG(10,ABS(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0))))))*NVL($!s0s!$.customnumber2__c, 0)&gt;38) OR POWER(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0)))), NVL($!s0s!$.customnumber2__c, 0))=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>((($!s0s!$.customnumber1__c * $!s0s!$.customnumber2__c)/POWER(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c))), $!s0s!$.customnumber2__c)) * POWER($!s0s!$.customnumber3__c, $!s0s!$.customnumber3__c))</Sql><Guard>TRUNC($!s0s!$.customnumber3__c)&lt;&gt;$!s0s!$.customnumber3__c OR($!s0s!$.customnumber3__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customnumber3__c))*$!s0s!$.customnumber3__c&gt;38) OR NOT REGEXP_LIKE(REGEXP_REPLACE((TO_CHAR($!s0s!$.customnumber2__c)),'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$') OR TRUNC($!s0s!$.customnumber2__c)&lt;&gt;$!s0s!$.customnumber2__c OR(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c)))&lt;&gt;0 AND LOG(10,ABS(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c)))))*$!s0s!$.customnumber2__c&gt;38) OR POWER(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c))), $!s0s!$.customnumber2__c)=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>(((NVL($!s0s!$.customnumber1__c, 0) * NVL($!s0s!$.customnumber2__c, 0))/POWER(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0)))), NVL($!s0s!$.customnumber2__c, 0))) * POWER(NVL($!s0s!$.customnumber3__c, 0), NVL($!s0s!$.customnumber3__c, 0)))</Sql><Guard>TRUNC(NVL($!s0s!$.customnumber3__c, 0))&lt;&gt;NVL($!s0s!$.customnumber3__c, 0) OR(NVL($!s0s!$.customnumber3__c, 0)&lt;&gt;0 AND LOG(10,ABS(NVL($!s0s!$.customnumber3__c, 0)))*NVL($!s0s!$.customnumber3__c, 0)&gt;38) OR NOT REGEXP_LIKE(REGEXP_REPLACE((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0))),'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$') OR TRUNC(NVL($!s0s!$.customnumber2__c, 0))&lt;&gt;NVL($!s0s!$.customnumber2__c, 0) OR(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0))))&lt;&gt;0 AND LOG(10,ABS(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0))))))*NVL($!s0s!$.customnumber2__c, 0)&gt;38) OR POWER(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0)))), NVL($!s0s!$.customnumber2__c, 0))=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>((($!s0s!$.customnumber1__c * $!s0s!$.customnumber2__c)/POWER(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c))), $!s0s!$.customnumber2__c)) * POWER($!s0s!$.customnumber3__c, $!s0s!$.customnumber3__c))</Sql><Guard>TRUNC($!s0s!$.customnumber3__c)&lt;&gt;$!s0s!$.customnumber3__c OR($!s0s!$.customnumber3__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customnumber3__c))*$!s0s!$.customnumber3__c&gt;38) OR NOT REGEXP_LIKE(REGEXP_REPLACE((TO_CHAR($!s0s!$.customnumber2__c)),'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$') OR TRUNC($!s0s!$.customnumber2__c)&lt;&gt;$!s0s!$.customnumber2__c OR(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c)))&lt;&gt;0 AND LOG(10,ABS(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c)))))*$!s0s!$.customnumber2__c&gt;38) OR POWER(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c))), $!s0s!$.customnumber2__c)=0       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(((COALESCE($!s0s!$.customnumber1__c, 0) * COALESCE($!s0s!$.customnumber2__c, 0))/POWER(CAST((TO_CHAR(COALESCE($!s0s!$.customnumber2__c, 0))) AS NUMERIC), COALESCE($!s0s!$.customnumber2__c, 0))) * POWER(COALESCE($!s0s!$.customnumber3__c, 0), COALESCE($!s0s!$.customnumber3__c, 0)))</Sql>
+       <Guard>TRUNC(COALESCE($!s0s!$.customnumber3__c, 0))&lt;&gt;COALESCE($!s0s!$.customnumber3__c, 0) OR(COALESCE($!s0s!$.customnumber3__c, 0)&lt;&gt;0 AND LOG(10,ABS(COALESCE($!s0s!$.customnumber3__c, 0)))*COALESCE($!s0s!$.customnumber3__c, 0)&gt;38) OR NOT REGEXP_REPLACE((TO_CHAR(COALESCE($!s0s!$.customnumber2__c, 0))),'[0-9]+','0') ~ '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$' OR TRUNC(COALESCE($!s0s!$.customnumber2__c, 0))&lt;&gt;COALESCE($!s0s!$.customnumber2__c, 0) OR(CAST((TO_CHAR(COALESCE($!s0s!$.customnumber2__c, 0))) AS NUMERIC)&lt;&gt;0 AND LOG(10,ABS(CAST((TO_CHAR(COALESCE($!s0s!$.customnumber2__c, 0))) AS NUMERIC)))*COALESCE($!s0s!$.customnumber2__c, 0)&gt;38) OR POWER(CAST((TO_CHAR(COALESCE($!s0s!$.customnumber2__c, 0))) AS NUMERIC), COALESCE($!s0s!$.customnumber2__c, 0))=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>((($!s0s!$.customnumber1__c * $!s0s!$.customnumber2__c)/POWER(CAST((TO_CHAR($!s0s!$.customnumber2__c)) AS NUMERIC), $!s0s!$.customnumber2__c)) * POWER($!s0s!$.customnumber3__c, $!s0s!$.customnumber3__c))</Sql>
+       <Guard>TRUNC($!s0s!$.customnumber3__c)&lt;&gt;$!s0s!$.customnumber3__c OR($!s0s!$.customnumber3__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customnumber3__c))*$!s0s!$.customnumber3__c&gt;38) OR NOT REGEXP_REPLACE((TO_CHAR($!s0s!$.customnumber2__c)),'[0-9]+','0') ~ '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$' OR TRUNC($!s0s!$.customnumber2__c)&lt;&gt;$!s0s!$.customnumber2__c OR(CAST((TO_CHAR($!s0s!$.customnumber2__c)) AS NUMERIC)&lt;&gt;0 AND LOG(10,ABS(CAST((TO_CHAR($!s0s!$.customnumber2__c)) AS NUMERIC)))*$!s0s!$.customnumber2__c&gt;38) OR POWER(CAST((TO_CHAR($!s0s!$.customnumber2__c)) AS NUMERIC), $!s0s!$.customnumber2__c)=0</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).mul($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))).div(new $F.Decimal(Math.pow($F.Decimal(&quot;&quot;+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))),$F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))))).mul(new $F.Decimal(Math.pow($F.nvl(context.record.customnumber3__c,new $F.Decimal('0')),$F.nvl(context.record.customnumber3__c,new $F.Decimal('0')))))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber3__c!=null&amp;&amp;context.record.customnumber3__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(context.record.customnumber1__c.mul(context.record.customnumber2__c).div(new $F.Decimal(Math.pow($F.Decimal(&quot;&quot;+context.record.customnumber2__c),context.record.customnumber2__c))).mul(new $F.Decimal(Math.pow(context.record.customnumber3__c,context.record.customnumber3__c)))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">($F.nvl(context.record.customnumber1__c,0)*$F.nvl(context.record.customnumber2__c,0)/Math.pow(Number(&quot;&quot;+$F.nvl(context.record.customnumber2__c,0)),$F.nvl(context.record.customnumber2__c,0)))*Math.pow($F.nvl(context.record.customnumber3__c,0),$F.nvl(context.record.customnumber3__c,0))</JsOutput>
@@ -20,135 +16,165 @@
       <result>
       <inputvalues>[1, 1, 1]</inputvalues>
          <formula>1</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>1</javascript>
          <javascriptLp>1</javascriptLp>
          <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>1</javascriptNullAsNull>
          <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 0, 0]</inputvalues>
          <formula>0</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10, 10, 10]</inputvalues>
          <formula>100.00000000</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>100</javascript>
          <javascriptLp>100</javascriptLp>
          <formulaNullAsNull>100.00000000</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>100</javascriptNullAsNull>
          <javascriptLpNullAsNull>100</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 10, 10]</inputvalues>
          <formula>0</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10, , 10]</inputvalues>
          <formula>0</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10, 10, ]</inputvalues>
          <formula>0.00000001</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>1E-8</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 10]</inputvalues>
          <formula>0</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10, , ]</inputvalues>
          <formula>0</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 10, ]</inputvalues>
          <formula>0</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , , ]</inputvalues>
          <formula>0</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.1, 1.1, 1.1]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>1.21</javascript>
          <javascriptLp>1.21</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>1.21</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.21</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1, 49, 1.49, 1.49]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>0E-32</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>0E-32</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.5, 1.5, 1.5]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>2.25</javascript>
          <javascriptLp>2.25</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>2.25</javascriptNullAsNull>
          <javascriptLpNullAsNull>2.25</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1, 99, 1.99, 1.99]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>0E-32</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>0E-32</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0.01, 0.01, 0.01]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 236</sql>
          <javascript>0.0001</javascript>
          <javascriptLp>0.0001</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 171</sqlNullAsNull>
          <javascriptNullAsNull>0.0001</javascriptNullAsNull>
          <javascriptLpNullAsNull>0.0001</javascriptLpNullAsNull>
       </result>

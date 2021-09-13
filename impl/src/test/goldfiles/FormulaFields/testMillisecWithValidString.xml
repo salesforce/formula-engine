@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testMillisecWithValidString">
    <testInstance formula="MilliSecond(TIMEVALUE(&quot;10:40:55.666&quot;))" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>666</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>666</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>666</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>666</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>666</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>666</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal('666')</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">new $F.Decimal('666')</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">666</JsOutput>
@@ -20,9 +16,11 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>666</formula>
+         <sql>666.00000000000000000000000000000000</sql>
          <javascript>666</javascript>
          <javascriptLp>666</javascriptLp>
          <formulaNullAsNull>666</formulaNullAsNull>
+         <sqlNullAsNull>666.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>666</javascriptNullAsNull>
          <javascriptLpNullAsNull>666</javascriptLpNullAsNull>
       </result>

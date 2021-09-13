@@ -20,9 +20,11 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>False</formula>
+         <sql>null</sql>
          <javascript>False</javascript>
          <javascriptLp>False</javascriptLp>
          <formulaNullAsNull>False</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>False</javascriptNullAsNull>
          <javascriptLpNullAsNull>False</javascriptLpNullAsNull>
       </result>

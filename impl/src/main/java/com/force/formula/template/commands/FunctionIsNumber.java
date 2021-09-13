@@ -42,14 +42,14 @@ public class FunctionIsNumber extends FormulaCommandInfoImpl implements FormulaC
      * 2. then list all valid cases
      * This is _much_ faster than doing the matching in one regex as it limits backtracking to at most one character.
      */
-    public static String getSQL(String arg) {
-        return "REGEXP_LIKE(REGEXP_REPLACE("+arg+",'[0-9]+','0'),'^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$')";
+    public static String getSQL(FormulaContext context, String arg) {
+        return String.format(getSqlHooks(context).sqlIsNumber(), arg);
     }
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry)
         throws FormulaException {
-        return new SQLPair(getSQL(args[0]), guards[0]);
+        return new SQLPair(getSQL(context, args[0]), guards[0]);
     }
     
     @Override

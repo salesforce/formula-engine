@@ -28,7 +28,7 @@ public class FunctionLen extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = "NVL(LENGTH(" + args[0] + "),0)";
+        String sql = getSqlHooks(context).sqlNvl() + "(LENGTH(" + args[0] + "),0)";
         String guard = guards[0];
         return new SQLPair(sql, guard);
     }
