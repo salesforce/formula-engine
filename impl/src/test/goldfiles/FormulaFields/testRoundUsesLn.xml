@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testRoundUsesLn">
    <testInstance formula="ROUND(LN(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>ROUND(LN(NVL($!s0s!$.customnumber1__c, 0)), NVL($!s0s!$.customnumber2__c, 0))</Sql><Guard>NVL($!s0s!$.customnumber1__c, 0)&lt;=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>ROUND(LN($!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c)</Sql><Guard>$!s0s!$.customnumber1__c&lt;=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>ROUND(LN(NVL($!s0s!$.customnumber1__c, 0)), NVL($!s0s!$.customnumber2__c, 0))</Sql><Guard>NVL($!s0s!$.customnumber1__c, 0)&lt;=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>ROUND(LN($!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c)</Sql><Guard>$!s0s!$.customnumber1__c&lt;=0       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ROUND(LN(COALESCE($!s0s!$.customnumber1__c, 0)), COALESCE($!s0s!$.customnumber2__c, 0))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ROUND(LN($!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c)</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).ln()).mul('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0)).round().div('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(((context.record.customnumber1__c).ln()).mul('1e'+context.record.customnumber2__c.toFixed(0)).round().div('1e'+context.record.customnumber2__c.toFixed(0))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">($F.nvl(context.record.customnumber2__c,0)&gt;0)?Number(Number(Math.log($F.nvl(context.record.customnumber1__c,0))).toFixed($F.nvl(context.record.customnumber2__c,0)&lt;=20?$F.nvl(context.record.customnumber2__c,0):20)):Math.round((Math.log($F.nvl(context.record.customnumber1__c,0)))*('1e'+$F.nvl(context.record.customnumber2__c,0)))/('1e'+$F.nvl(context.record.customnumber2__c,0))</JsOutput>
@@ -20,121 +16,121 @@
       <result>
       <inputvalues>[1, 0]</inputvalues>
          <formula>0</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2, 1]</inputvalues>
          <formula>0.7</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>0.7</javascript>
          <javascriptLp>0.7</javascriptLp>
          <formulaNullAsNull>0.7</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>0.7</javascriptNullAsNull>
          <javascriptLpNullAsNull>0.7</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[3, 2]</inputvalues>
          <formula>1.10</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>1.1</javascript>
          <javascriptLp>1.1</javascriptLp>
          <formulaNullAsNull>1.10</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>1.1</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[4.1234, 2]</inputvalues>
          <formula>1.42</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>1.42</javascript>
          <javascriptLp>1.42</javascriptLp>
          <formulaNullAsNull>1.42</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>1.42</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.42</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[5.000000008, 8]</inputvalues>
          <formula>1.60943791</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>1.60943791</javascript>
          <javascriptLp>1.6094379</javascriptLp>
          <formulaNullAsNull>1.60943791</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>1.60943791</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.6094379</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-200, 2]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10000, -2]</inputvalues>
          <formula>0</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10, 10]</inputvalues>
          <formula>2.3025850930</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>2.302585093</javascript>
          <javascriptLp>2.3025851</javascriptLp>
          <formulaNullAsNull>2.3025850930</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>2.302585093</javascriptNullAsNull>
          <javascriptLpNullAsNull>2.3025851</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[16, 16]</inputvalues>
          <formula>2.772588722239781</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>2.772588722239781</javascript>
          <javascriptLp>2.7725887</javascriptLp>
          <formulaNullAsNull>2.772588722239781</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>2.772588722239781</javascriptNullAsNull>
          <javascriptLpNullAsNull>2.7725887</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2.56, 19]</inputvalues>
          <formula>0.9400072584914712</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>0.9400072584914712</javascript>
          <javascriptLp>0.9400073</javascriptLp>
          <formulaNullAsNull>0.9400072584914712</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>0.9400072584914712</javascriptNullAsNull>
          <javascriptLpNullAsNull>0.9400073</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789, 12]</inputvalues>
          <formula>18.631401767168</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 74</sql>
          <javascript>18.631401767168</javascript>
          <javascriptLp>18.6314018</javascriptLp>
          <formulaNullAsNull>18.631401767168</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(numeric, numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 61</sqlNullAsNull>
          <javascriptNullAsNull>18.631401767168</javascriptNullAsNull>
          <javascriptLpNullAsNull>18.6314018</javascriptLpNullAsNull>
       </result>

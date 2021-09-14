@@ -50,7 +50,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     default String sqlIsNumber() {
     	if (isPostgresStyle()) {
-      	   return "REGEXP_REPLACE(%s,'[0-9]+','0') ~ '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'";
+      	   return "REGEXP_REPLACE(%s,'[0-9]+','0','g') ~ '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'";
       	}
         /*
          * Make the matching as efficient as possible (regex's are sloooowww).

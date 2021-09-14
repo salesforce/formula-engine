@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
+import com.force.formula.impl.BaseFormulaGenericTests.DbTester;
 
 import junit.framework.TestSuite;
 
@@ -51,5 +52,16 @@ public class TestExtendedFormulas extends FormulaGenericTests {
         FormulaEngine.setHooks(new FieldTestFormulaValidationHooks());
         FormulaEngine.setFactory(BaseFieldReferenceTest.TEST_FACTORY);
     }
+
+
+	@Override
+	protected boolean shouldTestSql() {
+		return true;
+	}
+
+	@Override
+	protected DbTester constructDbTester() throws IOException {
+		return new EmbeddedPostgresqlTester();
+	}
 
 }

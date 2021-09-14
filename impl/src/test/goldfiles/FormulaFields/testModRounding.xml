@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testModRounding">
    <testInstance formula="MOD(customnumber1__c * 10000, 2)" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>MOD((NVL($!s0s!$.customnumber1__c, 0) * 10000), 2)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>MOD(($!s0s!$.customnumber1__c * 10000), 2)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>MOD((NVL($!s0s!$.customnumber1__c, 0) * 10000), 2)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>MOD(($!s0s!$.customnumber1__c * 10000), 2)</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>MOD((COALESCE($!s0s!$.customnumber1__c, 0) * 10000), 2)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>MOD(($!s0s!$.customnumber1__c * 10000), 2)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).mul(new $F.Decimal('10000')).mod(new $F.Decimal('2'))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(context.record.customnumber1__c.mul(new $F.Decimal('10000')).mod(new $F.Decimal('2'))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,0)*10000)%(2))</JsOutput>
@@ -20,55 +16,55 @@
       <result>
       <inputvalues>[56.925559]</inputvalues>
          <formula>1.590000</formula>
-         <sql>null</sql>
+         <sql>1.59000000000000000000000000000000</sql>
          <javascript>1.59</javascript>
          <javascriptLp>1.59</javascriptLp>
          <formulaNullAsNull>1.590000</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>1.59000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.59</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.59</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111123]</inputvalues>
          <formula>1.230000</formula>
-         <sql>null</sql>
+         <sql>1.23000000000000000000000000000000</sql>
          <javascript>1.23</javascript>
          <javascriptLp>1.23</javascriptLp>
          <formulaNullAsNull>1.230000</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>1.23000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.23</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.23</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111145]</inputvalues>
          <formula>1.450000</formula>
-         <sql>null</sql>
+         <sql>1.45000000000000000000000000000000</sql>
          <javascript>1.45</javascript>
          <javascriptLp>1.45</javascriptLp>
          <formulaNullAsNull>1.450000</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>1.45000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.45</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.45</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111155]</inputvalues>
          <formula>1.550000</formula>
-         <sql>null</sql>
+         <sql>1.55000000000000000000000000000000</sql>
          <javascript>1.55</javascript>
          <javascriptLp>1.55</javascriptLp>
          <formulaNullAsNull>1.550000</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>1.55000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.55</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.55</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111160]</inputvalues>
          <formula>1.600000</formula>
-         <sql>null</sql>
+         <sql>1.60000000000000000000000000000000</sql>
          <javascript>1.6</javascript>
          <javascriptLp>1.6</javascriptLp>
          <formulaNullAsNull>1.600000</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>1.60000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.6</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.6</javascriptLpNullAsNull>
       </result>

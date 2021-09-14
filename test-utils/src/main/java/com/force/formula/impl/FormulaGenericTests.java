@@ -315,10 +315,8 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			if (viaFormula == null || (shouldCompareSql() && viaSql == null)) {
                 String badNullMessage = "If one is null, they all should be null. viaFormula " + viaFormula + " viaSql " + viaSql;
                 
-                if (shouldCompareSql()) {
-	                if (viaFormula != null || viaSql != null) {
-	                    return badNullMessage;
-	                }
+                if (shouldCompareSql() && (viaFormula != null || viaSql != null)) {
+                    return badNullMessage;
                 }
                 
                 // Since we didn't check javascript earlier, we need to make sure it is also null.
@@ -415,15 +413,13 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 					if (shouldCompareSql()) {
 	                    SimpleDateFormat sqlDf = new SimpleDateFormat("yyyy-MM-dd");
 	                    Date viaSqlDate = sqlDf.parse(viaSql);
-	                    SimpleDateFormat javaDf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-	                    Date viaFormulaDate = javaDf.parse(viaFormula);
 	                    // Unfortunately date arithmetic in pointwise versions tracks a time also, so it
 	                    // doesn't match the api version.  This is a historical mistake we can't correct
 	                    // without impact on existing code.
 	                    // So adjust the time part to 0 before comparing.
 	                    Calendar c = getFromDateString(viaFormula);
 	                    FormulaDateUtil.toMidnight(c);
-	                    viaFormulaDate = c.getTime();
+	                    Date viaFormulaDate = c.getTime();
 	                    boolean compareOK =  viaSqlDate.equals(viaFormulaDate);
 	                    if (! compareOK) {
 	                        return "viaFormula " + viaFormulaDate + " (" + viaFormula +

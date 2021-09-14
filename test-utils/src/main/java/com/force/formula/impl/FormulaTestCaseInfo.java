@@ -377,7 +377,7 @@ public class FormulaTestCaseInfo {
     private boolean swapTypes = false;
     private boolean swapArgs = false;
     private boolean isNegative = false;
-    private String whyIgnoreSql = null;
+    private String whyIgnoreSql;
     private String errorCode = null;
     private String errorMsg = null;
     private String encoding = null;

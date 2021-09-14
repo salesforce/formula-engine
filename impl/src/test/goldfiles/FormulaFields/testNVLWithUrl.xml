@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testNVLWithUrl">
    <testInstance formula="NULLVALUE(customurl1__c,customtextarea1__c)" returntype="Text">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>$!s0s!$.customurl1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>$!s0s!$.customurl1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>$!s0s!$.customurl1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>$!s0s!$.customurl1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customurl1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customurl1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">context.record.customurl1__c</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">context.record.customurl1__c</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">context.record.customurl1__c</JsOutput>
@@ -20,22 +16,22 @@
       <result>
       <inputvalues>[http://salesforce.com, Not Null]</inputvalues>
          <formula>http://salesforce.com</formula>
-         <sql>null</sql>
+         <sql>http://salesforce.com</sql>
          <javascript>http://salesforce.com</javascript>
          <javascriptLp>http://salesforce.com</javascriptLp>
          <formulaNullAsNull>http://salesforce.com</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>http://salesforce.com</sqlNullAsNull>
          <javascriptNullAsNull>http://salesforce.com</javascriptNullAsNull>
          <javascriptLpNullAsNull>http://salesforce.com</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields, Not Null]</inputvalues>
          <formula>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</formula>
-         <sql>null</sql>
+         <sql>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</sql>
          <javascript>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</javascript>
          <javascriptLp>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</javascriptLp>
          <formulaNullAsNull>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</sqlNullAsNull>
          <javascriptNullAsNull>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</javascriptNullAsNull>
          <javascriptLpNullAsNull>https://blitzna1.eng.salesforce.com/setup/ui/layoutfieldlist.jsp?type=Account&amp;setupid=AccountFields</javascriptLpNullAsNull>
       </result>
@@ -53,33 +49,33 @@
       <result>
       <inputvalues>[email@email.com, Not Null]</inputvalues>
          <formula>email@email.com</formula>
-         <sql>null</sql>
+         <sql>email@email.com</sql>
          <javascript>email@email.com</javascript>
          <javascriptLp>email@email.com</javascriptLp>
          <formulaNullAsNull>email@email.com</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>email@email.com</sqlNullAsNull>
          <javascriptNullAsNull>email@email.com</javascriptNullAsNull>
          <javascriptLpNullAsNull>email@email.com</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[mailto:syendluri@salesforce.com, Not Null]</inputvalues>
          <formula>mailto:syendluri@salesforce.com</formula>
-         <sql>null</sql>
+         <sql>mailto:syendluri@salesforce.com</sql>
          <javascript>mailto:syendluri@salesforce.com</javascript>
          <javascriptLp>mailto:syendluri@salesforce.com</javascriptLp>
          <formulaNullAsNull>mailto:syendluri@salesforce.com</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>mailto:syendluri@salesforce.com</sqlNullAsNull>
          <javascriptNullAsNull>mailto:syendluri@salesforce.com</javascriptNullAsNull>
          <javascriptLpNullAsNull>mailto:syendluri@salesforce.com</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[ui/layoutfieldlist.jsp, Not Null]</inputvalues>
          <formula>ui/layoutfieldlist.jsp</formula>
-         <sql>null</sql>
+         <sql>ui/layoutfieldlist.jsp</sql>
          <javascript>ui/layoutfieldlist.jsp</javascript>
          <javascriptLp>ui/layoutfieldlist.jsp</javascriptLp>
          <formulaNullAsNull>ui/layoutfieldlist.jsp</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>ui/layoutfieldlist.jsp</sqlNullAsNull>
          <javascriptNullAsNull>ui/layoutfieldlist.jsp</javascriptNullAsNull>
          <javascriptLpNullAsNull>ui/layoutfieldlist.jsp</javascriptLpNullAsNull>
       </result>

@@ -2,18 +2,14 @@
 <testCase name="testIfTextCompareEqualReturnDateTime">
    <testInstance formula="IF((customphone1__c=customphone2__c),customformula1__c,customdatetime2__c)" returntype="DateTime">
    <customformula1 dataType="ColumnType.DATETIME" formula="(customdatetime1__c-customcurrency1__c)"/>
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>CASE WHEN (nvl($!s0s!$.customphone1__c, $!s0s!$.customphone2__c||'x')=nvl($!s0s!$.customphone2__c, $!s0s!$.customphone1__c||'x')) THEN NVL(($!s0s!$.customdatetime1__c-pg_catalog.make_interval(0,0,0,0,0,0,NVL($!s0s!$.customcurrency1__c, 0)*86400))::timestamp(0),TO_DATE(NULL)) ELSE NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>CASE WHEN (nvl($!s0s!$.customphone1__c, $!s0s!$.customphone2__c||'x')=nvl($!s0s!$.customphone2__c, $!s0s!$.customphone1__c||'x')) THEN NVL(($!s0s!$.customdatetime1__c-pg_catalog.make_interval(0,0,0,0,0,0,$!s0s!$.customcurrency1__c*86400))::timestamp(0),TO_DATE(NULL)) ELSE NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>CASE WHEN (nvl($!s0s!$.customphone1__c, $!s0s!$.customphone2__c||'x')=nvl($!s0s!$.customphone2__c, $!s0s!$.customphone1__c||'x')) THEN NVL(($!s0s!$.customdatetime1__c-NVL($!s0s!$.customcurrency1__c, 0)),TO_DATE(NULL)) ELSE NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>CASE WHEN (nvl($!s0s!$.customphone1__c, $!s0s!$.customphone2__c||'x')=nvl($!s0s!$.customphone2__c, $!s0s!$.customphone1__c||'x')) THEN NVL(($!s0s!$.customdatetime1__c-$!s0s!$.customcurrency1__c),TO_DATE(NULL)) ELSE NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) END</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (nvl($!s0s!$.customphone1__c, $!s0s!$.customphone2__c||'x')=nvl($!s0s!$.customphone2__c, $!s0s!$.customphone1__c||'x')) THEN COALESCE(($!s0s!$.customdatetime1__c-pg_catalog.make_interval(0,0,0,0,0,0,COALESCE($!s0s!$.customcurrency1__c, 0)*86400))::timestamp(0),CAST(NULL AS DATE)) ELSE COALESCE($!s0s!$.customdatetime2__c,CAST(NULL AS DATE)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (nvl($!s0s!$.customphone1__c, $!s0s!$.customphone2__c||'x')=nvl($!s0s!$.customphone2__c, $!s0s!$.customphone1__c||'x')) THEN COALESCE(($!s0s!$.customdatetime1__c-pg_catalog.make_interval(0,0,0,0,0,0,$!s0s!$.customcurrency1__c*86400))::timestamp(0),CAST(NULL AS DATE)) ELSE COALESCE($!s0s!$.customdatetime2__c,CAST(NULL AS DATE)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.noe(($F.anl([context.record.customphone1__c])?null:context.record.customphone1__c),$F.nvl(($F.anl([context.record.customphone2__c])?null:context.record.customphone2__c),'')+'x'))==($F.noe(($F.anl([context.record.customphone2__c])?null:context.record.customphone2__c),$F.nvl(($F.anl([context.record.customphone1__c])?null:context.record.customphone1__c),'')+'x'))?(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null?(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-(Math.round(86400*($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0'))))*1000))):null):($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(($F.noe(($F.anl([context.record.customphone1__c])?null:context.record.customphone1__c),$F.nvl(($F.anl([context.record.customphone2__c])?null:context.record.customphone2__c),'')+'x'))==($F.noe(($F.anl([context.record.customphone2__c])?null:context.record.customphone2__c),$F.nvl(($F.anl([context.record.customphone1__c])?null:context.record.customphone1__c),'')+'x'))?(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;context.record.customcurrency1__c!=null?(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-(Math.round(86400*(context.record.customcurrency1__c))*1000))):null):($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">(($F.noe(($F.anl([context.record.customphone1__c])?null:context.record.customphone1__c),$F.nvl(($F.anl([context.record.customphone2__c])?null:context.record.customphone2__c),'')+'x'))==($F.noe(($F.anl([context.record.customphone2__c])?null:context.record.customphone2__c),$F.nvl(($F.anl([context.record.customphone1__c])?null:context.record.customphone1__c),'')+'x'))?(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null?(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-(Math.round(86400*($F.nvl(context.record.customcurrency1__c,0)))*1000))):null):($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')))</JsOutput>
@@ -21,154 +17,154 @@
       <result>
       <inputvalues>[510 797 4647, 510 797 4647, 2004:12:31:12:00:00, 4.3, 2004:12:31:00:00:00]</inputvalues>
          <formula>Mon Dec 27 04:48:00 GMT 2004</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>Mon Dec 27 04:48:00 GMT 2004</javascript>
          <javascriptLp>Mon Dec 27 04:48:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Mon Dec 27 04:48:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>Mon Dec 27 04:48:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Mon Dec 27 04:48:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510-797-4647, 510 797 4647, 2004:12:31:12:00:00, 4.3, 2004:12:31:00:00:00]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510 797 4657, 510 797 4647, 2004:12:31:12:00:00, 4.3, 2004:12:31:00:00:00]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510 797 4647, 510 797 4657, 2004:12:31:12:00:00, 4.3, 2004:12:31:00:00:00]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510 797 4647, 510 797 4647, 2004:12:31:12:00:00, -.3, 2004:12:31:00:00:00]</inputvalues>
          <formula>Fri Dec 31 19:12:00 GMT 2004</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>Fri Dec 31 19:12:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 19:12:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 19:12:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 19:12:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 19:12:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510 797 4647, 510 797 4647, 2004:02:28:12:00:00, 12.3, 2004:12:31:00:00:00]</inputvalues>
          <formula>Mon Feb 16 04:48:00 GMT 2004</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>Mon Feb 16 04:48:00 GMT 2004</javascript>
          <javascriptLp>Mon Feb 16 04:48:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Mon Feb 16 04:48:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>Mon Feb 16 04:48:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Mon Feb 16 04:48:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510 797 4647, 510 797 4647, , 4.3, 2004:12:31:00:00:00]</inputvalues>
          <formula>null</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510 797 4647, 510 797 4647, 2004:12:31:12:00:00, , 2004:12:31:00:00:00]</inputvalues>
          <formula>Fri Dec 31 12:00:00 GMT 2004</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>Fri Dec 31 12:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 12:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510 797 4647, 510 797 4657, 2004:12:31:12:00:00, 4.3, 2004:02:27:22:12:59]</inputvalues>
          <formula>Fri Feb 27 22:12:59 GMT 2004</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>Fri Feb 27 22:12:59 GMT 2004</javascript>
          <javascriptLp>Fri Feb 27 22:12:59 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Feb 27 22:12:59 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>Fri Feb 27 22:12:59 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Feb 27 22:12:59 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510 797 4647, 510 797 4657, 2004:12:31:12:00:00, 4.3, ]</inputvalues>
          <formula>null</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 510 797 4657, 2004:12:31:12:00:00, 4.3, ]</inputvalues>
          <formula>null</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510 797 4647, , 2004:12:31:12:00:00, 4.3, 2004:12:31:00:00:00]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 2004:12:31:12:00:00, 4.3, 2004:12:31:00:00:00]</inputvalues>
          <formula>Mon Dec 27 04:48:00 GMT 2004</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>Mon Dec 27 04:48:00 GMT 2004</javascript>
          <javascriptLp>Mon Dec 27 04:48:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Mon Dec 27 04:48:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>Mon Dec 27 04:48:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Mon Dec 27 04:48:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , , , ]</inputvalues>
          <formula>null</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 20</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

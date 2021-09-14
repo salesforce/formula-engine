@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testIfNotNull">
    <testInstance formula="if (not(null), &quot;True&quot;, &quot;False&quot;)" returntype="Text">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>'False'</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>'False'</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>'False'</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>'False'</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>'False'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>'False'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">&quot;False&quot;</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">&quot;False&quot;</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">&quot;False&quot;</JsOutput>
@@ -20,11 +16,11 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>False</formula>
-         <sql>null</sql>
+         <sql>False</sql>
          <javascript>False</javascript>
          <javascriptLp>False</javascriptLp>
          <formulaNullAsNull>False</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>False</sqlNullAsNull>
          <javascriptNullAsNull>False</javascriptNullAsNull>
          <javascriptLpNullAsNull>False</javascriptLpNullAsNull>
       </result>

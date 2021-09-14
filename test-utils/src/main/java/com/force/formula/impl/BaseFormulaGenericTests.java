@@ -853,6 +853,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		public abstract String evaluateSql(FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource, boolean nullAsNull) throws SQLException, FormulaException;
 
 		// Support clos
+		@Override
 		public void close() throws Exception {
 		}
 	}

@@ -3,18 +3,14 @@
    <testInstance formula="(customformula0__c+customcurrency2__c+customformula1__c)" returntype="Double" precision="12" scale="2">
    <customformula0 dataType="ColumnType.DOUBLE" formula="CASE(customtext1__c,customtext2__c,custompercent1__c,customtext3__c,customcurrency1__c,customnumber1__c)"/>
    <customformula1 dataType="ColumnType.PERCENT" formula="(custompercent2__c+customnumber2__c)"/>
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>((NVL(CASE  WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN NVL(($!s0s!$.custompercent1__c / 100.0), 0) WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext3__c||'x')=nvl($!s0s!$.customtext3__c, $!s0s!$.customtext1__c||'x')) THEN NVL($!s0s!$.customcurrency1__c, 0) ELSE NVL($!s0s!$.customnumber1__c, 0) END, 0)+NVL($!s0s!$.customcurrency2__c, 0))+NVL((NVL(($!s0s!$.custompercent2__c / 100.0), 0)+NVL($!s0s!$.customnumber2__c, 0)), 0))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>((CASE  WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN ($!s0s!$.custompercent1__c / 100.0) WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext3__c||'x')=nvl($!s0s!$.customtext3__c, $!s0s!$.customtext1__c||'x')) THEN $!s0s!$.customcurrency1__c ELSE $!s0s!$.customnumber1__c END+$!s0s!$.customcurrency2__c)+(($!s0s!$.custompercent2__c / 100.0)+$!s0s!$.customnumber2__c))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>((NVL(CASE  WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN NVL(($!s0s!$.custompercent1__c / 100.0), 0) WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext3__c||'x')=nvl($!s0s!$.customtext3__c, $!s0s!$.customtext1__c||'x')) THEN NVL($!s0s!$.customcurrency1__c, 0) ELSE NVL($!s0s!$.customnumber1__c, 0) END, 0)+NVL($!s0s!$.customcurrency2__c, 0))+NVL((NVL(($!s0s!$.custompercent2__c / 100.0), 0)+NVL($!s0s!$.customnumber2__c, 0)), 0))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>((CASE  WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN ($!s0s!$.custompercent1__c / 100.0) WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext3__c||'x')=nvl($!s0s!$.customtext3__c, $!s0s!$.customtext1__c||'x')) THEN $!s0s!$.customcurrency1__c ELSE $!s0s!$.customnumber1__c END+$!s0s!$.customcurrency2__c)+(($!s0s!$.custompercent2__c / 100.0)+$!s0s!$.customnumber2__c))</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>((COALESCE(CASE  WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext3__c||'x')=nvl($!s0s!$.customtext3__c, $!s0s!$.customtext1__c||'x')) THEN COALESCE($!s0s!$.customcurrency1__c, 0) ELSE COALESCE($!s0s!$.customnumber1__c, 0) END, 0)+COALESCE($!s0s!$.customcurrency2__c, 0))+COALESCE((COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)+COALESCE($!s0s!$.customnumber2__c, 0)), 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>((CASE  WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN ($!s0s!$.custompercent1__c / 100.0) WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext3__c||'x')=nvl($!s0s!$.customtext3__c, $!s0s!$.customtext1__c||'x')) THEN $!s0s!$.customcurrency1__c ELSE $!s0s!$.customnumber1__c END+$!s0s!$.customcurrency2__c)+(($!s0s!$.custompercent2__c / 100.0)+$!s0s!$.customnumber2__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">$F.nvl(((context.record.customtext2__c&amp;&amp;(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c)==($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c)))?($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0'))):(context.record.customtext3__c&amp;&amp;(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c)==($F.anl([context.record.customtext3__c])?null:context.record.customtext3__c)))?($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0'))):$F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))),new $F.Decimal('0')).add($F.nvl(context.record.customcurrency2__c,new $F.Decimal('0'))).add($F.nvl($F.nvl((context.record.custompercent2__c!=null)?(context.record.custompercent2__c.div(100)):null,new $F.Decimal('0')).add($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))),new $F.Decimal('0')))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.custompercent2__c!=null&amp;&amp;context.record.custompercent2__c.div(100)!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.custompercent1__c!=null&amp;&amp;((context.record.customtext2__c&amp;&amp;(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c)==($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c)))?(context.record.custompercent1__c.div(100)):(context.record.customtext3__c&amp;&amp;(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c)==($F.anl([context.record.customtext3__c])?null:context.record.customtext3__c)))?(context.record.customcurrency1__c):context.record.customnumber1__c)!=null&amp;&amp;context.record.customcurrency2__c!=null&amp;&amp;context.record.custompercent2__c.div(100).add(context.record.customnumber2__c)!=null)?(((context.record.customtext2__c&amp;&amp;(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c)==($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c)))?(context.record.custompercent1__c.div(100)):(context.record.customtext3__c&amp;&amp;(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c)==($F.anl([context.record.customtext3__c])?null:context.record.customtext3__c)))?(context.record.customcurrency1__c):context.record.customnumber1__c).add(context.record.customcurrency2__c).add(context.record.custompercent2__c.div(100).add(context.record.customnumber2__c))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">$F.nvl(((context.record.customtext2__c&amp;&amp;(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c)==($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c)))?($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)):(context.record.customtext3__c&amp;&amp;(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c)==($F.anl([context.record.customtext3__c])?null:context.record.customtext3__c)))?($F.nvl(context.record.customcurrency1__c,0)):$F.nvl(context.record.customnumber1__c,0)),0)+$F.nvl(context.record.customcurrency2__c,0)+$F.nvl($F.nvl((context.record.custompercent2__c!=null)?(context.record.custompercent2__c/100.0):null,0)+$F.nvl(context.record.customnumber2__c,0),0)</JsOutput>
@@ -22,110 +18,110 @@
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>504</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>504</javascript>
          <javascriptLp>504</javascriptLp>
          <formulaNullAsNull>504</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 28</sqlNullAsNull>
          <javascriptNullAsNull>504</javascriptNullAsNull>
          <javascriptLpNullAsNull>504</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Reseller, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>902</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>902</javascript>
          <javascriptLp>902</javascriptLp>
          <formulaNullAsNull>902</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 28</sqlNullAsNull>
          <javascriptNullAsNull>902</javascriptNullAsNull>
          <javascriptLpNullAsNull>902</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>504</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>504</javascript>
          <javascriptLp>504</javascriptLp>
          <formulaNullAsNull>504</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 28</sqlNullAsNull>
          <javascriptNullAsNull>504</javascriptNullAsNull>
          <javascriptLpNullAsNull>504</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>602</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>602</javascript>
          <javascriptLp>602</javascriptLp>
          <formulaNullAsNull>602</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 28</sqlNullAsNull>
          <javascriptNullAsNull>602</javascriptNullAsNull>
          <javascriptLpNullAsNull>602</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, , 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>602</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>602</javascript>
          <javascriptLp>602</javascriptLp>
          <formulaNullAsNull>602</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 28</sqlNullAsNull>
          <javascriptNullAsNull>602</javascriptNullAsNull>
          <javascriptLpNullAsNull>602</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Var, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>602</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>602</javascript>
          <javascriptLp>602</javascriptLp>
          <formulaNullAsNull>602</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 28</sqlNullAsNull>
          <javascriptNullAsNull>602</javascriptNullAsNull>
          <javascriptLpNullAsNull>602</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, , Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>502</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>502</javascript>
          <javascriptLp>502</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 28</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, 200, 100]</inputvalues>
          <formula>504</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>504</javascript>
          <javascriptLp>504</javascriptLp>
          <formulaNullAsNull>504</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 28</sqlNullAsNull>
          <javascriptNullAsNull>504</javascriptNullAsNull>
          <javascriptLpNullAsNull>504</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, , 100]</inputvalues>
          <formula>502</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>502</javascript>
          <javascriptLp>502</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 28</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, 200, 100]</inputvalues>
          <formula>504</formula>
-         <sql>null</sql>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>504</javascript>
          <javascriptLp>504</javascriptLp>
          <formulaNullAsNull>504</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 28</sqlNullAsNull>
          <javascriptNullAsNull>504</javascriptNullAsNull>
          <javascriptLpNullAsNull>504</javascriptLpNullAsNull>
       </result>
