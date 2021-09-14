@@ -210,7 +210,6 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
 
         @Override
 		public int getScale() {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 

@@ -105,10 +105,16 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			return "../formula-js/tests/target/formulaJson";
 		}
 		
+		/**
+		 * @return whether the DbTester should be used to evaluate sql
+		 */
 		protected boolean shouldTestSql() {
 			return ((FormulaGenericTests)getSuite()).shouldTestSql();
 		}
 
+		/**
+		 * @return whether for a give test, the values from the SL engine should be compared
+		 */
 		protected boolean shouldCompareSql() {
 			return shouldTestSql() && !getTestCaseInfo().ignoreSql();
 		}
@@ -181,12 +187,12 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		}
 
 		/**
-		 * Evaluate via t e
-		 * @param formulaContext
-		 * @param entityObject
-		 * @param formulaSource
-		 * @param nullAsNull
-		 * @return
+		 * Evaluate the formula using a Sql Engine provided in the implementation of {@link FormulaGenericTests#getDbTester()}
+		 * @param formulaContext the context to evaluate
+		 * @param entityObject the set of values to use to replace references in the formula
+		 * @param formulaSource the original formula source
+		 * @param nullAsNull should null be treated as null or as blank
+		 * @return the result of evaluating the 
 		 */
 		private String evaluateSql(FormulaRuntimeContext formulaContext, Map<String, Object> entityObject, String formulaSource, boolean nullAsNull) {
 			try {
@@ -346,7 +352,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 					MathContext mc = new MathContext(fieldInfo.getPrecision(), RoundingMode.HALF_UP);
 					// NOTE: Core's tests don't do RoundingMode HALF_UP because it ends up being filtered through saving to the DB.
 					BigDecimal viaFormulaDec = new BigDecimal(entityValue, mc).setScale(scale, RoundingMode.HALF_UP);
-                    BigDecimal viaSqlDec = shouldCompareSql() ? new BigDecimal(viaSql, mc).setScale(scale, RoundingMode.HALF_UP) : null; 
+					BigDecimal viaSqlDec = shouldCompareSql() ? new BigDecimal(viaSql, mc).setScale(scale, RoundingMode.HALF_UP) : null; 
 					boolean compareOK;
 					String mismatchMessage = null;
 					if (!getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {  // If there's an accuracy issue with decimal, don't bother
@@ -487,10 +493,10 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				}
 				return null;
 			} else {
-				//  Default comparison gauntlet
-                if (shouldCompareSql() && ! viaFormula.equals(viaSql)) {
-                    return "viaFormula " + viaFormula + " does not equal viaSql " + viaSql;
-                }
+				// Default comparison gauntlet
+				if (shouldCompareSql() && !viaFormula.equals(viaSql)) {
+					return "viaFormula " + viaFormula + " does not equal viaSql " + viaSql;
+				}
 				if (! viaFormula.equals(viaJavascript) && !getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
 					return getGenericJavascriptValueEqualityFailMessage(viaFormula,  viaJavascript);
 				}

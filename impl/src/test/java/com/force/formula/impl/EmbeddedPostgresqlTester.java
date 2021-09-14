@@ -20,37 +20,47 @@ import com.force.formula.util.*;
 import io.zonky.test.db.postgres.embedded.EmbeddedPostgres;
 
 /**
- * a DbTester of formulas that uses embedded postgres for validation.  
+ * a DbTester of formulas that uses embedded postgres for validation.
  * 
- * Instead of writing rows to the database, it puts all of the "passed in values" in a subquery with alias
- * "c", casting the null values to .  
+ * Instead of writing rows to the database, it puts all of the "passed in
+ * values" in a subquery with alias "c", casting the null values to .
  * 
  * @author stamm
  */
 public class EmbeddedPostgresqlTester extends DbTester {
 
 	private final EmbeddedPostgres pg;
+
 	/**
-	 * @throws IOException 
+	 * @throws IOException
 	 * 
 	 */
 	public EmbeddedPostgresqlTester() throws IOException {
 		this.pg = EmbeddedPostgres.builder().start();
 	}
-	
-	CharSequence makeRowValueSubquery(FormulaRuntimeContext formulaContext, Map<String,Object> values) {
+
+	/**
+	 * Make a FROM clause with a subquery with alias "c" that contains all the
+	 * values as columns easily substituted in the formula below
+	 * 
+	 * @param formulaContext the formula context to use to retreive the display
+	 *                       fields
+	 * @param values         the values to mock
+	 * @return a subquery to evaluate field references
+	 */
+	CharSequence makeRowValueSubquery(FormulaRuntimeContext formulaContext, Map<String, Object> values) {
 		MapFormulaContext mfc = (MapFormulaContext) formulaContext;
 
-		// Construct subquery 
+		// Construct subquery
 		StringBuilder sub = new StringBuilder();
 		sub.append(" FROM (SELECT 1");
-		if (values != null) { 
+		if (values != null) {
 			for (DisplayField df : formulaContext.getDisplayFields(mfc.getEntity())) {
 				Object value = values.get(df.getFormulaFieldInfo().getName());
 				String sqlValue = null;
-				
-				if (value == null ) {
-					switch ((MockFormulaDataType)df.getFormulaFieldInfo().getDataType()) {
+
+				if (value == null) {
+					switch ((MockFormulaDataType) df.getFormulaFieldInfo().getDataType()) {
 					case DATETIME:
 						sqlValue = "CAST (NULL AS timestamp)";
 						break;
@@ -62,25 +72,25 @@ public class EmbeddedPostgresqlTester extends DbTester {
 					case PERCENT:
 					case DOUBLE:
 						sqlValue = "CAST (NULL AS numeric)";
-						break;						
-				    default:
-				    	sqlValue = "NULL";
+						break;
+					default:
+						sqlValue = "NULL";
 					}
 				} else {
-					switch ((MockFormulaDataType)df.getFormulaFieldInfo().getDataType()) {
+					switch ((MockFormulaDataType) df.getFormulaFieldInfo().getDataType()) {
 					case DATETIME:
-						sqlValue="'" + FormulaDateUtil.formatDatetimeToISO8601((java.util.Date)value) + "'::timestamp";
+						sqlValue = "'" + FormulaDateUtil.formatDatetimeToISO8601((java.util.Date) value)
+								+ "'::timestamp";
 						break;
 					case DATEONLY:
-						sqlValue="TO_DATE('" + FormulaDateUtil.formatDateToSql(((java.util.Date)value)) + "','DD-MM-YYYY')";
+						sqlValue = "TO_DATE('" + FormulaDateUtil.formatDateToSql(((java.util.Date) value))
+								+ "','DD-MM-YYYY')";
 						break;
-					//case INTEGER:
-				//		sqlValue = new BigDecimal(new BigInteger(String.valueOf(value))).toString();
-		         //       break;
 					case PERCENT:
 					case CURRENCY:
 					case DOUBLE:
-						// Make sure we use the right scale for numbers, as postgres will treat them as integers
+						// Make sure we use the right scale for numbers, as postgres will treat them as
+						// integers
 						BigDecimal bd = new BigDecimal(String.valueOf(value));
 						int newScale = df.getFormulaFieldInfo().getScale();
 						if (newScale > bd.scale()) {
@@ -89,9 +99,10 @@ public class EmbeddedPostgresqlTester extends DbTester {
 						sqlValue = bd.toPlainString();
 						break;
 					case TEXT:
+						// Replace singlequote
 						sqlValue = "'" + FormulaTextUtil.replaceSimple(String.valueOf(value), "'", "''") + "'";
 						break;
-					default :
+					default:
 						sqlValue = String.valueOf(value);
 					}
 				}
@@ -101,34 +112,36 @@ public class EmbeddedPostgresqlTester extends DbTester {
 		sub.append(") c");
 		return sub;
 	}
-	
-	
+
+	/**
+	 * Evaluate the formula using the embedded postgres engine.
+	 */
 	@Override
-	public String evaluateSql(FormulaRuntimeContext formulaContext, Object entityObject,
-			String formulaSource, boolean nullAsNull) throws SQLException, FormulaException {
+	public String evaluateSql(FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource,
+			boolean nullAsNull) throws SQLException, FormulaException {
 		@SuppressWarnings("unchecked")
-		Map<String,Object> values = (Map<String,Object>) entityObject;
+		Map<String, Object> values = (Map<String, Object>) entityObject;
 
 		CharSequence subQuery = makeRowValueSubquery(formulaContext, values);
-		
+
 		FormulaTableRegistry registry = new MockFormulaTableRegistry();
 		if (pg != null) {
-			try (Connection conn = pg.getDatabase("postgres", "postgres").getConnection()){
-				FormulaTypeSpec type = nullAsNull ? MockFormulaType.NULLASNULL: MockFormulaType.DEFAULT;
+			try (Connection conn = pg.getDatabase("postgres", "postgres").getConnection()) {
+				FormulaTypeSpec type = nullAsNull ? MockFormulaType.NULLASNULL : MockFormulaType.DEFAULT;
 				RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(type, formulaContext, formulaSource);
 				FormulaWithSql formula = (FormulaWithSql) formulaInfo.getFormula();
 				String column = formula.toSQL(registry);
-				MockFormulaDataType returnType = (MockFormulaDataType)formula.getDataType();
-				// Convert types.
+				MockFormulaDataType returnType = (MockFormulaDataType) formula.getDataType();
+				// Convert types on return so they look right.
 				switch (returnType) {
 				case DATETIME:
-					column = "("+column +")::timestamp";
+					column = "(" + column + ")::timestamp";
 					break;
 				case PERCENT:
-					column = "("+column +")/100";  // The format below moves the decimal point over
+					column = "(" + column + ")/100"; // The format below moves the decimal point over
 					break;
 				case BOOLEAN:
-					column = FormulaImpl.massageSqlForType(formulaContext.getFormulaReturnType(), column);  
+					column = FormulaImpl.massageSqlForType(formulaContext.getFormulaReturnType(), column);
 					break;
 				default:
 				}
@@ -137,21 +150,31 @@ public class EmbeddedPostgresqlTester extends DbTester {
 						try (ResultSet rset = pstmt.executeQuery()) {
 							if (rset.next()) {
 								switch (returnType) {
+								case DATEONLY:
+								case DATETIME:
+									Timestamp d = rset.getTimestamp(1);
+									if (d == null)
+										return null;
+									return d.toString();
 								case CURRENCY:
 								case PERCENT:
 									BigDecimal bigDecimal = rset.getBigDecimal(1);
-									if (bigDecimal == null) return null;
+									if (bigDecimal == null)
+										return null;
+									// Currency and Percent have special formatting.
 									return String.valueOf(FormulaI18nUtils.formatResult(formulaContext, formulaContext.getFormulaReturnType(), bigDecimal));
 								case INTEGER:
 								case DOUBLE:
 									BigDecimal number = rset.getBigDecimal(1);
-									if (number == null) return null;
+									if (number == null)
+										return null;
 									return number.toPlainString();
 								case TIMEONLY:
 									BigDecimal millis = rset.getBigDecimal(1);
-									if (millis == null) return null;
+									if (millis == null)
+										return null;
 									return FormulaValidationHooks.get().constructTime(millis).toString();
-							    default:
+								default:
 								}
 								String result = rset.getString(1);
 								if (result == null || result.length() == 0) {
@@ -162,7 +185,7 @@ public class EmbeddedPostgresqlTester extends DbTester {
 						}
 					}
 				} catch (SQLException e) {
-					throw e;  // Useful for a breakpoint
+					throw e; // Useful for a breakpoint
 				}
 			}
 		}
@@ -171,8 +194,14 @@ public class EmbeddedPostgresqlTester extends DbTester {
 
 	@Override
 	public void close() throws Exception {
+		// It autocloses.
 	}
 
+	/**
+	 * A mock formula table registry where everything is on table alias "c".
+	 * 
+	 * @author stamm
+	 */
 	static class MockFormulaTableRegistry implements FormulaTableRegistry {
 
 		@Override
@@ -183,7 +212,7 @@ public class EmbeddedPostgresqlTester extends DbTester {
 				public Entity getEntityInfo() {
 					return null;
 				}
-				
+
 				@Override
 				public String getAlias() {
 					return "c";
@@ -197,5 +226,5 @@ public class EmbeddedPostgresqlTester extends DbTester {
 			return new TableSet("c", "c", "c");
 		}
 	}
-	
+
 }

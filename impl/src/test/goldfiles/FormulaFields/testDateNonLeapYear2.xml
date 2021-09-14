@@ -27,11 +27,11 @@
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>Sat Jan 29 00:00:00 GMT 2011</formula>
-         <sql>2011-01-29</sql>
+         <sql>2011-01-29 00:00:00.0</sql>
          <javascript>Sat Jan 29 00:00:00 GMT 2011</javascript>
          <javascriptLp>Sat Jan 29 00:00:00 GMT 2011</javascriptLp>
          <formulaNullAsNull>Sat Jan 29 00:00:00 GMT 2011</formulaNullAsNull>
-         <sqlNullAsNull>2011-01-29</sqlNullAsNull>
+         <sqlNullAsNull>2011-01-29 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Sat Jan 29 00:00:00 GMT 2011</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sat Jan 29 00:00:00 GMT 2011</javascriptLpNullAsNull>
       </result>

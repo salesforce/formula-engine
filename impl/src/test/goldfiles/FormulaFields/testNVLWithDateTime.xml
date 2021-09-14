@@ -16,66 +16,66 @@
       <result>
       <inputvalues>[2004:12:31:11:32:00, 2004:12:31:11:30:00]</inputvalues>
          <formula>Fri Dec 31 11:32:00 GMT 2004</formula>
-         <sql>2004-12-31 11:32:00</sql>
+         <sql>2004-12-31 11:32:00.0</sql>
          <javascript>Fri Dec 31 11:32:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 11:32:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 11:32:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-12-31 11:32:00</sqlNullAsNull>
+         <sqlNullAsNull>2004-12-31 11:32:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 11:32:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 11:32:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:10:34:00, 2008:02:28:10:34:00]</inputvalues>
          <formula>Sat Feb 28 10:34:00 GMT 2004</formula>
-         <sql>2004-02-28 10:34:00</sql>
+         <sql>2004-02-28 10:34:00.0</sql>
          <javascript>Sat Feb 28 10:34:00 GMT 2004</javascript>
          <javascriptLp>Sat Feb 28 10:34:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Sat Feb 28 10:34:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-02-28 10:34:00</sqlNullAsNull>
+         <sqlNullAsNull>2004-02-28 10:34:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Sat Feb 28 10:34:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sat Feb 28 10:34:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:32:00]</inputvalues>
          <formula>Fri Dec 31 11:30:00 GMT 2004</formula>
-         <sql>2004-12-31 11:30:00</sql>
+         <sql>2004-12-31 11:30:00.0</sql>
          <javascript>Fri Dec 31 11:30:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 11:30:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 11:30:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-12-31 11:30:00</sqlNullAsNull>
+         <sqlNullAsNull>2004-12-31 11:30:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 11:30:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 11:30:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:10:34:00, 2004:03:01:00:00:00]</inputvalues>
          <formula>Sat Feb 28 10:34:00 GMT 2004</formula>
-         <sql>2004-02-28 10:34:00</sql>
+         <sql>2004-02-28 10:34:00.0</sql>
          <javascript>Sat Feb 28 10:34:00 GMT 2004</javascript>
          <javascriptLp>Sat Feb 28 10:34:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Sat Feb 28 10:34:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-02-28 10:34:00</sqlNullAsNull>
+         <sqlNullAsNull>2004-02-28 10:34:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Sat Feb 28 10:34:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sat Feb 28 10:34:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:31:11:32:00]</inputvalues>
          <formula>Fri Dec 31 11:32:00 GMT 2004</formula>
-         <sql>2004-12-31 11:32:00</sql>
+         <sql>2004-12-31 11:32:00.0</sql>
          <javascript>Fri Dec 31 11:32:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 11:32:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 11:32:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-12-31 11:32:00</sqlNullAsNull>
+         <sqlNullAsNull>2004-12-31 11:32:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 11:32:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 11:32:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:10:34:00, ]</inputvalues>
          <formula>Sat Feb 28 10:34:00 GMT 2004</formula>
-         <sql>2004-02-28 10:34:00</sql>
+         <sql>2004-02-28 10:34:00.0</sql>
          <javascript>Sat Feb 28 10:34:00 GMT 2004</javascript>
          <javascriptLp>Sat Feb 28 10:34:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Sat Feb 28 10:34:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-02-28 10:34:00</sqlNullAsNull>
+         <sqlNullAsNull>2004-02-28 10:34:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Sat Feb 28 10:34:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sat Feb 28 10:34:00 GMT 2004</javascriptLpNullAsNull>
       </result>
@@ -93,11 +93,11 @@
       <result>
       <inputvalues>[3999:02:28:10:34:00, 1780:02:28:10:34:00]</inputvalues>
          <formula>Sun Feb 28 10:34:00 GMT 3999</formula>
-         <sql>3999-02-28 10:34:00</sql>
+         <sql>3999-02-28 10:34:00.0</sql>
          <javascript>Sun Feb 28 10:34:00 GMT 3999</javascript>
          <javascriptLp>Sun Feb 28 10:34:00 GMT 3999</javascriptLp>
          <formulaNullAsNull>Sun Feb 28 10:34:00 GMT 3999</formulaNullAsNull>
-         <sqlNullAsNull>3999-02-28 10:34:00</sqlNullAsNull>
+         <sqlNullAsNull>3999-02-28 10:34:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Sun Feb 28 10:34:00 GMT 3999</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sun Feb 28 10:34:00 GMT 3999</javascriptLpNullAsNull>
       </result>

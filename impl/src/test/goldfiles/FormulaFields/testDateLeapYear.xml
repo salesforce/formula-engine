@@ -16,33 +16,33 @@
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>Wed Feb 01 00:00:00 GMT 2012</formula>
-         <sql>2012-02-01</sql>
+         <sql>2012-02-01 00:00:00.0</sql>
          <javascript>Wed Feb 01 00:00:00 GMT 2012</javascript>
          <javascriptLp>Wed Feb 01 00:00:00 GMT 2012</javascriptLp>
          <formulaNullAsNull>Wed Feb 01 00:00:00 GMT 2012</formulaNullAsNull>
-         <sqlNullAsNull>2012-02-01</sqlNullAsNull>
+         <sqlNullAsNull>2012-02-01 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Wed Feb 01 00:00:00 GMT 2012</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Feb 01 00:00:00 GMT 2012</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[28]</inputvalues>
          <formula>Tue Feb 28 00:00:00 GMT 2012</formula>
-         <sql>2012-02-28</sql>
+         <sql>2012-02-28 00:00:00.0</sql>
          <javascript>Tue Feb 28 00:00:00 GMT 2012</javascript>
          <javascriptLp>Tue Feb 28 00:00:00 GMT 2012</javascriptLp>
          <formulaNullAsNull>Tue Feb 28 00:00:00 GMT 2012</formulaNullAsNull>
-         <sqlNullAsNull>2012-02-28</sqlNullAsNull>
+         <sqlNullAsNull>2012-02-28 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Tue Feb 28 00:00:00 GMT 2012</javascriptNullAsNull>
          <javascriptLpNullAsNull>Tue Feb 28 00:00:00 GMT 2012</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[29]</inputvalues>
          <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
-         <sql>2012-02-29</sql>
+         <sql>2012-02-29 00:00:00.0</sql>
          <javascript>Wed Feb 29 00:00:00 GMT 2012</javascript>
          <javascriptLp>Wed Feb 29 00:00:00 GMT 2012</javascriptLp>
          <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
-         <sqlNullAsNull>2012-02-29</sqlNullAsNull>
+         <sqlNullAsNull>2012-02-29 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Wed Feb 29 00:00:00 GMT 2012</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Feb 29 00:00:00 GMT 2012</javascriptLpNullAsNull>
       </result>

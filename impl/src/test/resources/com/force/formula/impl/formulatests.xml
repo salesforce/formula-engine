@@ -259,7 +259,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
      </testcase>
      <testcase name="testAddWithTextFunc"
-         devName="testAddWithTextFunc" labelName="testAddWithTextFunc"  whyIgnoreSql="FIXME: psql null concatenation support"
+         devName="testAddWithTextFunc" labelName="testAddWithTextFunc"
          dataType="Double" dataFile="addWithTextFunc" scale="2" precision="12"
          code="(customnumber1__c+customformula0__c+customnumber2__c+customformula1__c+customformula2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"

@@ -129,7 +129,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isPostgresStyle()) {
     		return "SSSS";
     	}
-        return "SSSSS";
+        return "SSSSS"; // Oracle needs 5 Ss
     }
     
     /**
@@ -146,9 +146,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	return String.format(sqlToNumber(), "NULL");
     }
 	
-    /**
-    
-
     /**
      * PSQL doesn't include a locale-specific upper function.  This allows the override of that function
      * if you have installed one locally, like icu_transform.
@@ -261,9 +258,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the format for converting to a datetime value
      */
     default String sqlToDateIso() {
-    	if (isPostgresStyle()) {
-    		return "TO_DATE(%s, 'YYYY-MM-DD')";
-    	}
 		return "TO_DATE(%s, 'YYYY-MM-DD')";
     }
      

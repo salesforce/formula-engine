@@ -845,14 +845,14 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * @param entityObject an object representing the values to use for the particular row.  You may want to
 		 * insert this row into the DB when doing the valuation to make the DB substitution easier
 		 * @param formulaSource the source of the formula
-		 * @param nullAsNull whether null is treated as null or 0
-		 * @return the value of the 
+		 * @param nullAsNull whether null is treated as null or as blank/0
+		 * @return the result of evaluating the formula using a sql engine
 		 * @throws SQLException if there is an issue evaluating the sql
-		 * @throws FormulaException if there is an issue evaluating the 
+		 * @throws FormulaException if there is an issue evaluating the formula
 		 */
 		public abstract String evaluateSql(FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource, boolean nullAsNull) throws SQLException, FormulaException;
 
-		// Support clos
+		// Support close, if necessary.
 		@Override
 		public void close() throws Exception {
 		}

@@ -60,11 +60,11 @@
       <result>
       <inputvalues>[, 2004:12:31:11:32:00]</inputvalues>
          <formula>Fri Dec 31 11:32:00 GMT 2004</formula>
-         <sql>2004-12-31 11:32:00</sql>
+         <sql>2004-12-31 11:32:00.0</sql>
          <javascript>Fri Dec 31 11:32:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 11:32:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 11:32:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-12-31 11:32:00</sqlNullAsNull>
+         <sqlNullAsNull>2004-12-31 11:32:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Fri Dec 31 11:32:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 11:32:00 GMT 2004</javascriptLpNullAsNull>
       </result>

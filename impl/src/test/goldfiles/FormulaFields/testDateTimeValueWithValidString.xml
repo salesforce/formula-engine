@@ -16,11 +16,11 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>Tue Nov 15 17:00:00 GMT 2005</formula>
-         <sql>2005-11-15 17:00:00+00</sql>
+         <sql>2005-11-15 17:00:00.0</sql>
          <javascript>Tue Nov 15 17:00:00 GMT 2005</javascript>
          <javascriptLp>Tue Nov 15 17:00:00 GMT 2005</javascriptLp>
          <formulaNullAsNull>Tue Nov 15 17:00:00 GMT 2005</formulaNullAsNull>
-         <sqlNullAsNull>2005-11-15 17:00:00+00</sqlNullAsNull>
+         <sqlNullAsNull>2005-11-15 17:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Tue Nov 15 17:00:00 GMT 2005</javascriptNullAsNull>
          <javascriptLpNullAsNull>Tue Nov 15 17:00:00 GMT 2005</javascriptLpNullAsNull>
       </result>

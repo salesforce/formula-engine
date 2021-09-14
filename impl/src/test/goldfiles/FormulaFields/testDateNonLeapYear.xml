@@ -16,22 +16,22 @@
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>Tue Feb 01 00:00:00 GMT 2011</formula>
-         <sql>2011-02-01</sql>
+         <sql>2011-02-01 00:00:00.0</sql>
          <javascript>Tue Feb 01 00:00:00 GMT 2011</javascript>
          <javascriptLp>Tue Feb 01 00:00:00 GMT 2011</javascriptLp>
          <formulaNullAsNull>Tue Feb 01 00:00:00 GMT 2011</formulaNullAsNull>
-         <sqlNullAsNull>2011-02-01</sqlNullAsNull>
+         <sqlNullAsNull>2011-02-01 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Tue Feb 01 00:00:00 GMT 2011</javascriptNullAsNull>
          <javascriptLpNullAsNull>Tue Feb 01 00:00:00 GMT 2011</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[28]</inputvalues>
          <formula>Mon Feb 28 00:00:00 GMT 2011</formula>
-         <sql>2011-02-28</sql>
+         <sql>2011-02-28 00:00:00.0</sql>
          <javascript>Mon Feb 28 00:00:00 GMT 2011</javascript>
          <javascriptLp>Mon Feb 28 00:00:00 GMT 2011</javascriptLp>
          <formulaNullAsNull>Mon Feb 28 00:00:00 GMT 2011</formulaNullAsNull>
-         <sqlNullAsNull>2011-02-28</sqlNullAsNull>
+         <sqlNullAsNull>2011-02-28 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Mon Feb 28 00:00:00 GMT 2011</javascriptNullAsNull>
          <javascriptLpNullAsNull>Mon Feb 28 00:00:00 GMT 2011</javascriptLpNullAsNull>
       </result>

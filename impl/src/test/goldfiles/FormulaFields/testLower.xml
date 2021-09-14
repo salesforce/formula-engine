@@ -82,11 +82,11 @@
       <result>
       <inputvalues>[ÅNGSTROM]</inputvalues>
          <formula>ångstrom</formula>
-         <sql>ångstrom</sql>
+         <sql>Ångstrom</sql>
          <javascript>ångstrom</javascript>
          <javascriptLp>ångstrom</javascriptLp>
          <formulaNullAsNull>ångstrom</formulaNullAsNull>
-         <sqlNullAsNull>ångstrom</sqlNullAsNull>
+         <sqlNullAsNull>Ångstrom</sqlNullAsNull>
          <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
          <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
       </result>
@@ -126,11 +126,11 @@
       <result>
       <inputvalues>[İDEMPOTENT]</inputvalues>
          <formula>i̇dempotent</formula>
-         <sql>idempotent</sql>
+         <sql>İdempotent</sql>
          <javascript>i̇dempotent</javascript>
          <javascriptLp>i̇dempotent</javascriptLp>
          <formulaNullAsNull>i̇dempotent</formulaNullAsNull>
-         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <sqlNullAsNull>İdempotent</sqlNullAsNull>
          <javascriptNullAsNull>i̇dempotent</javascriptNullAsNull>
          <javascriptLpNullAsNull>i̇dempotent</javascriptLpNullAsNull>
       </result>
