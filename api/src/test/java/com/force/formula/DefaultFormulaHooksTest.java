@@ -3,26 +3,22 @@
  */
 package com.force.formula;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import java.util.Calendar;
 import java.util.Locale;
-
-import org.junit.Test;
 
 import com.force.formula.util.FormulaFieldReferenceImpl;
 import com.force.formula.util.SystemFormulaContext;
 import com.force.i18n.grammar.GrammaticalLocalizer;
+
+import junit.framework.TestCase;
 
 /**
  * Validate and the default implementation for FormulaEngineHooks
  *
  * @author stamm
  */
-public class DefaultFormulaHooksTest  {
+public class DefaultFormulaHooksTest extends TestCase {
 
-	@Test
     public void testEngineHooks() {
         FormulaEngineHooks def = new FormulaEngineHooks() {};
         Calendar cal = Calendar.getInstance();
@@ -52,7 +48,6 @@ public class DefaultFormulaHooksTest  {
     }
     
     
-	@Test
 	public void testGetFieldReferenceValue() {
         FormulaEngineHooks def = new FormulaEngineHooks() {
 			@Override

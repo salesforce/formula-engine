@@ -42,7 +42,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
             boolean isCheckingSqlLengthLimit = (isCreateOrEditFormula && !FormulaValidationHooks.get().parseHook_ignoreSqlTextLengthLimit());
             this.context.setProperty(FormulaContext.CHECK_SQL_LENGTH_LIMIT, isCheckingSqlLengthLimit);
             this.context.setProperty(FormulaContext.IS_CREATE_OR_EDIT_FORMULA, isCreateOrEditFormula);
-            this.context.setProperty(FormulaContext.FORCE_DISABLED, isCreateOrEditFormula);
+            this.context.setProperty(FormulaContext.FORCE_DISABLED, forceDisabled);
             
             // Propagating the info if FormulaInfo is being created for Runtime/Design time.
             this.properties.setExistingFormula(existingFormula);
