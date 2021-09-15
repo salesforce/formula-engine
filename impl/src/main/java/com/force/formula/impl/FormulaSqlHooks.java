@@ -108,7 +108,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isPostgresStyle()) {
     		return "SSSS.MS";
     	}
-        return "SSSSS.F3";
+        return "SSSSS.FF3";
     }
     
     /**

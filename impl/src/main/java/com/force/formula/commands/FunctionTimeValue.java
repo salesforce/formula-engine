@@ -45,11 +45,11 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             guard = SQLPair.generateGuard(guards, null);
         }
         else if (inputDataType == FormulaDateTime.class) {
-            sql =  "(" + String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(%s, '"+getSqlHooks(context).sqlSecsInDay()+"')", args[0])) + " * 1000)"; // date does not have millisec info
+            sql =  String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(%s, '"+getSqlHooks(context).sqlSecsInDay()+"')", args[0])) + " * 1000"; // date does not have millisec info
             guard = SQLPair.generateGuard(guards, null);
         } 
         else {
-            sql= "("+String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(TO_TIMESTAMP(%s, '"+getSqlHooks(context).sqlHMSAndMsecs()+"'), '"+getSqlHooks(context).sqlSecsAndMsecs()+"')", args[0])) + " *1000)" ;
+            sql=  String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(TO_TIMESTAMP(%s, '"+getSqlHooks(context).sqlHMSAndMsecs()+"'),'"+getSqlHooks(context).sqlSecsAndMsecs()+"')", args[0])) + " * 1000" ;
 
             FormulaAST child = (FormulaAST)node.getFirstChild();
             if (child != null && child.isLiteral() && child.getDataType() == String.class) {
