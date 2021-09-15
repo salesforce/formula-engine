@@ -104,7 +104,8 @@ public class FormulaEngine {
         } catch (ClassNotFoundException e1) {
         	boolean isInTest = false;
 			for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
-				if (element.getClassName().startsWith("junit.framework.")) {
+				if (element.getClassName().startsWith("junit.framework.") ||
+						element.getClassName().startsWith("org.junit.")) {
 					isInTest = true;
 					break;
 				}
