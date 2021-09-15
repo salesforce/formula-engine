@@ -14,7 +14,7 @@ import com.google.common.collect.ImmutableMap;
 
 /**
  * @author syendluri, adimayuga
- * @since 140 Member Variables: testCaseFieldInfo: referenceFields
+ * @since 0.1.0 Member Variables: testCaseFieldInfo: referenceFields
  *        listOfFieldsUsedForRunnables
  */
 
@@ -29,10 +29,11 @@ public class FormulaTestCaseInfo {
     }
     public static enum DefaultEvaluationContext implements EvaluationContext {Formula, Template}
 
-    public FormulaTestCaseInfo(String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
+    public FormulaTestCaseInfo(FormulaTestUtils utils, String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
                                List<FieldDefinitionInfo> referenceFields, String owner, String compareType, String evalContexts,  String compareTemplate,
                                String whyIgnoreSql, 
                                boolean multipleResultTypes) {
+        this.testUtils = testUtils;
         this.testCaseName = tcName;
         this.testLabels = testLabels.length() > 0 ? Splitter.on(',').splitToList(testLabels) : Collections.emptySet();
         this.accuracyIssue = AccuracyIssue.fromLabel(accuracyIssue);
@@ -230,7 +231,7 @@ public class FormulaTestCaseInfo {
             // to match the current swap set in loop.
             for (int i = perm.size() - 1; i >= 0; i--) {
                 if (i == perm.size() - 1) {
-                    newTcField.setReturnType(FormulaTestUtils.getDataType(perm.get(i)));
+                    newTcField.setReturnType(testUtils.getDataType(perm.get(i)));
                     continue;
                 }
                 String newType = perm.get(i);
@@ -238,7 +239,7 @@ public class FormulaTestCaseInfo {
                 String fieldName = fieldInfo.getDevName();
                 fieldInfo.setDevName(fieldName.replaceAll(fieldInfo.getReturnType().getName(), newType));
                 fieldInfo.setLabelName(fieldInfo.getDevName());
-                fieldInfo.setReturnType(FormulaTestUtils.getDataType(newType));
+                fieldInfo.setReturnType(testUtils.getDataType(newType));
                 newTcField.setFormula(newTcField.getFormula().replaceAll(fieldName, fieldInfo.getDevName()));
                 runnable.addReferenceField(fieldInfo);
                 listOfFieldsUsedForRunnables.put(fieldInfo.getDevName(), fieldInfo);
@@ -261,7 +262,7 @@ public class FormulaTestCaseInfo {
      *
      * @return List<FormulaTestRunnable>
      */
-    public List<FormulaTestRunnable> getRunnables() throws Exception {
+    public List<FormulaTestRunnable> getRunnables(FormulaTestUtils testUtils) throws Exception {
         if (this.testRunnables == null)
             generateRunnables();
         return testRunnables;
@@ -368,6 +369,7 @@ public class FormulaTestCaseInfo {
     }
 
     
+    FormulaTestUtils testUtils;
     private final Collection<String> testLabels;
     private final AccuracyIssue accuracyIssue;
     

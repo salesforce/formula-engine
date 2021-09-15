@@ -46,6 +46,10 @@ public interface FormulaContext extends Tokenizer {
      */
     FormulaReturnType getFormulaReturnType();
 
+    /**
+     * @return the FieldInfo represented by field reference, with this context attached
+     * @param field the formulaFieldReference to lookup
+     */
     default ContextualFormulaFieldInfo lookup(FormulaFieldReference field) throws InvalidFieldReferenceException, UnsupportedTypeException {
         return lookup(field.getElement(), false);
     }
@@ -103,11 +107,25 @@ public interface FormulaContext extends Tokenizer {
     default FormulaContext getParentContext() {
         return null;
     }
-    
+
+    /**
+     * 
+     * @return the global properties used as part of the formula type.
+     */
     GlobalFormulaProperties getGlobalProperties();
 
+    /**
+     * @return a generic property that was set with {{@link #setProperty(String, Object)}
+     * @param name the key for the property
+     */
     <T> T getProperty(String name);
 
+    /**
+     * Set a generic property on this context.  You should implement this
+     * this with a Map, or use the parent context to store these values.
+     * @param name the key to use for the property
+     * @param value the value to set
+     */
     void setProperty(String name, Object value);
 
     /**
@@ -133,6 +151,10 @@ public interface FormulaContext extends Tokenizer {
         return metaInfo;
     }
 
+    /**
+     * @return whether we want to check the sql length (i.e. we're doing design time operations,
+     * like creating or editing a formula that can't exceed a limit).  
+     */
     default boolean isCheckingSqlLengthLimit() {
         Boolean isSqlLimitCheck = getProperty(FormulaContext.CHECK_SQL_LENGTH_LIMIT);
         return isSqlLimitCheck == null ? false : isSqlLimitCheck;
@@ -188,7 +210,6 @@ public interface FormulaContext extends Tokenizer {
      * locally from javascript on the "Context" variable
      * @author stamm
      * @since 0.2
-     * TODO SLT: Make sure PageContextProvider implements it
      */
     interface WithLocalJsContext extends FormulaContext{
         

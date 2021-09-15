@@ -1,6 +1,6 @@
 /*
  * Created on Mar 1, 2005
- * Copyright, 1999-2010, salesforce.com
+ * Copyright, 1999-2021, salesforce.com
  * All Rights Reserved Company Confidential
  */
 package com.force.formula.impl;
@@ -37,7 +37,7 @@ import junit.framework.TestSuite;
  * todo ValidationGenericTests should also use this base class
  *
  * @author syendluri, dchasman, aballard
- * @since 140
+ * @since 0.1.0
  */
 abstract public class BaseFormulaGenericTests extends TestSuite {
 
@@ -48,6 +48,10 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 	IOException {
 		super(owner);
 		createTestCases(this, getTestCaseLocation(), "Positive Tests", true, owner, testLabelsAttribute, swapResultTypes);
+	}
+	
+	protected FormulaTestUtils getTestUtils() {
+	    return new FormulaTestUtils();
 	}
 	
 	/**
@@ -76,7 +80,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 		// Get testcases to run, for each entity.
 		TestSuite entitySuite = null;
-		List<FormulaTestCaseInfo> testCases = FormulaTestUtils.getTestCases(xmlTestDefFile, null, owner, testLabelsAttribute, swapResultTypes);
+		List<FormulaTestCaseInfo> testCases = getTestUtils().getTestCases(xmlTestDefFile, null, owner, testLabelsAttribute, swapResultTypes);
 		if (testCases != null) {
 			for (FormulaTestCaseInfo testCase : testCases) {
 
@@ -248,7 +252,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 			boolean testPass = true;
 
-			List<FormulaTestRunnable> instances = testCase.getRunnables();
+			List<FormulaTestRunnable> instances = testCase.getRunnables(suite.getTestUtils());
 			for (FormulaTestRunnable instance : instances) {
 				try {
 					FieldDefinitionInfo fieldInfo = instance.getTcFieldInfo();
@@ -293,7 +297,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 			jestDataModel.testSuiteName = testCase.getName();
 
 			String firstValueMismatchMessage = null;
-			List<FormulaTestRunnable> instances = testCase.getRunnables();
+			List<FormulaTestRunnable> instances = testCase.getRunnables(suite.getTestUtils());
 
 			for (FormulaTestRunnable instance : instances) {
 				try {

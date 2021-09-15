@@ -40,7 +40,7 @@ import com.force.formula.util.FormulaI18nUtils;
  * the resulting formula field via api, ui and bulk mode, as well as template version.
  *
  * @author syendluri, dchasman, aballard
- * @since 140
+ * @since 0.1.0
  */
 public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
     private static final Logger logger = Logger.getLogger("com.force.formula");
