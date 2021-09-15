@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
-import com.force.formula.impl.BaseFormulaGenericTests.DbTester;
+import com.force.formula.sql.EmbeddedPostgresqlTester;
 
 import junit.framework.TestSuite;
 

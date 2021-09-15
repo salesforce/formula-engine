@@ -28,6 +28,7 @@
             <groupId>com.coveo</groupId>
             <artifactId>nashorn-commonjs-modules</artifactId>
             <version>1.0.9</version>
+		    <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.graalvm.sdk</groupId>
@@ -42,5 +43,10 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+		<dependency>
+		    <groupId>io.zonky.test</groupId>
+		    <artifactId>embedded-postgres</artifactId>
+		    <optional>true</optional>
+		</dependency>        
   </dependencies>
 </project>

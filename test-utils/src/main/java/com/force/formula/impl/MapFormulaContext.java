@@ -60,7 +60,7 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
     }
     
     @Override
-    MapEntity getEntity() {
+    public MapEntity getEntity() {
         return (MapEntity) super.getEntity();
     }
 

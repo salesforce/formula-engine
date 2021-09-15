@@ -835,7 +835,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 	 * override the whole class.
 	 * @since 0.1.0
 	 */ 
-	protected static abstract class DbTester implements AutoCloseable {
+	public static abstract class DbTester implements AutoCloseable {
 		public DbTester() throws IOException {
 		}
 
@@ -850,7 +850,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * @throws SQLException if there is an issue evaluating the sql
 		 * @throws FormulaException if there is an issue evaluating the formula
 		 */
-		public abstract String evaluateSql(FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource, boolean nullAsNull) throws SQLException, FormulaException;
+		public abstract String evaluateSql(FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource, boolean nullAsNull) throws IOException, SQLException, FormulaException;
 
 		// Support close, if necessary.
 		@Override

@@ -112,7 +112,6 @@
 		    <groupId>io.zonky.test</groupId>
 		    <artifactId>embedded-postgres</artifactId>
 		    <version>${embedded-postgres.version}</version>
-		    <scope>test</scope>
 		</dependency>
 		      
       
