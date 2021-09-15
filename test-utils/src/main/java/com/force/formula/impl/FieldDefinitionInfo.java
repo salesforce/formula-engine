@@ -6,7 +6,6 @@ package com.force.formula.impl;
 import java.util.*;
 
 import com.force.formula.FormulaDataType;
-import com.force.formula.MockFormulaDataType;
 
 /**
  * @author syendluri
@@ -180,7 +179,7 @@ public class FieldDefinitionInfo implements Cloneable {
     }
 
     public boolean isNumeric() {
-        return ((MockFormulaDataType)getReturnType()).isNumber();
+        return returnType != null && returnType.isNumber();
     }
 
     public void setPickListValues(List<String> values) {

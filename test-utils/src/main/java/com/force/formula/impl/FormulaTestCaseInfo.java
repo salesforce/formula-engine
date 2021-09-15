@@ -33,7 +33,7 @@ public class FormulaTestCaseInfo {
                                List<FieldDefinitionInfo> referenceFields, String owner, String compareType, String evalContexts,  String compareTemplate,
                                String whyIgnoreSql, 
                                boolean multipleResultTypes) {
-        this.testUtils = testUtils;
+        this.testUtils = utils;
         this.testCaseName = tcName;
         this.testLabels = testLabels.length() > 0 ? Splitter.on(',').splitToList(testLabels) : Collections.emptySet();
         this.accuracyIssue = AccuracyIssue.fromLabel(accuracyIssue);
