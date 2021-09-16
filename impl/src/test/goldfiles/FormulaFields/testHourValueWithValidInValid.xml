@@ -2,11 +2,11 @@
 <testCase name="testHourValueWithValidInValid">
    <testInstance formula="Hour(TimeValue(DATETIMEVALUE(dateString__c)))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TRUNC((CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000)/3600000)</Sql>
+       <Sql>TRUNC(CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000/3600000)</Sql>
        <Guard> NOT $!s0s!$.dateString__c ~ '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]\d:[0-5]\d$' </Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TRUNC((CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000)/3600000)</Sql>
+       <Sql>TRUNC(CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000/3600000)</Sql>
        <Guard> NOT $!s0s!$.dateString__c ~ '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]\d:[0-5]\d$' </Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?(new $F.Decimal(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getUTCHours())):null</JsOutput>

@@ -2,11 +2,11 @@
 <testCase name="testAddTimeValueWithValidInValid">
    <testInstance formula="TimeValue(dateString__c) + 7200000" returntype="TimeOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>MOD((CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'HH24:mi:ss.MS'), 'SSSS.MS') AS NUMERIC) *1000)+ROUND(MOD(CAST(7200000 AS NUMERIC), 86400000))+86400000,86400000)</Sql>
+       <Sql>MOD(CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'HH24:mi:ss.MS'),'SSSS.MS') AS NUMERIC) * 1000+ROUND(MOD(CAST(7200000 AS NUMERIC), 86400000))+86400000,86400000)</Sql>
        <Guard> NOT $!s0s!$.dateString__c ~ '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$' </Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>MOD((CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'HH24:mi:ss.MS'), 'SSSS.MS') AS NUMERIC) *1000)+ROUND(MOD(CAST(7200000 AS NUMERIC), 86400000))+86400000,86400000)</Sql>
+       <Sql>MOD(CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'HH24:mi:ss.MS'),'SSSS.MS') AS NUMERIC) * 1000+ROUND(MOD(CAST(7200000 AS NUMERIC), 86400000))+86400000,86400000)</Sql>
        <Guard> NOT $!s0s!$.dateString__c ~ '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$' </Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).getTime()+new $F.Decimal('7200000').toNumber())):null</JsOutput>
