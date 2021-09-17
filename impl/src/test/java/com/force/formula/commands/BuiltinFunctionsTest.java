@@ -207,6 +207,18 @@ public class BuiltinFunctionsTest extends ParserTestBase {
         parseTest("1 > 2", " ( > 1 2 )");
         assertEquals(Boolean.TRUE, evaluateBoolean("38>37"));
         assertEquals(Boolean.FALSE, evaluateBoolean("37>37"));
+        assertEquals(Boolean.TRUE, evaluateBoolean("timeValue(\"12:34:56.789\") = timeValue(\"12:34:56.789\")"));
+    }
+    
+    public void testTimeValueCompare() throws Exception {
+        assertEquals(Boolean.TRUE, evaluateBoolean("timeValue(\"12:34:56.789\") = timeValue(\"12:34:56.789\")"));
+        assertEquals(Boolean.FALSE, evaluateBoolean("timeValue(\"01:34:56.789\") = timeValue(\"12:34:56.789\")"));
+        assertEquals(Boolean.TRUE, evaluateBoolean("timeValue(\"01:34:56.789\") < timeValue(\"12:34:56.789\")"));
+        assertEquals(Boolean.FALSE, evaluateBoolean("timeValue(\"01:34:56.789\") > timeValue(\"12:34:56.789\")"));
+        // add 1 day in millis.
+        assertEquals(evaluateTime("timeValue(\"12:34:56.789\")+86400000"), evaluateTime("timeValue(\"12:34:56.789\")"));
+        assertEquals(Boolean.TRUE, evaluateBoolean("(timeValue(\"12:34:56.789\")+86400000) = timeValue(\"12:34:56.789\")"));
+        assertEquals(Boolean.TRUE, evaluateBoolean("(timeValue(\"01:34:56.789\")+86400000) < timeValue(\"12:34:56.789\")"));
     }
 
     public void testGE() throws Exception {
