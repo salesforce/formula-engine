@@ -10,7 +10,7 @@ import java.time.temporal.ChronoField;
  * @author stamm
  * @since 0.0.1
  */
-public interface FormulaTime {
+public interface FormulaTime extends Comparable<FormulaTime> {
     FormulaTime addHours(int hours);
     FormulaTime addMinutes(int minutes);
     FormulaTime addSeconds(int seconds);
@@ -50,6 +50,11 @@ public interface FormulaTime {
      * @return 0 - 999
      */
     int getMillisecond();
+    
+	@Override
+	default int compareTo(FormulaTime o) {
+		return Long.compare(getTimeInMillis(), o.getTimeInMillis());
+	}
     
     /**
      * Default implementation of FormulaTime that wraps java.time.LocalTime
@@ -122,5 +127,14 @@ public interface FormulaTime {
 		public String toString() {
 			return delegate.toString();
 		}
-    }
+
+		@Override
+		public int compareTo(FormulaTime o) {
+			if (o instanceof TimeWrapper) {
+				return delegate.compareTo(((TimeWrapper) o).delegate);
+			} else {
+				return Long.compare(getTimeInMillis(), o.getTimeInMillis());
+			}
+		}
+	}
 }
