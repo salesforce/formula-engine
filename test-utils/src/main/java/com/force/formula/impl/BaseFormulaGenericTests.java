@@ -832,7 +832,12 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		public void setError(String error) {
 			this.error = error;
 		}
-	}
+
+        @Override
+        public String toString() {
+            return "FormulaTestRunnable [name" + testCaseName + ",field=" + tcFieldInfo + "]";
+        }
+    }
 
 	/**
 	 * Allows pluggable testing of function evaluation through sql.  If you want fancier stuff, you can

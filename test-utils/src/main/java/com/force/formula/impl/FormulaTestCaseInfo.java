@@ -8,6 +8,7 @@ package com.force.formula.impl;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.force.formula.FormulaDataType;
 import com.force.formula.impl.BaseFormulaGenericTests.FormulaTestRunnable;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableMap;
@@ -191,6 +192,16 @@ public class FormulaTestCaseInfo {
     }
 
     /**
+     * Opposite of {@link com.force.formula.FormulaEngineHooks#getDataTypeByName(String)})
+     * In case info.getName() isn't the reverse
+     * @param info
+     * @return
+     */
+    protected String getTypeName(FormulaDataType info) {
+        return info.getName();
+    }
+    
+    /**
      * This method will create instances of FormulaTestRunnable with swapping
      * the data types of FormulaField, and reference fields. So, if TestCase is
      * number=number+number, then following testcases will be generated to run:
@@ -237,7 +248,7 @@ public class FormulaTestCaseInfo {
                 String newType = perm.get(i);
                 FieldDefinitionInfo fieldInfo = this.referenceFields.get(i).clone();
                 String fieldName = fieldInfo.getDevName();
-                fieldInfo.setDevName(fieldName.replaceAll(fieldInfo.getReturnType().getName(), newType));
+                fieldInfo.setDevName(fieldName.replaceAll(getTypeName(fieldInfo.getReturnType()), newType));
                 fieldInfo.setLabelName(fieldInfo.getDevName());
                 fieldInfo.setReturnType(testUtils.getDataType(newType));
                 newTcField.setFormula(newTcField.getFormula().replaceAll(fieldName, fieldInfo.getDevName()));

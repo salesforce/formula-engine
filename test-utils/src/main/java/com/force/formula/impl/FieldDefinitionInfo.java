@@ -260,4 +260,8 @@ public class FieldDefinitionInfo implements Cloneable {
         this.template = template;
     }
 
+    @Override
+    public String toString() {
+        return "FieldDefinitionInfo:" + devName + ":" + returnType ;
+    }
 }
