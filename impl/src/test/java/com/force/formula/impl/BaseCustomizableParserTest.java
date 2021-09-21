@@ -142,6 +142,11 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         }
 
         @Override
+		public FormulaSqlHooks getSqlStyle() {
+        	return FormulaSqlHooks.DefaultStyle.POSTGRES;
+		}
+
+		@Override
         public List<FormulaFieldReferenceInfo> getFieldPath(ContextualFormulaFieldInfo formulaFieldInfo,
                 boolean handlePersonContact) {
             List<FormulaFieldReferenceInfo> fieldPath = null;

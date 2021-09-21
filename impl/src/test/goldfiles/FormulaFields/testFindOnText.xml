@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testFindOnText">
    <testInstance formula="FIND(&quot;Text&quot;, customText1__c)" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>NVL(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>NVL(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>NVL(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>NVL(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)</JsOutput>
@@ -20,18 +16,22 @@
       <result>
       <inputvalues>[Text]</inputvalues>
          <formula>1</formula>
+         <sql>Error: ERROR: function instr(text, unknown, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 23</sql>
          <javascript>1</javascript>
          <javascriptLp>1</javascriptLp>
          <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function instr(text, unknown, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 23</sqlNullAsNull>
          <javascriptNullAsNull>1</javascriptNullAsNull>
          <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Hello]</inputvalues>
          <formula>0</formula>
+         <sql>Error: ERROR: function instr(text, unknown, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 23</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function instr(text, unknown, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 23</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>

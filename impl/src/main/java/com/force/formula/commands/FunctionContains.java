@@ -29,7 +29,7 @@ public class FunctionContains extends FormulaCommandInfoImpl {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         boolean filter = context.getProperty(FormulaContext.FORMULA_FILTER) != null;
-        String sql = "((" + args[1] + " IS NULL) OR (INSTR(" + (filter ? "NVL(" : "") + args[0] + (filter ? ",' ')" : "")+ ", " + args[1] + ") >= 1))";
+        String sql = "((" + args[1] + " IS NULL) OR (INSTR(" + (filter ? (getSqlHooks(context).sqlNvl() + "(") : "") + args[0] + (filter ? ",' ')" : "")+ ", " + args[1] + ") >= 1))";
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

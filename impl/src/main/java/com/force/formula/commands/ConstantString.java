@@ -39,12 +39,17 @@ public class ConstantString extends ConstantBase {
             // Escape single quotes
             value = CharMatcher.is('\'').replaceFrom(value, "''");
 
-            // Wrap with single quotes
-            StringBuilder result = new StringBuilder("'");
-            result.append(value);
-            result.append("'");
+            // Use NULL instead of '' for postgres
+			if (context.getSqlStyle().isPostgresStyle() && "".equals(value)) {
+				value = "NULL";
+			} else {
+				// Wrap with single quotes
+				StringBuilder result = new StringBuilder("'");
+				result.append(value);
+				result.append("'");
+				value = result.toString();
+			}
 
-            value = result.toString();
         }
 
         return new SQLPair(value, null);

@@ -28,15 +28,7 @@ public class FunctionRight extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        // Oracle allows {n,m} where m < 0 and treats it as {0,0} but Sayonara will throw an error, and
-        // this actually comes up in formula tests. The Sayonara sql would work on both, but it makes the sql longer
-        // so that is not allowed for Oracle
-        String sql;
-        if (FormulaCommandInfoImpl.shouldGeneratePsql(context)) {
-            sql = "REGEXP_SUBSTR("+args[0]+",'.{0,'||NVL2("+args[1]+",CASE WHEN "+args[1]+"<0 THEN 0 ELSE "+args[1]+" END,0)||'}$',1,1,'n')"; 
-        } else {
-            sql = "REGEXP_SUBSTR("+args[0]+",'.{0,'||NVL("+args[1]+",0)||'}$',1,1,'n')";
-        }
+        String sql = getSqlHooks(context).sqlRight(args[0], args[1]);
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

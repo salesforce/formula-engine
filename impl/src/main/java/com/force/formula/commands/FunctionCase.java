@@ -69,31 +69,31 @@ public class FunctionCase extends FormulaCommandInfoImpl implements FormulaComma
                             treatAsString, false);
                 }
                 valueNode = (FormulaAST)whenNode.getNextSibling();
-                sql.append(" WHEN ").append(condition).append(" THEN ").append(wrap(args[i + 1], valueNode, node.getDataType()));
+                sql.append(" WHEN ").append(condition).append(" THEN ").append(wrap(args[i + 1], valueNode, node.getDataType(), context));
             }
         } else {
             sql.append(args[0]);
             for (int i = 1; i < args.length - 2; i += 2) {
                 valueNode = (FormulaAST)valueNode.getNextSibling().getNextSibling();
-                sql.append(" WHEN ").append(args[i]).append(" THEN ").append(wrap(args[i + 1], valueNode, node.getDataType()));
+                sql.append(" WHEN ").append(args[i]).append(" THEN ").append(wrap(args[i + 1], valueNode, node.getDataType(), context));
             }
         }
         // the else node:
         valueNode = (FormulaAST)valueNode.getNextSibling();
-        sql.append(" ELSE ").append(wrap(args[args.length - 1], valueNode, node.getDataType())).append(" END");
+        sql.append(" ELSE ").append(wrap(args[args.length - 1], valueNode, node.getDataType(), context)).append(" END");
 
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql.toString(), guard);
     }
 
-    private String wrap(String expression, FormulaAST valueNode, Type resultDataType) {
+    private String wrap(String expression, FormulaAST valueNode, Type resultDataType, FormulaContext context) {
         // get the args type of the value node of the passed whenNode (for ELSE pass the previous node)
         Type argType = valueNode.getDataType();
         if (argType == ConstantNull.class && resultDataType != ConstantNull.class) {
             if ((resultDataType == FormulaDateTime.class) || (resultDataType == Date.class)) {
-                return "TO_DATE(NULL)";
+                return getSqlHooks(context).sqlNullToDate();
             } else if (resultDataType == BigDecimal.class) {
-                return "TO_NUMBER(NULL)";
+                return getSqlHooks(context).sqlNullToNumber();
             } else if (resultDataType == Boolean.class) {
                 return "0";     // for compare false
             } else {

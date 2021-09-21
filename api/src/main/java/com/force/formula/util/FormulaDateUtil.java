@@ -175,6 +175,15 @@ public final class FormulaDateUtil {
     	}
     }
     
+    /**
+     * Returns a string in ISO8601 format, with both date and time
+     * e.g. 2011-01-31T22:59:48Z
+     */
+    public static String formatDatetimeToISO8601(Date date) {
+        return ISO8601_FORMATTER.get().format(date);
+    }
+
+    
     public static Calendar translateCal(Calendar from, Calendar to, Date date, boolean toMidnight) {
         from.setTime(date);
                 to.set(from.get(Calendar.YEAR), from.get(Calendar.MONTH), from.get(Calendar.DAY_OF_MONTH));

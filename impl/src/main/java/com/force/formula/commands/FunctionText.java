@@ -163,7 +163,7 @@ public class FunctionText extends FormulaCommandInfoImpl implements FormulaComma
             
             if (clazz == FormulaTime.class)  {
                 // time values are represented by millisecs since midnight.  Divide by 1000 to get it of the form SSSSS.FF3
-                sqlBuilder.append("TO_CHAR(TO_TIMESTAMP(TO_CHAR(" + args[0] + "/1000, 'FM99990D999'), 'SSSSS.FF3'), 'HH24:mi:ss.FF3')");
+                sqlBuilder.append("TO_CHAR(TO_TIMESTAMP(TO_CHAR(" + args[0] + "/1000, 'FM99990D999'), '"+getSqlHooks(context).sqlSecsAndMsecs()+"'), '"+getSqlHooks(context).sqlHMSAndMsecs()+"')");
             }
             else  {
                 sqlBuilder.append("(TO_CHAR(");

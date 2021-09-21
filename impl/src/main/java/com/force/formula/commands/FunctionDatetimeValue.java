@@ -45,7 +45,7 @@ public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements For
             sql = args[0];
             guard = SQLPair.generateGuard(guards, null);
         } else {
-            sql = String.format("TO_DATE(%s, 'YYYY-MM-DD HH24:MI:SS')", args[0]);
+            sql = String.format(getSqlHooks(context).sqlToTimestampIso(), args[0]);
 
             FormulaAST child = (FormulaAST)node.getFirstChild();
             if (child != null && child.isLiteral() && child.getDataType() == String.class) {
@@ -64,7 +64,7 @@ public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements For
                         guards,
                         String
                             .format(
-                                 " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]\\d:[0-5]\\d$')/*  Adding some comments to keep the same length for this guard as it was before improving to more robust guard */",
+                            		getSqlHooks(context).sqlDatetimeValueGuard(),
                                 args[0]));
             }
         }

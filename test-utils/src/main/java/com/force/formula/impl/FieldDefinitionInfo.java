@@ -6,11 +6,10 @@ package com.force.formula.impl;
 import java.util.*;
 
 import com.force.formula.FormulaDataType;
-import com.force.formula.MockFormulaDataType;
 
 /**
  * @author syendluri
- * @since 140
+ * @since 0.1.0
  * This is a template class that holds all the required information related to Custom or Formula field.
  * The constructor needs
  */
@@ -180,7 +179,7 @@ public class FieldDefinitionInfo implements Cloneable {
     }
 
     public boolean isNumeric() {
-        return ((MockFormulaDataType)getReturnType()).isNumber();
+        return returnType != null && returnType.isNumber();
     }
 
     public void setPickListValues(List<String> values) {
@@ -261,4 +260,8 @@ public class FieldDefinitionInfo implements Cloneable {
         this.template = template;
     }
 
+    @Override
+    public String toString() {
+        return "FieldDefinitionInfo:" + devName + ":" + returnType ;
+    }
 }

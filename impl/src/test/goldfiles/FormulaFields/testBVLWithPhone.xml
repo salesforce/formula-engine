@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testBVLWithPhone">
    <testInstance formula="BLANKVALUE(customphone1__c,customtextarea1__c)" returntype="Text">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>NVL($!s0s!$.customphone1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>NVL($!s0s!$.customphone1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>NVL($!s0s!$.customphone1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>NVL($!s0s!$.customphone1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE($!s0s!$.customphone1__c, $!s0s!$.customtextarea1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE($!s0s!$.customphone1__c, $!s0s!$.customtextarea1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customphone1__c,context.record.customtextarea1__c)</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">$F.nvl(context.record.customphone1__c,context.record.customtextarea1__c)</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customphone1__c,context.record.customtextarea1__c)</JsOutput>
@@ -20,54 +16,66 @@
       <result>
       <inputvalues>[510-595-4547, Not Null]</inputvalues>
          <formula>510-595-4547</formula>
+         <sql>510-595-4547</sql>
          <javascript>510-595-4547</javascript>
          <javascriptLp>510-595-4547</javascriptLp>
          <formulaNullAsNull>510-595-4547</formulaNullAsNull>
+         <sqlNullAsNull>510-595-4547</sqlNullAsNull>
          <javascriptNullAsNull>510-595-4547</javascriptNullAsNull>
          <javascriptLpNullAsNull>510-595-4547</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1234567892, Not Null]</inputvalues>
          <formula>1234567892</formula>
+         <sql>1234567892</sql>
          <javascript>1234567892</javascript>
          <javascriptLp>1234567892</javascriptLp>
          <formulaNullAsNull>1234567892</formulaNullAsNull>
+         <sqlNullAsNull>1234567892</sqlNullAsNull>
          <javascriptNullAsNull>1234567892</javascriptNullAsNull>
          <javascriptLpNullAsNull>1234567892</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[011-91-40-23750513, Not Null]</inputvalues>
          <formula>011-91-40-23750513</formula>
+         <sql>011-91-40-23750513</sql>
          <javascript>011-91-40-23750513</javascript>
          <javascriptLp>011-91-40-23750513</javascriptLp>
          <formulaNullAsNull>011-91-40-23750513</formulaNullAsNull>
+         <sqlNullAsNull>011-91-40-23750513</sqlNullAsNull>
          <javascriptNullAsNull>011-91-40-23750513</javascriptNullAsNull>
          <javascriptLpNullAsNull>011-91-40-23750513</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, Is Null]</inputvalues>
          <formula>Is Null</formula>
+         <sql>Is Null</sql>
          <javascript>Is Null</javascript>
          <javascriptLp>Is Null</javascriptLp>
          <formulaNullAsNull>Is Null</formulaNullAsNull>
+         <sqlNullAsNull>Is Null</sqlNullAsNull>
          <javascriptNullAsNull>Is Null</javascriptNullAsNull>
          <javascriptLpNullAsNull>Is Null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[email@email.com, Not Null]</inputvalues>
          <formula>email@email.com</formula>
+         <sql>email@email.com</sql>
          <javascript>email@email.com</javascript>
          <javascriptLp>email@email.com</javascriptLp>
          <formulaNullAsNull>email@email.com</formulaNullAsNull>
+         <sqlNullAsNull>email@email.com</sqlNullAsNull>
          <javascriptNullAsNull>email@email.com</javascriptNullAsNull>
          <javascriptLpNullAsNull>email@email.com</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[23457699 x233,  Not Null]</inputvalues>
          <formula>23457699 x233</formula>
+         <sql>23457699 x233</sql>
          <javascript>23457699 x233</javascript>
          <javascriptLp>23457699 x233</javascriptLp>
          <formulaNullAsNull>23457699 x233</formulaNullAsNull>
+         <sqlNullAsNull>23457699 x233</sqlNullAsNull>
          <javascriptNullAsNull>23457699 x233</javascriptNullAsNull>
          <javascriptLpNullAsNull>23457699 x233</javascriptLpNullAsNull>
       </result>

@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testExpUsesLen">
    <testInstance formula="EXP(LEN(customtext1__c))" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>EXP(NVL(LENGTH($!s0s!$.customtext1__c),0)::numeric(40,20))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>EXP(NVL(LENGTH($!s0s!$.customtext1__c),0)::numeric(40,20))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>EXP(NVL(LENGTH($!s0s!$.customtext1__c),0))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>EXP(NVL(LENGTH($!s0s!$.customtext1__c),0))</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>EXP(COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric(40,20))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>EXP(COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric(40,20))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.exp((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">$F.Decimal.exp((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">Math.exp(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))</JsOutput>
@@ -20,99 +16,121 @@
       <result>
       <inputvalues>[This is too good to be true]</inputvalues>
          <formula>532048240601.79865</formula>
+         <sql>532048240601.79861668374730434118000000000000</sql>
          <javascript>532048240601.79865</javascript>
          <javascriptLp>532048240601.798645</javascriptLp>
          <formulaNullAsNull>532048240601.79865</formulaNullAsNull>
+         <sqlNullAsNull>532048240601.79861668374730434118000000000000</sqlNullAsNull>
          <javascriptNullAsNull>532048240601.79865</javascriptNullAsNull>
          <javascriptLpNullAsNull>532048240601.798645</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[making a way]</inputvalues>
          <formula>162754.79141900392</formula>
+         <sql>162754.79141900392080800520000000000000</sql>
          <javascript>162754.79141900392</javascript>
          <javascriptLp>162754.791419</javascriptLp>
          <formulaNullAsNull>162754.79141900392</formulaNullAsNull>
+         <sqlNullAsNull>162754.79141900392080800520000000000000</sqlNullAsNull>
          <javascriptNullAsNull>162754.79141900392</javascriptNullAsNull>
          <javascriptLpNullAsNull>162754.791419</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>1.0</formula>
+         <sql>1.00000000000000000000000000000000</sql>
          <javascript>1</javascript>
          <javascriptLp>1</javascriptLp>
          <formulaNullAsNull>1.0</formulaNullAsNull>
+         <sqlNullAsNull>1.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1</javascriptNullAsNull>
          <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[blunder]</inputvalues>
          <formula>1096.6331584284585</formula>
+         <sql>1096.63315842845859926372000000000000</sql>
          <javascript>1096.6331584284585</javascript>
          <javascriptLp>1096.6331584</javascriptLp>
          <formulaNullAsNull>1096.6331584284585</formulaNullAsNull>
+         <sqlNullAsNull>1096.63315842845859926372000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1096.6331584284585</javascriptNullAsNull>
          <javascriptLpNullAsNull>1096.6331584</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[makesense]</inputvalues>
          <formula>8103.083927575384</formula>
+         <sql>8103.08392757538400771000000000000000</sql>
          <javascript>8103.083927575384</javascript>
          <javascriptLp>8103.0839276</javascriptLp>
          <formulaNullAsNull>8103.083927575384</formulaNullAsNull>
+         <sqlNullAsNull>8103.08392757538400771000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>8103.083927575384</javascriptNullAsNull>
          <javascriptLpNullAsNull>8103.0839276</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[does not make sense]</inputvalues>
          <formula>178482300.96318725</formula>
+         <sql>178482300.96318726084491003379000000000000</sql>
          <javascript>178482300.96318725</javascript>
          <javascriptLp>178482300.9631872</javascriptLp>
          <formulaNullAsNull>178482300.96318725</formulaNullAsNull>
+         <sqlNullAsNull>178482300.96318726084491003379000000000000</sqlNullAsNull>
          <javascriptNullAsNull>178482300.96318725</javascriptNullAsNull>
          <javascriptLpNullAsNull>178482300.9631872</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[working my way]</inputvalues>
          <formula>1202604.2841647768</formula>
+         <sql>1202604.28416477677774923677000000000000</sql>
          <javascript>1202604.2841647768</javascript>
          <javascriptLp>1202604.2841648</javascriptLp>
          <formulaNullAsNull>1202604.2841647768</formulaNullAsNull>
+         <sqlNullAsNull>1202604.28416477677774923677000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1202604.2841647768</javascriptNullAsNull>
          <javascriptLpNullAsNull>1202604.2841648</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[e]</inputvalues>
          <formula>2.718281828459045</formula>
+         <sql>2.71828182845904523536000000000000</sql>
          <javascript>2.718281828459045</javascript>
          <javascriptLp>2.7182818</javascriptLp>
          <formulaNullAsNull>2.718281828459045</formulaNullAsNull>
+         <sqlNullAsNull>2.71828182845904523536000000000000</sqlNullAsNull>
          <javascriptNullAsNull>2.718281828459045</javascriptNullAsNull>
          <javascriptLpNullAsNull>2.7182818</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
          <formula>499632737950757800000000000000000000000000000000000000000000000000000000000</formula>
+         <sql>499632737950757823747999922914408210606474359768980825054696547811875368826.51377096244996338986000000000000</sql>
          <javascript>499632737950757800000000000000000000000000000000000000000000000000000000000</javascript>
          <javascriptLp>499632737950757811725684056750952295722658193682706168468995267143252574208</javascriptLp>
          <formulaNullAsNull>499632737950757800000000000000000000000000000000000000000000000000000000000</formulaNullAsNull>
+         <sqlNullAsNull>499632737950757823747999922914408210606474359768980825054696547811875368826.51377096244996338986000000000000</sqlNullAsNull>
          <javascriptNullAsNull>499632737950757800000000000000000000000000000000000000000000000000000000000</javascriptNullAsNull>
          <javascriptLpNullAsNull>499632737950757811725684056750952295722658193682706168468995267143252574208</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
          <formula>38310080007165770000000</formula>
+         <sql>38310080007165768493035.69548786199389870560000000000000</sql>
          <javascript>38310080007165770000000</javascript>
          <javascriptLp>38310080007165769154560</javascriptLp>
          <formulaNullAsNull>38310080007165770000000</formulaNullAsNull>
+         <sqlNullAsNull>38310080007165768493035.69548786199389870560000000000000</sqlNullAsNull>
          <javascriptNullAsNull>38310080007165770000000</javascriptNullAsNull>
          <javascriptLpNullAsNull>38310080007165769154560</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
          <formula>5685719999335932000000000</formula>
+         <sql>5685719999335932222640348.82063325330337215833000000000000</sql>
          <javascript>5685719999335932000000000</javascript>
          <javascriptLp>5685719999335932014624768</javascriptLp>
          <formulaNullAsNull>5685719999335932000000000</formulaNullAsNull>
+         <sqlNullAsNull>5685719999335932222640348.82063325330337215833000000000000</sqlNullAsNull>
          <javascriptNullAsNull>5685719999335932000000000</javascriptNullAsNull>
          <javascriptLpNullAsNull>5685719999335932014624768</javascriptLpNullAsNull>
       </result>

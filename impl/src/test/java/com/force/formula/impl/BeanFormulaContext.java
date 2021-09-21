@@ -171,6 +171,7 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
             } else {
                 formulaSource = null;
             }
+            int scale = annotation != null ? annotation.scale() : 0;
 
             Entity[] fks = null;
             if (dataType == MockFormulaDataType.ENTITYID) {
@@ -179,12 +180,12 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
                 } catch (ExecutionException x) {
                 }
             }
-            return new BeanField(entity, desc, dataType, formulaSource, fks);
+            return new BeanField(entity, desc, dataType, formulaSource, fks, scale);
         }
         
         BeanField(Entity entity, FeatureDescriptor desc, FormulaDataType dataType, String formulaSource,
-                Entity[] foreignKeys) {
-            super(entity, desc.getName(), dataType, formulaSource, foreignKeys);
+                Entity[] foreignKeys, int scale) {
+            super(entity, desc.getName(), dataType, formulaSource, foreignKeys, scale);
             this.desc = desc;
         }
         
@@ -208,6 +209,11 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
         }
 
         @Override
+		public int getScale() {
+			return 0;
+		}
+
+		@Override
         public String toString() {
             return "BeanField[" + getEntityInfo().getName() + "." + this.getName() + "]";
         }
@@ -218,6 +224,7 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
     public @interface BeanFormulaType {
         MockFormulaDataType value();
         String formulaSource() default "";
+        int scale() default 0;
     }
     
     static FormulaDataType getTypeFromJava(Class<?> c, Method m) {

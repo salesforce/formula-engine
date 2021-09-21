@@ -6,9 +6,10 @@ package com.force.formula;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Provides access to the set of hooks
@@ -59,11 +60,21 @@ public class FormulaEngine {
         }
     }
 
+    // If the hooks are overridden on FormulaValidationHooks, you need this to call the overridden method instead of the FormulaEngineHooks
+    private final static AtomicReference<Class<?>> hooksClassRef = new AtomicReference<>();
+    private static Set<String> VALIDATION_OVERRIDES = ImmutableSet.of("getSqlStyle");
+    
+    // This calls the default handler on an interface, which is harder than it probably should be.
     private static InvocationHandler call_default_handler = (proxy, method, args) -> {
         if (method.isDefault()) {
             final Class<?> declaringClass = method.getDeclaringClass();
             if (CONSTRUCTOR != null) {
                 return CONSTRUCTOR.newInstance(declaringClass, MethodHandles.Lookup.PRIVATE).unreflectSpecial(method, declaringClass).bindTo(proxy)
+                        .invokeWithArguments(args);
+            } else if (VALIDATION_OVERRIDES.contains(method.getName()) && hooksClassRef.get() != null) {
+                return MethodHandles.lookup()
+                        .findSpecial(hooksClassRef.get(), method.getName(), MethodType.methodType(method.getReturnType(), method.getParameterTypes()), hooksClassRef.get())
+                        .bindTo(proxy)
                         .invokeWithArguments(args);
             } else {
                 return MethodHandles.lookup()
@@ -87,7 +98,9 @@ public class FormulaEngine {
         List<Class<?>> hooksClasses = new ArrayList<>();
         hooksClasses.add(FormulaEngineHooks.class);
         try {
-            hooksClasses.add(Class.forName("com.force.formula.impl.FormulaValidationHooks"));
+        	Class<?> validationHooks = Class.forName("com.force.formula.impl.FormulaValidationHooks");
+            hooksClasses.add(validationHooks);
+            hooksClassRef.set(validationHooks);
         } catch (ClassNotFoundException e1) {
         	boolean isInTest = false;
 			for (StackTraceElement element : Thread.currentThread().getStackTrace()) {

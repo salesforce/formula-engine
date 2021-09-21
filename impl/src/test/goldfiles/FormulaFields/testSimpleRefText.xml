@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testSimpleRefText">
    <testInstance formula="customText1__c" returntype="Text">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>$!s0s!$.customText1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>$!s0s!$.customText1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>$!s0s!$.customText1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>$!s0s!$.customText1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customText1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customText1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">context.record.customText1__c</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">context.record.customText1__c</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">context.record.customText1__c</JsOutput>
@@ -20,99 +16,121 @@
       <result>
       <inputvalues>[This is too good to be true]</inputvalues>
          <formula>This is too good to be true</formula>
+         <sql>This is too good to be true</sql>
          <javascript>This is too good to be true</javascript>
          <javascriptLp>This is too good to be true</javascriptLp>
          <formulaNullAsNull>This is too good to be true</formulaNullAsNull>
+         <sqlNullAsNull>This is too good to be true</sqlNullAsNull>
          <javascriptNullAsNull>This is too good to be true</javascriptNullAsNull>
          <javascriptLpNullAsNull>This is too good to be true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[making a way]</inputvalues>
          <formula>making a way</formula>
+         <sql>making a way</sql>
          <javascript>making a way</javascript>
          <javascriptLp>making a way</javascriptLp>
          <formulaNullAsNull>making a way</formulaNullAsNull>
+         <sqlNullAsNull>making a way</sqlNullAsNull>
          <javascriptNullAsNull>making a way</javascriptNullAsNull>
          <javascriptLpNullAsNull>making a way</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[blunder]</inputvalues>
          <formula>blunder</formula>
+         <sql>blunder</sql>
          <javascript>blunder</javascript>
          <javascriptLp>blunder</javascriptLp>
          <formulaNullAsNull>blunder</formulaNullAsNull>
+         <sqlNullAsNull>blunder</sqlNullAsNull>
          <javascriptNullAsNull>blunder</javascriptNullAsNull>
          <javascriptLpNullAsNull>blunder</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[makesense]</inputvalues>
          <formula>makesense</formula>
+         <sql>makesense</sql>
          <javascript>makesense</javascript>
          <javascriptLp>makesense</javascriptLp>
          <formulaNullAsNull>makesense</formulaNullAsNull>
+         <sqlNullAsNull>makesense</sqlNullAsNull>
          <javascriptNullAsNull>makesense</javascriptNullAsNull>
          <javascriptLpNullAsNull>makesense</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[does not make sense]</inputvalues>
          <formula>does not make sense</formula>
+         <sql>does not make sense</sql>
          <javascript>does not make sense</javascript>
          <javascriptLp>does not make sense</javascriptLp>
          <formulaNullAsNull>does not make sense</formulaNullAsNull>
+         <sqlNullAsNull>does not make sense</sqlNullAsNull>
          <javascriptNullAsNull>does not make sense</javascriptNullAsNull>
          <javascriptLpNullAsNull>does not make sense</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[working my way]</inputvalues>
          <formula>working my way</formula>
+         <sql>working my way</sql>
          <javascript>working my way</javascript>
          <javascriptLp>working my way</javascriptLp>
          <formulaNullAsNull>working my way</formulaNullAsNull>
+         <sqlNullAsNull>working my way</sqlNullAsNull>
          <javascriptNullAsNull>working my way</javascriptNullAsNull>
          <javascriptLpNullAsNull>working my way</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[e]</inputvalues>
          <formula>e</formula>
+         <sql>e</sql>
          <javascript>e</javascript>
          <javascriptLp>e</javascriptLp>
          <formulaNullAsNull>e</formulaNullAsNull>
+         <sqlNullAsNull>e</sqlNullAsNull>
          <javascriptNullAsNull>e</javascriptNullAsNull>
          <javascriptLpNullAsNull>e</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
          <formula>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</formula>
+         <sql>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</sql>
          <javascript>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</javascript>
          <javascriptLp>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</javascriptLp>
          <formulaNullAsNull>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</formulaNullAsNull>
+         <sqlNullAsNull>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</sqlNullAsNull>
          <javascriptNullAsNull>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</javascriptNullAsNull>
          <javascriptLpNullAsNull>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
          <formula>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</formula>
+         <sql>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</sql>
          <javascript>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</javascript>
          <javascriptLp>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</javascriptLp>
          <formulaNullAsNull>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</formulaNullAsNull>
+         <sqlNullAsNull>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</sqlNullAsNull>
          <javascriptNullAsNull>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</javascriptNullAsNull>
          <javascriptLpNullAsNull>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
          <formula>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</formula>
+         <sql>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</sql>
          <javascript>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</javascript>
          <javascriptLp>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</javascriptLp>
          <formulaNullAsNull>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</formulaNullAsNull>
+         <sqlNullAsNull>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</sqlNullAsNull>
          <javascriptNullAsNull>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</javascriptNullAsNull>
          <javascriptLpNullAsNull>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</javascriptLpNullAsNull>
       </result>

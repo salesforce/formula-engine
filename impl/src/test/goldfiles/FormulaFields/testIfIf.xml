@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testIfIf">
    <testInstance formula="if( if (customtext1__c=customtext2__c, true, false),  &quot;true&quot;, &quot;false&quot;)" returntype="Text">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>CASE WHEN (CASE WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN 1 ELSE 0 END) = 1 THEN 'true' ELSE 'false' END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>CASE WHEN (CASE WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN 1 ELSE 0 END) = 1 THEN 'true' ELSE 'false' END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>CASE WHEN (CASE WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN 1 ELSE 0 END) = 1 THEN 'true' ELSE 'false' END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>CASE WHEN (CASE WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN 1 ELSE 0 END) = 1 THEN 'true' ELSE 'false' END</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (CASE WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN 1 ELSE 0 END) = 1 THEN 'true' ELSE 'false' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (CASE WHEN (nvl($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')=nvl($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN 1 ELSE 0 END) = 1 THEN 'true' ELSE 'false' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">((($F.noe(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),$F.nvl(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),'')+'x'))==($F.noe(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),$F.nvl(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),'')+'x'))?true:false)?&quot;true&quot;:&quot;false&quot;)</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">((($F.noe(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),$F.nvl(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),'')+'x'))==($F.noe(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),$F.nvl(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),'')+'x'))?true:false)?&quot;true&quot;:&quot;false&quot;)</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">((($F.noe(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),$F.nvl(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),'')+'x'))==($F.noe(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),$F.nvl(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),'')+'x'))?true:false)?&quot;true&quot;:&quot;false&quot;)</JsOutput>
@@ -20,63 +16,77 @@
       <result>
       <inputvalues>[aaaa, aaaa]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, bbbb]</inputvalues>
          <formula>false</formula>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, ]</inputvalues>
          <formula>false</formula>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, bbbb]</inputvalues>
          <formula>false</formula>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, aaaa]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, aaaa]</inputvalues>
          <formula>true</formula>
+         <sql>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
          <javascript>true</javascript>
          <javascriptLp>true</javascriptLp>
          <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function nvl(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sqlNullAsNull>
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>

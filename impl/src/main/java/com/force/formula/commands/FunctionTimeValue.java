@@ -45,11 +45,11 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             guard = SQLPair.generateGuard(guards, null);
         }
         else if (inputDataType == FormulaDateTime.class) {
-            sql =  String.format("TO_NUMBER(TO_CHAR(%s, 'SSSSS')) * 1000", args[0]); // date does not have millisec info
+            sql =  String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(%s, '"+getSqlHooks(context).sqlSecsInDay()+"')", args[0])) + " * 1000"; // date does not have millisec info
             guard = SQLPair.generateGuard(guards, null);
         } 
         else {
-            sql= String.format("TO_NUMBER(TO_CHAR(TO_TIMESTAMP(%s, 'HH24:mi:ss.FF'), 'SSSSS.FF3')) * 1000", args[0]);
+            sql=  String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(TO_TIMESTAMP(%s, '"+getSqlHooks(context).sqlHMSAndMsecs()+"'),'"+getSqlHooks(context).sqlSecsAndMsecs()+"')", args[0])) + " * 1000" ;
 
             FormulaAST child = (FormulaAST)node.getFirstChild();
             if (child != null && child.isLiteral() && child.getDataType() == String.class) {
@@ -67,7 +67,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
                         .generateGuard(
                                 guards,
                                 String.format(
-                                        " NOT REGEXP_LIKE (%s, '^([01]\\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\\.[0-9][0-9][0-9]$') /*comments to keep size */ ",
+                                		getSqlHooks(context).sqlTimeValueGuard(),
                                         args[0]));
             }
         }

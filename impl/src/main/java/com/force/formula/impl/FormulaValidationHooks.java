@@ -65,6 +65,15 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     static FormulaValidationHooks get() {
         return (FormulaValidationHooks)FormulaEngine.getHooks();
     }
+    
+	/**
+	 * @return true, if the SQL generated should be in the postgres style, instead of the
+	 * oracle style.  Mostly around casts
+	 */
+    @Override
+	default FormulaSqlStyle getSqlStyle() {
+		return FormulaSqlHooks.DefaultStyle.POSTGRES;
+	}
 
     /**
      * Validate that the given command isn't disallowed in the current formula context.
@@ -500,54 +509,6 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
         }
     }
     
-    /**
-     * PSQL doesn't include a locale-specific upper function.  This allows the override of that function
-     * if you have installed one locally, like icu_transform.
-     * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
-     */
-    default String psqlUpperCaseWithLocaleFormat(boolean hasLocaleOverride) {
-        // return "sfdc_util.icu_upper(%s,%s)";
-        return "UPPER(%s)";
-    }
-
-    /**
-     * PSQL doesn't include a locale-specific lower function.  This allows the override of that function 
-     * if you have one locally, like icu_transform
-     * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
-     */
-    default String psqlLowerCaseWithLocaleFormat(boolean hasLocaleOverride) {
-        // return "sfdc_util.icu_lower(%s,%s)";
-        return "LOWER(%s)";
-    }
-
-    /**
-     * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
-     * missing from psql, but available in oracle.  This allows you to try and fix that.
-     */
-    default String psqlSubtractTwoTimestamps() {
-        // return "sfdc_util.ts_minus_ts(%s,%s)";
-        return "(EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))";
-    }
-    
-    
-    /**
-     * @return the the date.  Overridable in case you want to change the timezone functionality with ::timestamp.
-     */
-    default String psqlNow() {
-        // return "SFDC_DATE()";
-        return "NOW()";
-    }
-    
-    /**
-     * @return the the current milliseconds of the day suitable.  You may want to use ::time instead, so overridable
-     */
-    default String psqlTimeNow() {
-        // return "EXTRACT(EPOCH FROM AGE(SFDC_TIMESTAMP(), DATE_TRUNC('day', SFDC_TIMESTAMP())))::BIGINT::NUMERIC";
-        return "EXTRACT(EPOCH FROM AGE(NOW()::timestamp, DATE_TRUNC('day', NOW()::timestamp)))::BIGINT::NUMERIC";
-    }
-    
-    
-
     /**
      * @return the URL encoding to use when rendering static markup from a template.
      */

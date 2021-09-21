@@ -33,7 +33,7 @@ public class FunctionWeekday extends FormulaCommandInfoImpl {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
     	String sql;
-        if (FormulaCommandInfoImpl.shouldGeneratePsql(context)) {
+        if (getSqlHooks(context).isPostgresStyle()) {
         	sql = "1+EXTRACT (DOW FROM " + args[0] + ")::numeric";
         } else {
         	sql = "TO_NUMBER(TO_CHAR(" + args[0] + ",'d'))";

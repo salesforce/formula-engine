@@ -5,8 +5,8 @@
  */
 package com.force.formula.commands;
 
-import com.force.formula.*;
-import com.force.formula.impl.FormulaInfoFactory;
+import com.force.formula.FormulaDataType;
+import com.force.formula.MockFormulaType;
 
 /**
  * Simple tests of javascript generation of built-in functions

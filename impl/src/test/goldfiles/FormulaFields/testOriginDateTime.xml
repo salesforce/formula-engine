@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testOriginDateTime">
    <testInstance formula="$System.originDateTime" returntype="DateTime">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>TO_DATE('01-01-1900', 'DD-MM-YYYY')</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>TO_DATE('01-01-1900', 'DD-MM-YYYY')</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>TO_DATE('01-01-1900', 'DD-MM-YYYY')</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>TO_DATE('01-01-1900', 'DD-MM-YYYY')</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE('01-01-1900', 'DD-MM-YYYY')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE('01-01-1900', 'DD-MM-YYYY')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">($F.anl([$System.OriginDateTime])?null:new Date($System.OriginDateTime + ' GMT'))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">($F.anl([$System.OriginDateTime])?null:new Date($System.OriginDateTime + ' GMT'))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">($F.anl([$System.OriginDateTime])?null:new Date($System.OriginDateTime + ' GMT'))</JsOutput>
@@ -20,9 +16,11 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>Mon Jan 01 00:00:00 GMT 1900</formula>
+         <sql>1900-01-01 00:00:00.0</sql>
          <javascript>Mon Jan 01 00:00:00 GMT 1900</javascript>
          <javascriptLp>Mon Jan 01 00:00:00 GMT 1900</javascriptLp>
          <formulaNullAsNull>Mon Jan 01 00:00:00 GMT 1900</formulaNullAsNull>
+         <sqlNullAsNull>1900-01-01 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Mon Jan 01 00:00:00 GMT 1900</javascriptNullAsNull>
          <javascriptLpNullAsNull>Mon Jan 01 00:00:00 GMT 1900</javascriptLpNullAsNull>
       </result>

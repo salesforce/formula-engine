@@ -42,7 +42,7 @@ public class FunctionNullValue extends FormulaCommandInfoImpl implements Formula
             sql = args[0];
             guard = guards[0];
         } else {
-            sql = "NVL(" + args[0] + ", " + args[1] + ")";
+            sql = getSqlHooks(context).sqlNvl() + "(" + args[0] + ", " + args[1] + ")";
             guard = SQLPair.generateGuard(guards, null);
         }
         return new SQLPair(sql, guard);

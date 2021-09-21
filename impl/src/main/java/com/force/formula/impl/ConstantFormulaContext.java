@@ -1,6 +1,7 @@
 package com.force.formula.impl;
 
 import com.force.formula.*;
+import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.util.NullFormulaContext;
 
 /**
@@ -66,8 +67,8 @@ public class ConstantFormulaContext extends NullFormulaContext {
     }
 
     @Override
-    public boolean isSqlPostgresStyle() {
-        return outerContext.isSqlPostgresStyle();
+    public FormulaSqlStyle getSqlStyle() {
+        return outerContext.getSqlStyle();
     } 
 
 }

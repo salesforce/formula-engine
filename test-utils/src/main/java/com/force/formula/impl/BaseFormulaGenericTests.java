@@ -1,12 +1,13 @@
 /*
  * Created on Mar 1, 2005
- * Copyright, 1999-2010, salesforce.com
+ * Copyright, 1999-2021, salesforce.com
  * All Rights Reserved Company Confidential
  */
 package com.force.formula.impl;
 
 import java.io.*;
 import java.math.*;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,7 +37,7 @@ import junit.framework.TestSuite;
  * todo ValidationGenericTests should also use this base class
  *
  * @author syendluri, dchasman, aballard
- * @since 140
+ * @since 0.1.0
  */
 abstract public class BaseFormulaGenericTests extends TestSuite {
 
@@ -47,6 +48,10 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 	IOException {
 		super(owner);
 		createTestCases(this, getTestCaseLocation(), "Positive Tests", true, owner, testLabelsAttribute, swapResultTypes);
+	}
+	
+	protected FormulaTestUtils getTestUtils() {
+	    return new FormulaTestUtils();
 	}
 	
 	/**
@@ -75,7 +80,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 		// Get testcases to run, for each entity.
 		TestSuite entitySuite = null;
-		List<FormulaTestCaseInfo> testCases = FormulaTestUtils.getTestCases(xmlTestDefFile, null, owner, testLabelsAttribute, swapResultTypes);
+		List<FormulaTestCaseInfo> testCases = getTestUtils().getTestCases(xmlTestDefFile, null, owner, testLabelsAttribute, swapResultTypes);
 		if (testCases != null) {
 			for (FormulaTestCaseInfo testCase : testCases) {
 
@@ -137,6 +142,10 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 		FormulaTestCaseInfo getTestCaseInfo() {
 			return testCase;
+		}
+		
+		protected BaseFormulaGenericTests getSuite() {
+			return this.suite;
 		}
 
 		@Override
@@ -224,7 +233,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 						throw new AssertionError("Fix test for " + fieldInfo.getDevName());
 					}
 					String name = fieldInfo.getDevName() + "__c";
-					fields.put(name, new MapFieldInfo(name, fieldInfo.getReturnType(), fieldInfo.getFormula()));  // Use force.com naming
+					fields.put(name, new MapFieldInfo(name, fieldInfo.getReturnType(), fieldInfo.getFormula(), fieldInfo.getScale()));  // Use force.com naming
 
 				}
 				this.mapEntity = new MapEntity("test", fields.values());
@@ -243,7 +252,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 			boolean testPass = true;
 
-			List<FormulaTestRunnable> instances = testCase.getRunnables();
+			List<FormulaTestRunnable> instances = testCase.getRunnables(suite.getTestUtils());
 			for (FormulaTestRunnable instance : instances) {
 				try {
 					FieldDefinitionInfo fieldInfo = instance.getTcFieldInfo();
@@ -288,7 +297,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 			jestDataModel.testSuiteName = testCase.getName();
 
 			String firstValueMismatchMessage = null;
-			List<FormulaTestRunnable> instances = testCase.getRunnables();
+			List<FormulaTestRunnable> instances = testCase.getRunnables(suite.getTestUtils());
 
 			for (FormulaTestRunnable instance : instances) {
 				try {
@@ -378,10 +387,8 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * @throws Exception 
 		 */
 		protected void outputEvalutionExpressions(FieldDefinitionInfo fieldInfo, PrintStream xmlOut, JestDataModel jestDataModel) throws Exception {
-			printOutputSql(fieldInfo, xmlOut, true, true);
-			printOutputSql(fieldInfo, xmlOut, false, true);
-			printOutputSql(fieldInfo, xmlOut, true, false);
-			printOutputSql(fieldInfo, xmlOut, false, false);
+			printOutputSql(fieldInfo, xmlOut, true);
+			printOutputSql(fieldInfo, xmlOut, false);
 			printOutputJavascript(fieldInfo, xmlOut, true, false, jestDataModel);
 			printOutputJavascript(fieldInfo, xmlOut, true, true, jestDataModel);
 			printOutputJavascript(fieldInfo, xmlOut, false, false, jestDataModel);
@@ -487,8 +494,8 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		/**
 		 * Get formula sizes for both SQL and guard and print them in the results file.
 		 *
-		 * These formula sizes are evaluated for Postgres Oracle and therefore different for
-		 * Sayonara DB. Please talk to Declarative App Builder team for further assistance.
+		 * These formula sizes are evaluated for Oracle and therefore different for
+		 * Postgres DB. Please talk to Declarative App Builder team for further assistance.
 		 */
 		private void printOutputJavascript(FieldDefinitionInfo fieldInfo, PrintStream xmlOut, boolean highPrec, boolean nullAsNull, JestDataModel jestDataModel) throws Exception {
 			FormulaTypeSpec type = nullAsNull ? MockFormulaType.JAVASCRIPT_NULLASNULL: MockFormulaType.JAVASCRIPT;
@@ -512,27 +519,23 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		/**
 		 * Get formula sizes for both SQL and guard and print them in the results file.
 		 *
-		 * These formula sizes are evaluated for Postgres Oracle and therefore different for
-		 * Sayonara DB. Please talk to Declarative App Builder team for further assistance.
+		 * These formula sizes are evaluated for Oracle and therefore different for
+		 * Postgres DB. Please talk to Declarative App Builder team for further assistance.
 		 */
-		private void printOutputSql(FieldDefinitionInfo fieldInfo, PrintStream xmlOut, boolean nullAsNull, final boolean psql) throws Exception {
+		private void printOutputSql(FieldDefinitionInfo fieldInfo, PrintStream xmlOut, boolean nullAsNull) throws Exception {
 			FormulaTypeSpec type = nullAsNull ? MockFormulaType.DEFAULT: MockFormulaType.NULLASNULL;
-			FormulaRuntimeContext formulaContext =  new MapFormulaContext(super.setupMockContext(fieldInfo.getReturnType()), mapEntity, type, null) {
-				@Override
-			    public boolean isSqlPostgresStyle() {
-			    	return psql;
-			    }
-			};
+			FormulaRuntimeContext formulaContext =  new MapFormulaContext(super.setupMockContext(fieldInfo.getReturnType()), mapEntity, type, null);
 			RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(type, formulaContext, fieldInfo.getFormula());
 			FormulaWithSql formula = (FormulaWithSql) formulaInfo.getFormula();
 
-			xmlOut.println("    <SqlOutput psql=\""+psql+"\" nullAsNull=\""+nullAsNull+"\">");
+			xmlOut.println("    <SqlOutput nullAsNull=\""+nullAsNull+"\">");
 			xmlOut.print("       <Sql>");
 			xmlOut.print(FormulaTextUtil.escapeToXml(formula.getSQLRaw()));
-			xmlOut.print("</Sql><Guard>");
+			xmlOut.println("</Sql>");
+			xmlOut.print("       <Guard>");
 			xmlOut.print(FormulaTextUtil.escapeToXml(formula.getGuard()));
-			xmlOut.println("       </Guard>");
-			xmlOut.println("</SqlOutput>");
+			xmlOut.println("</Guard>");
+			xmlOut.println("    </SqlOutput>");
 		}
 
 
@@ -822,12 +825,45 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 			this.isSwapped = swapped;
 		}
 
-		public String getErrot() {
+		public String getError() {
 			return this.error;
 		}
 
 		public void setError(String error) {
 			this.error = error;
+		}
+
+        @Override
+        public String toString() {
+            return "FormulaTestRunnable [name" + testCaseName + ",field=" + tcFieldInfo + "]";
+        }
+    }
+
+	/**
+	 * Allows pluggable testing of function evaluation through sql.  If you want fancier stuff, you can
+	 * override the whole class.
+	 * @since 0.1.0
+	 */ 
+	public static abstract class DbTester implements AutoCloseable {
+		public DbTester() throws IOException {
+		}
+
+		/**
+		 * Evaluate the sql for the formula using sql
+		 * @param formulaContext the formula context
+		 * @param entityObject an object representing the values to use for the particular row.  You may want to
+		 * insert this row into the DB when doing the valuation to make the DB substitution easier
+		 * @param formulaSource the source of the formula
+		 * @param nullAsNull whether null is treated as null or as blank/0
+		 * @return the result of evaluating the formula using a sql engine
+		 * @throws SQLException if there is an issue evaluating the sql
+		 * @throws FormulaException if there is an issue evaluating the formula
+		 */
+		public abstract String evaluateSql(FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource, boolean nullAsNull) throws IOException, SQLException, FormulaException;
+
+		// Support close, if necessary.
+		@Override
+		public void close() throws Exception {
 		}
 	}
 

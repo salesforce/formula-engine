@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testFloorUsesCase">
    <testInstance formula="FLOOR(CASE(customdate1__c,customdate2__c,customnumber1__c,customdate3__c,customnumber2__c,customnumber3__c))" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>CASE WHEN CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN NVL($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN NVL($!s0s!$.customnumber2__c, 0) ELSE NVL($!s0s!$.customnumber3__c, 0) END&gt;=0 THEN FLOOR(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN NVL($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN NVL($!s0s!$.customnumber2__c, 0) ELSE NVL($!s0s!$.customnumber3__c, 0) END,33)) ELSE CEIL(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN NVL($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN NVL($!s0s!$.customnumber2__c, 0) ELSE NVL($!s0s!$.customnumber3__c, 0) END,33)) END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>CASE WHEN CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END&gt;=0 THEN FLOOR(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END,33)) ELSE CEIL(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END,33)) END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>CASE WHEN CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN NVL($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN NVL($!s0s!$.customnumber2__c, 0) ELSE NVL($!s0s!$.customnumber3__c, 0) END&gt;=0 THEN FLOOR(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN NVL($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN NVL($!s0s!$.customnumber2__c, 0) ELSE NVL($!s0s!$.customnumber3__c, 0) END,33)) ELSE CEIL(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN NVL($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN NVL($!s0s!$.customnumber2__c, 0) ELSE NVL($!s0s!$.customnumber3__c, 0) END,33)) END</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>CASE WHEN CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END&gt;=0 THEN FLOOR(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END,33)) ELSE CEIL(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END,33)) END</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN COALESCE($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN COALESCE($!s0s!$.customnumber2__c, 0) ELSE COALESCE($!s0s!$.customnumber3__c, 0) END&gt;=0 THEN FLOOR(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN COALESCE($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN COALESCE($!s0s!$.customnumber2__c, 0) ELSE COALESCE($!s0s!$.customnumber3__c, 0) END,33)) ELSE CEIL(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN COALESCE($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN COALESCE($!s0s!$.customnumber2__c, 0) ELSE COALESCE($!s0s!$.customnumber3__c, 0) END,33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END&gt;=0 THEN FLOOR(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END,33)) ELSE CEIL(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END,33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))):(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))):$F.nvl(context.record.customnumber3__c,new $F.Decimal('0'))).isPos()?((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))):(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))):$F.nvl(context.record.customnumber3__c,new $F.Decimal('0'))).toDP(18).floor():((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))):(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))):$F.nvl(context.record.customnumber3__c,new $F.Decimal('0'))).toDP(18).ceil())</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())))?(context.record.customnumber1__c):(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())))?(context.record.customnumber2__c):context.record.customnumber3__c)!=null)?((((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())))?(context.record.customnumber1__c):(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())))?(context.record.customnumber2__c):context.record.customnumber3__c).isPos()?((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())))?(context.record.customnumber1__c):(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())))?(context.record.customnumber2__c):context.record.customnumber3__c).toDP(18).floor():((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())))?(context.record.customnumber1__c):(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())))?(context.record.customnumber2__c):context.record.customnumber3__c).toDP(18).ceil())):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">((((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber1__c,0)):(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber2__c,0)):$F.nvl(context.record.customnumber3__c,0)))&gt;=0?Math.floor(((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber1__c,0)):(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber2__c,0)):$F.nvl(context.record.customnumber3__c,0))):Math.ceil(((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber1__c,0)):(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))&amp;&amp;(($F.anl([($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())==($F.anl([($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())))?($F.nvl(context.record.customnumber2__c,0)):$F.nvl(context.record.customnumber3__c,0))))</JsOutput>
@@ -20,117 +16,143 @@
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>200</formula>
+         <sql>200.00000000000000000000000000000000</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:03, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>300</formula>
+         <sql>300.00000000000000000000000000000000</sql>
          <javascript>300</javascript>
          <javascriptLp>300</javascriptLp>
          <formulaNullAsNull>300</formulaNullAsNull>
+         <sqlNullAsNull>300.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>300</javascriptNullAsNull>
          <javascriptLpNullAsNull>300</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, 2004:12:03, 300, 400]</inputvalues>
          <formula>200</formula>
+         <sql>200.00000000000000000000000000000000</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:05, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>400</formula>
+         <sql>400.00000000000000000000000000000000</sql>
          <javascript>400</javascript>
          <javascriptLp>400</javascriptLp>
          <formulaNullAsNull>400</formulaNullAsNull>
+         <sqlNullAsNull>400.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>400</javascriptNullAsNull>
          <javascriptLpNullAsNull>400</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>400</formula>
+         <sql>400.00000000000000000000000000000000</sql>
          <javascript>400</javascript>
          <javascriptLp>400</javascriptLp>
          <formulaNullAsNull>400</formulaNullAsNull>
+         <sqlNullAsNull>400.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>400</javascriptNullAsNull>
          <javascriptLpNullAsNull>400</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>400</formula>
+         <sql>400.00000000000000000000000000000000</sql>
          <javascript>400</javascript>
          <javascriptLp>400</javascriptLp>
          <formulaNullAsNull>400</formulaNullAsNull>
+         <sqlNullAsNull>400.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>400</javascriptNullAsNull>
          <javascriptLpNullAsNull>400</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, , 300, 400]</inputvalues>
          <formula>200</formula>
+         <sql>200.00000000000000000000000000000000</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, , 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>300</formula>
+         <sql>300.00000000000000000000000000000000</sql>
          <javascript>300</javascript>
          <javascriptLp>300</javascriptLp>
          <formulaNullAsNull>300</formulaNullAsNull>
+         <sqlNullAsNull>300.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>300</javascriptNullAsNull>
          <javascriptLpNullAsNull>300</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, , 2004:12:04, 300, 400]</inputvalues>
          <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:05, 200, 2004:12:04, , 400]</inputvalues>
          <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:05, 200, 2004:12:06, , ]</inputvalues>
          <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:06, 2004:12:04, 200, 2004:12:04, 300, ]</inputvalues>
          <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , , , , ]</inputvalues>
          <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

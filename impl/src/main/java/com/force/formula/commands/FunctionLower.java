@@ -34,18 +34,10 @@ public class FunctionLower extends FormulaCommandInfoImpl implements FormulaComm
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         String sql;
-        if (FormulaCommandInfoImpl.shouldGeneratePsql(context)) {
-            if (node.getNumberOfChildren() == 2) {
-                sql = String.format(FormulaValidationHooks.get().psqlLowerCaseWithLocaleFormat(true), args[0], args[1]);
-            } else {
-                sql = String.format(FormulaValidationHooks.get().psqlLowerCaseWithLocaleFormat(false), args[0], "'en'");
-            }
+        if (node.getNumberOfChildren() == 2) {
+            sql = String.format(getSqlHooks(context).sqlLowerCaseWithLocaleFormat(true), args[0], args[1]);
         } else {
-            if (node.getNumberOfChildren() == 2) {
-                sql = "NLS_LOWER(" + args[0] + ",CASE WHEN SUBSTR(" + args[1]+ ",1,2) = 'tr' THEN 'NLS_SORT=xturkish' ELSE 'NLS_SORT=xwest_european' END)";
-            } else {
-                sql = "NLS_LOWER(" + args[0] + ",'NLS_SORT=xwest_european')";
-            }
+            sql = String.format(getSqlHooks(context).sqlLowerCaseWithLocaleFormat(false), args[0], "'en'");
         }
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
@@ -109,10 +101,11 @@ class FunctionLowerCommand extends AbstractFormulaCommand {
         } else {
             Locale locale = LocaleUtils.get().getLocaleByIsoCode(localeStr);
             String lower;
-            if (FormulaCommandInfoImpl.shouldGeneratePsql(context)) {
-                lower = locale == null ? target.toLowerCase() : target.toLowerCase(locale);
-            } else {
+            // Match the implementation to the sql style, because they handle double-s, turkish i differently
+            if (context.getSqlStyle() != null && context.getSqlStyle().isOracleStyle()) {
                 lower = FormulaValidationHooks.get().toOracleLowerCase(target, locale);
+            } else {
+                lower = locale == null ? target.toLowerCase() : target.toLowerCase(locale);
             }
             stack.push(lower);
         }

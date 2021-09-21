@@ -183,6 +183,11 @@ public class FunctionIfsTest extends BaseCustomizableParserTest {
     static class FunctionIfsTestFormulaValidationHooks extends BaseCustomizableParserTest.FieldTestFormulaValidationHooks {
 
         @Override
+		public FormulaSqlHooks getSqlStyle() {
+        	return FormulaSqlHooks.DefaultStyle.ORACLE;
+		}
+
+		@Override
         public boolean parseHook_shouldOptimizeNestedIfs() {
             return true;
         }

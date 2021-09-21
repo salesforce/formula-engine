@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testNVLWithEmail">
    <testInstance formula="NULLVALUE(customemail1__c,customtextarea1__c)" returntype="Text">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>$!s0s!$.customemail1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>$!s0s!$.customemail1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>$!s0s!$.customemail1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>$!s0s!$.customemail1__c</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customemail1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customemail1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">context.record.customemail1__c</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">context.record.customemail1__c</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">context.record.customemail1__c</JsOutput>
@@ -20,36 +16,44 @@
       <result>
       <inputvalues>[syendluri@yahoo.com, Not Null]</inputvalues>
          <formula>syendluri@yahoo.com</formula>
+         <sql>syendluri@yahoo.com</sql>
          <javascript>syendluri@yahoo.com</javascript>
          <javascriptLp>syendluri@yahoo.com</javascriptLp>
          <formulaNullAsNull>syendluri@yahoo.com</formulaNullAsNull>
+         <sqlNullAsNull>syendluri@yahoo.com</sqlNullAsNull>
          <javascriptNullAsNull>syendluri@yahoo.com</javascriptNullAsNull>
          <javascriptLpNullAsNull>syendluri@yahoo.com</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aa@ss.com,  Not Null]</inputvalues>
          <formula>aa@ss.com</formula>
+         <sql>aa@ss.com</sql>
          <javascript>aa@ss.com</javascript>
          <javascriptLp>aa@ss.com</javascriptLp>
          <formulaNullAsNull>aa@ss.com</formulaNullAsNull>
+         <sqlNullAsNull>aa@ss.com</sqlNullAsNull>
          <javascriptNullAsNull>aa@ss.com</javascriptNullAsNull>
          <javascriptLpNullAsNull>aa@ss.com</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, Is Null]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>null</formula>
+         <sql>null</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

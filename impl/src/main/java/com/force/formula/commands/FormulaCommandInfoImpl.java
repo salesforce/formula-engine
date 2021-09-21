@@ -7,8 +7,7 @@ import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
-import com.force.formula.sql.ITableAliasRegistry;
-import com.force.formula.sql.SQLPair;
+import com.force.formula.sql.*;
 import com.force.formula.util.FormulaTextUtil;
 
 /**
@@ -51,10 +50,6 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
     @Override
     public Type[] getArgumentTypes(FormulaAST node, FormulaContext context) throws FormulaException {
         return this.argumentTypes;
-    }
-
-    public static boolean shouldGeneratePsql(FormulaContext context) {
-        return !context.isCheckingSqlLengthLimit() && context.isSqlPostgresStyle();
     }
 
     public static boolean isNull(Object o) {
@@ -232,4 +227,13 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
         return "FormulaCommandInfoImpl [name=" + this.name + ", returnType=" + this.returnType + ", argumentTypes="
                 + Arrays.toString(this.argumentTypes) + ", getAllowedContext()=" + this.getAllowedContext() + "]";
     }
+    
+    protected static final FormulaValidationHooks hooks() {
+    	return FormulaValidationHooks.get();
+    }
+
+    protected static final FormulaSqlHooks getSqlHooks(FormulaContext context) {
+    	return (FormulaSqlHooks) context.getSqlStyle();
+    }
+
 }

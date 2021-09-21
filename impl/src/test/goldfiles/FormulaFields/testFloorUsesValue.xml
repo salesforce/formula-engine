@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testFloorUsesValue">
    <testInstance formula="FLOOR(VALUE(customtext1__c))" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>CASE WHEN TO_NUMBER($!s0s!$.customtext1__c)&gt;=0 THEN FLOOR(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) ELSE CEIL(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) END</Sql><Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>CASE WHEN TO_NUMBER($!s0s!$.customtext1__c)&gt;=0 THEN FLOOR(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) ELSE CEIL(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) END</Sql><Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>CASE WHEN TO_NUMBER($!s0s!$.customtext1__c)&gt;=0 THEN FLOOR(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) ELSE CEIL(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) END</Sql><Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>CASE WHEN TO_NUMBER($!s0s!$.customtext1__c)&gt;=0 THEN FLOOR(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) ELSE CEIL(ROUND(TO_NUMBER($!s0s!$.customtext1__c),33)) END</Sql><Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN CAST($!s0s!$.customtext1__c AS NUMERIC)&gt;=0 THEN FLOOR(ROUND(CAST($!s0s!$.customtext1__c AS NUMERIC),33)) ELSE CEIL(ROUND(CAST($!s0s!$.customtext1__c AS NUMERIC),33)) END</Sql>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0','g') ~ '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$'</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN CAST($!s0s!$.customtext1__c AS NUMERIC)&gt;=0 THEN FLOOR(ROUND(CAST($!s0s!$.customtext1__c AS NUMERIC),33)) ELSE CEIL(ROUND(CAST($!s0s!$.customtext1__c AS NUMERIC),33)) END</Sql>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0','g') ~ '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$'</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c).isPos()?$F.Decimal(context.record.customtext1__c).toDP(18).floor():$F.Decimal(context.record.customtext1__c).toDP(18).ceil())):null</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c).isPos()?$F.Decimal(context.record.customtext1__c).toDP(18).floor():$F.Decimal(context.record.customtext1__c).toDP(18).ceil())):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(((Number(context.record.customtext1__c))&gt;=0?Math.floor(Number(context.record.customtext1__c)):Math.ceil(Number(context.record.customtext1__c)))):null</JsOutput>
@@ -20,81 +16,99 @@
       <result>
       <inputvalues>[0]</inputvalues>
          <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>1</formula>
+         <sql>1.00000000000000000000000000000000</sql>
          <javascript>1</javascript>
          <javascriptLp>1</javascriptLp>
          <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1</javascriptNullAsNull>
          <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2]</inputvalues>
          <formula>2</formula>
+         <sql>2.00000000000000000000000000000000</sql>
          <javascript>2</javascript>
          <javascriptLp>2</javascriptLp>
          <formulaNullAsNull>2</formulaNullAsNull>
+         <sqlNullAsNull>2.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>2</javascriptNullAsNull>
          <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-1]</inputvalues>
          <formula>-1</formula>
+         <sql>-1.00000000000000000000000000000000</sql>
          <javascript>-1</javascript>
          <javascriptLp>-1</javascriptLp>
          <formulaNullAsNull>-1</formulaNullAsNull>
+         <sqlNullAsNull>-1.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-1</javascriptNullAsNull>
          <javascriptLpNullAsNull>-1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-10]</inputvalues>
          <formula>-10</formula>
+         <sql>-10.00000000000000000000000000000000</sql>
          <javascript>-10</javascript>
          <javascriptLp>-10</javascriptLp>
          <formulaNullAsNull>-10</formulaNullAsNull>
+         <sqlNullAsNull>-10.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-10</javascriptNullAsNull>
          <javascriptLpNullAsNull>-10</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-100]</inputvalues>
          <formula>-100</formula>
+         <sql>-100.00000000000000000000000000000000</sql>
          <javascript>-100</javascript>
          <javascriptLp>-100</javascriptLp>
          <formulaNullAsNull>-100</formulaNullAsNull>
+         <sqlNullAsNull>-100.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-100</javascriptNullAsNull>
          <javascriptLpNullAsNull>-100</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[56]</inputvalues>
          <formula>56</formula>
+         <sql>56.00000000000000000000000000000000</sql>
          <javascript>56</javascript>
          <javascriptLp>56</javascriptLp>
          <formulaNullAsNull>56</formulaNullAsNull>
+         <sqlNullAsNull>56.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>56</javascriptNullAsNull>
          <javascriptLpNullAsNull>56</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[110]</inputvalues>
          <formula>110</formula>
+         <sql>110.00000000000000000000000000000000</sql>
          <javascript>110</javascript>
          <javascriptLp>110</javascriptLp>
          <formulaNullAsNull>110</formulaNullAsNull>
+         <sqlNullAsNull>110.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>110</javascriptNullAsNull>
          <javascriptLpNullAsNull>110</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[20]</inputvalues>
          <formula>20</formula>
+         <sql>20.00000000000000000000000000000000</sql>
          <javascript>20</javascript>
          <javascriptLp>20</javascriptLp>
          <formulaNullAsNull>20</formulaNullAsNull>
+         <sqlNullAsNull>20.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>20</javascriptNullAsNull>
          <javascriptLpNullAsNull>20</javascriptLpNullAsNull>
       </result>

@@ -8,13 +8,14 @@ package com.force.formula.impl;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.force.formula.FormulaDataType;
 import com.force.formula.impl.BaseFormulaGenericTests.FormulaTestRunnable;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableMap;
 
 /**
  * @author syendluri, adimayuga
- * @since 140 Member Variables: testCaseFieldInfo: referenceFields
+ * @since 0.1.0 Member Variables: testCaseFieldInfo: referenceFields
  *        listOfFieldsUsedForRunnables
  */
 
@@ -29,9 +30,11 @@ public class FormulaTestCaseInfo {
     }
     public static enum DefaultEvaluationContext implements EvaluationContext {Formula, Template}
 
-    public FormulaTestCaseInfo(String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
+    public FormulaTestCaseInfo(FormulaTestUtils utils, String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
                                List<FieldDefinitionInfo> referenceFields, String owner, String compareType, String evalContexts,  String compareTemplate,
+                               String whyIgnoreSql, 
                                boolean multipleResultTypes) {
+        this.testUtils = utils;
         this.testCaseName = tcName;
         this.testLabels = testLabels.length() > 0 ? Splitter.on(',').splitToList(testLabels) : Collections.emptySet();
         this.accuracyIssue = AccuracyIssue.fromLabel(accuracyIssue);
@@ -56,6 +59,7 @@ public class FormulaTestCaseInfo {
             } else
                 this.compare = CompareType.Text;
         }
+        this.whyIgnoreSql = whyIgnoreSql.length() > 0 ? whyIgnoreSql : null;
         this.evalContexts = parseContext(evalContexts);
         this.compareContexts = parseContext(compareTemplate);
         this.multipleResultTypes = multipleResultTypes;
@@ -124,6 +128,14 @@ public class FormulaTestCaseInfo {
         return this.swapTypes;
     }
     
+    public boolean ignoreSql() {
+    	return this.whyIgnoreSql != null;
+    }
+    
+    public String getWhyIgnoreSql() {
+    	return this.whyIgnoreSql;
+    }
+    
     public String getOwner() {
         return this.owner;
     }
@@ -180,6 +192,16 @@ public class FormulaTestCaseInfo {
     }
 
     /**
+     * Opposite of {@link com.force.formula.FormulaEngineHooks#getDataTypeByName(String)})
+     * In case info.getName() isn't the reverse
+     * @param info
+     * @return
+     */
+    protected String getTypeName(FormulaDataType info) {
+        return info.getName();
+    }
+    
+    /**
      * This method will create instances of FormulaTestRunnable with swapping
      * the data types of FormulaField, and reference fields. So, if TestCase is
      * number=number+number, then following testcases will be generated to run:
@@ -220,15 +242,15 @@ public class FormulaTestCaseInfo {
             // to match the current swap set in loop.
             for (int i = perm.size() - 1; i >= 0; i--) {
                 if (i == perm.size() - 1) {
-                    newTcField.setReturnType(FormulaTestUtils.getDataType(perm.get(i)));
+                    newTcField.setReturnType(testUtils.getDataType(perm.get(i)));
                     continue;
                 }
                 String newType = perm.get(i);
                 FieldDefinitionInfo fieldInfo = this.referenceFields.get(i).clone();
                 String fieldName = fieldInfo.getDevName();
-                fieldInfo.setDevName(fieldName.replaceAll(fieldInfo.getReturnType().getName(), newType));
+                fieldInfo.setDevName(fieldName.replaceAll(getTypeName(fieldInfo.getReturnType()), newType));
                 fieldInfo.setLabelName(fieldInfo.getDevName());
-                fieldInfo.setReturnType(FormulaTestUtils.getDataType(newType));
+                fieldInfo.setReturnType(testUtils.getDataType(newType));
                 newTcField.setFormula(newTcField.getFormula().replaceAll(fieldName, fieldInfo.getDevName()));
                 runnable.addReferenceField(fieldInfo);
                 listOfFieldsUsedForRunnables.put(fieldInfo.getDevName(), fieldInfo);
@@ -251,7 +273,7 @@ public class FormulaTestCaseInfo {
      *
      * @return List<FormulaTestRunnable>
      */
-    public List<FormulaTestRunnable> getRunnables() throws Exception {
+    public List<FormulaTestRunnable> getRunnables(FormulaTestUtils testUtils) throws Exception {
         if (this.testRunnables == null)
             generateRunnables();
         return testRunnables;
@@ -358,6 +380,7 @@ public class FormulaTestCaseInfo {
     }
 
     
+    FormulaTestUtils testUtils;
     private final Collection<String> testLabels;
     private final AccuracyIssue accuracyIssue;
     
@@ -367,6 +390,7 @@ public class FormulaTestCaseInfo {
     private boolean swapTypes = false;
     private boolean swapArgs = false;
     private boolean isNegative = false;
+    private String whyIgnoreSql;
     private String errorCode = null;
     private String errorMsg = null;
     private String encoding = null;

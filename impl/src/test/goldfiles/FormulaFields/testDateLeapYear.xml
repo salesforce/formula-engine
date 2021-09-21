@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testDateLeapYear">
    <testInstance formula="DATE(2012,2,day__c)" returntype="DateOnly">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>TO_DATE(2012 || '-' || 2 || '-' || TO_CHAR(FLOOR(NVL($!s0s!$.day__c, 0))), 'YYYY-MM-DD')</Sql><Guard>NVL($!s0s!$.day__c, 0) is null OR NVL($!s0s!$.day__c, 0)&lt; 1 OR NVL($!s0s!$.day__c, 0) &gt;= 32 OR NVL($!s0s!$.day__c, 0) &gt;= 30       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>CASE WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE TO_DATE(2012 || '-' || 2 || '-' || TO_CHAR(FLOOR($!s0s!$.day__c)), 'YYYY-MM-DD') END</Sql><Guard>NOT ($!s0s!$.day__c IS NULL ) AND ($!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR $!s0s!$.day__c &gt;= 30)       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>TO_DATE(2012 || '-' || 2 || '-' || TO_CHAR(FLOOR(NVL($!s0s!$.day__c, 0))), 'YYYY-MM-DD')</Sql><Guard>NVL($!s0s!$.day__c, 0) is null OR NVL($!s0s!$.day__c, 0)&lt; 1 OR NVL($!s0s!$.day__c, 0) &gt;= 32 OR NVL($!s0s!$.day__c, 0) &gt;= 30       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>CASE WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE TO_DATE(2012 || '-' || 2 || '-' || TO_CHAR(FLOOR($!s0s!$.day__c)), 'YYYY-MM-DD') END</Sql><Guard>NOT ($!s0s!$.day__c IS NULL ) AND ($!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR $!s0s!$.day__c &gt;= 30)       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE(2012 || '-' || 2 || '-' || CAST(FLOOR(COALESCE($!s0s!$.day__c, 0)) AS TEXT), 'YYYY-MM-DD')</Sql>
+       <Guard>COALESCE($!s0s!$.day__c, 0) is null OR COALESCE($!s0s!$.day__c, 0)&lt; 1 OR COALESCE($!s0s!$.day__c, 0) &gt;= 32 OR COALESCE($!s0s!$.day__c, 0) &gt;= 30</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE TO_DATE(2012 || '-' || 2 || '-' || CAST(FLOOR($!s0s!$.day__c) AS TEXT), 'YYYY-MM-DD') END</Sql>
+       <Guard>NOT ($!s0s!$.day__c IS NULL ) AND ($!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR $!s0s!$.day__c &gt;= 30)</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC(new $F.Decimal('2012').toNumber(),new $F.Decimal('2').toNumber()-1,$F.nvl(context.record.day__c,new $F.Decimal('0')).toNumber()))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.day__c!=null)?(new Date(Date.UTC(new $F.Decimal('2012').toNumber(),new $F.Decimal('2').toNumber()-1,context.record.day__c.toNumber()))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC(2012,2-1,$F.nvl(context.record.day__c,0)))</JsOutput>
@@ -20,36 +16,44 @@
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>Wed Feb 01 00:00:00 GMT 2012</formula>
+         <sql>2012-02-01 00:00:00.0</sql>
          <javascript>Wed Feb 01 00:00:00 GMT 2012</javascript>
          <javascriptLp>Wed Feb 01 00:00:00 GMT 2012</javascriptLp>
          <formulaNullAsNull>Wed Feb 01 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-01 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Wed Feb 01 00:00:00 GMT 2012</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Feb 01 00:00:00 GMT 2012</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[28]</inputvalues>
          <formula>Tue Feb 28 00:00:00 GMT 2012</formula>
+         <sql>2012-02-28 00:00:00.0</sql>
          <javascript>Tue Feb 28 00:00:00 GMT 2012</javascript>
          <javascriptLp>Tue Feb 28 00:00:00 GMT 2012</javascriptLp>
          <formulaNullAsNull>Tue Feb 28 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-28 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Tue Feb 28 00:00:00 GMT 2012</javascriptNullAsNull>
          <javascriptLpNullAsNull>Tue Feb 28 00:00:00 GMT 2012</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[29]</inputvalues>
          <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>2012-02-29 00:00:00.0</sql>
          <javascript>Wed Feb 29 00:00:00 GMT 2012</javascript>
          <javascriptLp>Wed Feb 29 00:00:00 GMT 2012</javascriptLp>
          <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-29 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Wed Feb 29 00:00:00 GMT 2012</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Feb 29 00:00:00 GMT 2012</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[30]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
          <javascript>Thu Mar 01 00:00:00 GMT 2012</javascript>
          <javascriptLp>Thu Mar 01 00:00:00 GMT 2012</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Thu Mar 01 00:00:00 GMT 2012</javascriptNullAsNull>
          <javascriptLpNullAsNull>Thu Mar 01 00:00:00 GMT 2012</javascriptLpNullAsNull>
       </result>

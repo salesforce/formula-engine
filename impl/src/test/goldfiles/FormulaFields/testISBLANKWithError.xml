@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testISBLANKWithError">
    <testInstance formula="if(isblank(customnumber1__c/customnumber2__c),null,customcurrency1__c)" returntype="Double" precision="18" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>CASE WHEN ((NVL($!s0s!$.customnumber1__c, 0)/NVL($!s0s!$.customnumber2__c, 0)) IS NULL) THEN TO_NUMBER(NULL) ELSE NVL($!s0s!$.customcurrency1__c, 0) END</Sql><Guard>NVL($!s0s!$.customnumber2__c, 0)=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>CASE WHEN (($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) IS NULL) THEN TO_NUMBER(NULL) ELSE $!s0s!$.customcurrency1__c END</Sql><Guard>$!s0s!$.customnumber2__c=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>CASE WHEN ((NVL($!s0s!$.customnumber1__c, 0)/NVL($!s0s!$.customnumber2__c, 0)) IS NULL) THEN TO_NUMBER(NULL) ELSE NVL($!s0s!$.customcurrency1__c, 0) END</Sql><Guard>NVL($!s0s!$.customnumber2__c, 0)=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>CASE WHEN (($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) IS NULL) THEN TO_NUMBER(NULL) ELSE $!s0s!$.customcurrency1__c END</Sql><Guard>$!s0s!$.customnumber2__c=0       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ((COALESCE($!s0s!$.customnumber1__c, 0)/COALESCE($!s0s!$.customnumber2__c, 0)) IS NULL) THEN CAST(NULL AS NUMERIC) ELSE COALESCE($!s0s!$.customcurrency1__c, 0) END</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber2__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) IS NULL) THEN CAST(NULL AS NUMERIC) ELSE $!s0s!$.customcurrency1__c END</Sql>
+       <Guard>$!s0s!$.customnumber2__c=0</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">((null==$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).div($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))))?null:$F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(!(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)||(null==context.record.customnumber1__c.div(context.record.customnumber2__c))?null:context.record.customcurrency1__c)</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">((null==($F.nvl(context.record.customnumber1__c,0)/$F.nvl(context.record.customnumber2__c,0)))?null:$F.nvl(context.record.customcurrency1__c,0))</JsOutput>
@@ -20,135 +16,165 @@
       <result>
       <inputvalues>[1, 1, 1]</inputvalues>
          <formula>1</formula>
+         <sql>1.00000000000000000000000000000000</sql>
          <javascript>1</javascript>
          <javascriptLp>1</javascriptLp>
          <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1</javascriptNullAsNull>
          <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 0, 0]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>Error: java.lang.ArithmeticException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10, 10, 10]</inputvalues>
          <formula>10</formula>
+         <sql>10.00000000000000000000000000000000</sql>
          <javascript>10</javascript>
          <javascriptLp>10</javascriptLp>
          <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>10.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>10</javascriptNullAsNull>
          <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 10, 10]</inputvalues>
          <formula>10</formula>
+         <sql>10.00000000000000000000000000000000</sql>
          <javascript>10</javascript>
          <javascriptLp>10</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10, , 10]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
          <javascript>10</javascript>
          <javascriptLp>10</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10, 10, ]</inputvalues>
          <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 10]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
          <javascript>10</javascript>
          <javascriptLp>10</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[10, , ]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 10, ]</inputvalues>
          <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, , , ]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.1, 1.1, 1.1]</inputvalues>
          <formula>1.1</formula>
+         <sql>1.10000000000000000000000000000000</sql>
          <javascript>1.1</javascript>
          <javascriptLp>1.1</javascriptLp>
          <formulaNullAsNull>1.1</formulaNullAsNull>
+         <sqlNullAsNull>1.10000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.1</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1, 49, 1.49, 1.49]</inputvalues>
          <formula>1.49</formula>
+         <sql>1.49000000000000000000000000000000</sql>
          <javascript>1.49</javascript>
          <javascriptLp>1.49</javascriptLp>
          <formulaNullAsNull>1.49</formulaNullAsNull>
+         <sqlNullAsNull>1.49000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.49</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.49</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1.5, 1.5, 1.5]</inputvalues>
          <formula>1.5</formula>
+         <sql>1.50000000000000000000000000000000</sql>
          <javascript>1.5</javascript>
          <javascriptLp>1.5</javascriptLp>
          <formulaNullAsNull>1.5</formulaNullAsNull>
+         <sqlNullAsNull>1.50000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.5</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.5</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1, 99, 1.99, 1.99]</inputvalues>
          <formula>1.99</formula>
+         <sql>1.99000000000000000000000000000000</sql>
          <javascript>1.99</javascript>
          <javascriptLp>1.99</javascriptLp>
          <formulaNullAsNull>1.99</formulaNullAsNull>
+         <sqlNullAsNull>1.99000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.99</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.99</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0.01, 0.01, 0.01]</inputvalues>
          <formula>0.01</formula>
+         <sql>0.01000000000000000000000000000000</sql>
          <javascript>0.01</javascript>
          <javascriptLp>0.01</javascriptLp>
          <formulaNullAsNull>0.01</formulaNullAsNull>
+         <sqlNullAsNull>0.01000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>0.01</javascriptNullAsNull>
          <javascriptLpNullAsNull>0.01</javascriptLpNullAsNull>
       </result>

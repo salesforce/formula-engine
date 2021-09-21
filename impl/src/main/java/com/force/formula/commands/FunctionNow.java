@@ -45,8 +45,7 @@ public class FunctionNow extends FormulaCommandInfoImpl {
             FormulaEngine.getHooks().adjustCalendarForTestEnvironment(c); // This allows tools like the report hammer to evaluate formulas as of the db cut date
             return new SQLPair(FormulaDateUtil.dateToSqlToDateString(c.getTime()), null);
         } else {
-            return FormulaCommandInfoImpl.shouldGeneratePsql(context) ? new SQLPair(FormulaValidationHooks.get().psqlNow(), null)
-                    : new SQLPair("SYSDATE", null);
+            return new SQLPair(getSqlHooks(context).sqlNow(), null);
         }
     }
     

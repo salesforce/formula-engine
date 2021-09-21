@@ -34,18 +34,10 @@ public class FunctionUpper extends FormulaCommandInfoImpl implements FormulaComm
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         String sql;
-        if (FormulaCommandInfoImpl.shouldGeneratePsql(context)) {
-            if (node.getNumberOfChildren() == 2) {
-                sql = String.format(FormulaValidationHooks.get().psqlUpperCaseWithLocaleFormat(true), args[0], args[1]);
-            } else {
-                sql = String.format(FormulaValidationHooks.get().psqlUpperCaseWithLocaleFormat(false), args[0], "'en'");
-            }
+        if (node.getNumberOfChildren() == 2) {
+            sql = String.format(getSqlHooks(context).sqlUpperCaseWithLocaleFormat(true), args[0], args[1]);
         } else {
-            if (node.getNumberOfChildren() == 2) {
-                sql = "NLS_UPPER(" + args[0] + ",CASE WHEN SUBSTR(" + args[1]+ ",1,2) = 'tr' THEN 'NLS_SORT=xturkish' ELSE 'NLS_SORT=xwest_european' END)";
-            } else {
-                sql = "NLS_UPPER(" + args[0] + ",'NLS_SORT=xwest_european')";
-            }
+            sql = String.format(getSqlHooks(context).sqlUpperCaseWithLocaleFormat(false), args[0], "'en'");
         }
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
@@ -113,10 +105,12 @@ class FunctionUpperCommand extends AbstractFormulaCommand {
         } else {
             Locale locale = LocaleUtils.get().getLocaleByIsoCode(localeStr);
             String upper;
-            if(FormulaCommandInfoImpl.shouldGeneratePsql(context)) {
-                upper = locale == null ? target.toUpperCase() : target.toUpperCase(locale);
-            } else {
+
+            // Match the implementation to the sql style, because they handle double-s, turkish i differently
+            if (context.getSqlStyle() != null && context.getSqlStyle().isOracleStyle()) {
                 upper = FormulaValidationHooks.get().toOracleUpperCase(target, locale);
+            } else {
+                upper = locale == null ? target.toUpperCase() : target.toUpperCase(locale);
             }
             stack.push(upper);
         }

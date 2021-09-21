@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testBVLWithText">
    <testInstance formula="BLANKVALUE(customtext1__c,customtextarea1__c)" returntype="Text">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>NVL($!s0s!$.customtext1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>NVL($!s0s!$.customtext1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>NVL($!s0s!$.customtext1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>NVL($!s0s!$.customtext1__c, $!s0s!$.customtextarea1__c)</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE($!s0s!$.customtext1__c, $!s0s!$.customtextarea1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE($!s0s!$.customtext1__c, $!s0s!$.customtextarea1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customtext1__c,context.record.customtextarea1__c)</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">$F.nvl(context.record.customtext1__c,context.record.customtextarea1__c)</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customtext1__c,context.record.customtextarea1__c)</JsOutput>
@@ -20,36 +16,44 @@
       <result>
       <inputvalues>[Has it,  Not Null]</inputvalues>
          <formula>Has it</formula>
+         <sql>Has it</sql>
          <javascript>Has it</javascript>
          <javascriptLp>Has it</javascriptLp>
          <formulaNullAsNull>Has it</formulaNullAsNull>
+         <sqlNullAsNull>Has it</sqlNullAsNull>
          <javascriptNullAsNull>Has it</javascriptNullAsNull>
          <javascriptLpNullAsNull>Has it</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[,  Is Null]</inputvalues>
          <formula> Is Null</formula>
+         <sql> Is Null</sql>
          <javascript> Is Null</javascript>
          <javascriptLp> Is Null</javascriptLp>
          <formulaNullAsNull> Is Null</formulaNullAsNull>
+         <sqlNullAsNull> Is Null</sqlNullAsNull>
          <javascriptNullAsNull> Is Null</javascriptNullAsNull>
          <javascriptLpNullAsNull> Is Null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Has It, ]</inputvalues>
          <formula>Has It</formula>
+         <sql>Has It</sql>
          <javascript>Has It</javascript>
          <javascriptLp>Has It</javascriptLp>
          <formulaNullAsNull>Has It</formulaNullAsNull>
+         <sqlNullAsNull>Has It</sqlNullAsNull>
          <javascriptNullAsNull>Has It</javascriptNullAsNull>
          <javascriptLpNullAsNull>Has It</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[I, Not Null]</inputvalues>
          <formula>I</formula>
+         <sql>I</sql>
          <javascript>I</javascript>
          <javascriptLp>I</javascriptLp>
          <formulaNullAsNull>I</formulaNullAsNull>
+         <sqlNullAsNull>I</sqlNullAsNull>
          <javascriptNullAsNull>I</javascriptNullAsNull>
          <javascriptLpNullAsNull>I</javascriptLpNullAsNull>
       </result>

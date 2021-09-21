@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testDateAllConstants">
    <testInstance formula="DATE(2012,2,29)" returntype="DateOnly">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>TO_DATE(2012 || '-' || 2 || '-' || 29, 'YYYY-MM-DD')</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>TO_DATE(2012 || '-' || 2 || '-' || 29, 'YYYY-MM-DD')</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>TO_DATE(2012 || '-' || 2 || '-' || 29, 'YYYY-MM-DD')</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>TO_DATE(2012 || '-' || 2 || '-' || 29, 'YYYY-MM-DD')</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE(2012 || '-' || 2 || '-' || 29, 'YYYY-MM-DD')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(2012 || '-' || 2 || '-' || 29, 'YYYY-MM-DD')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC(new $F.Decimal('2012').toNumber(),new $F.Decimal('2').toNumber()-1,new $F.Decimal('29').toNumber()))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">new Date(Date.UTC(new $F.Decimal('2012').toNumber(),new $F.Decimal('2').toNumber()-1,new $F.Decimal('29').toNumber()))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC(2012,2-1,29))</JsOutput>
@@ -20,9 +16,11 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>2012-02-29 00:00:00.0</sql>
          <javascript>Wed Feb 29 00:00:00 GMT 2012</javascript>
          <javascriptLp>Wed Feb 29 00:00:00 GMT 2012</javascriptLp>
          <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-29 00:00:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Wed Feb 29 00:00:00 GMT 2012</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Feb 29 00:00:00 GMT 2012</javascriptLpNullAsNull>
       </result>

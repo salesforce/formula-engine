@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testLNUsesFloor">
    <testInstance formula="LN(FLOOR(customnumber1__c))" returntype="Double" precision="12" scale="2">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>LN(CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END)</Sql><Guard>CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END&lt;=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>LN(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END)</Sql><Guard>CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END&lt;=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>LN(CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END)</Sql><Guard>CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END&lt;=0       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>LN(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END)</Sql><Guard>CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END&lt;=0       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LN(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END)</Sql>
+       <Guard>CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LN(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END)</Sql>
+       <Guard>CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END&lt;=0</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).isPos()?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).floor():$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).ceil())).ln()</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(((context.record.customnumber1__c.isPos()?context.record.customnumber1__c.toDP(18).floor():context.record.customnumber1__c.toDP(18).ceil())).ln()):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">Math.log((($F.nvl(context.record.customnumber1__c,0))&gt;=0?Math.floor($F.nvl(context.record.customnumber1__c,0)):Math.ceil($F.nvl(context.record.customnumber1__c,0))))</JsOutput>
@@ -20,108 +16,132 @@
       <result>
       <inputvalues>[20.842345]</inputvalues>
          <formula>2.995732273553991</formula>
+         <sql>2.99573227355399100000000000000000</sql>
          <javascript>2.995732273553991</javascript>
          <javascriptLp>2.9957323</javascriptLp>
          <formulaNullAsNull>2.995732273553991</formulaNullAsNull>
+         <sqlNullAsNull>2.99573227355399100000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>2.995732273553991</javascriptNullAsNull>
          <javascriptLpNullAsNull>2.9957323</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.54321]</inputvalues>
          <formula>18.63140176616802</formula>
+         <sql>18.63140176616801800000000000000000</sql>
          <javascript>18.63140176616802</javascript>
          <javascriptLp>18.6314018</javascriptLp>
          <formulaNullAsNull>18.63140176616802</formulaNullAsNull>
+         <sqlNullAsNull>18.63140176616801800000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>18.63140176616802</javascriptNullAsNull>
          <javascriptLpNullAsNull>18.6314018</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789]</inputvalues>
          <formula>18.63140176616802</formula>
+         <sql>18.63140176616801800000000000000000</sql>
          <javascript>18.63140176616802</javascript>
          <javascriptLp>18.6314018</javascriptLp>
          <formulaNullAsNull>18.63140176616802</formulaNullAsNull>
+         <sqlNullAsNull>18.63140176616801800000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>18.63140176616802</javascriptNullAsNull>
          <javascriptLpNullAsNull>18.6314018</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[49.55]</inputvalues>
          <formula>3.8918202981106265</formula>
+         <sql>3.89182029811062660000000000000000</sql>
          <javascript>3.8918202981106265</javascript>
          <javascriptLp>3.8918203</javascriptLp>
          <formulaNullAsNull>3.8918202981106265</formulaNullAsNull>
+         <sqlNullAsNull>3.89182029811062660000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>3.8918202981106265</javascriptNullAsNull>
          <javascriptLpNullAsNull>3.8918203</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0.00034]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
          <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[0.244]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
          <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[25.7456]</inputvalues>
          <formula>3.2188758248682006</formula>
+         <sql>3.21887582486820070000000000000000</sql>
          <javascript>3.2188758248682006</javascript>
          <javascriptLp>3.2188758</javascriptLp>
          <formulaNullAsNull>3.2188758248682006</formulaNullAsNull>
+         <sqlNullAsNull>3.21887582486820070000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>3.2188758248682006</javascriptNullAsNull>
          <javascriptLpNullAsNull>3.2188758</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[64.456]</inputvalues>
          <formula>4.1588830833596715</formula>
+         <sql>4.15888308335967190000000000000000</sql>
          <javascript>4.1588830833596715</javascript>
          <javascriptLp>4.1588831</javascriptLp>
          <formulaNullAsNull>4.1588830833596715</formulaNullAsNull>
+         <sqlNullAsNull>4.15888308335967190000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>4.1588830833596715</javascriptNullAsNull>
          <javascriptLpNullAsNull>4.1588831</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-.4]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
          <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-.7]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
          <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-1.4]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
          <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-1.7]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
          <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

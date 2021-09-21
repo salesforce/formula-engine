@@ -18,7 +18,7 @@ import com.google.common.collect.ImmutableSet;
  * Describe your class here.
  *
  * @author Srikanth L Yendluri, Adrienne Dimayuga
- * @since 140
+ * @since 0.1.0
  */
 public class FormulaTestUtils {
 
@@ -38,11 +38,18 @@ public class FormulaTestUtils {
     public FormulaTestUtils() {
         super();
     }
+    
+    protected FormulaTestCaseInfo constructFormulaTestCaseInfo(String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
+            List<FieldDefinitionInfo> referenceFields, String owner, String compareType, String evalContexts,  String compareTemplate,
+            String whyIgnoreSql, boolean multipleResultTypes, Element testCaseElement) {
+        return new FormulaTestCaseInfo(this, tcName, testLabels, accuracyIssue, tcFormulaFieldInfo, referenceFields, owner, compareType, 
+                evalContexts, compareTemplate, whyIgnoreSql, multipleResultTypes);
+    }
 
     /*
      * Gets the test cases from the xml file (formula-testcases.xml).
      */
-    public static List<FormulaTestCaseInfo> getTestCases(String xmlFileName, Predicate<FormulaTestCaseInfo> filter, String owner,
+    public List<FormulaTestCaseInfo> getTestCases(String xmlFileName, Predicate<FormulaTestCaseInfo> filter, String owner,
             String testLabelsAttribute, boolean swapResultTypes)
         throws ParserConfigurationException, SAXException, IOException, FileNotFoundException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -69,7 +76,7 @@ public class FormulaTestUtils {
             }
             String tcLabelName = testCase.getAttribute("labelName");
             String dataType = testCase.getAttribute("dataType");
-            FormulaDataType tcDataType = FormulaTestUtils.getDataType(dataType);
+            FormulaDataType tcDataType = getDataType(dataType);
             
             String code = testCase.getAttribute("code");
             boolean tcSwapArgs = "true".equals(testCase.getAttribute("swap"));
@@ -85,6 +92,7 @@ public class FormulaTestUtils {
             String eval = testCase.getAttribute("eval");
             String compareTemplate = testCase.getAttribute("compareTemplate");
             String domain = testCase.getAttribute("domain");
+            String whyIgnoreSql = testCase.getAttribute("whyIgnoreSql");
 
             String scale = testCase.getAttribute("scale");
             int tcScale = (scale.length() > 0) ? Integer.parseInt(scale) : DEFAULT_SCALE;
@@ -107,8 +115,8 @@ public class FormulaTestUtils {
                 referenceFields = new ArrayList<FieldDefinitionInfo>(extractFieldsDefintions(children, null));
             }
 
-            FormulaTestCaseInfo tcInfo = new FormulaTestCaseInfo(tcName, testLabels, accuracyIssue, tcFormulaFieldInfo,
-                referenceFields, owner, compareType, eval, compareTemplate, swapResultTypes);
+            FormulaTestCaseInfo tcInfo = constructFormulaTestCaseInfo(tcName, testLabels, accuracyIssue, tcFormulaFieldInfo,
+                referenceFields, owner, compareType, eval, compareTemplate, whyIgnoreSql, swapResultTypes, testCase);
 
             if (filter != null && !filter.test(tcInfo)) {
                 continue;
@@ -190,13 +198,13 @@ public class FormulaTestUtils {
         return fieldName + "__c";
     }
 
-    public static List<String> cleanLiteralTypes(List<String> fieldNames) {
+    public List<String> cleanLiteralTypes(List<String> fieldNames) {
         List<String> cFieldNames = new ArrayList<String>(fieldNames);
         cFieldNames.removeAll(Arrays.asList(FormulaTestUtils.FORMULA_CONSTANTS));
         return cFieldNames;
     }
 
-    public static void updateDataFile(String dataFileName, String formula) throws IOException, FileNotFoundException {
+    public void updateDataFile(String dataFileName, String formula) throws IOException, FileNotFoundException {
         throw new UnsupportedOperationException() ;
         /*
         BufferedWriter output = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(TestContext.getFuncTestFile("/config/formula/")
@@ -206,7 +214,7 @@ public class FormulaTestUtils {
         */
     }
 
-    public static List<String> getFormulaNames(String xmlFileName, String retriveForEntity)
+    public List<String> getFormulaNames(String xmlFileName, String retriveForEntity)
         throws ParserConfigurationException, SAXException, IOException, Exception {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -250,7 +258,7 @@ public class FormulaTestUtils {
         return result;
     }
 
-    public static List<FieldDefinitionInfo> getFieldDefintions(String xmlFileName, String retriveForEntity)
+    public List<FieldDefinitionInfo> getFieldDefintions(String xmlFileName, String retriveForEntity)
         throws ParserConfigurationException, SAXException, IOException, Exception {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -278,7 +286,7 @@ public class FormulaTestUtils {
     private static Set<String> CURRENCY_TYPE = ImmutableSet.of("currency");
     private static Set<String> PERCENT_TYPE = ImmutableSet.of("percent");
     
-    public static FormulaDataType getDataType(String dataTypeName) {
+    public FormulaDataType getDataType(String dataTypeName) {
         if (TEXT_TYPE.contains(dataTypeName)) return MockFormulaDataType.TEXT;
         if (DOUBLE_TYPE.contains(dataTypeName)) return MockFormulaDataType.DOUBLE;
         if (CURRENCY_TYPE.contains(dataTypeName)) return MockFormulaDataType.CURRENCY;
@@ -288,7 +296,11 @@ public class FormulaTestUtils {
         return dataType;
     }
         
-    private static List<FieldDefinitionInfo> extractFieldsDefintions(NodeList fieldList, String entityName)
+    protected FieldDefinitionInfo constructFieldDefinitionInfo(String entityName, FormulaDataType returnType, String devName, String labelName, Element defElement) {
+        return new FieldDefinitionInfo(entityName, returnType, devName, labelName);
+    }
+    
+    private List<FieldDefinitionInfo> extractFieldsDefintions(NodeList fieldList, String entityName)
         throws IOException, FileNotFoundException {
         List<FieldDefinitionInfo> fieldDefinitions = new LinkedList<FieldDefinitionInfo>();
         for (int nField = 0; nField < fieldList.getLength(); nField++) {
@@ -300,14 +312,14 @@ public class FormulaTestUtils {
             String devName = field.getAttribute("devName");
             String labelName = field.getAttribute("labelName");
             String dataTypeName = field.getAttribute("dataType");
-            FormulaDataType dataType = FormulaTestUtils.getDataType(dataTypeName);
+            FormulaDataType dataType = getDataType(dataTypeName);
             String precision = field.getAttribute("precision");
             String scale = field.getAttribute("scale");
             String length = field.getAttribute("length");
             String formulaCode = field.getAttribute("code");
             boolean isStandard = "true".equalsIgnoreCase(field.getAttribute("standardfield"));
 
-            FieldDefinitionInfo fieldDefinition = new FieldDefinitionInfo(entityName, dataType, devName, labelName);
+            FieldDefinitionInfo fieldDefinition = constructFieldDefinitionInfo(entityName, dataType, devName, labelName, field);
 
             fieldDefinition.setIsStandard(isStandard);
 
@@ -341,27 +353,4 @@ public class FormulaTestUtils {
         }
         return fieldDefinitions;
     }
-
-    public static List<String> getProfileIdsFromFile(String dataFile) throws IOException, FileNotFoundException {
-        List<String> profileIds = new ArrayList<String>();
-        try {
-            BufferedReader input = new BufferedReader(new FileReader(dataFile));
-            String temp;
-            while ((temp = input.readLine()) != null) {
-                temp = temp.trim();
-                if (temp.length() == 0 || temp.charAt(0) == '#') {
-                    continue;
-                }
-                profileIds.add(temp.split(",", -1)[0]);
-            }
-
-            input.close();
-        }
-        catch (FileNotFoundException e) {
-            profileIds = null;
-        }
-
-        return profileIds;
-    }
-
 }

@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testTextNum2">
    <testInstance formula="Text(customnumber1__c)" returntype="Text">
-    <SqlOutput psql="true" nullAsNull="true">
-       <Sql>(TO_CHAR(NVL($!s0s!$.customnumber1__c, 0)))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="true" nullAsNull="false">
-       <Sql>(TO_CHAR($!s0s!$.customnumber1__c))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="true">
-       <Sql>(TO_CHAR(NVL($!s0s!$.customnumber1__c, 0)))</Sql><Guard>null       </Guard>
-</SqlOutput>
-    <SqlOutput psql="false" nullAsNull="false">
-       <Sql>(TO_CHAR($!s0s!$.customnumber1__c))</Sql><Guard>null       </Guard>
-</SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(TO_CHAR(COALESCE($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(TO_CHAR($!s0s!$.customnumber1__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">&quot;&quot;+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(&quot;&quot;+context.record.customnumber1__c):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">&quot;&quot;+$F.nvl(context.record.customnumber1__c,0)</JsOutput>
@@ -20,45 +16,55 @@
       <result>
       <inputvalues>[1234567890.0]</inputvalues>
          <formula>1234567890</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 16</sql>
          <javascript>1234567890</javascript>
          <javascriptLp>1234567890</javascriptLp>
          <formulaNullAsNull>1234567890</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 16</sqlNullAsNull>
          <javascriptNullAsNull>1234567890</javascriptNullAsNull>
          <javascriptLpNullAsNull>1234567890</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1234567891.0]</inputvalues>
          <formula>1234567891</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 16</sql>
          <javascript>1234567891</javascript>
          <javascriptLp>1234567891</javascriptLp>
          <formulaNullAsNull>1234567891</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 16</sqlNullAsNull>
          <javascriptNullAsNull>1234567891</javascriptNullAsNull>
          <javascriptLpNullAsNull>1234567891</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1234567890]</inputvalues>
          <formula>1234567890</formula>
+         <sql>Error: ERROR: function to_char(integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 16</sql>
          <javascript>1234567890</javascript>
          <javascriptLp>1234567890</javascriptLp>
          <formulaNullAsNull>1234567890</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 16</sqlNullAsNull>
          <javascriptNullAsNull>1234567890</javascriptNullAsNull>
          <javascriptLpNullAsNull>1234567890</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1234567891]</inputvalues>
          <formula>1234567891</formula>
+         <sql>Error: ERROR: function to_char(integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 16</sql>
          <javascript>1234567891</javascript>
          <javascriptLp>1234567891</javascriptLp>
          <formulaNullAsNull>1234567891</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 16</sqlNullAsNull>
          <javascriptNullAsNull>1234567891</javascriptNullAsNull>
          <javascriptLpNullAsNull>1234567891</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>0</formula>
+         <sql>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 16</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function to_char(numeric) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 16</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

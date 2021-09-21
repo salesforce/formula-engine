@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.*;
 
+import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.formula.util.FormulaTextUtil;
 import com.force.i18n.BaseLocalizer;
@@ -21,10 +22,10 @@ import com.google.common.collect.Lists;
 public interface FormulaEngineHooks {
 	/**
 	 * @return true, if the SQL generated should be in the postgres style, instead of the
-	 * oracle style.  Mostly around casts
+	 * oracle style.  Mostly around casts.  The implementation has the default behavior
 	 */
-	default boolean isSqlPostgresStyle() {
-		return false;
+	default FormulaSqlStyle getSqlStyle() {
+		return null;
 	}
 
 	/**
@@ -143,12 +144,11 @@ public interface FormulaEngineHooks {
      * Construct a Geolocation object
      */
     default FormulaGeolocation constructGeolocation(Number latitude, Number longitude) {
-    	// TODO SLT FIXME
     	return null;
     }
     
     /**
-     * Construct a Geolocation object
+     * Construct a Time object
      */
     default FormulaTime constructTime(Number millis) {
     	//private static final long DAY_TO_MS = 86400000L;
@@ -396,10 +396,6 @@ public interface FormulaEngineHooks {
     default void hook_popComponentNamespace() {}
 
     default String getDbTimeZoneID(TimeZone tz) {
-    	// FormulaEngine.getHooks().isSqlPostgresStyle() ? cal.getTimeZone().getID()
-        //: TimeZoneFactory.getOracleTZR(cal.getTimeZone());
-    	
-    	// TODO if oracle, return the oracle db time zone id
     	return tz.getID();
     }
     
@@ -408,7 +404,6 @@ public interface FormulaEngineHooks {
      * @param id the possible id to convert
      */
     default String convertIdTo18Digits(String id) {
-    	// return IdConverter.to18IfId(id);
     	return id;
     }
     
@@ -419,10 +414,6 @@ public interface FormulaEngineHooks {
      * @return the object, or it converted to a String if appropriate.
      */
     default Object convertToString(Object obj) {
-    	/* if (obj instanceof ID) {
-            // sigh.  ID used to be represented by String so we'll magically make it back into one here.
-            return ((ID)obj).getValue();
-        } */
     	return obj;
     }
 

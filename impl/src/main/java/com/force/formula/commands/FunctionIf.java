@@ -102,9 +102,9 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
         int nodeType = node.getType();
         if (argType == ConstantNull.class) {
             if ((resultDataType == FormulaDateTime.class) || (resultDataType == Date.class)) {
-                return "TO_DATE(NULL)";
+                return getSqlHooks(context).sqlNullToDate();
             } else if (resultDataType == BigDecimal.class) {
-                return "TO_NUMBER(NULL)";
+                return getSqlHooks(context).sqlNullToNumber();
             } else if (resultDataType == Boolean.class) {
                 return "0";     // for compare false
             } else if (resultDataType == ConstantNull.class) {
@@ -116,9 +116,9 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
         }
 
         if ((argType == FormulaDateTime.class) || (argType == Date.class) && node.canBeNull()) {
-            return String.format("NVL(%s,TO_DATE(NULL))", expression);
+            return String.format(getSqlHooks(context).sqlNvl() + "(%s,"+getSqlHooks(context).sqlNullToDate()+")", expression);
         } else if (argType == BigDecimal.class && node.canBeNull() && node.getType() != FormulaTokenTypes.IDENT) {
-            return String.format("NVL(%s,TO_NUMBER(NULL))", expression);
+            return String.format(getSqlHooks(context).sqlNvl() + "(%s,"+getSqlHooks(context).sqlNullToNumber()+")", expression);
         } else if (argType == Boolean.class) {
             // convert boolean back to number for comparison
             if (nodeType == FormulaTokenTypes.TRUE)
@@ -128,8 +128,8 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
             else
                 return String.format("CASE WHEN %s THEN 1 ELSE 0 END", expression);
         }
-        else if (FormulaCommandInfoImpl.shouldGeneratePsql(context) && argType == String.class &&  "''".equals(expression)) {
-             return "NULL"; // SDB related: W-5552193
+        else if (getSqlHooks(context).isPostgresStyle() && argType == String.class &&  "''".equals(expression)) {
+             return "NULL"; // postgres related: W-5552193
         }
         else {
             return expression;
