@@ -531,13 +531,6 @@ public class BuiltinFunctionsTest extends ParserTestBase {
         assertEquals(null, evaluateString("right(null, 3)"));
     }
 
-    public void testIMAGE() throws Exception {
-        parseTest("image(\"http://www.gifs.com/images/fathead.gif\", \"fathead\")",
-            " ( image \"http://www.gifs.com/images/fathead.gif\" \"fathead\" )");
-        parseTest("image(\"http://www.gifs.com/images/fathead.gif\", \"fathead\", 20, 30)",
-            " ( image \"http://www.gifs.com/images/fathead.gif\" \"fathead\" 20 30 )");
-    }
-
     public void testTRIM() throws Exception {
         parseTest("trim(\"123456\")", " ( trim \"123456\" )");
         assertEquals("1234", evaluateString("trim(\"  1234  \")"));

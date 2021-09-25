@@ -66,8 +66,11 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
 
     @Override
     public String getFullName(boolean useDurableName, FormulaContext relativeToContext) {
-        return "";
-        /*
+    	return "";
+    	// Override to return getFullNameRelative if you want the name of the bean entity
+    }
+    
+    protected String getFullNameRelative(boolean useDurableName, FormulaContext relativeToContext) {
         BeanFormulaContext context = this;
 
         List<String> contextNames = new ArrayList<>();
@@ -85,9 +88,9 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
         }
 
         return sb.toString();
-        */
     }
 
+    /*
     @Override
     public FormulaReturnType getFormulaReturnType() {
         // This should return the field that defines the formula, but since we're using this "generically", we'll return a random field.
@@ -95,6 +98,7 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
         //return new ContextualFormulaFieldInfoImpl(this, entity.getFields().iterator().next());
         return super.getFormulaReturnType();
     }
+    */
 
     /**
      * Example Entity based on entity beans
@@ -178,6 +182,7 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
                 try {
                     fks = new Entity[] {BEAN_CACHE.get(returnType)};
                 } catch (ExecutionException x) {
+                	throw new RuntimeException(x);
                 }
             }
             return new BeanField(entity, desc, dataType, formulaSource, fks, scale);
@@ -204,7 +209,7 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
             try {
                 return getMethod(this.desc).invoke(bean);
             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException x) {
-                throw new MissingFieldValueException(devName);
+                throw new MissingFieldValueException(devName, x);
             }
         }
 
