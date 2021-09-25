@@ -44,7 +44,7 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
      * @param bean
      */
     @SuppressWarnings("unchecked")
-    MapFormulaContext(FormulaRuntimeContext defaultContext, MapEntity mapEntity, final FormulaTypeSpec topLevelFormulaType, FormulaSchema.Field reference, Map<String,?> map) {
+    public MapFormulaContext(FormulaRuntimeContext defaultContext, MapEntity mapEntity, final FormulaTypeSpec topLevelFormulaType, FormulaSchema.Field reference, Map<String,?> map) {
         super(defaultContext, mapEntity, topLevelFormulaType, reference, map);
         for (FormulaSchema.Field field : this.entity.getFields()) {
             Entity[] fks = field.getFormulaForeignKeyDomains();
@@ -120,7 +120,7 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
     /**
      * Example Entity based on entity beans
      */
-    static class MapEntity implements EntityWithFields {
+    public static class MapEntity implements EntityWithFields {
         private final String name;
         private final Map<String,MapField> fields;
         
@@ -159,7 +159,7 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
      *
      * @author stamm
      */
-    static class MapField extends BaseObjectFormulaContext.BaseObjectField<Map<String,?>> {
+    public static class MapField extends BaseObjectFormulaContext.BaseObjectField<Map<String,?>> {
         public MapField(MapEntity entity, String name, FormulaDataType dataType, String formulaSource, Entity[] foreignKeys, int scale) {
             super(entity, name, dataType, formulaSource, foreignKeys, scale);
         }
