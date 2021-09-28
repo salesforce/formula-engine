@@ -9,6 +9,7 @@ import java.lang.reflect.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 
 /**
@@ -29,6 +30,7 @@ public class FormulaEngine {
     }
 
     public static FormulaEngineHooks setHooks(FormulaEngineHooks hooks) {
+    	Preconditions.checkNotNull(hooks);
         return hooksRef.getAndSet(hooks);
     }
 
@@ -37,6 +39,7 @@ public class FormulaEngine {
     }
 
     public static FormulaFactory setFactory(FormulaFactory factory) {
+    	Preconditions.checkNotNull(factory);
         return factoryRef.getAndSet(factory);
     }
 

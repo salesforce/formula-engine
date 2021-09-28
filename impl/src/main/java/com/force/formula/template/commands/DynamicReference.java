@@ -12,12 +12,12 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.commands.*;
 import com.force.formula.impl.*;
-
-import antlr.collections.AST;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaFieldReferenceImpl;
 import com.force.formula.util.FormulaI18nUtils;
+
+import antlr.collections.AST;
 
 /**
  * Formula command info/command for a dynamic field reference <expr>[b] or <expr>.c
@@ -45,7 +45,7 @@ public class DynamicReference extends FormulaCommandInfoImpl implements FormulaC
         // which would have a lot of ripple.
         FormulaAST baseArg = (FormulaAST)node.getFirstChild();
         final Type dataType = baseArg.getDataType();
-        if (dataType != Object.class && dataType != RuntimeType.class) {
+        if (dataType != Object.class && dataType != RuntimeType.class && dataType != Map.class && dataType != List.class) {
             final String actualType = FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionDataTypes", FormulaTypeUtils.getTypeName(dataType));
             throw new GenericFormulaException(FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages",
                 "InvalidSubscriptBase", actualType));

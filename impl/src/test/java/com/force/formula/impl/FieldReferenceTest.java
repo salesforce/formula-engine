@@ -34,7 +34,7 @@ public class FieldReferenceTest extends BaseFieldReferenceTest {
             ffis.put(field.getFormulaFieldInfo().getName(), field.getFormulaFieldInfo());
         }
         assertEquals(ImmutableSet.of("account", "accountId", "createdDate", "optIn", "nullNumber", "nullAccount", "nullDate", "nullText",
-                "dateFormula", "numberFormula"), ffis.keySet());
+                "dateFormula", "numberFormula", "list", "map"), ffis.keySet());
         assertTrue(ffis.get("createdDate").getDataType().isDateOnly());            
         assertTrue(ffis.get("optIn").getDataType().isBoolean());            
     }

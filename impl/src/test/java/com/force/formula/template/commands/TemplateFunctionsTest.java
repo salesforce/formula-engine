@@ -149,8 +149,10 @@ public class TemplateFunctionsTest extends ParserTestBase {
         } catch (PatternSyntaxException ex) {
             assertTrue(true);
         }
-            
+
     }
+    
+    
 
     
     private boolean setIsNew = false;
@@ -187,6 +189,10 @@ public class TemplateFunctionsTest extends ParserTestBase {
     
             expression = "This is a test of format {!format(100.0,\"INVALID\")}";
             assertTemplateFormula("This is a test of format INVALID100", expression);
+
+            expression = "This is a test of format {!100.0}";
+            assertTemplateFormula("This is a test of format 100.0", expression);
+
         } finally {
             FormulaEngine.setFactory(oldFactory);
         }
@@ -217,6 +223,14 @@ public class TemplateFunctionsTest extends ParserTestBase {
             } catch (FormulaEvaluationException ex) {
                 assertTrue(ex.getMessage(), ex.getMessage().contains("Illegal pattern character"));
             }
+            
+            // Assume en_US as default locale
+            expression = "This is a test of format {!DATE(2007,7,26)}";
+            assertTemplateFormula("This is a test of format 7/26/2007", expression);
+            String LEAP = "2016-02-29 13:15:10";
+            expression = "This is a test of format {!DATETIMEVALUE('"+LEAP+"')}";
+            assertTemplateFormula("This is a test of format 2/29/2016, 1:15 PM", expression);
+    
         } finally {
             FormulaEngine.setFactory(oldFactory);
         }

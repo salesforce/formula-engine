@@ -266,7 +266,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @return a concrete FieldReferenceCommand for the given fieldName
      */
     default FieldReferenceCommand parseHook_constructFieldReferenceCommand(String commandName, String fieldName, boolean useUnderlyingType, boolean isRoot, boolean isDynamicReferenceBase) {
-        return new FieldReferenceCommand(commandName, fieldName, isRoot, isDynamicReferenceBase);
+        return new FieldReferenceCommand(commandName, fieldName, useUnderlyingType, isRoot, isDynamicReferenceBase);
     }
 
     
