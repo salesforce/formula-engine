@@ -64,5 +64,18 @@ public class TestStandardFormulas extends FormulaGenericTests {
 		return new EmbeddedPostgresqlTester();
 	}
 
+	@Override
+	protected boolean ignoreJavascriptValueMismatchInAutobuilds(String testName) {
+		if ("testISNUMBER".equals(testName)) {
+			// The javascript isNumber for ", " returns true, because javascript
+			return true;
+		}
+		if ("testVALUE".equals(testName)) {
+			// The javascript value for "+1" returns error,  because javascript
+			return true;
+		}
+		return false;
+	}
+
     
 }

@@ -5,8 +5,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 import com.force.formula.sql.FormulaSqlStyle;
-import com.force.formula.util.FormulaI18nUtils;
-import com.force.formula.util.FormulaTextUtil;
+import com.force.formula.util.*;
 import com.force.i18n.BaseLocalizer;
 import com.force.i18n.LocalizerFactory;
 import com.google.common.collect.Lists;
@@ -144,6 +143,13 @@ public interface FormulaEngineHooks {
      * Construct a Geolocation object
      */
     default FormulaGeolocation constructGeolocation(Number latitude, Number longitude) {
+    	return null;
+    }
+
+    /**
+     * @return the service used to generate the formula functions for location
+     */
+    default FormulaGeolocationService getFormulaGeolocationService() {
     	return null;
     }
     

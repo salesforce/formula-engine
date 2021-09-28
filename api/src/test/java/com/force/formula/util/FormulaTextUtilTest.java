@@ -199,4 +199,20 @@ public class FormulaTextUtilTest extends TestCase {
         assertEquals("", FormulaTextUtil.codepointToCharRefDec(0x110000));
         assertEquals("", FormulaTextUtil.codepointToCharRefDec(-0x1));
     }
+    
+    public void testRemoveEnclosingQuotes() {
+        assertEquals(null, FormulaTextUtil.removeEnclosingQuotes(null));
+        assertEquals("", FormulaTextUtil.removeEnclosingQuotes(""));
+        assertEquals("''", FormulaTextUtil.removeEnclosingQuotes("''"));
+        assertEquals("\"\"", FormulaTextUtil.removeEnclosingQuotes("\"\""));
+
+        assertEquals("Foo", FormulaTextUtil.removeEnclosingQuotes("'Foo'"));
+        assertEquals("Foo", FormulaTextUtil.removeEnclosingQuotes("\"Foo\""));
+        assertEquals("\"Foo\" ", FormulaTextUtil.removeEnclosingQuotes("\"Foo\" "));
+        assertEquals(" \"Foo\"", FormulaTextUtil.removeEnclosingQuotes(" \"Foo\""));
+        assertEquals("'Foo' ", FormulaTextUtil.removeEnclosingQuotes("'Foo' "));
+        assertEquals(" 'Foo'", FormulaTextUtil.removeEnclosingQuotes(" 'Foo'"));
+        assertEquals("AFooA", FormulaTextUtil.removeEnclosingQuotes("AFooA"));
+
+    }
 }

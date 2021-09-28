@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
  *
  * @author ahersans
  * @since 180
- * @see GeoLocationService
+ * @see FormulaGeolocationService
  */
 public interface FormulaGeolocation {
 
@@ -17,4 +17,10 @@ public interface FormulaGeolocation {
     @Nullable
     Number getLongitude();
 
+    // Optional enum for helping with display.  Not required, but used by the GeolocationService
+    public enum GeolocationDisplayMode {
+        DecimalDegrees,
+        DegreesMinutesSeconds,
+        ;
+    }
 }

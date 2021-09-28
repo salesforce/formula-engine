@@ -121,6 +121,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new FieldReferenceCommandInfo());
         types.add(new DynamicReference());
         types.add(new FunctionIfs());
+        types.add(new FunctionDistance());
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         c.clear();
@@ -180,7 +181,12 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
             }
 
             return fieldPath;        
-         } 
+         }
+
+		@Override
+		public FormulaGeolocation constructGeolocation(Number latitude, Number longitude) {
+			return new MockLocation(latitude, longitude);
+		} 
     }
    
     static class TestContact {

@@ -569,6 +569,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 		/**
 		 * @return true to log a mismatch in the generated Javascript value, but don't produce a test failure in the autobuilds.
+		 * Autobuilds are integration tests.
 		 * Necessary so that we can iteratively close gaps in the generated Javascript formula string.
 		 */
 		protected boolean ignoreJavascriptValueMismatchInAutobuilds() {

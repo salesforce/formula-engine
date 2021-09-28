@@ -90,6 +90,10 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		return true;
 	}
 
+	protected boolean ignoreJavascriptValueMismatchInAutobuilds(String testName) {
+		return false;
+	}
+	
 	protected static class FormulaGenericTest extends BaseFormulaGenericTest {
 		public FormulaGenericTest(FormulaTestCaseInfo testCase, String name, boolean positive, FormulaGenericTests suite) {
 			super(testCase, name, positive, suite);
@@ -120,6 +124,11 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		}
 
 		
+		@Override
+		protected boolean ignoreJavascriptValueMismatchInAutobuilds() {
+			return ((FormulaGenericTests)getSuite()).ignoreJavascriptValueMismatchInAutobuilds(getName());
+		}
+
 		@Override
 		protected void createFail(FormulaTestCaseInfo testCase, FieldDefinitionInfo fieldInfo) throws Exception {
 		}

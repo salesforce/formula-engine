@@ -365,6 +365,24 @@ public final class FormulaTextUtil {
             return arg.substring(left, right + 1);
         }
     }
+    
+
+    /**
+     * Removes enclosing single or double quotes provided the string's first and last character are the quotes
+     * @param s
+     * @return the string without enclosing quotes
+     */
+    public static String removeEnclosingQuotes(String s) {
+        if (s == null || s.length() < 3) {
+            return s;
+        }
+
+        int olen = s.length();
+        if (s.charAt(0) == s.charAt(olen-1) && (s.charAt(0) == '\'' || s.charAt(0) == '"')) {
+            return s.substring(1, olen-1);
+        }
+        return s;
+    }
 
     public static boolean isNullEmptyOrWhitespace(CharSequence str) {
         if (str == null) {

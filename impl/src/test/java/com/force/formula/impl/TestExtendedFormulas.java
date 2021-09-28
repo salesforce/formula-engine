@@ -63,5 +63,14 @@ public class TestExtendedFormulas extends FormulaGenericTests {
 	protected DbTester constructDbTester() throws IOException {
 		return new EmbeddedPostgresqlTester();
 	}
+	
+	@Override
+	protected boolean ignoreJavascriptValueMismatchInAutobuilds(String testName) {
+		if ("testDistance".equals(testName)) {
+			// TODO: Implement distance functions in Javascript
+			return true;
+		}
+		return false;
+	}
 
 }

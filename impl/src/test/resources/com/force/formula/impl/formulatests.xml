@@ -123,6 +123,14 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Text"  length="50"/>
       </testcase>
       
+     <testcase name="testMillisecondValueWithValidInValid" devName="testMilliecondValueWithValidInValid"
+         labelName="testSecondValueWithValidInValid" dataType="Double" eval="formula,template" dataFile="functiondatevalue-dateandtime"
+         scale="2" precision="12"  labels="extended"
+         code="Second(TimeValue(DATETIMEVALUE(dateString__c)))">
+         <referencefield devName="dateString" labelName="dateString"
+             dataType="Text"  length="50"/>
+      </testcase>
+      
       <testcase name="testMinuteValueWithValidInValid" devName="testMinuteValueWithValidInValid"
          labelName="testMinuteValueWithValidInValid" dataType="Double" eval="formula,template" dataFile="functiondatevalue-dateandtime"
          scale="2" precision="12"
@@ -1676,6 +1684,14 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
      </testcase>
 
+     <testcase name="testTrim" devName="testTrim"
+         labelName="testTrim" dataType="Text"
+         dataFile="singleTextFieldData" 
+         code="TRIM(customtext1__c)">
+         <referencefield devName="customtext1" labelName="customtext1"
+             dataType="Text" length="255"/>
+     </testcase>
+
      <!-- NOTES: TESTCASES FOR EXP() FUNCTION -->
      <testcase name="testExpSimple" devName="testExpSimple"
          labelName="testExpSimple" dataType="Double" dataFile="expData"
@@ -3033,14 +3049,14 @@ author: Srikanth Yendluri/Doug Chasman
      <!--  TODO SLT: Decimal fails on '+1' -->
      <testcase name="testVALUE" devName="testVALUE"
          labelName="testVALUE" dataType="Double" scale="2" dataFile="valueFunctionData"
-         code="value(customtext1__c)" labels="nashornBug">
+         code="value(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
      </testcase>
 
      <!-- TESTCASES for ISNUMBER() -->
      <!-- TODO SLT: Ignore because isNan('&dash;&dash;1234') is wrong in Nashorn.. Note the double dash is two - -->
-     <testcase name="testISNUMBER" devName="testISNUMBER" labels="nashornBug"
+     <testcase name="testISNUMBER" devName="testISNUMBER" 
          labelName="testISNUMBER" dataType="Double" scale="2" dataFile="valueFunctionData"
          code="if(ISNUMBER(customtext1__c),1,0)">
          <referencefield devName="customtext1" labelName="customtext1"
@@ -3171,5 +3187,13 @@ author: Srikanth Yendluri/Doug Chasman
         code="TimeValue(timeString2__c) - TimeValue(timeString1__c)">
         <referencefield devName="timeString1" labelName="timeString1" dataType="Text" length="50"/>
         <referencefield devName="timeString2" labelName="timeString2" dataType="Text" length="50"/>
+    </testcase>
+
+    <testcase name="testDistance" devName="testDistance"
+        labelName="testDistance" dataType="Double" eval="formula,template" dataFile="twoLatLong"
+        scale="2" precision="12" labels="extended"
+        code="DISTANCE(GEOLOCATION(customNumber1__c,customNumber2__c),GEOLOCATION(33.37088,-122.61715),'mi')">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
       </testcase>
 </formula-test>

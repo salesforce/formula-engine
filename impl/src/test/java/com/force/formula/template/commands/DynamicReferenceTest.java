@@ -13,6 +13,7 @@ import com.force.formula.FormulaTypeWithDomain.IdType;
 import com.force.formula.commands.*;
 import com.force.formula.impl.*;
 import com.force.i18n.BaseLocalizer;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Test dynamic references in templates
@@ -83,6 +84,7 @@ public class DynamicReferenceTest extends BaseCustomizableParserTest {
         // Test format and template parsing
         types.add(new FunctionFormat());
         types.add(new FunctionTemplate());
+        types.add(new FunctionMap());
         types.add(new DynamicReference());
         types.add(new DynamicFieldSelector());
         types.add(new FieldReferenceCommandInfo());
@@ -91,11 +93,7 @@ public class DynamicReferenceTest extends BaseCustomizableParserTest {
 
 
     /**
-     * Verify various formats for Text formula type ( valid and invalid)
-     * @priority Medium
-     * @hierarchy Declarative App Builder.Formula Fields.Format
-     * @userStory Annotation Debt
-     *
+	 * Test List references using substrings from the TestAccount
      */
     public void testListReference() throws Exception {
         assertEquals("First", evaluateString("List[0]"));
@@ -108,11 +106,7 @@ public class DynamicReferenceTest extends BaseCustomizableParserTest {
     }
    
     /**
-     * Verify various formats for Text formula type ( valid and invalid)
-     * @priority Medium
-     * @hierarchy Declarative App Builder.Formula Fields.Format
-     * @userStory Annotation Debt
-     *
+     * Test Map references using [] from the TestAccount
      */
     public void testMapReference() throws Exception {
         assertEquals(new BigDecimal("1"), evaluateBigDecimal("Map['Foo']"));
@@ -122,7 +116,16 @@ public class DynamicReferenceTest extends BaseCustomizableParserTest {
         	assertEquals("Map key Baz not found in map.", x.getMessage());
         }
     }
-   
+    
+    /**
+     * Test the MAP() function
+     */
+    public void testMapFunction() throws Exception {
+    	// Map is StringString... 
+    	// Note: you can only use [] on field references as of 2021.  Grammar issue
+        assertEquals(ImmutableMap.of("First", "1", "Second", "2"), 
+        		evaluate("MAP('First',1,'Second',2)", MockFormulaDataType.MAP));
+    }
     
 	static class MockIdFormulaType implements IdType {
 		private final Entity[] domain;
