@@ -32,9 +32,9 @@ public enum DistanceUnit {
     }
     
     public static DistanceUnit getUnitByName(String name) {
-        if (name.equalsIgnoreCase("mi"))
+        if ("mi".equalsIgnoreCase(name))
             return Mile;
-        else if (name.equalsIgnoreCase("km"))
+        else if ("km".equalsIgnoreCase(name))
             return Kilometer;
         else
             return null;

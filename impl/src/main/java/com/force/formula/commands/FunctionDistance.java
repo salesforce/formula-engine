@@ -134,9 +134,8 @@ public class FunctionDistance extends FormulaCommandInfoImpl implements FormulaC
         if (unitNode.getDataType() != String.class)
             throw new WrongArgumentTypeException(unitNode.getText(), new Class[] { String.class }, unitNode);
         String unitString = FormulaTextUtil.removeEnclosingQuotes(unitNode.getText());
-        if(unitNode.isLiteral()){
-            if (DistanceUnit.getUnitByName(unitString) == null)
-                throw new WrongArgumentException(getName(), "'mi'/'km'", unitNode);
+        if(unitNode.isLiteral()&& DistanceUnit.getUnitByName(unitString) == null) {
+            throw new WrongArgumentException(getName(), "'mi'/'km'", unitNode);
         }
         context.setProperty(TREAT_NULL_AS_ZERO, properties.getTreatNullNumberAsZero());
         return BigDecimal.class;
