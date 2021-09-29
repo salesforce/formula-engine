@@ -13,8 +13,7 @@
   </parent>
 
   <properties>
-    <!-- API isn't well tested -->
-    <coverage.threshold>0.25</coverage.threshold>
+    <coverage.threshold>0.50</coverage.threshold>
   </properties>
 
   <dependencies>

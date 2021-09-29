@@ -19,36 +19,38 @@ import com.google.common.collect.ImmutableMap;
  *
  */
 public class BaseCompositeFormulaContextTest {	
-	@Test(expected = InvalidFieldReferenceException.class)
+	@Test
 	public void testBaseCompositeFormulaContext() throws Exception {
 		setLocalizer();
 		BaseCompositeFormulaContext test = new BaseCompositeFormulaContext(null, null) {
 		};
-		test.fromDurableName("foo");
+		try {
+			test.fromDurableName("foo");
+			Assert.fail();
+		} catch (InvalidFieldReferenceException x) {
+			
+		}
+		try {
+			test.getBoolean("foo");
+			Assert.fail();
+		} catch (FormulaEvaluationException x) {
+			
+		}
+		try {
+			test.getObject("foo");
+			Assert.fail();
+		} catch (FormulaEvaluationException x) {
+			
+		}
+		try {
+			test.getString("foo", false);
+			Assert.fail();
+		} catch (FormulaEvaluationException x) {
+			
+		}
 	}
 	
-	@Test(expected = FormulaEvaluationException.class)
-	public void testGetBoolean() throws Exception {
-		setLocalizer();
-		BaseCompositeFormulaContext test = new BaseCompositeFormulaContext(null, null) {};
-		test.getBoolean("foo");
-	}
-	
-	@Test(expected = FormulaEvaluationException.class)
-	public void testGetObject() throws Exception {
-		setLocalizer();
-		BaseCompositeFormulaContext test = new BaseCompositeFormulaContext(null, null) {};
-		test.getObject("foo");
-	}
-	
-	@Test(expected = FormulaEvaluationException.class)
-	public void testGetString() throws Exception {
-		setLocalizer();
-		BaseCompositeFormulaContext test = new BaseCompositeFormulaContext(null, null) {};
-		test.getString("foo", false);
-	}
-	
-	
+
 	@Test
 	public void testDefaultMethods() throws Exception {
 		setLocalizer();
