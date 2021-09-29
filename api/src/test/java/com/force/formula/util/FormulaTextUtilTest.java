@@ -39,9 +39,6 @@ public class FormulaTextUtilTest extends TestCase {
         Assert.assertEquals("This &lt;&gt;&amp;&quot;&#39;&copy;<br>", FormulaTextUtil.escapeToHtml("This <>&\"'©\n", true));
     }
 
-
-
-
     public void testReplaceSimple() {
         Assert.assertEquals("Some 123Xata with XX'sX", FormulaTextUtil.replaceSimple("Some 123data with dd'sd", "d", "X"));
         Assert.assertEquals("Some 123data with X's", FormulaTextUtil.replaceSimple("Some 123data with dd's", "dd", "X"));
@@ -53,6 +50,10 @@ public class FormulaTextUtilTest extends TestCase {
             new String[] { "Some 123data with dd's" }, new String[] { "Something completely different" }));
         Assert.assertEquals("", FormulaTextUtil.replaceSimple("", "dd", "X"));
         Assert.assertNull(FormulaTextUtil.replaceSimple(null, "dd", "X"));
+        
+        Assert.assertEquals("foo", FormulaTextUtil.replaceSimple("foo", "x", "y"));
+        // The next line is to replicate questionable "REPLACE" behavior in "SUBSITUTE"
+        Assert.assertEquals("nulloo", FormulaTextUtil.replaceSimple("foo", "f", null));
     }
 
     public void testReplaceSimple_WithArrays() {
@@ -214,5 +215,13 @@ public class FormulaTextUtilTest extends TestCase {
         assertEquals(" 'Foo'", FormulaTextUtil.removeEnclosingQuotes(" 'Foo'"));
         assertEquals("AFooA", FormulaTextUtil.removeEnclosingQuotes("AFooA"));
 
+    }
+    
+    public void testFormulaTrim() {
+    	assertEquals(null, FormulaTextUtil.formulaTrim(""));
+    	assertEquals(null, FormulaTextUtil.formulaTrim("       "));
+        assertEquals("'Foo'", FormulaTextUtil.formulaTrim("'Foo' "));
+        assertEquals("'Foo'", FormulaTextUtil.formulaTrim(" 'Foo'"));
+    	assertEquals("abc", FormulaTextUtil.formulaTrim("   abc    "));
     }
 }

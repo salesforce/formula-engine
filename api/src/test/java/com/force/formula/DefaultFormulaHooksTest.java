@@ -41,14 +41,12 @@ public class DefaultFormulaHooksTest extends TestCase {
 				return true;
 			}
 		}));
-
-        
         assertEquals("hi", def.hook_unwrapForNullable("hi"));
         
     }
     
     
-	public void testGetFieldReferenceValue() {
+	public void testGetFieldReferenceValue() throws Exception {
         FormulaEngineHooks def = new FormulaEngineHooks() {
 			@Override
 			public GrammaticalLocalizer getLocalizer() {
@@ -63,19 +61,13 @@ public class DefaultFormulaHooksTest extends TestCase {
 				return FormulaEngineHooks.super.getDataTypeByName(name);
 			}
         };
-        try {
-        	FormulaEngine.setHooks(def);
-	        FormulaRuntimeContext fc = new SystemFormulaContext(null);
-	        try {
-	        	ContextualFormulaFieldInfo fieldInfo = fc.lookup("OriginDateTime");
-	        	FormulaFieldReference ffr = new FormulaFieldReferenceImpl(null, "OriginDateTime");
-	        	def.getFieldReferenceValue(fieldInfo, fieldInfo.getDataType(), fc, ffr, false);
-	        } catch (FormulaException ex) {
-	        	
-	        }
-        } finally {
-        	
-        }
+    	FormulaEngine.setHooks(def);
+        FormulaRuntimeContext fc = new SystemFormulaContext(null);
+    	ContextualFormulaFieldInfo fieldInfo = fc.lookup("OriginDateTime");
+    	FormulaFieldReference ffr = new FormulaFieldReferenceImpl(null, "OriginDateTime");
+    	Object o = def.getFieldReferenceValue(fieldInfo, fieldInfo.getDataType(), fc, ffr, false);
+    	assertNotNull(o);
+    	assertEquals(-2208988800000L, ((FormulaDateTime)o).getDate().getTime()); // 1900
 	}
 	
 }
