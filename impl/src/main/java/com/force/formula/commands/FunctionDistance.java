@@ -162,8 +162,8 @@ class DistanceCommand extends AbstractFormulaCommand {
     @Override
     public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
         String unitAbbreviation     = checkStringType(stack.pop());
-        FormulaGeolocation secondLocation = (FormulaGeolocation) checkGeoLocationType(stack.pop());
-        FormulaGeolocation firstLocation  = (FormulaGeolocation) checkGeoLocationType(stack.pop());
+        FormulaGeolocation secondLocation = checkGeoLocationType(stack.pop());
+        FormulaGeolocation firstLocation  = checkGeoLocationType(stack.pop());
         DistanceUnit unit = null;
 
         for (DistanceUnit tmpUnit : DistanceUnit.values())
