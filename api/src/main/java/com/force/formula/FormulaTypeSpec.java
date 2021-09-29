@@ -44,6 +44,7 @@ public interface FormulaTypeSpec {
         return 10;
     }
            
+    // Salesforce specific stuff
     /**
      * @return whether this formula type supports picklists.  
      */

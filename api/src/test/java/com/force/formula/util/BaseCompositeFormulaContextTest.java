@@ -19,34 +19,38 @@ import com.google.common.collect.ImmutableMap;
  */
 public class BaseCompositeFormulaContextTest {	
 	@Test
-	@Ignore("Failing with NPE")
 	public void testBaseCompositeFormulaContext() throws Exception {
 		setLocalizer();
-		final BaseCompositeFormulaContext test = new BaseCompositeFormulaContext(null, null) {
-		};
+		final BaseCompositeFormulaContext test = new TestCompositeFormulaContext();
 		try {
 			test.fromDurableName("foo");
 			Assert.fail();
 		} catch (InvalidFieldReferenceException x) {
-			
 		}
+		
+		try {
+			test.toDurableName("foo");
+			Assert.fail();
+		} catch (UnsupportedTypeException x) {
+		}
+		
+		// These should hit NullFormulaContext
 		try {
 			test.getBoolean("foo");
 			Assert.fail();
-		} catch (FormulaEvaluationException x) {
+		} catch (UnsupportedOperationException x) {
 			
 		}
 		try {
 			test.getObject("foo");
 			Assert.fail();
-		} catch (FormulaEvaluationException x) {
+		} catch (UnsupportedOperationException x) {
 			
 		}
 		try {
 			test.getString("foo", false);
 			Assert.fail();
-		} catch (FormulaEvaluationException x) {
-			
+		} catch (UnsupportedOperationException x) {
 		}
 	}
 	
@@ -64,6 +68,7 @@ public class BaseCompositeFormulaContextTest {
 		Assert.assertFalse(test.isNew());
 		Assert.assertFalse(test.isClone());
 		Assert.assertFalse(test.isUIDeprecated());
+		Assert.assertFalse(test.convertIdto18Digits());
 		Assert.assertEquals("display", test.getGlobalProperties().getFormulaType().getDisplay());
 		Assert.assertEquals("display", test.getGlobalProperties().getTopLevelFormulaType().getDisplay());
 		// Property Methods
@@ -80,6 +85,10 @@ public class BaseCompositeFormulaContextTest {
 						+ "FormulaContext_ReturnType = text\n"
 						+ "}"
 				), test.getMetaInformation());
+		
+		Assert.assertEquals(test.getDefaultContext(), test.getFinalContext("foo"));
+		Assert.assertNull(test.getAdditionalContexts());
+		Assert.assertFalse(test.getGlobalProperties().getFormulaType().isTemplate());
 	}
 	
 	class TestCompositeFormulaContext extends BaseCompositeFormulaContext {
@@ -119,6 +128,15 @@ public class BaseCompositeFormulaContextTest {
 		@Override
 		public String getName() {
 			return "global";
+		}
+		@Override
+		public String fromDurableName(String reference)
+				throws InvalidFieldReferenceException, UnsupportedTypeException {
+			throw new InvalidFieldReferenceException("reference", "test");
+		}
+		@Override
+		public String toDurableName(String name) throws InvalidFieldReferenceException, UnsupportedTypeException {
+			throw new UnsupportedTypeException(name, getReturnType().getDataType());
 		}
 	}
 
