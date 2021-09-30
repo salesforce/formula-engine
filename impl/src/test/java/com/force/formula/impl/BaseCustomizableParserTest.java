@@ -122,6 +122,8 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new DynamicReference());
         types.add(new FunctionIfs());
         types.add(new FunctionDistance());
+        types.add(new FunctionIsChanged());
+        types.add(new FunctionPriorValue());
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         c.clear();

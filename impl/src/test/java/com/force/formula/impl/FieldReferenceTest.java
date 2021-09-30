@@ -90,6 +90,32 @@ public class FieldReferenceTest extends BaseFieldReferenceTest {
             assertEquals("Incorrect parameter type for operator '='. Expected Boolean, received Date", ex.getMessage());
         }
     }
+    
+	public void testIsChanged() throws Exception {
+        FormulaFactory oldFactory = FormulaEngine.getFactory();
+        try {
+            FormulaEngine.setFactory(TEST_FACTORY);
+	        FormulaRuntimeContext context = setupMockContext(MockFormulaDataType.BOOLEAN);
+	        RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(MockFormulaType.TEMPLATE, context, "ISCHANGED(Account.OptIn)");
+	        Formula formula = formulaInfo.getFormula();
+	        assertEquals(Boolean.FALSE, formula.evaluate(context));
+        } finally {
+            FormulaEngine.setFactory(oldFactory);
+        }
+	}
+	
+	public void testPriorValue() throws Exception {
+        FormulaFactory oldFactory = FormulaEngine.getFactory();
+        try {
+            FormulaEngine.setFactory(TEST_FACTORY);
+	        FormulaRuntimeContext context = setupMockContext(MockFormulaDataType.ENTITYID);
+	        RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(MockFormulaType.TEMPLATE, context, "PRIORVALUE(Account.OptIn)");
+	        Formula formula = formulaInfo.getFormula();
+	        assertEquals(null, formula.evaluate(context));
+        } finally {
+            FormulaEngine.setFactory(oldFactory);
+        }
+	}
 
 
 }
