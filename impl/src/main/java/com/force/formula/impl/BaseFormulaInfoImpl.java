@@ -428,7 +428,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
             // to have this here too.  bah
             int l;
             if ((l = Utf8.encodedLength(encodedSourceString)) > MAX_STORAGE_SIZE) {
-                throw new FormulaException(FormulaI18nUtils.getLocalizer().getLabel("Exception", "EncodedByteLengthTooLong", l, MAX_STORAGE_SIZE)) {
+                throw new FormulaException(FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages", "EncodedByteLengthTooLong", l, MAX_STORAGE_SIZE)) {
                     private static final long serialVersionUID = 1L;
                 };
             }

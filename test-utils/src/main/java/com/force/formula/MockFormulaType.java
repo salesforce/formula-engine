@@ -12,7 +12,9 @@ public enum MockFormulaType implements FormulaTypeSpec {
 	NULLASNULL,
 	JAVASCRIPT,
 	JAVASCRIPT_NULLASNULL,
-	TEMPLATE;
+	TEMPLATE,
+	TEMPLATE_PARSE,
+	DYNAMIC;
 
 	@Override
 	public int getMaxLength() {
@@ -28,13 +30,24 @@ public enum MockFormulaType implements FormulaTypeSpec {
 		}
 		if (this == TEMPLATE) {
 		    result.setGenerateSQL(false);
+	    	result.setPolymorphicReturnType(true);
+		}
+		if (this == TEMPLATE_PARSE) {
+		    result.setGenerateSQL(false);
+	    	result.setPolymorphicReturnType(true);
+	    	result.setParseAsTemplate(true);
+		}
+		if (this == DYNAMIC) {
+		    result.setGenerateSQL(false);
+		    result.setAllowSubscripts(true);
+	    	result.setPolymorphicReturnType(true);
 		}
 		return result;
 	}
 
 	@Override
 	public boolean isTemplate() {
-		return this == TEMPLATE;
+		return this == TEMPLATE || this == TEMPLATE_PARSE;
 	}
 
 	@Override

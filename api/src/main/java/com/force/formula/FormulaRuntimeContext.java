@@ -111,10 +111,10 @@ public interface FormulaRuntimeContext extends FormulaContext {
     Object getObject(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
     default Object getMapElement(Map<?,?> base, Object key) throws UnsupportedTypeException, InvalidFieldReferenceException {
-        throw new UnsupportedOperationException();
+    	return base.get(key);
     }
     default Object getListElement(List<?> base, int intNum) throws UnsupportedTypeException, InvalidFieldReferenceException  {
-        throw new UnsupportedOperationException();
+    	return base.get(intNum);
     }
 
     /**

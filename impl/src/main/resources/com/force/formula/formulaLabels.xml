@@ -77,10 +77,14 @@
         <param name="RelatedObjectReference">Related Object Reference</param>
         <param name="InvalidSubscriptBase">Expression of type {0} cannot be subscripted.</param>
         <param name="FieldReferenceCycleDetectedException">Formula cannot use another formula field that directly or indirectly refers to itself. {1}</param>
+        <param name="EncodedByteLengthTooLong">The size of your string is {0} bytes but may not exceed {1} bytes.</param>
         <!--  these are used in exception messages to describe formula element -->
         <param name="function">function ''{0}()''</param>
         <param name="operator">operator ''{0}''</param>
         <param name="subscript">subscript</param>
+        <param name="detailLookup">({0})</param>
+        <param name="detailLookupAbbr">{0}+{1}</param>
+        <param name="detailLookupMore">(...)</param>
     </section>
     <section name="FormulaFieldExceptionMessages_runtime">
         <param name="InvalidFieldReferenceException">Could not access the following field: {0}. Contact your administrator.</param>

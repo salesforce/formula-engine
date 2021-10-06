@@ -14,6 +14,7 @@ import com.force.formula.*;
 import com.force.formula.commands.*;
 import com.force.formula.sql.*;
 import com.force.formula.util.FormulaFieldReferenceInfoImpl;
+import com.force.formula.util.FormulaGeolocationService;
 import com.force.i18n.BaseLocalizer;
 import com.google.common.base.CharMatcher;
 
@@ -75,7 +76,12 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
 		return FormulaSqlHooks.DefaultStyle.POSTGRES;
 	}
 
-    /**
+    @Override
+	default FormulaGeolocationService getFormulaGeolocationService() {
+    	return GeolocationServiceImpl.getInstance();
+	}
+
+	/**
      * Validate that the given command isn't disallowed in the current formula context.
      *
      * Used often to prevent references to forbidden fields or global references
@@ -266,7 +272,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @return a concrete FieldReferenceCommand for the given fieldName
      */
     default FieldReferenceCommand parseHook_constructFieldReferenceCommand(String commandName, String fieldName, boolean useUnderlyingType, boolean isRoot, boolean isDynamicReferenceBase) {
-        return new FieldReferenceCommand(commandName, fieldName, isRoot, isDynamicReferenceBase);
+        return new FieldReferenceCommand(commandName, fieldName, useUnderlyingType, isRoot, isDynamicReferenceBase);
     }
 
     
@@ -370,6 +376,37 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
         return null;
     }
 
+    /**
+     * If the number of columns for the coordinates isn't 2 (i.e. lat,long), this handles 
+     * @param coordinates the SQL strings for the coordinates
+     * @param treatNullAsZero whether null should be treated as zero for coordinates
+     * @return the SQL to use for coordinates based on a list of columns
+     */
+    default 
+    String[] getDistanceSql(List<String> coordinates, boolean treatNullAsZero) {
+        int coordinateCount = coordinates.size();
+        if (coordinateCount == 3) {  //Lat, long, XYZ
+	        // Compound Geolocation field with XYZ column
+	        String xyzColumnValue = coordinates.get(2);
+		    String[] xyzStrings = getFormulaGeolocationService().getXyzStrings(xyzColumnValue);
+		    if(treatNullAsZero) {
+		        String[] origin = getFormulaGeolocationService().getXyzStrings(0, 0);
+		        assert xyzStrings.length == 3;
+		        for(int i=0; i < xyzStrings.length; i++) {
+		        	if (getSqlStyle().isOracleStyle()) {
+		        		xyzStrings[i] = "NVL2(" + xyzColumnValue + "," + xyzStrings[i] + "," + origin[i] + ")";
+		        	} else {
+		        		xyzStrings[i] = "CASE WHEN " + xyzColumnValue + " IS NOT NULL THEN " + xyzStrings[i] + " ELSE " + origin[i] + "END";
+		        	}
+		        }
+		    }
+		    return xyzStrings;
+        } else {	    
+	        throw new IllegalArgumentException("Incorrect number of columns as arguments to distance function. Got: " 
+	                + String.join(", ", coordinates));
+        }
+    }
+    
     /**
      * Returns true if the org can use the DATEVALUE() function fixed for Daylight Saving Time. This method depends on
      * the DatevalueFixForDSTEnabled preference. There is a chance that some orgs developed custom workarounds for the

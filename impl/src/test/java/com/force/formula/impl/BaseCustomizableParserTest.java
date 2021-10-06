@@ -14,6 +14,8 @@ import com.force.formula.impl.BeanFormulaContext.BeanEntity;
 import com.force.formula.impl.BeanFormulaContext.BeanFormulaType;
 import com.force.formula.template.commands.DynamicReference;
 import com.force.formula.util.FormulaFieldReferenceInfoImpl;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * FieldReferenceTest that includes a "bare" set of functions to validate
@@ -87,7 +89,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
             acc.setPercent(percentOverride);
         }
         
-        return new BeanFormulaContext(super.setupMockContext(columnType), MockFormulaType.JAVASCRIPT, con);
+        return new BeanFormulaContext(super.setupMockContext(columnType), getFormulaType(), con);
     }
     
     /**
@@ -119,6 +121,9 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new FieldReferenceCommandInfo());
         types.add(new DynamicReference());
         types.add(new FunctionIfs());
+        types.add(new FunctionDistance());
+        types.add(new FunctionIsChanged());
+        types.add(new FunctionPriorValue());
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         c.clear();
@@ -178,7 +183,12 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
             }
 
             return fieldPath;        
-         } 
+         }
+
+		@Override
+		public FormulaGeolocation constructGeolocation(Number latitude, Number longitude) {
+			return new MockLocation(latitude, longitude);
+		} 
     }
    
     static class TestContact {
@@ -241,6 +251,13 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         @BeanFormulaType(value=MockFormulaDataType.DOUBLE, formulaSource="account.amount+account.secondNumber")
         public BigDecimal getNumberFormula() {
             throw new UnsupportedOperationException();  // The bean converter calls this, but ignore it.
+        }
+
+        public List<Object> getList() {
+        	return new ArrayList<>(ImmutableList.of("First", "Second"));
+        }
+        public Map<String,Object> getMap() {
+        	return new HashMap<>(ImmutableMap.of("Foo", new BigDecimal("1"), "Bar", new BigDecimal("2")));
         }
     }
     

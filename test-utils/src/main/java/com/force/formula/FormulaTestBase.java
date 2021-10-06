@@ -151,7 +151,7 @@ public abstract class FormulaTestBase extends TestCase {
     /**
      * @return FormulaProperties suitable for testing templates (i.e. no sql, parseAsTemplate)
      */
-    protected static FormulaProperties getTemplateProperties() {
+    protected FormulaProperties getTemplateProperties() {
     	return templateProperties;
     }
 

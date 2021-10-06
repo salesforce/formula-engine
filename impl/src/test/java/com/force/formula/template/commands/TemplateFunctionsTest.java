@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 import com.force.formula.*;
-import com.force.formula.commands.FormulaCommandInfo;
-import com.force.formula.commands.FunctionFormat;
+import com.force.formula.commands.*;
 import com.force.formula.impl.*;
 
 /**
@@ -51,6 +50,9 @@ public class TemplateFunctionsTest extends ParserTestBase {
         // Test format and template parsing
         types.add(new FunctionFormat());
         types.add(new FunctionTemplate());
+        types.add(new FunctionPriorValue());
+        types.add(new FunctionIsChanged());
+        types.add(new FieldReferenceCommandInfo());
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
     }
 
@@ -149,8 +151,10 @@ public class TemplateFunctionsTest extends ParserTestBase {
         } catch (PatternSyntaxException ex) {
             assertTrue(true);
         }
-            
+
     }
+    
+    
 
     
     private boolean setIsNew = false;
@@ -187,6 +191,10 @@ public class TemplateFunctionsTest extends ParserTestBase {
     
             expression = "This is a test of format {!format(100.0,\"INVALID\")}";
             assertTemplateFormula("This is a test of format INVALID100", expression);
+
+            expression = "This is a test of format {!100.0}";
+            assertTemplateFormula("This is a test of format 100.0", expression);
+
         } finally {
             FormulaEngine.setFactory(oldFactory);
         }
@@ -217,6 +225,14 @@ public class TemplateFunctionsTest extends ParserTestBase {
             } catch (FormulaEvaluationException ex) {
                 assertTrue(ex.getMessage(), ex.getMessage().contains("Illegal pattern character"));
             }
+            
+            // Assume en_US as default locale
+            expression = "This is a test of format {!DATE(2007,7,26)}";
+            assertTemplateFormula("This is a test of format 7/26/2007", expression);
+            String LEAP = "2016-02-29 13:15:10";
+            expression = "This is a test of format {!DATETIMEVALUE('"+LEAP+"')}";
+            assertTemplateFormula("This is a test of format 2/29/2016, 1:15 PM", expression);
+    
         } finally {
             FormulaEngine.setFactory(oldFactory);
         }
@@ -275,5 +291,39 @@ public class TemplateFunctionsTest extends ParserTestBase {
     }
 
 
+    /**
+     * Added to formula engine but not exposed in regular formulas
+     *
+     * @priority Medium
+     * @hierarchy Declarative App Builder.Formula Fields.Format
+     * @userStory Annotation Debt
+     *
+     */
+    public void testFunctionIsChanged() throws Exception {
+        String expression1 = "This is a test 1 \r\n This is a test 2";
+        String expression2 = "This is a test 1 \n This is a test 2";
 
+        assertFalse("CR+LF should be treated as just LF", FunctionIsChanged.isChanged(expression1, expression2));
+
+        expression1 = "This is a test 1 \r\n\r\n\r\n This is a test 2";
+        expression2 = "This is a test 1 \n\n\n This is a test 2";
+
+        assertFalse("CR+LF should be treated as just LF", FunctionIsChanged.isChanged(expression1, expression2));
+
+        expression1 = "This is a test 1 \r\n This is a test 2";
+        expression2 = "This is a test 1 This is a test 2";
+
+        assertTrue("No LF in the 2nd expression", FunctionIsChanged.isChanged(expression1, expression2));
+
+        expression1 = "This is a test 1 \\r\n This is a test 2";
+        expression2 = "This is a test 1 \\n This is a test 2";
+
+        assertTrue("CR isn't a char because it's escaped", FunctionIsChanged.isChanged(expression1, expression2));
+
+        expression1 = "This is a test 1 \r This is a test 2";
+        expression2 = "This is a test 1 \n This is a test 2";
+
+        assertTrue("CR isn't the same as LF", FunctionIsChanged.isChanged(expression1, expression2));
+    }
+    
 }

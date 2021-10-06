@@ -32,14 +32,14 @@ public class FormulaTypeUtils {
         if (infos == null) return "";
         StringBuilder sb = new StringBuilder();
         if (shortenFKDomains && infos.length > 1) {
-            sb.append(FormulaI18nUtils.getLocalizer().getLabel("Page_LayoutFieldsEdit", "detailLookupAbbr", infos[0].getLabel(), infos.length - 1));
+            sb.append(FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages", "detailLookupAbbr", infos[0].getLabel(), infos.length - 1));
         } else {
             for (FormulaSchema.Entity info : infos) {
                 if (sb.length() != 0) sb.append(',');
                 sb.append(info.getLabel());
             }
         }
-        return FormulaI18nUtils.getLocalizer().getLabel("Page_LayoutFieldsEdit", "detailLookup", sb.toString());
+        return FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages", "detailLookup", sb.toString());
     }
     
     public static String getTypeName(Type type) {

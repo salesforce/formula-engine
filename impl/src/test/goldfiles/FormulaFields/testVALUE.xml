@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testVALUE">
+   <testInstance formula="value(customtext1__c)" returntype="Double" precision="18" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST($!s0s!$.customtext1__c AS NUMERIC)</Sql>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0','g') ~ '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$'</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST($!s0s!$.customtext1__c AS NUMERIC)</Sql>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0','g') ~ '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$'</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?($F.Decimal(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?($F.Decimal(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(Number(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(Number(context.record.customtext1__c)):null</JsOutput>
+      <result>
+      <inputvalues>[1234]</inputvalues>
+         <formula>1234</formula>
+         <sql>1234.00000000000000000000000000000000</sql>
+         <javascript>1234</javascript>
+         <javascriptLp>1234</javascriptLp>
+         <formulaNullAsNull>1234</formulaNullAsNull>
+         <sqlNullAsNull>1234.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>1234</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1234</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1234]</inputvalues>
+         <formula>-1234</formula>
+         <sql>-1234.00000000000000000000000000000000</sql>
+         <javascript>-1234</javascript>
+         <javascriptLp>-1234</javascriptLp>
+         <formulaNullAsNull>-1234</formulaNullAsNull>
+         <sqlNullAsNull>-1234.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>-1234</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-1234</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.234]</inputvalues>
+         <formula>1.234</formula>
+         <sql>1.23400000000000000000000000000000</sql>
+         <javascript>1.234</javascript>
+         <javascriptLp>1.234</javascriptLp>
+         <formulaNullAsNull>1.234</formulaNullAsNull>
+         <sqlNullAsNull>1.23400000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>1.234</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.234</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.234]</inputvalues>
+         <formula>-1.234</formula>
+         <sql>-1.23400000000000000000000000000000</sql>
+         <javascript>-1.234</javascript>
+         <javascriptLp>-1.234</javascriptLp>
+         <formulaNullAsNull>-1.234</formulaNullAsNull>
+         <sqlNullAsNull>-1.23400000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>-1.234</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-1.234</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[--1234]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: -1234</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: -1234</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1-234]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: 1-234</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: 1-234</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.2.34]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: 1.2.34</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: 1.2.34</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: </javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: </javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[..]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: ..</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: ..</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[..1]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: ..1</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: ..1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1..]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: 1..</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: 1..</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1..1]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: 1..1</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: 1..1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: .</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: .</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: .</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: .</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.]</inputvalues>
+         <formula>1</formula>
+         <sql>1.00000000000000000000000000000000</sql>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.1]</inputvalues>
+         <formula>0.1</formula>
+         <sql>0.10000000000000000000000000000000</sql>
+         <javascript>0.1</javascript>
+         <javascriptLp>0.1</javascriptLp>
+         <formulaNullAsNull>0.1</formulaNullAsNull>
+         <sqlNullAsNull>0.10000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>0.1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: Javascript had an error when no other did: should be 1 but was Error: Error: [DecimalError] Invalid argument: +1. -->
+      <inputvalues>[+1.]</inputvalues>
+         <formula>1</formula>
+         <sql>1.00000000000000000000000000000000</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: +1.</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: +1.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: Javascript had an error when no other did: should be 0.1 but was Error: Error: [DecimalError] Invalid argument: +.1 -->
+      <inputvalues>[+.1]</inputvalues>
+         <formula>0.1</formula>
+         <sql>0.10000000000000000000000000000000</sql>
+         <javascript>Error: Error: [DecimalError] Invalid argument: +.1</javascript>
+         <javascriptLp>0.1</javascriptLp>
+         <formulaNullAsNull>0.1</formulaNullAsNull>
+         <sqlNullAsNull>0.10000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Error: [DecimalError] Invalid argument: +.1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.e1]</inputvalues>
+         <formula>10</formula>
+         <sql>10.00000000000000000000000000000000</sql>
+         <javascript>10</javascript>
+         <javascriptLp>10</javascriptLp>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>10.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>10</javascriptNullAsNull>
+         <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.e+1]</inputvalues>
+         <formula>10</formula>
+         <sql>10.00000000000000000000000000000000</sql>
+         <javascript>10</javascript>
+         <javascriptLp>10</javascriptLp>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>10.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>10</javascriptNullAsNull>
+         <javascriptLpNullAsNull>10</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.e-1]</inputvalues>
+         <formula>0.1</formula>
+         <sql>0.10000000000000000000000000000000</sql>
+         <javascript>0.1</javascript>
+         <javascriptLp>0.1</javascriptLp>
+         <formulaNullAsNull>0.1</formulaNullAsNull>
+         <sqlNullAsNull>0.10000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>0.1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.1e1]</inputvalues>
+         <formula>1</formula>
+         <sql>1.00000000000000000000000000000000</sql>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.1e+1]</inputvalues>
+         <formula>1</formula>
+         <sql>1.00000000000000000000000000000000</sql>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.1e-1]</inputvalues>
+         <formula>0.01</formula>
+         <sql>0.01000000000000000000000000000000</sql>
+         <javascript>0.01</javascript>
+         <javascriptLp>0.01</javascriptLp>
+         <formulaNullAsNull>0.01</formulaNullAsNull>
+         <sqlNullAsNull>0.01000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>0.01</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.01</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.4512345e2]</inputvalues>
+         <formula>12345.12345</formula>
+         <sql>12345.12345000000000000000000000000000</sql>
+         <javascript>12345.12345</javascript>
+         <javascriptLp>12345.12345</javascriptLp>
+         <formulaNullAsNull>12345.12345</formulaNullAsNull>
+         <sqlNullAsNull>12345.12345000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>12345.12345</javascriptNullAsNull>
+         <javascriptLpNullAsNull>12345.12345</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

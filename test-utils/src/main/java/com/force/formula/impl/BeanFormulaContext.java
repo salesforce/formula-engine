@@ -250,6 +250,10 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
             return MockFormulaDataType.BOOLEAN;
         } else if (Number.class.isAssignableFrom(c)) {
             return MockFormulaDataType.DOUBLE;
+        } else if (List.class.isAssignableFrom(c)) {
+        	return MockFormulaDataType.LIST;
+        } else if (Map.class.isAssignableFrom(c)) {
+        	return MockFormulaDataType.MAP;
         } else {
             return MockFormulaDataType.ENTITYID;
         }

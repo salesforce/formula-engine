@@ -5,6 +5,8 @@
  */
 package com.force.formula.commands;
 
+import java.util.TimeZone;
+
 import com.force.formula.FormulaDataType;
 import com.force.formula.MockFormulaType;
 
@@ -25,6 +27,13 @@ public class BuiltinFunctionsJsTest extends BuiltinFunctionsTest {
     
     
     @Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		// TODO: Time functions are dependent on javascript timezone.
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
+	}
+
+	@Override
     protected MockFormulaType getFormulaType() {
         return MockFormulaType.JAVASCRIPT;
     }

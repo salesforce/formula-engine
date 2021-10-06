@@ -150,9 +150,6 @@ public class FormulaCommandTypeRegistryImpl implements FormulaCommandTypeRegistr
         types.add(new FunctionIsNew());
         types.add(new FunctionIsClone());
 
-        // Template support
-        types.add(new FunctionMap());
-
         DEFAULT_COMMANDS = ImmutableList.copyOf(types);
     }
 

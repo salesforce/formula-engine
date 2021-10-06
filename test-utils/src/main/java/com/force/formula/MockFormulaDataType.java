@@ -26,6 +26,8 @@ public enum MockFormulaDataType implements FormulaDataType {
     DATEONLY("DateOnly"),
     STATICENUM("StaticEnum"),
     ENTITYID("EntityId"),
+    LIST("List"),
+    MAP("Map")
     ;
     //
     // Public methods
