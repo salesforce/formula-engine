@@ -129,6 +129,10 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
     public String getString(String fieldName, boolean useNative) throws InvalidFieldReferenceException, UnsupportedTypeException {
         ObjectField<T> field = getField(fieldName);
         if (field != null) {
+        	if (field.getDataType() == MockFormulaDataType.STATICENUM) {
+        		MockPicklistData data = (MockPicklistData) field.getRawValue(this.object, fieldName);
+        		return data != null ? data.getStringValue() : null;
+        	}
             return (String) field.getRawValue(this.object, fieldName);
         } else {
             return super.getString(fieldName, useNative);
@@ -322,6 +326,11 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
         String getFormulaSource();
         
         /**
+         * @return the picklist associated with this field
+         */
+        FormulaPicklistInfo getEnumInfo();
+        
+        /**
          * @return the scale of this field for calculations.
          */
         int getScale();
@@ -340,13 +349,15 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
         private final String formulaSource;
         private final Entity[] foreignKeys;
         private final int scale;
-        public BaseObjectField(FormulaSchema.Entity entity, String name, FormulaDataType dataType, String formulaSource, Entity[] foreignKeys, int scale) {
+        private final FormulaPicklistInfo picklistInfo;
+        public BaseObjectField(FormulaSchema.Entity entity, String name, FormulaDataType dataType, String formulaSource, Entity[] foreignKeys, int scale, FormulaPicklistInfo picklistInfo) {
             this.entity = entity;
             this.name = name;
             this.dataType = dataType;
             this.formulaSource = formulaSource;
             this.foreignKeys = foreignKeys;
             this.scale = scale;
+            this.picklistInfo = picklistInfo;
         }
         
         @Override
@@ -400,6 +411,11 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
 		}
 
 		@Override
+		public FormulaPicklistInfo getEnumInfo() {
+			return this.picklistInfo;
+		}
+
+		@Override
         public String getForeignKeyRelationshipName() {
             return getName();
         }
@@ -425,6 +441,11 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
 				return getFieldOrColumnInfo().getName();
 			}
 			return standardTablAlias + "." + getFieldOrColumnInfo().getName();
+		}
+
+		@Override
+		public FormulaPicklistInfo getEnumInfo() {
+			return ((ObjectField<?>)getFieldOrColumnInfo()).getEnumInfo();
 		}
 
 		@Override

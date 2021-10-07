@@ -91,7 +91,7 @@ public class BaseCompositeFormulaContextTest {
 		Assert.assertFalse(test.getGlobalProperties().getFormulaType().isTemplate());
 	}
 	
-	class TestCompositeFormulaContext extends BaseCompositeFormulaContext {
+	static class TestCompositeFormulaContext extends BaseCompositeFormulaContext {
 		public TestCompositeFormulaContext() {
 			this(new TestGlobalFormulaContext(null), new FormulaTypeSpec() {
 				@Override
@@ -117,7 +117,7 @@ public class BaseCompositeFormulaContextTest {
 		}
 	}
 	
-	class TestGlobalFormulaContext extends NullFormulaContext {
+	static class TestGlobalFormulaContext extends NullFormulaContext {
 		public TestGlobalFormulaContext(FormulaContext outerContext) {
 			super(outerContext);
 		}
@@ -141,7 +141,7 @@ public class BaseCompositeFormulaContextTest {
 	}
 
 	
-	FormulaReturnType getReturnType() {
+	static FormulaReturnType getReturnType() {
 		return new FormulaReturnType() {
 			@Override
 			public int getScale() {

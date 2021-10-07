@@ -161,7 +161,7 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
      */
     public static class MapField extends BaseObjectFormulaContext.BaseObjectField<Map<String,?>> {
         public MapField(MapEntity entity, String name, FormulaDataType dataType, String formulaSource, Entity[] foreignKeys, int scale) {
-            super(entity, name, dataType, formulaSource, foreignKeys, scale);
+            super(entity, name, dataType, formulaSource, foreignKeys, scale, null);
         }
         
         @Override

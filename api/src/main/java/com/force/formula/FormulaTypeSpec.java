@@ -44,14 +44,14 @@ public interface FormulaTypeSpec {
         return 10;
     }
            
-    // Salesforce specific stuff
     /**
      * @return whether this formula type supports picklists.  
      */
     default boolean allowPicklistTextConversion() {
-        return false;
+        return true;
     }
     
+    // Salesforce specific stuff
     /**
      * Return true if sobjectrow self referencing is allowed ("this").
      */

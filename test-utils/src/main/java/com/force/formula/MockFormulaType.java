@@ -46,6 +46,11 @@ public enum MockFormulaType implements FormulaTypeSpec {
 	}
 
 	@Override
+	public boolean allowPicklistTextConversion() {
+		return this != DYNAMIC;  // To test where picklist text conversion is disallowed
+	}
+
+	@Override
 	public boolean isTemplate() {
 		return this == TEMPLATE || this == TEMPLATE_PARSE;
 	}
