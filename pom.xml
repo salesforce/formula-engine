@@ -45,6 +45,7 @@
     <module>api</module>
     <module>impl</module>
     <module>test-utils</module>
+    <module>docs/coverage</module>
   </modules>
 
   <scm>
@@ -265,11 +266,15 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                        	<append>true</append>
+                        </configuration>
+                        <phase>initialize</phase>
                     </execution>
                     <execution>
                         <!-- Create a code coverage report -->
                         <id>create unit test code coverage report</id>
-                        <phase>test</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
