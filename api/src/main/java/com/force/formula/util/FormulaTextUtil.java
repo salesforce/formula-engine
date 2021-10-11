@@ -404,6 +404,43 @@ public final class FormulaTextUtil {
         return true;
     }
     
+    /**
+     * Compares two strings and returns true if they're equal to each other, where a null string and an empty string are
+     * considered equal.
+     * <P>
+     * This is essentially a convenience method for comparing two strings when one or both might be null, so you can't
+     * just do <code>s1.equals(s2)</code>.
+     */
+    public static boolean stringsAreEqualNullIsEmpty(String s1, String s2) {
+        if (s1 == null) {
+            return s2 == null || s2.length() == 0;
+        } else if (s2 == null) {
+            return s1.length() == 0;
+        } else {
+            return s1.equals(s2);
+        }
+    }
+
+    /**
+     * Compares the arrays by running each pair through compareStringsNullIsEmpty.
+     */
+    public static boolean stringArraysAreEqualNullIsEmpty(String[] s1, String[] s2) {
+        if (s1 == null || s2 == null) {
+            return (s1 == null && s2 == null);
+        }
+        if (s1.length != s2.length) {
+            return false;
+        }
+
+        int len = s1.length;
+        for (int i = 0; i < len; i++) {
+            if (!stringsAreEqualNullIsEmpty(s1[i], s2[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     private static final Pattern NUMERIC_PATTERN = Pattern.compile("[-+]?\\d*\\.?\\d+");
     /**
      * @return whether the 
@@ -452,6 +489,8 @@ public final class FormulaTextUtil {
         return escapeToXml(input, allowNewLines, convertNulls, escapeApos, false);
     }
 
+
+    
     /**
      * Escapes <code>String</code>s into valid xml. Similar to <code>escapeInput</code> except that it will also
      * replace control characters with spaces.
@@ -860,6 +899,4 @@ public final class FormulaTextUtil {
         }
         
     }
-
-    
 }

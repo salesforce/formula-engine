@@ -224,4 +224,23 @@ public class FormulaTextUtilTest extends TestCase {
         assertEquals("'Foo'", FormulaTextUtil.formulaTrim(" 'Foo'"));
     	assertEquals("abc", FormulaTextUtil.formulaTrim("   abc    "));
     }
+    
+    public void testStringAreEqualNullIsEmpty() {
+    	assertTrue(FormulaTextUtil.stringsAreEqualNullIsEmpty("", null));
+    	assertTrue(FormulaTextUtil.stringsAreEqualNullIsEmpty(null, ""));
+    	assertTrue(FormulaTextUtil.stringsAreEqualNullIsEmpty(null, null));
+    	assertTrue(FormulaTextUtil.stringsAreEqualNullIsEmpty("", ""));
+    	assertFalse(FormulaTextUtil.stringsAreEqualNullIsEmpty(null, "a"));
+    	assertFalse(FormulaTextUtil.stringsAreEqualNullIsEmpty("a", null));
+    }
+
+    public void testStringArraysAreEqualNullIsEmpty() {
+    	assertTrue(FormulaTextUtil.stringArraysAreEqualNullIsEmpty(null, null));
+    	assertFalse(FormulaTextUtil.stringArraysAreEqualNullIsEmpty(new String[0], null));
+    	assertTrue(FormulaTextUtil.stringArraysAreEqualNullIsEmpty(new String[0], new String[0]));
+    	assertTrue(FormulaTextUtil.stringArraysAreEqualNullIsEmpty(new String[] {null}, new String[] {null}));
+    	assertTrue(FormulaTextUtil.stringArraysAreEqualNullIsEmpty(new String[] {null}, new String[] {""}));
+    	assertTrue(FormulaTextUtil.stringArraysAreEqualNullIsEmpty(new String[] {""}, new String[] {null}));
+    	assertFalse(FormulaTextUtil.stringArraysAreEqualNullIsEmpty(new String[] {"a"}, new String[] {"b"}));
+    }
 }

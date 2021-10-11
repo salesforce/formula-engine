@@ -185,12 +185,22 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
                 	throw new RuntimeException(x);
                 }
             }
-            return new BeanField(entity, desc, dataType, formulaSource, fks, scale);
+            FormulaPicklistInfo info = null;
+            if (dataType == MockFormulaDataType.STATICENUM
+            		&& annotation != null && annotation.picklistInfoMethodName().length() > 0) {
+        		try {
+					info = (FormulaPicklistInfo) method.getDeclaringClass().getDeclaredMethod(annotation.picklistInfoMethodName()).invoke(null);
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+						| NoSuchMethodException | SecurityException e) {
+					throw new RuntimeException(e);
+				}
+            }
+            return new BeanField(entity, desc, dataType, formulaSource, fks, scale, info);
         }
         
         BeanField(Entity entity, FeatureDescriptor desc, FormulaDataType dataType, String formulaSource,
-                Entity[] foreignKeys, int scale) {
-            super(entity, desc.getName(), dataType, formulaSource, foreignKeys, scale);
+                Entity[] foreignKeys, int scale, FormulaPicklistInfo info) {
+            super(entity, desc.getName(), dataType, formulaSource, foreignKeys, scale, info);
             this.desc = desc;
         }
         
@@ -228,6 +238,7 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
     @Retention(RetentionPolicy.RUNTIME)
     public @interface BeanFormulaType {
         MockFormulaDataType value();
+        String picklistInfoMethodName() default "";
         String formulaSource() default "";
         int scale() default 0;
     }
@@ -254,6 +265,8 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
         	return MockFormulaDataType.LIST;
         } else if (Map.class.isAssignableFrom(c)) {
         	return MockFormulaDataType.MAP;
+        } else if (MockPicklistData.class.isAssignableFrom(c)) {
+        	return MockFormulaDataType.STATICENUM;
         } else {
             return MockFormulaDataType.ENTITYID;
         }
