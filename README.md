@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/salesforce/formula-engine/tree/main.svg?style=svg)](https://circleci.com/gh/salesforce/formula-engine/tree/main)
+
 # formula-engine
 An implementation of a reusable formula engine with javascript &amp; sql generation along with Salesforce-approved syntax.
 
