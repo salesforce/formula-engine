@@ -2,11 +2,11 @@
 <testCase name="testFormatCurrency">
    <testInstance formula="FORMATCURRENCY(isocode__c, customNumber1__c)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>CONCAT($!s0s!$.isocode__c,' ',TO_CHAR(COALESCE($!s0s!$.customNumber1__c, 0),CASE WHEN $!s0s!$.isocode__c IN('ADP','BEF','BIF','BYB','BYR','CLP','DJF','ESP','GNF','GRD','ISK','ITL','JPY','KMF','KRW','LUF','MGF','PTE','PYG','ROL','RWF','TPE','TRL','UGX','UYI','VND','VUV','XAF','XOF','XPF')THEN'FM9G999G999G999G999G999G990'WHEN $!s0s!$.isocode__c IN('XAG','XAU','XBA','XBB','XBC','XBD','XDR','XFO','XFU','XPD','XPT','XSU','XTS','XUA','XXX')THEN'FM9G999G999G999G999G999G990'WHEN $!s0s!$.isocode__c IN('BHD','IQD','JOD','KWD','LYD','OMR','TND')THEN'FM9G999G999G999G999G999G990D000'WHEN $!s0s!$.isocode__c IN('CLF')THEN'FM9G999G999G999G999G999G990D0000'ELSE'FM9G999G999G999G999G999G990D00'END))</Sql>
+       <Sql>CONCAT($!s0s!$.isocode__c,' ',TO_CHAR(COALESCE($!s0s!$.customNumber1__c, 0),CASE WHEN $!s0s!$.isocode__c IN('JPY')THEN'FM9G999G999G999G999G999G990'WHEN $!s0s!$.isocode__c IN('KWD')THEN'FM9G999G999G999G999G999G990D000'ELSE'FM9G999G999G999G999G999G990D00'END))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN $!s0s!$.customNumber1__c IS NULL THEN NULL ELSE CONCAT($!s0s!$.isocode__c,' ',TO_CHAR($!s0s!$.customNumber1__c,CASE WHEN $!s0s!$.isocode__c IN('ADP','BEF','BIF','BYB','BYR','CLP','DJF','ESP','GNF','GRD','ISK','ITL','JPY','KMF','KRW','LUF','MGF','PTE','PYG','ROL','RWF','TPE','TRL','UGX','UYI','VND','VUV','XAF','XOF','XPF')THEN'FM9G999G999G999G999G999G990'WHEN $!s0s!$.isocode__c IN('XAG','XAU','XBA','XBB','XBC','XBD','XDR','XFO','XFU','XPD','XPT','XSU','XTS','XUA','XXX')THEN'FM9G999G999G999G999G999G990'WHEN $!s0s!$.isocode__c IN('BHD','IQD','JOD','KWD','LYD','OMR','TND')THEN'FM9G999G999G999G999G999G990D000'WHEN $!s0s!$.isocode__c IN('CLF')THEN'FM9G999G999G999G999G999G990D0000'ELSE'FM9G999G999G999G999G999G990D00'END))END</Sql>
+       <Sql>CASE WHEN $!s0s!$.customNumber1__c IS NULL THEN NULL ELSE CONCAT($!s0s!$.isocode__c,' ',TO_CHAR($!s0s!$.customNumber1__c,CASE WHEN $!s0s!$.isocode__c IN('JPY')THEN'FM9G999G999G999G999G999G990'WHEN $!s0s!$.isocode__c IN('KWD')THEN'FM9G999G999G999G999G999G990D000'ELSE'FM9G999G999G999G999G999G990D00'END))END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.isocode__c?new Intl.NumberFormat('en-US',{style:'currency',currency:context.record.isocode__c,currencyDisplay:'code'}).format($F.nvl(context.record.customNumber1__c,new $F.Decimal('0'))):(' '+new Intl.NumberFormat('en-US',{minimumFractionDigits:2}).format($F.nvl(context.record.customNumber1__c,new $F.Decimal('0'))))).replace(/\u00a0/,' ')</JsOutput>
