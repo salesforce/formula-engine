@@ -5,13 +5,12 @@ package com.force.formula.impl;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 
 import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.util.FormulaI18nUtils;
-import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 /**
  * A set of SQL hooks used in standard functionality to provide differences in SQL implementations.
@@ -308,8 +307,8 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 
         // Now group all currencies by their scale.  Skip all isocodes where the scale is 2.
         // Among the 187 currencies today, 152 of them have a scale of 2, so we're not going
-        // to list them all in the sql.
-        Multimap<Integer,String> isoCodesByScale = ArrayListMultimap.create(4, 50) ;
+        // to list them all in the sql.  Make sure it's sorted with a TreeSet
+        Multimap<Integer,String> isoCodesByScale = Multimaps.newSetMultimap(new HashMap<>(4), ()->new TreeSet<String>());
         for (Map.Entry<String,Integer> entry : scaleByIsoCode.entrySet()) {
             int scale = entry.getValue();
             if (scale != 2) {
