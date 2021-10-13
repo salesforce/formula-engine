@@ -441,6 +441,8 @@ public class FormulaJsTestUtils {
             Context.Builder builder = Context.newBuilder("js");
             builder.allowNativeAccess(true);
             builder.allowIO(true);
+            builder.option("js.intl-402", "true"); // Support now ubiquitous Intl object for formatcurrency and the like.
+
             context = builder.build();
 
             try {

@@ -49,6 +49,7 @@ public class TemplateFunctionsTest extends ParserTestBase {
         List<FormulaCommandInfo> types = new ArrayList<>(FormulaCommandTypeRegistryImpl.getDefaultCommands());
         // Test format and template parsing
         types.add(new FunctionFormat());
+        types.add(new FunctionFormatCurrency());
         types.add(new FunctionTemplate());
         types.add(new FunctionPriorValue());
         types.add(new FunctionIsChanged());
@@ -325,5 +326,56 @@ public class TemplateFunctionsTest extends ParserTestBase {
 
         assertTrue("CR isn't the same as LF", FunctionIsChanged.isChanged(expression1, expression2));
     }
+    
+
+    /**
+     * Verify various formats for Currency formula type
+     * @priority Medium
+     * @hierarchy Declarative App Builder.Formula Fields.Format
+     * @userStory Annotation Debt
+     *
+     * @newTestCase Verify various formats for Currency formula type ( valid and invalid) in MultiCurrency org
+     * @priority Medium
+     * @hierarchy Declarative App Builder.Formula Fields.Format
+     * @userStory Annotation Debt
+     */
+    public void testFormatCurrency() throws Exception {
+        FormulaFactory oldFactory = FormulaEngine.getFactory();
+        try {
+            FormulaEngine.setFactory(TEST_FACTORY);
+	        String expression = "This is a test of format currency {!formatcurrency(\"USD\", 100.0)}";
+	        assertTemplateFormula("This is a test of format currency USD 100.00", expression);
+	
+	        expression = "This is a test of format currency {!formatcurrency(\"USD\", null)}";
+	        assertTemplateFormula("This is a test of format currency ", expression);
+	
+	        expression = "This is a test of format currency {!formatcurrency(null, 0)}";
+	        assertTemplateFormula("This is a test of format currency  0.00", expression);
+	
+	        expression = "This is a test of format currency {!formatcurrency(null, null)}";
+	        assertTemplateFormula("This is a test of format currency ", expression);
+	
+	        expression = "This is a test of format currency {!formatcurrency(\"USD\", 0)}";
+	        assertTemplateFormula("This is a test of format currency USD 0.00", expression);
+	
+	        expression = "This is a test of format currency {!formatcurrency(\"USD\", 1)}";
+	        assertTemplateFormula("This is a test of format currency USD 1.00", expression);
+	
+	        expression = "This is a test of format currency {!formatcurrency(\"USD\", 1234.567)}";
+	        assertTemplateFormula("This is a test of format currency USD 1,234.57", expression);
+	
+	        expression = "This is a test of format currency {!formatcurrency(\"USD\", -1234567)}";
+	        assertTemplateFormula("This is a test of format currency USD -1,234,567.00", expression);
+	
+	        expression = "This is a test of format currency {!formatcurrency(\"JPY\", 1234.567)}";
+	        assertTemplateFormula("This is a test of format currency JPY 1,235", expression);
+	
+	        expression = "This is a test of format currency {!formatcurrency(\"dog\", 1)}";
+	        assertTemplateFormula("This is a test of format currency dog 1.00", expression);
+        } finally {
+            FormulaEngine.setFactory(oldFactory);
+        }
+    }
+
     
 }

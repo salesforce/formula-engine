@@ -3196,4 +3196,10 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
       </testcase>
+    <testcase name="testFormatCurrency" devName="testFormatCurrency"
+        labelName="testFormatCurrency" dataType="Text" dataFile="formatCurrency" labels="extended"
+        code="FORMATCURRENCY(isocode__c, customNumber1__c)">
+        <referencefield devName="isocode" labelName="timeString" dataType="Text" length="50"/>
+         <referencefield devName="customNumber1" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+      </testcase>
 </formula-test>

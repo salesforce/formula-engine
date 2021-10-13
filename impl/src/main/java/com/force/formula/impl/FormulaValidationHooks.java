@@ -6,15 +6,15 @@ package com.force.formula.impl;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
-import java.text.DateFormat;
+import java.text.*;
 import java.time.Duration;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.force.formula.*;
 import com.force.formula.commands.*;
 import com.force.formula.sql.*;
-import com.force.formula.util.FormulaFieldReferenceInfoImpl;
-import com.force.formula.util.FormulaGeolocationService;
+import com.force.formula.util.*;
 import com.force.i18n.BaseLocalizer;
 import com.google.common.base.CharMatcher;
 
@@ -476,6 +476,65 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      */
     default FormulaTypeWithDomain.IdType constructIdType(FormulaSchema.FieldOrColumn field, boolean isSobjectRow) {
     	return constructIdType(field.getFieldInfo().getFormulaForeignKeyDomains());
+    }
+    
+    /**
+     * @return a map of the scales based on currency ISO code for the current system.
+     * Defaults to the set of isoCodes in the JDK
+     * 
+     * Note: the value '2" will be the default used in FunctionFormatCurrency
+     */
+    default Map<String,Integer> getCurrencyScaleByIsoCode() {
+    	return Currency.getAvailableCurrencies().stream().collect(
+    			Collectors.toMap(cur->cur.getCurrencyCode(), cur->cur.getDefaultFractionDigits()));
+    	/*
+    	// Start with all statically-known currencies in the world and their default scales.
+        Map<String,Integer> scaleByIsoCode = new HashMap<String,Integer>(256);
+
+
+        // Prime the map with all of the currencies and scales from the udd
+        for (UddCurrency item : Udd.getUddCommon().getCurrencyProvider().getAllCurrencies().values()) {
+            scaleByIsoCode.put(item.getDbValue(), item.getScale());
+        }
+
+        if (UserContext.get().getOrgInfo().isMultiCurrencyEnabled()) {
+            // If this is a multi-currency org, let the currencies defined in the org override the default scales.
+            CurrencyInfo currencyInfo = UserContext.get().getOrgInfo().getCurrencyInfo();
+            for (UddCurrencyInfo.CurrencyEntry currencyEntry : currencyInfo.getCurrencyEntries()) {
+                scaleByIsoCode.put(currencyEntry.getIsoCode(), currencyEntry.getScale());
+            }
+        }  
+        */  	
+    }
+    
+    /**
+     * @return the scale to use for the given isocode
+     * Defaults to the JDK currency scale
+     * 
+     * Note: the value '2" will be the default used for invalid isocodes
+     */
+    default int getCurrencyScaleForIsoCode(String isoCode) {
+    	if (isoCode == null) return 2;
+    	try {
+	    	Currency curr = Currency.getInstance(isoCode);
+	    	return curr != null ? curr.getDefaultFractionDigits() : 2;
+    	} catch (IllegalArgumentException ex) {  // If you pass in a random string
+    		return 2; 
+    	}
+    	/*
+            int scale;
+            if (!UserContext.get().getOrgInfo().isMultiCurrencyEnabled()) {
+                scale = Udd.getUddCommon().getCurrencyProvider().getCurrencyScale(isoCode);
+            } else {
+                CurrencyInfo currencyInfo = UserContext.get().getOrgInfo().getCurrencyInfo();
+                if (currencyInfo.isCurrencySupported(isoCode)) {
+                    scale = currencyInfo.getCurrencyEntry(isoCode).getScale();
+                } else {
+                    // Don't test for the currency being valid because it's a behavioral change  :-(
+                    scale = Udd.getUddCommon().getCurrencyProvider().getCurrencyScale(isoCode);
+                }
+            }
+        */  	
     }
 
     /**

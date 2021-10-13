@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatCurrency">
+   <testInstance formula="FORMATCURRENCY(isocode__c, customNumber1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>CONCAT($!s0s!$.isocode__c,' ',TO_CHAR(COALESCE($!s0s!$.customNumber1__c, 0),CASE WHEN $!s0s!$.isocode__c IN('UGX','UYI','XOF','GNF','XPF','ISK','BEF','XAF','ITL','DJF','ADP','VND','RWF','GRD','PTE','BYB','BYR','BIF','CLP','KMF','TPE','PYG','ESP','VUV','TRL','ROL','KRW','JPY','LUF','MGF')THEN'FM9G999G999G999G999G999G990'WHEN $!s0s!$.isocode__c IN('XPD','XPT','XAG','XAU','XBA','XBC','XBB','XBD','XSU','XTS','XUA','XDR','XFO','XFU','XXX')THEN'FM9G999G999G999G999G999G990'WHEN $!s0s!$.isocode__c IN('IQD','OMR','LYD','KWD','BHD','TND','JOD')THEN'FM9G999G999G999G999G999G990D000'WHEN $!s0s!$.isocode__c IN('CLF')THEN'FM9G999G999G999G999G999G990D0000'ELSE'FM9G999G999G999G999G999G990D00'END))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customNumber1__c IS NULL THEN NULL ELSE CONCAT($!s0s!$.isocode__c,' ',TO_CHAR($!s0s!$.customNumber1__c,CASE WHEN $!s0s!$.isocode__c IN('UGX','UYI','XOF','GNF','XPF','ISK','BEF','XAF','ITL','DJF','ADP','VND','RWF','GRD','PTE','BYB','BYR','BIF','CLP','KMF','TPE','PYG','ESP','VUV','TRL','ROL','KRW','JPY','LUF','MGF')THEN'FM9G999G999G999G999G999G990'WHEN $!s0s!$.isocode__c IN('XPD','XPT','XAG','XAU','XBA','XBC','XBB','XBD','XSU','XTS','XUA','XDR','XFO','XFU','XXX')THEN'FM9G999G999G999G999G999G990'WHEN $!s0s!$.isocode__c IN('IQD','OMR','LYD','KWD','BHD','TND','JOD')THEN'FM9G999G999G999G999G999G990D000'WHEN $!s0s!$.isocode__c IN('CLF')THEN'FM9G999G999G999G999G999G990D0000'ELSE'FM9G999G999G999G999G999G990D00'END))END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.isocode__c?new Intl.NumberFormat('en-US',{style:'currency',currency:context.record.isocode__c,currencyDisplay:'code'}).format($F.nvl(context.record.customNumber1__c,new $F.Decimal('0'))):(' '+new Intl.NumberFormat('en-US',{minimumFractionDigits:2}).format($F.nvl(context.record.customNumber1__c,new $F.Decimal('0'))))).replace(/\u00a0/,' ')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null)?((context.record.isocode__c?new Intl.NumberFormat('en-US',{style:'currency',currency:context.record.isocode__c,currencyDisplay:'code'}).format(context.record.customNumber1__c):(' '+new Intl.NumberFormat('en-US',{minimumFractionDigits:2}).format(context.record.customNumber1__c))).replace(/\u00a0/,' ')):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.isocode__c?new Intl.NumberFormat('en-US',{style:'currency',currency:context.record.isocode__c,currencyDisplay:'code'}).format($F.nvl(context.record.customNumber1__c,0)):(' '+new Intl.NumberFormat('en-US',{minimumFractionDigits:2}).format($F.nvl(context.record.customNumber1__c,0)))).replace(/\u00a0/,' ')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null)?((context.record.isocode__c?new Intl.NumberFormat('en-US',{style:'currency',currency:context.record.isocode__c,currencyDisplay:'code'}).format(context.record.customNumber1__c):(' '+new Intl.NumberFormat('en-US',{minimumFractionDigits:2}).format(context.record.customNumber1__c))).replace(/\u00a0/,' ')):null</JsOutput>
+      <result>
+      <inputvalues>[USD, 1000]</inputvalues>
+         <formula>USD 1,000.00</formula>
+         <sql>USD 1,000.00</sql>
+         <javascript>USD 1,000.00</javascript>
+         <javascriptLp>USD 1,000.00</javascriptLp>
+         <formulaNullAsNull>USD 1,000.00</formulaNullAsNull>
+         <sqlNullAsNull>USD 1,000.00</sqlNullAsNull>
+         <javascriptNullAsNull>USD 1,000.00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>USD 1,000.00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[USD, 1000.495]</inputvalues>
+         <formula>USD 1,000.50</formula>
+         <sql>USD 1,000.50</sql>
+         <javascript>USD 1,000.50</javascript>
+         <javascriptLp>USD 1,000.50</javascriptLp>
+         <formulaNullAsNull>USD 1,000.50</formulaNullAsNull>
+         <sqlNullAsNull>USD 1,000.50</sqlNullAsNull>
+         <javascriptNullAsNull>USD 1,000.50</javascriptNullAsNull>
+         <javascriptLpNullAsNull>USD 1,000.50</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[JPY, 500]</inputvalues>
+         <formula>JPY 500</formula>
+         <sql>JPY 500</sql>
+         <javascript>JPY 500</javascript>
+         <javascriptLp>JPY 500</javascriptLp>
+         <formulaNullAsNull>JPY 500</formulaNullAsNull>
+         <sqlNullAsNull>JPY 500</sqlNullAsNull>
+         <javascriptNullAsNull>JPY 500</javascriptNullAsNull>
+         <javascriptLpNullAsNull>JPY 500</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[JPY, 999999999]</inputvalues>
+         <formula>JPY 999,999,999</formula>
+         <sql>JPY 999,999,999</sql>
+         <javascript>JPY 999,999,999</javascript>
+         <javascriptLp>JPY 999,999,999</javascriptLp>
+         <formulaNullAsNull>JPY 999,999,999</formulaNullAsNull>
+         <sqlNullAsNull>JPY 999,999,999</sqlNullAsNull>
+         <javascriptNullAsNull>JPY 999,999,999</javascriptNullAsNull>
+         <javascriptLpNullAsNull>JPY 999,999,999</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[INR, 999999999]</inputvalues>
+         <formula>INR 999,999,999.00</formula>
+         <sql>INR 999,999,999.00</sql>
+         <javascript>INR 999,999,999.00</javascript>
+         <javascriptLp>INR 999,999,999.00</javascriptLp>
+         <formulaNullAsNull>INR 999,999,999.00</formulaNullAsNull>
+         <sqlNullAsNull>INR 999,999,999.00</sqlNullAsNull>
+         <javascriptNullAsNull>INR 999,999,999.00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>INR 999,999,999.00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[KWD, 15.10]</inputvalues>
+         <formula>KWD 15.100</formula>
+         <sql>KWD 15.100</sql>
+         <javascript>KWD 15.100</javascript>
+         <javascriptLp>KWD 15.100</javascriptLp>
+         <formulaNullAsNull>KWD 15.100</formulaNullAsNull>
+         <sqlNullAsNull>KWD 15.100</sqlNullAsNull>
+         <javascriptNullAsNull>KWD 15.100</javascriptNullAsNull>
+         <javascriptLpNullAsNull>KWD 15.100</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 1000]</inputvalues>
+         <formula> 1,000.00</formula>
+         <sql> 1,000.00</sql>
+         <javascript> 1,000.00</javascript>
+         <javascriptLp> 1,000.00</javascriptLp>
+         <formulaNullAsNull> 1,000.00</formulaNullAsNull>
+         <sqlNullAsNull> 1,000.00</sqlNullAsNull>
+         <javascriptNullAsNull> 1,000.00</javascriptNullAsNull>
+         <javascriptLpNullAsNull> 1,000.00</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
