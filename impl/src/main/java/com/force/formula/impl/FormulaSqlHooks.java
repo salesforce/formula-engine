@@ -166,7 +166,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 	            return "NLS_UPPER(%s,'NLS_SORT=xwest_european')";
 	        }
     	}
-    	// return "sfdc_util.icu_upper(%s,%s)";
     	// You could do UPPER(%s COLLATE %s), but that doesn't work in general.
     	return "UPPER(%s)";
     }
@@ -184,7 +183,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
                 return "NLS_LOWER(%s,'NLS_SORT=xwest_european')";
             }
     	}
-        // return "sfdc_util.icu_lower(%s,%s)";
         return "LOWER(%s)";
     }
 
@@ -193,7 +191,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      */
     default String psqlSubtractTwoTimestamps() {
-        // return "sfdc_util.ts_minus_ts(%s,%s)";
         return "(EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))";
     } 
     
@@ -222,7 +219,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isOracleStyle()) {
     		return "SYSDATE";
     	}
-        // return "SFDC_DATE()";
         return "NOW()";
     }
     
@@ -233,7 +229,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isOracleStyle()) {
     		return "TO_NUMBER(TO_CHAR(SYSTIMESTAMP, '"+sqlSecsAndMsecs()+"'))*1000";    		
     	}
-        // return "EXTRACT(EPOCH FROM AGE(SFDC_TIMESTAMP(), DATE_TRUNC('day', SFDC_TIMESTAMP())))::BIGINT::NUMERIC";
         return "EXTRACT(EPOCH FROM AGE(NOW()::timestamp, DATE_TRUNC('day', NOW()::timestamp)))::BIGINT::NUMERIC";
     }
     
@@ -245,7 +240,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     		return "ADD_MONTHS(%s, %s)";
     	}
     	if (isPostgresStyle()) {
-    		return "%s + '1 month'::interval*%s";
+    		return "(%s+'1 day'::interval+('1 month'::interval*TRUNC(%s)))-'1 day'::interval";
     	}
     	throw new UnsupportedOperationException();
     }

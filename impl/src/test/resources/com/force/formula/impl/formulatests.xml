@@ -332,9 +332,17 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <!-- AddMonths doesn't work right around leap years with dates... -->
-     <testcase name="testAddMonths" devName="testAddMonths" labels="ignore"
-         labelName="testAddMonths" dataType="DateOnly" dataFile="addMonths"
+     <!-- AddMonths doesn't work right around leap years with dateonlys in Javascript... -->
+     <testcase name="testAddMonths" devName="testAddMonths" labels="extended"
+         labelName="testAddMonths" dataType="DateTime" dataFile="addMonths"
+         scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
+         <referencefield devName="customdate1" labelName="customdate1"
+             dataType="DateTime"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testAddMonthsDate" devName="testAddMonthsDate" labels="extended"
+         labelName="testAddMonthsDate" dataType="DateOnly" dataFile="addMonths"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateOnly"/>
@@ -385,7 +393,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddMonthsDateTime" devName="testAddMonthsDateTime"
          labelName="testAddMonthsDateTime" dataType="DateTime" dataFile="addDateTime"
-         scale="2" precision="12" whyIgnoreSql="TODO: psql fractional month support"
+         scale="2" precision="12"  whyIgnoreSql="TODO: psql fractional day support differs from java"
          code="ADDMONTHS(customdatetime1__c,customnumber1__c)">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime"/>

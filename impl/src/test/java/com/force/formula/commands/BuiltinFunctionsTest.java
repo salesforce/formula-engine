@@ -757,7 +757,7 @@ public class BuiltinFunctionsTest extends ParserTestBase {
         assertEquals(evaluateDate(MARCH), evaluateDate("ADDMONTHS(" + LEAP + ",1)"));
         assertEquals(evaluateDate(MARCH28), evaluateDate("ADDMONTHS(" + PRELEAP + ",1)"));
         assertEquals(evaluateDate(JANUARY), evaluateDate("ADDMONTHS(" + LEAP + ",-1)"));
-        assertEquals(evaluateDate(LEAP), evaluateDate("ADDMONTHS(" + LEAP + ",0.5)"));
+    	assertEquals(evaluateDate(LEAP), evaluateDate("ADDMONTHS(" + LEAP + ",0.5)"));
         assertEquals(evaluateDate(LEAP), evaluateDate("ADDMONTHS(" + JANUARY + ",1)"));
         assertEquals(evaluateDate(JANUARY), evaluateDate("ADDMONTHS(" + MARCH + ",-2)"));
     }
