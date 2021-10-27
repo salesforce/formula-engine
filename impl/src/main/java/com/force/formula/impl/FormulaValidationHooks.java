@@ -6,15 +6,15 @@ package com.force.formula.impl;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
-import java.text.DateFormat;
+import java.text.*;
 import java.time.Duration;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.force.formula.*;
 import com.force.formula.commands.*;
 import com.force.formula.sql.*;
-import com.force.formula.util.FormulaFieldReferenceInfoImpl;
-import com.force.formula.util.FormulaGeolocationService;
+import com.force.formula.util.*;
 import com.force.i18n.BaseLocalizer;
 import com.google.common.base.CharMatcher;
 
@@ -476,6 +476,33 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      */
     default FormulaTypeWithDomain.IdType constructIdType(FormulaSchema.FieldOrColumn field, boolean isSobjectRow) {
     	return constructIdType(field.getFieldInfo().getFormulaForeignKeyDomains());
+    }
+    
+    /**
+     * @return a map of the scales based on currency ISO code for the current system.
+     * Defaults to the set of isoCodes in the JDK
+     * 
+     * Note: the value '2" will be the default used in FunctionFormatCurrency
+     */
+    default Map<String,Integer> getCurrencyScaleByIsoCode() {
+    	return Currency.getAvailableCurrencies().stream().collect(
+    			Collectors.toMap(cur->cur.getCurrencyCode(), cur->cur.getDefaultFractionDigits()));
+    }
+    
+    /**
+     * @return the scale to use for the given isocode
+     * Defaults to the JDK currency scale
+     * 
+     * Note: the value '2" will be the default used for invalid isocodes
+     */
+    default int getCurrencyScaleForIsoCode(String isoCode) {
+    	if (isoCode == null) return 2;
+    	try {
+	    	Currency curr = Currency.getInstance(isoCode);
+	    	return curr != null ? curr.getDefaultFractionDigits() : 2;
+    	} catch (IllegalArgumentException ex) {  // If you pass in a random string
+    		return 2; 
+    	}
     }
 
     /**

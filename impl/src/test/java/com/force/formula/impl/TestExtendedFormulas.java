@@ -70,6 +70,10 @@ public class TestExtendedFormulas extends FormulaGenericTests {
 			// TODO: Implement distance functions in Javascript
 			return true;
 		}
+		if ("testAddMonthsDate".equals(testName)) {
+			// TODO: AddMonths in javascript doesn't handle leap year + daylight savings + last day of month.
+			return true;
+		}
 		return false;
 	}
 

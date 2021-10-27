@@ -1,0 +1,11 @@
+USD,1000
+USD,1000.495
+JPY,500
+JPY,999999999
+INR,999999999
+KWD,15.10
+,1000
+##  Note: the values below are null in SQL/JS, but "" in java for backwards compatibility.
+#INR,
+#USD,
+#,

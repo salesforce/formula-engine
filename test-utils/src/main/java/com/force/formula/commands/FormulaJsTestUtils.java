@@ -140,11 +140,12 @@ public class FormulaJsTestUtils {
                         + "else if(typeof value==='object'&&Object.prototype.toString.call(value)==='[object Object]'){return Object.keys(value).length===0?ifNull:value;}"
                         + "return value;};")
                 .append("$F.lpad=function(a,b,c) {return !a||!b||b<1?null:(b<=a.length?a.substring(0,b):((Array(256).join(c)+'').substring(0,b-a.length))+a)};")
-                // Note, this does what java does, but might not do what oracle does
-                .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime());d.setUTCDate(d.getUTCDate()+1);d.setUTCMonth(d.getUTCMonth()+b);d.setUTCDate(d.getUTCDate()-1);return d;};");
-                // .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime());d=new
-                // Date(d.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+b);d=new Date(d.getTime()-86400000);return
-                // d;};") // Note, this does what java does, but might not do what oracle does
+
+                // Note, these add months does what java does, but may not do what oracle/postgres does
+                
+                .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.floor(b));return new Date(d.getTime()-86400000);};");
+                // Use this if you want to support fractional dates
+        		//.append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.floor(b));d.setUTCDate(d.getUTCDate()+Math.floor((b%1)*365.24/12));return new Date(d.getTime()-86400000);};");
         return fContext.toString();
     }
 
@@ -441,6 +442,8 @@ public class FormulaJsTestUtils {
             Context.Builder builder = Context.newBuilder("js");
             builder.allowNativeAccess(true);
             builder.allowIO(true);
+            builder.option("js.intl-402", "true"); // Support now ubiquitous Intl object for formatcurrency and the like.
+
             context = builder.build();
 
             try {

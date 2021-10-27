@@ -7,6 +7,7 @@ package com.force.formula.impl;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.force.formula.*;
 import com.force.formula.commands.*;
@@ -14,8 +15,7 @@ import com.force.formula.impl.BeanFormulaContext.BeanEntity;
 import com.force.formula.impl.BeanFormulaContext.BeanFormulaType;
 import com.force.formula.template.commands.DynamicReference;
 import com.force.formula.util.FormulaFieldReferenceInfoImpl;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.*;
 
 /**
  * FieldReferenceTest that includes a "bare" set of functions to validate
@@ -125,6 +125,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new FunctionIsChanged());
         types.add(new FunctionIsPickVal());
         types.add(new FunctionPriorValue());
+        types.add(new FunctionFormatCurrency());
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         c.clear();
@@ -189,7 +190,14 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
 		@Override
 		public FormulaGeolocation constructGeolocation(Number latitude, Number longitude) {
 			return new MockLocation(latitude, longitude);
-		} 
+		}
+
+		// For testing, restrict the set of currencies to avoid JDK issues.
+		@Override
+		public Map<String,Integer> getCurrencyScaleByIsoCode() {
+			return ImmutableSet.of("USD", "EUR", "GBP", "INR", "JPY", "KWD").stream().map(isoCode->Currency.getInstance(isoCode)).collect(
+	     			Collectors.toMap(cur->cur.getCurrencyCode(), cur->cur.getDefaultFractionDigits()));
+	     }
     }
    
     static class TestContact {

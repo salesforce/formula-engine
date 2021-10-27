@@ -69,6 +69,9 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
     	public FunctionAddMonthsCommand(FormulaCommandInfo formulaCommandInfo) {
             super(formulaCommandInfo);
         }
+    	
+    	// Uncomment this out if you want to support fractions in addmonths
+    	//private static BigDecimal MONTH_FRACTION = new BigDecimal("365.24").divide(new BigDecimal("12.00"), RoundingMode.HALF_DOWN);
 
         @Override
         public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
@@ -85,6 +88,14 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
                 c.setTime(d);
                 c.add(Calendar.DAY_OF_YEAR, 1);  // 
                 c.add(Calendar.MONTH, months.intValue());
+                /*
+    			// Uncomment this out if you want to support fractions in addmonths
+                BigDecimal fractionalPart = months.remainder(BigDecimal.ONE).multiply(MONTH_FRACTION);
+                int fractionalDays = fractionalPart.intValue();
+                if (fractionalDays != 0) {
+                    c.add(Calendar.DAY_OF_YEAR, fractionalDays);
+                }
+                */
                 c.add(Calendar.DAY_OF_YEAR, -1);
                 result = input instanceof FormulaDateTime ? new FormulaDateTime(c.getTime()) : c.getTime();
             }
