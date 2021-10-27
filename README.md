@@ -1,3 +1,4 @@
+![Build Status](https://github.com/salesforce/formula-engine/actions/workflows/ci.yml/badge.svg)
 # formula-engine
 An implementation of a reusable formula engine with javascript &amp; sql generation along with Salesforce-approved syntax.
 

@@ -57,15 +57,23 @@
 
   <distributionManagement>
     <repository>
+      <id>sonatype-nexus-staging</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <repository>
       <id>nexus</id>
       <url>https://nexus.soma.salesforce.com/nexus/content/repositories/releases/</url>
     </repository>
+    <snapshotRepository>
+      <id>sonatype-nexus-staging</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
     <snapshotRepository>
       <id>nexus</id>
       <url>https://nexus.soma.salesforce.com/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
-  
+    
   <dependencyManagement>
     <dependencies>
       <!-- This is an optional dependency because the groupId/versioning differs in open-source -->
@@ -201,6 +209,38 @@
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                     <releaseProfiles>releases</releaseProfiles>
                     <scmCommentPrefix>release: </scmCommentPrefix>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <configuration>
+                    <!-- Prevent gpg from using pinentry programs -->
+                    <gpgArguments>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                    </gpgArguments>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype-nexus-staging</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
             <plugin>
