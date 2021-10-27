@@ -60,17 +60,9 @@
       <id>sonatype-nexus-staging</id>
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
-    <repository>
-      <id>nexus</id>
-      <url>https://nexus.soma.salesforce.com/nexus/content/repositories/releases/</url>
-    </repository>
     <snapshotRepository>
       <id>sonatype-nexus-staging</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <snapshotRepository>
-      <id>nexus</id>
-      <url>https://nexus.soma.salesforce.com/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
     
