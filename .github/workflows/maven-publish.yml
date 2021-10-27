@@ -31,7 +31,7 @@ jobs:
         settings-path: ${{ github.workspace }}/generated-settings
 
     - name: Release to Apache Maven Central
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      run: mvn deploy -P sign-artifacts -s $GITHUB_WORKSPACE/settings.xml
       env:
         SONATYPE_USERNAME:    ${{ secrets.MAVEN_CENTRAL_USER   }}
         SONATYPE_PASSWORD:    ${{ secrets.MAVEN_CENTRAL_TOKEN  }}
