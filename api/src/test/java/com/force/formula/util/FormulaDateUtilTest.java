@@ -24,6 +24,18 @@ import junit.framework.TestCase;
  * @since 186
  */
 public class FormulaDateUtilTest extends TestCase {
+    
+    FormulaEngineHooks oldHooks;
+    @Override
+    protected void setUp() throws Exception {
+        oldHooks = FormulaEngine.getHooks();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        FormulaEngine.setHooks(oldHooks);
+    }
+
     /**
      * Test to ensure that an ISO8601 string (with milliseconds) is parsed correctly.
      */
