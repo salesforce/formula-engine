@@ -47,6 +47,7 @@ public class DefaultFormulaHooksTest extends TestCase {
     
     
 	public void testGetFieldReferenceValue() throws Exception {
+        FormulaEngineHooks oldHooks = FormulaEngine.getHooks();
         FormulaEngineHooks def = new FormulaEngineHooks() {
 			@Override
 			public GrammaticalLocalizer getLocalizer() {
@@ -61,13 +62,17 @@ public class DefaultFormulaHooksTest extends TestCase {
 				return FormulaEngineHooks.super.getDataTypeByName(name);
 			}
         };
-    	FormulaEngine.setHooks(def);
-        FormulaRuntimeContext fc = new SystemFormulaContext(null);
-    	ContextualFormulaFieldInfo fieldInfo = fc.lookup("OriginDateTime");
-    	FormulaFieldReference ffr = new FormulaFieldReferenceImpl(null, "OriginDateTime");
-    	Object o = def.getFieldReferenceValue(fieldInfo, fieldInfo.getDataType(), fc, ffr, false);
-    	assertNotNull(o);
-    	assertEquals(-2208988800000L, ((FormulaDateTime)o).getDate().getTime()); // 1900
-	}
+        try {
+        	FormulaEngine.setHooks(def);
+            FormulaRuntimeContext fc = new SystemFormulaContext(null);
+        	ContextualFormulaFieldInfo fieldInfo = fc.lookup("OriginDateTime");
+        	FormulaFieldReference ffr = new FormulaFieldReferenceImpl(null, "OriginDateTime");
+        	Object o = def.getFieldReferenceValue(fieldInfo, fieldInfo.getDataType(), fc, ffr, false);
+        	assertNotNull(o);
+        	assertEquals(-2208988800000L, ((FormulaDateTime)o).getDate().getTime()); // 1900
+        } finally {
+            FormulaEngine.setHooks(oldHooks);            
+        }
+     }
 	
 }
