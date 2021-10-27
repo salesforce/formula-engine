@@ -1,0 +1,40 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
+
+name: Maven Package
+
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*
+  workflow_dispatch: {}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Apache Maven Central
+      uses: actions/setup-java@v2
+      with: # running setup-java again overwrites the settings.xml
+        distribution: 'zulu'
+        java-version: '11'
+        server-username: MAVEN_USERNAME # env variable for username in deploy
+        server-password: MAVEN_CENTRAL_TOKEN # env variable for token in deploy
+        gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value of the GPG private key to import
+        gpg-passphrase:  MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
+        settings-path: ${{ github.workspace }}/generated-settings
+
+    - name: Release to Apache Maven Central
+      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      env:
+        SONATYPE_USERNAME:    ${{ secrets.MAVEN_CENTRAL_USER   }}
+        SONATYPE_PASSWORD:    ${{ secrets.MAVEN_CENTRAL_TOKEN  }}
+        MAVEN_USERNAME:       ${{ secrets.MAVEN_CENTRAL_USER   }} # SONATYPE_USERNAME
+        MAVEN_CENTRAL_TOKEN:  ${{ secrets.MAVEN_CENTRAL_TOKEN  }} # SONATYPE_PASSWORD
+        MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
