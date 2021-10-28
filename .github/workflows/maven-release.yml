@@ -32,7 +32,7 @@ jobs:
         gpg-passphrase:  MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
         settings-path: ${{ github.workspace }}/generated-settings
     - name: Setup Git
-        run: >
+      run: >
           git config --global user.email "actions@github.com" && 
           git config --global user.name "GitHub Actions" && 
           echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
@@ -45,26 +45,26 @@ jobs:
                   </servers>
                 </settings>' > $GITHUB_WORKSPACE/git-settings.xml
     - name: Release
-        run: >
+      run: >
           mvn -V -gs $GITHUB_WORKSPACE/git-settings.xml -B -e release:clean release:prepare && 
           echo "::set-output name=RELEASED_VERSION::$(grep scm.tag= release.properties | cut -d'=' -f2 | cut -c2-)" && 
           mvn -gs $GITHUB_WORKSPACE/git-settings.xml -B -e release:perform
-        env:
+      env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
           GITHUB_TOKEN: ${{ github.token }}
-        id: release
+          id: main
     - name: Deploy to Maven Central
-        run: mvn -B -f target/checkout nexus-staging:release
-        env:
+      run: mvn -B -f target/checkout nexus-staging:release
+      env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
     - name: Create Release Entry
-        uses: actions/create-release@v1
-        with:
+      uses: actions/create-release@v1
+      with:
           tag_name: v${{ steps.release.outputs.RELEASED_VERSION }}
           release_name: Formula Engine ${{ steps.release.outputs.RELEASED_VERSION }}
           body: ${{ github.event.inputs.release-body }}
-        env:
+      env:
           GITHUB_TOKEN: ${{ github.token }}
