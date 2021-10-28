@@ -35,20 +35,11 @@ jobs:
       run: >
           git config --global user.email "actions@github.com" && 
           git config --global user.name "GitHub Actions" && 
-          echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-                  <servers>
-                    <server>
-                      <id>github</id>
-                      <username>${env.GITHUB_ACTOR}</username>
-                      <password>${env.GITHUB_TOKEN}</password>
-                    </server>
-                  </servers>
-                </settings>' > $GITHUB_WORKSPACE/git-settings.xml
     - name: Release
       run: >
-          mvn -V -gs $GITHUB_WORKSPACE/git-settings.xml -B -P sign-artifacts -e release:clean release:prepare && 
+          mvn -V -gs $GITHUB_WORKSPACE/settings.xml -B -P sign-artifacts -e release:clean release:prepare && 
           echo "::set-output name=RELEASED_VERSION::$(grep scm.tag= release.properties | cut -d'=' -f2 | cut -c2-)" && 
-          mvn -gs $GITHUB_WORKSPACE/git-settings.xml -B -P sign-artifacts -e release:perform
+          mvn -gs $GITHUB_WORKSPACE/settings.xml -B -P sign-artifacts -e release:perform
       env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
