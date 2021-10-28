@@ -36,8 +36,18 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git config --global commit.gpgsign true
-          git config --global tag.gpgSign true
+          git config --global tag.gpgsign true
           git config --global user.signingkey ${{ secrets.GPG_KEY_ID }}
+    - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+    - uses: hashicorp/ghaction-import-gpg@v2.1.0
+        with:
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
     - name: Release
       run: >
           mvn -V -gs $GITHUB_WORKSPACE/settings.xml -B -P sign-artifacts -e release:clean release:prepare && 
