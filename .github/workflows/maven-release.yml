@@ -21,6 +21,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Import GPG Key
+      uses: hashicorp/ghaction-import-gpg@v2.1.0
+      with:
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
     - name: Set up Apache Maven Central
       uses: actions/setup-java@v2
       with: # running setup-java again overwrites the settings.xml
@@ -44,11 +49,6 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
-    - name: Import GPG Key
-      uses: hashicorp/ghaction-import-gpg@v2.1.0
-      with:
-          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
     - name: Release
       run: >
           mvn -V -gs $GITHUB_WORKSPACE/settings.xml -B -P sign-artifacts -e release:clean release:prepare && 
