@@ -32,7 +32,7 @@ jobs:
         gpg-passphrase:  MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
         settings-path: ${{ github.workspace }}/generated-settings
     - name: Import GPG Key
-      uses: hashicorp/ghaction-import-gpg@v2.1.0
+      uses: crazy-max/ghaction-import-gpg@v4
       with:
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
