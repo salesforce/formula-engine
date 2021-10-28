@@ -56,9 +56,9 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          id: main
+          id: release
     - name: Deploy to Maven Central
-      run: mvn -gs $GITHUB_WORKSPACE/settings.xml -B -P sign-artifacts -f target/checkout nexus-staging:release
+      run: mvn -gs $GITHUB_WORKSPACE/settings.xml -B -P sign-artifacts -Dsettings.security=$GITHUB_WORKSPACE/settings.xml -f target/checkout nexus-staging:release
       env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
