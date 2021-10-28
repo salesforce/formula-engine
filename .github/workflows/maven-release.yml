@@ -39,14 +39,14 @@ jobs:
           git config --global tag.gpgsign true
           git config --global user.signingkey ${{ secrets.GPG_KEY_ID }}
     - name: Cache local Maven repository
-        uses: actions/cache@v2
-        with:
+      uses: actions/cache@v2
+      with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
     - name: Import GPG Key
-        uses: hashicorp/ghaction-import-gpg@v2.1.0
-        with:
+      uses: hashicorp/ghaction-import-gpg@v2.1.0
+      with:
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
     - name: Release
