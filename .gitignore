@@ -22,3 +22,4 @@ out/
 application.yml
 release.properties
 *~
+generated-settings*
