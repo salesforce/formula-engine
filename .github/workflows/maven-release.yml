@@ -46,9 +46,9 @@ jobs:
                 </settings>' > $GITHUB_WORKSPACE/git-settings.xml
     - name: Release
       run: >
-          mvn -V -gs $GITHUB_WORKSPACE/git-settings.xml -B -e release:clean release:prepare && 
+          mvn -V -gs $GITHUB_WORKSPACE/git-settings.xml -B -P sign-artifacts -e release:clean release:prepare && 
           echo "::set-output name=RELEASED_VERSION::$(grep scm.tag= release.properties | cut -d'=' -f2 | cut -c2-)" && 
-          mvn -gs $GITHUB_WORKSPACE/git-settings.xml -B -e release:perform
+          mvn -gs $GITHUB_WORKSPACE/git-settings.xml -B -P sign-artifacts -e release:perform
       env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
@@ -56,7 +56,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           id: main
     - name: Deploy to Maven Central
-      run: mvn -B -f target/checkout nexus-staging:release
+      run: mvn -B -P sign-artifacts -f target/checkout nexus-staging:release
       env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
