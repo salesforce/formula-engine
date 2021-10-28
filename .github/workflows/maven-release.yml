@@ -21,11 +21,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Import GPG Key
-      uses: hashicorp/ghaction-import-gpg@v2.1.0
-      with:
-          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
     - name: Set up Apache Maven Central
       uses: actions/setup-java@v2
       with: # running setup-java again overwrites the settings.xml
@@ -36,6 +31,11 @@ jobs:
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value of the GPG private key to import
         gpg-passphrase:  MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
         settings-path: ${{ github.workspace }}/generated-settings
+    - name: Import GPG Key
+      uses: hashicorp/ghaction-import-gpg@v2.1.0
+      with:
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
     - name: Setup Git
       run: |
           git config --global user.email "actions@github.com"
