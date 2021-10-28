@@ -10,6 +10,7 @@
     sql and javascript, and extensibility for reuse as an email
     templating language.
   </description>
+  <url>https://github.com/salesforce/formula-engine</url>
   <properties>
         <guava.version>30.0-jre</guava.version>
         <graalvm.version>20.3.0</graalvm.version>
@@ -48,6 +49,28 @@
     <module>docs/coverage</module>
   </modules>
 
+  <licenses>
+    <license>
+      <name>BSD 3-Clause</name>
+      <url>file://${basedir}/LICENSE.txt</url>
+    </license>
+  </licenses>
+  <organization>
+    <name>Salesforce</name>
+    <url>http://www.salesforce.com</url>
+  </organization>
+
+  <developers>
+    <developer>
+        <name>Steven Tamm</name>
+        <roles>
+            <role>Member</role>
+        </roles>
+        <email>formula-engine-oss@salesforce.com </email>
+        <organization>Salesforce</organization>
+    </developer>
+  </developers>  
+  
   <scm>
     <connection>scm:git:https://github.com/salesforce/formula-engine.git</connection>
     <developerConnection>scm:git:https://github.com/salesforce/formula-engine.git</developerConnection>
@@ -55,17 +78,6 @@
     <tag>HEAD</tag>
   </scm>
 
-  <distributionManagement>
-    <repository>
-      <id>sonatype-nexus-staging</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-    <snapshotRepository>
-      <id>sonatype-nexus-staging</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
-    
   <dependencyManagement>
     <dependencies>
       <!-- This is an optional dependency because the groupId/versioning differs in open-source -->
@@ -369,6 +381,17 @@
 		</profile>
 		<profile>
 		  <id>sign-artifacts</id>
+		  <distributionManagement>
+		    <repository>
+		      <id>sonatype-nexus-staging</id>
+		      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		    </repository>
+		    <snapshotRepository>
+		      <id>sonatype-nexus-staging</id>
+		      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		    </snapshotRepository>
+		  </distributionManagement>
+    
 		  <build>
 		    <plugins>
 		      <plugin>
