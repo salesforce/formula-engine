@@ -12,11 +12,11 @@ on:
         default: ''
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     environment: Maven
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
