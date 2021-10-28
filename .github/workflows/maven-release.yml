@@ -36,12 +36,12 @@ jobs:
       with:
           gpg_private_key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-	  git_committer_name: "GitHub Actions"
-	  git_committer_email: "actions@github.com"
-	  git_user_signingkey: true
-	  git_push_gpgsign: true
-	  git_commit_gpgsign: true
-	  git_tag_gpgsign: true
+          git_committer_name: "GitHub Actions"
+          git_committer_email: "actions@github.com"
+          git_user_signingkey: true
+          git_push_gpgsign: true
+          git_commit_gpgsign: true
+          git_tag_gpgsign: true
     - name: Cache local Maven repository
       uses: actions/cache@v2
       with:
