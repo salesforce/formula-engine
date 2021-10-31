@@ -317,7 +317,8 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
      */
     interface ObjectField<T> extends FormulaSchema.Field {
         /**
-         * For the given field devName for the given object, return the raw value.
+         * @return For the given field devName for the given object, return the raw value.
+         * @throws InvalidFieldReferenceException if the field reference is invalid
          */
         Object getRawValue(T object, String devName) throws InvalidFieldReferenceException;
         /**

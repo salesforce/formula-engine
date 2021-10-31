@@ -39,7 +39,11 @@ public interface FormulaRuntimeContext extends FormulaContext {
     BigDecimal getNumber(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
     /**
-     * Get a masked string, for encrypted field types.  Null if the field isn't encrypted.  Probably *****
+     * Get a masked string, for encrypted field types.  Null if the field isn't encrypted.  Probably 
+     * @param fieldName the field reference to lookup
+     * @return the string masked if encrypted
+     * @throws InvalidFieldReferenceException if the field reference is invalid
+     * @throws UnsupportedTypeException if the field reference is an unsupported type
      */
     default String getMaskedString(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
         if (fieldName.getBase() != null) {
@@ -50,9 +54,11 @@ public interface FormulaRuntimeContext extends FormulaContext {
     String getMaskedString(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
     /**
-     * @return the 
-     * @param fieldName
+     * @return the value of the field reference
+     * @param fieldName the field reference name
      * @param useNative use the "unmasked" format if there's.
+     * @throws InvalidFieldReferenceException if the field reference is invalid
+     * @throws UnsupportedTypeException if the field reference is an unsupported type
      */
     default String getString(FormulaFieldReference fieldName, boolean useNative) throws InvalidFieldReferenceException, UnsupportedTypeException {
         if (fieldName.getBase() != null) {

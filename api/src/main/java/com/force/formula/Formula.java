@@ -49,6 +49,9 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * Checks whether this formula is simply a direct reference to another field, and if so, returns the field path to
      * the referenced field. Otherwise, it returns null.
      *
+     * @return  the field path to the referenced field. Otherwise, it returns null.
+     * @param formulaContext
+     *            data source for field references
      * @param zeroExcluded
      *            If set, the caller is not checking against numeric 0, and this allows the direct field reference to be
      *            returned even if the numeric formula has the NVL-as-ZERO option set. N/A if this is not a numeric
@@ -74,6 +77,8 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * with the same inputs (EntityContexts in this case). If a formula is not deterministic it cannot be summarized by
      * a summary field.
      *
+     * @param formulaContext
+     *            data source for field references
      * @return true if the formula is deterministic
      */
     boolean isDeterministic(FormulaContext formulaContext);
@@ -81,6 +86,8 @@ public interface Formula extends Comparable<Formula>, Serializable {
     /**
      * Checks whether a formula reference any AI Prediction Target field.
      *
+     * @param formulaContext
+     *            data source for field references
      * @return true if formula references AI Prediction Target Field.
      */
     boolean hasAIPredictionFieldReference(FormulaContext formulaContext);

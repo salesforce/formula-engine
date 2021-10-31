@@ -36,8 +36,9 @@ public interface FormulaContext extends Tokenizer {
     /**
      * For spanning formulas we want to be able to generate the full context name for the entire context path.  This will
      * traverse up the parent contexts and prepend their names.
-     * @param useDurableName
+     * @param useDurableName use the durable name for any field references (i.e. external name)
      * @param relativeToContext is to generate the full name relative to this FormulaContext
+     * @return the full name of this context
      */
     String getFullName(boolean useDurableName, FormulaContext relativeToContext);
 
@@ -49,6 +50,8 @@ public interface FormulaContext extends Tokenizer {
     /**
      * @return the FieldInfo represented by field reference, with this context attached
      * @param field the formulaFieldReference to lookup
+     * @throws InvalidFieldReferenceException if the field reference is invalid
+     * @throws UnsupportedTypeException if the field reference is an unsupported type
      */
     default ContextualFormulaFieldInfo lookup(FormulaFieldReference field) throws InvalidFieldReferenceException, UnsupportedTypeException {
         return lookup(field.getElement(), false);
@@ -60,6 +63,8 @@ public interface FormulaContext extends Tokenizer {
      * @return the FieldInfo represented by fieldName, with this context attached
      * @param fieldName
      * @param isDynamicRefBase if the context could be dynamic (useful in templates)
+     * @throws InvalidFieldReferenceException if the field reference is invalid
+     * @throws UnsupportedTypeException if the field reference is an unsupported type
      */
     ContextualFormulaFieldInfo lookup(String fieldName, boolean isDynamicRefBase) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
@@ -96,6 +101,7 @@ public interface FormulaContext extends Tokenizer {
 
     /**
      * @return the set of additional contexts referencable from this one.
+     * @throws InvalidFieldReferenceException if the field reference is invalid
      */
     default FormulaContext[] getAdditionalContexts() throws InvalidFieldReferenceException {
         return null;
@@ -181,8 +187,9 @@ public interface FormulaContext extends Tokenizer {
     /**
      * Javascript is case sensitive when naming, so this returns the "canonical" name for the field,
      * but not the durable one (which may be an internal Id in case of renaming)
+     * @param fieldName the field to lookup and get the javascript name for.
      * @return the name to use when referencing the field in javascript.
-     * @throws InvalidFieldReferenceException 
+     * @throws InvalidFieldReferenceException if the field reference is invalid
      */
     default String toJavascriptName(String fieldName) throws InvalidFieldReferenceException {
         return fieldName;

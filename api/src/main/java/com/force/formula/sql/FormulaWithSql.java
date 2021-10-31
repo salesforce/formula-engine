@@ -61,6 +61,7 @@ public interface FormulaWithSql extends Formula {
      * a way that our indexing code would not see. For example, an account owner change can change the owner field of many
      * child objects in plsql, and our custom indexing code will not see those changes.
      *
+     * @param formulaContext the formula context being validated
      * @return true if the formula is deterministic
      */
     boolean isCustomIndexable(FormulaContext formulaContext);
@@ -70,6 +71,7 @@ public interface FormulaWithSql extends Formula {
      * a way that our indexing code would not see, except for certain fields that have special code to enable them,
      * such as Id, CreatedBy, and CreatedDate
      *
+     * @param formulaContext the formula context being validated
      * @return true if the formula is deterministic
      */
     boolean isFlexIndexable(FormulaContext formulaContext);
@@ -78,7 +80,7 @@ public interface FormulaWithSql extends Formula {
     /**
      * If {@link #isCustomIndexable(FormulaContext)}, a formula may require a post-save index update in order to account for values
      * not known until after the pl/sql save (for example, autonum fields).
-     *
+     * @param formulaContext the formula context being validated
      * @param dmlType The dmlType of the operation.
      * @return true if this formula requires postSaveIndexUpdate for the given dmlType.
      */
@@ -88,18 +90,22 @@ public interface FormulaWithSql extends Formula {
     /**
      * A Formula field is stale if it (directly or indirectly) refers to a stale summary field.
      * @param formulaContext
-     * @return
+     * @return whether this formulaContext refers to a stale summary field.
      */
     boolean isStale(FormulaContext formulaContext);
 
     /**
      * It's useful to be able to visit all FormulaCommands to perform validation and integrity checks.
      * Implement your own FormulaCommandVisitor to perform you own custom validation.
+     * @param visitor the visitor
      */
     void visitFormulaCommands(FormulaCommandVisitor visitor);
     
     /**
      * Dynamically find the SqlTables that are required by this formula
+     * @param queryTableRegistry the table registry to use to lookup table references
+     * @param <T> the table identifier
+     * @return the list of tables referred to in this formula
      */
     <T extends FormulaTableRegistry.TableIdentifier> List<T> getDependentTables(FormulaTableRegistry queryTableRegistry);
 

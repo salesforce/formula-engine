@@ -75,6 +75,9 @@ public final class FormulaDateUtil {
     /**
      * Translate a Date from its localtime representation to a new Date
      * representing the same calendar day in GMT.
+     * @param date the date to translate
+     * @param toMidnight if the time portion should be truncated
+     * @return a date at midnight in the GMT timezone.
      */
     public static Date translateToGMT(Date date, boolean toMidnight) {
         if (date == null) {
@@ -88,6 +91,9 @@ public final class FormulaDateUtil {
     /**
      * Translate a Date from its GMT representation to a new Date
      * representing the same calendar day in Local timezone
+     * @param date the date to translate
+     * @param toMidnight if the time portion should be truncated
+     * @return a date at midnight in the locale timezone.
      */
     public static Date translateToLocal(Date date, boolean toMidnight) {
         if (date == null) {
@@ -102,6 +108,9 @@ public final class FormulaDateUtil {
     /**
      * Truncates a date to a users localtime midnight, and then converts that date
      * to a Gmt midnight date only.
+     * @param tz the owners timezone
+     * @param date  the date to trucate
+     * @return the date at GMT midnight.
      */
     public static Date truncateDateToOwnersGmtMidnight(TimeZone tz, Date date) {
         if (date == null) {
@@ -120,6 +129,8 @@ public final class FormulaDateUtil {
     
     /**
      * Converts java.util.Date to format appropriate for oracle sql using sqlFormatter
+     * @param date the date to format
+     * @return format the date to SQL format
      */
     public static String formatDateToSql(Date date) {
         return SQL_FORMATTER.get().format(date);
@@ -141,6 +152,11 @@ public final class FormulaDateUtil {
     
     /**
      * add a duration to a date(units of duration is days)
+     * @param performAddition if true, add, otherwise subtract
+     * @param value  the date value
+     * @param duration the number of seconds to add to the date
+     * @param truncate should the milliseconds be truncated, or rounded
+     * @return the value with the date added
      */
     public static Date addDurationToDate(boolean performAddition, Date value, BigDecimal duration, boolean truncate) {
 
@@ -166,6 +182,9 @@ public final class FormulaDateUtil {
      * Must be in universal GMT timezone and contain both date and time
      * e.g. 2011-01-31T22:59:48.317Z
      * e.g. 2011-01-31T22:59:48Z
+     * @param date the date to parse
+     * @return the parsed date
+     * @throws ParseException if the date format is invalid
      */
     public static Date parseISO8601(String date) throws ParseException {
     	try {
@@ -178,6 +197,8 @@ public final class FormulaDateUtil {
     /**
      * Returns a string in ISO8601 format, with both date and time
      * e.g. 2011-01-31T22:59:48Z
+     * @param date the date to format
+     * @return the value of the date formatted with ISO8601 format.
      */
     public static String formatDatetimeToISO8601(Date date) {
         return ISO8601_FORMATTER.get().format(date);

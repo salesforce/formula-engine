@@ -344,7 +344,7 @@ public class BaseCompositeFormulaContext implements FormulaRuntimeContext {
     }
     
     /**
-     * Returns the final context that is referenced by the field.
+     * @return the final context that is referenced by the field.
      * @param fieldName
      * @throws InvalidFieldReferenceException 
      */
@@ -396,9 +396,8 @@ public class BaseCompositeFormulaContext implements FormulaRuntimeContext {
     private final Map<String, FormulaRuntimeContext> additionalContexts;
 
     /**
-     * Returns whether this field reference is for a constant formula context like $System or $User.
+     * @return whether this field reference is for a constant formula context like $System or $User.
      * @param fieldReference
-     * @return
      */
     public static boolean isGlobalContextFieldReference(String fieldReference) {
         assert fieldReference != null : "Do not pass in a null field reference";

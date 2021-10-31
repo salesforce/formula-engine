@@ -196,10 +196,10 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     
     
     /**
-     * Function right can be... complicated, especially i
-     * @param stringArg
-     * @param countArg
-     * @return
+     * Function right can be... complicated, especially in Oracle
+     * @param stringArg the sql for the string value
+     * @param countArg the sql for the number of chars
+     * @return the SQL for generating RIGHT()
      */
     default String sqlRight(String stringArg, String countArg) {
         // Oracle allows {n,m} where m < 0 and treats it as {0,0} but Postgres will throw an error, and

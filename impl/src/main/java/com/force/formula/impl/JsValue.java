@@ -46,7 +46,7 @@ public class JsValue {
      * 
      * @param expression the expression that isn't null
      * @param values      the expressions coming in to guard against NPEs
-     * @return
+     * @return the JsValue for the expression
      */
     public static final JsValue forNonNullResult(String expression, JsValue[] values) {
         return generate(expression, values, false, values);
@@ -63,7 +63,7 @@ public class JsValue {
      * @param additions   the values that you want to validate can't be null to
      *                    prevent NPEs
      * @param couldBeNull whether the expression could be null.
-     * @return
+     * @return the JsValue for the expression
      */
     public static final JsValue generate(String expression, JsValue[] values, boolean couldBeNull,
             JsValue... additions) {
@@ -82,7 +82,7 @@ public class JsValue {
      * @param values      the expressions coming in to guard against NPEs
      * @param additions   checks to add after the guards for the values.
      * @param couldBeNull whether the expression could be null.
-     * @return
+     * @return the JsValue for the expression
      */
     public static final JsValue generate(String expression, JsValue[] values, String additions, boolean couldBeNull) {
         // TODO: Simplify this so that if the guard is already in the guard, you don't

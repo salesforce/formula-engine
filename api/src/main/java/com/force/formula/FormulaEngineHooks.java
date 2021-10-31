@@ -92,6 +92,7 @@ public interface FormulaEngineHooks {
 	}
 
 	/**
+	 * @param value the value that has the wrong type
 	 * @return the type name to use for the value in the error message when there is a type mismatch.
 	 * If the value has an "interesting" type, this allows the error message to be overridden.
 	 */
@@ -212,7 +213,7 @@ public interface FormulaEngineHooks {
     }
 
     /**
-     * Whether or not we should log during runtime. This is to enable sampling in the core app.
+     * @return Whether or not we should log during runtime. This is to enable sampling in the core app.
      */
     default boolean shouldLogRuntime() {
         return false;
@@ -220,11 +221,13 @@ public interface FormulaEngineHooks {
     
     /**
      * For the given field reference and target type, return the underlying value of that reference in the given context
+     * @param fieldInfo the fieldInfo for the reference
      * @param dataType the target data type
-     * @param context
-     * @param fieldReference
-     * @param useUnderlyingType
-     * @return
+     * @param context the current formula context
+     * @param fieldReference the field references being evaluated
+     * @param useUnderlyingType whether to use the underlying type of the field reference or the exp
+     * @return the underlying value of the reference
+     * @throws FormulaException if an exception occurs
      */
     default Object getFieldReferenceValue(ContextualFormulaFieldInfo fieldInfo, FormulaDataType dataType, FormulaRuntimeContext context, FormulaFieldReference fieldReference, boolean useUnderlyingType) throws FormulaException  {
         // The caller may need to override this to handle custom data types that are context dependent
@@ -240,6 +243,7 @@ public interface FormulaEngineHooks {
      * @param useUnderlyingType whether to use the templateType or "real" type of the field reference
      * @param escapeStringForSQLGeneration whether to replace single quotes with doubled-single quoted (' -&gt; '')
      * @return the converted value
+     * @throws FormulaException if an exception occurs
      */
     default Object getAndConvertFieldReferenceValue(FormulaDataType dt, FormulaRuntimeContext context, FormulaFieldReference fieldReference, boolean useUnderlyingType, boolean escapeStringForSQLGeneration)
                 throws FormulaException {
@@ -308,7 +312,7 @@ public interface FormulaEngineHooks {
      * Provide a hook for lookup of a field reference when you want to check for compilation (when you want to turn off security)
      * @param context
      * @param fieldReference
-     * @return
+     * @return the contextual formula field info for the given field reference
      * @throws InvalidFieldReferenceException
      * @throws UnsupportedTypeException
      */

@@ -77,8 +77,8 @@ public class FormulaTypeUtils {
 
     /**
      * Same as isTypeText, but in cases where we think supporting an ID is ugly.
-     * @param type
-     * @return
+     * @param type the type of the formula
+     * @return whether the type is text.. or a text-like thing like ID
      */
     public static boolean isTypeTextUgly(Type type) {
         return isTypeText(type);
@@ -123,9 +123,9 @@ public class FormulaTypeUtils {
     /**
      * For objects involved with a comparison, determine if there is a common supertype of
      * the either side, and if so, return it.
-     * @param lhs
-     * @param rhs
-     * @return
+     * @param lhs the left hand side type
+     * @param rhs the right hand side type
+     * @return the common supertype between the left and right hand sides
      */
     public static Type getCommonSuperType(Type lhs, Type rhs) {
         if (lhs == ConstantNull.class) return rhs;

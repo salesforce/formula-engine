@@ -48,6 +48,9 @@ public class BigDecimalHelper {
 
     /**
      * Used for Formula fields
+     * @param value the value to round
+     * @param scale  the scale to round to 
+     * @return the value rounded, using special semantics for numbers close to 0 to avoid over rounding
      */
     public static BigDecimal round(BigDecimal value, int scale) {
         BigDecimal result = value.abs();
@@ -91,6 +94,9 @@ public class BigDecimalHelper {
 
     /**
      * Used by Formula field ^ operator
+     * @param arg1 the operand
+     * @param arg2 the exponent
+     * @return arg1 ^ arg2, but don't allow it to hog the processor with giant numbers
      */
     public static BigDecimal formulaPower(BigDecimal arg1, BigDecimal arg2) {
         try {
@@ -122,6 +128,8 @@ public class BigDecimalHelper {
 
     /**
      * Used by Formula field: TEXT() function
+     * @param n the number to format
+     * @return the number formated as a plain string with zeros stripped
      */
     public static String formatBigDecimal(BigDecimal n) {
         if (n.compareTo(BigDecimal.ZERO) == 0) {
@@ -134,6 +142,8 @@ public class BigDecimalHelper {
     
     /**
      * Used by Formula field: ISNUMBER() function
+     * @param input the number to parse
+     * @return whether input is a number
      */
     // CDW: Stamm suggests a numeric regex pattern (but I didn't want to change any semantics...)
     public static boolean functionIsNumber(String input) {
@@ -170,6 +180,9 @@ public class BigDecimalHelper {
     }
 
     /**
+     * @param n the number to test
+     * @param precision the precision specified (significant digits)
+     * @param scale  the scale specified
      * @return true iff the given number is within the given precision/scale settings
      */
     public static boolean exceedsNumericLimits(Number n, int precision, int scale) {
@@ -195,6 +208,8 @@ public class BigDecimalHelper {
     }
 
     /**
+     * @param n the number to scale
+     * @param scale the new scale
      * @return a BigDecimal form of the given number, with the correct number of digits to the right of the decimal point
      */
     public static final BigDecimal roundNumberToScale(Number n, int scale) {

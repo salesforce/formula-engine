@@ -189,6 +189,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * are written to results stream. Once all the datasets for all the
 		 * FormulaTestRunnables are tried, the results stream is compared with gold
 		 * file, to determine any failures.
+		 * @throws Exception if an error occurs
 		 */
 		public void testFormula() throws Exception {
 			// Initialize field Maps if not already done or if dataManager is used
@@ -861,6 +862,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * @param formulaSource the source of the formula
 		 * @param nullAsNull whether null is treated as null or as blank/0
 		 * @return the result of evaluating the formula using a sql engine
+		 * @throws IOException if there is an IO issue with the sql engine
 		 * @throws SQLException if there is an issue evaluating the sql
 		 * @throws FormulaException if there is an issue evaluating the formula
 		 */

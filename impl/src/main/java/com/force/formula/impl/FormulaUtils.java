@@ -561,7 +561,8 @@ public class FormulaUtils {
     }
 
     /**
-     * Returns the domain name to be appended to the end of a field name for polymorphic fields
+     * @return the domain name to be appended to the end of a field name for polymorphic fields
+     * @param domain the domain to specify for a polymorphic reference
      */
     public static String getFormattedDomain(String domain) {
         return DOMAIN_DELIMETER + domain;
@@ -603,7 +604,8 @@ public class FormulaUtils {
     /**
      * Same as isTypeText, but in cases where we think supporting an ID is ugly.
      * @param type
-     * @return
+     * @return  is the type text (or ID)
+     * @deprecated use FormulaTypeUtils
      */
     @Deprecated
     public static boolean isTypeTextUgly(Type type) {
@@ -632,9 +634,9 @@ public class FormulaUtils {
     /**
      * For objects involved with a comparison, determine if there is a common supertype of
      * the either side, and if so, return it.
-     * @param lhs
-     * @param rhs
-     * @return
+     * @param lhs the left hand side type
+     * @param rhs the right hand side type
+     * @return the common supertype between the left and right hand sides
      */
     @Deprecated
     public static Type getCommonSuperType(Type lhs, Type rhs) {

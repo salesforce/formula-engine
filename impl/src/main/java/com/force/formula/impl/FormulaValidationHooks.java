@@ -109,6 +109,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param context the current context
      * @param fieldName the current "field" being evaluated
      * @param referencedNames the fields referenced in the current formula
+     * @throws FormulaException if an exception occurs
      */
     default void parseHook_checkForCycles(FormulaContext context, String fieldName, Set<String> referencedNames) throws FormulaException {
     }
@@ -353,26 +354,24 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * Allow the FieldReference to override the return type of the field based on the column type.
      * Extend this if you have extended the formula field types
-     * @param columnType
-     * @param node
-     * @param context
-     * @param domain
-     * @return
+     * @param columnType the column type expected for the field reference
+     * @param node the AST node of the field reference
+     * @param context the formula context being evaluates
+     * @param domain the domain associated with the FieldInfo of this field reference
+     * @return null, or the Type that should be overridden.
      */
     default Type parseHook_getFieldReturnTypeOverride(FormulaDataType columnType, FormulaAST node, FormulaContext context, FormulaSchema.Entity[] domain) {
         return null;
     }
     
     /**
-     * Return the SQL Pair for evaluating picklist values in the DB.  This is... rather difficult
-     * @param node the node for the FunctionText
-     * @param context the context in which is 
-     * @param args
-     * @param guards
-     * @param registry
-     * @return
+     * @return the SQL Pair for evaluating picklist values in the DB for TEXT(...).  This is... rather difficult
+     * @param node the node for the FunctionText.  Use this to lookup what is happening with the pciklist
+     * @param context the context for the evaluation
+     * @param args the arguments for the TEXT function
+     * @param guards the sql guards for the TEXT function
+     * @param registry the table registry for subsitution table names
      */
-
     default SQLPair getPicklistSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) throws FormulaException {
         return null;
     }
@@ -434,6 +433,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     
     /**
      * @return whether the CASE statement should be considered 
+     * @param argumentName the command name of the function
      */
     default ShortCircuitBehavior parseHook_caseShortCircuit(String argumentName) {
         if (argumentName == null) return ShortCircuitBehavior.EVAL_ALL;
@@ -461,9 +461,8 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     }
     
     /**
-     * Construct an IdType with the given target domain.
-     * @param domain
-     * @return
+     * @return an IdType with the given target domain.
+     * @param domain the domains for the idtype
      */
     default FormulaTypeWithDomain.IdType constructIdType(FormulaSchema.Entity[] domain) {
     	return null;
@@ -491,6 +490,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     }
     
     /**
+     * @param isoCode the currency ISO code 
      * @return the scale to use for the given isocode
      * Defaults to the JDK currency scale
      * 
@@ -520,6 +520,9 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * Get the correct time format, where the symbols are converted properly to
      * the users language. This is non-trivial to implement so 
+     * @param localizer the current localizer
+     * @return the "correct" type format
+     * @throws FormulaEvaluationException if the pattern is invalid
      */
     default DateFormat getCorrectShortTimeFormat(BaseLocalizer localizer) throws FormulaEvaluationException {
         return localizer.getTimeFormat();
@@ -575,14 +578,11 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     }
     
     /**
+     * @param context the current formula context, if you have the URL encoding in a property
      * @return the URL encoding to use when rendering static markup from a template.
      */
     default String getTemplateUrlEncoding(FormulaRuntimeContext context) {
         return null;
-        /*
-         * MergeMap mergeMap = (MergeMap)context.getProperty(FormulaTemplateContext.INPUTS_PROPERTY);
-         * String urlEncoding = (mergeMap != null) ? mergeMap.getOptions().getUrlEncoding() : null;
-         */
     }
     
     /**
@@ -590,7 +590,6 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      */
     default String getUrlEncoding() {
         return null;
-        // return Globals.getPageEncoding()
     }
     
     /**
