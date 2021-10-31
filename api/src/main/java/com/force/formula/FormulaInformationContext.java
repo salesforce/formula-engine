@@ -21,7 +21,7 @@ public interface FormulaInformationContext /* implements Context */ {
     public Map<String, String> getAdditionalInfo();
 
     /**
-     * Each formula context can override {@link FormulaContext#getMetaInformationMap()} to provide the formula engine
+     * Each formula context can override {@link FormulaRuntimeContext#getMetaInformation()} to provide the formula engine
      * useful debugging information relevant to that specific context.
      */
     public Map<String, String> getContextInfo();

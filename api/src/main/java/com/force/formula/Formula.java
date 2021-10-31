@@ -21,7 +21,7 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * @param context
      *            data source for field references
      * @return result of executing the formula
-     * @throws Exception
+     * @throws Exception if an error occurred.  TODO: Make this narrower  
      */
     Object evaluate(FormulaRuntimeContext context) throws Exception;
 
@@ -32,7 +32,7 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * @param context
      *            data source for field references
      * @return result of executing the formula
-     * @throws Exception
+     * @throws Exception if an error occurred.  TODO: Make this narrower  
      */
     Object evaluateRaw(FormulaRuntimeContext context) throws Exception;
 
@@ -40,8 +40,8 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * Use this hook to perform bulk processing before the formulas are evaluated. Useful for formula functions like
      * vlookup that perform a query for all contexts and cache the value for runtime evaluation.
      *
-     * @param contexts
-     * @throws Exception
+     * @param contexts the set of runtime contexts that will be used in execution
+     * @throws Exception if an error occurred.  TODO: Make this narrower  
      */
     void bulkProcessingBeforeEvaluation(List<FormulaRuntimeContext> contexts) throws Exception;
 
@@ -62,8 +62,8 @@ public interface Formula extends Comparable<Formula>, Serializable {
      *            Namespace of a field, This is important for extension package because usually extension package
      *            namespace is on the stack, however we can find field only from the original developer namespace who
      *            delievered field.
-     * @throws InvalidFieldReferenceException
-     * @throws UnsupportedTypeException
+     * @throws InvalidFieldReferenceException if a field reference in this formula cannot be evaluated
+     * @throws UnsupportedTypeException if the formula isn't supported 
      */
     List<FormulaFieldReferenceInfo> getFieldPathIfDirectReferenceToAnotherField(FormulaContext formulaContext,
             boolean zeroExcluded, boolean allowDateValue, AtomicBoolean caseSafeIdUsed, String namespace)
@@ -100,7 +100,7 @@ public interface Formula extends Comparable<Formula>, Serializable {
     FormulaDataType getDataType();
 
     /**
-     * @return the current formula converted to javascript for client side evaluation, or <tt>null</tt> if the formula
+     * @return the current formula converted to javascript for client side evaluation, or <code>null</code> if the formula
      *         is not convertable.
      */
     String toJavascript();

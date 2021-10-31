@@ -78,7 +78,7 @@ public interface FormulaDataType {
     /**
      * True if the contents of fields of this type *may* be encrypted using the newer platform encryption framework.
      * (AtRest == new).
-     * <p/>
+     * 
      * Generally speaking, encryption will happen for fields that
      * <ul>
      * <li>are of a DataType that canBeEncryptedAtRest</li>
@@ -86,6 +86,7 @@ public interface FormulaDataType {
      * <li>are in orgs that have the EncryptionAtRest feature enabled</li>
      * <li>have been configured by org admins to be encrypted</li>
      * </ul>
+     * @return if this data type can be encrypted at rest (i.e. it needs special formula support)
      */
     default boolean canBeEncryptedAtRest() {
         return false;

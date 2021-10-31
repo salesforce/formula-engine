@@ -111,7 +111,7 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
     }
 
     /**
-     * You can't natively compare dates in javascript; either you do a>=b && a<=b, or you call getTime().  getTime() seems less awful
+     * You can't natively compare dates in javascript; either you do a&gt;=b &amp;&amp; a&lt;=b, or you call getTime().  getTime() seems less awful
      * @param arg the value for the type to compare 
      * @param argType the argument type
      * @return a javascript value suitable for testing equality

@@ -35,9 +35,8 @@ public abstract class MockBasePicklistData {
 
     /**
      * constructor to make this instance as multi-select picklist.
-     * @param values values array
-     * @param display display value array
      * @param selectedValues initial selection. accept <code>null</code> value.
+     * @param multiple is this multiselect picklist
      */
     public MockBasePicklistData(String[] selectedValues, boolean multiple) {
         this.multiple = multiple;

@@ -44,7 +44,7 @@ public class FormulaContextSwitcher {
      * When evaluating a nested formula, let's switch to the FormulaContext for the entity the formula resides on.
      * 
      * This must be balanced with a call to revertToOriginalFormulaContext() in a try-catch block.
-     * @param FormulaFieldInfo for the formula field being evaluated
+     * @param formulaFieldInfo for the formula field being evaluated
      */
     public void switchFormulaContext(ContextualFormulaFieldInfo formulaFieldInfo) {
         FormulaContext context = formulaFieldInfo.getFormulaContext();

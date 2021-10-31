@@ -265,7 +265,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      
     /**
      * @return the format for converting to a datetime value
-     * @param whether spaces should be used around the "||" for compatibility
+     * @param withSpaces whether spaces should be used around the "||" for compatibility
      */
     default String sqlConcat(boolean withSpaces) {
     	if (isPostgresStyle()) {

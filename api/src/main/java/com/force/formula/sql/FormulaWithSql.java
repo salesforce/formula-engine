@@ -95,7 +95,6 @@ public interface FormulaWithSql extends Formula {
     /**
      * It's useful to be able to visit all FormulaCommands to perform validation and integrity checks.
      * Implement your own FormulaCommandVisitor to perform you own custom validation.
-     * @throws FormulaException
      */
     void visitFormulaCommands(FormulaCommandVisitor visitor);
     

@@ -104,8 +104,6 @@ public abstract class FormulaCommandVisitorImpl implements FormulaCommandVisitor
     /**
      * Checks whether a formula is deterministic. A formula is deterministic if it always returns the same when called with the same inputs (EntityContexts in this case).
      * If a formula is not deterministic it cannot be summarized by a summary field.
-     *
-     * @return true if the formula is deterministic
      */
     static class DeterministicFormula extends FormulaCommandVisitorImpl {
         private boolean isDeterministic = true;
@@ -127,7 +125,6 @@ public abstract class FormulaCommandVisitorImpl implements FormulaCommandVisitor
 
     /**
      * Checks whether a formula reference any AI Prediction Target field.
-     * @return true if formula references AI Prediction Target Field.
      */
     static class AIPredictionFieldReference extends FormulaCommandVisitorImpl {
         private boolean hasAIPredictionFieldReference = false;
@@ -149,8 +146,6 @@ public abstract class FormulaCommandVisitorImpl implements FormulaCommandVisitor
     /**
      * Checks whether a formula is custom indexable. A formula is custom indexable if it is deterministic and
      * if it does not reference any fields whose updates might be missed by our custom index maintenance.
-     *
-     * @return true if the formula is deterministic
      */
     static class CustomIndexableFormula extends FormulaCommandVisitorImpl {
         private boolean isCustomIndexable = true;
@@ -173,8 +168,6 @@ public abstract class FormulaCommandVisitorImpl implements FormulaCommandVisitor
     /**
      * Checks whether a formula is flex indexable. A formula is custom indexable if it is deterministic and
      * if it does not reference any fields whose updates might be missed by our custom index maintenance.
-     *
-     * @return true if the formula is deterministic
      */
     static class FlexIndexableFormula extends FormulaCommandVisitorImpl {
         private boolean isFlexIndexable = true;

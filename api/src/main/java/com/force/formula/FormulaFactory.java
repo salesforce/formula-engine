@@ -27,7 +27,8 @@ public interface FormulaFactory {
      * Use this method to get default values for all formula properties. Allows setting
      * of whether this is an existing formula, which effects error checking.
      *
-     * @param fieldInfo
+     * @param type the type of formula being constructed
+     * @param context
      *            field definition that the formula is bound to
      * @param source
      *            formula specification in textual format
@@ -46,7 +47,8 @@ public interface FormulaFactory {
      * Use this method to get default values for all formula properties. Allows setting
      * of whether this is an existing formula, which effects error checking.
      *
-     * @param fieldInfo
+     * @param type the type of formula being constructed
+     * @param context
      *            field definition that the formula is bound to
      * @param source
      *            formula specification in textual format
@@ -65,12 +67,12 @@ public interface FormulaFactory {
     /**
      * Use this method to specify values for all formula properties.
      *
-     * @param fieldInfo
+     * @param context
      *            field definition that the formula is bound to
      * @param source
      *            formula specification in textual format
-     * @param generateSQL
-     *            flag to control SQL (bulk) evaluator content generation
+     * @param properties
+     *            the formula properties that specify the formula creation parameters
      * @return Formula object
      * @throws FormulaException
      */
@@ -81,7 +83,6 @@ public interface FormulaFactory {
      * Return the names for objects directly referenced by this formula in encoded form by regex matching only
      *
      * @return List of names.
-     * @throws FormulaException
      */
     String[] getReferencesFromEncodedSource(String source);
     

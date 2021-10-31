@@ -31,7 +31,7 @@ public interface FormulaEngineHooks {
 	 * When testing for nullability, there are some complex objects that may "appear"
 	 * null but won't actually be a null reference
 	 * @param value the value to check for null,
-	 * @return <tt>null</tt> if value should be treated as a null value for comparisons
+	 * @return <code>null</code> if value should be treated as a null value for comparisons
 	 */
 	default Object hook_unwrapForNullable(Object value) {
 		if (value instanceof FormulaDataValue && ((FormulaDataValue)value).isEmpty()) {
@@ -100,7 +100,7 @@ public interface FormulaEngineHooks {
 	}
 
 	/**
-	 * @return <tt>true</tt> if the container is currently compiling this formula, which means some
+	 * @return <code>true</code> if the container is currently compiling this formula, which means some
 	 * actual values might be "fake".  So this allows the validation to be more forgiving.
 	 */
 	default boolean isFormulaContainerCompiling() {
@@ -238,7 +238,7 @@ public interface FormulaEngineHooks {
      * @param context the formula context to use to evaluate the reference
      * @param fieldReference the field reference
      * @param useUnderlyingType whether to use the templateType or "real" type of the field reference
-     * @param escapeStringForSQLGeneration whether to replace single quotes with doubled-single quoted (' -> '')
+     * @param escapeStringForSQLGeneration whether to replace single quotes with doubled-single quoted (' -&gt; '')
      * @return the converted value
      */
     default Object getAndConvertFieldReferenceValue(FormulaDataType dt, FormulaRuntimeContext context, FormulaFieldReference fieldReference, boolean useUnderlyingType, boolean escapeStringForSQLGeneration)

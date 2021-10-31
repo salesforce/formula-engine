@@ -38,10 +38,10 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
     // This will generate extra contexts for *all* foreign keys. Invoke filterFormulaContext if you don't want that.
     /**
      * Internal constructor of a formula context, that will work for metadata (i.e. before the bean is there)
-     * @param defaultContext
-     * @param mapEntity
-     * @param topLevelFormulaType
-     * @param bean
+     * @param defaultContext the default context
+     * @param mapEntity the bean shape
+     * @param topLevelFormulaType the type of formula
+     * @param map the values for the context
      */
     @SuppressWarnings("unchecked")
     public MapFormulaContext(FormulaRuntimeContext defaultContext, MapEntity mapEntity, final FormulaTypeSpec topLevelFormulaType, FormulaSchema.Field reference, Map<String,?> map) {

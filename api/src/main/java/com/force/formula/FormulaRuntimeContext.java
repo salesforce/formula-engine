@@ -151,13 +151,13 @@ public interface FormulaRuntimeContext extends FormulaContext {
         return false;
     }
     /**
-     * @return <tt>true</tt> if this represents a clone to support ISNEW()
+     * @return <code>true</code> if this represents a clone to support ISNEW()
      */
     default boolean isNew() {
         return false;
     }
     /**
-     * @return <tt>true</tt> if this represents a clone to support ISCLONE()
+     * @return <code>true</code> if this represents a clone to support ISCLONE()
      */
     default boolean isClone() {
         return false;

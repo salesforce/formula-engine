@@ -22,7 +22,7 @@ public interface FormulaTableRegistry {
 
     /**
      * Given a foreign key path, return the table aliases that should be used to generate sql.
-     * @param the foreign key path from the root QueryTable
+     * @param fieldPath the foreign key path from the root QueryTable
      * @param currentTableAliases The temporary table aliases that are being used
      * @return the standard and custom table aliases
      */

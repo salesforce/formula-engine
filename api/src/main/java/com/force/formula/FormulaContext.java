@@ -161,7 +161,7 @@ public interface FormulaContext extends Tokenizer {
     }
 
     /**
-     * @return <tt>true</tt> if javascript should use high precision, instead of native numbers.
+     * @return <code>true</code> if javascript should use high precision, instead of native numbers.
      * Currently, this defaults to using the "decimal.js" library, 
      */
     default boolean useHighPrecisionJs() {
@@ -170,8 +170,8 @@ public interface FormulaContext extends Tokenizer {
     }
 
     /**
-     * @return <tt>true</tt> if, when evaluating JS any date, time, or date/time field will be
-     * represented as a string in the fomrat <tt>YYYY-MM-DD HH:MM:SS.mmm</tt>
+     * @return <code>true</code> if, when evaluating JS any date, time, or date/time field will be
+     * represented as a string in the fomrat <code>YYYY-MM-DD HH:MM:SS.mmm</code>
      */
     default boolean jsDatesAreStrings() {
         Boolean val = getProperty(JS_DATES_ARE_STRINGS);
@@ -197,7 +197,7 @@ public interface FormulaContext extends Tokenizer {
     }
     
     /**
-     * @return <tt>true</tt> if postgres syntax should be used for SQL expressions.
+     * @return <code>true</code> if postgres syntax should be used for SQL expressions.
      * Override for performance.
      */
     default FormulaSqlStyle getSqlStyle() {

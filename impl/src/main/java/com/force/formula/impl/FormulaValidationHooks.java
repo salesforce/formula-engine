@@ -138,7 +138,8 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * We need to create a special predict command, similar to VLOOKUP that has knowledge of
      * it's parameters. This is used for bulk evaluation
-     * @param 
+     * @param commandInfo the command being parsed
+     * @param predictCommands the parameteres to the command (i.e. the predictions)
      */
     default FormulaCommand parseHook_generateFunctionPredict(FormulaCommandInfo commandInfo,
             List<FormulaCommand> predictCommands) {
@@ -528,7 +529,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * Oracle has a different notion of upper case vs java, especially around Szet and
      * sigma and the turkish I.
-     * @param string the value to convert to upper case
+     * @param value the value to convert to upper case
      * @param locale the locale to use for the conversion
      * @return string converted to upper case for the given locale
      */

@@ -34,8 +34,8 @@ public class FormulaInfoFactory {
      * Use this method to get default values for all formula properties. Allows setting
      * of whether this is an existing formula, which effects error checking.
      *
-     * @param fieldInfo
-     *            field definition that the formula is bound to
+     * @param type the type of formula being constructed
+     * @param context the context of the formula evaluation
      * @param source
      *            formula specification in textual format
      * @param existingFormula
@@ -55,8 +55,8 @@ public class FormulaInfoFactory {
      * Use this method to get default values for all formula properties. Allows setting
      * of whether this is an existing formula, which effects error checking.
      *
-     * @param fieldInfo
-     *            field definition that the formula is bound to
+     * @param type the type of formula being constructed
+     * @param context the context of the formula evaluation
      * @param source
      *            formula specification in textual format
      * @param existingFormula
@@ -76,12 +76,11 @@ public class FormulaInfoFactory {
     /**
      * Use this method to specify values for all formula properties.
      *
-     * @param fieldInfo
-     *            field definition that the formula is bound to
+     * @param context the context of the formula evaluation
      * @param source
      *            formula specification in textual format
-     * @param generateSQL
-     *            flag to control SQL (bulk) evaluator content generation
+     * @param properties
+     *            the generation properties of the formula
      * @return Formula object
      * @throws FormulaException
      */
@@ -94,7 +93,6 @@ public class FormulaInfoFactory {
      * Return the names for objects directly referenced by this formula in encoded form by regex matching only
      *
      * @return List of names.
-     * @throws FormulaException
      */
     public static String[] getReferencesFromEncodedSource(String source) {
         return FormulaUtils.getReferencesFromEncodedSource(source);

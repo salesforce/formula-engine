@@ -9,7 +9,7 @@ package com.force.formula;
  * which could be null, like the Location inside an address, or another type that allows
  * null as a value.
  * 
- * Common uses are Location & Currency (which both represent two or more scalar values)
+ * Common uses are Location and Currency (which both represent two or more scalar values)
  *
  * @author stamm(shansma)
  * @since 0.0.3 (132)

@@ -17,7 +17,7 @@ import com.google.common.collect.ImmutableMap;
 
 /**
  * Test dynamic references in templates
- * @see https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_sample_standard.htm
+ * @see <a href="https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_sample_standard.htm">Dynamic Visualforce Documentation</a>
  * @author stamm
  */
 public class DynamicReferenceTest extends BaseCustomizableParserTest {

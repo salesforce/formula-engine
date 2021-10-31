@@ -44,12 +44,8 @@ public class JsValue {
      * Generate a new JSValue for the given expression, assuming that you cannot
      * return null if the argument is not null.
      * 
-     * @param expression
+     * @param expression the expression that isn't null
      * @param values      the expressions coming in to guard against NPEs
-     * @param nullCheck   additions to the guard.
-     * @param additions   the values that you want to validate can't be null to
-     *                    prevent NPEs
-     * @param couldBeNull whether the expression could be null.
      * @return
      */
     public static final JsValue forNonNullResult(String expression, JsValue[] values) {
@@ -64,7 +60,6 @@ public class JsValue {
      * 
      * @param expression
      * @param values      the expressions coming in to guard against NPEs
-     * @param nullCheck   additions to the guard.
      * @param additions   the values that you want to validate can't be null to
      *                    prevent NPEs
      * @param couldBeNull whether the expression could be null.
@@ -85,7 +80,6 @@ public class JsValue {
      * 
      * @param expression
      * @param values      the expressions coming in to guard against NPEs
-     * @param nullCheck   additions to the guard.
      * @param additions   checks to add after the guards for the values.
      * @param couldBeNull whether the expression could be null.
      * @return

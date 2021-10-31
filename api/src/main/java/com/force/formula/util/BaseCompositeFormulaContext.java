@@ -57,8 +57,8 @@ public class BaseCompositeFormulaContext implements FormulaRuntimeContext {
 
     /**
      * Provide a way for a child formula context to filter out formulas simply without breaking inheritance
-     * @param name the uppercase name of the formula.
-     * @return <tt>false</tt> if the context shouldn't be available.
+     * @param contextName the uppercase name of the formula.
+     * @return <code>false</code> if the context shouldn't be available.
      */
     protected boolean filterFormulaContext(String contextName) {
         return true;

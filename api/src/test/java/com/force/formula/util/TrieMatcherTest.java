@@ -182,7 +182,7 @@ public class TrieMatcherTest extends TestCase {
             );
 
     /**
-     * Test method for {@link lib.text.TrieMatcher#compile(java.lang.String[], java.lang.String[])}.
+     * Test method for {@link TrieMatcher#compile(java.lang.String[], java.lang.String[])}.
      */
     public void testCompileStringArrayStringArray() {
         String[] empty = new String[0];
@@ -195,7 +195,7 @@ public class TrieMatcherTest extends TestCase {
     }
 
     /**
-     * Test method for {@link lib.text.TrieMatcher#compile(java.util.List, java.util.List)}.
+     * Test method for {@link TrieMatcher#compile(java.util.List, java.util.List)}.
      */
     public void testCompileListOfStringListOfString() {
         try {
@@ -245,7 +245,7 @@ public class TrieMatcherTest extends TestCase {
     }
 
     /**
-     * Test method for {@link lib.text.TrieMatcher#replaceMultiple(java.lang.String, lib.text.TrieMatcher)}.
+     * Test method for {@link TrieMatcher#replaceMultiple(java.lang.String, TrieMatcher)}.
      */
     public void testReplaceMultiple() {
         TrieMatcher matcher = makeFromPairs(
@@ -261,7 +261,7 @@ public class TrieMatcherTest extends TestCase {
     }
 
     /**
-     * Test method for {@link lib.text.TrieMatcher#containedIn(java.lang.String)}.
+     * Test method for {@link TrieMatcher#containedIn(CharSequence)}.
      */
     public void testContainedInText() {
         TrieMatcher matcher = make(KEYWORDS);
@@ -284,7 +284,7 @@ public class TrieMatcherTest extends TestCase {
     }
 
     /**
-     * Test method for {@link lib.text.TrieMatcher#begins(java.lang.String)}.
+     * Test method for {@link TrieMatcher#begins(CharSequence)}.
      */
     public void testBeginsText() {
         List<String> chars = runOfChars('A', 'Z');
@@ -300,7 +300,7 @@ public class TrieMatcherTest extends TestCase {
     }
 
     /**
-     * Test method for {@link lib.text.TrieMatcher#findIn(java.lang.String, int)}.
+     * Test method for {@link TrieMatcher#findIn(CharSequence, int)}.
      */
     public void testFindInText() {
         TrieMatcher matcher = make(KEYWORDS);
@@ -313,7 +313,7 @@ public class TrieMatcherTest extends TestCase {
     }
 
     /**
-     * Test method for {@link lib.text.TrieMatcher#match(java.lang.String, int)}.
+     * Test method for {@link TrieMatcher#match(CharSequence, int)}.
      */
     public void testMatchStringInt() {
         TrieMatcher matcher = TrieMatcher.compile(KEYWORDS, KEYWORDS);

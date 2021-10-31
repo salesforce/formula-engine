@@ -156,10 +156,14 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		/**
 		 * This test is designed to test all the basic functionality of formula
 		 * fields (about 1000+ tests). It parses tests from xml file. The XML file
-		 * has following format: <entity name="account"> <testcase negative=true
+		 * has following format: <pre>
+		 * {@code 
+		 * <entity name="account"> <testcase negative=true
 		 * name="" code="customnum1__c + customnum2__c" devname="" ......>
 		 * <referencefield devname="customnum1" datatype="" ...../> .... </testcase>
 		 * </entity>
+		 * }
+		 * </pre>
 		 *
 		 * Each testcase is represented by an instance of FormulaTestCaseInfo, and
 		 * all the referencefields are stored in a list of FieldDefinitionInfo in

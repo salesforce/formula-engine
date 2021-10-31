@@ -271,7 +271,7 @@ public class FormulaTestCaseInfo {
     /***************************************************************************
      * Generates a list of runnable FormualTestRunnables based on swap, etc.
      *
-     * @return List<FormulaTestRunnable>
+     * @return List&lt;FormulaTestRunnable&gt;
      */
     public List<FormulaTestRunnable> getRunnables(FormulaTestUtils testUtils) throws Exception {
         if (this.testRunnables == null)

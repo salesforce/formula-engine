@@ -11,7 +11,7 @@ import com.force.formula.FormulaGeolocation.GeolocationDisplayMode;
  *
  * @author ahersans
  * @since 180
- * @see GeoLocation
+ * @see FormulaGeolocation
  */
 public interface FormulaGeolocationService {
     // TODO: find a better place ? 

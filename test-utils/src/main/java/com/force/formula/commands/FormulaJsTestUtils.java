@@ -207,7 +207,7 @@ public class FormulaJsTestUtils {
     }
 
     /**
-     * Deal with Nashorn eval -> Internal Formula differences
+     * Deal with Nashorn eval -&gt; Internal Formula differences
      *
      * @param result
      * @param engine
@@ -223,7 +223,7 @@ public class FormulaJsTestUtils {
     }
 
     /**
-     * Deal with Nashorn eval -> Internal Formula differences
+     * Deal with Nashorn eval -&gt; Internal Formula differences
      *
      * @param result
      * @param engine
@@ -250,10 +250,9 @@ public class FormulaJsTestUtils {
     }
 
     /**
-     * Deal with Nashorn eval -> Internal Formula differences
+     * Deal with Nashorn eval -&gt; Internal Formula differences
      *
      * @param result
-     * @param engine
      * @param columnType
      * @return
      */
@@ -364,7 +363,6 @@ public class FormulaJsTestUtils {
     
     /**
      * Set the global context for nashorn evaluation 
-     * @return
      */
     protected void makeNashornBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
         Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
@@ -421,7 +419,6 @@ public class FormulaJsTestUtils {
      * Evaluate the global context for Graal.  Doesn't need the same rigamarole as ScriptEngine
      * $F, $Api, and $System.  Override this to load other modules for testing
      * @param context the bindings to assign the global variables to
-     * @throws ScriptException
      */
     protected void evalGraalContextGlobals(Context context) {
         context.eval("js", getFunctionScript());
@@ -514,7 +511,7 @@ public class FormulaJsTestUtils {
     
 
     /**
-     * Convert an object from a nashorn type to a formula type.  Mostly around date & number convertion.
+     * Convert an object from a nashorn type to a formula type.  Mostly around date &amp; number convertion.
      * @param obj an object returned from nashorn
      * @return a formula engine useful version.
      */
@@ -560,7 +557,7 @@ public class FormulaJsTestUtils {
     
     
     /**
-     * Convert an object from a Graal type to a formula type.  Mostly around date & number convertion.
+     * Convert an object from a Graal type to a formula type.  Mostly around date &amp; number convertion.
      * @param obj an object returned from nashorn
      * @return a formula engine useful version.
      */

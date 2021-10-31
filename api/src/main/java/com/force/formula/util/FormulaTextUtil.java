@@ -41,7 +41,7 @@ public final class FormulaTextUtil {
     
     /**
      * Escape output being sent to the user to be safe in HTML. Replaces &lt; &gt; &amp; &quot; etc. with their HTML escape
-     * sequences. Does not translate \n's. Returns empty string if <code>value<code> is null.
+     * sequences. Does not translate \n's. Returns empty string if <code>value</code> is null.
      * <br><br>
      * Unless you are writing an element class or writing something that doesn't use elements,
      * <b>you probably shouldn't call this method</b>.
@@ -148,8 +148,8 @@ public final class FormulaTextUtil {
      *        what text to use at the beginning of each element
      * @param end
      *        what text to use at the end of each element
-     * @return a <delim>-separated string from the contents of the given collection where each member is enclosed
-     *         between <beginChar> and <endChar>
+     * @return a &lt;delim&gt;-separated string from the contents of the given collection where each member is enclosed
+     *         between &lt;beginChar&gt; and &lt;endChar&gt;
      */
     public static String collectionToStringEnclosed(Iterable<?> c, String delim, String start, String end) {
         if (c == null) {
@@ -175,8 +175,6 @@ public final class FormulaTextUtil {
      * @return the replacement of all occurrences of src[i] with target[i] in s. Src and target are not regex's so this
      *         uses simple searching with indexOf()
      * @see #replaceMultiple(String, TrieMatcher)
-     * @see #replaceChar(String, char, CharSequence)
-     * @see #replace(String, String[], String[])
      */
     public static String replaceSimple(String s, String[] src, String[] target) {
         assert src != null && target != null && src.length > 0 && src.length == target.length;
@@ -293,10 +291,10 @@ public final class FormulaTextUtil {
      * <code>TrieMatcher</code>.
      * <p>
      * Note, using a Trie for matching multiple strings can be much faster than the using
-     * {@link #replace(String, String[], String[])}, however, due to the cost of creating the Trie, this is best used
+     * {@link #replaceSimple(String, String[], String[])}, however, due to the cost of creating the Trie, this is best used
      * when 1) you will reuse the Trie many times 2) you have a large set of strings your are searching on
      * <p>
-     * Note, regexes aren't supported by this, see {@link #replace(String, String[], String[])}.
+     * Note, regexes aren't supported by this, see {@link #replaceSimple(String, String[], String[])}.
      *
      * @param s
      *        the text you are searching in
@@ -621,10 +619,10 @@ public final class FormulaTextUtil {
          * <code>TrieMatcher</code>.
          * <p>
          * Note, using a Trie for matching multiple strings can be much faster than the using
-         * {@link #replace(String, String[], String[])}, however, due to the cost of creating the Trie, this is best used
+         * {@link #replaceSimple(String, String[], String[])}, however, due to the cost of creating the Trie, this is best used
          * when 1) you will reuse the Trie many times 2) you have a large set of strings your are searching on
          * <p>
-         * Note, regexes aren't supported by this, see {@link #replace(String, String[], String[])}.
+         * Note, regexes aren't supported by this, see {@link #replaceSimple(String, String[], String[])}.
          *
          * @param s
          *        the text you are searching in
