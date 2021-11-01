@@ -81,7 +81,7 @@ public class FormulaJsTestUtils {
      * @param globalMap
      *            the "global" map. Should have cached and constant things like "$User" that would be stored locally and
      *            semi-permanently.
-     * @return
+     * @return the result of evaluating the formula in javascript
      */
     public Object evaluateFormula(Formula formula, FormulaDataType columnType, FormulaContext context,
             Map<String, Object> jsMap, Map<String, Object> globalMap) {
@@ -207,12 +207,12 @@ public class FormulaJsTestUtils {
     }
 
     /**
-     * Deal with Nashorn eval -> Internal Formula differences
+     * Deal with Nashorn eval -&gt; Internal Formula differences
      *
-     * @param result
-     * @param engine
-     * @param columnType
-     * @return
+     * @param result the value returned from javascript
+     * @param engine the javascript engine
+     * @param columnType the type expected for the result
+     * @return the value suitable for use in Java
      */
     public Object convertResultFromJs(Object result, ScriptEngine engine, FormulaDataType columnType) {
         if (IS_GRAAL) {
@@ -223,12 +223,12 @@ public class FormulaJsTestUtils {
     }
 
     /**
-     * Deal with Nashorn eval -> Internal Formula differences
+     * Deal with Nashorn eval -&gt; Internal Formula differences
      *
-     * @param result
-     * @param engine
-     * @param columnType
-     * @return
+     * @param result the value returned from javascript
+     * @param engine the javascript engine
+     * @param columnType the type expected for the result
+     * @return the value suitable for use in Java
      */
     public Object convertResultFromNashorn(Object result, ScriptEngine engine, FormulaDataType columnType) {
         try {
@@ -250,12 +250,11 @@ public class FormulaJsTestUtils {
     }
 
     /**
-     * Deal with Nashorn eval -> Internal Formula differences
+     * Deal with Graal eval -&gt; Internal Formula differences
      *
-     * @param result
-     * @param engine
-     * @param columnType
-     * @return
+     * @param result the value returned from graaljs
+     * @param columnType the expected columntype
+     * @return the value suitable for use in Java
      */
     public Object convertResultFromGraal(Object result, FormulaDataType columnType) {
         if (result instanceof Value) {
@@ -340,7 +339,7 @@ public class FormulaJsTestUtils {
      * @param bindings the bindings to assign the global variable to
      * @param eval the script that creates the global
      * @param global the global variable, "usually $..."
-     * @throws ScriptException
+     * @throws ScriptException if an exception occurs during binding
      */
     protected void bindScriptEngineGlobal(ScriptEngine compEngine, Bindings bindings, String eval, String global) throws ScriptException {
         if (eval != null) {
@@ -353,8 +352,8 @@ public class FormulaJsTestUtils {
      * $F, $Api, and $System.
      * @param compEngine the scriptengine to use to evaluate
      * @param bindings the bindings to assign the global variables to (global scope)
-     * @param bindings the bindings with engine scope.  Not sure it's needed, but if you don't bind modules, it causes issues.
-     * @throws ScriptException
+     * @param engineBindings the bindings with engine scope.  Not sure it's needed, but if you don't bind modules, it causes issues.
+     * @throws ScriptException if an exception occurs during binding
      */
     protected void bindScriptEngineGlobals(ScriptEngine compEngine, Bindings bindings, Bindings engineBindings)  throws ScriptException {
         bindScriptEngineGlobal(compEngine, bindings, getApiContextScript(), "$Api");
@@ -364,7 +363,9 @@ public class FormulaJsTestUtils {
     
     /**
      * Set the global context for nashorn evaluation 
-     * @return
+     * @param compEngine the scriptengine to use to evaluate
+     * @param bindings the bindings to assign the global variables to (global scope)
+     * @throws ScriptException if an exception occurs during binding
      */
     protected void makeNashornBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
         Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
@@ -395,6 +396,9 @@ public class FormulaJsTestUtils {
     /**
      * Set the global context for graal evaluation  using the javax.script.ScriptEngine 
      * Avoid it
+     * @param compEngine the scriptengine to use to evaluate
+     * @param bindings the bindings to assign the global variables to (global scope)
+     * @throws ScriptException if an exception occurs during binding
      */
     protected void makeGraalBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
         Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
@@ -421,7 +425,6 @@ public class FormulaJsTestUtils {
      * Evaluate the global context for Graal.  Doesn't need the same rigamarole as ScriptEngine
      * $F, $Api, and $System.  Override this to load other modules for testing
      * @param context the bindings to assign the global variables to
-     * @throws ScriptException
      */
     protected void evalGraalContextGlobals(Context context) {
         context.eval("js", getFunctionScript());
@@ -467,29 +470,31 @@ public class FormulaJsTestUtils {
 
     /**
      * Convert an object from a formula type to a graal type. Mostly to fix dates
-     *
-     * @param obj
+	 *
+     * @param jsContext the graal context
+     * @param obj 
      *            an object returned from formulas
+     * @param context  the formula context 
      * @return a graal useful version.
      */
     @SuppressWarnings("unchecked")
-    public Object convertToGraal(Context context, Object obj, FormulaContext jsContext) {
+    public Object convertToGraal(Context jsContext, Object obj, FormulaContext context) {
         if (obj == null) { return null; }
         if (obj instanceof Date) {
-            return context.eval("js", "new Date(" + ((Date)obj).getTime() + ")");
+            return jsContext.eval("js", "new Date(" + ((Date)obj).getTime() + ")");
         } else if (obj instanceof FormulaDateTime) {
-            return context.eval("js", "new Date(" + ((FormulaDateTime)obj).getTime() + ")");
+            return jsContext.eval("js", "new Date(" + ((FormulaDateTime)obj).getTime() + ")");
         } else if (obj instanceof Number) {
-            if (jsContext.useHighPrecisionJs()) {
-                return context.eval("js", "new $F.Decimal(" + ((Number)obj).toString() + ")");
-            } else if (obj instanceof BigDecimal) { return context.eval("js", ((Number)obj).toString()); }
+            if (context.useHighPrecisionJs()) {
+                return jsContext.eval("js", "new $F.Decimal(" + ((Number)obj).toString() + ")");
+            } else if (obj instanceof BigDecimal) { return jsContext.eval("js", ((Number)obj).toString()); }
         } else if (obj instanceof Map) {
             // This'll help convert deep objects. We'll do it in place to keep the cost down.
             ((Map<String, Object>)obj).entrySet().stream()
-                    .forEach((e) -> e.setValue(convertToGraal(context, e.getValue(), jsContext)));
+                    .forEach((e) -> e.setValue(convertToGraal(jsContext, e.getValue(), context)));
             return ProxyObject.fromMap((Map<String, Object>)obj);
         }
-        return context.asValue(obj);
+        return jsContext.asValue(obj);
     }
 
     /**
@@ -497,7 +502,7 @@ public class FormulaJsTestUtils {
      *
      * @param apiMap
      *            - the object
-     * @return
+     * @return the apiMap with all values converted to javascript format (mostly formatting dates)
      */
     public Map<String, Object> makeJSMap(Map<String, Object> apiMap) {
         Map<String, Object> jsMap = new HashMap<>();
@@ -514,7 +519,8 @@ public class FormulaJsTestUtils {
     
 
     /**
-     * Convert an object from a nashorn type to a formula type.  Mostly around date & number convertion.
+     * Convert an object from a nashorn type to a formula type.  Mostly around date &amp; number convertion.
+     * @param engine the nashorn script engine
      * @param obj an object returned from nashorn
      * @return a formula engine useful version.
      */
@@ -560,8 +566,9 @@ public class FormulaJsTestUtils {
     
     
     /**
-     * Convert an object from a Graal type to a formula type.  Mostly around date & number convertion.
+     * Convert an object from a Graal type to a formula type.  Mostly around date &amp; number convertion.
      * @param obj an object returned from nashorn
+     * @param type the expected type of the value
      * @return a formula engine useful version.
      */
     public Object convertFromGraal(Object obj, FormulaDataType type) {
@@ -601,7 +608,9 @@ public class FormulaJsTestUtils {
     
     /**
      * Convert an object from a formula type to a nashorn type.  Mostly to fix dates
+     * @param engine the nashorn script engine
      * @param obj an object returned from formulas
+     * @param context the formula context
      * @return a nashorn useful version.
      */
     @SuppressWarnings("unchecked")

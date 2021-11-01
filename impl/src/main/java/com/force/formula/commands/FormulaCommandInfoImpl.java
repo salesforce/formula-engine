@@ -131,7 +131,7 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
 
     /**
      * Helpful function for generating a NVL2 for use in javascript, where you may want to include the guard as one of
-     * the tests to "swallow" it whole. Used to map the fact that LEN() in sql & java returns 0 for nul.
+     * the tests to "swallow" it whole. Used to map the fact that LEN() in sql &amp; java returns 0 for nul.
      * 
      * @param test
      *            the value to test
@@ -139,7 +139,7 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
      *            the value to return if test is not null
      * @param ifNull
      *            the default value to return
-     * @Param withGuard should the guard be included in the test.
+     * @param withGuard should the guard be included in the test.
      * @return a javascript string that will return ifNull if test is null
      */
     public static String jsNvl2WithGuard(JsValue test, String value, String ifNull, boolean withGuard) {

@@ -539,6 +539,12 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
      * and replacing them with their result at compile time.
      *
      * @author Lars Hofhansl
+     * @param ast the root AST of the formulat
+     * @param context the context for the evaluation
+     * @param properties the attributes of the parsed expression that will be updated while optimizing (see FormulaImpl)
+     * @param formulaProperties the properties of the parisng
+     * @return the AST after optimization
+     * @throws FormulaException if there was an exception while optimizing
      */
     protected static FormulaAST optimizeParseTree(FormulaAST ast, FormulaContext context, BitSet properties, FormulaProperties formulaProperties) throws FormulaException {
         boolean isConstant = true;

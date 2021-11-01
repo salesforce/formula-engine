@@ -156,10 +156,14 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		/**
 		 * This test is designed to test all the basic functionality of formula
 		 * fields (about 1000+ tests). It parses tests from xml file. The XML file
-		 * has following format: <entity name="account"> <testcase negative=true
+		 * has following format: <pre>
+		 * {@code 
+		 * <entity name="account"> <testcase negative=true
 		 * name="" code="customnum1__c + customnum2__c" devname="" ......>
 		 * <referencefield devname="customnum1" datatype="" ...../> .... </testcase>
 		 * </entity>
+		 * }
+		 * </pre>
 		 *
 		 * Each testcase is represented by an instance of FormulaTestCaseInfo, and
 		 * all the referencefields are stored in a list of FieldDefinitionInfo in
@@ -185,6 +189,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * are written to results stream. Once all the datasets for all the
 		 * FormulaTestRunnables are tried, the results stream is compared with gold
 		 * file, to determine any failures.
+		 * @throws Exception if an error occurs
 		 */
 		public void testFormula() throws Exception {
 			// Initialize field Maps if not already done or if dataManager is used
@@ -384,7 +389,10 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		
 		/**
 		 * Print the evaluation expressions at the beginning of the goldfile.
-		 * @throws Exception 
+		 * @param fieldInfo the formula field
+		 * @param xmlOut the output
+		 * @param jestDataModel the Jest Datamodel
+		 * @throws Exception if a problem occurs
 		 */
 		protected void outputEvalutionExpressions(FieldDefinitionInfo fieldInfo, PrintStream xmlOut, JestDataModel jestDataModel) throws Exception {
 			printOutputSql(fieldInfo, xmlOut, true);
@@ -404,6 +412,14 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 *
 		 * Returns a non-null message if any data row resulted in different results for different paths.
 		 * Any other error will throw back to caller and terminate this test case.
+		 * @param instance the test case
+		 * @param testData the data for the test
+		 * @param entityRecId the ID of the entity if storing in a DB row
+		 * @param testFailureMsg the buffer for adding an error message
+		 * @param xmlOut the xml output
+		 * @param jestDataModel the Jest Datamodel
+		 * @return an error message if there is any 
+		 * @throws Exception if an error occurred
 		 */
 		protected String runTestInstance(FormulaTestRunnable instance, List<List<String>> testData, String entityRecId,
 				StringBuilder testFailureMsg, PrintStream xmlOut, JestDataModel jestDataModel) throws Exception {
@@ -857,6 +873,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * @param formulaSource the source of the formula
 		 * @param nullAsNull whether null is treated as null or as blank/0
 		 * @return the result of evaluating the formula using a sql engine
+		 * @throws IOException if there is an IO issue with the sql engine
 		 * @throws SQLException if there is an issue evaluating the sql
 		 * @throws FormulaException if there is an issue evaluating the formula
 		 */

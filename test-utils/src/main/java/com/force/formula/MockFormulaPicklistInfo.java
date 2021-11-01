@@ -40,6 +40,7 @@ public class MockFormulaPicklistInfo implements FormulaPicklistInfo {
 	
 
     /**
+     * @param apiValue the api value of the picklist to lookup
      * @return the enum item for the given api value, or null
      * if the given value does not match any valid enum items
      * Case insensitive lookup

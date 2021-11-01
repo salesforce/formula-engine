@@ -334,7 +334,7 @@ public class FormulaUtils {
      * Supports quotation and block comments inside the braces
      * @param source the source of the template containing {!...}
      * @param parser the handler for the 
-     * @throws FormulaException
+     * @throws FormulaException if there is an exception while parsing the template
      */
     public static void parseTemplate(CharSequence source, FormulaTemplateHandler parser) throws FormulaException {
         //we are differentiating single and double quotes to avoid closing a double quote with a single quote and vice versa ( e.g {!func("someone's text")} )
@@ -561,7 +561,8 @@ public class FormulaUtils {
     }
 
     /**
-     * Returns the domain name to be appended to the end of a field name for polymorphic fields
+     * @return the domain name to be appended to the end of a field name for polymorphic fields
+     * @param domain the domain to specify for a polymorphic reference
      */
     public static String getFormattedDomain(String domain) {
         return DOMAIN_DELIMETER + domain;
@@ -602,8 +603,9 @@ public class FormulaUtils {
 
     /**
      * Same as isTypeText, but in cases where we think supporting an ID is ugly.
-     * @param type
-     * @return
+     * @param type the type to test that may be an ID
+     * @return  is the type text (or ID)
+     * @deprecated use FormulaTypeUtils
      */
     @Deprecated
     public static boolean isTypeTextUgly(Type type) {
@@ -632,9 +634,9 @@ public class FormulaUtils {
     /**
      * For objects involved with a comparison, determine if there is a common supertype of
      * the either side, and if so, return it.
-     * @param lhs
-     * @param rhs
-     * @return
+     * @param lhs the left hand side type
+     * @param rhs the right hand side type
+     * @return the common supertype between the left and right hand sides
      */
     @Deprecated
     public static Type getCommonSuperType(Type lhs, Type rhs) {

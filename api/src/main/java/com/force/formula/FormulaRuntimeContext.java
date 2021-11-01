@@ -39,7 +39,11 @@ public interface FormulaRuntimeContext extends FormulaContext {
     BigDecimal getNumber(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
     /**
-     * Get a masked string, for encrypted field types.  Null if the field isn't encrypted.  Probably *****
+     * Get a masked string, for encrypted field types.  Null if the field isn't encrypted.  Probably 
+     * @param fieldName the field reference to lookup
+     * @return the string masked if encrypted
+     * @throws InvalidFieldReferenceException if the field reference is invalid
+     * @throws UnsupportedTypeException if the field reference is an unsupported type
      */
     default String getMaskedString(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
         if (fieldName.getBase() != null) {
@@ -50,9 +54,11 @@ public interface FormulaRuntimeContext extends FormulaContext {
     String getMaskedString(String fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
     /**
-     * @return the 
-     * @param fieldName
+     * @return the value of the field reference
+     * @param fieldName the field reference name
      * @param useNative use the "unmasked" format if there's.
+     * @throws InvalidFieldReferenceException if the field reference is invalid
+     * @throws UnsupportedTypeException if the field reference is an unsupported type
      */
     default String getString(FormulaFieldReference fieldName, boolean useNative) throws InvalidFieldReferenceException, UnsupportedTypeException {
         if (fieldName.getBase() != null) {
@@ -118,7 +124,9 @@ public interface FormulaRuntimeContext extends FormulaContext {
     }
 
     /**
-     * To support PriorValue, override this to return the formula context of the prior value.
+     * To support PriorValue, override this to return the formula context of the prior value.  Defaults to this
+     * @return the "original values" of this formula context to support PRIOR_VALUE() and IS_CHANGED()
+     * @throws FormulaException if the original values context isn't value.
      */
     default FormulaRuntimeContext getOriginalValuesContext() throws FormulaException {
         return this;
@@ -126,13 +134,16 @@ public interface FormulaRuntimeContext extends FormulaContext {
 
     /**
      * @return the currency associated with this context, if available
+     * @throws FormulaException if the currency iso code isn't available.
      */
     String getCurrencyIsoCode() throws FormulaException;
     default String getCurrencyIsoCode(FormulaFieldReference fieldName) throws FormulaException {
         return getCurrencyIsoCode(fieldName.getElement());
     }
     /**
+     * @param fieldName the name of the field that may have currency associated with it
      * @return the currency associated with that field, if available
+     * @throws FormulaException if the currency iso code isn't available.
      */
     default String getCurrencyIsoCode(String fieldName) throws FormulaException {
         return getCurrencyIsoCode();
@@ -146,18 +157,19 @@ public interface FormulaRuntimeContext extends FormulaContext {
     /**
      * Salesforce-ism to return primary keys in they 18char format, not 15char format.  Reuse this for any purpose
      * that requires IDs to be "fixed" on return
+     * @return whether the Salesforce ID should be converted to 18char
      */
     default boolean convertIdto18Digits() {
         return false;
     }
     /**
-     * @return <tt>true</tt> if this represents a clone to support ISNEW()
+     * @return <code>true</code> if this represents a clone to support ISNEW()
      */
     default boolean isNew() {
         return false;
     }
     /**
-     * @return <tt>true</tt> if this represents a clone to support ISCLONE()
+     * @return <code>true</code> if this represents a clone to support ISCLONE()
      */
     default boolean isClone() {
         return false;

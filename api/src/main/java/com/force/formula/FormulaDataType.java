@@ -37,7 +37,7 @@ public interface FormulaDataType {
     }
 
     /**
-     * Localized display of column type
+     * @return Localized display of column type
      */
     String getLabel();
 
@@ -59,17 +59,17 @@ public interface FormulaDataType {
         return isSimpleText();
     }
     /**
-     * @return
+     * @return whether this is text, or encrypted text
      */
     default boolean isTextOrEncrypted() {
         return isText();
     }
 
     /**
-     * Returns true if the contents of fields of this type are *always* encrypted. This is true only for legacy
+     * @return true if the contents of fields of this type are *always* encrypted. This is true only for legacy
      * encrypted fields types (ENCRYPTEDTEXT).
      *
-     * Please try to avoid using this; where possible, use FieldInfo.getEncryption() instead.
+     * Please try to avoid using this, as it is very salesforce specific
      */
     default boolean isEncrypted() {
         return false;
@@ -78,7 +78,7 @@ public interface FormulaDataType {
     /**
      * True if the contents of fields of this type *may* be encrypted using the newer platform encryption framework.
      * (AtRest == new).
-     * <p/>
+     * 
      * Generally speaking, encryption will happen for fields that
      * <ul>
      * <li>are of a DataType that canBeEncryptedAtRest</li>
@@ -86,6 +86,7 @@ public interface FormulaDataType {
      * <li>are in orgs that have the EncryptionAtRest feature enabled</li>
      * <li>have been configured by org admins to be encrypted</li>
      * </ul>
+     * @return if this data type can be encrypted at rest (i.e. it needs special formula support)
      */
     default boolean canBeEncryptedAtRest() {
         return false;

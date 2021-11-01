@@ -17,7 +17,7 @@ import com.google.common.collect.ImmutableMap;
 
 /**
  * Test dynamic references in templates
- * @see https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_sample_standard.htm
+ * @see <a href="https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/pages_dynamic_vf_sample_standard.htm">Dynamic Visualforce Documentation</a>
  * @author stamm
  */
 public class DynamicReferenceTest extends BaseCustomizableParserTest {
@@ -94,6 +94,7 @@ public class DynamicReferenceTest extends BaseCustomizableParserTest {
 
     /**
 	 * Test List references using substrings from the TestAccount
+	 * @throws Exception
      */
     public void testListReference() throws Exception {
         assertEquals("First", evaluateString("List[0]"));
@@ -107,6 +108,7 @@ public class DynamicReferenceTest extends BaseCustomizableParserTest {
    
     /**
      * Test Map references using [] from the TestAccount
+	 * @throws Exception
      */
     public void testMapReference() throws Exception {
         assertEquals(new BigDecimal("1"), evaluateBigDecimal("Map['Foo']"));
@@ -119,6 +121,7 @@ public class DynamicReferenceTest extends BaseCustomizableParserTest {
     
     /**
      * Test the MAP() function
+	 * @throws Exception
      */
     public void testMapFunction() throws Exception {
     	// Map is StringString... 

@@ -17,7 +17,7 @@ public class ANTLR4GrammarVisitorTest {
         MockLocalizerContext.establishMock();
     }
 	
-    /**
+    /*
      * Formula Exception
      */
 
@@ -72,6 +72,7 @@ public class ANTLR4GrammarVisitorTest {
 
     /**
      * Template Exception
+     * @throws Exception yup
      */
 
     @Test

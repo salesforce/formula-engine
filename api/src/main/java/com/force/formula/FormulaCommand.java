@@ -46,8 +46,8 @@ public interface FormulaCommand extends Serializable {
      * for formula functions like vlookup that perform a query for all contexts and cache
      * the value for runtime evaluation.
      *
-     * @param contexts
-     * @throws Exception
+     * @param contexts the context that provide the values for bulk execution.
+     * @throws Exception if an error occurs: TODO narrow this
      */
     void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws Exception;
 
@@ -55,7 +55,8 @@ public interface FormulaCommand extends Serializable {
      * Check that all merge field referenced directly (in the formula itself) or indirectly (via
      * a formula field reference inside of this formula) are available for this FormulaType.
      *
-     * If a merge field is invalid, return the FormulaException
+     * @param formulaContext the formulaContext with the values
+     * @return If a merge field is invalid, return the FormulaException
      */
     FormulaException validateMergeFieldsForFormulaType(FormulaContext formulaContext);
 

@@ -16,13 +16,14 @@ public interface FormulaTableRegistry {
     /**
      * @param fieldPath the foreign key field path to this entity
      * @param isCustomTable is true if the field is a custom field, otherwise false if it is a standard field
+     * @param isCurrency whether there is a currency referenced for the table (where you may need to use a separate currency table)
      * @return the SqlTable for a given fieldPath.
      */
     TableIdentifier getLogicalSqlTable(List<? extends FormulaFieldReferenceInfo> fieldPath, boolean isCustomTable, boolean isCurrency);
 
     /**
      * Given a foreign key path, return the table aliases that should be used to generate sql.
-     * @param the foreign key path from the root QueryTable
+     * @param fieldPath the foreign key path from the root QueryTable
      * @param currentTableAliases The temporary table aliases that are being used
      * @return the standard and custom table aliases
      */

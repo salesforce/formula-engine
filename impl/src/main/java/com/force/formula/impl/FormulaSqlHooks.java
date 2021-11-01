@@ -157,6 +157,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * PSQL doesn't include a locale-specific upper function.  This allows the override of that function
      * if you have installed one locally, like icu_transform.
      * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
+     * @return the sql expression to use for uppercase with a locale
      */
     default String sqlUpperCaseWithLocaleFormat(boolean hasLocaleOverride) {
     	if (isOracleStyle()) {
@@ -174,6 +175,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * PSQL doesn't include a locale-specific lower function.  This allows the override of that function 
      * if you have one locally, like icu_transform
      * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
+     * @return the sql expression to use for lowercase with a locale
      */
     default String sqlLowerCaseWithLocaleFormat(boolean hasLocaleOverride) {
     	if (isOracleStyle()) {
@@ -196,10 +198,10 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     
     
     /**
-     * Function right can be... complicated, especially i
-     * @param stringArg
-     * @param countArg
-     * @return
+     * Function right can be... complicated, especially in Oracle
+     * @param stringArg the sql for the string value
+     * @param countArg the sql for the number of chars
+     * @return the SQL for generating RIGHT()
      */
     default String sqlRight(String stringArg, String countArg) {
         // Oracle allows {n,m} where m < 0 and treats it as {0,0} but Postgres will throw an error, and
@@ -265,7 +267,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      
     /**
      * @return the format for converting to a datetime value
-     * @param whether spaces should be used around the "||" for compatibility
+     * @param withSpaces whether spaces should be used around the "||" for compatibility
      */
     default String sqlConcat(boolean withSpaces) {
     	if (isPostgresStyle()) {
@@ -277,6 +279,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 
     
     /**
+     * @param scale the number of digits to the right of the radix
      * @return the SQL string to use to in TO_CHAR for the given scale.  This is used by 
      * {@link #getCurrencyFormat(String, String, boolean)}
      */

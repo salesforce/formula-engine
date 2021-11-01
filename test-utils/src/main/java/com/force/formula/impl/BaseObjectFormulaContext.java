@@ -21,6 +21,7 @@ import com.google.common.collect.ImmutableSet;
  * objects.  T can be a complex object, or a 
  * 
  * @author stamm
+ * @param <T> a complex object or a map representing the object type
  * @since 0.2
  */
 public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaContext {
@@ -31,9 +32,10 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
 
     /**
      * Generate a formula context for the given object
-     * @param defaultContext
-     * @param topLevelFormulaType
-     * @param object
+     * @param defaultContext the default context for this
+     * @param beanEntity the entity metadata
+     * @param topLevelFormulaType the formula type
+     * @param object the bean itself
      */
     protected BaseObjectFormulaContext(FormulaRuntimeContext defaultContext, EntityWithFields beanEntity, FormulaTypeSpec topLevelFormulaType, T object) {
         this(defaultContext, beanEntity, topLevelFormulaType, null, object);
@@ -42,11 +44,11 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
     // This will generate extra contexts for *all* foreign keys. Invoke filterFormulaContext if you don't want that.
     /**
      * Internal constructor of a formula context, that will work for metadata (i.e. before the bean is there)
-     * @param defaultContext
-     * @param beanEntity
-     * @param topLevelFormulaType
+     * @param defaultContext the default context for this
+     * @param beanEntity the entity metadata
+     * @param topLevelFormulaType the formula type
+     * @param object the bean itself
      * @param reference the reference to this object from the defaultContext (if any)
-     * @param object the object 
      */
     protected BaseObjectFormulaContext(FormulaRuntimeContext defaultContext, EntityWithFields beanEntity, final FormulaTypeSpec topLevelFormulaType, FormulaSchema.Field reference, T object) {
         super(defaultContext, topLevelFormulaType);
@@ -317,7 +319,10 @@ public abstract class BaseObjectFormulaContext<T> extends BaseCompositeFormulaCo
      */
     interface ObjectField<T> extends FormulaSchema.Field {
         /**
-         * For the given field devName for the given object, return the raw value.
+         * @param object the complex object represented by T
+         * @param devName the field to retrieve
+         * @return For the given field devName for the given object, return the raw value.
+         * @throws InvalidFieldReferenceException if the field reference is invalid
          */
         Object getRawValue(T object, String devName) throws InvalidFieldReferenceException;
         /**

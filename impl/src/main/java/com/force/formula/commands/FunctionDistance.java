@@ -20,7 +20,6 @@ import com.force.i18n.commons.text.TextUtil;
  *
  * @author ahersans
  * @since 178
- * @see FunctionNewLocation
  */
 @AllowedContext(section=SelectorSection.MATH,nonDisplayOnly=true)
 public class FunctionDistance extends FormulaCommandInfoImpl implements FormulaCommandValidator {

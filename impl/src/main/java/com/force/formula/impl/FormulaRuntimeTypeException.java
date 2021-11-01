@@ -19,7 +19,7 @@ public class FormulaRuntimeTypeException extends FormulaEvaluationException {
     private static final long serialVersionUID = 1L;
 
 	/**
-     * @param message
+     * @param function the name of the function
      */
     public FormulaRuntimeTypeException(String function) {
         super(FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages", "IllegalArgumentTypeException",

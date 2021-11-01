@@ -43,7 +43,8 @@ public class FormulaCommandInfoRegistry {
     }
     
     /**
-     * @deprecated
+     * @return the set of all commands allowed
+     * @deprecated use FormulaEngine directly
      */
     @Deprecated // Use FormulaEngine directly
     public static FormulaCommandInfo[] getCommands() {
@@ -62,7 +63,9 @@ public class FormulaCommandInfoRegistry {
     }
     
     /**
-     * @deprecated
+     * @param name the name of the function to lookup
+     * @return the function, or null if missing
+     * @deprecated use FormulaEngine directly
      */
     @Deprecated // Use FormulaEngine directly    
     public static FormulaCommandInfo getAllowNull(String name) {

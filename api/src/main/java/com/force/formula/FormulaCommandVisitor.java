@@ -20,6 +20,7 @@ public interface FormulaCommandVisitor {
      /**
       * Indicate that we're are in a nested formula.  This should always be called
       * with popNestedFormula() in a finally block.
+      * @param formulaName the name of the formula being validated
       */
      default void pushNestedFormula(String formulaName) {
      }

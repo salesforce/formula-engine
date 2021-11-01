@@ -165,6 +165,7 @@ public class MockPicklistData extends MockBasePicklistData implements Iterable<M
      * @param values values array
      * @param display display value array
      * @param selectedValues initial selection. accept <code>null</code> value.
+     * @param multiple if this is multi-select picklist
      */
     public MockPicklistData(String[] values, String[] display, String[] selectedValues, boolean multiple) {
         this(values, display, null, selectedValues, multiple);
@@ -184,6 +185,7 @@ public class MockPicklistData extends MockBasePicklistData implements Iterable<M
      * Construct an instance from the specified enum info.  Equivalent to
      * <code>new PicklistData(enumInfo.getAllEnumItems())</code>.
      * @param enumInfo the enum info to use.
+     * @param value the value of the enum
      */
     public MockPicklistData(MockFormulaPicklistInfo enumInfo, String value) {
         this(enumInfo.getAllEnumItems(), enumInfo.getEnumItemByDbValue(value));
@@ -227,6 +229,7 @@ public class MockPicklistData extends MockBasePicklistData implements Iterable<M
     /**
      * Construct an instance from the specified enum items.
      * @param enumItems the array of enum items to use.
+     * @param defaultValue the default value to use
      */
     public MockPicklistData(Iterable<? extends Item> enumItems, String defaultValue) {
         super(defaultValue);

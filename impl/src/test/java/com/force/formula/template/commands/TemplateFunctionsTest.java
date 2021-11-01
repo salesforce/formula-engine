@@ -12,10 +12,10 @@ import com.force.formula.commands.*;
 import com.force.formula.impl.*;
 
 /**
- * TODO Describe your class here.
+ * Unit tests for functions normally used in templates for formatting values.
  *
  * @author stamm
- * @since <release>
+ * @since 0.1.0
  */
 public class TemplateFunctionsTest extends ParserTestBase {
 
@@ -172,10 +172,6 @@ public class TemplateFunctionsTest extends ParserTestBase {
 
     /**
      * Verify various formats for number formula type ( valid and invalid)
-     * @priority Medium
-     * @hierarchy Declarative App Builder.Formula Fields.Format
-     * @userStory Annotation Debt
-     *
      */
     public void testTemplateFormatNumber() throws Exception {
         FormulaFactory oldFactory = FormulaEngine.getFactory();
@@ -203,10 +199,6 @@ public class TemplateFunctionsTest extends ParserTestBase {
 
     /**
      * Verify various formats for Date formula type ( valid and invalid)
-     * @priority Medium
-     * @hierarchy Declarative App Builder.Formula Fields.Format
-     * @userStory Annotation Debt
-     *
      */
     public void testTemplateFormatDate() throws Exception {
         FormulaFactory oldFactory = FormulaEngine.getFactory();
@@ -243,10 +235,6 @@ public class TemplateFunctionsTest extends ParserTestBase {
 
     /**
      * Verify various formats for Text formula type ( valid and invalid)
-     * @priority Medium
-     * @hierarchy Declarative App Builder.Formula Fields.Format
-     * @userStory Annotation Debt
-     *
      */
     public void testTemplateFormatText() throws Exception {
         FormulaFactory oldFactory = FormulaEngine.getFactory();
@@ -294,11 +282,6 @@ public class TemplateFunctionsTest extends ParserTestBase {
 
     /**
      * Added to formula engine but not exposed in regular formulas
-     *
-     * @priority Medium
-     * @hierarchy Declarative App Builder.Formula Fields.Format
-     * @userStory Annotation Debt
-     *
      */
     public void testFunctionIsChanged() throws Exception {
         String expression1 = "This is a test 1 \r\n This is a test 2";
@@ -330,14 +313,6 @@ public class TemplateFunctionsTest extends ParserTestBase {
 
     /**
      * Verify various formats for Currency formula type
-     * @priority Medium
-     * @hierarchy Declarative App Builder.Formula Fields.Format
-     * @userStory Annotation Debt
-     *
-     * @newTestCase Verify various formats for Currency formula type ( valid and invalid) in MultiCurrency org
-     * @priority Medium
-     * @hierarchy Declarative App Builder.Formula Fields.Format
-     * @userStory Annotation Debt
      */
     public void testFormatCurrency() throws Exception {
         FormulaFactory oldFactory = FormulaEngine.getFactory();

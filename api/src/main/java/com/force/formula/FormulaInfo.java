@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
  * Provides access to the metadata describing a formula
  *
  * @author dchasman
+ * @param <T> the formula field type associated with this Formula
  * @since 140
  */
 public interface FormulaInfo<T extends FormulaFieldInfo> {
@@ -30,7 +31,7 @@ public interface FormulaInfo<T extends FormulaFieldInfo> {
      * Return the FormulaFieldInfo(s) for fields directly referenced by this formula
      *
      * @return List of formula field infos referenced from this formula.
-     * @throws FormulaException
+     * @throws FormulaException if an exception occurs while parsing the formula
      */
     T[] getReferences() throws FormulaException;
 
@@ -38,7 +39,7 @@ public interface FormulaInfo<T extends FormulaFieldInfo> {
      * Return the source (contains field name using merge field syntax)
      *
      * @return formula source.
-     * @throws FormulaException
+     * @throws FormulaException if an exception occurs while processing the formula
      */
     String getSource() throws FormulaException;
 
@@ -46,7 +47,7 @@ public interface FormulaInfo<T extends FormulaFieldInfo> {
      * Return the encoded source (field names replaced w/ durable ids)
      *
      * @return encoded source.
-     * @throws FormulaException
+     * @throws FormulaException if an exception occurs while processing the formula
      */
     String encode() throws FormulaException;
 
@@ -89,6 +90,7 @@ public interface FormulaInfo<T extends FormulaFieldInfo> {
      * a formula field reference inside of this formula) are available for this FormulaType.
      *
      * If a merge field is invalid, throw a FormulaExcpetion
+     * @throws FormulaException if a merge field is invalid
      */
     void validateMergeFieldsForFormulaType() throws FormulaException;
 

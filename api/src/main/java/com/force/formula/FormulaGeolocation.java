@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
  *
  * @author ahersans
  * @since 180
- * @see FormulaGeolocationService
+ * @see com.force.formula.util.FormulaGeolocationService
  */
 public interface FormulaGeolocation {
 

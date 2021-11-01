@@ -21,7 +21,7 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * @param context
      *            data source for field references
      * @return result of executing the formula
-     * @throws Exception
+     * @throws Exception if an error occurred.  TODO: Make this narrower  
      */
     Object evaluate(FormulaRuntimeContext context) throws Exception;
 
@@ -32,7 +32,7 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * @param context
      *            data source for field references
      * @return result of executing the formula
-     * @throws Exception
+     * @throws Exception if an error occurred.  TODO: Make this narrower  
      */
     Object evaluateRaw(FormulaRuntimeContext context) throws Exception;
 
@@ -40,8 +40,8 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * Use this hook to perform bulk processing before the formulas are evaluated. Useful for formula functions like
      * vlookup that perform a query for all contexts and cache the value for runtime evaluation.
      *
-     * @param contexts
-     * @throws Exception
+     * @param contexts the set of runtime contexts that will be used in execution
+     * @throws Exception if an error occurred.  TODO: Make this narrower  
      */
     void bulkProcessingBeforeEvaluation(List<FormulaRuntimeContext> contexts) throws Exception;
 
@@ -49,6 +49,9 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * Checks whether this formula is simply a direct reference to another field, and if so, returns the field path to
      * the referenced field. Otherwise, it returns null.
      *
+     * @return  the field path to the referenced field. Otherwise, it returns null.
+     * @param formulaContext
+     *            data source for field references
      * @param zeroExcluded
      *            If set, the caller is not checking against numeric 0, and this allows the direct field reference to be
      *            returned even if the numeric formula has the NVL-as-ZERO option set. N/A if this is not a numeric
@@ -62,8 +65,8 @@ public interface Formula extends Comparable<Formula>, Serializable {
      *            Namespace of a field, This is important for extension package because usually extension package
      *            namespace is on the stack, however we can find field only from the original developer namespace who
      *            delievered field.
-     * @throws InvalidFieldReferenceException
-     * @throws UnsupportedTypeException
+     * @throws InvalidFieldReferenceException if a field reference in this formula cannot be evaluated
+     * @throws UnsupportedTypeException if the formula isn't supported 
      */
     List<FormulaFieldReferenceInfo> getFieldPathIfDirectReferenceToAnotherField(FormulaContext formulaContext,
             boolean zeroExcluded, boolean allowDateValue, AtomicBoolean caseSafeIdUsed, String namespace)
@@ -74,6 +77,8 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * with the same inputs (EntityContexts in this case). If a formula is not deterministic it cannot be summarized by
      * a summary field.
      *
+     * @param formulaContext
+     *            data source for field references
      * @return true if the formula is deterministic
      */
     boolean isDeterministic(FormulaContext formulaContext);
@@ -81,6 +86,8 @@ public interface Formula extends Comparable<Formula>, Serializable {
     /**
      * Checks whether a formula reference any AI Prediction Target field.
      *
+     * @param formulaContext
+     *            data source for field references
      * @return true if formula references AI Prediction Target Field.
      */
     boolean hasAIPredictionFieldReference(FormulaContext formulaContext);
@@ -100,7 +107,7 @@ public interface Formula extends Comparable<Formula>, Serializable {
     FormulaDataType getDataType();
 
     /**
-     * @return the current formula converted to javascript for client side evaluation, or <tt>null</tt> if the formula
+     * @return the current formula converted to javascript for client side evaluation, or <code>null</code> if the formula
      *         is not convertable.
      */
     String toJavascript();

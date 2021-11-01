@@ -88,7 +88,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param node the current parse node
      * @param command the command being parsed
      * @param context the current formula context
-     * @throws FormulaException
+     * @throws FormulaException if an exception occurs during validation
      */
     default void parseHook_validateCommandInfoInContext(FormulaAST node, FormulaCommandInfo command, FormulaContext context) throws FormulaException {
     }
@@ -109,6 +109,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param context the current context
      * @param fieldName the current "field" being evaluated
      * @param referencedNames the fields referenced in the current formula
+     * @throws FormulaException if an exception occurs
      */
     default void parseHook_checkForCycles(FormulaContext context, String fieldName, Set<String> referencedNames) throws FormulaException {
     }
@@ -128,7 +129,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param commandInfo the VLookup command being parsed
      * @param vlookupCommands the set of commands inside the vlookup
      * @return Generate a function VLookup.
-     * @throws FormulaException
+     * @throws FormulaException if an exception occurs during the VLookup creation
      */
     default FormulaCommand parseHook_generateFunctionVLookup(FormulaCommandInfo commandInfo,
             List<FormulaCommand>  vlookupCommands) throws FormulaException {
@@ -138,7 +139,9 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * We need to create a special predict command, similar to VLOOKUP that has knowledge of
      * it's parameters. This is used for bulk evaluation
-     * @param 
+     * @param commandInfo the command being parsed
+     * @param predictCommands the parameters to the command (i.e. the predictions)
+     * @return the Prediction function (SFDC specific)
      */
     default FormulaCommand parseHook_generateFunctionPredict(FormulaCommandInfo commandInfo,
             List<FormulaCommand> predictCommands) {
@@ -152,19 +155,20 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param ast the current formula node
      * @param name the name of the node
      * @param command the command for the node
-     * @param properties the current properties of the formula to set based on use case (GETS_SESSION_ID means you can't use image)
+     * @param attributes the current attributes of the formula to set based on use case (GETS_SESSION_ID means you can't use image)
      * @param formulaProperties the formula properties
+     * @throws FormulaException if an exception occurs during validation
      */
-    default void parseHook_validateJavascriptInCommands(FormulaAST ast, String name, FormulaCommand command, BitSet properties, FormulaProperties formulaProperties) throws FormulaException {
+    default void parseHook_validateJavascriptInCommands(FormulaAST ast, String name, FormulaCommand command, BitSet attributes, FormulaProperties formulaProperties) throws FormulaException {
         // default is no validation
     }
 
     /**
      * Hook for allowing the engine to test for an If statement that is to nested and fail or log it
-     * @param astRoot
-     * @param source
-     * @param sqlPair
-     * @throws FormulaException
+     * @param astRoot the root of the IF statement
+     * @param source the original source of the formula
+     * @param sqlPair the SQLPair associated with the ifs
+     * @throws FormulaException if an exception occurs during validation
      */
     default void parseHook_validateNestedIf(FormulaAST astRoot, String source, SQLPair sqlPair) throws FormulaException {
     }
@@ -178,6 +182,10 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
 
     /**
      * Log the fact that a javascript formula was generated.  Use only under duress.
+     * @param runTimeInitial the runtime of the formula
+     * @param size the Javascript size
+     * @param completed whether it was completed
+     * @param formula the formula that was evaluated (which should be logged tokenized)
      */
     default void parseHook_logOfflineFormula(long runTimeInitial, int size, boolean completed, String formula) {
         // Don't log by default because it's super expensive and may contain customer data
@@ -186,6 +194,8 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * Log the fact that a parsed formula couldn't be determined to be deterministic or not.  This usually means there's
      * a programming error, but it's minor enough to be dealt with asynchronously.
+     * @param x the exception that occurred
+     * @param fieldName the name of the field
      */
     default void parseHook_logDeterminismFailure(FormulaException x, String fieldName) {
         //Gack.sendGack(GackLevel.SEVERE, GackID.DEFAULT, "Non-Blocking Exception", "Formula exception on " + fieldName, x);
@@ -193,6 +203,9 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
 
     /**
      * Log the fact that ANTLR4 threw an unexpected exception
+     * @param formula the formula value 
+     * @param properties the properties for parsing
+     * @param e the error that wasn't expected
      */
     default void parseHook_logANTLR4Failure(String formula, FormulaProperties properties, Throwable e) {
 
@@ -201,6 +214,9 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * Log parsing-related metrics.
      * The goal is to find formulas that take abnormally longer to parse, so we can optimize the parser for them.
+     * @param formula the code of the formula
+     * @param properties the properties to use while parsing
+     * @param parsingMetrics the parsing metrics
      */
     default void parseHook_logParsingMetrics(String formula, FormulaProperties properties, ParsingMetrics parsingMetrics) {
 
@@ -209,6 +225,10 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * If running in PARSE_USING_BOTH_BUT_RETURN_ANTLR2 parsing mode, this hook will determine whether
      * ANTLR4 should be skipped (e.g. ANTLR2 took too long and we don't want to spend more time parsing).
+     * @param formula the code of the formula
+     * @param properties the properties to use while parsing
+     * @param antlr2Duration the time it took to parse with antlr2.
+     * @return whether anltr4 parsing should be skipped
      */
     default boolean parseHook_shouldSkipANTLR4(String formula, FormulaProperties properties, Duration antlr2Duration) {
         return false;
@@ -216,12 +236,17 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
 
     /**
      * Log that there was a difference between ANTLR2 and ANTLR4 results.
+     * @param message the message to log
+     * @param formula the formula source
+     * @param properties the properties to use while parsing
      */
     default void parseHook_antlr2vs4Failure(String message, String formula, FormulaProperties properties) {
         //Gack.sendGack(GackLevel.LOGGING_ONLY, GackID.DEFAULT, "ANTLR4", message, null);
     }
 
     /**
+     * @param formula the formula source
+     * @param properties the properties used to parse.
      * @return which ANTLR version to use to parse or use both
      */
     default ParseOption parseHook_getParseOption(String formula, FormulaProperties properties) {
@@ -240,6 +265,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param context the current context
      * @param ast the formula being parsed
      * @param properties current properties
+     * @throws FormulaException whether an exception occured during processing
      */
     default boolean parseHook_hasEncryptedDataReferences(FormulaContext context, FormulaAST ast, FormulaProperties properties) throws FormulaException {
         return false;
@@ -281,6 +307,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * This involves the need to construct a FormulaFieldReferenceInfo which is specific to the implementation
      * @param formulaFieldInfo the field to look
      * @param handlePersonContact - Whether or not the path should include additional links through person contacts. (Salesforce specific, sorry)
+     * @return the field path (in order) to get to formulaFieldInfo
      */
     default List<FormulaFieldReferenceInfo> getFieldPath(ContextualFormulaFieldInfo formulaFieldInfo, boolean handlePersonContact) {
         return null;
@@ -292,6 +319,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param entity the entity of the formula to example
      * @param reference the field being references
      * @param context the current formula context
+     * @throws FormulaException if an error occured while evaluating the sql field reference
      */
     default void parseHook_validateSqlFieldReference(FormulaSchema.Entity entity, FormulaSchema.FieldOrColumn reference, FormulaContext context) throws FormulaException {
     }
@@ -352,26 +380,25 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * Allow the FieldReference to override the return type of the field based on the column type.
      * Extend this if you have extended the formula field types
-     * @param columnType
-     * @param node
-     * @param context
-     * @param domain
-     * @return
+     * @param columnType the column type expected for the field reference
+     * @param node the AST node of the field reference
+     * @param context the formula context being evaluates
+     * @param domain the domain associated with the FieldInfo of this field reference
+     * @return null, or the Type that should be overridden.
      */
     default Type parseHook_getFieldReturnTypeOverride(FormulaDataType columnType, FormulaAST node, FormulaContext context, FormulaSchema.Entity[] domain) {
         return null;
     }
     
     /**
-     * Return the SQL Pair for evaluating picklist values in the DB.  This is... rather difficult
-     * @param node the node for the FunctionText
-     * @param context the context in which is 
-     * @param args
-     * @param guards
-     * @param registry
-     * @return
+     * @return the SQL Pair for evaluating picklist values in the DB for TEXT(...).  This is... rather difficult
+     * @param node the node for the FunctionText.  Use this to lookup what is happening with the pciklist
+     * @param context the context for the evaluation
+     * @param args the arguments for the TEXT function
+     * @param guards the sql guards for the TEXT function
+     * @param registry the table registry for subsitution table names
+     * @throws FormulaException if an error occured while getting the picklist values
      */
-
     default SQLPair getPicklistSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) throws FormulaException {
         return null;
     }
@@ -433,6 +460,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     
     /**
      * @return whether the CASE statement should be considered 
+     * @param argumentName the command name of the function
      */
     default ShortCircuitBehavior parseHook_caseShortCircuit(String argumentName) {
         if (argumentName == null) return ShortCircuitBehavior.EVAL_ALL;
@@ -460,9 +488,8 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     }
     
     /**
-     * Construct an IdType with the given target domain.
-     * @param domain
-     * @return
+     * @return an IdType with the given target domain.
+     * @param domain the domains for the idtype
      */
     default FormulaTypeWithDomain.IdType constructIdType(FormulaSchema.Entity[] domain) {
     	return null;
@@ -490,6 +517,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     }
     
     /**
+     * @param isoCode the currency ISO code 
      * @return the scale to use for the given isocode
      * Defaults to the JDK currency scale
      * 
@@ -519,6 +547,9 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * Get the correct time format, where the symbols are converted properly to
      * the users language. This is non-trivial to implement so 
+     * @param localizer the current localizer
+     * @return the "correct" type format
+     * @throws FormulaEvaluationException if the pattern is invalid
      */
     default DateFormat getCorrectShortTimeFormat(BaseLocalizer localizer) throws FormulaEvaluationException {
         return localizer.getTimeFormat();
@@ -528,7 +559,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * Oracle has a different notion of upper case vs java, especially around Szet and
      * sigma and the turkish I.
-     * @param string the value to convert to upper case
+     * @param value the value to convert to upper case
      * @param locale the locale to use for the conversion
      * @return string converted to upper case for the given locale
      */
@@ -574,14 +605,11 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     }
     
     /**
+     * @param context the current formula context, if you have the URL encoding in a property
      * @return the URL encoding to use when rendering static markup from a template.
      */
     default String getTemplateUrlEncoding(FormulaRuntimeContext context) {
         return null;
-        /*
-         * MergeMap mergeMap = (MergeMap)context.getProperty(FormulaTemplateContext.INPUTS_PROPERTY);
-         * String urlEncoding = (mergeMap != null) ? mergeMap.getOptions().getUrlEncoding() : null;
-         */
     }
     
     /**
@@ -589,7 +617,6 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      */
     default String getUrlEncoding() {
         return null;
-        // return Globals.getPageEncoding()
     }
     
     /**

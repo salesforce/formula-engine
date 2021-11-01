@@ -36,8 +36,9 @@ public interface FormulaContext extends Tokenizer {
     /**
      * For spanning formulas we want to be able to generate the full context name for the entire context path.  This will
      * traverse up the parent contexts and prepend their names.
-     * @param useDurableName
+     * @param useDurableName use the durable name for any field references (i.e. external name)
      * @param relativeToContext is to generate the full name relative to this FormulaContext
+     * @return the full name of this context
      */
     String getFullName(boolean useDurableName, FormulaContext relativeToContext);
 
@@ -49,6 +50,8 @@ public interface FormulaContext extends Tokenizer {
     /**
      * @return the FieldInfo represented by field reference, with this context attached
      * @param field the formulaFieldReference to lookup
+     * @throws InvalidFieldReferenceException if the field reference is invalid
+     * @throws UnsupportedTypeException if the field reference is an unsupported type
      */
     default ContextualFormulaFieldInfo lookup(FormulaFieldReference field) throws InvalidFieldReferenceException, UnsupportedTypeException {
         return lookup(field.getElement(), false);
@@ -58,8 +61,10 @@ public interface FormulaContext extends Tokenizer {
     }
     /**
      * @return the FieldInfo represented by fieldName, with this context attached
-     * @param fieldName
+     * @param fieldName the name of the field
      * @param isDynamicRefBase if the context could be dynamic (useful in templates)
+     * @throws InvalidFieldReferenceException if the field reference is invalid
+     * @throws UnsupportedTypeException if the field reference is an unsupported type
      */
     ContextualFormulaFieldInfo lookup(String fieldName, boolean isDynamicRefBase) throws InvalidFieldReferenceException, UnsupportedTypeException;
 
@@ -79,7 +84,11 @@ public interface FormulaContext extends Tokenizer {
         return isFunctionSupportedOffline(command, 0);
     }
 
-    /** Allows a context to distinguish support for a function by the number of arguments. e.g. "4 - 5" vs "-5" */
+    /** Allows a context to distinguish support for a function by the number of arguments. e.g. "4 - 5" vs "-5" 
+     * @param command the command to check
+     * @param numberOfArguments the number of arguments to the command (if certain combinations aren't supported)
+     * @return if the command is supported in Javascript
+     */
     default boolean isFunctionSupportedOffline(FormulaCommandType command, int numberOfArguments) {
         FormulaCommandType.AllowedContext context = command.getAllowedContext();
         return "".equals(context.access())
@@ -96,6 +105,7 @@ public interface FormulaContext extends Tokenizer {
 
     /**
      * @return the set of additional contexts referencable from this one.
+     * @throws InvalidFieldReferenceException if the field reference is invalid
      */
     default FormulaContext[] getAdditionalContexts() throws InvalidFieldReferenceException {
         return null;
@@ -117,6 +127,7 @@ public interface FormulaContext extends Tokenizer {
     /**
      * @return a generic property that was set with {{@link #setProperty(String, Object)}
      * @param name the key for the property
+     * @param <T> the type of the property to help with casting
      */
     <T> T getProperty(String name);
 
@@ -161,7 +172,7 @@ public interface FormulaContext extends Tokenizer {
     }
 
     /**
-     * @return <tt>true</tt> if javascript should use high precision, instead of native numbers.
+     * @return <code>true</code> if javascript should use high precision, instead of native numbers.
      * Currently, this defaults to using the "decimal.js" library, 
      */
     default boolean useHighPrecisionJs() {
@@ -170,8 +181,8 @@ public interface FormulaContext extends Tokenizer {
     }
 
     /**
-     * @return <tt>true</tt> if, when evaluating JS any date, time, or date/time field will be
-     * represented as a string in the fomrat <tt>YYYY-MM-DD HH:MM:SS.mmm</tt>
+     * @return <code>true</code> if, when evaluating JS any date, time, or date/time field will be
+     * represented as a string in the fomrat <code>YYYY-MM-DD HH:MM:SS.mmm</code>
      */
     default boolean jsDatesAreStrings() {
         Boolean val = getProperty(JS_DATES_ARE_STRINGS);
@@ -181,8 +192,9 @@ public interface FormulaContext extends Tokenizer {
     /**
      * Javascript is case sensitive when naming, so this returns the "canonical" name for the field,
      * but not the durable one (which may be an internal Id in case of renaming)
+     * @param fieldName the field to lookup and get the javascript name for.
      * @return the name to use when referencing the field in javascript.
-     * @throws InvalidFieldReferenceException 
+     * @throws InvalidFieldReferenceException if the field reference is invalid
      */
     default String toJavascriptName(String fieldName) throws InvalidFieldReferenceException {
         return fieldName;
@@ -197,7 +209,7 @@ public interface FormulaContext extends Tokenizer {
     }
     
     /**
-     * @return <tt>true</tt> if postgres syntax should be used for SQL expressions.
+     * @return <code>true</code> if postgres syntax should be used for SQL expressions.
      * Override for performance.
      */
     default FormulaSqlStyle getSqlStyle() {

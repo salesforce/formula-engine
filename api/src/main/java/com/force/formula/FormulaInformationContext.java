@@ -16,13 +16,14 @@ import java.util.Map;
 public interface FormulaInformationContext /* implements Context */ {
 
     /**
-     * Additional information which may be set by the caller of the formula engine
+     * @return Additional information which may be set by the caller of the formula engine
      */
     public Map<String, String> getAdditionalInfo();
 
     /**
-     * Each formula context can override {@link FormulaContext#getMetaInformationMap()} to provide the formula engine
+     * Each formula context can override {@link FormulaRuntimeContext#getMetaInformation()} to provide the formula engine
      * useful debugging information relevant to that specific context.
+     * @return useful debugging information.
      */
     public Map<String, String> getContextInfo();
 
@@ -45,6 +46,8 @@ public interface FormulaInformationContext /* implements Context */ {
         /**
          * The new context of a process
          * @param context the context to push onto the stack
+         * @param keysAndValues the keys and values to push onto the FIC as key,value,[key,value...]
+         * @return a new FormulaInformationContext
          */
     	FormulaInformationContext push(FormulaContext context, String... keysAndValues);
 

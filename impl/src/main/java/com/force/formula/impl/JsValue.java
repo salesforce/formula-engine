@@ -44,13 +44,9 @@ public class JsValue {
      * Generate a new JSValue for the given expression, assuming that you cannot
      * return null if the argument is not null.
      * 
-     * @param expression
+     * @param expression the expression that isn't null
      * @param values      the expressions coming in to guard against NPEs
-     * @param nullCheck   additions to the guard.
-     * @param additions   the values that you want to validate can't be null to
-     *                    prevent NPEs
-     * @param couldBeNull whether the expression could be null.
-     * @return
+     * @return the JsValue for the expression
      */
     public static final JsValue forNonNullResult(String expression, JsValue[] values) {
         return generate(expression, values, false, values);
@@ -62,13 +58,12 @@ public class JsValue {
      * null. Use this if you want to guard against null for only certain arguments,
      * and not all of them.
      * 
-     * @param expression
+     * @param expression the javascript expression for the function
      * @param values      the expressions coming in to guard against NPEs
-     * @param nullCheck   additions to the guard.
      * @param additions   the values that you want to validate can't be null to
      *                    prevent NPEs
      * @param couldBeNull whether the expression could be null.
-     * @return
+     * @return the JsValue for the expression
      */
     public static final JsValue generate(String expression, JsValue[] values, boolean couldBeNull,
             JsValue... additions) {
@@ -83,12 +78,11 @@ public class JsValue {
      * Use this if you have something that returns a boolean expression or if you
      * know it won't be null (like the function IsNull)
      * 
-     * @param expression
+     * @param expression the javascript expression for the function
      * @param values      the expressions coming in to guard against NPEs
-     * @param nullCheck   additions to the guard.
      * @param additions   checks to add after the guards for the values.
      * @param couldBeNull whether the expression could be null.
-     * @return
+     * @return the JsValue for the expression
      */
     public static final JsValue generate(String expression, JsValue[] values, String additions, boolean couldBeNull) {
         // TODO: Simplify this so that if the guard is already in the guard, you don't

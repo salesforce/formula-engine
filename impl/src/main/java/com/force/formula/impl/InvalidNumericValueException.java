@@ -20,17 +20,17 @@ public class InvalidNumericValueException extends FormulaEvaluationException {
     private static final long serialVersionUID = 1L;
 
 	/**
-     * @param function
+     * @param value the invalid value
      */
     public InvalidNumericValueException(String value) {
         super(FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages", "InvalidNumericValueException", TextUtil.escapeToHtml(value)));
     }
 
     /**
-     * For operator-based runtime exceptions, eg "<"
+     * For operator-based runtime exceptions, eg "&lt;"
      *
-     * @param value
-     * @param operator
+     * @param value the value that wasn't a number
+     * @param operator the expression used while evaluating the number
      */
     public InvalidNumericValueException(String value, String operator) {
         super(FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages", "InvalidValueException_ForOperator", TextUtil.escapeToHtml(value), operator));

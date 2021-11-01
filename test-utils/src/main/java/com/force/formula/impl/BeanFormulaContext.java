@@ -26,9 +26,9 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
     
     /**
      * Generate a formula context using JavaBeans
-     * @param defaultContext
-     * @param topLevelFormulaType
-     * @param bean
+     * @param defaultContext the default context for this context
+     * @param topLevelFormulaType top level formula type
+     * @param bean the bean with filled in values
      */
     public BeanFormulaContext(FormulaRuntimeContext defaultContext, FormulaTypeSpec topLevelFormulaType, Object bean) {
         this(defaultContext, getEntityInfo(bean), topLevelFormulaType, null, bean);
@@ -37,10 +37,10 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
     // This will generate extra contexts for *all* foreign keys. Invoke filterFormulaContext if you don't want that.
     /**
      * Internal constructor of a formula context, that will work for metadata (i.e. before the bean is there)
-     * @param defaultContext
-     * @param beanEntity
-     * @param topLevelFormulaType
-     * @param bean
+     * @param defaultContext the default context for this context
+     * @param topLevelFormulaType top level formula type
+     * @param reference the field reference to fill in.
+     * @param bean the bean with filled in values
      */
     BeanFormulaContext(FormulaRuntimeContext defaultContext, BeanEntity beanEntity, final FormulaTypeSpec topLevelFormulaType, BeanField reference, Object bean) {
         super(defaultContext, beanEntity, topLevelFormulaType, reference, bean);

@@ -20,7 +20,7 @@ import com.force.formula.util.FormulaI18nUtils;
 import antlr.collections.AST;
 
 /**
- * Formula command info/command for a dynamic field reference <expr>[b] or <expr>.c
+ * Formula command info/command for a dynamic field reference &lt;expr&gt;[b] or &lt;expr&gt;.c
  *
  * @author aballard
  * @since 168

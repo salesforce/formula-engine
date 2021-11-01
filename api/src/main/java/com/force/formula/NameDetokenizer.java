@@ -15,11 +15,11 @@ import java.sql.Connection;
  */
 public interface NameDetokenizer {
     /**
-     * @param conn
-     * @param reference
-     * @return
-     * @throws InvalidFieldReferenceException
-     * @throws UnsupportedTypeException
+     * @param conn the DB connection that can be used.  Very options
+     * @param reference the name of the reference that is durable (i.e. external ID)
+     * @return the name of the reference that isn't durable (i.e. internal ID)
+     * @throws InvalidFieldReferenceException the the field reference is illegal
+     * @throws UnsupportedTypeException if the field reference is of an unsupported type
      */
     default String fromDurableName(Connection conn, String reference) throws InvalidFieldReferenceException,
         UnsupportedTypeException {

@@ -22,8 +22,8 @@ public class IllegalArgumentValueException extends FormulaException {
     /**
      * Constructor to accept function name and function specific error message key
      * 
-     * @param function
-     * @param functionSpecificMessageKey
+     * @param function the function with the bad value
+     * @param functionSpecificMessageKey any function specific message key for better error messages
      */
     public IllegalArgumentValueException(String function, String functionSpecificMessageKey) {
         super(createFunctionSpecificErrorMessage(function, functionSpecificMessageKey));
