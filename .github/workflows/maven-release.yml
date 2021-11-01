@@ -48,6 +48,7 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
     - name: Prepare Release
+      id: release
       run: >
           mvn -V -gs $GITHUB_WORKSPACE/generated-settings/settings.xml -B -P sign-artifacts -e release:clean release:prepare && 
           echo "::set-output name=RELEASED_VERSION::$(grep scm.tag= release.properties | cut -d'=' -f2 | cut -c2-)"
@@ -57,7 +58,6 @@ jobs:
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          id: release
     - name: Perform Release
       run: >
           mvn -gs $GITHUB_WORKSPACE/generated-settings/settings.xml -B -P sign-artifacts -e release:perform
@@ -67,13 +67,6 @@ jobs:
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          id: release
-    - name: Deploy to Maven Central
-      run: mvn -gs $GITHUB_WORKSPACE/generated-settings/settings.xml -B -P sign-artifacts -Dsettings.security=$GITHUB_WORKSPACE/settings.xml -f target/checkout nexus-staging:release
-      env:
-          MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
-          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
-          MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
     - name: Create Release Entry
       uses: actions/create-release@v1
       with:
