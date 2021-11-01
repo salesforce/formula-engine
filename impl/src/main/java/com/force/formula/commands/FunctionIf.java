@@ -168,6 +168,7 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
      *
      * The goal is to keep building the IFS function from inner IF function to outer IF function, until we reach
      * the very last IF function in the nested-IFs pattern.
+     * @param ast the AST of the IF Node
      */
     protected static void optimizeNestedIfs(FormulaAST ast) {
         if(!FormulaValidationHooks.get().parseHook_shouldOptimizeNestedIfs()) {

@@ -194,6 +194,8 @@ public class FunctionText extends FormulaCommandInfoImpl implements FormulaComma
     }
 
     /**
+     * @param toConvert the picklist value that is probably not a String.
+     * @param picklistFieldInfo the information about the picklist field
      * @return Text value of the enum's stored value. Will return null if EnumItem or EnumInfo is not found
      */
     public static Object getTextForPicklist(Object toConvert, FormulaFieldInfo picklistFieldInfo) {

@@ -13,10 +13,12 @@ import com.google.common.collect.Lists;
 /**
  * The formula engine needs to dig into the specific details of the api at times.
  * This interface is a central stop for all of these "hooks", but is provided with a default.
+ * 
+ * These are considered "global" for the runtime, but many of the methods take a FormulaContext
+ * so that you can use that to switch behavior based on use case
  *
  * NOTE: You most definitely want to extend FormulaValidationHooks
  * @author stamm
- *
  */
 public interface FormulaEngineHooks {
 	/**
@@ -49,7 +51,7 @@ public interface FormulaEngineHooks {
 
 	/**
 	 * Adjust the calendar for a test environment so that the SQL can be generated in a constant way.
-	 * @param cal
+	 * @param cal the calendar to adjust
 	 */
     default void adjustCalendarForTestEnvironment(Calendar cal) {
     }
@@ -70,7 +72,7 @@ public interface FormulaEngineHooks {
 
     /**
      * Convert the checked exception for FormulaDateException to a user-manageable Date Exception
-     * @param ex
+     * @param ex the date exception to handle
      */
 	default void handleFormulaDateException(FormulaDateException ex) {
 		throw new RuntimeException(ex);
@@ -78,7 +80,7 @@ public interface FormulaEngineHooks {
 
 	/**
      * Convert the checked exception for FormulaTimeException to a user-manageable Time Exception
-     * @param ex
+     * @param ex the time exception to handle
      */
     default void handleFormulaTimeException(FormulaDateException ex) {
         throw new RuntimeException(ex);
@@ -126,13 +128,14 @@ public interface FormulaEngineHooks {
 
 
     /**
-     * Determine if we should be allowing subscripts in the given context.
+     * @return if we should be allowing subscripts in the given context.
      */
     default boolean formulaAllowSubscripts() {
     	return false;
     }
 
     /**
+     * @param context the runtime context that you can use to check on Sql semantics or properties
      * @return whether to return a boolean result or a null result when comparing two null values.
      * Use true if you want java/groovy semantics, false for oracle style null semantics
      */
@@ -142,6 +145,9 @@ public interface FormulaEngineHooks {
 
     /**
      * Construct a Geolocation object
+     * @param latitude the latitude
+     * @param longitude the longitude
+     * @return a new FormulaGeolocation
      */
     default FormulaGeolocation constructGeolocation(Number latitude, Number longitude) {
     	return null;
@@ -156,6 +162,8 @@ public interface FormulaEngineHooks {
     
     /**
      * Construct a Time object
+     * @param millis the number of millis since midnight
+     * @return a new FormulaTime
      */
     default FormulaTime constructTime(Number millis) {
     	//private static final long DAY_TO_MS = 86400000L;
@@ -189,6 +197,15 @@ public interface FormulaEngineHooks {
 
     /**
      * Log information about a formula during runtime (when evaluated or parsed).
+     * @param runTimeInitial the initial runtime
+     * @param formulaSize size of the formula in characters
+     * @param commands all the commands used
+     * @param globalVariables all the global variables used
+     * @param sqlSize  the size of the generated SQL in chars
+     * @param jsSize the size of the generated javascript in chars
+     * @param context the name of the formula context
+     * @param evaluate Whether this was evaluation or parsing of the formula
+     * @param exception the exception generated 
      */
     default void logFormulaRuntime(long runTimeInitial, int formulaSize, String commands, String globalVariables,
             int sqlSize, int jsSize, String context, boolean evaluate, Exception exception) {
@@ -198,6 +215,16 @@ public interface FormulaEngineHooks {
     /**
      * Log information about a formula during runtime (when evaluated or parsed) with fieldName
      * Currently used for Failure/Error use-cases
+     * @param runTimeInitial the initial runtime
+     * @param formulaSize size of the formula in characters
+     * @param commands all the commands used
+     * @param globalVariables all the global variables used
+     * @param sqlSize  the size of the generated SQL in chars
+     * @param jsSize the size of the generated javascript in chars
+     * @param context the name of the formula context
+     * @param evaluate Whether this was evaluation or parsing of the formula
+     * @param exception the exception generated 
+     * @param fieldName the name of the field associated with the context
      */
     default void logFormulaRuntime(long runTimeInitial, int formulaSize, String commands, String globalVariables,
                                    int sqlSize, int jsSize, String context, boolean evaluate, String fieldName, Exception exception) {
@@ -206,6 +233,14 @@ public interface FormulaEngineHooks {
 
     /**
      * Log information about a formula during design time when it is being parsed
+     * @param runTimeInitial the initial runtime
+     * @param formulaSize size of the formula in characters
+     * @param commands all the commands used
+     * @param globalVariables all the global variables used
+     * @param polymorphicFields whether this formula had polymorphic fields
+     * @param returnType the string represented the data type of the formula being evaluated
+     * @param context the name of the formula context
+     * @param exception the exception generated 
      */
     default void logFormulaDesignTime(long runTimeInitial, int formulaSize, String commands, String globalVariables,
             Boolean polymorphicFields, String returnType, String context, Exception exception) {
@@ -310,11 +345,11 @@ public interface FormulaEngineHooks {
        
     /**
      * Provide a hook for lookup of a field reference when you want to check for compilation (when you want to turn off security)
-     * @param context
-     * @param fieldReference
+     * @param context the context used during compile
+     * @param fieldReference the field reference to lookup
      * @return the contextual formula field info for the given field reference
-     * @throws InvalidFieldReferenceException
-     * @throws UnsupportedTypeException
+     * @throws InvalidFieldReferenceException if the field reference is invalid
+     * @throws UnsupportedTypeException if the field reference has a type that isn't supported
      */
     default ContextualFormulaFieldInfo lookupFieldReferenceForCompile(FormulaContext context, FormulaFieldReference fieldReference) throws InvalidFieldReferenceException, UnsupportedTypeException {
         return context.lookup(fieldReference);
@@ -338,6 +373,7 @@ public interface FormulaEngineHooks {
     /**
      * For certain contexts, like SystemFormulaContext, date time needs to be generated by default, but doing it on every
      * instantiation is expensive.  This allows it to be generated by hand
+     * @param name the name of the datatype to lookup.
      * @return the data type 
      */ 
     default FormulaDataType getDataTypeByName(String name) {
@@ -348,7 +384,8 @@ public interface FormulaEngineHooks {
      * Allow the indexability for a text formula to be overridable 
      * @param context the formula context for the text function
      * @param picklistFieldName the name of the picklist field.
-     * @return whether the text funciton is in
+     * @param isDeterministic the default result (i.e. is it not TEXT(NOW())) or the like)
+     * @return whether the text function is indexable
      */
     default boolean isTextFunctionIndexable(FormulaContext context, String picklistFieldName, boolean isDeterministic) {
         return false;
@@ -375,8 +412,8 @@ public interface FormulaEngineHooks {
      * @param forSql if this is for SQL evaluation, instead of a template
      * @param forJs if this is for javascript evaluation offline.
      * @return the list of values that match the fieldValue
-     * @throws InvalidFieldReferenceException
-     * @throws UnsupportedTypeException
+     * @throws InvalidFieldReferenceException if the field reference is invalid
+     * @throws UnsupportedTypeException if the field reference has a type that isn't supported
      */
     default List<String> getUnderlyingValuesForPicklist(FormulaFieldInfo formulaFieldInfo, String fieldValue, FormulaContext context, boolean forSql, boolean forJs)
             throws InvalidFieldReferenceException, UnsupportedTypeException {
@@ -394,9 +431,12 @@ public interface FormulaEngineHooks {
 	default void hook_popAccessRights() {}
 	
 	/**
+	 * Salesforce specific-ish, but allows formulas to have their access to field references limited by the namespace included.  Used in
+	 * FormulaImpl#getFieldPathIfDirectReferenceToAnotherField to validate that the access is available.
      * Push given component namespace on the stack. 
      * This is useful mainly for Extension package. Extension package namespace is on the top of the stack, however in order to resolve field
      * we need to push field's namespace.
+	 * @param namespace the namespace associated with this field reference.
      */
     default void hook_pushComponentNamespace(String namespace) {}
 

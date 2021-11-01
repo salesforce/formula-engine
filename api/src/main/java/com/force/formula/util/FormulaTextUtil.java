@@ -51,6 +51,8 @@ public final class FormulaTextUtil {
      * The convention in the app is that all escaping is done at output time by Elements
      * and output should go through elements when possible. If you are using this method, you should think
      * carefully about what you are doing and decide if it's truly necessary to bypass elements.
+     * @param value the value to escape, possibly null
+     * @return the value escaped to HTML, returning non null result
      */
     public static String escapeToHtmlNoNulls(String value) {
         return value != null ? escapeToHtml(value) : "";
@@ -68,6 +70,8 @@ public final class FormulaTextUtil {
      * The convention in the app is that all escaping is done at output time by Elements
      * and output should go through elements when possible. If you are using this method, you should think
      * carefully about what you are doing and decide if it's truly necessary to bypass elements.
+     * @param value the value to escape
+     * @return the value escaped to HTML
      */
     public static String escapeToHtml(String value) {
         return escapeToHtml(value, false);
@@ -85,6 +89,9 @@ public final class FormulaTextUtil {
      * The convention in the app is that all escaping is done at output time by Elements
      * and output should go through elements when possible. If you are using this method, you should think
      * carefully about what you are doing and decide if it's truly necessary to bypass elements.
+     * @param value the string to escape with HTML tags converted to entities.
+     * @param escapeNewline should newlines be escaped to &lt;BR&gt;
+     * @return the value escaped
      */
     public static String escapeToHtml(String value, boolean escapeNewline) {
         if (value == null || value.length() == 0) {
@@ -141,7 +148,7 @@ public final class FormulaTextUtil {
    
     
     /**
-     * @param c
+     * @param c the collection
      * @param delim
      *        what delimiter to use in between collection elements.
      * @param start
@@ -171,6 +178,9 @@ public final class FormulaTextUtil {
     /**
      * Note, if you are going to search/replace for the same set of source and target many times, you can get a
      * performance win by using the form of this call that takes a TrieMatcher instead.
+     * @param s the string to replace
+     * @param src the parallel array of strings to search for
+     * @param target the parallel array of string to replace with
      *
      * @return the replacement of all occurrences of src[i] with target[i] in s. Src and target are not regex's so this
      *         uses simple searching with indexOf()
@@ -218,6 +228,9 @@ public final class FormulaTextUtil {
     }
     
     /**
+     * @param s the string to replace
+     * @param src a single value to replace
+     * @param target what to replace it with.
      * @return the replacement of src with target in s, using simple string replacement
      */
     //@edu.umd.cs.findbugs.annotations.SuppressWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
@@ -281,6 +294,8 @@ public final class FormulaTextUtil {
      * The Javascript escaping methods are the only methods you should call outside of Element classes.
      * Whenever you are passing Javascript into elements, you should escape any potentially dangerous portions
      * of the script.
+     * @param in the value to esacpe for javascript
+     * @return in with javascript references escaped
      */
     public static String escapeForJavascriptString(String in) {
         return TrieMatcher.replaceMultiple(in, JS_SEARCH_REPLACE);
@@ -347,6 +362,8 @@ public final class FormulaTextUtil {
 
     /**
      * Used by Formula Field: TRIM() function
+     * @param arg the string to trim
+     * @return the string trimmed in a way similar to how the DB does it.
      */
     public static String formulaTrim(String arg) {
         int left = 0;
@@ -367,7 +384,7 @@ public final class FormulaTextUtil {
 
     /**
      * Removes enclosing single or double quotes provided the string's first and last character are the quotes
-     * @param s
+     * @param s the string where the quotes should be removed
      * @return the string without enclosing quotes
      */
     public static String removeEnclosingQuotes(String s) {
@@ -408,6 +425,9 @@ public final class FormulaTextUtil {
      * <P>
      * This is essentially a convenience method for comparing two strings when one or both might be null, so you can't
      * just do <code>s1.equals(s2)</code>.
+     * @param s1 left hand side
+     * @param s2 right hand side
+     * @return whether the strings are equal
      */
     public static boolean stringsAreEqualNullIsEmpty(String s1, String s2) {
         if (s1 == null) {
@@ -421,6 +441,9 @@ public final class FormulaTextUtil {
 
     /**
      * Compares the arrays by running each pair through compareStringsNullIsEmpty.
+     * @param s1 left hand side
+     * @param s2 right hand side
+     * @return whether the string arrays are equal
      */
     public static boolean stringArraysAreEqualNullIsEmpty(String[] s1, String[] s2) {
         if (s1 == null || s2 == null) {
@@ -441,8 +464,9 @@ public final class FormulaTextUtil {
     
     private static final Pattern NUMERIC_PATTERN = Pattern.compile("[-+]?\\d*\\.?\\d+");
     /**
-     * @return whether the 
-     * @param s
+     * @return whether the string is numeric...  This isn't 100% fool proof, and isn't what is used for ISNUMBER(),
+     * but it close enough
+     * @param s the string to test
      */
     public static boolean isNumeric(String s) {
     	if (s == null) return false;
@@ -450,6 +474,7 @@ public final class FormulaTextUtil {
     }
     
     /**
+     * @param map the map to pretty print
      * @return a debug string for a map, one entry per line
      */
     public static String prettyPrintMap(Map<?, ?> map) {
@@ -473,6 +498,8 @@ public final class FormulaTextUtil {
      * The convention in the app is that all escaping is done at output time by Elements
      * and output should go through elements when possible. If you are using this method, you should think
      * carefully about what you are doing and decide if it's truly necessary to bypass elements.
+     * @param input the string to escape for XML
+     * @return the string with XML special characters, like greater than/less than, escaped
      */
     public static String escapeToXml(CharSequence input) {
         return escapeToXml(input, false, false);
@@ -515,6 +542,7 @@ public final class FormulaTextUtil {
      *        than {@code allowNewLines}, so if {@code allowNewLines} is true but this argument is false, newlines will
      *        be preserved anyway. Since newlines are also whitespace, if {@code allowNewLines} is false but this
      *        argument is true, then newlines will still be preserved.
+     * @return input escaped to XML.
      */
     public static String escapeToXml(CharSequence input, boolean allowNewLines, boolean convertNulls,
             boolean escapeApos, boolean preserveWhitespace) {
@@ -565,7 +593,8 @@ public final class FormulaTextUtil {
     }
 
     /**
-     * Determines if the given input char is an iso-control character, undefined, or in an unusable Unicode block.
+     * @return whether the given input char is an iso-control character, undefined, or in an unusable Unicode block.
+     * @param c the character to test
      */
     public static boolean isIsoControlOrOddUnicode(char c) {
         Character.UnicodeBlock block = Character.UnicodeBlock.of(c);
@@ -597,6 +626,7 @@ public final class FormulaTextUtil {
          *      It is assumed that the lists are not modified once passed into the Trie
          * @param replacements the list of words that can be used to replace those words.
          *      It is assumed that the lists are not modified once passed into the Trie
+         * @return a new TrieMatcher
          */
         public static TrieMatcher compile(String[] strings, String[] replacements) {
             return TrieMatcher.compile(Arrays.asList(strings), Arrays.asList(replacements));
@@ -609,6 +639,7 @@ public final class FormulaTextUtil {
          *      It is assumed that the lists are not modified once passed into the Trie
          * @param replacements the list of words that can be used to replace those words.
          *      It is assumed that the lists are not modified once passed into the Trie
+         * @return a new TrieMatcher
          */
         public static TrieMatcher compile(List<String> strings, List<String> replacements) {
             return new TrieMatcher(strings, replacements);
@@ -680,6 +711,7 @@ public final class FormulaTextUtil {
 
         /**
          * @param s the term to see if it starts with any terms of the trie
+         * @return if the string starts with any of the terms in the trie.
          */
         public boolean begins(CharSequence s) {
             TrieData match = begins(s, 0);
@@ -768,6 +800,7 @@ public final class FormulaTextUtil {
 
         /**
          * See if the given string matches any of the given words in the Trie
+         * @param s the string to test
          *
          * @param offset where to start looking inside of the given String.
          * @return null if none are found.

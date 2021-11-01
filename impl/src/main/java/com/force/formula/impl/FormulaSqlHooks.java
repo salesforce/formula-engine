@@ -157,6 +157,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * PSQL doesn't include a locale-specific upper function.  This allows the override of that function
      * if you have installed one locally, like icu_transform.
      * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
+     * @return the sql expression to use for uppercase with a locale
      */
     default String sqlUpperCaseWithLocaleFormat(boolean hasLocaleOverride) {
     	if (isOracleStyle()) {
@@ -174,6 +175,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * PSQL doesn't include a locale-specific lower function.  This allows the override of that function 
      * if you have one locally, like icu_transform
      * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
+     * @return the sql expression to use for lowercase with a locale
      */
     default String sqlLowerCaseWithLocaleFormat(boolean hasLocaleOverride) {
     	if (isOracleStyle()) {
@@ -277,6 +279,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 
     
     /**
+     * @param scale the number of digits to the right of the radix
      * @return the SQL string to use to in TO_CHAR for the given scale.  This is used by 
      * {@link #getCurrencyFormat(String, String, boolean)}
      */

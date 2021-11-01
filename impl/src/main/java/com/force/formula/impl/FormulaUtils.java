@@ -334,7 +334,7 @@ public class FormulaUtils {
      * Supports quotation and block comments inside the braces
      * @param source the source of the template containing {!...}
      * @param parser the handler for the 
-     * @throws FormulaException
+     * @throws FormulaException if there is an exception while parsing the template
      */
     public static void parseTemplate(CharSequence source, FormulaTemplateHandler parser) throws FormulaException {
         //we are differentiating single and double quotes to avoid closing a double quote with a single quote and vice versa ( e.g {!func("someone's text")} )
@@ -603,7 +603,7 @@ public class FormulaUtils {
 
     /**
      * Same as isTypeText, but in cases where we think supporting an ID is ugly.
-     * @param type
+     * @param type the type to test that may be an ID
      * @return  is the type text (or ID)
      * @deprecated use FormulaTypeUtils
      */

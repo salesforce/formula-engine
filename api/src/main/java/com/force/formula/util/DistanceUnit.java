@@ -1,12 +1,10 @@
 package com.force.formula.util;
 
-import com.force.formula.FormulaGeolocation;
-
 /**
  * Enum for the different types of unit that are support for distance computation.
  *
  * @author ahersans
- * @see FormulaGeolocation
+ * @see com.force.formula.FormulaGeolocation
  * @see FormulaGeolocationService
  */
 public enum DistanceUnit {

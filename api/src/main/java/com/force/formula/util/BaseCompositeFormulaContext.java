@@ -200,7 +200,7 @@ public class BaseCompositeFormulaContext implements FormulaRuntimeContext {
     
     /**
      * @return the name to use when referencing the field in javascript.
-     * @throws InvalidFieldReferenceException 
+     * @throws InvalidFieldReferenceException if the name is not a valid field reference
      */
     @Override
     public String toJavascriptName(String name) throws InvalidFieldReferenceException {
@@ -345,8 +345,8 @@ public class BaseCompositeFormulaContext implements FormulaRuntimeContext {
     
     /**
      * @return the final context that is referenced by the field.
-     * @param fieldName
-     * @throws InvalidFieldReferenceException 
+     * @param fieldName the name of the field
+     * @throws InvalidFieldReferenceException if the name is not a valid field reference
      */
     public FormulaRuntimeContext getFinalContext(String fieldName) throws InvalidFieldReferenceException {
         FormulaRuntimeContext context = this;
@@ -397,7 +397,7 @@ public class BaseCompositeFormulaContext implements FormulaRuntimeContext {
 
     /**
      * @return whether this field reference is for a constant formula context like $System or $User.
-     * @param fieldReference
+     * @param fieldReference the field reference name
      */
     public static boolean isGlobalContextFieldReference(String fieldReference) {
         assert fieldReference != null : "Do not pass in a null field reference";

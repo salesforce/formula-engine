@@ -71,6 +71,8 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 	
 	/**
 	 * @return a new DbTester that will be closed at the end of thest
+	 * @throws IOException if an exception occurred starting the DB
+	 * @throws SQLException if an exception occurred starting the DB
 	 */
 	protected DbTester constructDbTester() throws IOException, SQLException {
 		throw new UnsupportedOperationException();

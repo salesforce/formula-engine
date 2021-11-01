@@ -53,7 +53,7 @@ public interface FormulaTypeSpec {
     
     // Salesforce specific stuff
     /**
-     * Return true if sobjectrow self referencing is allowed ("this").
+     * @return true if sobjectrow self referencing is allowed ("this").
      */
     default boolean allowSObjectRowReference() {
         return false;

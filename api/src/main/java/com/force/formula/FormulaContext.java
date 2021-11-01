@@ -61,7 +61,7 @@ public interface FormulaContext extends Tokenizer {
     }
     /**
      * @return the FieldInfo represented by fieldName, with this context attached
-     * @param fieldName
+     * @param fieldName the name of the field
      * @param isDynamicRefBase if the context could be dynamic (useful in templates)
      * @throws InvalidFieldReferenceException if the field reference is invalid
      * @throws UnsupportedTypeException if the field reference is an unsupported type
@@ -84,7 +84,11 @@ public interface FormulaContext extends Tokenizer {
         return isFunctionSupportedOffline(command, 0);
     }
 
-    /** Allows a context to distinguish support for a function by the number of arguments. e.g. "4 - 5" vs "-5" */
+    /** Allows a context to distinguish support for a function by the number of arguments. e.g. "4 - 5" vs "-5" 
+     * @param command the command to check
+     * @param numberOfArguments the number of arguments to the command (if certain combinations aren't supported)
+     * @return if the command is supported in Javascript
+     */
     default boolean isFunctionSupportedOffline(FormulaCommandType command, int numberOfArguments) {
         FormulaCommandType.AllowedContext context = command.getAllowedContext();
         return "".equals(context.access())
@@ -123,6 +127,7 @@ public interface FormulaContext extends Tokenizer {
     /**
      * @return a generic property that was set with {{@link #setProperty(String, Object)}
      * @param name the key for the property
+     * @param <T> the type of the property to help with casting
      */
     <T> T getProperty(String name);
 

@@ -227,7 +227,7 @@ public class FieldDefinitionInfo implements Cloneable {
     }
 
     /**
-     * @param fieldInfo
+     * @param fieldInfo the other field definition to compare
      * @return TRUE if the field being compared has same member values
      */
     public boolean compare(FieldDefinitionInfo fieldInfo) {

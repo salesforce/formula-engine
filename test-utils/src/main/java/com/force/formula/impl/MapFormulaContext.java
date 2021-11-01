@@ -27,9 +27,10 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
  
     /**
      * Generate a formula context using JavaBeans
-     * @param defaultContext
-     * @param topLevelFormulaType
-     * @param bean
+     * @param defaultContext the default context
+     * @param mapEntity the bean shape
+     * @param topLevelFormulaType the type of formula
+     * @param bean the values for the context
      */
     public MapFormulaContext(FormulaRuntimeContext defaultContext, MapEntity mapEntity, FormulaTypeSpec topLevelFormulaType, Map<String,?> bean) {
         this(defaultContext, mapEntity, topLevelFormulaType, null, bean);
@@ -41,6 +42,7 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
      * @param defaultContext the default context
      * @param mapEntity the bean shape
      * @param topLevelFormulaType the type of formula
+     * @param reference the reference in the map should should be included
      * @param map the values for the context
      */
     @SuppressWarnings("unchecked")

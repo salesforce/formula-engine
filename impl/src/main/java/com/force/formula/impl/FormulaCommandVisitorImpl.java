@@ -224,7 +224,7 @@ public abstract class FormulaCommandVisitorImpl implements FormulaCommandVisitor
         private final boolean shouldExpand;
 
         /**
-         * @param formulaContext
+         * @param formulaContext the context of the formula
          * @param getValues true if this should also execute the field reference to get its value
          */
         public FieldReferenceCommandVisitor(FormulaContext formulaContext, boolean getValues) {

@@ -74,6 +74,8 @@ public class FunctionFormatCurrency extends FormulaCommandInfoImpl {
 
 	    /**
 	     * Helper method that throws a NumberTooBigException for big decimals that are too big to display.
+	     * @param wholeNumberComponent the whole number component of the decimal
+	     * @return whether the string is too big to display
 	     */
 	    public static boolean overflowTest(BigDecimal wholeNumberComponent) {
 	        return wholeNumberComponent.compareTo(MAX_LONG_AS_BIG_DECIMAL) >= 0

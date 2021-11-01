@@ -15,13 +15,14 @@ public interface FormulaTypeWithDomain extends Type, ParameterizedType{
 
     /**
      * Is a value of this type applicable to the givenset of domains
+     * @param targetDomains the set of domains for the incoming values to see if they are valid for comparison against this type 
      * @return if the set of domains is applicable is applicable
      */
     boolean isApplicable(FormulaSchema.Entity[] targetDomains);
     
     /**
      * Is a value of this type applicable to the given target entity's foreign key
-     * @param foci
+     * @param foci the foreign key field to test
      * @return if the entity is applicable
      */
     default boolean isApplicable(FormulaSchema.FieldOrColumn foci) {
@@ -54,6 +55,7 @@ public interface FormulaTypeWithDomain extends Type, ParameterizedType{
         }
         
         /**
+         * @param additionalDomains the new domains to add to this IdType
          * @return a new IdType that includes the additional domains.
          */
         IdType addToDomain(FormulaSchema.Entity[] additionalDomains);

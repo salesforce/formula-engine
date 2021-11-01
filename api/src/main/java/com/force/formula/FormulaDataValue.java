@@ -17,7 +17,7 @@ package com.force.formula;
 public interface FormulaDataValue {
 
     /**
-     * Returns true if the field is logically empty -- null or empty string or 
+     * @return true if the field is logically empty -- null or empty string or 
      * other such value. Some data types may never return true for this.
      */
 	default boolean isEmpty() {
@@ -25,7 +25,7 @@ public interface FormulaDataValue {
 	}
 
     /**
-     * Returns the value of this FieldData object. 
+     * @return the value of this FieldData object. 
      * Some FieldObjects return a basic Java class (e.g., String) that we need
      * to wrap. This allows you to get the actual value. For non-basic classes,
      * the implementation of this will just say "<code>return this</code>".

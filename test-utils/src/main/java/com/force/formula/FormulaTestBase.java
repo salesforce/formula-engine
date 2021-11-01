@@ -130,7 +130,7 @@ public abstract class FormulaTestBase extends TestCase {
      * Evaluate as a template, with the {!...} syntax
      * @param formulaSource the formula to evaluate
      * @return the result of evaluating the formula agianst a mock context.
-     * @throws Exception
+     * @throws Exception if an error occurred while evaluating the template
      */
     protected Object evaluateTemplate(String formulaSource) throws Exception {
         FormulaRuntimeContext context = setupMockContext(MockFormulaDataType.TEXT);
@@ -169,6 +169,7 @@ public abstract class FormulaTestBase extends TestCase {
      * Parse the expression like a template (with {!...} syntax) and validate that it matches
      * @param expectedResult the result of the text
      * @param expression the expression to parse
+     * @throws Exception if an error occurs while processing the expression
      */
     public void assertTemplateFormula(String expectedResult, String expression) throws Exception {
         FormulaRuntimeContext context  = setupMockContext(MockFormulaDataType.TEXT);

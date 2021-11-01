@@ -339,7 +339,7 @@ public class FormulaJsTestUtils {
      * @param bindings the bindings to assign the global variable to
      * @param eval the script that creates the global
      * @param global the global variable, "usually $..."
-     * @throws ScriptException
+     * @throws ScriptException if an exception occurs during binding
      */
     protected void bindScriptEngineGlobal(ScriptEngine compEngine, Bindings bindings, String eval, String global) throws ScriptException {
         if (eval != null) {
@@ -352,8 +352,8 @@ public class FormulaJsTestUtils {
      * $F, $Api, and $System.
      * @param compEngine the scriptengine to use to evaluate
      * @param bindings the bindings to assign the global variables to (global scope)
-     * @param bindings the bindings with engine scope.  Not sure it's needed, but if you don't bind modules, it causes issues.
-     * @throws ScriptException
+     * @param engineBindings the bindings with engine scope.  Not sure it's needed, but if you don't bind modules, it causes issues.
+     * @throws ScriptException if an exception occurs during binding
      */
     protected void bindScriptEngineGlobals(ScriptEngine compEngine, Bindings bindings, Bindings engineBindings)  throws ScriptException {
         bindScriptEngineGlobal(compEngine, bindings, getApiContextScript(), "$Api");
@@ -363,6 +363,9 @@ public class FormulaJsTestUtils {
     
     /**
      * Set the global context for nashorn evaluation 
+     * @param compEngine the scriptengine to use to evaluate
+     * @param bindings the bindings to assign the global variables to (global scope)
+     * @throws ScriptException if an exception occurs during binding
      */
     protected void makeNashornBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
         Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
@@ -393,6 +396,9 @@ public class FormulaJsTestUtils {
     /**
      * Set the global context for graal evaluation  using the javax.script.ScriptEngine 
      * Avoid it
+     * @param compEngine the scriptengine to use to evaluate
+     * @param bindings the bindings to assign the global variables to (global scope)
+     * @throws ScriptException if an exception occurs during binding
      */
     protected void makeGraalBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
         Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);

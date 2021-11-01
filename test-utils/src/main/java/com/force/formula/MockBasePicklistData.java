@@ -55,7 +55,7 @@ public abstract class MockBasePicklistData {
 
     /**
      *  Sorts the Picklist using the display String based on the current user's language.
-     *  Returns itself for convenience.
+     * @return itself for convenience.
      */
     public abstract MockBasePicklistData sort();
 
@@ -123,7 +123,7 @@ public abstract class MockBasePicklistData {
 
     // abstract or use internalGetValues()?
     /**
-     * returns current selected value.
+     * @return current selected value.
      * don't call this if this is multi-select picklist
      */
     public abstract String getDisplayedValue();
@@ -164,6 +164,7 @@ public abstract class MockBasePicklistData {
 
     /**
      * The picklist is empty is its selected value is empty, since that means they haven't picked a value yet.
+     * @return if this is empty
      */
     public final boolean isEmpty() {
         if (multiple)
@@ -175,6 +176,7 @@ public abstract class MockBasePicklistData {
 
     /**
      * Sort a set of parallel arrays, where the keys are strings.
+     * @param <V> the parameterized value type
      * @param keys the set of keys to be sorted in linguistic order
      * @param values the set of values to be sorted in the same manner.
      */
@@ -211,6 +213,7 @@ public abstract class MockBasePicklistData {
 
     /**
      * Sort a set of parallel arrays, where the keys are strings.
+     * @param <V> the parameterized value type
      * @param keys the set of keys to be sorted in linguistic order
      * @param values the set of values to be sorted in the same manner.
      */
@@ -242,11 +245,13 @@ public abstract class MockBasePicklistData {
         values.addAll(Arrays.asList(tmpValues));
     }
 
-    /** Returns the size of the picklist, as measured by the number of values */
+    /** @return the size of the picklist, as measured by the number of values */
     public abstract int size();
 
     /**
      * For setup screens we post-process component lists to disambiguate labels across packages
+     * @param i the index
+     * @param s the value
      */
     public abstract void setDisplay(int i, String s);
 }

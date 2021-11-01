@@ -49,6 +49,8 @@ public class TableAliasRegistry implements ITableAliasRegistry {
     }
 
     /**
+     * @param sql the sql snippet
+     * @param queryTableRegistry the table registry
      * @return the sql snippet that has replaced all the temporary table aliases with the table aliases required by QueryBuilder
      */
     public String lateBindTableAliases(String sql, FormulaTableRegistry queryTableRegistry) {
@@ -113,6 +115,10 @@ public class TableAliasRegistry implements ITableAliasRegistry {
 
     /**
      * Search through the sql snippet and find all the SqlTables we need
+     * @param <T> the table identifier type
+     * @param sql the sql snippet
+     * @param queryTableRegistry the table registry
+     * @return the table identifiers referenced in the sql
      */
     @SuppressWarnings("unchecked")  // To make the life of callers easier when returning a List
 	public <T extends FormulaTableRegistry.TableIdentifier> List<T> getDependentTables(String sql, FormulaTableRegistry queryTableRegistry) {

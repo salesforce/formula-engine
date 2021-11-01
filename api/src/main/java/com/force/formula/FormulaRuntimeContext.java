@@ -124,7 +124,9 @@ public interface FormulaRuntimeContext extends FormulaContext {
     }
 
     /**
-     * To support PriorValue, override this to return the formula context of the prior value.
+     * To support PriorValue, override this to return the formula context of the prior value.  Defaults to this
+     * @return the "original values" of this formula context to support PRIOR_VALUE() and IS_CHANGED()
+     * @throws FormulaException if the original values context isn't value.
      */
     default FormulaRuntimeContext getOriginalValuesContext() throws FormulaException {
         return this;
@@ -132,13 +134,16 @@ public interface FormulaRuntimeContext extends FormulaContext {
 
     /**
      * @return the currency associated with this context, if available
+     * @throws FormulaException if the currency iso code isn't available.
      */
     String getCurrencyIsoCode() throws FormulaException;
     default String getCurrencyIsoCode(FormulaFieldReference fieldName) throws FormulaException {
         return getCurrencyIsoCode(fieldName.getElement());
     }
     /**
+     * @param fieldName the name of the field that may have currency associated with it
      * @return the currency associated with that field, if available
+     * @throws FormulaException if the currency iso code isn't available.
      */
     default String getCurrencyIsoCode(String fieldName) throws FormulaException {
         return getCurrencyIsoCode();
@@ -152,6 +157,7 @@ public interface FormulaRuntimeContext extends FormulaContext {
     /**
      * Salesforce-ism to return primary keys in they 18char format, not 15char format.  Reuse this for any purpose
      * that requires IDs to be "fixed" on return
+     * @return whether the Salesforce ID should be converted to 18char
      */
     default boolean convertIdto18Digits() {
         return false;

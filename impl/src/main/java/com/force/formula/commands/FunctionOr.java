@@ -117,6 +117,8 @@ public class FunctionOr extends FormulaCommandInfoImpl implements FormulaCommand
      * statically validated / not allowed (for example, if(null, 0, 1) is caught,
      * but if(null || null, 0, 1) isn't, but customers already have formula using
      * this...
+     * @param str the string that may be NULL
+     * @return if null or "NULL", an expression that returns false, otherwise str.
      */
     public static String fixBooleanNull(String str) {
         if (str != null && str.equals("NULL"))

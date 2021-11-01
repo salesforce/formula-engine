@@ -24,7 +24,7 @@ public class FormulaInfoFactory {
      * @param context the context of the formula evaluation
      * @param source formula specification in textual format
      * @return Formula object
-     * @throws FormulaException
+     * @throws FormulaException if there is an exception while creating the formula
      */
     public static RuntimeSqlFormulaInfo create(FormulaTypeSpec type, FormulaContext context, String source) throws FormulaException {
     	return (RuntimeSqlFormulaInfo) FormulaEngine.getFactory().create(type, context, source);
@@ -43,7 +43,7 @@ public class FormulaInfoFactory {
      * @param forceDisabled
      *             whether to create the formula as a disabled formula, even if the encoded text doesn't say it's disabled
      * @return Formula object
-     * @throws FormulaException
+     * @throws FormulaException if there is an exception while creating the formula
      */
     public static RuntimeSqlFormulaInfo create(FormulaTypeSpec type, FormulaContext context, String source, boolean existingFormula,
         boolean forceDisabled) throws FormulaException {
@@ -66,7 +66,7 @@ public class FormulaInfoFactory {
      * @param isCreateOrEdit
      *              whether this action is design time (edit/create) or runtime
      * @return Formula object
-     * @throws FormulaException
+     * @throws FormulaException if there is an exception while creating the formula
      */
     public static RuntimeSqlFormulaInfo create(FormulaTypeSpec type, FormulaContext context, String source, boolean existingFormula,
         boolean forceDisabled, boolean isCreateOrEdit) throws FormulaException {
@@ -82,7 +82,7 @@ public class FormulaInfoFactory {
      * @param properties
      *            the generation properties of the formula
      * @return Formula object
-     * @throws FormulaException
+     * @throws FormulaException if there is an exception while creating the formula
      */
     public static RuntimeSqlFormulaInfo create(FormulaContext context, String source, FormulaProperties properties)
         throws FormulaException {
@@ -91,6 +91,7 @@ public class FormulaInfoFactory {
 
     /**
      * Return the names for objects directly referenced by this formula in encoded form by regex matching only
+     * @param source the encoded source
      *
      * @return List of names.
      */
@@ -100,9 +101,11 @@ public class FormulaInfoFactory {
 
     /**
      * Return the decoded source directly w/out compiling
+     * @param nameTokenizer the de-durable-name-izer
+     * @param source the encoded formula value
      *
      * @return List of names.
-     * @throws FormulaException
+     * @throws FormulaException if there is an exception while decoding the formula
      */
     public static String decode(NameDetokenizer nameTokenizer, String source) throws FormulaException {
         return decode(nameTokenizer, source, null);

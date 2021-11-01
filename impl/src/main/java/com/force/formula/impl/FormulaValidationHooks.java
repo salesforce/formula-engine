@@ -88,7 +88,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param node the current parse node
      * @param command the command being parsed
      * @param context the current formula context
-     * @throws FormulaException
+     * @throws FormulaException if an exception occurs during validation
      */
     default void parseHook_validateCommandInfoInContext(FormulaAST node, FormulaCommandInfo command, FormulaContext context) throws FormulaException {
     }
@@ -129,7 +129,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param commandInfo the VLookup command being parsed
      * @param vlookupCommands the set of commands inside the vlookup
      * @return Generate a function VLookup.
-     * @throws FormulaException
+     * @throws FormulaException if an exception occurs during the VLookup creation
      */
     default FormulaCommand parseHook_generateFunctionVLookup(FormulaCommandInfo commandInfo,
             List<FormulaCommand>  vlookupCommands) throws FormulaException {
@@ -140,7 +140,8 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * We need to create a special predict command, similar to VLOOKUP that has knowledge of
      * it's parameters. This is used for bulk evaluation
      * @param commandInfo the command being parsed
-     * @param predictCommands the parameteres to the command (i.e. the predictions)
+     * @param predictCommands the parameters to the command (i.e. the predictions)
+     * @return the Prediction function (SFDC specific)
      */
     default FormulaCommand parseHook_generateFunctionPredict(FormulaCommandInfo commandInfo,
             List<FormulaCommand> predictCommands) {
@@ -154,19 +155,20 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param ast the current formula node
      * @param name the name of the node
      * @param command the command for the node
-     * @param properties the current properties of the formula to set based on use case (GETS_SESSION_ID means you can't use image)
+     * @param attributes the current attributes of the formula to set based on use case (GETS_SESSION_ID means you can't use image)
      * @param formulaProperties the formula properties
+     * @throws FormulaException if an exception occurs during validation
      */
-    default void parseHook_validateJavascriptInCommands(FormulaAST ast, String name, FormulaCommand command, BitSet properties, FormulaProperties formulaProperties) throws FormulaException {
+    default void parseHook_validateJavascriptInCommands(FormulaAST ast, String name, FormulaCommand command, BitSet attributes, FormulaProperties formulaProperties) throws FormulaException {
         // default is no validation
     }
 
     /**
      * Hook for allowing the engine to test for an If statement that is to nested and fail or log it
-     * @param astRoot
-     * @param source
-     * @param sqlPair
-     * @throws FormulaException
+     * @param astRoot the root of the IF statement
+     * @param source the original source of the formula
+     * @param sqlPair the SQLPair associated with the ifs
+     * @throws FormulaException if an exception occurs during validation
      */
     default void parseHook_validateNestedIf(FormulaAST astRoot, String source, SQLPair sqlPair) throws FormulaException {
     }
@@ -180,6 +182,10 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
 
     /**
      * Log the fact that a javascript formula was generated.  Use only under duress.
+     * @param runTimeInitial the runtime of the formula
+     * @param size the Javascript size
+     * @param completed whether it was completed
+     * @param formula the formula that was evaluated (which should be logged tokenized)
      */
     default void parseHook_logOfflineFormula(long runTimeInitial, int size, boolean completed, String formula) {
         // Don't log by default because it's super expensive and may contain customer data
@@ -188,6 +194,8 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * Log the fact that a parsed formula couldn't be determined to be deterministic or not.  This usually means there's
      * a programming error, but it's minor enough to be dealt with asynchronously.
+     * @param x the exception that occurred
+     * @param fieldName the name of the field
      */
     default void parseHook_logDeterminismFailure(FormulaException x, String fieldName) {
         //Gack.sendGack(GackLevel.SEVERE, GackID.DEFAULT, "Non-Blocking Exception", "Formula exception on " + fieldName, x);
@@ -195,6 +203,9 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
 
     /**
      * Log the fact that ANTLR4 threw an unexpected exception
+     * @param formula the formula value 
+     * @param properties the properties for parsing
+     * @param e the error that wasn't expected
      */
     default void parseHook_logANTLR4Failure(String formula, FormulaProperties properties, Throwable e) {
 
@@ -203,6 +214,9 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * Log parsing-related metrics.
      * The goal is to find formulas that take abnormally longer to parse, so we can optimize the parser for them.
+     * @param formula the code of the formula
+     * @param properties the properties to use while parsing
+     * @param parsingMetrics the parsing metrics
      */
     default void parseHook_logParsingMetrics(String formula, FormulaProperties properties, ParsingMetrics parsingMetrics) {
 
@@ -211,6 +225,10 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     /**
      * If running in PARSE_USING_BOTH_BUT_RETURN_ANTLR2 parsing mode, this hook will determine whether
      * ANTLR4 should be skipped (e.g. ANTLR2 took too long and we don't want to spend more time parsing).
+     * @param formula the code of the formula
+     * @param properties the properties to use while parsing
+     * @param antlr2Duration the time it took to parse with antlr2.
+     * @return whether anltr4 parsing should be skipped
      */
     default boolean parseHook_shouldSkipANTLR4(String formula, FormulaProperties properties, Duration antlr2Duration) {
         return false;
@@ -218,12 +236,17 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
 
     /**
      * Log that there was a difference between ANTLR2 and ANTLR4 results.
+     * @param message the message to log
+     * @param formula the formula source
+     * @param properties the properties to use while parsing
      */
     default void parseHook_antlr2vs4Failure(String message, String formula, FormulaProperties properties) {
         //Gack.sendGack(GackLevel.LOGGING_ONLY, GackID.DEFAULT, "ANTLR4", message, null);
     }
 
     /**
+     * @param formula the formula source
+     * @param properties the properties used to parse.
      * @return which ANTLR version to use to parse or use both
      */
     default ParseOption parseHook_getParseOption(String formula, FormulaProperties properties) {
@@ -242,6 +265,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param context the current context
      * @param ast the formula being parsed
      * @param properties current properties
+     * @throws FormulaException whether an exception occured during processing
      */
     default boolean parseHook_hasEncryptedDataReferences(FormulaContext context, FormulaAST ast, FormulaProperties properties) throws FormulaException {
         return false;
@@ -283,6 +307,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * This involves the need to construct a FormulaFieldReferenceInfo which is specific to the implementation
      * @param formulaFieldInfo the field to look
      * @param handlePersonContact - Whether or not the path should include additional links through person contacts. (Salesforce specific, sorry)
+     * @return the field path (in order) to get to formulaFieldInfo
      */
     default List<FormulaFieldReferenceInfo> getFieldPath(ContextualFormulaFieldInfo formulaFieldInfo, boolean handlePersonContact) {
         return null;
@@ -294,6 +319,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param entity the entity of the formula to example
      * @param reference the field being references
      * @param context the current formula context
+     * @throws FormulaException if an error occured while evaluating the sql field reference
      */
     default void parseHook_validateSqlFieldReference(FormulaSchema.Entity entity, FormulaSchema.FieldOrColumn reference, FormulaContext context) throws FormulaException {
     }
@@ -371,6 +397,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
      * @param args the arguments for the TEXT function
      * @param guards the sql guards for the TEXT function
      * @param registry the table registry for subsitution table names
+     * @throws FormulaException if an error occured while getting the picklist values
      */
     default SQLPair getPicklistSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) throws FormulaException {
         return null;

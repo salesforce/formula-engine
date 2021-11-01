@@ -16,6 +16,7 @@ public interface RuntimeFormulaInfo extends FormulaInfo<ContextualFormulaFieldIn
     /**
      * Return the runtime representation of this object
      * @return Formula object
+     * @throws FormulaException if an exception occurs while processing the formula
      */
     Formula getFormula() throws FormulaException;
    

@@ -261,6 +261,7 @@ public enum MockFormulaDataType implements FormulaDataType {
     }
 
     /**
+     * @param name the DataType in CamelCase
      * @return the standard data type with the specified camel-case name.
      */
     public static MockFormulaDataType fromCamelCaseName(String name) {

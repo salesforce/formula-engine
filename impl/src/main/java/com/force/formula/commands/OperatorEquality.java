@@ -60,8 +60,8 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
 
     /**
      * Stolen from FunctionText
-     * @param node
-     * @return
+     * @param node the node of the TEXT() function call
+     * @return if the node is TEXT() for a picklist.
      */
     static protected boolean isTextPicklistCase(FormulaAST node) {
         if (FormulaAST.isFunctionNode(node, "text")) {
@@ -235,6 +235,15 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
     /**
      * See compareBulk for the reasoning behind this function. Javascript behavior must match 
      * SQL and formula engine.
+     * @param lhs the left hand side of the comparison
+     * @param lhsType  the TokenType of the left hand side (TODO: use antlr4)
+     * @param rhs the right hand side of the comparison
+     * @param rhsType the TokenType of the right hand side
+     * @param treatAsString should all values be treated as strings for equality
+     * @param negate should this be not-equals
+     * @param highPrec whether decimals are high precision.
+     * @param guards the guards to use for the comparison which will be included in the JSValue
+     * @return a == or != comparison of the values
      */
     public static JsValue compareBulkJS(String lhs, int lhsType, String rhs, int rhsType, boolean treatAsString,
             boolean negate, boolean highPrec, JsValue... guards) {

@@ -194,8 +194,8 @@ public class FormulaTestCaseInfo {
     /**
      * Opposite of {@link com.force.formula.FormulaEngineHooks#getDataTypeByName(String)})
      * In case info.getName() isn't the reverse
-     * @param info
-     * @return
+     * @param info the data type.
+     * @return the name of the data type used in the XML test case file (usually info.getName()
      */
     protected String getTypeName(FormulaDataType info) {
         return info.getName();
@@ -216,7 +216,7 @@ public class FormulaTestCaseInfo {
      *
      * Each combination will result in instance of FormulaTestRunnable.
      */
-    private List<FormulaTestRunnable> generateTypeSwappedTCs(int swappableFieldCount) throws CloneNotSupportedException {
+    private List<FormulaTestRunnable> generateTypeSwappedTCs(int swappableFieldCount) {
 
         List<FormulaTestRunnable> resultList = new LinkedList<FormulaTestRunnable>();
         Map<String, FieldDefinitionInfo> listOfFieldsUsedForRunnables = new HashMap<String, FieldDefinitionInfo>();
@@ -270,16 +270,17 @@ public class FormulaTestCaseInfo {
 
     /***************************************************************************
      * Generates a list of runnable FormualTestRunnables based on swap, etc.
+     * @param testUtils the test utils used to generate the runnables
      *
      * @return List&lt;FormulaTestRunnable&gt;
      */
-    public List<FormulaTestRunnable> getRunnables(FormulaTestUtils testUtils) throws Exception {
+    public List<FormulaTestRunnable> getRunnables(FormulaTestUtils testUtils) {
         if (this.testRunnables == null)
             generateRunnables();
         return testRunnables;
     }
 
-    private void generateRunnables() throws Exception {
+    private void generateRunnables() {
         this.testRunnables = new LinkedList<FormulaTestRunnable>();
         FormulaTestRunnable runnable = new FormulaTestRunnable(testCaseFieldInfo, testCaseName,
                                                                getNonFormulaFieldRefList());

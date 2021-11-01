@@ -389,7 +389,10 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		
 		/**
 		 * Print the evaluation expressions at the beginning of the goldfile.
-		 * @throws Exception 
+		 * @param fieldInfo the formula field
+		 * @param xmlOut the output
+		 * @param jestDataModel the Jest Datamodel
+		 * @throws Exception if a problem occurs
 		 */
 		protected void outputEvalutionExpressions(FieldDefinitionInfo fieldInfo, PrintStream xmlOut, JestDataModel jestDataModel) throws Exception {
 			printOutputSql(fieldInfo, xmlOut, true);
@@ -409,6 +412,14 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 *
 		 * Returns a non-null message if any data row resulted in different results for different paths.
 		 * Any other error will throw back to caller and terminate this test case.
+		 * @param instance the test case
+		 * @param testData the data for the test
+		 * @param entityRecId the ID of the entity if storing in a DB row
+		 * @param testFailureMsg the buffer for adding an error message
+		 * @param xmlOut the xml output
+		 * @param jestDataModel the Jest Datamodel
+		 * @return an error message if there is any 
+		 * @throws Exception if an error occurred
 		 */
 		protected String runTestInstance(FormulaTestRunnable instance, List<List<String>> testData, String entityRecId,
 				StringBuilder testFailureMsg, PrintStream xmlOut, JestDataModel jestDataModel) throws Exception {

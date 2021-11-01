@@ -17,18 +17,19 @@ public interface FormulaWithSql extends Formula {
 
     /**
      * Return a SQL snippet representation of the formula
-     * @param registry
+     * @param registry the table registry
      *
      * @return SQL snippet
+     * @throws FormulaException if this formula cannot be converted to sql
      */
     String toSQL(FormulaTableRegistry registry) throws FormulaException;
 
     /**
      * Return a SQL snippet capturing errors in evaluating the formula
      *
-     * @param registry
+     * @param registry the table registry
      * @return SQL snippet
-     * @throws FormulaException
+     * @throws FormulaException if this formula cannot be converted to sql
      */
     String toSQLError(FormulaTableRegistry registry) throws FormulaException;
 
@@ -51,8 +52,9 @@ public interface FormulaWithSql extends Formula {
      * Binds raw sql to the standard and custom table aliases
      *
      * @param sql Raw sql as returned by getSQLRaw
-     * @param registry
+     * @param registry the table registry
      * @return SQL snippet
+     * @throws FormulaException if an exception occurs during late binding
      */
     String performLateBinding(String sql, FormulaTableRegistry registry) throws FormulaException;
 
@@ -89,7 +91,7 @@ public interface FormulaWithSql extends Formula {
 
     /**
      * A Formula field is stale if it (directly or indirectly) refers to a stale summary field.
-     * @param formulaContext
+     * @param formulaContext the formula context being validated
      * @return whether this formulaContext refers to a stale summary field.
      */
     boolean isStale(FormulaContext formulaContext);

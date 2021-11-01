@@ -12,7 +12,10 @@ package com.force.formula;
  */
 public interface FormulaPicklistInfo {
 	/**
-	 * Implement this for dynamic picklists
+	 * Implement this for dynamic picklists.
+	 * 
+	 * Dynamic picklists may be stored in a DB table or cached, and this allows bulk retrieval
+	 * of those values to prevent DB/cache thrashing.
 	 * @author stamm
 	 */
 	public interface Dynamic {
@@ -24,6 +27,7 @@ public interface FormulaPicklistInfo {
 
 	    /**
 	     * Record the given api value, to be lazily fetched.
+	     * @param apiValue the API value for this picklist
 	     */
 	    void collectApiValueToFetch(String apiValue);
 

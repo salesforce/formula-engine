@@ -58,7 +58,7 @@ public class JsValue {
      * null. Use this if you want to guard against null for only certain arguments,
      * and not all of them.
      * 
-     * @param expression
+     * @param expression the javascript expression for the function
      * @param values      the expressions coming in to guard against NPEs
      * @param additions   the values that you want to validate can't be null to
      *                    prevent NPEs
@@ -78,7 +78,7 @@ public class JsValue {
      * Use this if you have something that returns a boolean expression or if you
      * know it won't be null (like the function IsNull)
      * 
-     * @param expression
+     * @param expression the javascript expression for the function
      * @param values      the expressions coming in to guard against NPEs
      * @param additions   checks to add after the guards for the values.
      * @param couldBeNull whether the expression could be null.

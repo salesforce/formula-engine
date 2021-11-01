@@ -135,6 +135,7 @@ public class FormulaProperties implements Cloneable {
     /**
      * The max size has an upper bound. Think about performance impact if 
      * a large value is needed. 
+     * @param maxSqlSize the maximum sql size for the formula
      */
     public void setMaxSqlSize(int maxSqlSize) {
         if (maxSqlSize > FormulaInfo.MAX_SQL_SIZE_LIMIT) {

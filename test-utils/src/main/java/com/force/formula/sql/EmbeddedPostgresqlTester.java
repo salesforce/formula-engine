@@ -30,16 +30,12 @@ public class EmbeddedPostgresqlTester extends DbTester {
 
 	private EmbeddedPostgres pg = null;
 
-	/**
-	 * @throws IOException
-	 * 
-	 */
 	public EmbeddedPostgresqlTester() throws IOException {
 	}
 
 	/**
 	 * @return an EmbeddedPostgres to use
-	 * @throws IOException
+	 * @throws IOException if an exception occurred while constructing the postgres db
 	 */
 	protected EmbeddedPostgres constructPostgres() throws IOException {
 		return EmbeddedPostgres.builder().start();
