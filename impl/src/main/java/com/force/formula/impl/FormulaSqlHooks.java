@@ -26,10 +26,10 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     default String sqlDatetimeValueGuard() {
     	if (isPostgresStyle()) {
-    	   return " NOT %s ~ '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]\\d:[0-5]\\d$' ";
+    	   return " NOT %s ~ '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\\d:[0-5]?\\d$' ";
     	}
-    	return " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]\\d:[0-5]\\d$')"
-    			+ "/*  Adding some comments to keep the same length for this guard as it was before improving to more robust guard */";
+    	return " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\\d:[0-5]?\\d$')"
+    			+ "/* Adding some comments to keep the same length for this guard as it was before improving to more robust one   */";
     }
     
     /**
