@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.force.formula.*;
-import com.force.formula.impl.*;
+import com.force.formula.impl.FormulaContextSwitcher;
+import com.force.formula.impl.FormulaValidationHooks;
 import com.force.formula.sql.ITableAliasRegistry;
 import com.force.formula.util.BaseCompositeFormulaContext;
 
@@ -38,7 +39,7 @@ public class CompositeCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
         ContextualFormulaFieldInfo fieldInfo = FieldReferenceCommandInfo.lookup(context, fieldName, false);
         boolean shouldFollowFls = context.getGlobalProperties().getFormulaType().isTemplate()
                 && !context.getGlobalProperties().shouldIgnoreFls();
@@ -152,7 +153,7 @@ public class CompositeCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws Exception {
+    public void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws FormulaException {
         FormulaContextSwitcher switcher = new FormulaContextSwitcher(contexts);
 
         switcher.switchFormulaContext(FieldReferenceCommandInfo.lookup(contexts.get(0), fieldName, false));

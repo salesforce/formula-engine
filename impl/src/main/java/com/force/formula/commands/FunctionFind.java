@@ -71,7 +71,7 @@ class FunctionFindCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         BigDecimal startPosition = (hasStartPosition) ? checkNumberType(stack.pop()) : BigDecimal.ZERO;
         String value = checkStringType(stack.pop());
         String search = checkStringType(stack.pop());

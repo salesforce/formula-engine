@@ -48,7 +48,7 @@ class ConvertCurrencyToNumberCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         FormulaCurrencyData value = checkCurrencyDataType(stack.pop());
 
         stack.push((value != null) ? value.getAmount() : null);

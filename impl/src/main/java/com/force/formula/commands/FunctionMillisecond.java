@@ -2,6 +2,7 @@ package com.force.formula.commands;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Deque;
 
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
@@ -10,8 +11,6 @@ import com.force.formula.impl.*;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
-
-import java.util.Deque;
 
 /**
  * Describe your class here.
@@ -55,7 +54,7 @@ class FunctionMillisecondCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
        // Date d = checkDateType(stack.pop());
         FormulaTime d = (FormulaTime)stack.pop();  // to da validate
         if (d == null)

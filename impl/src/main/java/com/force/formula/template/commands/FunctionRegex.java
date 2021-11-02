@@ -1,6 +1,7 @@
 package com.force.formula.template.commands;
 
 import java.lang.reflect.Type;
+import java.util.Deque;
 import java.util.regex.Pattern;
 
 import com.force.formula.*;
@@ -8,12 +9,9 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.commands.*;
 import com.force.formula.impl.*;
-import com.force.formula.template.commands.AccessCountedCharSequence.AccessCountExceededException;
-
-import java.util.Deque;
-
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.template.commands.AccessCountedCharSequence.AccessCountExceededException;
 
 @AllowedContext(section=SelectorSection.ADVANCED, changeOnly=true, isJavascript=false)
 public class FunctionRegex extends FormulaCommandInfoImpl implements FormulaCommandValidator {
@@ -79,7 +77,7 @@ public class FunctionRegex extends FormulaCommandInfoImpl implements FormulaComm
         }
 
         @Override
-        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
             Object regex = stack.pop();
             Object input = stack.pop();
             input = (input == null) ? "" : input;

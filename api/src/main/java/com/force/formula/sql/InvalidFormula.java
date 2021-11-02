@@ -21,12 +21,12 @@ public class InvalidFormula implements FormulaWithSql {
     }
 
     @Override
-    public Object evaluate(FormulaRuntimeContext context) throws Exception {
+    public Object evaluate(FormulaRuntimeContext context) throws FormulaException {
         throw cause;
     }
 
     @Override
-    public Object evaluateRaw(FormulaRuntimeContext context) throws Exception {
+    public Object evaluateRaw(FormulaRuntimeContext context) throws FormulaException {
         throw cause;
     }
 

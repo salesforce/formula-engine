@@ -72,7 +72,7 @@ class FunctionMaxCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         BigDecimal result = checkNumberType(stack.pop());
         if (result == null) {
             stack.push(null);

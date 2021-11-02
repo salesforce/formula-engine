@@ -21,9 +21,9 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * @param context
      *            data source for field references
      * @return result of executing the formula
-     * @throws Exception if an error occurred.  TODO: Make this narrower  
+     * @throws FormulaException if an error occurred.  
      */
-    Object evaluate(FormulaRuntimeContext context) throws Exception;
+    Object evaluate(FormulaRuntimeContext context) throws FormulaException;
 
     /**
      * Execute the formula based on field data retrieved from the provided context. Does no final processing of the
@@ -32,18 +32,18 @@ public interface Formula extends Comparable<Formula>, Serializable {
      * @param context
      *            data source for field references
      * @return result of executing the formula
-     * @throws Exception if an error occurred.  TODO: Make this narrower  
+     * @throws FormulaException if an error occurred. 
      */
-    Object evaluateRaw(FormulaRuntimeContext context) throws Exception;
+    Object evaluateRaw(FormulaRuntimeContext context) throws FormulaException;
 
     /**
      * Use this hook to perform bulk processing before the formulas are evaluated. Useful for formula functions like
      * vlookup that perform a query for all contexts and cache the value for runtime evaluation.
      *
      * @param contexts the set of runtime contexts that will be used in execution
-     * @throws Exception if an error occurred.  TODO: Make this narrower  
+     * @throws FormulaException if a FormulaException occurred. 
      */
-    void bulkProcessingBeforeEvaluation(List<FormulaRuntimeContext> contexts) throws Exception;
+    void bulkProcessingBeforeEvaluation(List<FormulaRuntimeContext> contexts) throws FormulaException;
 
     /**
      * Checks whether this formula is simply a direct reference to another field, and if so, returns the field path to

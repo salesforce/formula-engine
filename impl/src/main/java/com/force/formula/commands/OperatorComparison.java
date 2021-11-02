@@ -110,7 +110,7 @@ class OperatorComparisonFormulaCommand extends AbstractFormulaCommand {
 
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         Comparable<Object> rhs = checkComparableType(stack.pop());
         Comparable<Object> lhs = checkComparableType(stack.pop());
 

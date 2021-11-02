@@ -24,7 +24,7 @@ public class Thunk extends AbstractFormulaCommand {
 
     // Pushes itself on the stack for later execution
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         stack.push(this);
     }
 
@@ -36,14 +36,14 @@ public class Thunk extends AbstractFormulaCommand {
     }
 
     // Really executes the commands
-    public void executeReally(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void executeReally(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
         for (FormulaCommand command : commands) {
             command.execute(context, stack);
         }
     }
 
     @Override
-    public void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws Exception {
+    public void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws FormulaException {
         for (FormulaCommand command : commands) {
             command.preExecuteInBulk(contexts);
         }

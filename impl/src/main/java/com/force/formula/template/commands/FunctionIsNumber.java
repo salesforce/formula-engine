@@ -67,7 +67,7 @@ public class FunctionIsNumber extends FormulaCommandInfoImpl implements FormulaC
         }
 
         @Override
-        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
             Object input = stack.pop();
             if (input != null && input != ConstantString.NullString) {
                 stack.push(BigDecimalHelper.functionIsNumber(checkStringType(input)));

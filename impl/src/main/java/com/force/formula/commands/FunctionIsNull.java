@@ -10,10 +10,9 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.commands.FunctionNullValue.FunctionNullValueFormulaCommand;
 import com.force.formula.impl.*;
-import com.google.common.base.Splitter;
-
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
+import com.google.common.base.Splitter;
 
 /**
  * Describe your class here.
@@ -117,7 +116,7 @@ class OperatorIsNullCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         Object arg = stack.pop();
         if (treatAsString)
             stack.push(Boolean.FALSE);

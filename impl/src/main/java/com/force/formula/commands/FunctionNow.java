@@ -1,9 +1,6 @@
 package com.force.formula.commands;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import java.util.Deque;
+import java.util.*;
 
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
@@ -73,7 +70,7 @@ class FunctionNowCommand extends AbstractFormulaCommand {
     private static final String FUNCTIONNOW_VALUE = "common.formula.commands.FunctionNow.value";
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         FormulaDateTime now = (FormulaDateTime)context.getProperty(FUNCTIONNOW_VALUE);
         if (now == null) {
             now = new FormulaDateTime(new Date());

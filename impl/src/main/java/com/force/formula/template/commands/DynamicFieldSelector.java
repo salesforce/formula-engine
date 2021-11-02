@@ -51,7 +51,7 @@ class DynamicFieldSelectorCommand extends AbstractFormulaCommand {
 
     // The name is the value.
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         stack.push(fieldName);
     }
 

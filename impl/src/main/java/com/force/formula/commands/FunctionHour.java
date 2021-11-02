@@ -2,7 +2,6 @@ package com.force.formula.commands;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-
 import java.util.Deque;
 
 import com.force.formula.*;
@@ -58,7 +57,7 @@ class FunctionHourCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
        // Date d = checkDateType(stack.pop());
         FormulaTime d = (FormulaTime)stack.pop();  // to da validate
         if (d == null)

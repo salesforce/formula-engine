@@ -69,7 +69,7 @@ class FunctionTodayCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         stack.push(FormulaDateUtil.todayGmt());
     }
 

@@ -38,7 +38,7 @@ public abstract class BaseFieldReferenceCommand extends AbstractFormulaCommand {
         return this.dataType;
     }
 
-    public Object execute(FormulaRuntimeContext context, FormulaFieldReference fieldReference) throws Exception {
+    public Object execute(FormulaRuntimeContext context, FormulaFieldReference fieldReference) throws FormulaException {
         // If this is flagged as the root reference node, then we return a fieldReference.
         // This flag is set only for root nodes, and only when compiled as a reference formula.
         if (isRoot) {

@@ -7,11 +7,10 @@ import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
-import com.force.i18n.BaseLocalizer;
-
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
+import com.force.i18n.BaseLocalizer;
 
 /**
  * Describe your class here.
@@ -209,7 +208,7 @@ class FunctionDateCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         BigDecimal day = checkNumberType(stack.pop());
         BigDecimal month = checkNumberType(stack.pop());
         BigDecimal year = checkNumberType(stack.pop());

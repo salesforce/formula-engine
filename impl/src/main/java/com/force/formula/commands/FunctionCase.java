@@ -9,11 +9,10 @@ import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
-import com.google.common.collect.Lists;
-
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaTextUtil;
+import com.google.common.collect.Lists;
 
 /**
  * Implementation of CASE that relies on some code in BaseIsPicklistVal
@@ -314,7 +313,7 @@ class FunctionCaseCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         Object[] args = new Object[numArgs];
         for (int i = 0; i < numArgs; i++) {
             args[numArgs - i - 1] = stack.pop();

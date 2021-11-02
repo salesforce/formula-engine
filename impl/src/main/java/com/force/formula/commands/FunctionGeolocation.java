@@ -1,7 +1,6 @@
 package com.force.formula.commands;
 
 import java.math.BigDecimal;
-
 import java.util.Deque;
 
 import com.force.formula.*;
@@ -102,7 +101,7 @@ class GeolocationCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         Number longitude = checkNumberType(stack.pop());
         Number latitude = checkNumberType(stack.pop());
 

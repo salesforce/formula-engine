@@ -55,7 +55,7 @@ public abstract class AbstractFormulaCommand implements FormulaCommand {
     }
 
     @Override
-    public void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws Exception {
+    public void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws FormulaException {
     }
 
     @Override

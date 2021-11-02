@@ -1,9 +1,6 @@
 package com.force.formula.commands;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import java.util.Deque;
+import java.util.*;
 
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
@@ -59,7 +56,7 @@ class FunctionTimeNowCommand extends AbstractFormulaCommand {
     private static final String FUNCTIONTIMENOW_VALUE = "common.formula.commands.FunctionTimeNow.value";
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         FormulaTime now = (FormulaTime)context.getProperty(FUNCTIONTIMENOW_VALUE);
         if (now == null) {
             Calendar cal = new GregorianCalendar(BaseLocalizer.GMT_TZ);

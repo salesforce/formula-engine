@@ -57,7 +57,7 @@ public abstract class EncodingFunctionBase extends FormulaCommandInfoImpl implem
         }
 
         @Override
-        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
             Object arg = stack.pop();
             arg = (arg == null) ? "" : arg;
             stack.push(encode(checkStringType(arg)));

@@ -47,7 +47,7 @@ class FunctionTrimCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         String arg = checkStringType(stack.pop());
         if ((arg == null) || (arg.equals("")))
             stack.push(null);
