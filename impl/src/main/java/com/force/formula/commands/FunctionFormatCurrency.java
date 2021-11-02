@@ -84,7 +84,7 @@ public class FunctionFormatCurrency extends FormulaCommandInfoImpl {
 
 		
         @Override
-        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
             BigDecimal amt = checkNumberType(stack.pop());
             String isoCode = checkStringType(stack.pop());
 

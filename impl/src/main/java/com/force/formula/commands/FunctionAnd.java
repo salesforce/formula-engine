@@ -7,7 +7,6 @@ import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
-
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaTextUtil;
@@ -114,7 +113,7 @@ class OperatorAndCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
         Thunk[] args = new Thunk[numArgs];
         for (int i = 0; i < numArgs; i++)
             args[numArgs - i - 1] = (Thunk)stack.pop();

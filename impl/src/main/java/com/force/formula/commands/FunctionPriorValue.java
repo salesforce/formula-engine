@@ -101,7 +101,7 @@ class FunctionPriorValueCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
         stack.pop(); // Throw away the current field value
 
         FormulaRuntimeContext originalValuesContext = context.getOriginalValuesContext();

@@ -8,7 +8,7 @@ buildNumber.properties
 .vscode/
 */.classpath
 */.project
-*/.settings
+**/.settings
 .settings/*
 .metadata
 bin/

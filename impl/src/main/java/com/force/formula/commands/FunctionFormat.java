@@ -131,7 +131,7 @@ class FunctionFormatCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         // Pop off all the arguments
         Object[] args = new Object[numNodes - 1];
         for (int i = 1; i < numNodes; i++) {

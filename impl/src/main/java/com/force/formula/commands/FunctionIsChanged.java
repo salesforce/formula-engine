@@ -105,7 +105,7 @@ class FunctionIsChangedCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
         boolean isChanged = false;
 
         FormulaRuntimeContext originalValuesContext = context.getOriginalValuesContext();

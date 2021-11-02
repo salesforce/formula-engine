@@ -256,7 +256,7 @@ class OperatorIfFormulaCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
         Thunk elseVal = (Thunk)stack.pop();
         Thunk thenVal = (Thunk)stack.pop();
         Boolean guard = checkBooleanType(stack.pop());

@@ -69,7 +69,7 @@ class FunctionLpadCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         String padding = hasPadStr ? checkStringType(stack.pop()) : " ";
         BigDecimal bdCount = checkNumberType(stack.pop());
         String target = checkStringType(stack.pop());

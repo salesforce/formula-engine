@@ -215,7 +215,7 @@ public class FormulaTestUtils {
     }
 
     public List<String> getFormulaNames(String xmlFileName, String retriveForEntity)
-        throws ParserConfigurationException, SAXException, IOException, Exception {
+        throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document formulaFieldsDocument = documentBuilder.parse(new File(xmlFileName));
@@ -251,7 +251,7 @@ public class FormulaTestUtils {
                 }
             }
             catch (Exception e) {
-                throw new Exception("Failed to Parse " + xmlFileName + " for Formula: " + labelName + "\n"
+                throw new RuntimeException("Failed to Parse " + xmlFileName + " for Formula: " + labelName + "\n"
                     + e.getMessage(), e);
             }
         }
@@ -259,7 +259,7 @@ public class FormulaTestUtils {
     }
 
     public List<FieldDefinitionInfo> getFieldDefintions(String xmlFileName, String retriveForEntity)
-        throws ParserConfigurationException, SAXException, IOException, Exception {
+        throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document fieldsDocument = documentBuilder.parse(new File(xmlFileName));

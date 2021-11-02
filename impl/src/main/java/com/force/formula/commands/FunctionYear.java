@@ -54,7 +54,7 @@ class FunctionYearCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         Date d = checkDateType(stack.pop());
         if (d == null)
             stack.push(null);

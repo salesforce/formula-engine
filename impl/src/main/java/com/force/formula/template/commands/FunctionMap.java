@@ -1,6 +1,7 @@
 package com.force.formula.template.commands;
 
 import java.lang.reflect.Type;
+import java.util.Deque;
 import java.util.LinkedHashMap;
 
 import com.force.formula.*;
@@ -9,8 +10,6 @@ import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.commands.*;
 import com.force.formula.impl.*;
 import com.force.formula.sql.SQLPair;
-
-import java.util.Deque;
 
 /**
  * @author dchasman
@@ -80,7 +79,7 @@ class FunctionMapCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         FunctionMap.StringToStringMap result = new FunctionMap.StringToStringMap();
 
         // Temporary arrays hold the popped elements so we can push them into the result map

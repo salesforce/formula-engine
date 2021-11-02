@@ -2,14 +2,12 @@ package com.force.formula.commands;
 
 
 import java.lang.reflect.Type;
-
 import java.util.Deque;
 
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
-
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
@@ -127,7 +125,7 @@ public class FunctionNullValue extends FormulaCommandInfoImpl implements Formula
         }
 
         @Override
-        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
             Object otherVal = stack.pop();
             Object normalVal = stack.pop();
             if (treatAsString) {

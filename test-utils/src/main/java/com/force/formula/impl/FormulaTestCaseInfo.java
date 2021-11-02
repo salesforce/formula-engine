@@ -153,7 +153,7 @@ public class FormulaTestCaseInfo {
     /*
      * This returns only non-formula reference fields
      */
-    public List<FieldDefinitionInfo> getFieldsToCreate() throws Exception {
+    public List<FieldDefinitionInfo> getFieldsToCreate() {
         if (this.testRunnables == null)
             generateRunnables();
         return createList;

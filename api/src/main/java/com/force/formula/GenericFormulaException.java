@@ -16,4 +16,8 @@ public class GenericFormulaException extends FormulaException {
     public GenericFormulaException(String message) {
         super(message);
     }
+    
+    public GenericFormulaException(Throwable t) {
+        super(t);
+    }
 }

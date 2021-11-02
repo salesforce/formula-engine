@@ -659,21 +659,21 @@ public class FormulaUtils {
         return new TreeSet<String>(visitor.getRefValues().keySet());
     }
 
-    public static void compareFormulaASTs(FormulaAST ast1, FormulaAST ast2) throws Exception {
+    public static void compareFormulaASTs(FormulaAST ast1, FormulaAST ast2) throws GenericFormulaException {
         compareFormulaASTs(ast1, ast2, true);
     }
 
-        public static void compareFormulaASTs(FormulaAST ast1, FormulaAST ast2, boolean compareTokens) throws Exception {
+    public static void compareFormulaASTs(FormulaAST ast1, FormulaAST ast2, boolean compareTokens) throws GenericFormulaException {
         if(ast1 == null && ast2 == null) {
             return;
         }
 
         if(ast1 == null) {
-            throw new Exception("ast1 is null while ast2 is not null");
+            throw new GenericFormulaException("ast1 is null while ast2 is not null");
         }
 
         if(ast2 == null) {
-            throw new Exception("ast2 is null while ast1 is not null");
+            throw new GenericFormulaException("ast2 is null while ast1 is not null");
         }
 
         if(compareTokens) {
@@ -682,81 +682,81 @@ public class FormulaUtils {
 
         //compare public methods
         if(!ast1.getText().equals(ast2.getText())) {
-            throw new Exception("ASTs' texts do not match: " + ast1.getText() + " != " + ast2.getText());
+            throw new GenericFormulaException("ASTs' texts do not match: " + ast1.getText() + " != " + ast2.getText());
         }
 
         if(ast1.getType() != ast2.getType()) {
-            throw new Exception("ASTs' types do not match: " + ast1.getText() + " != " + ast2.getText());
+            throw new GenericFormulaException("ASTs' types do not match: " + ast1.getText() + " != " + ast2.getText());
         }
 
         if(ast1.getLine() != ast2.getLine()) {
-            throw new Exception("ASTs' lines do not match: " + ast1.getLine() + " != " + ast2.getLine());
+            throw new GenericFormulaException("ASTs' lines do not match: " + ast1.getLine() + " != " + ast2.getLine());
         }
 
         if(ast1.getColumn() != ast2.getColumn()) {
-            throw new Exception("ASTs' columns do not match: " + ast1.getColumn() + " != " + ast2.getColumn());
+            throw new GenericFormulaException("ASTs' columns do not match: " + ast1.getColumn() + " != " + ast2.getColumn());
         }
 
         if(ast1.getDataType() != ast2.getDataType()) {
-            throw new Exception("ASTs' data types do not match: " + ast1.getDataType() + " != " + ast2.getDataType());
+            throw new GenericFormulaException("ASTs' data types do not match: " + ast1.getDataType() + " != " + ast2.getDataType());
         }
 
         if(ast1.getColumnType() != ast2.getColumnType()) {
-            throw new Exception("ASTs' column types do not match: " + ast1.getColumnType() + " != " + ast2.getColumnType());
+            throw new GenericFormulaException("ASTs' column types do not match: " + ast1.getColumnType() + " != " + ast2.getColumnType());
         }
 
         if(ast1.isConstantExpression() != ast2.isConstantExpression()) {
-            throw new Exception("ASTs' isConstantExpressions do not match: " + ast1.isConstantExpression() + " != " + ast2.isConstantExpression());
+            throw new GenericFormulaException("ASTs' isConstantExpressions do not match: " + ast1.isConstantExpression() + " != " + ast2.isConstantExpression());
         }
 
         if(ast1.isDynamicReferenceBase() != ast2.isDynamicReferenceBase()) {
-            throw new Exception("ASTs' isDynamicReferenceBases do not match: " + ast1.isDynamicReferenceBase() + " != " + ast2.isDynamicReferenceBase());
+            throw new GenericFormulaException("ASTs' isDynamicReferenceBases do not match: " + ast1.isDynamicReferenceBase() + " != " + ast2.isDynamicReferenceBase());
         }
 
         if(ast1.isLiteral() != ast2.isLiteral()) {
-            throw new Exception("ASTs' isLiterals do not match: " + ast1.isLiteral() + " != " + ast2.isLiteral());
+            throw new GenericFormulaException("ASTs' isLiterals do not match: " + ast1.isLiteral() + " != " + ast2.isLiteral());
         }
 
         if(ast1.getNumberOfChildren() != ast2.getNumberOfChildren()) {
-            throw new Exception("ASTs' number of children do not match: " + ast1.getNumberOfChildren() + " != " + ast2.getNumberOfChildren());
+            throw new GenericFormulaException("ASTs' number of children do not match: " + ast1.getNumberOfChildren() + " != " + ast2.getNumberOfChildren());
         }
 
         compareFormulaASTs((FormulaAST) ast1.getFirstChild(), (FormulaAST) ast2.getFirstChild(), compareTokens);
         compareFormulaASTs((FormulaAST) ast1.getNextSibling(), (FormulaAST) ast2.getNextSibling(), compareTokens);
     }
 
-    public static void compareTokens(antlr.Token t1, antlr.Token t2) throws Exception {
+    public static void compareTokens(antlr.Token t1, antlr.Token t2) throws GenericFormulaException {
         if(t1 == null && t2 == null) {
             return;
         }
 
         if(t1 == null && t2 != null) {
-            throw new Exception("ast1's token is null while ast2's token is not null");
+            throw new GenericFormulaException("ast1's token is null while ast2's token is not null");
         }
 
         if(t1 != null && t2 == null) {
-            throw new Exception("ast2's token is null while ast1's token is not null");
+            throw new GenericFormulaException("ast2's token is null while ast1's token is not null");
         }
 
         //compare public methods
         if(!t1.getText().equals(t2.getText())) {
-            throw new Exception("ASTs' tokens' texts do not match: " + t1.getText() + " != " + t2.getText());
+            throw new GenericFormulaException("ASTs' tokens' texts do not match: " + t1.getText() + " != " + t2.getText());
         }
 
         if(t1.getType() != t2.getType()) {
-            throw new Exception("ASTs' tokens' types do not match: " + t1.getType() + " != " + t2.getType());
+            throw new GenericFormulaException("ASTs' tokens' types do not match: " + t1.getType() + " != " + t2.getType());
         }
 
         if(t1.getLine() != t2.getLine()) {
-            throw new Exception("ASTs' tokens' lines do not match: " + t1.getLine() + " != " + t2.getLine());
+            throw new GenericFormulaException("ASTs' tokens' lines do not match: " + t1.getLine() + " != " + t2.getLine());
         }
 
         if(t1.getColumn() != t2.getColumn()) {
-            throw new Exception("ASTs' tokens' columns do not match: " + t1.getColumn() + " != " + t2.getColumn());
+            throw new GenericFormulaException("ASTs' tokens' columns do not match: " + t1.getColumn() + " != " + t2.getColumn());
         }
 
         if(t1.getFilename() != t2.getFilename()) {
-            throw new Exception("ASTs' tokens' filenames do not match: " + t1.getFilename() + " != " + t2.getFilename());
+            throw new GenericFormulaException("ASTs' tokens' filenames do not match: " + t1.getFilename() + " != " + t2.getFilename());
         }
     }
 }

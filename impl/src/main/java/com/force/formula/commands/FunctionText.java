@@ -221,7 +221,7 @@ class OperatorTextFormulaCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws Exception {
+    public void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws FormulaException {
         try {
             FormulaEngine.getHooks().hook_pushFullAccessRights();
             if (picklistFieldName == null)

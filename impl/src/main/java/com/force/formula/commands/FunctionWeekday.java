@@ -54,7 +54,7 @@ public class FunctionWeekday extends FormulaCommandInfoImpl {
         }
 
         @Override
-        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
             Date d = checkDateType(stack.pop());
             Object result;
             if (d == null) {

@@ -86,7 +86,7 @@ public class DynamicReference extends FormulaCommandInfoImpl implements FormulaC
         }
 
         @Override
-        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
             Object subscript = stack.pop();
             Object base  = stack.pop();
             if (base == null) {
@@ -96,7 +96,7 @@ public class DynamicReference extends FormulaCommandInfoImpl implements FormulaC
             }
         }
 
-        private Object doSubscript(FormulaRuntimeContext context, Object base, Object subscript) throws Exception {
+        private Object doSubscript(FormulaRuntimeContext context, Object base, Object subscript) throws FormulaException {
             // Map, List, Array, and object are different cases.
             Class<? extends Object> type;
 

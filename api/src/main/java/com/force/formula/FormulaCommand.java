@@ -20,7 +20,7 @@ import com.force.formula.sql.ITableAliasRegistry;
 public interface FormulaCommand extends Serializable {
 
     String getName();
-    void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception;
+    void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException;
     boolean isDeterministic(FormulaContext formulaContext);
     boolean isStale(FormulaContext formulaContext);
     default boolean hasAIPredictionFieldReference(FormulaContext formulaContext) {
@@ -47,9 +47,9 @@ public interface FormulaCommand extends Serializable {
      * the value for runtime evaluation.
      *
      * @param contexts the context that provide the values for bulk execution.
-     * @throws Exception if an error occurs: TODO narrow this
+     * @throws FormulaException if a formula exception occurs. (FormulaEvaluationException may also be thrown)
      */
-    void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws Exception;
+    void preExecuteInBulk(List<FormulaRuntimeContext> contexts) throws FormulaException;
 
     /**
      * Check that all merge field referenced directly (in the formula itself) or indirectly (via

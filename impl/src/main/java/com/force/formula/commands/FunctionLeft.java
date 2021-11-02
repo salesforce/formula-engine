@@ -47,7 +47,7 @@ class FunctionLeftCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         BigDecimal count = checkNumberType(stack.pop());
         String target = checkStringType(stack.pop());
         if (count == null) {

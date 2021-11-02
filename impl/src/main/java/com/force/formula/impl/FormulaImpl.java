@@ -103,7 +103,7 @@ public class FormulaImpl implements FormulaWithSql {
     }
 
     @Override
-    public Object evaluate(FormulaRuntimeContext context) throws Exception {
+    public Object evaluate(FormulaRuntimeContext context) throws FormulaException {
         assert commands != null;
         return FormulaI18nUtils.formatResult(context, context.getFormulaReturnType(), evaluateRaw(context));
     }
@@ -113,7 +113,7 @@ public class FormulaImpl implements FormulaWithSql {
      * fields.
      */
     @Override
-    public Object evaluateRaw(FormulaRuntimeContext context) throws Exception {
+    public Object evaluateRaw(FormulaRuntimeContext context) throws FormulaException {
         long runtimeInitial = System.currentTimeMillis();
         Exception thrownException = null;
         Object result = null;
@@ -144,7 +144,7 @@ public class FormulaImpl implements FormulaWithSql {
 
 
     @Override
-    public void bulkProcessingBeforeEvaluation(List<FormulaRuntimeContext> contexts) throws Exception {
+    public void bulkProcessingBeforeEvaluation(List<FormulaRuntimeContext> contexts) throws FormulaException {
         for (FormulaCommand command : commands) {
             command.preExecuteInBulk(contexts);
         }

@@ -74,7 +74,7 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
     	//private static BigDecimal MONTH_FRACTION = new BigDecimal("365.24").divide(new BigDecimal("12.00"), RoundingMode.HALF_DOWN);
 
         @Override
-        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
             BigDecimal months = (BigDecimal) stack.pop();
         	Object input = stack.pop();
             Date d = checkDateType(input);

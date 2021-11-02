@@ -7,11 +7,10 @@ import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
-import com.force.i18n.commons.text.TextUtil;
-import com.google.common.base.Joiner;
-
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
+import com.force.i18n.commons.text.TextUtil;
+import com.google.common.base.Joiner;
 
 /**
  * Extend this class with the specific implementation of
@@ -161,7 +160,7 @@ class FunctionIsPicklistValueCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         String rhs = (String) stack.pop();
         String lhs = (String) stack.pop();
         Boolean useDbValOverride = context.getProperty(FormulaContext.DO_NOT_USE_DB_VALUE_FOR_PICKLIST_EVALUATION);

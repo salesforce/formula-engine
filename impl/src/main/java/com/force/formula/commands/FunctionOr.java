@@ -1,15 +1,13 @@
 package com.force.formula.commands;
 
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.stream.Collectors;
 
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.impl.*;
-
-import java.util.Deque;
-
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
@@ -142,7 +140,7 @@ class OperatorOrCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
         Thunk[] args = new Thunk[numArgs];
         for (int i = 0; i < numArgs; i++)
             args[numArgs - i - 1] = (Thunk) stack.pop();

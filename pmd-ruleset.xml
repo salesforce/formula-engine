@@ -42,7 +42,12 @@
     <rule ref="category/java/design.xml/CollapsibleIfStatements" />
     <rule ref="category/java/design.xml/ExceptionAsFlowControl" />  
     <rule ref="category/java/design.xml/UselessOverridingMethod" />
-
+    <rule ref="category/java/design.xml/SignatureDeclareThrowsException">
+      <properties>
+        <property name="IgnoreJUnitCompletely" value="true"/>
+      </properties>
+    </rule>
+    
     <rule ref="category/java/errorprone.xml/AvoidBranchingStatementAsLastInLoop" />
     <rule ref="category/java/errorprone.xml/AvoidCatchingNPE" />
     <rule ref="category/java/errorprone.xml/AvoidDecimalLiteralsInBigDecimalConstructor" />

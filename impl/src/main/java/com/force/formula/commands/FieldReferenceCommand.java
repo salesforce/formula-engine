@@ -35,11 +35,11 @@ public class FieldReferenceCommand extends BaseFieldReferenceCommand implements 
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
         stack.push(execute(context));
     }
 
-    public Object execute(FormulaRuntimeContext context) throws Exception {
+    public Object execute(FormulaRuntimeContext context) throws FormulaException {
         Object value = execute(context, this);
         // Some formula uses (SFX Email Templates) require a value, else it's an error.
         if (context.getGlobalProperties().shouldThrowOnEmptyFieldValue() && 

@@ -48,7 +48,7 @@ class FunctionBeginsCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         String sub = checkStringType(stack.pop());
         String target = checkStringType(stack.pop());
         if ((sub == null) || (sub == ""))

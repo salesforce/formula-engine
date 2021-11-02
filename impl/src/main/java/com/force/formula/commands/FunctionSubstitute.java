@@ -48,7 +48,7 @@ class FunctionSubstituteCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         String newText = checkStringType(stack.pop());
         String oldText = checkStringType(stack.pop());
         String sourceText = checkStringType(stack.pop());

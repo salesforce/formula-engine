@@ -64,7 +64,7 @@ class FunctionTemplateCommand extends AbstractFormulaCommand {
     }
 
     @Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws Exception {
+    public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
         String urlEncoding = FormulaValidationHooks.get().getTemplateUrlEncoding(context);
 
         // Dethunk all of the template() arguments and evaluate each one using its own isolated stack to handle exceptions on a
@@ -114,11 +114,15 @@ class FunctionTemplateCommand extends AbstractFormulaCommand {
         stack.push(result);
     }
 
-    private Object handleException(FormulaRuntimeContext context, Exception x) throws Exception {
-        if (context instanceof FormulaExceptionListerner) {
-            return ((FormulaExceptionListerner)context).onException(x);
+    private Object handleException(FormulaRuntimeContext context, Exception x) throws FormulaException {
+        if (context instanceof FormulaExceptionListener) {
+            return ((FormulaExceptionListener)context).onException(x);
+        } else if (x instanceof FormulaException) {
+            throw (FormulaException) x;
+        } else if (x instanceof RuntimeException) {
+            throw (RuntimeException) x;
         } else {
-            throw x;
+            throw new GenericFormulaException(x);
         }
     }
 }
