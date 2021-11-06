@@ -13,7 +13,7 @@
   <url>https://github.com/salesforce/formula-engine</url>
   <properties>
         <guava.version>30.0-jre</guava.version>
-        <graalvm.version>20.3.0</graalvm.version>
+        <graalvm.version>21.3.0</graalvm.version>
 	    <embedded-postgres.version>1.3.1</embedded-postgres.version>
         <javax.annotation.version>1.2</javax.annotation.version>
         <!-- If the coverage threshold for a project is not met, the build will warn if false and fail if true -->

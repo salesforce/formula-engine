@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLowerLocale">
+   <testInstance formula="lower(customText1__c,customText2__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>LOWER($!s0s!$.customText1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LOWER($!s0s!$.customText1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleLowerCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleLowerCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleLowerCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleLowerCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
+      <result>
+      <inputvalues>[﻿, ]</inputvalues>
+         <formula>﻿</formula>
+         <sql>﻿</sql>
+         <javascript>﻿</javascript>
+         <javascriptLp>﻿</javascriptLp>
+         <formulaNullAsNull>﻿</formulaNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
+         <javascriptNullAsNull>﻿</javascriptNullAsNull>
+         <javascriptLpNullAsNull>﻿</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CASES, ]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[cases, ]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CaSeS, ]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[große, ]</inputvalues>
+         <formula>große</formula>
+         <sql>große</sql>
+         <javascript>große</javascript>
+         <javascriptLp>große</javascriptLp>
+         <formulaNullAsNull>große</formulaNullAsNull>
+         <sqlNullAsNull>große</sqlNullAsNull>
+         <javascriptNullAsNull>große</javascriptNullAsNull>
+         <javascriptLpNullAsNull>große</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ångstrom, ]</inputvalues>
+         <formula>ångstrom</formula>
+         <sql>ångstrom</sql>
+         <javascript>ångstrom</javascript>
+         <javascriptLp>ångstrom</javascriptLp>
+         <formulaNullAsNull>ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ÅNGSTROM, ]</inputvalues>
+         <formula>ångstrom</formula>
+         <sql>ångstrom</sql>
+         <javascript>ångstrom</javascript>
+         <javascriptLp>ångstrom</javascriptLp>
+         <formulaNullAsNull>ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[idempotent, ]</inputvalues>
+         <formula>idempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>idempotent</javascript>
+         <javascriptLp>idempotent</javascriptLp>
+         <formulaNullAsNull>idempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ıdempotent, ]</inputvalues>
+         <formula>ıdempotent</formula>
+         <sql>ıdempotent</sql>
+         <javascript>ıdempotent</javascript>
+         <javascriptLp>ıdempotent</javascriptLp>
+         <formulaNullAsNull>ıdempotent</formulaNullAsNull>
+         <sqlNullAsNull>ıdempotent</sqlNullAsNull>
+         <javascriptNullAsNull>ıdempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ıdempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[IDEMPOTENT, ]</inputvalues>
+         <formula>idempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>idempotent</javascript>
+         <javascriptLp>idempotent</javascriptLp>
+         <formulaNullAsNull>idempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[İDEMPOTENT, ]</inputvalues>
+         <formula>i̇dempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>i̇dempotent</javascript>
+         <javascriptLp>i̇dempotent</javascriptLp>
+         <formulaNullAsNull>i̇dempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>i̇dempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>i̇dempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[﻿, en_US]</inputvalues>
+         <formula>﻿</formula>
+         <sql>﻿</sql>
+         <javascript>﻿</javascript>
+         <javascriptLp>﻿</javascriptLp>
+         <formulaNullAsNull>﻿</formulaNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
+         <javascriptNullAsNull>﻿</javascriptNullAsNull>
+         <javascriptLpNullAsNull>﻿</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CASES, en_US]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[cases, en_US]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CaSeS, en_US]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[große, en_US]</inputvalues>
+         <formula>große</formula>
+         <sql>große</sql>
+         <javascript>große</javascript>
+         <javascriptLp>große</javascriptLp>
+         <formulaNullAsNull>große</formulaNullAsNull>
+         <sqlNullAsNull>große</sqlNullAsNull>
+         <javascriptNullAsNull>große</javascriptNullAsNull>
+         <javascriptLpNullAsNull>große</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ångstrom, en_US]</inputvalues>
+         <formula>ångstrom</formula>
+         <sql>ångstrom</sql>
+         <javascript>ångstrom</javascript>
+         <javascriptLp>ångstrom</javascriptLp>
+         <formulaNullAsNull>ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ÅNGSTROM, en_US]</inputvalues>
+         <formula>ångstrom</formula>
+         <sql>ångstrom</sql>
+         <javascript>ångstrom</javascript>
+         <javascriptLp>ångstrom</javascriptLp>
+         <formulaNullAsNull>ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[idempotent, en_US]</inputvalues>
+         <formula>idempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>idempotent</javascript>
+         <javascriptLp>idempotent</javascriptLp>
+         <formulaNullAsNull>idempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ıdempotent, en_US]</inputvalues>
+         <formula>ıdempotent</formula>
+         <sql>ıdempotent</sql>
+         <javascript>ıdempotent</javascript>
+         <javascriptLp>ıdempotent</javascriptLp>
+         <formulaNullAsNull>ıdempotent</formulaNullAsNull>
+         <sqlNullAsNull>ıdempotent</sqlNullAsNull>
+         <javascriptNullAsNull>ıdempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ıdempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[IDEMPOTENT, en_US]</inputvalues>
+         <formula>idempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>idempotent</javascript>
+         <javascriptLp>idempotent</javascriptLp>
+         <formulaNullAsNull>idempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[İDEMPOTENT, en_US]</inputvalues>
+         <formula>i̇dempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>i̇dempotent</javascript>
+         <javascriptLp>i̇dempotent</javascriptLp>
+         <formulaNullAsNull>i̇dempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>i̇dempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>i̇dempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[﻿, tr_TR]</inputvalues>
+         <formula>﻿</formula>
+         <sql>﻿</sql>
+         <javascript>﻿</javascript>
+         <javascriptLp>﻿</javascriptLp>
+         <formulaNullAsNull>﻿</formulaNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
+         <javascriptNullAsNull>﻿</javascriptNullAsNull>
+         <javascriptLpNullAsNull>﻿</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CASES, tr_TR]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[cases, tr_TR]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CaSeS, tr_TR]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[große, tr_TR]</inputvalues>
+         <formula>große</formula>
+         <sql>große</sql>
+         <javascript>große</javascript>
+         <javascriptLp>große</javascriptLp>
+         <formulaNullAsNull>große</formulaNullAsNull>
+         <sqlNullAsNull>große</sqlNullAsNull>
+         <javascriptNullAsNull>große</javascriptNullAsNull>
+         <javascriptLpNullAsNull>große</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ångstrom, tr_TR]</inputvalues>
+         <formula>ångstrom</formula>
+         <sql>ångstrom</sql>
+         <javascript>ångstrom</javascript>
+         <javascriptLp>ångstrom</javascriptLp>
+         <formulaNullAsNull>ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ÅNGSTROM, tr_TR]</inputvalues>
+         <formula>ångstrom</formula>
+         <sql>ångstrom</sql>
+         <javascript>ångstrom</javascript>
+         <javascriptLp>ångstrom</javascriptLp>
+         <formulaNullAsNull>ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[idempotent, tr_TR]</inputvalues>
+         <formula>idempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>idempotent</javascript>
+         <javascriptLp>idempotent</javascriptLp>
+         <formulaNullAsNull>idempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ıdempotent, tr_TR]</inputvalues>
+         <formula>ıdempotent</formula>
+         <sql>ıdempotent</sql>
+         <javascript>ıdempotent</javascript>
+         <javascriptLp>ıdempotent</javascriptLp>
+         <formulaNullAsNull>ıdempotent</formulaNullAsNull>
+         <sqlNullAsNull>ıdempotent</sqlNullAsNull>
+         <javascriptNullAsNull>ıdempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ıdempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[IDEMPOTENT, tr_TR]</inputvalues>
+         <formula>ıdempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>ıdempotent</javascript>
+         <javascriptLp>ıdempotent</javascriptLp>
+         <formulaNullAsNull>ıdempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>ıdempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ıdempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[İDEMPOTENT, tr_TR]</inputvalues>
+         <formula>idempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>idempotent</javascript>
+         <javascriptLp>idempotent</javascriptLp>
+         <formulaNullAsNull>idempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CASES, tr]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[cases, tr]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CaSeS, tr]</inputvalues>
+         <formula>cases</formula>
+         <sql>cases</sql>
+         <javascript>cases</javascript>
+         <javascriptLp>cases</javascriptLp>
+         <formulaNullAsNull>cases</formulaNullAsNull>
+         <sqlNullAsNull>cases</sqlNullAsNull>
+         <javascriptNullAsNull>cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[große, tr]</inputvalues>
+         <formula>große</formula>
+         <sql>große</sql>
+         <javascript>große</javascript>
+         <javascriptLp>große</javascriptLp>
+         <formulaNullAsNull>große</formulaNullAsNull>
+         <sqlNullAsNull>große</sqlNullAsNull>
+         <javascriptNullAsNull>große</javascriptNullAsNull>
+         <javascriptLpNullAsNull>große</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ångstrom, tr]</inputvalues>
+         <formula>ångstrom</formula>
+         <sql>ångstrom</sql>
+         <javascript>ångstrom</javascript>
+         <javascriptLp>ångstrom</javascriptLp>
+         <formulaNullAsNull>ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ÅNGSTROM, tr]</inputvalues>
+         <formula>ångstrom</formula>
+         <sql>ångstrom</sql>
+         <javascript>ångstrom</javascript>
+         <javascriptLp>ångstrom</javascriptLp>
+         <formulaNullAsNull>ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[idempotent, tr]</inputvalues>
+         <formula>idempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>idempotent</javascript>
+         <javascriptLp>idempotent</javascriptLp>
+         <formulaNullAsNull>idempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ıdempotent, tr]</inputvalues>
+         <formula>ıdempotent</formula>
+         <sql>ıdempotent</sql>
+         <javascript>ıdempotent</javascript>
+         <javascriptLp>ıdempotent</javascriptLp>
+         <formulaNullAsNull>ıdempotent</formulaNullAsNull>
+         <sqlNullAsNull>ıdempotent</sqlNullAsNull>
+         <javascriptNullAsNull>ıdempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ıdempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[IDEMPOTENT, tr]</inputvalues>
+         <formula>ıdempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>ıdempotent</javascript>
+         <javascriptLp>ıdempotent</javascriptLp>
+         <formulaNullAsNull>ıdempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>ıdempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ıdempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[İDEMPOTENT, tr]</inputvalues>
+         <formula>idempotent</formula>
+         <sql>idempotent</sql>
+         <javascript>idempotent</javascript>
+         <javascriptLp>idempotent</javascriptLp>
+         <formulaNullAsNull>idempotent</formulaNullAsNull>
+         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>idempotent</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
