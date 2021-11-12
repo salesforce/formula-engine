@@ -54,7 +54,7 @@
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>300</formulaNullAsNull>
          <sqlNullAsNull>300.00000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>Error: TypeError: invokeMember (eq) on null failed due to: Message not supported.</javascriptNullAsNull>
+         <javascriptNullAsNull>Error: TypeError: Cannot read property 'eq' of null</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
@@ -76,7 +76,7 @@
          <javascriptLp>300</javascriptLp>
          <formulaNullAsNull>300</formulaNullAsNull>
          <sqlNullAsNull>300.00000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>Error: TypeError: invokeMember (eq) on null failed due to: Message not supported.</javascriptNullAsNull>
+         <javascriptNullAsNull>Error: TypeError: Cannot read property 'eq' of null</javascriptNullAsNull>
          <javascriptLpNullAsNull>300</javascriptLpNullAsNull>
       </result>
       <result>

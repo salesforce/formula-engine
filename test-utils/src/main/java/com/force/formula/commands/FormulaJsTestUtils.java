@@ -446,7 +446,7 @@ public class FormulaJsTestUtils {
             builder.allowNativeAccess(true);
             builder.allowIO(true);
             builder.option("js.intl-402", "true"); // Support now ubiquitous Intl object for formatcurrency and the like.
-
+            builder.option("engine.WarnInterpreterOnly", "false");  // Don't warn about being in openjdk with graaljs.
             context = builder.build();
 
             try {

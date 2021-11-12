@@ -21,7 +21,7 @@
          <javascriptLp>Fri Dec 31 11:32:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 11:32:00 GMT 2004</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: TypeError: invokeMember (toNumber) on null failed due to: Message not supported.</javascriptNullAsNull>
+         <javascriptNullAsNull>Error: TypeError: Cannot read property 'toNumber' of null</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Dec 31 11:32:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
