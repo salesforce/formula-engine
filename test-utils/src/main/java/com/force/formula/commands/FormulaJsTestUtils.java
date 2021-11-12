@@ -143,9 +143,9 @@ public class FormulaJsTestUtils {
 
                 // Note, these add months does what java does, but may not do what oracle/postgres does
                 
-                .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.floor(b));return new Date(d.getTime()-86400000);};");
+                .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));return new Date(d.getTime()-86400000);};");
                 // Use this if you want to support fractional dates
-        		//.append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.floor(b));d.setUTCDate(d.getUTCDate()+Math.floor((b%1)*365.24/12));return new Date(d.getTime()-86400000);};");
+        		//.append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));d.setUTCDate(d.getUTCDate()+Math.trunc((b%1)*365.24/12));return new Date(d.getTime()-86400000);};");
         return fContext.toString();
     }
 

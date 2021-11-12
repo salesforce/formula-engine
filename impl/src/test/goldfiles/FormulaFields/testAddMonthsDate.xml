@@ -135,16 +135,15 @@
          <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula Fri Dec 31 00:00:00 GMT 2004 does not equal viaJavascript Tue Nov 30 00:00:00 GMT 2004 -->
       <inputvalues>[2004:12:31:11:32:00, -0.50]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
          <sql>2004-12-31 00:00:00.0</sql>
-         <javascript>Tue Nov 30 00:00:00 GMT 2004</javascript>
-         <javascriptLp>Tue Nov 30 00:00:00 GMT 2004</javascriptLp>
+         <javascript>Fri Dec 31 00:00:00 GMT 2004</javascript>
+         <javascriptLp>Fri Dec 31 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
          <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
-         <javascriptNullAsNull>Tue Nov 30 00:00:00 GMT 2004</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Tue Nov 30 00:00:00 GMT 2004</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Fri Dec 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:29:07:34:00:GMT, -12.00]</inputvalues>
@@ -257,16 +256,15 @@
          <javascriptLpNullAsNull>Sun Feb 29 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula Sun Feb 29 00:00:00 GMT 2004 does not equal viaJavascript Sat Jan 31 00:00:00 GMT 2004 -->
       <inputvalues>[2004:02:29:07:34:00:GMT, -0.50]</inputvalues>
          <formula>Sun Feb 29 00:00:00 GMT 2004</formula>
          <sql>2004-02-29 00:00:00.0</sql>
-         <javascript>Sat Jan 31 00:00:00 GMT 2004</javascript>
-         <javascriptLp>Sat Jan 31 00:00:00 GMT 2004</javascriptLp>
+         <javascript>Sun Feb 29 00:00:00 GMT 2004</javascript>
+         <javascriptLp>Sun Feb 29 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Sun Feb 29 00:00:00 GMT 2004</formulaNullAsNull>
          <sqlNullAsNull>2004-02-29 00:00:00.0</sqlNullAsNull>
-         <javascriptNullAsNull>Sat Jan 31 00:00:00 GMT 2004</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Sat Jan 31 00:00:00 GMT 2004</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Sun Feb 29 00:00:00 GMT 2004</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Sun Feb 29 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:03:29:07:34:00:GMT, -12.00]</inputvalues>
@@ -380,16 +378,15 @@
          <javascriptLpNullAsNull>Mon Mar 29 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula Mon Mar 29 00:00:00 GMT 2004 does not equal viaJavascript Sun Feb 29 00:00:00 GMT 2004 -->
       <inputvalues>[2004:03:29:07:34:00:GMT, -0.50]</inputvalues>
          <formula>Mon Mar 29 00:00:00 GMT 2004</formula>
          <sql>2004-03-29 00:00:00.0</sql>
-         <javascript>Sun Feb 29 00:00:00 GMT 2004</javascript>
-         <javascriptLp>Sun Feb 29 00:00:00 GMT 2004</javascriptLp>
+         <javascript>Mon Mar 29 00:00:00 GMT 2004</javascript>
+         <javascriptLp>Mon Mar 29 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Mon Mar 29 00:00:00 GMT 2004</formulaNullAsNull>
          <sqlNullAsNull>2004-03-29 00:00:00.0</sqlNullAsNull>
-         <javascriptNullAsNull>Sun Feb 29 00:00:00 GMT 2004</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Sun Feb 29 00:00:00 GMT 2004</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Mon Mar 29 00:00:00 GMT 2004</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Mon Mar 29 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:03:30:07:34:00:GMT, -12.00]</inputvalues>
@@ -505,16 +502,15 @@
          <javascriptLpNullAsNull>Tue Mar 30 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula Tue Mar 30 00:00:00 GMT 2004 does not equal viaJavascript Mon Mar 01 00:00:00 GMT 2004 -->
       <inputvalues>[2004:03:30:07:34:00:GMT, -0.50]</inputvalues>
          <formula>Tue Mar 30 00:00:00 GMT 2004</formula>
          <sql>2004-03-30 00:00:00.0</sql>
-         <javascript>Mon Mar 01 00:00:00 GMT 2004</javascript>
-         <javascriptLp>Mon Mar 01 00:00:00 GMT 2004</javascriptLp>
+         <javascript>Tue Mar 30 00:00:00 GMT 2004</javascript>
+         <javascriptLp>Tue Mar 30 00:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Tue Mar 30 00:00:00 GMT 2004</formulaNullAsNull>
          <sqlNullAsNull>2004-03-30 00:00:00.0</sqlNullAsNull>
-         <javascriptNullAsNull>Mon Mar 01 00:00:00 GMT 2004</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Mon Mar 01 00:00:00 GMT 2004</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Tue Mar 30 00:00:00 GMT 2004</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Tue Mar 30 00:00:00 GMT 2004</javascriptLpNullAsNull>
       </result>
    </testInstance>
 </testCase>
