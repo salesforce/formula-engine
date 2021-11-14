@@ -2,12 +2,12 @@
 <testCase name="testLogUsesLen">
    <testInstance formula="Log(LEN(customtext1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>LOG(10, COALESCE(LENGTH($!s0s!$.customtext1__c),0))</Sql>
-       <Guard>COALESCE(LENGTH($!s0s!$.customtext1__c),0)&lt;=0</Guard>
+       <Sql>LOG(10, COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric)</Sql>
+       <Guard>COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>LOG(10, COALESCE(LENGTH($!s0s!$.customtext1__c),0))</Sql>
-       <Guard>COALESCE(LENGTH($!s0s!$.customtext1__c),0)&lt;=0</Guard>
+       <Sql>LOG(10, COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric)</Sql>
+       <Guard>COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric&lt;=0</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))).log(10)</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))).log(10)</JsOutput>

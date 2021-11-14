@@ -29,6 +29,9 @@ public class FunctionLen extends FormulaCommandInfoImpl {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         String sql = getSqlHooks(context).sqlNvl() + "(LENGTH(" + args[0] + "),0)";
+        if (context.getSqlStyle().isPostgresStyle()) {
+        	sql += "::numeric";    // Use numeric throughout the rest of the machinery.
+        }
         String guard = guards[0];
         return new SQLPair(sql, guard);
     }

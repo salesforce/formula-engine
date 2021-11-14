@@ -37,7 +37,7 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
         final String lhsString = wrapBoolean(args[0], lhs.getDataType(), lhs.getType());
         final String rhsString = wrapBoolean(args[1], rhs.getDataType(), rhs.getType());
 
-        String sql = compareBulk(lhsString, lhs.getType(), rhsString, rhs.getType(), treatAsString(node),
+        String sql = compareBulk(context, lhsString, lhs.getType(), rhsString, rhs.getType(), treatAsString(node),
             "<>".equals(getName()));
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
@@ -209,7 +209,7 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
         return Boolean.valueOf(result);
     }
 
-    public static String compareBulk(Object lhs, int lhsType, Object rhs, int rhsType, boolean treatAsString,
+    public static String compareBulk(FormulaContext context, Object lhs, int lhsType, Object rhs, int rhsType, boolean treatAsString,
             boolean negate) {
 
         if (treatAsString) {
@@ -217,16 +217,19 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
             // But we want to force the result to true or false so subsequent operations do
             // the right thing. This little beauty forces null to a value that is different than
             // the other side unless both are null. Cool eh? Note this relies on (null || 'x')
-            // being 'x'.
+            // being 'x'.  In postgres, it relied on concat(...)
+        	FormulaSqlHooks sqlHooks = (FormulaSqlHooks) context.getSqlStyle();
             Object saveRhs = rhs;
-            if (rhsType != FormulaTokenTypes.STRING_LITERAL)
-                rhs = "nvl(" + rhs + ", " + lhs + "||'x')";
-            else if ("''".equals(rhs))
-                rhs = lhs + "||'x'";
-            if (lhsType != FormulaTokenTypes.STRING_LITERAL)
-                lhs = "nvl(" + lhs + ", " + saveRhs + "||'x')";
-            else if ("''".equals(lhs))
-                lhs = saveRhs + "||'x'";
+            
+            if (rhsType != FormulaTokenTypes.STRING_LITERAL) {
+                rhs = sqlHooks.sqlNvl() + "(" + rhs + ", " + String.format(sqlHooks.sqlConcat(false), lhs,  "'x'") + ")";
+            } else if ("''".equals(rhs)) {
+                rhs = String.format(sqlHooks.sqlConcat(false), lhs,  "'x'");
+            } if (lhsType != FormulaTokenTypes.STRING_LITERAL) {
+                lhs = sqlHooks.sqlNvl() + "(" + lhs + ", " + String.format(sqlHooks.sqlConcat(false), saveRhs,  "'x'") + ")";
+            } else if ("''".equals(lhs)) {
+                lhs = String.format(sqlHooks.sqlConcat(false), saveRhs,  "'x'");
+            }
         }
         return "(" + lhs + (negate ? "<>" : "=") + rhs + ")";
     }

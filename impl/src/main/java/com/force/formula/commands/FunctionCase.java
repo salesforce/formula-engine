@@ -64,7 +64,7 @@ public class FunctionCase extends FormulaCommandInfoImpl implements FormulaComma
                     else
                         condition = FunctionIsPickVal.compareBulk(args[0], targets.get(i));
                 } else {
-                    condition = OperatorEquality.compareBulk(args[0], firstType, args[i], whenNode.getType(),
+                    condition = OperatorEquality.compareBulk(context, args[0], firstType, args[i], whenNode.getType(),
                             treatAsString, false);
                 }
                 valueNode = (FormulaAST)whenNode.getNextSibling();

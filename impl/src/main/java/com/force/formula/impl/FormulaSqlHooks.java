@@ -193,7 +193,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      */
     default String psqlSubtractTwoTimestamps() {
-        return "(EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))";
+        return "((EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))::numeric/86400)";
     } 
     
     
@@ -264,7 +264,19 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlToDateIso() {
 		return "TO_DATE(%s, 'YYYY-MM-DD')";
     }
-     
+    
+    
+    /**
+     * @return the function to use for getting the last day of the month of a date.
+     */
+    default String sqlLastDayOfMonth() {
+    	if (isPostgresStyle()) {
+    		return "EXTRACT(DAY FROM (date_trunc('month',%s)+ interval '1 month -1 day')::timestamp(0))::numeric";
+    	}
+		return "TO_CHAR(LAST_DAY(%s),'DD')";
+    }
+
+    
     /**
      * @return the format for converting to a datetime value
      * @param withSpaces whether spaces should be used around the "||" for compatibility
@@ -277,6 +289,35 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 		return withSpaces ? "%s || %s" : "%s||%s";
     }
 
+    /**
+     * @return the formula for finding a substring in a string and returning the "position" 1-indexed.
+     * In oracle and mysql, it's INSTR.
+     * @param strArg the value of the string to search in
+     * @param substrArg the value of the substring to search
+     */
+    default String sqlInstr2(String strArg, String substrArg) {
+    	if (isPostgresStyle()) {
+    		return String.format("STRPOS(%s, %s)", strArg, substrArg);
+    	}
+		return String.format("INSTR(%s, %s)", strArg, substrArg);
+    }
+    
+    
+    /**
+     * @return the formula for finding a substring in a string and returning the "position" 1-indexed.
+     * In oracle and mysql, it's INSTR.
+     * @param strArg the value of the string to search in
+     * @param substrArg the value of the substring to search
+     * @param startLocation the value of the start location to use as the offset (1-indexed)
+     */
+    default String sqlInstr3(String strArg, String substrArg, String startLocation) {
+    	if (isPostgresStyle()) {
+    		// This is unfortunate, as it has to reevaluate the subexpression twice in order to return 0 for not found.
+    		// If your postgresql has a better version of this, please use it instead.
+    		return String.format("CASE WHEN COALESCE(STRPOS(SUBSTR(%s,%s::integer),%s),0) > 0 THEN STRPOS(SUBSTR(%s,%s::integer),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
+    	}
+		return String.format("INSTR(%s, %s, %s)", strArg, substrArg, startLocation);
+    }
     
     /**
      * @param scale the number of digits to the right of the radix

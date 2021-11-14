@@ -2,11 +2,11 @@
 <testCase name="testIfContainsUsesTextArea">
    <testInstance formula="IF(CONTAINS(customtextarea1__c,customtext1__c),customcurrency1__c,custompercent1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (INSTR($!s0s!$.customtextarea1__c, $!s0s!$.customtext1__c) &gt;= 1)) THEN COALESCE($!s0s!$.customcurrency1__c, 0) ELSE COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) END</Sql>
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (STRPOS($!s0s!$.customtextarea1__c, $!s0s!$.customtext1__c) &gt;= 1)) THEN COALESCE($!s0s!$.customcurrency1__c, 0) ELSE COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (INSTR($!s0s!$.customtextarea1__c, $!s0s!$.customtext1__c) &gt;= 1)) THEN $!s0s!$.customcurrency1__c ELSE ($!s0s!$.custompercent1__c / 100.0) END</Sql>
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (STRPOS($!s0s!$.customtextarea1__c, $!s0s!$.customtext1__c) &gt;= 1)) THEN $!s0s!$.customcurrency1__c ELSE ($!s0s!$.custompercent1__c / 100.0) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">((!context.record.customtext1__c||(($F.nvl(context.record.customtextarea1__c,'')).indexOf(context.record.customtext1__c)&gt;=0))?$F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')):$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))</JsOutput>
@@ -16,121 +16,121 @@
       <result>
       <inputvalues>[Golden File, Gold, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>200.00000000000000000000000000000000</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Golden File, File, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>200.00000000000000000000000000000000</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Golden File, n F, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>200.00000000000000000000000000000000</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Golden File, gold, 200, 300]</inputvalues>
          <formula>3</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>3.00000000000000000000000000000000</sql>
          <javascript>3</javascript>
          <javascriptLp>3</javascriptLp>
          <formulaNullAsNull>3</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>3.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>3</javascriptNullAsNull>
          <javascriptLpNullAsNull>3</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Golden File, n f, 200, 300]</inputvalues>
          <formula>3</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>3.00000000000000000000000000000000</sql>
          <javascript>3</javascript>
          <javascriptLp>3</javascriptLp>
          <formulaNullAsNull>3</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>3.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>3</javascriptNullAsNull>
          <javascriptLpNullAsNull>3</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[This is a very long text and works very well with this type of test and works better with more department wise contract and @ this # this $ this % this ^ this &amp; this * this ( this ) this) this, contract, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>200.00000000000000000000000000000000</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[This is a very long text and works very well with this type of test and works better with more department wise contract and @ this # this $ this % this ^ this &amp; this * this ( this ) this) this, Works, 200, 300]</inputvalues>
          <formula>3</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>3.00000000000000000000000000000000</sql>
          <javascript>3</javascript>
          <javascriptLp>3</javascriptLp>
          <formulaNullAsNull>3</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>3.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>3</javascriptNullAsNull>
          <javascriptLpNullAsNull>3</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Hello World!, !, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>200.00000000000000000000000000000000</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Works Great and \&quot; and Works Greate Twoo \\, \\, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>200.00000000000000000000000000000000</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510 797 4647, 510 797 4647, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>200.00000000000000000000000000000000</sql>
          <javascript>200</javascript>
          <javascriptLp>200</javascriptLp>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>200</javascriptNullAsNull>
          <javascriptLpNullAsNull>200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[510-797-4647, 510 797 4647, 200, 300]</inputvalues>
          <formula>3</formula>
-         <sql>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sql>
+         <sql>3.00000000000000000000000000000000</sql>
          <javascript>3</javascript>
          <javascriptLp>3</javascriptLp>
          <formulaNullAsNull>3</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, text) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 56</sqlNullAsNull>
+         <sqlNullAsNull>3.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>3</javascriptNullAsNull>
          <javascriptLpNullAsNull>3</javascriptLpNullAsNull>
       </result>

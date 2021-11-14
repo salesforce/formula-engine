@@ -2,11 +2,11 @@
 <testCase name="testCeilUsesLen">
    <testInstance formula="CEILING(LEN(customtext1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN COALESCE(LENGTH($!s0s!$.customtext1__c),0)&gt;=0 THEN CEIL(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0),33)) ELSE FLOOR(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0),33)) END</Sql>
+       <Sql>CASE WHEN COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric&gt;=0 THEN CEIL(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric,33)) ELSE FLOOR(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric,33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN COALESCE(LENGTH($!s0s!$.customtext1__c),0)&gt;=0 THEN CEIL(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0),33)) ELSE FLOOR(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0),33)) END</Sql>
+       <Sql>CASE WHEN COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric&gt;=0 THEN CEIL(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric,33)) ELSE FLOOR(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric,33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).isPos()?(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).toDP(18).ceil():(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).toDP(18).floor())</JsOutput>

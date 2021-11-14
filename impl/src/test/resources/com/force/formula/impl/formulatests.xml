@@ -741,7 +741,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <!-- really dumb case... -->
      <testcase name="testIfNullNullIf" devName="testIfNullNullIf" labels="extended"
-         labelName="testIfNullNullIf" dataType="Text" scale="2"
+         labelName="testIfNullNullIf" dataType="Text" scale="2" whyIgnoreSql="Postgres incorrectly converts null to text for number comparison"
          dataFile="ifTextCompareReturnText" precision="12"
          code="if( if (customtext1__c=customtext2__c, null, null) = 0,  &quot;true&quot;, &quot;false&quot;)">
          <referencefield devName="customtext1" labelName="customtext1"

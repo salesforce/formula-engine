@@ -4,11 +4,11 @@
    <customformula0 dataType="ColumnType.DATETIME" formula="(customdatetime1__c+custompercent1__c)"/>
    <customformula1 dataType="ColumnType.DOUBLE" formula="(customdatetime2__c-customdatetime3__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>(((($!s0s!$.customdatetime1__c+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime3__c)), 0)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE(LENGTH($!s0s!$.customtext1__c),0)*86400))::timestamp(0)</Sql>
+       <Sql>(((($!s0s!$.customdatetime1__c+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE(((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime3__c))::numeric/86400), 0)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric*86400))::timestamp(0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(((($!s0s!$.customdatetime1__c+pg_catalog.make_interval(0,0,0,0,0,0,($!s0s!$.custompercent1__c / 100.0)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,($!s0s!$.custompercent2__c / 100.0)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,(EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime3__c))*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE(LENGTH($!s0s!$.customtext1__c),0)*86400))::timestamp(0)</Sql>
+       <Sql>(((($!s0s!$.customdatetime1__c+pg_catalog.make_interval(0,0,0,0,0,0,($!s0s!$.custompercent1__c / 100.0)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,($!s0s!$.custompercent2__c / 100.0)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime3__c))::numeric/86400)*86400))::timestamp(0)+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric*86400))::timestamp(0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0'))))*1000))!=null)?(new Date(new Date(new Date(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0'))))*1000)).getTime()+(Math.round(86400*($F.nvl((context.record.custompercent2__c!=null)?(context.record.custompercent2__c.div(100)):null,new $F.Decimal('0'))))*1000)).getTime()+(Math.round(86400*($F.nvl((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT')).getTime())/86400000)):null,new $F.Decimal('0'))))*1000)).getTime()+(Math.round(86400*((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))))*1000))):null</JsOutput>
@@ -18,11 +18,11 @@
       <result>
       <inputvalues>[3998:01:31:23:00:00, 200, 10, 3999:12:31:00:00:00, 3999:12:01:00:00:00, thisistext]</inputvalues>
          <formula>Sun Mar 15 01:24:00 GMT 3998</formula>
-         <sql>11094-10-10 01:24:00.0</sql>
+         <sql>3998-03-15 01:24:00.0</sql>
          <javascript>Sun Mar 15 01:24:00 GMT 3998</javascript>
          <javascriptLp>Sun Mar 15 01:24:00 GMT 3998</javascriptLp>
          <formulaNullAsNull>Sun Mar 15 01:24:00 GMT 3998</formulaNullAsNull>
-         <sqlNullAsNull>11094-10-10 01:24:00.0</sqlNullAsNull>
+         <sqlNullAsNull>3998-03-15 01:24:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Sun Mar 15 01:24:00 GMT 3998</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sun Mar 15 01:24:00 GMT 3998</javascriptLpNullAsNull>
       </result>
@@ -62,7 +62,7 @@
       <result>
       <inputvalues>[2004:12:31:23:00:00, , , 2004:11:31:24:00:00, 2004:12:31:14:00:00, flipping]</inputvalues>
          <formula>Fri Dec 10 09:00:00 GMT 2004</formula>
-         <sql>Error: ERROR: timestamp out of range</sql>
+         <sql>2004-12-10 09:00:00.0</sql>
          <javascript>Fri Dec 10 09:00:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 10 09:00:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
