@@ -10,37 +10,33 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.junit.runners.AllTests;
 import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
-import com.force.formula.impl.BaseFormulaGenericTests.DbTester;
 import com.force.formula.sql.EmbeddedPostgresqlTester;
 
 import junit.framework.TestSuite;
 
 /**
- * Contains ignored or bad tests for formulatests.xml
- * 
- * Some are ignored because of other issues.  Currently there are not ignored formula tests
- * 
+ * Contains non-extended math tests for formulatests.xml.
  * @author stamm
+ * @since 0.1.11
  */
 @RunWith(AllTests.class)
-@Ignore  // Yes, ignore them.
-public class TestIgnoredFormulas extends FormulaGenericTests {
+public class TestMathFormulas extends FormulaGenericTests {
 
-    public TestIgnoredFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
-        super("IgnoredFormulaTests");
+	
+    public TestMathFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
+        super("MathFormulaTests");
     }
 
     public static TestSuite suite()
     {
         try {
-            return new TestIgnoredFormulas("no");
+            return new TestMathFormulas("no");
         } catch (ParserConfigurationException | SAXException | IOException x) {
             throw new RuntimeException(x);
         }
@@ -48,16 +44,15 @@ public class TestIgnoredFormulas extends FormulaGenericTests {
 
     @Override
     protected boolean filterTests(FormulaTestCaseInfo testCase) {
-        return testCase.getTestLabels().contains("ignore") || testCase.getTestLabels().contains("badNashorn");
+        if (testCase.getTestLabels().contains("ignore")) return false;
+        return testCase.getTestLabels().contains("math");
     }
-
 
     @Override
     protected void setUpTest(BaseFormulaGenericTest test) {
         FormulaEngine.setHooks(new FieldTestFormulaValidationHooks());
         FormulaEngine.setFactory(BaseFieldReferenceTest.TEST_FACTORY);
     }
-
 
 	@Override
 	protected boolean shouldTestSql() {
@@ -68,4 +63,19 @@ public class TestIgnoredFormulas extends FormulaGenericTests {
 	protected DbTester constructDbTester() throws IOException {
 		return new EmbeddedPostgresqlTester();
 	}
+
+	@Override
+	protected boolean ignoreJavascriptValueMismatchInAutobuilds(String testName) {
+		if ("testISNUMBER".equals(testName)) {
+			// The javascript isNumber for ", " returns true, because javascript
+			return true;
+		}
+		if ("testVALUE".equals(testName)) {
+			// The javascript value for "+1" returns error,  because javascript
+			return true;
+		}
+		return false;
+	}
+
+    
 }

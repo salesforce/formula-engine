@@ -1,7 +1,6 @@
 package com.force.formula.util;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.math.*;
 
 import com.force.formula.util.BigDecimalHelper.FormulaPowerException;
 
@@ -22,6 +21,12 @@ public class BigDecimalHelperTest extends TestCase {
 		assertEquals(new BigDecimal("2.35"), BigDecimalHelper.round(new BigDecimal("2.34568"), 2));
 		assertEquals(new BigDecimal("2.35"), BigDecimalHelper.roundNumberToScale(2.34568d, 2));
 		assertEquals(new BigDecimal("2.35"), BigDecimalHelper.roundNumberToScale(2.34568f, 2));
+	}
+	
+	public void testRoundWithMode() throws Exception {
+		assertEquals(new BigDecimal("2.35"), BigDecimalHelper.round(new BigDecimal("2.34568"), 2, RoundingMode.HALF_UP));
+		assertEquals(new BigDecimal("2.34"), BigDecimalHelper.round(new BigDecimal("2.34568"), 2, RoundingMode.DOWN));
+		assertEquals(new BigDecimal("2.35"), BigDecimalHelper.round(new BigDecimal("2.35"), 2, RoundingMode.UP));
 	}
 
 	public void testIsNumber() throws Exception {

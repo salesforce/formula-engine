@@ -173,7 +173,7 @@ author: Srikanth Yendluri/Doug Chasman
      <!-- Found BUG ID: 64520 -http://bugforce.eng.salesforce.com/bug/bugDetail.jsp?id=100000000000I3w-->
      <testcase name="testAddSimple" devName="testAddSimple"
          labelName="testAddSimple" dataType="Double"
-         dataFile="twoNumericFields" scale="2"
+         dataFile="twoNumericFields" scale="2" labels="math"
          precision="12" code="(customnumber1__c+customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
@@ -200,7 +200,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddScale" devName="testAddScale"
          labelName="testAddScale" dataType="Double" dataFile="twoNumericFields"
-         swap="true" scale="4" precision="14"
+         swap="true" scale="4" precision="14" labels="math"
          code="(customnumber1__c+custompercent1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="4" precision="14"/>
@@ -458,7 +458,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testSubSimple" devName="testSubSimple"
          labelName="testSubSimple" dataType="Double"
-         dataFile="twoNumericFields" scale="2"
+         dataFile="twoNumericFields" scale="2" labels="math"
          precision="12" code="(customnumber1__c-customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
@@ -467,7 +467,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testSubUnary" devName="testSubUnary"
          labelName="testSubUnary" dataType="Double"
-         dataFile="oneNumericField" scale="2"
+         dataFile="oneNumericField" scale="2" labels="math"
          precision="12" code="-(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
@@ -563,7 +563,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testMultiplyWithExpr"
          devName="testMultiplyWithExpr" labelName="testMultiplyWithExpr"
-         dataType="Currency" dataFile="multiplyWithExpr" scale="2"
+         dataType="Currency" dataFile="multiplyWithExpr" scale="2" labels="math"
          precision="12" code="(customformula0__c*customnumber1__c)">
          <referencefield devName="customformula0" labelName="customformula0"
              dataType="Double" scale="2" precision="12"
@@ -786,7 +786,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Text" length="255"/>
      </testcase>
 
-     <testcase name="testIfNumCompareGreater"
+     <testcase name="testIfNumCompareGreater" labels="math"
          devName="testIfNumCompareGreater" labelName="testIfNumCompareGreater"
          dataType="Double" dataFile="ifCompare" scale="2" precision="12"
          code="IF((customnumber1__c&gt;customcurrency1__c),customcurrency2__c,customnumber2__c)">
@@ -1345,7 +1345,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testAbsUsesExp" devName="testAbsUsesExp"
+     <testcase name="testAbsUsesExp" devName="testAbsUsesExp" labels="math"
          labelName="testAbsUsesExp" dataType="Double" dataFile="expData"
          scale="2" precision="12" code="ABS(EXP(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1391,6 +1391,15 @@ author: Srikanth Yendluri/Doug Chasman
          labelName="testAbsUsesRound" dataType="Double" dataFile="roundData"
          scale="2" precision="12"
          code="ABS(ROUND(customnumber1__c,customnumber2__c))">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testAbsUsesTrunc" devName="testAbsUsesRound" labels="extended"
+         labelName="testAbsUsesTrunc" dataType="Double" dataFile="roundData"
+         scale="2" precision="12"
+         code="ABS(TRUNC(customnumber1__c,customnumber2__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
@@ -1466,7 +1475,7 @@ author: Srikanth Yendluri/Doug Chasman
      <!-- NOTES: TESTCASES FOR ROUND() FUNCTION -->
      <!-- simple testcases with pos and neg versions of same things....-->
      <testcase name="testRoundSimple"
-         devName="testRoundSimple" labelName="testRoundSimple"
+         devName="testRoundSimple" labelName="testRoundSimple" labels="math"
          dataType="Double" dataFile="roundData2" scale="4"
          precision="12" code="ROUND(customnumber1__c,customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1475,7 +1484,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="4" precision="12"/>
      </testcase>
      <testcase name="testRoundSwapTypes"
-         devName="testRoundSwapTypes" labelName="testRoundSwapTypes"
+         devName="testRoundSwapTypes" labelName="testRoundSwapTypes" labels="math"
          dataType="Double" dataFile="roundData" scale="2"
          precision="12" code="ROUND(customnumber1__c,customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1483,7 +1492,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testRoundUsesExp" devName="testRoundUsesExp" labels="extended"
+     <testcase name="testRoundUsesExp" devName="testRoundUsesExp" labels="math"
          labelName="testRoundUsesExp" dataType="Double" dataFile="roundUsesExp"
          scale="2" precision="12"
          code="ROUND(EXP(customnumber1__c),CEILING(customnumber2__c))">
@@ -1492,7 +1501,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testRoundUsesFloorAbs" devName="testRoundUsesFloorAbs" labels="extended"
+     <testcase name="testRoundUsesFloorAbs" devName="testRoundUsesFloorAbs" labels="math"
          labelName="testRoundUsesFloorAbs" dataType="Double"
          dataFile="roundData" scale="2" precision="12"
          code="ROUND(FLOOR(customnumber1__c),ABS(customnumber2__c))">
@@ -1501,7 +1510,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testRoundUsesLog" devName="testRoundUsesLog" labels="extended"
+     <testcase name="testRoundUsesLog" devName="testRoundUsesLog" labels="math"
          labelName="testRoundUsesLog" dataType="Double"
          dataFile="roundUsesLogLn" scale="2" precision="12"
          code="ROUND(LOG(customnumber1__c),customnumber2__c)">
@@ -1510,7 +1519,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testRoundUsesLn" devName="testRoundUsesLn" labels="extended"
+     <testcase name="testRoundUsesLn" devName="testRoundUsesLn" labels="math"
          labelName="testRoundUsesLn" dataType="Double"
          dataFile="roundUsesLogLn" scale="2" precision="12"
          code="ROUND(LN(customnumber1__c),customnumber2__c)">
@@ -1519,7 +1528,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testRoundUsesSqrt" devName="testRoundUsesSqrt" labels="extended"
+     <testcase name="testRoundUsesSqrt" devName="testRoundUsesSqrt" labels="math"
          labelName="testRoundUsesSqrt" dataType="Double" dataFile="roundData"
          scale="2" precision="12"
          code="ROUND(SQRT(customnumber1__c),customnumber2__c)">
@@ -1528,7 +1537,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testRoundUsesRoundMinus" devName="testRoundUsesRoundMinus" labels="extended"
+     <testcase name="testRoundUsesRoundMinus" devName="testRoundUsesRoundMinus" labels="math"
          labelName="testRoundUsesRoundMinus" dataType="Double" accuracyIssue="needHp"
          dataFile="fourNumericData" scale="2" precision="12"
          code="ROUND(ROUND(custompercent1__c,customnumber1__c),customformula1__c)">
@@ -1548,7 +1557,7 @@ author: Srikanth Yendluri/Doug Chasman
          </referencefield>
      </testcase>
      <!-- Huge negative rounding is an error without HP -->
-     <testcase name="testRoundUsesIf" devName="testRoundUsesIf" labels="extended"
+     <testcase name="testRoundUsesIf" devName="testRoundUsesIf" labels="math"
          labelName="testRoundUsesIf" dataType="Double" dataFile="ifUsesInfix"
          scale="2" precision="12" accuracyIssue="needHp"
          code="ROUND(IF(customcheckbox1__c,customnumber1__c,customnumber2__c),customnumber3__c)">
@@ -1561,8 +1570,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <!--  when this case is run with high precision it exceeds the size limit. Temporarily disabling -->
-     <testcase name="testRoundUsesCase" devName="testRoundUsesCase" labels="ignore"
+     <testcase name="testRoundUsesCase" devName="testRoundUsesCase"
          labelName="testRoundUsesCase" dataType="Double"
          dataFile="caseUsesCase" scale="2" precision="12"
          code="ROUND(CASE(customdate1__c,customdate2__c,customnumber1__c,customdate3__c,customnumber2__c,customnumber3__c),customformula1__c)">
@@ -1595,6 +1603,106 @@ author: Srikanth Yendluri/Doug Chasman
                  dataType="Double" scale="9" precision="18"/>
          </referencefield>
      </testcase>
+
+     <!-- NOTES: TESTCASES FOR TRUNC() FUNCTION -->
+     <!-- simple testcases with pos and neg versions of same things....-->
+     <testcase name="testTruncSimple"
+         devName="testTruncSimple" labelName="testTruncSimple" labels="math"
+         dataType="Double" dataFile="roundData2" scale="4"
+         precision="12" code="TRUNC(customnumber1__c,customnumber2__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="4" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="4" precision="12"/>
+     </testcase>
+     <testcase name="testTruncSwapTypes"
+         devName="testTruncSwapTypes" labelName="testTruncSwapTypes" labels="math"
+         dataType="Double" dataFile="roundData" scale="2"
+         precision="12" code="TRUNC(customnumber1__c,customnumber2__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testTruncUsesExp" devName="testTruncUsesExp" labels="math"
+         labelName="testTruncUsesExp" dataType="Double" dataFile="roundUsesExp"
+         scale="2" precision="12"
+         code="TRUNC(EXP(customnumber1__c),CEILING(customnumber2__c))">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testTruncUsesFloorAbs" devName="testTruncUsesFloorAbs" labels="math"
+         labelName="testTruncUsesFloorAbs" dataType="Double"
+         dataFile="roundData" scale="2" precision="12"
+         code="TRUNC(FLOOR(customnumber1__c),ABS(customnumber2__c))">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testTruncUsesLog" devName="testTruncUsesLog" labels="math"
+         labelName="testTruncUsesLog" dataType="Double"
+         dataFile="roundUsesLogLn" scale="2" precision="12"
+         code="TRUNC(LOG(customnumber1__c),customnumber2__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testTruncUsesLn" devName="testTruncUsesLn" labels="math"
+         labelName="testTruncUsesLn" dataType="Double"
+         dataFile="roundUsesLogLn" scale="2" precision="12"
+         code="TRUNC(LN(customnumber1__c),customnumber2__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testTruncUsesSqrt" devName="testTruncUsesSqrt" labels="math"
+         labelName="testTruncUsesSqrt" dataType="Double" dataFile="roundData"
+         scale="2" precision="12"
+         code="TRUNC(SQRT(customnumber1__c),customnumber2__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testTruncUsesTruncMinus" devName="testTruncUsesTruncMinus" labels="math"
+         labelName="testTruncUsesTruncMinus" dataType="Double" accuracyIssue="needHp"
+         dataFile="fourNumericData" scale="2" precision="12"
+         code="TRUNC(TRUNC(custompercent1__c,customnumber1__c),customformula1__c)">
+         <referencefield devName="custompercent1" labelName="custompercent1"
+             dataType="Percent" scale="2" precision="12"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customformula1" labelName="customformula1"
+             dataType="Double" scale="2" precision="12"
+             code="(customcurrency1__c-customcurrency2__c)">
+             <referencefield devName="customcurrency1"
+                 labelName="customcurrency1" dataType="Currency" scale="9"
+                 precision="18"/>
+             <referencefield devName="customcurrency2"
+                 labelName="customcurrency2" dataType="Currency" scale="9"
+                 precision="18"/>
+         </referencefield>
+     </testcase>
+     <!-- Huge negative truncing is an error without HP -->
+     <testcase name="testTruncUsesIf" devName="testTruncUsesIf" labels="math"
+         labelName="testTruncUsesIf" dataType="Double" dataFile="ifUsesInfix"
+         scale="2" precision="12" accuracyIssue="needHp"
+         code="TRUNC(IF(customcheckbox1__c,customnumber1__c,customnumber2__c),customnumber3__c)">
+         <referencefield devName="customcheckbox1" labelName="customcheckbox1"
+             dataType="Boolean" length="255"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber3" labelName="customnumber3"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+
 
      <!-- NOTES: TESTCASES FOR SQRT() FUNCTION -->
      <testcase name="testSqrtSwap" devName="testSqrtSwap" labels="extended"
@@ -1646,7 +1754,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customcurrency2" labelName="customcurrency2"
              dataType="Currency" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testSqrtUsesPlus" devName="testSqrtUsesPlus"
+     <testcase name="testSqrtUsesPlus" devName="testSqrtUsesPlus" labels="math"
          labelName="testSqrtUsesPlus" dataType="Double"
          dataFile="twoNumericFields" scale="2" precision="12"
          code="SQRT(customformula0__c)">
@@ -1701,43 +1809,43 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
      <!-- NOTES: TESTCASES FOR EXP() FUNCTION -->
-     <testcase name="testExpSimple" devName="testExpSimple"
+     <testcase name="testExpSimple" devName="testExpSimple" labels="math"
          labelName="testExpSimple" dataType="Double" dataFile="expData"
          scale="2" precision="12" code="EXP(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testExpUsesAbs" devName="testExpUsesAbs"
+     <testcase name="testExpUsesAbs" devName="testExpUsesAbs" labels="math"
          labelName="testExpUsesAbs" dataType="Double" dataFile="expData"
          scale="2" precision="12" code="EXP(ABS(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testExpUsesCeil" devName="testExpUsesCeil"
+     <testcase name="testExpUsesCeil" devName="testExpUsesCeil" labels="math"
          labelName="testExpUsesCeil" dataType="Double" dataFile="expData"
          scale="2" precision="12" code="EXP(CEILING(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testExpUsesFloor" devName="testExpUsesFloor"
+     <testcase name="testExpUsesFloor" devName="testExpUsesFloor" labels="math"
          labelName="testExpUsesFloor" dataType="Double" dataFile="expData"
          scale="2" precision="12" code="EXP(FLOOR(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testExpUsesLog" devName="testExpUsesLog"
+     <testcase name="testExpUsesLog" devName="testExpUsesLog" labels="math"
          labelName="testExpUsesLog" dataType="Double" dataFile="expData"
          scale="2" precision="12" code="EXP(LOG(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testExpUsesLn" devName="testExpUsesLn"
+     <testcase name="testExpUsesLn" devName="testExpUsesLn" labels="math"
          labelName="testExpUsesLn" dataType="Double" dataFile="lnLogData"
          scale="2" precision="12" code="ROUND(EXP(LN(customnumber1__c)), 0)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testExpUsesSqrt" devName="testExpUsesSqrt"
+     <testcase name="testExpUsesSqrt" devName="testExpUsesSqrt" labels="math"
          labelName="testExpUsesSqrt" dataType="Double" dataFile="sqrtData"
          scale="2" precision="12" code="EXP(SQRT(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1777,13 +1885,13 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
      </testcase>
-     <testcase name="testExpUsesValue" devName="testExpUsesValue"
+     <testcase name="testExpUsesValue" devName="testExpUsesValue" labels="math"
          labelName="testExpUsesValue" dataType="Double" dataFile="expData"
          scale="2" precision="12" code="EXP(VALUE(customtext1__c))">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
      </testcase>
-     <testcase name="testExpUsesMinus" devName="testExpUsesMinus"
+     <testcase name="testExpUsesMinus" devName="testExpUsesMinus" labels="math"
          labelName="testExpUsesMinus" dataType="Double" dataFile="roundUsesExp"
          scale="2" precision="12"
          code="EXP((custompercent1__c-customcurrency1__c))">
@@ -1792,7 +1900,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customcurrency1" labelName="customcurrency1"
              dataType="Currency" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testExpUsesPlus" devName="testExpUsesPlus"
+     <testcase name="testExpUsesPlus" devName="testExpUsesPlus" labels="math"
          labelName="testExpUsesPlus" dataType="Double" dataFile="roundUsesExp"
          scale="2" precision="12" code="EXP(customformula0__c)">
          <referencefield devName="customformula0" labelName="customformula0"
@@ -1807,19 +1915,19 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
      <!-- NOTES: TESTCASES FOR FLOOR() FUNCTION -->
-     <testcase name="testFloorSimple" devName="testFloorSimple"
+     <testcase name="testFloorSimple" devName="testFloorSimple" labels="math"
          labelName="testFloorSimple" dataType="Double" dataFile="fcData"
          scale="2" precision="12" code="FLOOR(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMFloorSimple" devName="testMFloorSimple"
+     <testcase name="testMFloorSimple" devName="testMFloorSimple" labels="math"
          labelName="testMFloorSimple" dataType="Double" dataFile="fcData"
          scale="2" precision="12" code="MFLOOR(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testFloorRound" devName="testFloorRound"  whyIgnoreSql="Psql precision differences"
+     <testcase name="testFloorRound" devName="testFloorRound" labels="math" whyIgnoreSql="Psql precision differences"
          labelName="testFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="FLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1840,7 +1948,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testFloorUsesCeil" devName="testFloorUsesCeil"
+     <testcase name="testFloorUsesCeil" devName="testFloorUsesCeil" labels="math"
          labelName="testFloorUsesCeil" dataType="Double" dataFile="fcData"
          scale="2" precision="12" code="FLOOR(CEILING(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1953,19 +2061,19 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
      <!-- NOTES: TESTCASES FOR CEIL() FUNCTION -->
-     <testcase name="testCeilSimple" devName="testCeilSimple"
+     <testcase name="testCeilSimple" devName="testCeilSimple" labels="math"
          labelName="testCeilSimple" dataType="Double" dataFile="fcData"
          scale="2" precision="12" code="CEILING(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMCeilSimple" devName="testMCeilSimple"
+     <testcase name="testMCeilSimple" devName="testMCeilSimple" labels="math"
          labelName="testMCeilSimple" dataType="Double" dataFile="fcData"
          scale="2" precision="12" code="MCEILING(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testCeilRound" devName="testCeilRound" whyIgnoreSql="Psql precision differences"
+     <testcase name="testCeilRound" devName="testCeilRound" labels="math" whyIgnoreSql="Psql precision differences"
          labelName="testCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="CEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1973,7 +2081,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMCeilRound" devName="testMCeilRound" whyIgnoreSql="Psql precision differences"
+     <testcase name="testMCeilRound" devName="testMCeilRound" labels="math" whyIgnoreSql="Psql precision differences"
          labelName="testMCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MCEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1981,7 +2089,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testCeilUsesAbs" devName="testCeilUsesAbs"
+     <testcase name="testCeilUsesAbs" devName="testCeilUsesAbs" labels="math"
          labelName="testCeilUsesAbs" dataType="Double" dataFile="absData"
          scale="2" precision="12" code="CEILING(ABS(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2099,7 +2207,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Currency" scale="2" precision="12"/>
      </testcase>
      <!-- Need high precision for this one due to .0000000001 -->
-     <testcase name="testCeilUsesPlus" devName="testCeilUsesPlus"
+     <testcase name="testCeilUsesPlus" devName="testCeilUsesPlus" labels="math"
          labelName="testCeilUsesPlus" dataType="Double" accuracyIssue="needHp"
          dataFile="twoNumericFields" scale="2" precision="12"
          code="CEILING((custompercent1__c+customnumber1__c))">
@@ -2110,7 +2218,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
      <!-- NOTES: TESTCASES FOR MOD() FUNCTION -->
-     <testcase name="testModSwapTypes" devName="testModSwapTypes"
+     <testcase name="testModSwapTypes" devName="testModSwapTypes" labels="math"
          labelName="testModSwapTypes" dataType="Double" dataFile="modData"
          scale="2" precision="12"
          code="MOD(customnumber1__c,customnumber2__c)" compareType="approximate" >
@@ -2119,7 +2227,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testModUsesExpCeil" devName="testModUsesExpCeil"
+     <testcase name="testModUsesExpCeil" devName="testModUsesExpCeil" labels="math"
          labelName="testModUsesExpCeil" dataType="Double"
          dataFile="modUsesExp" scale="2" precision="12"
          code="MOD(EXP(customnumber1__c),CEILING(customnumber2__c))">
@@ -2241,25 +2349,25 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
      <!-- NOTES: TESTCASES FOR LOG() FUNCTION -->
-     <testcase name="testLogSimple" devName="testLogSimple"
+     <testcase name="testLogSimple" devName="testLogSimple" labels="math"
          labelName="testLogSimple" dataType="Double" dataFile="lnLogData"
          scale="2" precision="12" code="Log(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testLogUsesAbs" devName="testLogUsesAbs"
+     <testcase name="testLogUsesAbs" devName="testLogUsesAbs" labels="math"
          labelName="testLogUsesAbs" dataType="Double" dataFile="absData"
          scale="2" precision="12" code="Log(ABS(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testLogUsesCeil" devName="testLogUsesCeil"
+     <testcase name="testLogUsesCeil" devName="testLogUsesCeil" labels="math"
          labelName="testLogUsesCeil" dataType="Double" dataFile="fcData"
          scale="2" precision="12" code="Log(CEILING(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testLogUsesMCeil" devName="testLogUsesMCeil"
+     <testcase name="testLogUsesMCeil" devName="testLogUsesMCeil" labels="math"
          labelName="testLogUsesMCeil" dataType="Double" dataFile="fcData"
          scale="2" precision="12" code="Log(MCEILING(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2366,7 +2474,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
      <!-- NOTES: TESTCASES FOR LN() FUNCTION -->
-     <testcase name="testLNSimple" devName="testLNSimple"
+     <testcase name="testLNSimple" devName="testLNSimple" labels="math"
          labelName="testLNSimple" dataType="Double" dataFile="lnLogData"
          scale="2" precision="12" code="LN(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2396,7 +2504,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testLNUsesLn" devName="testLNUsesLn"
+     <testcase name="testLNUsesLn" devName="testLNUsesLn" labels="math"
          labelName="testLNUsesLn" dataType="Double" dataFile="lnLogData"
          scale="2" precision="12" code="LN(LN(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2417,7 +2525,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testLNUsesMOD" devName="testLNUsesMOD"
+     <testcase name="testLNUsesMOD" devName="testLNUsesMOD" labels="math"
          labelName="testLNUsesMOD" dataType="Double" dataFile="modData"
          scale="2" precision="12"
          code="LN(MOD(customnumber1__c,customnumber2__c))">
@@ -2426,7 +2534,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testLNUsesIf" devName="testLNUsesIf"
+     <testcase name="testLNUsesIf" devName="testLNUsesIf" labels="math"
          labelName="testLNUsesIf" dataType="Double" dataFile="twoNumericFields"
          scale="2" precision="12"
          code="LN(IF(false,customnumber1__c,customnumber2__c))">
@@ -2435,7 +2543,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testLNUsesCase" devName="testLNUsesCase"
+     <testcase name="testLNUsesCase" devName="testLNUsesCase" labels="math"
          labelName="testLNUsesCase" dataType="Double"
          dataFile="caseCompareDateReturnNum" scale="2" precision="12"
          code="LN(CASE(customdate1__c,customdate2__c,customnumber1__c,customdate3__c,customnumber2__c,customnumber3__c))">
@@ -2452,14 +2560,14 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testLNUsesLen" devName="testLNUsesLen"
+     <testcase name="testLNUsesLen" devName="testLNUsesLen" labels="math"
          labelName="testLNUsesLen" dataType="Double"
          dataFile="singleTextFieldData" scale="2" precision="12"
          code="LN(LEN(customtext1__c))">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
      </testcase>
-     <testcase name="testLNUsesValue" devName="testLNUsesValue"
+     <testcase name="testLNUsesValue" devName="testLNUsesValue" labels="math"
          labelName="testLNUsesValue" dataType="Double" dataFile="expData"
          scale="2" precision="12" code="LN(VALUE(customtext1__c))">
          <referencefield devName="customtext1" labelName="customtext1"
@@ -2485,7 +2593,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
      <!-- Tests for BUG:  -->
-     <testcase name="testBigDivide" devName="testBigDivide"
+     <testcase name="testBigDivide" devName="testBigDivide" labels="math"
          labelName="testBigDivide" dataType="Double" dataFile="BigDivide"
          scale="2" precision="15"
          code="((customnumber1__c/customnumber2__c)*customnumber3__c)">
@@ -2496,7 +2604,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="18"/>
      </testcase>
-     <testcase name="testBigDivideWithFunc"
+     <testcase name="testBigDivideWithFunc" labels="math"
          devName="testBigDivideWithFunc" labelName="testBigDivideWithFunc"
          dataType="Double" dataFile="threeNumericFields" scale="2"
          precision="12"
@@ -2686,6 +2794,13 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="DateOnly" length="255"/>
          <referencefield devName="customdate2" labelName="customdate2"
              dataType="DateOnly" length="255"/>
+     </testcase>
+     <testcase name="testBVLWithDateFormulaNull" devName="testBVLWithDate"
+         labelName="testBVLWithDate" dataType="DateOnly"
+         length="1300" code="BLANKVALUE(customformula0__c,date(2000,1,1))">
+         <referencefield devName="customformula0" labelName="customformula0"
+             dataType="DateOnly" length="255"
+             code="NULL"/>
      </testcase>
      <testcase name="testBVLWithDateTime"
          devName="testBVLWithDateTime" labelName="testBVLWithDateTime"
@@ -3064,7 +3179,7 @@ author: Srikanth Yendluri/Doug Chasman
 
      <!-- TESTCASES for ISNUMBER() -->
      <!-- TODO SLT: Ignore because isNan('&dash;&dash;1234') is wrong in Nashorn.. Note the double dash is two - -->
-     <testcase name="testISNUMBER" devName="testISNUMBER" 
+     <testcase name="testISNUMBER" devName="testISNUMBER"
          labelName="testISNUMBER" dataType="Double" scale="2" dataFile="valueFunctionData"
          code="if(ISNUMBER(customtext1__c),1,0)">
          <referencefield devName="customtext1" labelName="customtext1"
@@ -3098,7 +3213,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
      <!-- simple exponentiation test cases -->
-     <testcase labels="basic" name="testExponentiationOperator"
+     <testcase labels="math" name="testExponentiationOperator"
          devName="testExponentiationOperator"
          labelName="testExponentiationOperator" dataType="Double"
          dataFile="twoNumericFields" precision="15" scale="3"
@@ -3161,7 +3276,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
 
-     <testcase name="testConstDoubleNegation" devName="testConstDoubleNegation"
+     <testcase name="testConstDoubleNegation" devName="testConstDoubleNegation" labels="math"
          labelName="testConstDoubleNegation" dataType="Double"
          dataFile="oneNumericField" scale="2"
          precision="12" code="customnumber__c -- 2 + customnumber__c - (2-4) + customnumber__c - (-2)">

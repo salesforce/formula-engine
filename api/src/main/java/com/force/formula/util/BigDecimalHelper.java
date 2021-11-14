@@ -53,6 +53,18 @@ public class BigDecimalHelper {
      * @return the value rounded, using special semantics for numbers close to 0 to avoid over rounding
      */
     public static BigDecimal round(BigDecimal value, int scale) {
+    	return round(value, scale, RoundingMode.HALF_UP);
+    }
+    
+    /**
+     * Used for Formula fields.  This is for backwards compatibility with some interesting behavior
+     * near zero.
+     * @param value the value to round
+     * @param scale  the scale to round to 
+     * @param mode the rounding mode to use when rounding
+     * @return the value rounded, using special semantics for numbers close to 0 to avoid over rounding
+     */
+    public static BigDecimal round(BigDecimal value, int scale, RoundingMode mode) {
         BigDecimal result = value.abs();
         if (result.compareTo(BigDecimal.ONE) < 0) {
             // Special handling for numbers < 1 is so that e.g. 0.003 rounds to 2 places as 0.00 instead of 0.0.
@@ -64,7 +76,7 @@ public class BigDecimalHelper {
                 // If we're rounding to 0 digits, result is just 0 -- BigDecimal.round leaves it unchanged
                 result = BigDecimal.ZERO;
             } else {
-                result = result.round(new MathContext(newPrec, RoundingMode.HALF_UP));
+                result = result.round(new MathContext(newPrec, mode));
                 result = result.subtract(BigDecimal.ONE, MC_PRECISION_INTERNAL);
                 if (value.signum() == -1) {
                     result = result.negate();
@@ -76,7 +88,7 @@ public class BigDecimalHelper {
                 // if we're rounding to 0 digits, result is just 0 -- BigDecimal.round leaves it unchanged
                 result = BigDecimal.ZERO;
             } else {
-                result = value.round(new MathContext(newPrec, RoundingMode.HALF_UP));
+                result = value.round(new MathContext(newPrec, mode));
             }
         }
         // W-1273499 In case when zero scale is passed and the result output has (precision - scale) > input's (precision - scale), the BigDecimal round returns exponential form,

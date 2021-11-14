@@ -40,7 +40,11 @@ public class FunctionNullValue extends FormulaCommandInfoImpl implements Formula
             sql = args[0];
             guard = guards[0];
         } else {
-            sql = getSqlHooks(context).sqlNvl() + "(" + args[0] + ", " + args[1] + ")";
+        	if (!"NULL".equalsIgnoreCase(args[0])) { 
+        		sql = getSqlHooks(context).sqlNvl() + "(" + args[0] + ", " + args[1] + ")";
+        	} else {
+        		sql = args[1]; // If args[0] is obviously NULL from a formula reference, optimize it away. 
+        	}
             guard = SQLPair.generateGuard(guards, null);
         }
         return new SQLPair(sql, guard);

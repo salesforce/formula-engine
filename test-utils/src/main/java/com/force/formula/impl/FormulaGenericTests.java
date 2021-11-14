@@ -308,7 +308,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				return null;
 			}
             if (hasErrorMessage(viaSql)) {
-                return null;
+            	return null;
             }
 			if (hasErrorMessage(viaJavascript) && !getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
 				if (nullIsNull) return null;
