@@ -11,10 +11,8 @@ import java.util.stream.Collectors;
 
 import com.force.formula.*;
 import com.force.formula.commands.*;
-import com.force.formula.impl.BeanFormulaContext.BeanEntity;
 import com.force.formula.impl.BeanFormulaContext.BeanFormulaType;
 import com.force.formula.template.commands.DynamicReference;
-import com.force.formula.util.FormulaFieldReferenceInfoImpl;
 import com.google.common.collect.*;
 
 /**
@@ -157,36 +155,8 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
 		@Override
         public List<FormulaFieldReferenceInfo> getFieldPath(ContextualFormulaFieldInfo formulaFieldInfo,
                 boolean handlePersonContact) {
-            List<FormulaFieldReferenceInfo> fieldPath = null;
-
-            FormulaContext currentContext = formulaFieldInfo.getFormulaContext();
-            FormulaContext parentContext = currentContext.getParentContext();
-            FormulaSchema.Entity domain = null;
-            while (parentContext != null) {
-                domain = domain == null ? (FormulaSchema.Entity) formulaFieldInfo.getFieldOrColumnInfo().getEntityInfo() : domain;
-                if (fieldPath == null) {
-                    fieldPath = new ArrayList<>();
-                }
-
-                // TODO SLT: This calls parent context in core because it stores the contexts diffrently.
-                if (!(parentContext instanceof BeanFormulaContext)) {
-                    break;
-                }
-                BeanEntity parentEntity = ((BeanFormulaContext)parentContext).getEntity();
-                FormulaSchema.Field parentFieldOrColumnInfo = parentEntity.getField(currentContext.getName());
-                fieldPath.add(new FormulaFieldReferenceInfoImpl(parentFieldOrColumnInfo, domain));
-
-                currentContext = parentContext;
-                parentContext = parentContext.getParentContext();
-                domain = parentFieldOrColumnInfo.getEntityInfo();
-            }
-
-            if (fieldPath != null) {
-                Collections.reverse(fieldPath);
-            }
-
-            return fieldPath;        
-         }
+			return BeanFormulaContext.getFieldPath(formulaFieldInfo, handlePersonContact);
+        }
 
 		@Override
 		public FormulaGeolocation constructGeolocation(Number latitude, Number longitude) {

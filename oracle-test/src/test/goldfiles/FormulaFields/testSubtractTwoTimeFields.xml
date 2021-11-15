@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubtractTwoTimeFields">
+   <testInstance formula="TimeValue(timeString2__c) - TimeValue(timeString1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000-TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000+86400000,86400000)</Sql>
+       <Guard> NOT REGEXP_LIKE ($!s0s!$.timeString1__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */  OR  NOT REGEXP_LIKE ($!s0s!$.timeString2__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */ </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000-TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000+86400000,86400000)</Sql>
+       <Guard> NOT REGEXP_LIKE ($!s0s!$.timeString1__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */  OR  NOT REGEXP_LIKE ($!s0s!$.timeString2__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */ </Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?((new $F.Decimal(new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000).mod(86400000))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?((new $F.Decimal(new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000).mod(86400000))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?(((new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000)%86400000)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?(((new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000)%86400000)):null</JsOutput>
+      <result>
+      <inputvalues>[10:34:55.666, 23:59:59.999]</inputvalues>
+         <formula>48304333</formula>
+         <sql>48304333</sql>
+         <formulaNullAsNull>48304333</formulaNullAsNull>
+         <sqlNullAsNull>48304333</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:59:59.999, 10:34:55.666]</inputvalues>
+         <formula>38095667</formula>
+         <sql>38095667</sql>
+         <formulaNullAsNull>38095667</formulaNullAsNull>
+         <sqlNullAsNull>38095667</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:56:45.898, 01:00:00.000]</inputvalues>
+         <formula>3794102</formula>
+         <sql>3794102</sql>
+         <formulaNullAsNull>3794102</formulaNullAsNull>
+         <sqlNullAsNull>3794102</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 23:56:45.898]</inputvalues>
+         <formula>82605898</formula>
+         <sql>82605898</sql>
+         <formulaNullAsNull>82605898</formulaNullAsNull>
+         <sqlNullAsNull>82605898</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.345, 00:00:29.245]</inputvalues>
+         <formula>86399900</formula>
+         <sql>86399900</sql>
+         <formulaNullAsNull>86399900</formulaNullAsNull>
+         <sqlNullAsNull>86399900</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.245, 00:00:29.345]</inputvalues>
+         <formula>100</formula>
+         <sql>100</sql>
+         <formulaNullAsNull>100</formulaNullAsNull>
+         <sqlNullAsNull>100</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:00.000, 01:00:00.000]</inputvalues>
+         <formula>3600000</formula>
+         <sql>3600000</sql>
+         <formulaNullAsNull>3600000</formulaNullAsNull>
+         <sqlNullAsNull>3600000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:00.000]</inputvalues>
+         <formula>82800000</formula>
+         <sql>82800000</sql>
+         <formulaNullAsNull>82800000</formulaNullAsNull>
+         <sqlNullAsNull>82800000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 01:00:00.000]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 01:66:29.345]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:66:29.345, 01:00:00.000]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

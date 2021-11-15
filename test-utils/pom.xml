@@ -42,9 +42,26 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <!-- Have embedded postgres be an option (if you don't want docker in docker) -->
 		<dependency>
 		    <groupId>io.zonky.test</groupId>
 		    <artifactId>embedded-postgres</artifactId>
+		    <optional>true</optional>
+		</dependency> 
+		<!-- Prepare tests for other dbs -->       
+		<dependency>
+   	        <groupId>org.testcontainers</groupId>
+	        <artifactId>postgresql</artifactId>
+		    <optional>true</optional>
+		</dependency>        
+		<dependency>
+   	        <groupId>org.testcontainers</groupId>
+	        <artifactId>mysql</artifactId>
+		    <optional>true</optional>
+		</dependency>        
+		<dependency>
+   	        <groupId>org.testcontainers</groupId>
+	        <artifactId>oracle-xe</artifactId>
 		    <optional>true</optional>
 		</dependency>        
   </dependencies>

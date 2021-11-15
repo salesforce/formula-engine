@@ -50,7 +50,7 @@ jobs:
     - name: Prepare Release
       id: release
       run: >
-          mvn -V -gs $GITHUB_WORKSPACE/generated-settings/settings.xml -B -P sign-artifacts -e release:clean release:prepare && 
+          mvn -V -gs $GITHUB_WORKSPACE/generated-settings/settings.xml -B -P sign-artifacts,db-tests -e release:clean release:prepare && 
           echo "::set-output name=RELEASED_VERSION::$(grep scm.tag= release.properties | cut -d'=' -f2 | cut -c2-)"
       env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
@@ -60,7 +60,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Perform Release
       run: >
-          mvn -gs $GITHUB_WORKSPACE/generated-settings/settings.xml -B -P sign-artifacts -e release:perform
+          mvn -gs $GITHUB_WORKSPACE/generated-settings/settings.xml -B -P sign-artifacts,db-tests -e release:perform
       env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}

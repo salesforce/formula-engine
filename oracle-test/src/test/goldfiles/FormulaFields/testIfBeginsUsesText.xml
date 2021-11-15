@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfBeginsUsesText">
+   <testInstance formula="IF(BEGINS(customtext1__c,customtext2__c),customnumber1__c,custompercent1__c)" returntype="Currency" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.customtext2__c IS NULL) OR (INSTR($!s0s!$.customtext1__c, $!s0s!$.customtext2__c) = 1)) THEN NVL($!s0s!$.customnumber1__c, 0) ELSE NVL(($!s0s!$.custompercent1__c / 100.0), 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.customtext2__c IS NULL) OR (INSTR($!s0s!$.customtext1__c, $!s0s!$.customtext2__c) = 1)) THEN $!s0s!$.customnumber1__c ELSE ($!s0s!$.custompercent1__c / 100.0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null&amp;&amp;context.record.customtext2__c!=null &amp;&amp; (!context.record.customtext2__c||context.record.customtext1__c.lastIndexOf($F.nvl(context.record.customtext2__c,''),0)===0)?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')):$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null&amp;&amp;context.record.customtext2__c!=null &amp;&amp; (!context.record.customtext2__c||context.record.customtext1__c.lastIndexOf($F.nvl(context.record.customtext2__c,''),0)===0)?context.record.customnumber1__c:(context.record.custompercent1__c!=null?(context.record.custompercent1__c.div(100)):null))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null&amp;&amp;context.record.customtext2__c!=null &amp;&amp; (!context.record.customtext2__c||context.record.customtext1__c.lastIndexOf($F.nvl(context.record.customtext2__c,''),0)===0)?$F.nvl(context.record.customnumber1__c,0):$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null&amp;&amp;context.record.customtext2__c!=null &amp;&amp; (!context.record.customtext2__c||context.record.customtext1__c.lastIndexOf($F.nvl(context.record.customtext2__c,''),0)===0)?context.record.customnumber1__c:(context.record.custompercent1__c!=null?(context.record.custompercent1__c/100.0):null))</JsOutput>
+      <result>
+      <inputvalues>[Golden File, File, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Golden File, n F, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Golden File, gold, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[This is a very long text and works very well with this type of test and works better with more department wise contract and @ this # this $ this % this ^ this &amp; this * this ( this ) this) this, This is a very long text and works very well with this type of test and works better with more department wise contract and @ this #, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[This is a very long text and works very well with this type of test and works better with more department wise contract and @ this # this $ this % this ^ this &amp; this * this ( this ) this) this, Nonexistant, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[!Hello World, !, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Hello World!, !, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[\\ Works Great and \&quot; and Works Greate Twoo, \\, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Works Great and \\ \&quot; and Works Greate Twoo, \\, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[510 797 4647, 510 797 4647, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[510-797-4647, 510 797 4647, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

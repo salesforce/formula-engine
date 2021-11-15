@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfUsesFalse">
+   <testInstance formula="IF(false,1,0)" returntype="Percent" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>0</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>0</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal('0')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new $F.Decimal('0')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">0</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">0</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

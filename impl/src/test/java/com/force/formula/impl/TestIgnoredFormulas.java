@@ -15,11 +15,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.AllTests;
 import org.xml.sax.SAXException;
 
-import com.force.formula.FormulaEngine;
-import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
-import com.force.formula.impl.BaseFormulaGenericTests.DbTester;
-import com.force.formula.sql.EmbeddedPostgresqlTester;
-
 import junit.framework.TestSuite;
 
 /**
@@ -31,7 +26,7 @@ import junit.framework.TestSuite;
  */
 @RunWith(AllTests.class)
 @Ignore  // Yes, ignore them.
-public class TestIgnoredFormulas extends FormulaGenericTests {
+public class TestIgnoredFormulas extends FormulaPostgresTests {
 
     public TestIgnoredFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
         super("IgnoredFormulaTests");
@@ -50,22 +45,4 @@ public class TestIgnoredFormulas extends FormulaGenericTests {
     protected boolean filterTests(FormulaTestCaseInfo testCase) {
         return testCase.getTestLabels().contains("ignore") || testCase.getTestLabels().contains("badNashorn");
     }
-
-
-    @Override
-    protected void setUpTest(BaseFormulaGenericTest test) {
-        FormulaEngine.setHooks(new FieldTestFormulaValidationHooks());
-        FormulaEngine.setFactory(BaseFieldReferenceTest.TEST_FACTORY);
-    }
-
-
-	@Override
-	protected boolean shouldTestSql() {
-		return true;
-	}
-
-	@Override
-	protected DbTester constructDbTester() throws IOException {
-		return new EmbeddedPostgresqlTester();
-	}
 }

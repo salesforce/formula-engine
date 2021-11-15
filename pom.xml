@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.salesforce.formula</groupId>
   <artifactId>formula-engine</artifactId>
@@ -12,33 +14,36 @@
   </description>
   <url>https://github.com/salesforce/formula-engine</url>
   <properties>
-        <guava.version>30.0-jre</guava.version>
-        <graalvm.version>21.3.0</graalvm.version>
-	    <embedded-postgres.version>1.3.1</embedded-postgres.version>
-        <javax.annotation.version>1.2</javax.annotation.version>
-        <!-- If the coverage threshold for a project is not met, the build will warn if false and fail if true -->
-        <coverage.failIfBelowThreshold>true</coverage.failIfBelowThreshold>
-        <!-- When true, the build will fail if there are no tests present in a project -->
-        <coverage.failIfNoTests>false</coverage.failIfNoTests>
-        <!-- Each project can override this threshold -->
-        <coverage.threshold>0.65</coverage.threshold>
-        <coverage.skip>false</coverage.skip>
-        <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
-        <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
-        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
-        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-        <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
-        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
-        <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
-        <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
+    <guava.version>30.0-jre</guava.version>
+    <graalvm.version>21.3.0</graalvm.version>
+    <embedded-postgres.version>1.3.1</embedded-postgres.version>
+    <testcontainers.version>1.16.2</testcontainers.version>
+    <javax.annotation.version>1.2</javax.annotation.version>
+    <!-- If the coverage threshold for a project is not met, the build will 
+      warn if false and fail if true -->
+    <coverage.failIfBelowThreshold>true</coverage.failIfBelowThreshold>
+    <!-- When true, the build will fail if there are no tests present in 
+      a project -->
+    <coverage.failIfNoTests>false</coverage.failIfNoTests>
+    <!-- Each project can override this threshold -->
+    <coverage.threshold>0.65</coverage.threshold>
+    <coverage.skip>false</coverage.skip>
+    <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
+    <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
+    <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
+    <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+    <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
+    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+    <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+    <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
+    <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
+    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+    <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
   </properties>
 
   <packaging>pom</packaging>
@@ -62,15 +67,15 @@
 
   <developers>
     <developer>
-        <name>Steven Tamm</name>
-        <roles>
-            <role>Member</role>
-        </roles>
-        <email>formula-engine-oss@salesforce.com </email>
-        <organization>Salesforce</organization>
+      <name>Steven Tamm</name>
+      <roles>
+        <role>Member</role>
+      </roles>
+      <email>formula-engine-oss@salesforce.com </email>
+      <organization>Salesforce</organization>
     </developer>
-  </developers>  
-  
+  </developers>
+
   <scm>
     <connection>scm:git:https://github.com/salesforce/formula-engine.git</connection>
     <developerConnection>scm:git:https://github.com/salesforce/formula-engine.git</developerConnection>
@@ -80,12 +85,13 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- This is an optional dependency because the groupId/versioning differs in open-source -->
+      <!-- This is an optional dependency because the groupId/versioning 
+        differs in open-source -->
       <dependency>
         <groupId>com.salesforce.grammaticus</groupId>
         <artifactId>grammaticus</artifactId>
         <version>1.0.0</version>
-	    <optional>true</optional>
+        <optional>true</optional>
       </dependency>
       <dependency>
         <groupId>org.antlr</groupId>
@@ -93,9 +99,9 @@
         <version>3.5.2</version>
       </dependency>
       <dependency>
-	<groupId>junit</groupId>
-	<artifactId>junit</artifactId>
-	<version>4.13.1</version>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.1</version>
       </dependency>
 
       <dependency>
@@ -103,31 +109,47 @@
         <artifactId>antlr4</artifactId>
         <version>4.5</version>
       </dependency>
-      
+
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>
       </dependency>
       <dependency>
-	<groupId>jakarta.xml.bind</groupId>
-	<artifactId>jakarta.xml.bind-api</artifactId>
-	<version>2.3.2</version>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>2.3.2</version>
       </dependency>
       <dependency>
         <groupId>javax.annotation</groupId>
         <artifactId>javax.annotation-api</artifactId>
         <version>${javax.annotation.version}</version>
       </dependency>
-      
-      <!--  Embedded postgres validation -->
-		<dependency>
-		    <groupId>io.zonky.test</groupId>
-		    <artifactId>embedded-postgres</artifactId>
-		    <version>${embedded-postgres.version}</version>
-		</dependency>
-		      
-      
+
+      <!-- Embedded postgres validation -->
+      <dependency>
+        <groupId>io.zonky.test</groupId>
+        <artifactId>embedded-postgres</artifactId>
+        <version>${embedded-postgres.version}</version>
+      </dependency>
+
+      <!-- Dockerized mysql validation -->
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>oracle-xe</artifactId>
+        <version>${testcontainers.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>mysql</artifactId>
+        <version>${testcontainers.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${testcontainers.version}</version>
+      </dependency>
+
       <!-- GraalJS impl -->
       <dependency>
         <groupId>org.graalvm.sdk</groupId>
@@ -143,7 +165,7 @@
         <groupId>org.graalvm.regex</groupId>
         <artifactId>regex</artifactId>
         <version>${graalvm.version}</version>
-      </dependency>      
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -204,11 +226,15 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven-javadoc-plugin.version}</version>
         <configuration>
-          <bottom>Copyright (c) 2004-2021, Salesforce.com, Inc. All rights reserved. Licensed under
-          the BSD 3-Clause license. For full license text, see the LICENSE.txt file in the
-          repository.
+          <bottom>Copyright (c) 2004-2021, Salesforce.com, Inc. All
+            rights
+            reserved. Licensed under
+            the BSD 3-Clause license. For full license
+            text, see the LICENSE.txt
+            file in the
+            repository.
           </bottom>
-          <additionalparam>-Xdoclint:none</additionalparam>
+          <doclint>none</doclint>
         </configuration>
         <executions>
           <execution>
@@ -306,7 +332,8 @@
         </configuration>
         <executions>
           <execution>
-            <!-- Prepares a property pointing to the JaCoCo runtime agent that can be passed as a VM argument to the application under test. -->
+            <!-- Prepares a property pointing to the JaCoCo runtime agent 
+              that can be passed as a VM argument to the application under test. -->
             <id>prepare unit test JaCoCo runtime agent property</id>
             <goals>
               <goal>prepare-agent</goal>
@@ -325,7 +352,8 @@
             </goals>
           </execution>
           <execution>
-            <!-- Verifies that code coverage thresholds are met, checking instruction coverage per bundle by default -->
+            <!-- Verifies that code coverage thresholds are met, checking 
+              instruction coverage per bundle by default -->
             <id>check code coverage threshold</id>
             <goals>
               <goal>check</goal>
@@ -351,94 +379,95 @@
     <profile>
       <id>Code Coverage</id>
       <activation>
-	<activeByDefault>false</activeByDefault>
-	<property>
-	  <name>coverage</name>
-	</property>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>coverage</name>
+        </property>
       </activation>
       <modules>
-	<module>coverage</module>
+        <module>coverage</module>
       </modules>
       <properties>
-	<coverage.skip>false</coverage.skip>
+        <coverage.skip>false</coverage.skip>
       </properties>
     </profile>
-    
+
     <!-- Include graaljs in the classpath on stock JDKs. -->
     <profile>
       <id>graaljs</id>
       <activation>
-	<file>
-	  <!-- This may not be the best way to prove non-graal -->
-	  <missing>${java.home}/../bin/gu</missing>
-	</file>
+        <file>
+          <!-- This may not be the best way to prove non-graal -->
+          <missing>${java.home}/../bin/gu</missing>
+        </file>
       </activation>
       <dependencies>
-	<!-- Reinclude these to get the transitive dependencies and compile scope -->
-	<dependency>
-	  <groupId>org.graalvm.sdk</groupId>
-	  <artifactId>graal-sdk</artifactId>
-	  <version>${graalvm.version}</version>
-	  <scope>compile</scope>
-	</dependency>
-	<dependency>
-	  <groupId>org.graalvm.js</groupId>
-	  <artifactId>js</artifactId>
-	  <version>${graalvm.version}</version>
-	  <scope>compile</scope>
-	</dependency>
-	<dependency>
-	  <groupId>org.graalvm.regex</groupId>
-	  <artifactId>regex</artifactId>
-	  <version>${graalvm.version}</version>
-	  <scope>compile</scope>
-	</dependency>
-	<dependency>
-	  <groupId>org.graalvm.truffle</groupId>
-	  <artifactId>truffle-api</artifactId>
-	  <version>${graalvm.version}</version>
-	  <scope>compile</scope>
-	</dependency>
+        <!-- Reinclude these to get the transitive dependencies and compile 
+          scope -->
+        <dependency>
+          <groupId>org.graalvm.sdk</groupId>
+          <artifactId>graal-sdk</artifactId>
+          <version>${graalvm.version}</version>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.graalvm.js</groupId>
+          <artifactId>js</artifactId>
+          <version>${graalvm.version}</version>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.graalvm.regex</groupId>
+          <artifactId>regex</artifactId>
+          <version>${graalvm.version}</version>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.graalvm.truffle</groupId>
+          <artifactId>truffle-api</artifactId>
+          <version>${graalvm.version}</version>
+          <scope>compile</scope>
+        </dependency>
       </dependencies>
     </profile>
-    
+
     <profile>
       <id>sign-artifacts</id>
       <distributionManagement>
-	<repository>
-	  <id>sonatype-nexus-staging</id>
-	  <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-	</repository>
-	<snapshotRepository>
-	  <id>sonatype-nexus-staging</id>
-	  <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-	</snapshotRepository>
+        <repository>
+          <id>sonatype-nexus-staging</id>
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+          <id>sonatype-nexus-staging</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
       </distributionManagement>
       <build>
-	<plugins>
+        <plugins>
           <!-- Sign the artifacts -->
-	  <plugin>
-	    <groupId>org.apache.maven.plugins</groupId>
-	    <artifactId>maven-gpg-plugin</artifactId>
-	    <version>1.6</version>
-	    <configuration>
-	      <!-- Prevent gpg from using pinentry programs -->
-	      <gpgArguments>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <configuration>
+              <!-- Prevent gpg from using pinentry programs -->
+              <gpgArguments>
                 <arg>--pinentry-mode</arg>
                 <arg>loopback</arg>
-	      </gpgArguments>
-	    </configuration>
-	    <executions>
-	      <execution>
+              </gpgArguments>
+            </configuration>
+            <executions>
+              <execution>
                 <id>sign-artifacts</id>
                 <goals>
                   <goal>sign</goal>
                 </goals>
                 <phase>verify</phase>
-	      </execution>
-	    </executions>
-	  </plugin>
-	</plugins>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
       </build>
     </profile>
 
@@ -469,19 +498,30 @@
         </plugins>
       </build>
     </profile>
+
+    <profile>
+      <id>db-tests</id>
+      <modules>
+        <module>api</module>
+        <module>impl</module>
+        <module>test-utils</module>
+        <module>oracle-test</module>
+        <module>docs/coverage</module>
+      </modules>
+    </profile>
   </profiles>
-  
+
   <reporting>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.1.1</version>
-	<configuration>
-	  <doclint>none</doclint>
-	</configuration>
+        <configuration>
+          <doclint>none</doclint>
+        </configuration>
       </plugin>
     </plugins>
   </reporting>
-  
+
 </project>

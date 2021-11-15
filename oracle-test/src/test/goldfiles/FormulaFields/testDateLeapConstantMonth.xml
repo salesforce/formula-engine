@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateLeapConstantMonth">
+   <testInstance formula="DATE(year__c,2,day__c)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE(TO_CHAR(FLOOR(NVL($!s0s!$.year__c, 0))) || '-' || 2 || '-' || TO_CHAR(FLOOR(NVL($!s0s!$.day__c, 0))), 'YYYY-MM-DD')</Sql>
+       <Guard>NVL($!s0s!$.year__c, 0) is null OR NVL($!s0s!$.year__c, 0)&lt; 1 OR NVL($!s0s!$.year__c, 0)&gt; 9999 OR NVL($!s0s!$.day__c, 0) is null OR NVL($!s0s!$.day__c, 0)&lt; 1 OR NVL($!s0s!$.day__c, 0) &gt;= 32 OR  NVL($!s0s!$.day__c, 0) &gt;= TO_CHAR(LAST_DAY(TO_DATE(FLOOR(NVL($!s0s!$.year__c, 0)) || '-' || 2,'YYYY-MM')),'DD')+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.year__c IS NULL THEN NULL WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE TO_DATE(TO_CHAR(FLOOR($!s0s!$.year__c)) || '-' || 2 || '-' || TO_CHAR(FLOOR($!s0s!$.day__c)), 'YYYY-MM-DD') END</Sql>
+       <Guard>NOT ($!s0s!$.year__c IS NULL OR $!s0s!$.day__c IS NULL ) AND ($!s0s!$.year__c is null OR $!s0s!$.year__c&lt; 1 OR $!s0s!$.year__c&gt; 9999 OR $!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR  $!s0s!$.day__c &gt;= TO_CHAR(LAST_DAY(TO_DATE(FLOOR($!s0s!$.year__c) || '-' || 2,'YYYY-MM')),'DD')+1 )</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,new $F.Decimal('0')).toNumber(),new $F.Decimal('2').toNumber()-1,$F.nvl(context.record.day__c,new $F.Decimal('0')).toNumber()))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.year__c!=null&amp;&amp;context.record.day__c!=null)?(new Date(Date.UTC(context.record.year__c.toNumber(),new $F.Decimal('2').toNumber()-1,context.record.day__c.toNumber()))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,0),2-1,$F.nvl(context.record.day__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.year__c!=null&amp;&amp;context.record.day__c!=null)?(new Date(Date.UTC(context.record.year__c,2-1,context.record.day__c))):null</JsOutput>
+      <result>
+      <inputvalues>[2001, 29]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2001, 28]</inputvalues>
+         <formula>Wed Feb 28 00:00:00 GMT 2001</formula>
+         <sql>2001-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Wed Feb 28 00:00:00 GMT 2001</formulaNullAsNull>
+         <sqlNullAsNull>2001-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012, 28]</inputvalues>
+         <formula>Tue Feb 28 00:00:00 GMT 2012</formula>
+         <sql>2012-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Tue Feb 28 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012, 29]</inputvalues>
+         <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>2012-02-29 00:00:00.0</sql>
+         <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-29 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2300, 29]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2300, 28]</inputvalues>
+         <formula>Wed Feb 28 00:00:00 GMT 2300</formula>
+         <sql>2300-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Wed Feb 28 00:00:00 GMT 2300</formulaNullAsNull>
+         <sqlNullAsNull>2300-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

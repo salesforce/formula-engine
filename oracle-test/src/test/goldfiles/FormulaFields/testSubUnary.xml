@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubUnary">
+   <testInstance formula="-(customnumber1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>(-NVL($!s0s!$.customnumber1__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(-$!s0s!$.customnumber1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).neg()</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(context.record.customnumber1__c.neg()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(-$F.nvl(context.record.customnumber1__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?((-context.record.customnumber1__c)):null</JsOutput>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24]</inputvalues>
+         <formula>-24</formula>
+         <sql>-24</sql>
+         <formulaNullAsNull>-24</formulaNullAsNull>
+         <sqlNullAsNull>-24</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.99]</inputvalues>
+         <formula>-0.99</formula>
+         <sql>-0.99</sql>
+         <formulaNullAsNull>-0.99</formulaNullAsNull>
+         <sqlNullAsNull>-0.99</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-24]</inputvalues>
+         <formula>24</formula>
+         <sql>24</sql>
+         <formulaNullAsNull>24</formulaNullAsNull>
+         <sqlNullAsNull>24</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

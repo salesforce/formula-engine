@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNVLWithPer">
+   <testInstance formula="NULLVALUE(custompercent1__c,customnumber1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>NVL(($!s0s!$.custompercent1__c / 100.0), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>NVL(($!s0s!$.custompercent1__c / 100.0), $!s0s!$.customnumber1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0'))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,context.record.customnumber1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,context.record.customnumber1__c)</JsOutput>
+      <result>
+      <inputvalues>[10, 10]</inputvalues>
+         <formula>0.1</formula>
+         <sql>0.1</sql>
+         <formulaNullAsNull>0.1</formulaNullAsNull>
+         <sqlNullAsNull>0.1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 10]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>10</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, ]</inputvalues>
+         <formula>0.1</formula>
+         <sql>0.1</sql>
+         <formulaNullAsNull>0.1</formulaNullAsNull>
+         <sqlNullAsNull>0.1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0000009, 10]</inputvalues>
+         <formula>0.000000009</formula>
+         <sql>0.000000009</sql>
+         <formulaNullAsNull>0.000000009</formulaNullAsNull>
+         <sqlNullAsNull>0.000000009</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, 10]</inputvalues>
+         <formula>-0.01</formula>
+         <sql>-0.01</sql>
+         <formulaNullAsNull>-0.01</formulaNullAsNull>
+         <sqlNullAsNull>-0.01</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0.0009]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0009</formulaNullAsNull>
+         <sqlNullAsNull>0.0009</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 10]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, 4]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0.0]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0.0000000]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0000000</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 10.1234]</inputvalues>
+         <formula>0.01</formula>
+         <sql>0.01</sql>
+         <formulaNullAsNull>0.01</formulaNullAsNull>
+         <sqlNullAsNull>0.01</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10.1234, 1]</inputvalues>
+         <formula>0.101234</formula>
+         <sql>0.101234</sql>
+         <formulaNullAsNull>0.101234</formulaNullAsNull>
+         <sqlNullAsNull>0.101234</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

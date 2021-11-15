@@ -209,7 +209,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         // so that is not allowed for Oracle
     	//return "REGEXP_SUBSTR("+stringArg+",'.{0,'||NVL2("+countArg+",CASE WHEN "+countArg+"<0 THEN 0 ELSE "+countArg+" END,0)||'}$',1,1,'n')"; 
     	if (isOracleStyle()) {
-            return "REGEXP_SUBSTR(%s,'.{0,'||NVL(%s,0)||'}$',1,1,'n')";
+            return "REGEXP_SUBSTR("+stringArg+",'.{0,'||NVL("+countArg+",0)||'}$',1,1,'n')";
     	}
         return "RIGHT(" + stringArg + ", GREATEST(" + countArg+ ", 0)::integer)";
     }
@@ -478,7 +478,18 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	return argument;
     }
 
-    
+    /**
+     * Formulas are usually numeric, but some functions, like round or trunc, return an integer that may
+     * cause type cast issues
+     * @param argument argument that's in an integer
+     * @return the argument converted from an integer to numeric for use
+     */
+    default String sqlMakeDecimal(String argument) {
+    	if (isPostgresStyle()) {
+    		return argument + "::numeric";
+    	}
+    	return argument;
+    }
     
     /**
      * Default implementation of SqlStyles.  If you want to override any of the sql  functions here, override

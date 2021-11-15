@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfUsesTrue">
+   <testInstance formula="IF(true,1,0)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>1</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>1</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal('1')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new $F.Decimal('1')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">1</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">1</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

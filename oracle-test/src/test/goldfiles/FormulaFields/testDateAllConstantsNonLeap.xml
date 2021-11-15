@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateAllConstantsNonLeap">
+   <testInstance formula="DATE(2011,2,29)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE(2011 || '-' || 2 || '-' || 29, 'YYYY-MM-DD')</Sql>
+       <Guard>1=1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(2011 || '-' || 2 || '-' || 29, 'YYYY-MM-DD')</Sql>
+       <Guard>1=1</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC(new $F.Decimal('2011').toNumber(),new $F.Decimal('2').toNumber()-1,new $F.Decimal('29').toNumber()))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new Date(Date.UTC(new $F.Decimal('2011').toNumber(),new $F.Decimal('2').toNumber()-1,new $F.Decimal('29').toNumber()))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC(2011,2-1,29))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">new Date(Date.UTC(2011,2-1,29))</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISNULLWithTextArea">
+   <testInstance formula="if(isnull(customtextarea1__c),null,customtext1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customtext1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customtext1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">context.record.customtext1__c</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">context.record.customtext1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">context.record.customtext1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">context.record.customtext1__c</JsOutput>
+      <result>
+      <inputvalues>[Has it,  Not Null]</inputvalues>
+         <formula> Not Null</formula>
+         <sql> Not Null</sql>
+         <formulaNullAsNull> Not Null</formulaNullAsNull>
+         <sqlNullAsNull> Not Null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[,  Is Null]</inputvalues>
+         <formula> Is Null</formula>
+         <sql> Is Null</sql>
+         <formulaNullAsNull> Is Null</formulaNullAsNull>
+         <sqlNullAsNull> Is Null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Has It, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[I, Not Null]</inputvalues>
+         <formula>Not Null</formula>
+         <sql>Not Null</sql>
+         <formulaNullAsNull>Not Null</formulaNullAsNull>
+         <sqlNullAsNull>Not Null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

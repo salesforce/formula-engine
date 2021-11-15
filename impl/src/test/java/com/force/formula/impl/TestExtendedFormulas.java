@@ -14,10 +14,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.AllTests;
 import org.xml.sax.SAXException;
 
-import com.force.formula.FormulaEngine;
-import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
-import com.force.formula.sql.EmbeddedPostgresqlTester;
-
 import junit.framework.TestSuite;
 
 /**
@@ -26,7 +22,7 @@ import junit.framework.TestSuite;
  * @since 0.2
  */
 @RunWith(AllTests.class)
-public class TestExtendedFormulas extends FormulaGenericTests {
+public class TestExtendedFormulas extends FormulaPostgresTests {
 
     public TestExtendedFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
         super("ExtendedFormulaTests");
@@ -46,24 +42,6 @@ public class TestExtendedFormulas extends FormulaGenericTests {
         return testCase.getTestLabels().contains("extended");
     }
     
-
-    @Override
-    protected void setUpTest(BaseFormulaGenericTest test) {
-        FormulaEngine.setHooks(new FieldTestFormulaValidationHooks());
-        FormulaEngine.setFactory(BaseFieldReferenceTest.TEST_FACTORY);
-    }
-
-
-	@Override
-	protected boolean shouldTestSql() {
-		return true;
-	}
-
-	@Override
-	protected DbTester constructDbTester() throws IOException {
-		return new EmbeddedPostgresqlTester();
-	}
-	
 	@Override
 	protected boolean ignoreJavascriptValueMismatchInAutobuilds(String testName) {
 		if ("testDistance".equals(testName)) {

@@ -3,8 +3,10 @@
     <artifactId>formula-engine-impl</artifactId>
     <name>Formula Engine Impl</name>
     <description>
-    The api to the formula engine, with the minimum objects needed
-  </description>
+      The implementation to the formula engine, with all the basics to implement
+      spreadsheet style formulas and convert them to use in java, javascript, and
+      multiple sql databases.
+    </description>
 
     <parent>
         <groupId>com.salesforce.formula</groupId>
@@ -50,6 +52,11 @@
 		<dependency>
 		    <groupId>io.zonky.test</groupId>
 		    <artifactId>embedded-postgres</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.testcontainers</groupId>
+		    <artifactId>postgresql</artifactId>
 			<scope>test</scope>
 		</dependency>
 	    <dependency>
@@ -113,6 +120,21 @@
                     </execution>
                 </executions>
             </plugin>
+          
+          <!-- Create a test jar for use in db-test modules -->  
+          <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-jar-plugin</artifactId>
+	        <version>${maven-jar-plugin.version}</version>
+	        <executions>
+	          <execution>
+	            <goals>
+	              <goal>test-jar</goal>
+	            </goals>
+	          </execution>
+	        </executions>
+	      </plugin>	    
+            
             <!-- Run impl tests in parallel
 
                  Command below will run only one test. 
@@ -156,6 +178,8 @@
 	      </executions>
 	    </plugin>
 	    -->
+	    
+
         </plugins>
     </build>
 </project>
