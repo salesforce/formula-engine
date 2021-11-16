@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCase name="testRoundUsesSqrt">
-   <testInstance formula="ROUND(SQRT(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
+<testCase name="testTruncUsesSqrt">
+   <testInstance formula="TRUNC(SQRT(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>ROUND(SQRT(COALESCE($!s0s!$.customnumber1__c, 0)), COALESCE($!s0s!$.customnumber2__c, 0)::integer)</Sql>
+       <Sql>TRUNC(SQRT(COALESCE($!s0s!$.customnumber1__c, 0)), COALESCE($!s0s!$.customnumber2__c, 0)::integer)</Sql>
        <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>ROUND(SQRT($!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c::integer)</Sql>
+       <Sql>TRUNC(SQRT($!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c::integer)</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">($F.Decimal.sqrt($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))).mul('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0)).round().div('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(($F.Decimal.sqrt(context.record.customnumber1__c)).mul('1e'+context.record.customnumber2__c.toFixed(0)).round().div('1e'+context.record.customnumber2__c.toFixed(0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">($F.nvl(context.record.customnumber2__c,0)&gt;0)?Number(Number(Math.sqrt($F.nvl(context.record.customnumber1__c,0))).toFixed($F.nvl(context.record.customnumber2__c,0)&lt;=20?$F.nvl(context.record.customnumber2__c,0):20)):Math.round((Math.sqrt($F.nvl(context.record.customnumber1__c,0)))*('1e'+$F.nvl(context.record.customnumber2__c,0)))/('1e'+$F.nvl(context.record.customnumber2__c,0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?((context.record.customnumber2__c&gt;0)?Number(Number(Math.sqrt(context.record.customnumber1__c)).toFixed(context.record.customnumber2__c&lt;=20?context.record.customnumber2__c:20)):Math.round((Math.sqrt(context.record.customnumber1__c))*('1e'+context.record.customnumber2__c))/('1e'+context.record.customnumber2__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="false">($F.Decimal.sqrt($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))).mul('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0)).trunc().div('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(($F.Decimal.sqrt(context.record.customnumber1__c)).mul('1e'+context.record.customnumber2__c.toFixed(0)).trunc().div('1e'+context.record.customnumber2__c.toFixed(0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.trunc((Math.sqrt($F.nvl(context.record.customnumber1__c,0)))*('1e'+$F.nvl(context.record.customnumber2__c,0)))/('1e'+$F.nvl(context.record.customnumber2__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(Math.trunc((Math.sqrt(context.record.customnumber1__c))*('1e'+context.record.customnumber2__c))/('1e'+context.record.customnumber2__c)):null</JsOutput>
       <result>
       <inputvalues>[0, 0]</inputvalues>
          <formula>0</formula>
@@ -37,14 +37,14 @@
       </result>
       <result>
       <inputvalues>[20.12345,  2]</inputvalues>
-         <formula>4.49</formula>
-         <sql>4.49000000000000000000000000000000</sql>
-         <javascript>4.49</javascript>
-         <javascriptLp>4.49</javascriptLp>
-         <formulaNullAsNull>4.49</formulaNullAsNull>
-         <sqlNullAsNull>4.49000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>4.49</javascriptNullAsNull>
-         <javascriptLpNullAsNull>4.49</javascriptLpNullAsNull>
+         <formula>4.48</formula>
+         <sql>4.48000000000000000000000000000000</sql>
+         <javascript>4.48</javascript>
+         <javascriptLp>4.48</javascriptLp>
+         <formulaNullAsNull>4.48</formulaNullAsNull>
+         <sqlNullAsNull>4.48000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>4.48</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4.48</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[20.123444, 4]</inputvalues>
@@ -136,14 +136,14 @@
       </result>
       <result>
       <inputvalues>[46,  0]</inputvalues>
-         <formula>7</formula>
-         <sql>7.00000000000000000000000000000000</sql>
-         <javascript>7</javascript>
-         <javascriptLp>7</javascriptLp>
-         <formulaNullAsNull>7</formulaNullAsNull>
-         <sqlNullAsNull>7.00000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>7</javascriptNullAsNull>
-         <javascriptLpNullAsNull>7</javascriptLpNullAsNull>
+         <formula>6</formula>
+         <sql>6.00000000000000000000000000000000</sql>
+         <javascript>6</javascript>
+         <javascriptLp>6</javascriptLp>
+         <formulaNullAsNull>6</formulaNullAsNull>
+         <sqlNullAsNull>6.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>6</javascriptNullAsNull>
+         <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[-0, 2]</inputvalues>

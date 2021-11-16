@@ -424,6 +424,18 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         }
         */
     }
+    
+    /**
+     * Formulas are usually numeric, but some functions, like round or trunc, require a cast to ::int in postgres
+     * @param argument scale argument
+     * @return the argument converted to an integer for rounding
+     */
+    default String sqlRoundScaleArg(String argument) {
+    	if (isPostgresStyle()) {
+    		return argument + "::integer";
+    	}
+    	return argument;
+    }
 
     
     
