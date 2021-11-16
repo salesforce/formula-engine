@@ -14,6 +14,10 @@
     <version>0.1.11-SNAPSHOT</version>
   </parent>
 
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.salesforce.formula</groupId>
