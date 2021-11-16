@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMillisecWithValidString">
+   <testInstance formula="MilliSecond(TIMEVALUE(&quot;10:40:55.666&quot;))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>666</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>666</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal('666')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new $F.Decimal('666')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">666</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">666</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>666</formula>
+         <sql>666</sql>
+         <formulaNullAsNull>666</formulaNullAsNull>
+         <sqlNullAsNull>666</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

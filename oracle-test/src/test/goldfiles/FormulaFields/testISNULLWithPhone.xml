@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISNULLWithPhone">
+   <testInstance formula="if(isnull(customphone1__c),null,customtextarea1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customtextarea1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customtextarea1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">context.record.customtextarea1__c</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">context.record.customtextarea1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">context.record.customtextarea1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">context.record.customtextarea1__c</JsOutput>
+      <result>
+      <inputvalues>[510-595-4547, Not Null]</inputvalues>
+         <formula>Not Null</formula>
+         <sql>Not Null</sql>
+         <formulaNullAsNull>Not Null</formulaNullAsNull>
+         <sqlNullAsNull>Not Null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1234567892, Not Null]</inputvalues>
+         <formula>Not Null</formula>
+         <sql>Not Null</sql>
+         <formulaNullAsNull>Not Null</formulaNullAsNull>
+         <sqlNullAsNull>Not Null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[011-91-40-23750513, Not Null]</inputvalues>
+         <formula>Not Null</formula>
+         <sql>Not Null</sql>
+         <formulaNullAsNull>Not Null</formulaNullAsNull>
+         <sqlNullAsNull>Not Null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, Is Null]</inputvalues>
+         <formula>Is Null</formula>
+         <sql>Is Null</sql>
+         <formulaNullAsNull>Is Null</formulaNullAsNull>
+         <sqlNullAsNull>Is Null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[email@email.com, Not Null]</inputvalues>
+         <formula>Not Null</formula>
+         <sql>Not Null</sql>
+         <formulaNullAsNull>Not Null</formulaNullAsNull>
+         <sqlNullAsNull>Not Null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23457699 x233,  Not Null]</inputvalues>
+         <formula> Not Null</formula>
+         <sql> Not Null</sql>
+         <formulaNullAsNull> Not Null</formulaNullAsNull>
+         <sqlNullAsNull> Not Null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

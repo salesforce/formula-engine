@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutionException;
 
 import com.force.formula.*;
 import com.force.formula.FormulaSchema.Entity;
+import com.force.formula.util.FormulaFieldReferenceInfoImpl;
 import com.google.common.cache.*;
 import com.google.common.collect.ImmutableMap;
 
@@ -271,4 +272,44 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
             return MockFormulaDataType.ENTITYID;
         }
     }
+    
+    /**
+     * Helper method for getting the fieldPath in implementations of 
+     * FormulaValidationHooks.getFieldPath
+     * @param formulaFieldInfo the field to get the path of
+     * @param handlePersonContact SFDC specific implementation
+     * @return the list of field references to traverse to get to the fieldInfo
+     */
+    public static List<FormulaFieldReferenceInfo> getFieldPath(ContextualFormulaFieldInfo formulaFieldInfo,
+            boolean handlePersonContact) {
+        List<FormulaFieldReferenceInfo> fieldPath = null;
+
+        FormulaContext currentContext = formulaFieldInfo.getFormulaContext();
+        FormulaContext parentContext = currentContext.getParentContext();
+        FormulaSchema.Entity domain = null;
+        while (parentContext != null) {
+            domain = domain == null ? (FormulaSchema.Entity) formulaFieldInfo.getFieldOrColumnInfo().getEntityInfo() : domain;
+            if (fieldPath == null) {
+                fieldPath = new ArrayList<>();
+            }
+
+            // TODO SLT: This calls parent context in core because it stores the contexts diffrently.
+            if (!(parentContext instanceof BeanFormulaContext)) {
+                break;
+            }
+            BeanEntity parentEntity = ((BeanFormulaContext)parentContext).getEntity();
+            FormulaSchema.Field parentFieldOrColumnInfo = parentEntity.getField(currentContext.getName());
+            fieldPath.add(new FormulaFieldReferenceInfoImpl(parentFieldOrColumnInfo, domain));
+
+            currentContext = parentContext;
+            parentContext = parentContext.getParentContext();
+            domain = parentFieldOrColumnInfo.getEntityInfo();
+        }
+
+        if (fieldPath != null) {
+            Collections.reverse(fieldPath);
+        }
+
+        return fieldPath;        
+     }
 }

@@ -46,11 +46,21 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
     private static final Logger logger = Logger.getLogger("com.force.formula");
 
 	private static String[] SQL_KEYS = new String[] {"formula", "sql", "javascript", "javascriptLp", "formulaNullAsNull", "sqlNullAsNull", "javascriptNullAsNull", "javascriptLpNullAsNull"};
+	private static String[] SQL_NO_JS_KEYS = new String[] {"formula", "sql", "formulaNullAsNull", "sqlNullAsNull"};
 	private static String[] KEYS = new String[] {"formula", "javascript", "javascriptLp", "formulaNullAsNull", "javascriptNullAsNull", "javascriptLpNullAsNull"};
 
 	public FormulaGenericTests(String name) throws FileNotFoundException, ParserConfigurationException, SAXException,
 	IOException {
 		super(name, "labels", true);
+	}
+	
+	
+	/**
+	 * @return whether javascript should be tested for these formulas.  This should be used in -impl, and by default,
+	 * but is turned on in the db-test modules for speed (since it's duplicative)
+	 */
+	protected boolean shouldTestJavascript() {
+		return true;
 	}
 	
 	/**
@@ -92,6 +102,11 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param testName name of the test
+	 * @return whether the javascript value mismatch should be in the gold files, or a general error.
+	 */
 	protected boolean ignoreJavascriptValueMismatchInAutobuilds(String testName) {
 		return false;
 	}
@@ -118,6 +133,14 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			return ((FormulaGenericTests)getSuite()).shouldTestSql();
 		}
 
+		/**
+		 * @return whether the javascript should be used.  Turn off in the 
+		 * sql tests modules
+		 */
+		protected boolean shouldTestJavascript() {
+			return ((FormulaGenericTests)getSuite()).shouldTestJavascript();
+		}
+		
 		/**
 		 * @return whether for a give test, the values from the SL engine should be compared
 		 */
@@ -158,7 +181,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 
 		@Override
 		protected String[] getKeyNames() {
-			return shouldTestSql() ? SQL_KEYS : KEYS;
+			return shouldTestSql() ? (shouldTestJavascript() ? SQL_KEYS : SQL_NO_JS_KEYS) : KEYS;
 
 		}
 
@@ -243,10 +266,12 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 					valueViaFormula = "Error: " + e.getClass().getName();
 				}
 
-				formulaContext.setProperty(FormulaContext.HIGHPRECISION_JS, true);
-				valueViaJavascript = evaluateJavascript(formulaContext, entityObject, fieldInfo.getFormula(), nullAsNull);
-				formulaContext.setProperty(FormulaContext.HIGHPRECISION_JS, false);
-				valueViaJavascriptLp = evaluateJavascript(formulaContext, entityObject, fieldInfo.getFormula(), nullAsNull);
+				if (shouldTestJavascript()) {
+					formulaContext.setProperty(FormulaContext.HIGHPRECISION_JS, true);
+					valueViaJavascript = evaluateJavascript(formulaContext, entityObject, fieldInfo.getFormula(), nullAsNull);
+					formulaContext.setProperty(FormulaContext.HIGHPRECISION_JS, false);
+					valueViaJavascriptLp = evaluateJavascript(formulaContext, entityObject, fieldInfo.getFormula(), nullAsNull);
+				}
 				
 				if (shouldTestSql()) {
 					valueViaSql = evaluateSql(formulaContext, entityObject, fieldInfo.getFormula(), nullAsNull);
@@ -306,29 +331,31 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			if (hasErrorMessage(viaFormula)) {
 				return null;
 			}
-      if (hasErrorMessage(viaSql)) {
-        if (shouldCompareSql()) {
-          return "SQL had an error that didn't affect Java: " + viaSql;   
-        } else {
-          return null;  // It's an error, but just leave it.
-        }
-      }
-			if (hasErrorMessage(viaJavascript) && !getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
-				if (nullIsNull) return null;
-				if (!getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
-					StringBuilder errorMsg = new StringBuilder(128).append("Javascript had an error when no other did: should be ").append(viaFormula)
-							.append(" but was ").append(viaJavascript);
-					return errorMsg.toString();
+            if (hasErrorMessage(viaSql)) {
+            	if (shouldCompareSql()) {
+            		return "SQL had an error that didn't affect Java: " + viaSql; 
+            	} else {
+            		return null;  // It's an error, but just leave it.
+            	}
+            }
+            if (shouldTestJavascript()) {
+				if (hasErrorMessage(viaJavascript) && !getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
+					if (nullIsNull) return null;
+					if (!getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
+						StringBuilder errorMsg = new StringBuilder(128).append("Javascript had an error when no other did: should be ").append(viaFormula)
+								.append(" but was ").append(viaJavascript);
+						return errorMsg.toString();
+					}
 				}
-			}
-			if (hasErrorMessage(viaJavascriptLp)) {
-				if (nullIsNull) return null;
-				if (!getTestCaseInfo().getAccuracyIssue().ignoreLowPrecision()) {
-					StringBuilder errorMsg = new StringBuilder(128).append("JavascriptLp had an error when no other did: should be ").append(viaFormula)
-							.append(" but was ").append(viaJavascript);
-					return errorMsg.toString();
+				if (hasErrorMessage(viaJavascriptLp)) {
+					if (nullIsNull) return null;
+					if (!getTestCaseInfo().getAccuracyIssue().ignoreLowPrecision()) {
+						StringBuilder errorMsg = new StringBuilder(128).append("JavascriptLp had an error when no other did: should be ").append(viaFormula)
+								.append(" but was ").append(viaJavascript);
+						return errorMsg.toString();
+					}
 				}
-			}
+            }
 
 
 			// If one is null, they all should be (except template should be "")
@@ -340,15 +367,19 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
                 }
                 
                 // Since we didn't check javascript earlier, we need to make sure it is also null.
-				if (viaJavascript == null) {
-					if (viaJavascriptLp == null) {
-						return null;
+                if (shouldTestJavascript()) {
+					if (viaJavascript == null) {
+						if (viaJavascriptLp == null) {
+							return null;
+						} else {
+							return "If one is null, they all should be null. viaFormula " + viaFormula + " viaJavascriptLp " + viaJavascript;
+						}
 					} else {
-						return "If one is null, they all should be null. viaFormula " + viaFormula + " viaJavascriptLp " + viaJavascript;
+						return "If one is null, they all should be null. viaFormula " + viaFormula + " viaJavascript " + viaJavascript;
 					}
-				} else {
-					return "If one is null, they all should be null. viaFormula " + viaFormula + " viaJavascript " + viaJavascript;
-				}
+                } else {
+                	return null;
+                }
 			}
 
 			// So we know all non-null for the rest... (except template maybe)
@@ -367,7 +398,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 					// NOTE: Core's tests don't do RoundingMode HALF_UP because it ends up being filtered through saving to the DB.
 					BigDecimal viaFormulaDec = new BigDecimal(entityValue, mc).setScale(scale, RoundingMode.HALF_UP);
 					BigDecimal viaSqlDec = shouldCompareSql() ? new BigDecimal(viaSql, mc).setScale(scale, RoundingMode.HALF_UP) : null; 
-					boolean compareOK;
+					boolean compareOK = true;  // In case ignoreSql and ignoreJavascript is on
 					String mismatchMessage = null;
 					if (!getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {  // If there's an accuracy issue with decimal, don't bother
 						BigDecimal viaJavascriptDec = viaJavascript != null ? new BigDecimal(viaJavascript, mc).setScale(scale, RoundingMode.HALF_UP) : BigDecimal.ZERO; // We can get here through nullAsNull
@@ -375,8 +406,8 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 							BigDecimal delta = BigDecimal.ONE.movePointLeft(scale);
 			                if (shouldCompareSql()) {
 								compareOK = viaFormulaDec.subtract(viaSqlDec).abs().compareTo(delta) <= 0
-										&& viaFormulaDec.subtract(viaJavascriptDec).abs().compareTo(delta) <= 0;
-			                } else {
+										&& (!shouldTestJavascript() || viaFormulaDec.subtract(viaJavascriptDec).abs().compareTo(delta) <= 0);
+			                } else if (shouldTestJavascript()) {
 			                	compareOK = viaFormulaDec.subtract(viaJavascriptDec).abs().compareTo(delta) <= 0;
 			                }
 							if (! compareOK) {
@@ -392,7 +423,10 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 	                            }
 							}
 						} else {
-							compareOK = viaFormulaDec.equals(viaJavascriptDec);
+							compareOK = true;
+							if (shouldTestJavascript()) {
+								compareOK &= viaFormulaDec.equals(viaJavascriptDec);
+							}
 							if (shouldCompareSql()) {
 								compareOK &= viaFormulaDec.equals(viaSqlDec);
 							}
@@ -409,7 +443,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 					}
 
 					// Always compare approximately.  But allow "NeedHighPrecision" to be ignored
-					if (!getTestCaseInfo().getAccuracyIssue().ignoreLowPrecision()) {
+					if (!getTestCaseInfo().getAccuracyIssue().ignoreLowPrecision() && shouldTestJavascript()) {
 						BigDecimal viaJavascriptLpDec = viaJavascriptLp != null ? new BigDecimal(viaJavascriptLp, mc).setScale(scale, RoundingMode.HALF_UP) : BigDecimal.ZERO; // We can get here through nullAsNull
 						BigDecimal delta = BigDecimal.ONE.movePointLeft(scale);
 						compareOK = viaFormulaDec.subtract(viaJavascriptLpDec).abs().compareTo(delta) <= 0;
@@ -449,21 +483,23 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				} catch (ParseException e) {
 					return "Date ParseException for one of viaFormula " + viaFormula + ", viaSql " + viaSql + " .";
 				}
-				try {
-                    if (! viaFormula.equals(viaJavascript)) {
-						Calendar c = getFromDateString(viaFormula);
-						if (c.get(Calendar.YEAR) > 1776) {
-							return getGenericJavascriptValueEqualityFailMessage(viaFormula, viaJavascript);
+				if (shouldTestJavascript()) {
+					try {
+	                    if (! viaFormula.equals(viaJavascript)) {
+							Calendar c = getFromDateString(viaFormula);
+							if (c.get(Calendar.YEAR) > 1776) {
+								return getGenericJavascriptValueEqualityFailMessage(viaFormula, viaJavascript);
+							}
 						}
-					}
-					if (! viaFormula.equals(viaJavascriptLp)) {
-						Calendar c = getFromDateString(viaFormula);
-						if (c.get(Calendar.YEAR) > 1776) {
-							return getGenericJavascriptLpValueEqualityFailMessage(viaFormula, viaJavascriptLp);
+						if (! viaFormula.equals(viaJavascriptLp)) {
+							Calendar c = getFromDateString(viaFormula);
+							if (c.get(Calendar.YEAR) > 1776) {
+								return getGenericJavascriptLpValueEqualityFailMessage(viaFormula, viaJavascriptLp);
+							}
 						}
+					} catch (ParseException e) {
+						return "Date ParseException for one of viaFormula " + viaFormula + ", viaJavaScript " + viaJavascript + " .";
 					}
-				} catch (ParseException e) {
-					return "Date ParseException for one of viaFormula " + viaFormula + ", viaJavaScript " + viaJavascript + " .";
 				}
 				return null;
 
@@ -488,22 +524,24 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 
 				
 				// W-3358047; See FormulaGenericTests - Account - testOriginTime
-				try {
-					if (! viaFormula.equals(viaJavascript)) {
-						Calendar c = getFromDateString(viaFormula);
-						if (c.get(Calendar.YEAR) > 1776) {
-							return getGenericJavascriptValueEqualityFailMessage(viaFormula, viaJavascript);
+				if (shouldTestJavascript()) {
+					try {
+						if (! viaFormula.equals(viaJavascript)) {
+							Calendar c = getFromDateString(viaFormula);
+							if (c.get(Calendar.YEAR) > 1776) {
+								return getGenericJavascriptValueEqualityFailMessage(viaFormula, viaJavascript);
+							}
 						}
-					}
-					if (! viaFormula.equals(viaJavascriptLp)) {
-						Calendar c = getFromDateString(viaFormula);
-						if (c.get(Calendar.YEAR) > 1776) {
-							return getGenericJavascriptLpValueEqualityFailMessage(viaFormula, viaJavascriptLp);
+						if (! viaFormula.equals(viaJavascriptLp)) {
+							Calendar c = getFromDateString(viaFormula);
+							if (c.get(Calendar.YEAR) > 1776) {
+								return getGenericJavascriptLpValueEqualityFailMessage(viaFormula, viaJavascriptLp);
+							}
 						}
+						
+					} catch (ParseException e) {
+						return "Date ParseException for one of viaFormula " + viaFormula + ", viaJavaScript " + viaJavascript + " .";
 					}
-					
-				} catch (ParseException e) {
-					return "Date ParseException for one of viaFormula " + viaFormula + ", viaJavaScript " + viaJavascript + " .";
 				}
 				return null;
 			} else {
@@ -511,11 +549,13 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				if (shouldCompareSql() && !viaFormula.equals(viaSql)) {
 					return "viaFormula " + viaFormula + " does not equal viaSql " + viaSql;
 				}
-				if (! viaFormula.equals(viaJavascript) && !getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
-					return getGenericJavascriptValueEqualityFailMessage(viaFormula,  viaJavascript);
-				}
-				if (! viaFormula.equals(viaJavascriptLp) && !getTestCaseInfo().getAccuracyIssue().ignoreLowPrecision()) {
-					return getGenericJavascriptLpValueEqualityFailMessage(viaFormula,  viaJavascriptLp);
+				if (shouldTestJavascript()) {
+					if (! viaFormula.equals(viaJavascript) && !getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
+						return getGenericJavascriptValueEqualityFailMessage(viaFormula,  viaJavascript);
+					}
+					if (! viaFormula.equals(viaJavascriptLp) && !getTestCaseInfo().getAccuracyIssue().ignoreLowPrecision()) {
+						return getGenericJavascriptLpValueEqualityFailMessage(viaFormula,  viaJavascriptLp);
+					}
 				}
 				return null;
 			}

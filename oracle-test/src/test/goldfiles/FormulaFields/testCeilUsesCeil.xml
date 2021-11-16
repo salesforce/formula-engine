@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCeilUsesCeil">
+   <testInstance formula="CEILING(CEILING(customnumber1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END&gt;=0 THEN CEIL(ROUND(CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END,33)) ELSE FLOOR(ROUND(CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) ELSE FLOOR(ROUND(NVL($!s0s!$.customnumber1__c, 0),33)) END,33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber1__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber1__c,33)) END&gt;=0 THEN CEIL(ROUND(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber1__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber1__c,33)) END,33)) ELSE FLOOR(ROUND(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber1__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber1__c,33)) END,33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).isPos()?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).ceil():$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).floor()).isPos()?($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).isPos()?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).ceil():$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).floor()).toDP(18).ceil():($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).isPos()?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).ceil():$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).floor()).toDP(18).floor())</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(((context.record.customnumber1__c.isPos()?context.record.customnumber1__c.toDP(18).ceil():context.record.customnumber1__c.toDP(18).floor()).isPos()?(context.record.customnumber1__c.isPos()?context.record.customnumber1__c.toDP(18).ceil():context.record.customnumber1__c.toDP(18).floor()).toDP(18).ceil():(context.record.customnumber1__c.isPos()?context.record.customnumber1__c.toDP(18).ceil():context.record.customnumber1__c.toDP(18).floor()).toDP(18).floor())):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(((($F.nvl(context.record.customnumber1__c,0))&gt;=0?Math.ceil($F.nvl(context.record.customnumber1__c,0)):Math.floor($F.nvl(context.record.customnumber1__c,0))))&gt;=0?Math.ceil((($F.nvl(context.record.customnumber1__c,0))&gt;=0?Math.ceil($F.nvl(context.record.customnumber1__c,0)):Math.floor($F.nvl(context.record.customnumber1__c,0)))):Math.floor((($F.nvl(context.record.customnumber1__c,0))&gt;=0?Math.ceil($F.nvl(context.record.customnumber1__c,0)):Math.floor($F.nvl(context.record.customnumber1__c,0)))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(((((context.record.customnumber1__c)&gt;=0?Math.ceil(context.record.customnumber1__c):Math.floor(context.record.customnumber1__c)))&gt;=0?Math.ceil(((context.record.customnumber1__c)&gt;=0?Math.ceil(context.record.customnumber1__c):Math.floor(context.record.customnumber1__c))):Math.floor(((context.record.customnumber1__c)&gt;=0?Math.ceil(context.record.customnumber1__c):Math.floor(context.record.customnumber1__c))))):null</JsOutput>
+      <result>
+      <inputvalues>[20.842345]</inputvalues>
+         <formula>21</formula>
+         <sql>21</sql>
+         <formulaNullAsNull>21</formulaNullAsNull>
+         <sqlNullAsNull>21</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.54321]</inputvalues>
+         <formula>123456790</formula>
+         <sql>123456790</sql>
+         <formulaNullAsNull>123456790</formulaNullAsNull>
+         <sqlNullAsNull>123456790</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789]</inputvalues>
+         <formula>123456790</formula>
+         <sql>123456790</sql>
+         <formulaNullAsNull>123456790</formulaNullAsNull>
+         <sqlNullAsNull>123456790</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[49.55]</inputvalues>
+         <formula>50</formula>
+         <sql>50</sql>
+         <formulaNullAsNull>50</formulaNullAsNull>
+         <sqlNullAsNull>50</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.00034]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.244]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[25.7456]</inputvalues>
+         <formula>26</formula>
+         <sql>26</sql>
+         <formulaNullAsNull>26</formulaNullAsNull>
+         <sqlNullAsNull>26</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[64.456]</inputvalues>
+         <formula>65</formula>
+         <sql>65</sql>
+         <formulaNullAsNull>65</formulaNullAsNull>
+         <sqlNullAsNull>65</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.4]</inputvalues>
+         <formula>-1</formula>
+         <sql>-1</sql>
+         <formulaNullAsNull>-1</formulaNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.7]</inputvalues>
+         <formula>-1</formula>
+         <sql>-1</sql>
+         <formulaNullAsNull>-1</formulaNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.4]</inputvalues>
+         <formula>-2</formula>
+         <sql>-2</sql>
+         <formulaNullAsNull>-2</formulaNullAsNull>
+         <sqlNullAsNull>-2</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.7]</inputvalues>
+         <formula>-2</formula>
+         <sql>-2</sql>
+         <formulaNullAsNull>-2</formulaNullAsNull>
+         <sqlNullAsNull>-2</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

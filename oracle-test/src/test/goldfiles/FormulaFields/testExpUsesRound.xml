@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesRound">
+   <testInstance formula="EXP(ROUND(customnumber1__c,customnumber2__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>EXP(ROUND(NVL($!s0s!$.customnumber1__c, 0), NVL($!s0s!$.customnumber2__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>EXP(ROUND($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.exp(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).mul('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0)).round().div('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0)))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?($F.Decimal.exp((context.record.customnumber1__c).mul('1e'+context.record.customnumber2__c.toFixed(0)).round().div('1e'+context.record.customnumber2__c.toFixed(0)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.exp(($F.nvl(context.record.customnumber2__c,0)&gt;0)?Number(Number($F.nvl(context.record.customnumber1__c,0)).toFixed($F.nvl(context.record.customnumber2__c,0)&lt;=20?$F.nvl(context.record.customnumber2__c,0):20)):Math.round(($F.nvl(context.record.customnumber1__c,0))*('1e'+$F.nvl(context.record.customnumber2__c,0)))/('1e'+$F.nvl(context.record.customnumber2__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(Math.exp((context.record.customnumber2__c&gt;0)?Number(Number(context.record.customnumber1__c).toFixed(context.record.customnumber2__c&lt;=20?context.record.customnumber2__c:20)):Math.round((context.record.customnumber1__c)*('1e'+context.record.customnumber2__c))/('1e'+context.record.customnumber2__c))):null</JsOutput>
+      <result>
+      <inputvalues>[0, 0]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1.0</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 1]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1.0</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 2]</inputvalues>
+         <formula>2.718281828459045</formula>
+         <sql>2.71828182845904523536028747135266</sql>
+         <formulaNullAsNull>2.718281828459045</formulaNullAsNull>
+         <sqlNullAsNull>2.71828182845904523536028747135266</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2, 4]</inputvalues>
+         <formula>7.38905609893065</formula>
+         <sql>7.38905609893065022723042746057501</sql>
+         <formulaNullAsNull>7.38905609893065</formulaNullAsNull>
+         <sqlNullAsNull>7.38905609893065022723042746057501</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, -12]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1.0</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-10, 2]</inputvalues>
+         <formula>0.000045399929762484854</formula>
+         <sql>0.00004539992976248485153559151556</sql>
+         <formulaNullAsNull>0.000045399929762484854</formulaNullAsNull>
+         <sqlNullAsNull>0.00004539992976248485153559151556</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-100, -1]</inputvalues>
+         <formula>0.00000000000000000000000000000000</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.00000000000000000000000000000000</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[56, 5]</inputvalues>
+         <formula>2091659496012996000000000</formula>
+         <sql>2091659496012996153907071.15721467377831</sql>
+         <formulaNullAsNull>2091659496012996000000000</formulaNullAsNull>
+         <sqlNullAsNull>2091659496012996153907071.15721467377831</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[56, 0]</inputvalues>
+         <formula>2091659496012996000000000</formula>
+         <sql>2091659496012996153907071.15721467377831</sql>
+         <formulaNullAsNull>2091659496012996000000000</formulaNullAsNull>
+         <sqlNullAsNull>2091659496012996153907071.15721467377831</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[56, 12]</inputvalues>
+         <formula>2091659496012996000000000</formula>
+         <sql>2091659496012996153907071.15721467377831</sql>
+         <formulaNullAsNull>2091659496012996000000000</formulaNullAsNull>
+         <sqlNullAsNull>2091659496012996153907071.15721467377831</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

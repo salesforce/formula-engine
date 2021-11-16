@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testModUsesRoundPlus">
+   <testInstance formula="MOD(ROUND(custompercent1__c,customnumber1__c),(customcurrency1__c+customcurrency2__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>MOD(ROUND(NVL(($!s0s!$.custompercent1__c / 100.0), 0), NVL($!s0s!$.customnumber1__c, 0)), (NVL($!s0s!$.customcurrency1__c, 0)+NVL($!s0s!$.customcurrency2__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>MOD(ROUND(($!s0s!$.custompercent1__c / 100.0), $!s0s!$.customnumber1__c), ($!s0s!$.customcurrency1__c+$!s0s!$.customcurrency2__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0'))).mul('1e'+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toFixed(0)).round().div('1e'+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toFixed(0)).mod($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')).add($F.nvl(context.record.customcurrency2__c,new $F.Decimal('0'))))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null&amp;&amp;context.record.custompercent1__c!=null&amp;&amp;context.record.custompercent1__c.div(100)!=null&amp;&amp;context.record.customnumber1__c!=null)?((context.record.custompercent1__c.div(100)).mul('1e'+context.record.customnumber1__c.toFixed(0)).round().div('1e'+context.record.customnumber1__c.toFixed(0)).mod(context.record.customcurrency1__c.add(context.record.customcurrency2__c))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((($F.nvl(context.record.customnumber1__c,0)&gt;0)?Number(Number($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)).toFixed($F.nvl(context.record.customnumber1__c,0)&lt;=20?$F.nvl(context.record.customnumber1__c,0):20)):Math.round(($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0))*('1e'+$F.nvl(context.record.customnumber1__c,0)))/('1e'+$F.nvl(context.record.customnumber1__c,0)))%($F.nvl(context.record.customcurrency1__c,0)+$F.nvl(context.record.customcurrency2__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null&amp;&amp;context.record.custompercent1__c!=null&amp;&amp;context.record.custompercent1__c/100.0!=null&amp;&amp;context.record.customnumber1__c!=null)?((((context.record.customnumber1__c&gt;0)?Number(Number(context.record.custompercent1__c/100.0).toFixed(context.record.customnumber1__c&lt;=20?context.record.customnumber1__c:20)):Math.round((context.record.custompercent1__c/100.0)*('1e'+context.record.customnumber1__c))/('1e'+context.record.customnumber1__c))%(context.record.customcurrency1__c+context.record.customcurrency2__c))):null</JsOutput>
+      <result>
+      <inputvalues>[123456789, 123456789, 200, 300]</inputvalues>
+         <formula>67.89</formula>
+         <sql>67.89</sql>
+         <formulaNullAsNull>67.89</formulaNullAsNull>
+         <sqlNullAsNull>67.89</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[12345678, 123456789, 200, 300]</inputvalues>
+         <formula>456.78</formula>
+         <sql>456.78</sql>
+         <formulaNullAsNull>456.78</formulaNullAsNull>
+         <sqlNullAsNull>456.78</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[12345678, 1234567, 200, 300]</inputvalues>
+         <formula>456.78</formula>
+         <sql>456.78</sql>
+         <formulaNullAsNull>456.78</formulaNullAsNull>
+         <sqlNullAsNull>456.78</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 10.24, 200, 300]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10.24, , 200, 300]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , 200, 300]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 0, 200, 300]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 1, 200, 300]</inputvalues>
+         <formula>1.2</formula>
+         <sql>1.2</sql>
+         <formulaNullAsNull>1.2</formulaNullAsNull>
+         <sqlNullAsNull>1.2</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 2, 200, 300]</inputvalues>
+         <formula>1.23</formula>
+         <sql>1.23</sql>
+         <formulaNullAsNull>1.23</formulaNullAsNull>
+         <sqlNullAsNull>1.23</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 3, 200, 300]</inputvalues>
+         <formula>1.232</formula>
+         <sql>1.232</sql>
+         <formulaNullAsNull>1.232</formulaNullAsNull>
+         <sqlNullAsNull>1.232</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 4, 200, 300]</inputvalues>
+         <formula>1.2323</formula>
+         <sql>1.2323</sql>
+         <formulaNullAsNull>1.2323</formulaNullAsNull>
+         <sqlNullAsNull>1.2323</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 5, 200, 300]</inputvalues>
+         <formula>1.23235</formula>
+         <sql>1.23235</sql>
+         <formulaNullAsNull>1.23235</formulaNullAsNull>
+         <sqlNullAsNull>1.23235</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 6, 200, 300]</inputvalues>
+         <formula>1.232346</formula>
+         <sql>1.232346</sql>
+         <formulaNullAsNull>1.232346</formulaNullAsNull>
+         <sqlNullAsNull>1.232346</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 7, 200, 300]</inputvalues>
+         <formula>1.2323457</formula>
+         <sql>1.2323457</sql>
+         <formulaNullAsNull>1.2323457</formulaNullAsNull>
+         <sqlNullAsNull>1.2323457</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 8, 200, 300]</inputvalues>
+         <formula>1.23234568</formula>
+         <sql>1.23234568</sql>
+         <formulaNullAsNull>1.23234568</formulaNullAsNull>
+         <sqlNullAsNull>1.23234568</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 9, 200, 300]</inputvalues>
+         <formula>1.232345679</formula>
+         <sql>1.232345679</sql>
+         <formulaNullAsNull>1.232345679</formulaNullAsNull>
+         <sqlNullAsNull>1.232345679</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456780, 123.123456789, 200, 300]</inputvalues>
+         <formula>1.232345678</formula>
+         <sql>1.232345678</sql>
+         <formulaNullAsNull>1.232345678</formulaNullAsNull>
+         <sqlNullAsNull>1.232345678</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 123.123456780, 200, 300]</inputvalues>
+         <formula>1.2323456789</formula>
+         <sql>1.2323456789</sql>
+         <formulaNullAsNull>1.2323456789</formulaNullAsNull>
+         <sqlNullAsNull>1.2323456789</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-200.434, 200.434,  200,  300]</inputvalues>
+         <formula>-2.00434</formula>
+         <sql>-2.00434</sql>
+         <formulaNullAsNull>-2.00434</formulaNullAsNull>
+         <sqlNullAsNull>-2.00434</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200,  -200.434,  200, 300]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , , ]</inputvalues>
+         <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200, , , ]</inputvalues>
+         <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>2</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 1, , 10]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

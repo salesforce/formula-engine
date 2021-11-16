@@ -489,7 +489,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     		return argument + "::numeric";
     	}
     	return argument;
-    }    
+    }
     
     /**
      * Default implementation of SqlStyles.  If you want to override any of the sql  functions here, override

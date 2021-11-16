@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBigDivide">
+   <testInstance formula="((customnumber1__c/customnumber2__c)*customnumber3__c)" returntype="Double" precision="15" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>((NVL($!s0s!$.customnumber1__c, 0)/NVL($!s0s!$.customnumber2__c, 0)) * NVL($!s0s!$.customnumber3__c, 0))</Sql>
+       <Guard>NVL($!s0s!$.customnumber2__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) * $!s0s!$.customnumber3__c)</Sql>
+       <Guard>$!s0s!$.customnumber2__c=0</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).div($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))).mul($F.nvl(context.record.customnumber3__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber3__c!=null)?(context.record.customnumber1__c.div(context.record.customnumber2__c).mul(context.record.customnumber3__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">($F.nvl(context.record.customnumber1__c,0)/$F.nvl(context.record.customnumber2__c,0))*$F.nvl(context.record.customnumber3__c,0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber3__c!=null)?((context.record.customnumber1__c/context.record.customnumber2__c)*context.record.customnumber3__c):null</JsOutput>
+      <result>
+      <inputvalues>[1, 1000000000, 1000000000]</inputvalues>
+         <formula>1.000000000</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1.000000000</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 123456789123456.24, 123456789123456.24]</inputvalues>
+         <formula>1.00000000000000000000000000000000</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1.00000000000000000000000000000000</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 0, 0]</inputvalues>
+         <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.ArithmeticException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 1, 1]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , 1]</inputvalues>
+         <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, , ]</inputvalues>
+         <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , ]</inputvalues>
+         <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 0, 0]</inputvalues>
+         <formula>Error: java.lang.ArithmeticException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.ArithmeticException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

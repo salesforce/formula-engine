@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLpad2">
+   <testInstance formula="lpad(customText1__c,customNumber1__c,customText2__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>LPAD($!s0s!$.customText1__c, GREATEST(NVL($!s0s!$.customNumber1__c, 0), 0), $!s0s!$.customText2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c, 0), $!s0s!$.customText2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?($F.lpad(context.record.customText1__c,$F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber(),$F.nvl(context.record.customText2__c,' '))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null&amp;&amp;context.record.customNumber1__c!=null)?($F.lpad(context.record.customText1__c,context.record.customNumber1__c.toNumber(),$F.nvl(context.record.customText2__c,' '))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null)?($F.lpad(context.record.customText1__c,$F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customText2__c,' '))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null&amp;&amp;context.record.customNumber1__c!=null)?($F.lpad(context.record.customText1__c,context.record.customNumber1__c,$F.nvl(context.record.customText2__c,' '))):null</JsOutput>
+      <result>
+      <inputvalues>[string, 0, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0, x]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 0, x]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 1, x]</inputvalues>
+         <formula>s</formula>
+         <sql>s</sql>
+         <formulaNullAsNull>s</formulaNullAsNull>
+         <sqlNullAsNull>s</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 5, x]</inputvalues>
+         <formula>strin</formula>
+         <sql>strin</sql>
+         <formulaNullAsNull>strin</formulaNullAsNull>
+         <sqlNullAsNull>strin</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 6, x]</inputvalues>
+         <formula>string</formula>
+         <sql>string</sql>
+         <formulaNullAsNull>string</formulaNullAsNull>
+         <sqlNullAsNull>string</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 7, x]</inputvalues>
+         <formula>xstring</formula>
+         <sql>xstring</sql>
+         <formulaNullAsNull>xstring</formulaNullAsNull>
+         <sqlNullAsNull>xstring</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 11, x]</inputvalues>
+         <formula>xxxxxstring</formula>
+         <sql>xxxxxstring</sql>
+         <formulaNullAsNull>xxxxxstring</formulaNullAsNull>
+         <sqlNullAsNull>xxxxxstring</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 0, abc]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 1, abc]</inputvalues>
+         <formula>s</formula>
+         <sql>s</sql>
+         <formulaNullAsNull>s</formulaNullAsNull>
+         <sqlNullAsNull>s</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 5, abc]</inputvalues>
+         <formula>strin</formula>
+         <sql>strin</sql>
+         <formulaNullAsNull>strin</formulaNullAsNull>
+         <sqlNullAsNull>strin</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 6, abc]</inputvalues>
+         <formula>string</formula>
+         <sql>string</sql>
+         <formulaNullAsNull>string</formulaNullAsNull>
+         <sqlNullAsNull>string</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 7, abc]</inputvalues>
+         <formula>astring</formula>
+         <sql>astring</sql>
+         <formulaNullAsNull>astring</formulaNullAsNull>
+         <sqlNullAsNull>astring</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 11, abc]</inputvalues>
+         <formula>abcabstring</formula>
+         <sql>abcabstring</sql>
+         <formulaNullAsNull>abcabstring</formulaNullAsNull>
+         <sqlNullAsNull>abcabstring</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

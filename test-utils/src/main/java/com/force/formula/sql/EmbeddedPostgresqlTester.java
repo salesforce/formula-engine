@@ -19,10 +19,11 @@ import com.force.formula.util.*;
 import io.zonky.test.db.postgres.embedded.EmbeddedPostgres;
 
 /**
- * a DbTester of formulas that uses embedded postgres for validation.
+ * a DbTester of formulas that uses embedded postgres for validation.  Use this
+ * if you don't want to deal with docker.
  * 
  * Instead of writing rows to the database, it puts all of the "passed in
- * values" in a subquery with alias "c", casting the null values to .
+ * values" in a subquery with alias "c", casting the null values to the right types.
  * 
  * @author stamm
  */

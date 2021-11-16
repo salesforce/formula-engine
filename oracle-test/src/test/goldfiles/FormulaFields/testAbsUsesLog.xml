@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAbsUsesLog">
+   <testInstance formula="ABS(LOG(customnumber1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>ABS(LOG(10, NVL($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Guard>NVL($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ABS(LOG(10, $!s0s!$.customnumber1__c))</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).log(10).abs()</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?((context.record.customnumber1__c).log(10).abs()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.abs(Math.log($F.nvl(context.record.customnumber1__c,0))/Math.LN10)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.abs(Math.log(context.record.customnumber1__c)/Math.LN10)):null</JsOutput>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2]</inputvalues>
+         <formula>0.30102999566398114</formula>
+         <sql>0.30102999566398119521373889472449</sql>
+         <formulaNullAsNull>0.30102999566398114</formulaNullAsNull>
+         <sqlNullAsNull>0.30102999566398119521373889472449</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3]</inputvalues>
+         <formula>0.47712125471966244</formula>
+         <sql>0.47712125471966243729502790325512</sql>
+         <formulaNullAsNull>0.47712125471966244</formulaNullAsNull>
+         <sqlNullAsNull>0.47712125471966243729502790325512</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[4]</inputvalues>
+         <formula>0.6020599913279623</formula>
+         <sql>0.60205999132796239042747778944899</sql>
+         <formulaNullAsNull>0.6020599913279623</formulaNullAsNull>
+         <sqlNullAsNull>0.60205999132796239042747778944899</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[5]</inputvalues>
+         <formula>0.6989700043360187</formula>
+         <sql>0.69897000433601880478626110527551</sql>
+         <formulaNullAsNull>0.6989700043360187</formulaNullAsNull>
+         <sqlNullAsNull>0.69897000433601880478626110527551</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[6]</inputvalues>
+         <formula>0.7781512503836435</formula>
+         <sql>0.77815125038364363250876679797961</sql>
+         <formulaNullAsNull>0.7781512503836435</formulaNullAsNull>
+         <sqlNullAsNull>0.77815125038364363250876679797961</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10000]</inputvalues>
+         <formula>4.0</formula>
+         <sql>4</sql>
+         <formulaNullAsNull>4.0</formulaNullAsNull>
+         <sqlNullAsNull>4</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1.0</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[16]</inputvalues>
+         <formula>1.2041199826559246</formula>
+         <sql>1.20411998265592478085495557889797</sql>
+         <formulaNullAsNull>1.2041199826559246</formulaNullAsNull>
+         <sqlNullAsNull>1.20411998265592478085495557889797</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2.56]</inputvalues>
+         <formula>0.40823996531184953</formula>
+         <sql>0.40823996531184956170991115779594</sql>
+         <formulaNullAsNull>0.40823996531184953</formulaNullAsNull>
+         <sqlNullAsNull>0.40823996531184956170991115779594</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789]</inputvalues>
+         <formula>8.091514977603564</formula>
+         <sql>8.09151497760356492920443820990382</sql>
+         <formulaNullAsNull>8.091514977603564</formulaNullAsNull>
+         <sqlNullAsNull>8.09151497760356492920443820990382</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
