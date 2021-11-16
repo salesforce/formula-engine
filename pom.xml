@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.salesforce.formula</groupId>
   <artifactId>formula-engine</artifactId>
-  <version>0.1.10-SNAPSHOT</version>
+  <version>0.1.11-SNAPSHOT</version>
   <name>Formula Engine</name>
   <description>
     Implementation of a formula engine in the "salesforce" style, which
