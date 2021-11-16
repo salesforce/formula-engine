@@ -30,7 +30,7 @@ public class FunctionLen extends FormulaCommandInfoImpl {
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         String sql = getSqlHooks(context).sqlNvl() + "(LENGTH(" + args[0] + "),0)";
         // Make the sql be numeric if using postgres
-    	sql = getSqlHooks(context).sqlMakeDecimal(sql);
+        sql = getSqlHooks(context).sqlMakeDecimal(sql);
         String guard = guards[0];
         return new SQLPair(sql, guard);
     }
