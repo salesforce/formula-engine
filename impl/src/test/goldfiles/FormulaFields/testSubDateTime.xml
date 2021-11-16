@@ -2,11 +2,11 @@
 <testCase name="testSubDateTime">
    <testInstance formula="(customdatetime1__c-customdatetime2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>(EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))</Sql>
+       <Sql>((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))::numeric/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))</Sql>
+       <Sql>((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))::numeric/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000)):null</JsOutput>
@@ -16,77 +16,77 @@
       <result>
       <inputvalues>[2004:12:31:11:00:00, 2004:12:25:11:00:00]</inputvalues>
          <formula>6</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>6.00000000000000000000000000000000</sql>
          <javascript>6</javascript>
          <javascriptLp>6</javascriptLp>
          <formulaNullAsNull>6</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>6.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>6</javascriptNullAsNull>
          <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:11:00:00, 2004:02:27:02:00:00]</inputvalues>
          <formula>1.375</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>1.37500000000000000000000000000000</sql>
          <javascript>1.375</javascript>
          <javascriptLp>1.375</javascriptLp>
          <formulaNullAsNull>1.375</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>1.37500000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.375</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.375</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:11:00:00, 2005:01:01:11:00:00]</inputvalues>
          <formula>-1</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>-1.00000000000000000000000000000000</sql>
          <javascript>-1</javascript>
          <javascriptLp>-1</javascriptLp>
          <formulaNullAsNull>-1</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>-1.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-1</javascriptNullAsNull>
          <javascriptLpNullAsNull>-1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:11:00:00, 2004:03:01:02:00:00]</inputvalues>
          <formula>-1.625</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>-1.62500000000000000000000000000000</sql>
          <javascript>-1.625</javascript>
          <javascriptLp>-1.625</javascriptLp>
          <formulaNullAsNull>-1.625</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>-1.62500000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-1.625</javascriptNullAsNull>
          <javascriptLpNullAsNull>-1.625</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:00:00]</inputvalues>
          <formula>0.02083333333333333333333333333333</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>0.02083333333333333333000000000000</sql>
          <javascript>0.020833333333333332</javascript>
          <javascriptLp>0.0208333</javascriptLp>
          <formulaNullAsNull>0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>0.02083333333333333333000000000000</sqlNullAsNull>
          <javascriptNullAsNull>0.020833333333333332</javascriptNullAsNull>
          <javascriptLpNullAsNull>0.0208333</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:23:30:00, 2004:02:28:24:00:00]</inputvalues>
          <formula>-0.02083333333333333333333333333333</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>-0.02083333333333333333000000000000</sql>
          <javascript>-0.020833333333333332</javascript>
          <javascriptLp>-0.0208333</javascriptLp>
          <formulaNullAsNull>-0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>-0.02083333333333333333000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-0.020833333333333332</javascriptNullAsNull>
          <javascriptLpNullAsNull>-0.0208333</javascriptLpNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="(customdatetime2__c-customdatetime1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>(EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c))</Sql>
+       <Sql>((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c))::numeric/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c))</Sql>
+       <Sql>((EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c))::numeric/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000)):null</JsOutput>
@@ -96,66 +96,66 @@
       <result>
       <inputvalues>[2004:12:25:11:00:00, 2004:12:31:11:00:00]</inputvalues>
          <formula>-6</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>-6.00000000000000000000000000000000</sql>
          <javascript>-6</javascript>
          <javascriptLp>-6</javascriptLp>
          <formulaNullAsNull>-6</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>-6.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-6</javascriptNullAsNull>
          <javascriptLpNullAsNull>-6</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:27:02:00:00, 2004:02:28:11:00:00]</inputvalues>
          <formula>-1.375</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>-1.37500000000000000000000000000000</sql>
          <javascript>-1.375</javascript>
          <javascriptLp>-1.375</javascriptLp>
          <formulaNullAsNull>-1.375</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>-1.37500000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-1.375</javascriptNullAsNull>
          <javascriptLpNullAsNull>-1.375</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2005:01:01:11:00:00, 2004:12:31:11:00:00]</inputvalues>
          <formula>1</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>1.00000000000000000000000000000000</sql>
          <javascript>1</javascript>
          <javascriptLp>1</javascriptLp>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>1.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1</javascriptNullAsNull>
          <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:03:01:02:00:00, 2004:02:28:11:00:00]</inputvalues>
          <formula>1.625</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>1.62500000000000000000000000000000</sql>
          <javascript>1.625</javascript>
          <javascriptLp>1.625</javascriptLp>
          <formulaNullAsNull>1.625</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>1.62500000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1.625</javascriptNullAsNull>
          <javascriptLpNullAsNull>1.625</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:11:00:00, 2004:12:31:11:30:00]</inputvalues>
          <formula>-0.02083333333333333333333333333333</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>-0.02083333333333333333000000000000</sql>
          <javascript>-0.020833333333333332</javascript>
          <javascriptLp>-0.0208333</javascriptLp>
          <formulaNullAsNull>-0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>-0.02083333333333333333000000000000</sqlNullAsNull>
          <javascriptNullAsNull>-0.020833333333333332</javascriptNullAsNull>
          <javascriptLpNullAsNull>-0.0208333</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:24:00:00, 2004:02:28:23:30:00]</inputvalues>
          <formula>0.02083333333333333333333333333333</formula>
-         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sql>
+         <sql>0.02083333333333333333000000000000</sql>
          <javascript>0.020833333333333332</javascript>
          <javascriptLp>0.0208333</javascriptLp>
          <formulaNullAsNull>0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 8</sqlNullAsNull>
+         <sqlNullAsNull>0.02083333333333333333000000000000</sqlNullAsNull>
          <javascriptNullAsNull>0.020833333333333332</javascriptNullAsNull>
          <javascriptLpNullAsNull>0.0208333</javascriptLpNullAsNull>
       </result>

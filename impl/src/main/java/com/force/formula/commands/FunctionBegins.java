@@ -28,7 +28,7 @@ public class FunctionBegins extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = "((" + args[1] + " IS NULL) OR (INSTR(" + args[0] + ", " + args[1] + ") = 1))";
+        String sql = "((" + args[1] + " IS NULL) OR (" + getSqlHooks(context).sqlInstr2(args[0], args[1]) + " = 1))";
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

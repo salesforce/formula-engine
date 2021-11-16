@@ -2,11 +2,11 @@
 <testCase name="testFindOnText">
    <testInstance formula="FIND(&quot;Text&quot;, customText1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>COALESCE(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql>
+       <Sql>COALESCE(STRPOS($!s0s!$.customText1__c, 'Text'), 0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>COALESCE(INSTR($!s0s!$.customText1__c, 'Text', GREATEST(1,1)), 0)</Sql>
+       <Sql>COALESCE(STRPOS($!s0s!$.customText1__c, 'Text'), 0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)))</JsOutput>
@@ -16,22 +16,44 @@
       <result>
       <inputvalues>[Text]</inputvalues>
          <formula>1</formula>
-         <sql>Error: ERROR: function instr(text, unknown, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 23</sql>
+         <sql>1.00000000000000000000000000000000</sql>
          <javascript>1</javascript>
          <javascriptLp>1</javascriptLp>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, unknown, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 23</sqlNullAsNull>
+         <sqlNullAsNull>1.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>1</javascriptNullAsNull>
          <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[Hello]</inputvalues>
          <formula>0</formula>
-         <sql>Error: ERROR: function instr(text, unknown, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 23</sql>
+         <sql>0.00000000000000000000000000000000</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: function instr(text, unknown, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 23</sqlNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ConText]</inputvalues>
+         <formula>4</formula>
+         <sql>4.00000000000000000000000000000000</sql>
+         <javascript>4</javascript>
+         <javascriptLp>4</javascriptLp>
+         <formulaNullAsNull>4</formulaNullAsNull>
+         <sqlNullAsNull>4.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>4</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Context]</inputvalues>
+         <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>

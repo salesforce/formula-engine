@@ -68,7 +68,7 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         }
         String guard = SQLPair.generateGuard(
                 guards,
-                errorCondition(args, yearValue, yearCanBeNull, monthValue, monthCanBeNull, dayValue,
+                errorCondition((FormulaSqlHooks)context.getSqlStyle(), args, yearValue, yearCanBeNull, monthValue, monthCanBeNull, dayValue,
                         dayCanBeNull));
     return new SQLPair(sql, guard);
     }
@@ -84,7 +84,7 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         }
     }
 
-    private String errorCondition(String[] args, int yearValue, boolean yearCanBeNull, int monthValue,
+    private String errorCondition(FormulaSqlHooks hooks, String[] args, int yearValue, boolean yearCanBeNull, int monthValue,
             boolean monthCanBeNull, int dayValue, boolean dayCanBeNull) {
         String result = null;
         if (yearValue != BAD_VALUE) {
@@ -119,13 +119,13 @@ public class FunctionDate extends FormulaCommandInfoImpl {
             }
         }
         if ((monthValue == BAD_VALUE) && (dayValue == BAD_VALUE)) {
-            result = result + " OR " + getValidDayInMonthSQL(args, yearValue, monthValue, dayValue);
+            result = result + " OR " + getValidDayInMonthSQL(hooks, args, yearValue, monthValue, dayValue);
         } else if ((monthValue != BAD_VALUE) && (dayValue == BAD_VALUE)) {
             if ((monthValue == 4) || (monthValue == 6) || (monthValue == 9) || (monthValue == 11))
                 result = result + " OR " + args[2] + " >= 31";
             else if (monthValue == 2){
                 if(yearValue == BAD_VALUE){
-                    result = result + " OR " + getValidDayInMonthSQL(args, yearValue, monthValue, dayValue);
+                    result = result + " OR " + getValidDayInMonthSQL(hooks, args, yearValue, monthValue, dayValue);
                 }else{
                   result = result + " OR " + args[2] + " >= " + (getFebruaryLastDay(yearValue)+1);
                 }
@@ -134,7 +134,7 @@ public class FunctionDate extends FormulaCommandInfoImpl {
             if (dayValue > 30)
                 result = result + " OR FLOOR(" + args[1] + ") IN (4,6,9,11)";
             if(yearValue == BAD_VALUE){
-                result = result + " OR " + getValidDayInMonthSQL(args, yearValue, monthValue, dayValue);
+                result = result + " OR " + getValidDayInMonthSQL(hooks, args, yearValue, monthValue, dayValue);
             }else{
                 if (dayValue > getFebruaryLastDay(yearValue))
                     result = result + " OR FLOOR(" + args[1] + ")=2";
@@ -145,7 +145,7 @@ public class FunctionDate extends FormulaCommandInfoImpl {
                 return "1=1";
             else if ((monthValue == 2) && (dayValue > 28)){
                 if(yearValue == BAD_VALUE){
-                    result = result + " OR " + getValidDayInMonthSQL(args, yearValue, monthValue, dayValue);
+                    result = result + " OR " + getValidDayInMonthSQL(hooks, args, yearValue, monthValue, dayValue);
                 }else{
                     if (dayValue > getFebruaryLastDay(yearValue))
                       return "1=1";
@@ -165,13 +165,15 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         return result;
     }
 
-    private String getValidDayInMonthSQL(String[] args, int yearValue, int monthValue, int dayValue) {
+    private String getValidDayInMonthSQL(FormulaSqlHooks hooks, String[] args, int yearValue, int monthValue, int dayValue) {
         String toDateSQL = "TO_DATE("
  + (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue)
                         + " || '-' || "
                 + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue)
                         + ",'YYYY-MM')";
-        return " " + (dayValue == BAD_VALUE ? args[2]: dayValue) + " >= TO_CHAR(LAST_DAY(" + toDateSQL + "),'DD')+1 ";
+        String lastDaySQL = String.format(hooks.sqlLastDayOfMonth(), toDateSQL);
+        
+        return " " + (dayValue == BAD_VALUE ? args[2]: dayValue) + " >= " + lastDaySQL + "+1 ";
     }
 
     private int getFebruaryLastDay(int year){

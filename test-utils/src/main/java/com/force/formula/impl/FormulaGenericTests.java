@@ -124,7 +124,6 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		protected boolean shouldCompareSql() {
 			return shouldTestSql() && !getTestCaseInfo().ignoreSql();
 		}
-
 		
 		@Override
 		protected boolean ignoreJavascriptValueMismatchInAutobuilds() {
@@ -307,9 +306,13 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			if (hasErrorMessage(viaFormula)) {
 				return null;
 			}
-            if (hasErrorMessage(viaSql)) {
-            	return null;
-            }
+      if (hasErrorMessage(viaSql)) {
+        if (shouldCompareSql()) {
+          return "SQL had an error that didn't affect Java: " + viaSql;   
+        } else {
+          return null;  // It's an error, but just leave it.
+        }
+      }
 			if (hasErrorMessage(viaJavascript) && !getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
 				if (nullIsNull) return null;
 				if (!getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {

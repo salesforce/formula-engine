@@ -63,6 +63,8 @@ public class EmbeddedPostgresqlTester extends DbTester {
 		case PERCENT:
 		case DOUBLE:
 			return "CAST (NULL AS numeric)";
+		case TEXT:
+			return "CAST (NULL AS text)";			
 		default:
 			return "NULL";
 		}
@@ -95,6 +97,8 @@ public class EmbeddedPostgresqlTester extends DbTester {
 		case TEXT:
 			// Replace singlequote
 			return "'" + FormulaTextUtil.replaceSimple(String.valueOf(value), "'", "''") + "'";
+		case BOOLEAN:
+			return Boolean.TRUE.equals(value) ? "'1'" : "'0'";
 		default:
 			return String.valueOf(value);
 		}
@@ -146,7 +150,9 @@ public class EmbeddedPostgresqlTester extends DbTester {
 		case PERCENT:
 			return "(" + columnSql + ")/100"; // The format below moves the decimal point over
 		case BOOLEAN:
-			return "CASE WHEN " + columnSql + " THEN '1' ELSE '0' END";
+			if (!columnSql.endsWith(" THEN '1' ELSE '0' END")) {  // TODO: This shouldn't work.
+				return "CASE WHEN " + columnSql + " THEN '1' ELSE '0' END";
+			}
 		default:
 		}		
 		return columnSql;
@@ -188,6 +194,9 @@ public class EmbeddedPostgresqlTester extends DbTester {
 			if (millis == null)
 				return null;
 			return FormulaEngine.getHooks().constructTime(millis).toString();
+		case BOOLEAN:
+			String result = rset.getString(1);
+			return "1".equals(result) ? "true" : "false";
 		default:
 		}	
 		String result = rset.getString(1);
@@ -219,6 +228,7 @@ public class EmbeddedPostgresqlTester extends DbTester {
 				column = fixSqlFormat(column, formula);
 
 				try {
+					// System.out.println("SELECT " + column + subQuery.toString());  // For debugging
 					try (PreparedStatement pstmt = conn.prepareStatement("SELECT " + column + subQuery.toString())) {
 						try (ResultSet rset = pstmt.executeQuery()) {
 							if (rset.next()) {
