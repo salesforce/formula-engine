@@ -11,31 +11,31 @@
   <parent>
     <groupId>com.salesforce.formula</groupId>
     <artifactId>formula-engine</artifactId>
-    <version>0.1.10-SNAPSHOT</version>
+    <version>0.1.11-SNAPSHOT</version>
   </parent>
 
   <dependencies>
     <dependency>
       <groupId>com.salesforce.formula</groupId>
       <artifactId>formula-engine-api</artifactId>
-      <version>0.1.10-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>com.salesforce.formula</groupId>
       <artifactId>formula-engine-impl</artifactId>
-      <version>0.1.10-SNAPSHOT</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>com.salesforce.formula</groupId>
       <artifactId>formula-engine-test-utils</artifactId>
-      <version>0.1.10-SNAPSHOT</version>
+      <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <!-- Get the test classes/resources for validation of oracle -->
     <dependency>
       <groupId>com.salesforce.formula</groupId>
       <artifactId>formula-engine-impl</artifactId>
-      <version>0.1.10-SNAPSHOT</version>
+      <version>${project.version}</version>
       <classifier>tests</classifier>
       <type>test-jar</type>
       <scope>test</scope>
