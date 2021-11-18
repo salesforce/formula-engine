@@ -33,12 +33,13 @@ public class FunctionMinute extends FormulaCommandInfoImpl {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         // convert muillisecs since midnight to minutes portion of time  trunc((args[0] -trunc(args[0]/3600000) * 3600000)/60000)
-        String sql = getMinuteExpr(args[0]);
+        String sql = getMinuteExpr(args[0], context);
         return new SQLPair(sql, guards[0]);
     }
     
-    public static String getMinuteExpr(String arg)  {
-        return "TRUNC((" + arg + "-TRUNC(" + arg + "/" + FormulaDateUtil.HOUR_IN_MILLIS+ ") * " + FormulaDateUtil.HOUR_IN_MILLIS + ")/" + FormulaDateUtil.MINUTE_IN_MILLIS + ")";
+    public static String getMinuteExpr(String arg, FormulaContext context)  {
+    	String trunc = context.getSqlStyle().isMysqlStyle() ? "TRUNCATE" : "TRUNC";
+        return trunc + "((" + arg + "-"+trunc+"(" + arg + "/" + FormulaDateUtil.HOUR_IN_MILLIS+ ") * " + FormulaDateUtil.HOUR_IN_MILLIS + ")/" + FormulaDateUtil.MINUTE_IN_MILLIS + ")";
     }
 
     @Override

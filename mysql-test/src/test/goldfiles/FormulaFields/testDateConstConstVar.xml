@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateConstConstVar">
+   <testInstance formula="DATE(2012,11,customnumber3__c)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST((2012 || '-' || 11 || '-' || CAST(FLOOR(COALESCE($!s0s!$.customnumber3__c, 0)) AS CHAR)) AS DATE)</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber3__c, 0) is null OR COALESCE($!s0s!$.customnumber3__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber3__c, 0) &gt;= 32 OR COALESCE($!s0s!$.customnumber3__c, 0) &gt;= 31</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customnumber3__c IS NULL THEN NULL ELSE CAST((2012 || '-' || 11 || '-' || CAST(FLOOR($!s0s!$.customnumber3__c) AS CHAR)) AS DATE) END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber3__c IS NULL ) AND ($!s0s!$.customnumber3__c is null OR $!s0s!$.customnumber3__c&lt; 1 OR $!s0s!$.customnumber3__c &gt;= 32 OR $!s0s!$.customnumber3__c &gt;= 31)</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC(new $F.Decimal('2012').toNumber(),new $F.Decimal('11').toNumber()-1,$F.nvl(context.record.customnumber3__c,new $F.Decimal('0')).toNumber()))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber3__c!=null)?(new Date(Date.UTC(new $F.Decimal('2012').toNumber(),new $F.Decimal('11').toNumber()-1,context.record.customnumber3__c.toNumber()))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC(2012,11-1,$F.nvl(context.record.customnumber3__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber3__c!=null)?(new Date(Date.UTC(2012,11-1,context.record.customnumber3__c))):null</JsOutput>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Thu Nov 29 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2007, 2, 29]</inputvalues>
+         <formula>Thu Nov 29 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Thu Nov 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Thu Nov 29 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2008, 2, 29]</inputvalues>
+         <formula>Thu Nov 29 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Thu Nov 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2007, 3, 32]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Nov 02 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[10000, 3, 2]</inputvalues>
+         <formula>Fri Nov 02 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Nov 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[9999, 12, 31]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Thu Nov 01 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[10000, 1, 1]</inputvalues>
+         <formula>Thu Nov 01 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Thu Nov 01 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Nov 02 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[1000, 3, 2]</inputvalues>
+         <formula>Fri Nov 02 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Nov 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Thu Nov 29 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2010, , 29]</inputvalues>
+         <formula>Thu Nov 29 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Thu Nov 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2010, 2, ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Thu Nov 29 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[, 2, 29]</inputvalues>
+         <formula>Thu Nov 29 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Thu Nov 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Nov 02 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2010, 0, 2]</inputvalues>
+         <formula>Fri Nov 02 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Nov 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2010, , ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2, ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Sun Nov 11 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[, , 11]</inputvalues>
+         <formula>Sun Nov 11 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Sun Nov 11 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Nov 02 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2009.5, 3, 2]</inputvalues>
+         <formula>Fri Nov 02 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Nov 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Nov 02 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2009, 3.5, 2]</inputvalues>
+         <formula>Fri Nov 02 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Nov 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Nov 02 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2009, 3, 2.5]</inputvalues>
+         <formula>Fri Nov 02 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Nov 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 12.5, 31.5]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 12, 32.1]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 12, 0.9]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Mon Nov 26 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2009, 0.9, 26]</inputvalues>
+         <formula>Mon Nov 26 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Mon Nov 26 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Sat Nov 03 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[-2009, 2, 3]</inputvalues>
+         <formula>Sat Nov 03 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Sat Nov 03 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Sun Nov 04 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2009, -3, 4]</inputvalues>
+         <formula>Sun Nov 04 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Sun Nov 04 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 3, -4]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Nov 02 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[-2009.2, 3, 2]</inputvalues>
+         <formula>Fri Nov 02 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Nov 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Sun Nov 04 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2009, -3.2, 4]</inputvalues>
+         <formula>Sun Nov 04 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Sun Nov 04 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 2, -4.2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Nov 02 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[0, 2, 2]</inputvalues>
+         <formula>Fri Nov 02 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Nov 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Nov 02 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2012, 0, 2]</inputvalues>
+         <formula>Fri Nov 02 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Nov 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012, 2, 0]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Thu Nov 29 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2013, 2, 29]</inputvalues>
+         <formula>Thu Nov 29 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Thu Nov 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Wed Nov 28 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2013, 2, 28]</inputvalues>
+         <formula>Wed Nov 28 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Wed Nov 28 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Wed Nov 28 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2016, 2, 28]</inputvalues>
+         <formula>Wed Nov 28 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Wed Nov 28 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Thu Nov 29 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2016, 2, 29]</inputvalues>
+         <formula>Thu Nov 29 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Thu Nov 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Nov 30 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>[2016, 2, 30]</inputvalues>
+         <formula>Fri Nov 30 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Nov 30 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

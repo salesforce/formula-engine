@@ -20,17 +20,21 @@ In order to implement this formula engine in your application, you need to
   javascript generated for mobile/offline use, you'll need to override that here.
 * Create a `FormulaContext` that represents your data providers.  Make sure your root context implements
   `getProperty`, `setProperty`, `getFormulaReturnType`, `isFunctionSupported` as they will be called in all circumstances.
-  Extending `BaseCompositeFormulaContext` is probably easisest for your Root/Default formula context.  Then
+  Extending `BaseCompositeFormulaContext` is probably easiest for your Root/Default formula context.  Then
   `addContextProvider` for the various stuff you include
 * The formula engine can parse hierarchies like `Contact.Account.Name`, but each formula context will get a chance
   to return the field at each point of the hierarchy, so you can override the results
 
-* You can use different formula engines for compliation in `FormulaEngine.getFactory().create(...)` and then reuse that
+* You can use different formula engines for compilation in `FormulaEngine.getFactory().create(...)` and then reuse that
   with different runtime contexts when you call `getFormula().evaluate(...)`.  This lets you reuse the FormulaInfo
   multiple times, as formula parsing is somewhat expensive.  If you want to handle the type conversions yourself,
   call `evaluateRaw`, not `evaluate` on the formulas.
 
-* If you're using javascript, you need to have a few functions installed in the contexnt of the org, usually as `$F`.
+* If you're using javascript, you need to have a few functions installed in the context of the org, usually as `$F`.
   See `FormulaJsTestUtils.getFunctionScript()` for the examples.  You'll also want to load the included `decimal.js`
   if you want high precision decimals client side, suitable for currencies.
   
+#### issues
+
+* MySQL support assumes the database uses case insensitive collation (utf8_bin) to match other DBs.  If you're
+  DB is case sensitive, there will be discrepancies between the DB and the Java/Javascript evalution.

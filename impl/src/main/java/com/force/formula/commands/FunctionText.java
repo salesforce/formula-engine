@@ -163,28 +163,36 @@ public class FunctionText extends FormulaCommandInfoImpl implements FormulaComma
             
             if (clazz == FormulaTime.class)  {
                 // time values are represented by millisecs since midnight.  Divide by 1000 to get it of the form SSSSS.FF3
-                sqlBuilder.append("TO_CHAR(TO_TIMESTAMP(TO_CHAR(" + args[0] + "/1000, 'FM99990D999'), '"+getSqlHooks(context).sqlSecsAndMsecs()+"'), '"+getSqlHooks(context).sqlHMSAndMsecs()+"')");
+            	if (context.getSqlStyle().isMysqlStyle()) {
+            		sqlBuilder.append("CAST(" + args[0] + " AS CHAR)");
+            	} else {
+            		sqlBuilder.append("TO_CHAR(TO_TIMESTAMP(TO_CHAR(" + args[0] + "/1000, 'FM99990D999'), '"+getSqlHooks(context).sqlSecsAndMsecs()+"'), '"+getSqlHooks(context).sqlHMSAndMsecs()+"')");
+            	}
             } else if (clazz == BigDecimal.class) {
             	sqlBuilder.append("(").append(String.format(getSqlHooks(context).sqlToChar(), args[0])).append(")");
             } else  {
-                sqlBuilder.append("(TO_CHAR(");
-                sqlBuilder.append(args[0]);
-
-                // See if we need a format mask
-
-                if (clazz == Date.class || parentType == Date.class) {
-                    sqlBuilder.append(", 'YYYY-MM-DD'");
-                } else if (clazz == FormulaDateTime.class) {
-                    sqlBuilder.append(", 'YYYY-MM-DD HH24:MI:SS'");
-                }
-
-                sqlBuilder.append(")");
-
-                if (clazz == FormulaDateTime.class && parentType != Date.class) {
-                    sqlBuilder.append(" || 'Z' ");
-                }
-
-                sqlBuilder.append(")");
+            	if (context.getSqlStyle().isMysqlStyle()) {
+	                sqlBuilder.append("(CAST(").append(args[0]).append(") AS CHAR)");
+            	} else {
+	                sqlBuilder.append("(TO_CHAR(");
+	                sqlBuilder.append(args[0]);
+	
+	                // See if we need a format mask
+	
+	                if (clazz == Date.class || parentType == Date.class) {
+	                    sqlBuilder.append(", 'YYYY-MM-DD'");
+	                } else if (clazz == FormulaDateTime.class) {
+	                    sqlBuilder.append(", 'YYYY-MM-DD HH24:MI:SS'");
+	                }
+	
+	                sqlBuilder.append(")");
+	
+	                if (clazz == FormulaDateTime.class && parentType != Date.class) {
+	                    sqlBuilder.append(" || 'Z' ");
+	                }
+	
+	                sqlBuilder.append(")");
+            	}
             }
             sql = sqlBuilder.toString();
             guard = guards[0];

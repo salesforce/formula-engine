@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDATEVALUEWithString">
+   <testInstance formula="datevalue(customtext1__c)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>STR_TO_DATE($!s0s!$.customtext1__c, '%Y-%m-%d')</Sql>
+       <Guard> $!s0s!$.customtext1__c NOT REGEXP '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$' </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>STR_TO_DATE($!s0s!$.customtext1__c, '%Y-%m-%d')</Sql>
+       <Guard> $!s0s!$.customtext1__c NOT REGEXP '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$' </Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Sun Jan 02 00:00:00 GMT 2005 viaSql null -->
+      <inputvalues>[2005-01-02]</inputvalues>
+         <formula>Sun Jan 02 00:00:00 GMT 2005</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Sun Jan 02 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Sun Jan 02 00:00:00 GMT 2005 viaSql null -->
+      <inputvalues>[2005-1-2]</inputvalues>
+         <formula>Sun Jan 02 00:00:00 GMT 2005</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Sun Jan 02 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Jan 15 00:00:00 GMT 9999 viaSql null -->
+      <inputvalues>[9999-01-15]</inputvalues>
+         <formula>Fri Jan 15 00:00:00 GMT 9999</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Fri Jan 15 00:00:00 GMT 9999</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Sat Jan 15 00:00:00 GMT 1 viaSql null -->
+      <inputvalues>[0001-01-15]</inputvalues>
+         <formula>Sat Jan 15 00:00:00 GMT 1</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Sat Jan 15 00:00:00 GMT 1</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200-01-03]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200-1-3]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2-1-3]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-13-02]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-02-31]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-03-32]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[crapola]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000-0-2]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0000-12-12]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0-12-12]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2020-11-00]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

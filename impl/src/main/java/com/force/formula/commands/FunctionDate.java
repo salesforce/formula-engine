@@ -44,7 +44,12 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         String year = (yearValue != BAD_VALUE) ? String.valueOf(yearValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[0] + ")");
         String month = (monthValue != BAD_VALUE) ? String.valueOf(monthValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[1] + ")");
         String day = (dayValue != BAD_VALUE) ? String.valueOf(dayValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[2] + ")");
-        String date = "TO_DATE(" + year + " || '-' || " + month + " || '-' || " + day + ", 'YYYY-MM-DD')";
+        String date;
+        if (context.getSqlStyle().isMysqlStyle()) {
+        	date = "CAST((" + year + " || '-' || " + month + " || '-' || " + day + ") AS DATE)";
+        } else {
+        	date = "TO_DATE(" + year + " || '-' || " + month + " || '-' || " + day + ", 'YYYY-MM-DD')";
+        }
 
         String nullBits = "";
         boolean yearCanBeNull = yearValue == BAD_VALUE && yearNode.canBeNull();
@@ -165,8 +170,8 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         return result;
     }
 
-    private String getValidDayInMonthSQL(FormulaSqlHooks hooks, String[] args, int yearValue, int monthValue, int dayValue) {
-        String toDateSQL = "TO_DATE("
+    private String getValidDayInMonthSQL(FormulaSqlHooks hooks, String[] args, int yearValue, int monthValue, int dayValue) {    	
+        String toDateSQL =  "TO_DATE("
  + (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue)
                         + " || '-' || "
                 + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue)

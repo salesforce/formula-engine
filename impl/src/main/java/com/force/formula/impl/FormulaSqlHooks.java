@@ -28,6 +28,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isPostgresStyle()) {
     	   return " NOT %s ~ '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\\d:[0-5]?\\d$' ";
     	}
+    	if (isMysqlStyle()) {
+     	   return " %s NOT REGEXP '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\\d:[0-5]?\\d$' ";
+     	}
     	return " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\\d:[0-5]?\\d$')"
     			+ "/* Adding some comments to keep the same length for this guard as it was before improving to more robust one   */";
     }
@@ -39,6 +42,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isPostgresStyle()) {
      	   return " NOT %s ~ '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$' ";
      	}
+    	if (isMysqlStyle()) {
+      	   return " %s NOT REGEXP '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$' ";
+      	}
     	return " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') /*comments to keep size */ ";
     }
     
@@ -49,6 +55,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isPostgresStyle()) {
       	   return " NOT %s ~ '^([01]\\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\\.[0-9][0-9][0-9]$' ";
       	}
+    	if (isMysqlStyle()) {
+       	   return " %s NOT REGEXP '^([01]\\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\\.[0-9][0-9][0-9]$' ";
+       	}
         return " NOT REGEXP_LIKE (%s, '^([01]\\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\\.[0-9][0-9][0-9]$') /*comments to keep size */ ";
     }
     
@@ -72,7 +81,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the function to use for NVL.  In postgres, it's usually coalesce, but in oracle, you want NVL.
      */
     default String sqlNvl() {
-    	if (isPostgresStyle()) {
+    	if (isPostgresStyle() || isMysqlStyle()) {
     		return "COALESCE";
     	}
         return "NVL";
@@ -82,7 +91,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the string to use for String.format to convert something to date generically, without a specified
      */
     default String sqlToDate() {
-    	if (isPostgresStyle()) {
+    	if (isPostgresStyle() || isMysqlStyle()) {
     		return "CAST(%s AS DATE)";
     	}
         return "TO_DATE(%s)";
@@ -95,6 +104,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isPostgresStyle()) {
     		return "CAST(%s AS NUMERIC)";
     	}
+    	if (isMysqlStyle()) {
+    		return "CAST(%s AS DOUBLE)";   // Specify your own default precision.
+    	}
         return "TO_NUMBER(%s)";
     }
 
@@ -104,6 +116,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlToChar() {
     	if (isPostgresStyle()) {
     		return "CAST(%s AS TEXT)";
+    	}
+    	if (isMysqlStyle()) {
+    		return "CAST(%s AS CHAR)";
     	}
         return "TO_CHAR(%s)";
     }
@@ -211,6 +226,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isOracleStyle()) {
             return "REGEXP_SUBSTR("+stringArg+",'.{0,'||NVL("+countArg+",0)||'}$',1,1,'n')";
     	}
+    	if (isMysqlStyle()) {
+            return "RIGHT(" + stringArg + ", GREATEST(" + countArg+ ", 0))";
+    	}
         return "RIGHT(" + stringArg + ", GREATEST(" + countArg+ ", 0)::integer)";
     }
     
@@ -231,6 +249,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isOracleStyle()) {
     		return "TO_NUMBER(TO_CHAR(SYSTIMESTAMP, '"+sqlSecsAndMsecs()+"'))*1000";    		
     	}
+    	if (isMysqlStyle()) {
+            return "CAST(UNIX_TIMESTAMP(CURTIME(3)) * 1000 AS unsigned)";
+    	}
         return "EXTRACT(EPOCH FROM AGE(NOW()::timestamp, DATE_TRUNC('day', NOW()::timestamp)))::BIGINT::NUMERIC";
     }
     
@@ -244,6 +265,10 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isPostgresStyle()) {
     		return "(%s+'1 day'::interval+('1 month'::interval*TRUNC(%s)))-'1 day'::interval";
     	}
+    	if (isMysqlStyle()) {
+    		return "DATE_ADD(%s, INTERVAL %s MONTH)";
+
+    	}
     	throw new UnsupportedOperationException();
     }
     
@@ -252,6 +277,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the format for converting to a datetime value
      */
     default String sqlToTimestampIso() {
+    	if (isMysqlStyle()) {
+    		return "TIMESTAMP(%s)";
+    	}
     	if (isPostgresStyle()) {
     		return "TO_TIMESTAMP(%s, 'YYYY-MM-DD HH24:MI:SS')";
     	}
@@ -262,6 +290,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the format for converting to a datetime value
      */
     default String sqlToDateIso() {
+    	if (isMysqlStyle()) {
+    		return "STR_TO_DATE(%s, '%%Y-%%m-%%d')";
+    	}
 		return "TO_DATE(%s, 'YYYY-MM-DD')";
     }
     
@@ -272,6 +303,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlLastDayOfMonth() {
     	if (isPostgresStyle()) {
     		return "EXTRACT(DAY FROM (date_trunc('month',%s)+ interval '1 month -1 day')::timestamp(0))::numeric";
+    	}
+    	if (isMysqlStyle()) {
+    		return "LAST_DAY(%s)";
     	}
 		return "TO_CHAR(LAST_DAY(%s),'DD')";
     }
@@ -285,6 +319,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isPostgresStyle()) {
     		// Formula engine generally allows || with nulls, as it's less confusing
     		return "CONCAT(%s, %s)";
+    	}
+    	if (isMysqlStyle()) {
+    		return "CONCAT_WS(\"\",%s, %s)";  // CONCAT doesn't skip nulls
     	}
 		return withSpaces ? "%s || %s" : "%s||%s";
     }
@@ -315,6 +352,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     		// This is unfortunate, as it has to reevaluate the subexpression twice in order to return 0 for not found.
     		// If your postgresql has a better version of this, please use it instead.
     		return String.format("CASE WHEN COALESCE(STRPOS(SUBSTR(%s,%s::integer),%s),0) > 0 THEN STRPOS(SUBSTR(%s,%s::integer),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
+    	}
+    	if (isMysqlStyle()) {
+    		return String.format("CASE WHEN COALESCE(INSTR(SUBSTR(%s,%s::integer),%s),0) > 0 THEN STRPOS(INSTR(%s,%s::integer),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     	}
 		return String.format("INSTR(%s, %s, %s)", strArg, substrArg, startLocation);
     }
@@ -498,7 +538,8 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
 	public static enum DefaultStyle implements FormulaSqlHooks {
 		POSTGRES,
-		ORACLE;
+		ORACLE,
+		MYSQL;
 
 		@Override
 		public boolean isPostgresStyle() {
@@ -509,5 +550,10 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 		public boolean isOracleStyle() {
 			return this == ORACLE;
 		}
+
+		@Override
+		public boolean isMysqlStyle() {
+			return this == MYSQL;
+		}	
 	}
 }

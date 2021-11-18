@@ -32,12 +32,13 @@ public class FunctionHour extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = getHourExpr(args[0]);
+        String sql = getHourExpr(args[0], context);
         return new SQLPair(sql, guards[0]);
     }
     
-    public static String getHourExpr(String arg)  {
-        return "TRUNC(" + arg + "/" + FormulaDateUtil.HOUR_IN_MILLIS + ")";
+    public static String getHourExpr(String arg, FormulaContext context)  {
+    	String trunc = context.getSqlStyle().isMysqlStyle() ? "TRUNCATE" : "TRUNC";
+        return trunc + "(" + arg + "/" + FormulaDateUtil.HOUR_IN_MILLIS + ")";
     }
 
     @Override

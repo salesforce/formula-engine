@@ -121,7 +121,14 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 	protected String stringToDateTime(String arg) {
 		return "TO_DATE("+arg+", 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')";
 	}
-	
+
+	/**
+	 * @param arg the string to convert to a date
+	 * @return a SQL string that will convert arg to a datetime
+	 */
+	protected String stringToDate(String arg) {
+		return "TO_DATE(" + arg + ",'DD-MM-YYYY')";
+	}
 
 	/**
 	 * @param arg the selected column that may or may not be a timestsamp
@@ -141,8 +148,7 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 		case DATETIME:
 			return stringToDateTime("'" + FormulaDateUtil.formatDatetimeToISO8601((java.util.Date) value) + "'");
 		case DATEONLY:
-			return "TO_DATE('" + FormulaDateUtil.formatDateToSql(((java.util.Date) value))
-					+ "','DD-MM-YYYY')";
+			return stringToDate("'" + FormulaDateUtil.formatDateToSql(((java.util.Date) value)) + "'");
 		case PERCENT:
 		case CURRENCY:
 		case DOUBLE:
@@ -185,7 +191,7 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 		}		
 		return columnSql;
 	}
-	
+
 	/**
 	 * Make a FROM clause with a subquery with alias "c" that contains all the
 	 * values as columns easily substituted in the formula below
@@ -206,10 +212,14 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 				Object value = values.get(df.getFormulaFieldInfo().getName());
 				String sqlValue;
 
-				if (value == null) {
-					sqlValue = getNullSqlValue(df);
+				if (useBinds()) {
+					sqlValue = "?";
 				} else {
-					sqlValue = getSqlLiteralValue(df, value);
+					if (value == null) {
+						sqlValue = getNullSqlValue(df);
+					} else {
+						sqlValue = getSqlLiteralValue(df, value);
+					}
 				}
 				sub.append(", " + sqlValue).append(" as ").append(df.getFormulaFieldInfo().getDbColumn(null, null));
 			}
@@ -218,12 +228,103 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 		sub.append(") c");
 		return sub;
 	}
+	
+	
+	/**
+	 * @return true if we should use binding variables instead of literals. 
+	 */
+	protected boolean useBinds() {
+		return false;
+	}
+	
+	/**
+	 * Set the bind variables for the prepared statement for the tgiven values.  Needs to match makeRowValueSubquery
+	 * binding
+	 * @param pstmt the prepared statement to bind
+	 * @param formulaContext the MapFormulaContext used to lookup the value
+	 * @param values the Map of all the values
+	 * @throws SQLException if something happens whilst binding
+	 */
+	protected void setVariables(PreparedStatement pstmt, FormulaRuntimeContext formulaContext, Map<String, Object> values) throws SQLException {
+		if (useBinds()) {
+			MapFormulaContext mfc = (MapFormulaContext) formulaContext;
+			if (values != null) {
+				int i = 1;
+				for (DisplayField df : formulaContext.getDisplayFields(mfc.getEntity())) {
+					Object value = values.get(df.getFormulaFieldInfo().getName());
+					int sqlType = getSqlType((MockFormulaDataType)df.getFormulaFieldInfo().getDataType());
+					if (value == null) {
+						pstmt.setNull(i, sqlType);
+					} else {
+						bindSqlValue(pstmt, df, value, i);
+					}
+					i++;
+				}
+			}
+		}
+	}
+	
+	/**
+	 * @return the value to use as a literal sql value for the display field.
+	 * @param df the display field
+	 * @param value the value from the MapEntityObject
+	 */
+	protected void bindSqlValue(PreparedStatement pstmt, DisplayField df, Object value, int position) throws SQLException {
+		switch ((MockFormulaDataType) df.getFormulaFieldInfo().getDataType()) {
+		case DATETIME:
+			pstmt.setTimestamp(position, new java.sql.Timestamp(((java.util.Date) value).getTime()));
+			break;
+		case DATEONLY:
+			pstmt.setDate(position, new java.sql.Date(((java.util.Date) value).getTime()));
+			break;
+		case TIMEONLY:
+			pstmt.setTime(position, new java.sql.Time(((FormulaTime)value).getTimeInMillis()));
+			break;
+		case PERCENT:
+		case CURRENCY:
+		case DOUBLE:
+			// Make sure we use the right scale for numbers, as postgres will treat them as
+			// integers
+			BigDecimal bd = new BigDecimal(String.valueOf(value));
+			int newScale = df.getFormulaFieldInfo().getScale();
+			if (newScale > bd.scale()) {
+				bd = bd.setScale(newScale, RoundingMode.HALF_DOWN);
+			}
+			pstmt.setBigDecimal(position, bd);
+			break;
+		case BOOLEAN:
+			pstmt.setString(position, Boolean.TRUE.equals(value) ? "1" : "0");
+			break;
+		default:
+			pstmt.setString(position, String.valueOf(value));
+		}
+	}
+	
+	
 
 	/**
 	 * @return the string that will be "from dual" in oracle in the subselect
 	 */
     protected String getFromDual()  {
     	return "";
+    }
+    
+    protected int getSqlType(MockFormulaDataType dataType) {
+    	switch (dataType) {
+    	case DATEONLY:
+    		return Types.DATE;
+    	case DATETIME:
+    		return Types.TIMESTAMP;
+    	case TIMEONLY:
+    		return Types.TIME;
+    	case CURRENCY:
+    	case DOUBLE:
+    	case INTEGER:
+    	case PERCENT:
+    		return Types.NUMERIC;
+    	default:
+    	}
+    	return Types.VARCHAR;
     }
     
 	
@@ -279,7 +380,7 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 	 * Evaluate the formula using the embedded postgres engine.
 	 */
 	@Override
-	public String evaluateSql(FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource,
+	public String evaluateSql(String testName, FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource,
 			boolean nullAsNull) throws SQLException, FormulaException, IOException {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> values = (Map<String, Object>) entityObject;
@@ -296,10 +397,9 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 			column = fixSqlFormat(column, formula);
 
 			try {
-				//System.out.println("SELECT " + column + subQuery.toString());  // For debugging
-
 				Connection conn = getConnection();
 				try (PreparedStatement pstmt = conn.prepareStatement("SELECT " + column + subQuery.toString())) {
+					setVariables(pstmt, formulaContext, values);
 					try (ResultSet rset = pstmt.executeQuery()) {
 						if (rset.next()) {
 							return formatDbResult(rset, formulaContext, formula);
@@ -307,7 +407,7 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 					}
 				}
 			} catch (SQLException e) {
-				//System.out.println("SELECT " + column + subQuery.toString());  // For debugging
+				System.out.println(testName + ": SELECT " + column + subQuery.toString());  // For debugging
 				throw e; // Useful for a breakpoint
 			}
 		}

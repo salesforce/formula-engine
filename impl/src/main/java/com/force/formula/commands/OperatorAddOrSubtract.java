@@ -164,11 +164,11 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
         Type lhsDataType = lhs.getDataType();
         Type rhsDataType = rhs.getDataType();
 
-        String lhsValue = truncateIfRequired(lhsDataType, rhsDataType, args[0]);
-        String rhsValue = truncateIfRequired(rhsDataType, lhsDataType, args[1]);
+        String lhsValue = truncateIfRequired(context, lhsDataType, rhsDataType, args[0]);
+        String rhsValue = truncateIfRequired(context, rhsDataType, lhsDataType, args[1]);
 
-        rhsValue = castNullIfNeeded(node.getDataType(), lhsDataType, rhsValue);
-        lhsValue = castNullIfNeeded(node.getDataType(), rhsDataType, lhsValue);
+        rhsValue = castNullIfNeeded(context, node.getDataType(), lhsDataType, rhsValue);
+        lhsValue = castNullIfNeeded(context, node.getDataType(), rhsDataType, lhsValue);
 
         // Handle the string + string case
         if (FormulaTypeUtils.isTypeText(lhsDataType) && FormulaTypeUtils.isTypeText(rhsDataType)) {
@@ -183,12 +183,15 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
             sql = "MOD(" + lhsValue + operator + rhsValue + "+" + FormulaDateUtil.MILLISECONDSPERDAY + "," + FormulaDateUtil.MILLISECONDSPERDAY + ")";
         }
         else  {
-            if (getSqlHooks(context).isPostgresStyle()) {
+        	FormulaSqlHooks hooks = getSqlHooks(context);
+        	if (hooks.isOracleStyle()) {
+                sql = "(" + lhsValue + operator + rhsValue + ")";
+        	} else {
                 // operations with date|timestamp types require special handling for Psql - W-7066598
                 if (isSubtractionOfDateTimeValues(lhsDataType, rhsDataType)) {
                     // <date|timestamp> - <date|timestamp>
                     sql = String.format(getSqlHooks(context).psqlSubtractTwoTimestamps(), lhsValue, rhsValue);
-                } else if (isDateTimeAndNumberOperation(lhsDataType, rhsDataType)) {
+                } else if (isDateTimeAndNumberOperation(lhsDataType, rhsDataType) && hooks.isPostgresStyle()) {
                     if (isDateTimeDatatype(lhsDataType)) {
                         // <date|timestamp> <+|-> <number>
                         sql = String.format("(%s%spg_catalog.make_interval(0,0,0,0,0,0,%s*86400))::timestamp(0)", lhsValue, operator, rhsValue);
@@ -201,8 +204,6 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
                 } else {
                     sql = "(" + lhsValue + operator + rhsValue + ")";
                 }
-            } else {
-                sql = "(" + lhsValue + operator + rhsValue + ")";
             }
         }
 
@@ -248,16 +249,20 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
      * Oracle assumes the number case by default.
      * So we need to cast that NULL to a date if the result is expected to be a number and the other operator is a date.
      */
-    private String castNullIfNeeded(Type parentType, Type otherType, String value) {
+    private String castNullIfNeeded(FormulaContext context, Type parentType, Type otherType, String value) {
         if (!performAddition && parentType == BigDecimal.class && (otherType == FormulaDateTime.class || otherType == Date.class) && "NULL".equals(value)) {
+        	if (context.getSqlStyle().isMysqlStyle()) {
+        		return "CAST(NULL as DATE)";
+        	}
             return "TO_DATE(NULL)";
         }
         return value;
     }
 
-    private String truncateIfRequired(Type valueClass, Type otherValueClass, String value) {
+    private String truncateIfRequired(FormulaContext context, Type valueClass, Type otherValueClass, String value) {
         if ((valueClass == BigDecimal.class) && (otherValueClass == Date.class)) {
-            value = "TRUNC(" + value + ")";
+        	String trunc = context.getSqlStyle().isMysqlStyle() ? "TRUNCATE" : "TRUNC";
+            value = trunc + "(" + value + ")";
         }
 
         return value;

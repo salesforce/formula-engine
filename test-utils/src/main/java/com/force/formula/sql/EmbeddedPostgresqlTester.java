@@ -211,7 +211,7 @@ public class EmbeddedPostgresqlTester extends DbTester {
 	 * Evaluate the formula using the embedded postgres engine.
 	 */
 	@Override
-	public String evaluateSql(FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource,
+	public String evaluateSql(String testName, FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource,
 			boolean nullAsNull) throws SQLException, FormulaException, IOException {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> values = (Map<String, Object>) entityObject;

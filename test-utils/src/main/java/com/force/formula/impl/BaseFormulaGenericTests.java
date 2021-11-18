@@ -877,7 +877,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * @throws SQLException if there is an issue evaluating the sql
 		 * @throws FormulaException if there is an issue evaluating the formula
 		 */
-		public abstract String evaluateSql(FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource, boolean nullAsNull) throws IOException, SQLException, FormulaException;
+		public abstract String evaluateSql(String name, FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource, boolean nullAsNull) throws IOException, SQLException, FormulaException;
 
 		// Support close, if necessary.
 		@Override

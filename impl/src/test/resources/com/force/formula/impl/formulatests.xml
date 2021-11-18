@@ -349,7 +349,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testWeekday" devName="testWeekday"
+     <testcase name="testWeekday" devName="testWeekday" labels="ignore"
          labelName="testWeekday" dataType="Double" dataFile="addDate"
          scale="2" precision="12" code="WEEKDAY(customdate1__c)">
          <referencefield devName="customdate1" labelName="customdate1"

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDate">
+   <testInstance formula="(customdate1__c+customnumber1__c)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>($!s0s!$.customdate1__c+TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>($!s0s!$.customdate1__c+TRUNCATE($!s0s!$.customnumber1__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))|0))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;context.record.customnumber1__c!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*((context.record.customnumber1__c)|0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,0))|0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;context.record.customnumber1__c!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*((context.record.customnumber1__c)|0))):null</JsOutput>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, null as customdate1__c, 40.00 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[, 40]</inputvalues>
+         <formula>null</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, null as customdate1__c, 40.00 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, null as customdate1__c, 40.00 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2005-12-31' as customdate1__c, 4.00 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[2005:12:31, 4.00]</inputvalues>
+         <formula>Wed Jan 04 00:00:00 GMT 2006</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2005-12-31' as customdate1__c, 4.00 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Wed Jan 04 00:00:00 GMT 2006</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2005-12-31' as customdate1__c, 4.00 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2004-12-31' as customdate1__c, 3.00 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[2004:12:31, 3.00]</inputvalues>
+         <formula>Mon Jan 03 00:00:00 GMT 2005</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2004-12-31' as customdate1__c, 3.00 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Mon Jan 03 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2004-12-31' as customdate1__c, 3.00 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2004-02-28' as customdate1__c, 4.00 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[2004:02:28:00:00:00, 4.00]</inputvalues>
+         <formula>Wed Mar 03 00:00:00 GMT 2004</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2004-02-28' as customdate1__c, 4.00 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Wed Mar 03 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2004-02-28' as customdate1__c, 4.00 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.50 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[2000:02:28, 3.5]</inputvalues>
+         <formula>Thu Mar 02 00:00:00 GMT 2000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.50 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Thu Mar 02 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.50 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.40 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[2000:02:28, 3.4]</inputvalues>
+         <formula>Thu Mar 02 00:00:00 GMT 2000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.40 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Thu Mar 02 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.40 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.60 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[2000:02:28, 3.6]</inputvalues>
+         <formula>Thu Mar 02 00:00:00 GMT 2000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.60 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Thu Mar 02 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.60 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 40000.00 as customnumber1__c)' at line 1 -->
+      <inputvalues>[2000:02:28, 40000]</inputvalues>
+         <formula>Wed Sep 04 00:00:00 GMT 2109</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 40000.00 as customnumber1__c)' at line 1</sql>
+         <formulaNullAsNull>Wed Sep 04 00:00:00 GMT 2109</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 40000.00 as customnumber1__c)' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 365.00 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[2000:02:28, 365]</inputvalues>
+         <formula>Tue Feb 27 00:00:00 GMT 2001</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 365.00 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Tue Feb 27 00:00:00 GMT 2001</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 365.00 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 364.00 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[2000:02:28, 364]</inputvalues>
+         <formula>Mon Feb 26 00:00:00 GMT 2001</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 364.00 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Mon Feb 26 00:00:00 GMT 2001</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 364.00 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 30.00 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[2000:02:28, 30]</inputvalues>
+         <formula>Wed Mar 29 00:00:00 GMT 2000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 30.00 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Wed Mar 29 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-02-28' as customdate1__c, 30.00 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '1900-01-01' as customdate1__c, 30.00 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[1900:01:01, 30]</inputvalues>
+         <formula>Wed Jan 31 00:00:00 GMT 1900</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '1900-01-01' as customdate1__c, 30.00 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Wed Jan 31 00:00:00 GMT 1900</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '1900-01-01' as customdate1__c, 30.00 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '4000-01-01' as customdate1__c, 30.00 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[4000:01:01, 30]</inputvalues>
+         <formula>Mon Jan 31 00:00:00 GMT 4000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '4000-01-01' as customdate1__c, 30.00 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Mon Jan 31 00:00:00 GMT 4000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '4000-01-01' as customdate1__c, 30.00 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-01-01' as customdate1__c, 30.00 as customnumber1__c) c' at line 1 -->
+      <inputvalues>[2000:01:01, 30]</inputvalues>
+         <formula>Mon Jan 31 00:00:00 GMT 2000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-01-01' as customdate1__c, 30.00 as customnumber1__c) c' at line 1</sql>
+         <formulaNullAsNull>Mon Jan 31 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '2000-01-01' as customdate1__c, 30.00 as customnumber1__c) c' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '3999-01-01' as customdate1__c, 0.23456 as customnumber1__c) ' at line 1 -->
+      <inputvalues>[3999:01:01, 0.23456]</inputvalues>
+         <formula>Fri Jan 01 00:00:00 GMT 3999</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '3999-01-01' as customdate1__c, 0.23456 as customnumber1__c) ' at line 1</sql>
+         <formulaNullAsNull>Fri Jan 01 00:00:00 GMT 3999</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')) FROM (SELECT 1, '3999-01-01' as customdate1__c, 0.23456 as customnumber1__c) ' at line 1</sqlNullAsNull>
+      </result>
+   </testInstance>
+   <testInstance formula="(customnumber1__c+customdate1__c)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>(TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0))+$!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(TRUNCATE($!s0s!$.customnumber1__c)+$!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))|0))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*((context.record.customnumber1__c)|0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,0))|0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*((context.record.customnumber1__c)|0))):null</JsOutput>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, null as customdate1__c, 40.00 as customnumbe' at line 1 -->
+      <inputvalues>[40, ]</inputvalues>
+         <formula>null</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, null as customdate1__c, 40.00 as customnumbe' at line 1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, null as customdate1__c, 40.00 as customnumbe' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2005-12-31' as customdate1__c, 4.00 as cust' at line 1 -->
+      <inputvalues>[4.00, 2005:12:31]</inputvalues>
+         <formula>Wed Jan 04 00:00:00 GMT 2006</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2005-12-31' as customdate1__c, 4.00 as cust' at line 1</sql>
+         <formulaNullAsNull>Wed Jan 04 00:00:00 GMT 2006</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2005-12-31' as customdate1__c, 4.00 as cust' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2004-12-31' as customdate1__c, 3.00 as cust' at line 1 -->
+      <inputvalues>[3.00, 2004:12:31]</inputvalues>
+         <formula>Mon Jan 03 00:00:00 GMT 2005</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2004-12-31' as customdate1__c, 3.00 as cust' at line 1</sql>
+         <formulaNullAsNull>Mon Jan 03 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2004-12-31' as customdate1__c, 3.00 as cust' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2004-02-28' as customdate1__c, 4.00 as cust' at line 1 -->
+      <inputvalues>[4.00, 2004:02:28:00:00:00]</inputvalues>
+         <formula>Wed Mar 03 00:00:00 GMT 2004</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2004-02-28' as customdate1__c, 4.00 as cust' at line 1</sql>
+         <formulaNullAsNull>Wed Mar 03 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2004-02-28' as customdate1__c, 4.00 as cust' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.50 as cust' at line 1 -->
+      <inputvalues>[3.5, 2000:02:28]</inputvalues>
+         <formula>Thu Mar 02 00:00:00 GMT 2000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.50 as cust' at line 1</sql>
+         <formulaNullAsNull>Thu Mar 02 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.50 as cust' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.40 as cust' at line 1 -->
+      <inputvalues>[3.4, 2000:02:28]</inputvalues>
+         <formula>Thu Mar 02 00:00:00 GMT 2000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.40 as cust' at line 1</sql>
+         <formulaNullAsNull>Thu Mar 02 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.40 as cust' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.60 as cust' at line 1 -->
+      <inputvalues>[3.6, 2000:02:28]</inputvalues>
+         <formula>Thu Mar 02 00:00:00 GMT 2000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.60 as cust' at line 1</sql>
+         <formulaNullAsNull>Thu Mar 02 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 3.60 as cust' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 40000.00 as ' at line 1 -->
+      <inputvalues>[40000, 2000:02:28]</inputvalues>
+         <formula>Wed Sep 04 00:00:00 GMT 2109</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 40000.00 as ' at line 1</sql>
+         <formulaNullAsNull>Wed Sep 04 00:00:00 GMT 2109</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 40000.00 as ' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 365.00 as cu' at line 1 -->
+      <inputvalues>[365, 2000:02:28]</inputvalues>
+         <formula>Tue Feb 27 00:00:00 GMT 2001</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 365.00 as cu' at line 1</sql>
+         <formulaNullAsNull>Tue Feb 27 00:00:00 GMT 2001</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 365.00 as cu' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 364.00 as cu' at line 1 -->
+      <inputvalues>[364, 2000:02:28]</inputvalues>
+         <formula>Mon Feb 26 00:00:00 GMT 2001</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 364.00 as cu' at line 1</sql>
+         <formulaNullAsNull>Mon Feb 26 00:00:00 GMT 2001</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 364.00 as cu' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 30.00 as cus' at line 1 -->
+      <inputvalues>[30, 2000:02:28]</inputvalues>
+         <formula>Wed Mar 29 00:00:00 GMT 2000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 30.00 as cus' at line 1</sql>
+         <formulaNullAsNull>Wed Mar 29 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-02-28' as customdate1__c, 30.00 as cus' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '1900-01-01' as customdate1__c, 30.00 as cus' at line 1 -->
+      <inputvalues>[30, 1900:01:01]</inputvalues>
+         <formula>Wed Jan 31 00:00:00 GMT 1900</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '1900-01-01' as customdate1__c, 30.00 as cus' at line 1</sql>
+         <formulaNullAsNull>Wed Jan 31 00:00:00 GMT 1900</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '1900-01-01' as customdate1__c, 30.00 as cus' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '4000-01-01' as customdate1__c, 30.00 as cus' at line 1 -->
+      <inputvalues>[30, 4000:01:01]</inputvalues>
+         <formula>Mon Jan 31 00:00:00 GMT 4000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '4000-01-01' as customdate1__c, 30.00 as cus' at line 1</sql>
+         <formulaNullAsNull>Mon Jan 31 00:00:00 GMT 4000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '4000-01-01' as customdate1__c, 30.00 as cus' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-01-01' as customdate1__c, 30.00 as cus' at line 1 -->
+      <inputvalues>[30, 2000:01:01]</inputvalues>
+         <formula>Mon Jan 31 00:00:00 GMT 2000</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-01-01' as customdate1__c, 30.00 as cus' at line 1</sql>
+         <formulaNullAsNull>Mon Jan 31 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '2000-01-01' as customdate1__c, 30.00 as cus' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '3999-01-01' as customdate1__c, 0.23456 as c' at line 1 -->
+      <inputvalues>[0.23456, 3999:01:01]</inputvalues>
+         <formula>Fri Jan 01 00:00:00 GMT 3999</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '3999-01-01' as customdate1__c, 0.23456 as c' at line 1</sql>
+         <formulaNullAsNull>Fri Jan 01 00:00:00 GMT 3999</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')+c.customdate1__c) FROM (SELECT 1, '3999-01-01' as customdate1__c, 0.23456 as c' at line 1</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

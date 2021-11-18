@@ -18,13 +18,20 @@ package com.force.formula.sql;
 public interface FormulaSqlStyle {
 
 	/**
-	 * @return whether or not to default to Postgresql Styles
+	 * @return whether or not to default to Postgresql style of sql.
 	 */
 	boolean isPostgresStyle();
 	
 	/**
-	 * @return whether or not to default to Oracle styles.
+	 * @return whether or not to default to Oracle style of sql.
 	 */
 	boolean isOracleStyle();
+	
+	/**
+	 * @return whether or not to default to mysql style of sql.
+	 */
+	default boolean isMysqlStyle() {
+		return false;
+	}
 	
 }

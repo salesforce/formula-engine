@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateConstVarVar">
+   <testInstance formula="DATE(2012,customnumber2__c,customnumber3__c)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST((2012 || '-' || CAST(FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) AS CHAR) || '-' || CAST(FLOOR(COALESCE($!s0s!$.customnumber3__c, 0)) AS CHAR)) AS DATE)</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber2__c, 0) is null  OR FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR COALESCE($!s0s!$.customnumber3__c, 0) is null OR COALESCE($!s0s!$.customnumber3__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber3__c, 0) &gt;= 32 OR  COALESCE($!s0s!$.customnumber3__c, 0) &gt;= LAST_DAY(DATE(2012 || '-' || FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)),'YYYY-MM'))+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customnumber2__c IS NULL THEN NULL WHEN $!s0s!$.customnumber3__c IS NULL THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR($!s0s!$.customnumber2__c) AS CHAR) || '-' || CAST(FLOOR($!s0s!$.customnumber3__c) AS CHAR)) AS DATE) END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber2__c IS NULL OR $!s0s!$.customnumber3__c IS NULL ) AND ($!s0s!$.customnumber2__c is null  OR FLOOR($!s0s!$.customnumber2__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR $!s0s!$.customnumber3__c is null OR $!s0s!$.customnumber3__c&lt; 1 OR $!s0s!$.customnumber3__c &gt;= 32 OR  $!s0s!$.customnumber3__c &gt;= LAST_DAY(DATE(2012 || '-' || FLOOR($!s0s!$.customnumber2__c),'YYYY-MM'))+1 )</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC(new $F.Decimal('2012').toNumber(),$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toNumber()-1,$F.nvl(context.record.customnumber3__c,new $F.Decimal('0')).toNumber()))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber3__c!=null)?(new Date(Date.UTC(new $F.Decimal('2012').toNumber(),context.record.customnumber2__c.toNumber()-1,context.record.customnumber3__c.toNumber()))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC(2012,$F.nvl(context.record.customnumber2__c,0)-1,$F.nvl(context.record.customnumber3__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber3__c!=null)?(new Date(Date.UTC(2012,context.record.customnumber2__c-1,context.record.customnumber3__c))):null</JsOutput>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[2007, 2, 29]</inputvalues>
+         <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[2008, 2, 29]</inputvalues>
+         <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2007, 3, 32]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[10000, 3, 2]</inputvalues>
+         <formula>Fri Mar 02 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Fri Mar 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[9999, 12, 31]</inputvalues>
+         <formula>Mon Dec 31 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Mon Dec 31 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[10000, 1, 1]</inputvalues>
+         <formula>Sun Jan 01 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Sun Jan 01 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[1000, 3, 2]</inputvalues>
+         <formula>Fri Mar 02 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Fri Mar 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1 -->
+      <inputvalues>[2010, , 29]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1 -->
+      <inputvalues>[2010, 2, ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[, 2, 29]</inputvalues>
+         <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2010, 0, 2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1 -->
+      <inputvalues>[, , ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1 -->
+      <inputvalues>[2010, , ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1 -->
+      <inputvalues>[, 2, ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1 -->
+      <inputvalues>[, , 11]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[2009.5, 3, 2]</inputvalues>
+         <formula>Fri Mar 02 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Fri Mar 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[2009, 3.5, 2]</inputvalues>
+         <formula>Fri Mar 02 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Fri Mar 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[2009, 3, 2.5]</inputvalues>
+         <formula>Fri Mar 02 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Fri Mar 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[2009, 12.5, 31.5]</inputvalues>
+         <formula>Mon Dec 31 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Mon Dec 31 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 12, 32.1]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 12, 0.9]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 0.9, 26]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[-2009, 2, 3]</inputvalues>
+         <formula>Fri Feb 03 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Fri Feb 03 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, -3, 4]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 3, -4]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[-2009.2, 3, 2]</inputvalues>
+         <formula>Fri Mar 02 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Fri Mar 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, -3.2, 4]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 2, -4.2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[0, 2, 2]</inputvalues>
+         <formula>Thu Feb 02 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Thu Feb 02 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012, 0, 2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012, 2, 0]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[2013, 2, 29]</inputvalues>
+         <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[2013, 2, 28]</inputvalues>
+         <formula>Tue Feb 28 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Tue Feb 28 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[2016, 2, 28]</inputvalues>
+         <formula>Tue Feb 28 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Tue Feb 28 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1 -->
+      <inputvalues>[2016, 2, 29]</inputvalues>
+         <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2016, 2, 30]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1  THEN NULL ELSE CAST((2012 || '-' || CAST(FLOOR(COALESCE(c.custom' at line 1</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','YYYY-MM'))+1 ) THEN NULL ELSE CASE WHEN c.customnumber2__c IS NULL THEN NULL W' at line 1</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

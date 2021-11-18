@@ -229,7 +229,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		 */
 		private String evaluateSql(FormulaRuntimeContext formulaContext, Map<String, Object> entityObject, String formulaSource, boolean nullAsNull) {
 			try {
-				return ((FormulaGenericTests)getSuite()).getDbTester().evaluateSql(formulaContext, entityObject, formulaSource, nullAsNull);
+				return ((FormulaGenericTests)getSuite()).getDbTester().evaluateSql(getName(), formulaContext, entityObject, formulaSource, nullAsNull);
 			} catch (Throwable e) {
 				logger.log(Level.FINER, "Error in sql", e);
 				return "Error: " + e.getMessage();

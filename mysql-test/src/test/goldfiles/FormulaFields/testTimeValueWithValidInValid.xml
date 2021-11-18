@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTimeValueWithValidInValid">
+   <testInstance formula="TimeValue(DATETIMEVALUE(dateString__c))" returntype="TimeOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>TIME_TO_SEC(TIME(TIMESTAMP($!s0s!$.dateString__c)))</Sql>
+       <Guard> $!s0s!$.dateString__c NOT REGEXP '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$' </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TIME_TO_SEC(TIME(TIMESTAMP($!s0s!$.dateString__c)))</Sql>
+       <Guard> $!s0s!$.dateString__c NOT REGEXP '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$' </Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1))):null</JsOutput>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 00:00:09 viaSql null -->
+      <inputvalues>[2011-01-29 00:00:09]</inputvalues>
+         <formula>00:00:09</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>00:00:09</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 00:00:09 viaSql null -->
+      <inputvalues>[2011-01-9 00:00:09]</inputvalues>
+         <formula>00:00:09</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>00:00:09</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 00:00 viaSql null -->
+      <inputvalues>[2011-1-29 00:00:00]</inputvalues>
+         <formula>00:00</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>00:00</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 00:00 viaSql null -->
+      <inputvalues>[2011-1-1 00:00:00]</inputvalues>
+         <formula>00:00</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>00:00</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 01:00 viaSql null -->
+      <inputvalues>[2011-01-1 1:00:00]</inputvalues>
+         <formula>01:00</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>01:00</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 02:22:59 viaSql null -->
+      <inputvalues>[2011-1-23 2:22:59]</inputvalues>
+         <formula>02:22:59</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>02:22:59</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 05:22:33 viaSql null -->
+      <inputvalues>[2012-2-7 5:22:33]</inputvalues>
+         <formula>05:22:33</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>05:22:33</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-13-29 00:00:09]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012:02:02]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 24:00:00]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 23:60:00]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 23:00:60]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 23:59:59 viaSql null -->
+      <inputvalues>[2012-01-01 23:59:59]</inputvalues>
+         <formula>23:59:59</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>23:59:59</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-10-34 00:00:00]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 05:02:33 viaSql null -->
+      <inputvalues>[2012-02-07 5:2:33]</inputvalues>
+         <formula>05:02:33</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>05:02:33</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 05:22:03 viaSql null -->
+      <inputvalues>[2012-02-07 5:22:3]</inputvalues>
+         <formula>05:22:03</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>05:22:03</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testUpper">
+   <testInstance formula="upper(customText1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>UPPER($!s0s!$.customText1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>UPPER($!s0s!$.customText1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+      <result>
+      <inputvalues>[﻿]</inputvalues>
+         <formula>﻿</formula>
+         <sql>﻿</sql>
+         <formulaNullAsNull>﻿</formulaNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CASES]</inputvalues>
+         <formula>CASES</formula>
+         <sql>CASES</sql>
+         <formulaNullAsNull>CASES</formulaNullAsNull>
+         <sqlNullAsNull>CASES</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[cases]</inputvalues>
+         <formula>CASES</formula>
+         <sql>CASES</sql>
+         <formulaNullAsNull>CASES</formulaNullAsNull>
+         <sqlNullAsNull>CASES</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CaSeS]</inputvalues>
+         <formula>CASES</formula>
+         <sql>CASES</sql>
+         <formulaNullAsNull>CASES</formulaNullAsNull>
+         <sqlNullAsNull>CASES</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[große]</inputvalues>
+         <formula>GROSSE</formula>
+         <sql>GROßE</sql>
+         <formulaNullAsNull>GROSSE</formulaNullAsNull>
+         <sqlNullAsNull>GROßE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ångstrom]</inputvalues>
+         <formula>ÅNGSTROM</formula>
+         <sql>ÅNGSTROM</sql>
+         <formulaNullAsNull>ÅNGSTROM</formulaNullAsNull>
+         <sqlNullAsNull>ÅNGSTROM</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ÅNGSTROM]</inputvalues>
+         <formula>ÅNGSTROM</formula>
+         <sql>ÅNGSTROM</sql>
+         <formulaNullAsNull>ÅNGSTROM</formulaNullAsNull>
+         <sqlNullAsNull>ÅNGSTROM</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[idempotent]</inputvalues>
+         <formula>IDEMPOTENT</formula>
+         <sql>IDEMPOTENT</sql>
+         <formulaNullAsNull>IDEMPOTENT</formulaNullAsNull>
+         <sqlNullAsNull>IDEMPOTENT</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ıdempotent]</inputvalues>
+         <formula>IDEMPOTENT</formula>
+         <sql>IDEMPOTENT</sql>
+         <formulaNullAsNull>IDEMPOTENT</formulaNullAsNull>
+         <sqlNullAsNull>IDEMPOTENT</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[IDEMPOTENT]</inputvalues>
+         <formula>IDEMPOTENT</formula>
+         <sql>IDEMPOTENT</sql>
+         <formulaNullAsNull>IDEMPOTENT</formulaNullAsNull>
+         <sqlNullAsNull>IDEMPOTENT</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[İDEMPOTENT]</inputvalues>
+         <formula>İDEMPOTENT</formula>
+         <sql>İDEMPOTENT</sql>
+         <formulaNullAsNull>İDEMPOTENT</formulaNullAsNull>
+         <sqlNullAsNull>İDEMPOTENT</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

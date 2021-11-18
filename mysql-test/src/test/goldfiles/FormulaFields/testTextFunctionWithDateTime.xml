@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextFunctionWithDateTime">
+   <testInstance formula="TEXT(DATETIMEVALUE('2013-12-31 01:02:03'))" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>'2013-12-31 01:02:03Z'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>'2013-12-31 01:02:03Z'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>2013-12-31 01:02:03Z</formula>
+         <sql>2013-12-31 01:02:03Z</sql>
+         <formulaNullAsNull>2013-12-31 01:02:03Z</formulaNullAsNull>
+         <sqlNullAsNull>2013-12-31 01:02:03Z</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBVLWithDateFormulaNull">
+   <testInstance formula="BLANKVALUE(customformula0__c,date(2000,1,1))" returntype="DateOnly">
+   <customformula0 dataType="ColumnType.DATEONLY" formula="NULL"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST((2000 || '-' || 1 || '-' || 1) AS DATE)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST((2000 || '-' || 1 || '-' || 1) AS DATE)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(new Date(Date.UTC(new $F.Decimal('2000').toNumber(),new $F.Decimal('1').toNumber()-1,new $F.Decimal('1').toNumber())))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new Date(Date.UTC(new $F.Decimal('2000').toNumber(),new $F.Decimal('1').toNumber()-1,new $F.Decimal('1').toNumber())))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(new Date(Date.UTC(2000,1-1,1)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(new Date(Date.UTC(2000,1-1,1)))</JsOutput>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Sat Jan 01 00:00:00 GMT 2000 viaSql null -->
+      <inputvalues>No data</inputvalues>
+         <formula>Sat Jan 01 00:00:00 GMT 2000</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Sat Jan 01 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

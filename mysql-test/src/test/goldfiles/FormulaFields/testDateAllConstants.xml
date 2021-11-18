@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateAllConstants">
+   <testInstance formula="DATE(2012,2,29)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST((2012 || '-' || 2 || '-' || 29) AS DATE)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST((2012 || '-' || 2 || '-' || 29) AS DATE)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC(new $F.Decimal('2012').toNumber(),new $F.Decimal('2').toNumber()-1,new $F.Decimal('29').toNumber()))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new Date(Date.UTC(new $F.Decimal('2012').toNumber(),new $F.Decimal('2').toNumber()-1,new $F.Decimal('29').toNumber()))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC(2012,2-1,29))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">new Date(Date.UTC(2012,2-1,29))</JsOutput>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Wed Feb 29 00:00:00 GMT 2012 viaSql null -->
+      <inputvalues>No data</inputvalues>
+         <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

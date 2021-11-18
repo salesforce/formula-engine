@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSecondWithValidString">
+   <testInstance formula="Second(TIMEVALUE(&quot;10:40:55.666&quot;))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>55</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>55</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal('55')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new $F.Decimal('55')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">55</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">55</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>55</formula>
+         <sql>55</sql>
+         <formulaNullAsNull>55</formulaNullAsNull>
+         <sqlNullAsNull>55</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

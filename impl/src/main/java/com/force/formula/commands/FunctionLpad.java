@@ -34,8 +34,14 @@ public class FunctionLpad extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = node.getNumberOfChildren() == 3 ? "LPAD(" + args[0] + ", GREATEST(" + getSqlHooks(context).sqlRoundScaleArg(args[1]) + ", 0), " + args[2]+ ")"
-            : "LPAD(" + args[0] + ", GREATEST(" + getSqlHooks(context).sqlRoundScaleArg(args[1]) + ", 0))";
+        String sql;
+        if (node.getNumberOfChildren() == 3) {
+        	sql = "LPAD(" + args[0] + ", GREATEST(" + getSqlHooks(context).sqlRoundScaleArg(args[1]) + ", 0), " + args[2]+ ")";
+        } else if (context.getSqlStyle().isMysqlStyle()) { // mysql requires 3 arguments
+            sql = "LPAD(" + args[0] + ", GREATEST(" + getSqlHooks(context).sqlRoundScaleArg(args[1]) + ", 0), ' ')";
+        } else {
+            sql = "LPAD(" + args[0] + ", GREATEST(" + getSqlHooks(context).sqlRoundScaleArg(args[1]) + ", 0))";
+        }
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

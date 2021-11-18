@@ -86,7 +86,7 @@ public class FormulaImpl implements FormulaWithSql {
     static String massageSqlForType(FormulaReturnType formulaFieldInfo, String sqlInitial) {
         if (formulaFieldInfo.getDataType().isSimpleText()) {
             // Truncate strings to max string length
-            return "SUBSTR(" + sqlInitial + ", 0, " + FormulaInfo.MAX_STRING_VALUE_LENGTH + ")";
+            return "SUBSTR(" + sqlInitial + ", 1, " + FormulaInfo.MAX_STRING_VALUE_LENGTH + ")";
         } else if (formulaFieldInfo.getDataType().isPercent()) {
             // Set the scale as determined by the field
             // Multiply by 100 to display correctly.
