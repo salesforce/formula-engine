@@ -16,16 +16,16 @@
       <result>
       <inputvalues>[true, 100, 200, 400]</inputvalues>
          <formula>100</formula>
-         <sql>100.00</sql>
+         <sql>100</sql>
          <formulaNullAsNull>100</formulaNullAsNull>
-         <sqlNullAsNull>100.00</sqlNullAsNull>
+         <sqlNullAsNull>100</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[false, 123456789, 123456789, 123456789]</inputvalues>
          <formula>0</formula>
-         <sql>0.00</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.00</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[true, 45.4356, 45, 900]</inputvalues>

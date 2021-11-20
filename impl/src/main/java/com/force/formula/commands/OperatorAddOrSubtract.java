@@ -179,9 +179,9 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
         if (lhsDataType == FormulaTime.class)  {
         	if (context.getSqlStyle().isMysqlStyle()) {
 	            if ("-".equals(operator)) {
-	            	sql = "TIME(ADDTIME(" + lhsValue + ",-(" + rhsValue + "/1000))%TIME('24:00:00'))";
+	            	sql = "TIME(ADDTIME(" + lhsValue + ",-(MOD(" + rhsValue + "/1000,86400)))%TIME('24:00:00'))";
 	            } else {
-	            	sql = "TIME(ADDTIME(" + lhsValue + ",(" + rhsValue + "/1000))%TIME('24:00:00'))";
+	            	sql = "TIME(ADDTIME(" + lhsValue + ",MOD(" + rhsValue + "/1000,86400))%TIME('24:00:00'))";
 	            }
         	} else {
 	            // if adding a number, make sure you don't add a number > FormulaDateUtil.MILLISECONDSPERDAY

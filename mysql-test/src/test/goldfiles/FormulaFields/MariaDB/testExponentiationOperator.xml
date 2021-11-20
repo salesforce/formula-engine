@@ -3,214 +3,197 @@
    <testInstance formula="customNumber1__c ^ customNumber2__c" returntype="Double" precision="15" scale="3">
     <SqlOutput nullAsNull="true">
        <Sql>POWER(COALESCE($!s0s!$.customNumber1__c, 0), COALESCE($!s0s!$.customNumber2__c, 0))</Sql>
-       <Guard>TRUNC(COALESCE($!s0s!$.customNumber2__c, 0))&lt;&gt;COALESCE($!s0s!$.customNumber2__c, 0) OR(COALESCE($!s0s!$.customNumber1__c, 0)&lt;&gt;0 AND LOG(10,ABS(COALESCE($!s0s!$.customNumber1__c, 0)))*COALESCE($!s0s!$.customNumber2__c, 0)&gt;38)</Guard>
+       <Guard>TRUNCATE(COALESCE($!s0s!$.customNumber2__c, 0),0)&lt;&gt;COALESCE($!s0s!$.customNumber2__c, 0) OR(COALESCE($!s0s!$.customNumber1__c, 0)&lt;&gt;0 AND LOG(10,ABS(COALESCE($!s0s!$.customNumber1__c, 0)))*COALESCE($!s0s!$.customNumber2__c, 0)&gt;38)</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
        <Sql>POWER($!s0s!$.customNumber1__c, $!s0s!$.customNumber2__c)</Sql>
-       <Guard>TRUNC($!s0s!$.customNumber2__c)&lt;&gt;$!s0s!$.customNumber2__c OR($!s0s!$.customNumber1__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customNumber1__c))*$!s0s!$.customNumber2__c&gt;38)</Guard>
+       <Guard>TRUNCATE($!s0s!$.customNumber2__c,0)&lt;&gt;$!s0s!$.customNumber2__c OR($!s0s!$.customNumber1__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customNumber1__c))*$!s0s!$.customNumber2__c&gt;38)</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal(Math.pow($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')),$F.nvl(context.record.customNumber2__c,new $F.Decimal('0'))))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(new $F.Decimal(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">Math.pow($F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customNumber2__c,0))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c)):null</JsOutput>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[, 24]</inputvalues>
          <formula>0</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[0.0, 0.0]</inputvalues>
          <formula>1</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[0.00, 0.00]</inputvalues>
          <formula>1</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[0.000, 0.000]</inputvalues>
          <formula>1</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[-1.0, 99.0]</inputvalues>
          <formula>-1.00000000000000000</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>-1</sql>
          <formulaNullAsNull>-1.00000000000000000</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[99,  -1]</inputvalues>
          <formula>0.0101010101010101010</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>0.010101010101010102</sql>
          <formulaNullAsNull>0.0101010101010101010</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>0.010101010101010102</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[-20, -40]</inputvalues>
          <formula>0</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.1111, 1.1111]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[1.11114, 0.00000]</inputvalues>
          <formula>1</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[1.11115, 0.00000]</inputvalues>
          <formula>1</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111112, 0.000043]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789, 123456789]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789, 123456789.123456789]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789, -123456789.123456789]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-123456789.123456789, -123456789.123456789]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[600,  0.000600]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[600,  -600]</inputvalues>
          <formula>0</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.2345,  1.2345]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[1.245,  0]</inputvalues>
          <formula>1</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[, ]</inputvalues>
          <formula>1</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>1</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[1, ]</inputvalues>
          <formula>1</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>1</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[, 12.123456789]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[1.00596, 240]</inputvalues>
          <formula>4.16265990153128262</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>4.162659901531248</sql>
          <formulaNullAsNull>4.16265990153128262</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>4.162659901531248</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[0, 240]</inputvalues>
          <formula>0</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: (conn=4) FUNCTION test.TRUNC does not exist -->
       <inputvalues>[.0000000000001, 1000]</inputvalues>
          <formula>0</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[.0000000000001, -1000]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: (conn=4) FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: (conn=4) FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

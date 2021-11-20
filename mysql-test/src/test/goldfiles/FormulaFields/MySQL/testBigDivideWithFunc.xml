@@ -3,130 +3,120 @@
    <testInstance formula="( ( (customnumber1__c * customnumber2__c )/(value(text(customnumber2__c )) ^ customnumber2__c ) )*(customnumber3__c ^ customnumber3__c ))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
        <Sql>(((COALESCE($!s0s!$.customnumber1__c, 0) * COALESCE($!s0s!$.customnumber2__c, 0))/POWER(CAST((CONVERT(COALESCE($!s0s!$.customnumber2__c, 0),CHAR)) AS DOUBLE), COALESCE($!s0s!$.customnumber2__c, 0))) * POWER(COALESCE($!s0s!$.customnumber3__c, 0), COALESCE($!s0s!$.customnumber3__c, 0)))</Sql>
-       <Guard>TRUNC(COALESCE($!s0s!$.customnumber3__c, 0))&lt;&gt;COALESCE($!s0s!$.customnumber3__c, 0) OR(COALESCE($!s0s!$.customnumber3__c, 0)&lt;&gt;0 AND LOG(10,ABS(COALESCE($!s0s!$.customnumber3__c, 0)))*COALESCE($!s0s!$.customnumber3__c, 0)&gt;38) OR NOT REGEXP_REPLACE((CONVERT(COALESCE($!s0s!$.customnumber2__c, 0),CHAR)),'[0-9]+','0') REGEXP '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$' OR TRUNC(COALESCE($!s0s!$.customnumber2__c, 0))&lt;&gt;COALESCE($!s0s!$.customnumber2__c, 0) OR(CAST((CONVERT(COALESCE($!s0s!$.customnumber2__c, 0),CHAR)) AS DOUBLE)&lt;&gt;0 AND LOG(10,ABS(CAST((CONVERT(COALESCE($!s0s!$.customnumber2__c, 0),CHAR)) AS DOUBLE)))*COALESCE($!s0s!$.customnumber2__c, 0)&gt;38) OR POWER(CAST((CONVERT(COALESCE($!s0s!$.customnumber2__c, 0),CHAR)) AS DOUBLE), COALESCE($!s0s!$.customnumber2__c, 0))=0</Guard>
+       <Guard>TRUNCATE(COALESCE($!s0s!$.customnumber3__c, 0),0)&lt;&gt;COALESCE($!s0s!$.customnumber3__c, 0) OR(COALESCE($!s0s!$.customnumber3__c, 0)&lt;&gt;0 AND LOG(10,ABS(COALESCE($!s0s!$.customnumber3__c, 0)))*COALESCE($!s0s!$.customnumber3__c, 0)&gt;38) OR NOT REGEXP_REPLACE((CONVERT(COALESCE($!s0s!$.customnumber2__c, 0),CHAR)),'[0-9]+','0') REGEXP '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$' OR TRUNCATE(COALESCE($!s0s!$.customnumber2__c, 0),0)&lt;&gt;COALESCE($!s0s!$.customnumber2__c, 0) OR(CAST((CONVERT(COALESCE($!s0s!$.customnumber2__c, 0),CHAR)) AS DOUBLE)&lt;&gt;0 AND LOG(10,ABS(CAST((CONVERT(COALESCE($!s0s!$.customnumber2__c, 0),CHAR)) AS DOUBLE)))*COALESCE($!s0s!$.customnumber2__c, 0)&gt;38) OR POWER(CAST((CONVERT(COALESCE($!s0s!$.customnumber2__c, 0),CHAR)) AS DOUBLE), COALESCE($!s0s!$.customnumber2__c, 0))=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
        <Sql>((($!s0s!$.customnumber1__c * $!s0s!$.customnumber2__c)/POWER(CAST((CONVERT($!s0s!$.customnumber2__c,CHAR)) AS DOUBLE), $!s0s!$.customnumber2__c)) * POWER($!s0s!$.customnumber3__c, $!s0s!$.customnumber3__c))</Sql>
-       <Guard>TRUNC($!s0s!$.customnumber3__c)&lt;&gt;$!s0s!$.customnumber3__c OR($!s0s!$.customnumber3__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customnumber3__c))*$!s0s!$.customnumber3__c&gt;38) OR NOT REGEXP_REPLACE((CONVERT($!s0s!$.customnumber2__c,CHAR)),'[0-9]+','0') REGEXP '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$' OR TRUNC($!s0s!$.customnumber2__c)&lt;&gt;$!s0s!$.customnumber2__c OR(CAST((CONVERT($!s0s!$.customnumber2__c,CHAR)) AS DOUBLE)&lt;&gt;0 AND LOG(10,ABS(CAST((CONVERT($!s0s!$.customnumber2__c,CHAR)) AS DOUBLE)))*$!s0s!$.customnumber2__c&gt;38) OR POWER(CAST((CONVERT($!s0s!$.customnumber2__c,CHAR)) AS DOUBLE), $!s0s!$.customnumber2__c)=0</Guard>
+       <Guard>TRUNCATE($!s0s!$.customnumber3__c,0)&lt;&gt;$!s0s!$.customnumber3__c OR($!s0s!$.customnumber3__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customnumber3__c))*$!s0s!$.customnumber3__c&gt;38) OR NOT REGEXP_REPLACE((CONVERT($!s0s!$.customnumber2__c,CHAR)),'[0-9]+','0') REGEXP '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$' OR TRUNCATE($!s0s!$.customnumber2__c,0)&lt;&gt;$!s0s!$.customnumber2__c OR(CAST((CONVERT($!s0s!$.customnumber2__c,CHAR)) AS DOUBLE)&lt;&gt;0 AND LOG(10,ABS(CAST((CONVERT($!s0s!$.customnumber2__c,CHAR)) AS DOUBLE)))*$!s0s!$.customnumber2__c&gt;38) OR POWER(CAST((CONVERT($!s0s!$.customnumber2__c,CHAR)) AS DOUBLE), $!s0s!$.customnumber2__c)=0</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).mul($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))).div(new $F.Decimal(Math.pow($F.Decimal(&quot;&quot;+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))),$F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))))).mul(new $F.Decimal(Math.pow($F.nvl(context.record.customnumber3__c,new $F.Decimal('0')),$F.nvl(context.record.customnumber3__c,new $F.Decimal('0')))))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber3__c!=null&amp;&amp;context.record.customnumber3__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(context.record.customnumber1__c.mul(context.record.customnumber2__c).div(new $F.Decimal(Math.pow($F.Decimal(&quot;&quot;+context.record.customnumber2__c),context.record.customnumber2__c))).mul(new $F.Decimal(Math.pow(context.record.customnumber3__c,context.record.customnumber3__c)))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">($F.nvl(context.record.customnumber1__c,0)*$F.nvl(context.record.customnumber2__c,0)/Math.pow(Number(&quot;&quot;+$F.nvl(context.record.customnumber2__c,0)),$F.nvl(context.record.customnumber2__c,0)))*Math.pow($F.nvl(context.record.customnumber3__c,0),$F.nvl(context.record.customnumber3__c,0))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber3__c!=null&amp;&amp;context.record.customnumber3__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?((context.record.customnumber1__c*context.record.customnumber2__c/Math.pow(Number(&quot;&quot;+context.record.customnumber2__c),context.record.customnumber2__c))*Math.pow(context.record.customnumber3__c,context.record.customnumber3__c)):null</JsOutput>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: FUNCTION test.TRUNC does not exist -->
       <inputvalues>[1, 1, 1]</inputvalues>
          <formula>1</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: FUNCTION test.TRUNC does not exist -->
       <inputvalues>[0, 0, 0]</inputvalues>
          <formula>0</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: FUNCTION test.TRUNC does not exist -->
       <inputvalues>[10, 10, 10]</inputvalues>
          <formula>100.00000000</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>100</sql>
          <formulaNullAsNull>100.00000000</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>100</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: FUNCTION test.TRUNC does not exist -->
       <inputvalues>[, 10, 10]</inputvalues>
          <formula>0</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: FUNCTION test.TRUNC does not exist -->
       <inputvalues>[10, , 10]</inputvalues>
          <formula>0</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: FUNCTION test.TRUNC does not exist -->
       <inputvalues>[10, 10, ]</inputvalues>
          <formula>0.00000001</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>0.00000001</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: FUNCTION test.TRUNC does not exist -->
       <inputvalues>[, , 10]</inputvalues>
          <formula>0</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: FUNCTION test.TRUNC does not exist -->
       <inputvalues>[10, , ]</inputvalues>
          <formula>0</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: FUNCTION test.TRUNC does not exist -->
       <inputvalues>[, 10, ]</inputvalues>
          <formula>0</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: FUNCTION test.TRUNC does not exist -->
       <inputvalues>[, , , ]</inputvalues>
          <formula>0</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.1, 1.1, 1.1]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1, 49, 1.49, 1.49]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.5, 1.5, 1.5]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1, 99, 1.99, 1.99]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.01, 0.01, 0.01]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: FUNCTION test.TRUNC does not exist</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: FUNCTION test.TRUNC does not exist</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

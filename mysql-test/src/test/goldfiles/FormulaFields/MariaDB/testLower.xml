@@ -84,7 +84,6 @@
          <sqlNullAsNull>idempotent</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula i̇dempotent does not equal viaSql idempotent -->
       <inputvalues>[İDEMPOTENT]</inputvalues>
          <formula>i̇dempotent</formula>
          <sql>idempotent</sql>

@@ -19,18 +19,18 @@
       <result>
       <inputvalues>[2004:12:20, 2004:12:20, 0, 2004:12:20, 30]</inputvalues>
          <formula>2036.3</formula>
-         <sql>2036.30000000000000000000000000000000</sql>
+         <sql>2036.3</sql>
          <javascript>2036.3</javascript>
          <javascriptLp>2036.3</javascriptLp>
          <formulaNullAsNull>2036.3</formulaNullAsNull>
-         <sqlNullAsNull>2036.30000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>2036.3</sqlNullAsNull>
          <javascriptNullAsNull>2036.3</javascriptNullAsNull>
          <javascriptLpNullAsNull>2036.3</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:20, 0, 2004:12:20, 30]</inputvalues>
          <formula>2016.3</formula>
-         <sql>2016.30000000000000000000000000000000</sql>
+         <sql>2016.3</sql>
          <javascript>2016.3</javascript>
          <javascriptLp>2016.3</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
@@ -41,7 +41,7 @@
       <result>
       <inputvalues>[2004:12:20, , , 2004:12:20, 10]</inputvalues>
          <formula>32.1</formula>
-         <sql>32.10000000000000000000000000000000</sql>
+         <sql>32.1</sql>
          <javascript>32.1</javascript>
          <javascriptLp>32.1</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
@@ -52,7 +52,7 @@
       <result>
       <inputvalues>[, , , , 10]</inputvalues>
          <formula>0.1</formula>
-         <sql>0.10000000000000000000000000000000</sql>
+         <sql>0.1</sql>
          <javascript>0.1</javascript>
          <javascriptLp>0.1</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
@@ -63,7 +63,7 @@
       <result>
       <inputvalues>[1900:12:20, 1900:12:20, , 1900:12:20, 10]</inputvalues>
          <formula>1932.1</formula>
-         <sql>1932.10000000000000000000000000000000</sql>
+         <sql>1932.1</sql>
          <javascript>1932.1</javascript>
          <javascriptLp>1932.1</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>

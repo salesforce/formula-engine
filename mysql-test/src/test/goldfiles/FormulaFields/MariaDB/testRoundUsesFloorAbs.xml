@@ -79,16 +79,16 @@
       <result>
       <inputvalues>[-123456789.123456789,  2]</inputvalues>
          <formula>-123456789</formula>
-         <sql>-123456789.00000000000000000000000000000000</sql>
+         <sql>-123456789</sql>
          <formulaNullAsNull>-123456789</formulaNullAsNull>
-         <sqlNullAsNull>-123456789.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>-123456789</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789, 2]</inputvalues>
          <formula>123456789</formula>
-         <sql>123456789.00000000000000000000000000000000</sql>
+         <sql>123456789</sql>
          <formulaNullAsNull>123456789</formulaNullAsNull>
-         <sqlNullAsNull>123456789.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>123456789</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[46,  0]</inputvalues>

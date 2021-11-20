@@ -16,59 +16,59 @@
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>200</formula>
-         <sql>200.00000000000000000000000000000000</sql>
+         <sql>200</sql>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:03, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>300</formula>
-         <sql>300.00000000000000000000000000000000</sql>
+         <sql>300</sql>
          <formulaNullAsNull>300</formulaNullAsNull>
-         <sqlNullAsNull>300.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>300</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, 2004:12:03, 300, 400]</inputvalues>
          <formula>200</formula>
-         <sql>200.00000000000000000000000000000000</sql>
+         <sql>200</sql>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:05, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>400</formula>
-         <sql>400.00000000000000000000000000000000</sql>
+         <sql>400</sql>
          <formulaNullAsNull>400</formulaNullAsNull>
-         <sqlNullAsNull>400.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>400</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>400</formula>
-         <sql>400.00000000000000000000000000000000</sql>
+         <sql>400</sql>
          <formulaNullAsNull>400</formulaNullAsNull>
-         <sqlNullAsNull>400.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>400</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>400</formula>
-         <sql>400.00000000000000000000000000000000</sql>
+         <sql>400</sql>
          <formulaNullAsNull>400</formulaNullAsNull>
-         <sqlNullAsNull>400.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>400</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, , 300, 400]</inputvalues>
          <formula>200</formula>
-         <sql>200.00000000000000000000000000000000</sql>
+         <sql>200</sql>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>200.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
       </result>
       <result>
       <!-- Test Case results don't match: viaFormula 300.00 does not equal viaSql 400.00 -->
       <inputvalues>[2004:12:04, , 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>300</formula>
-         <sql>400.00000000000000000000000000000000</sql>
+         <sql>400</sql>
          <formulaNullAsNull>300</formulaNullAsNull>
-         <sqlNullAsNull>400.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>400</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, , 2004:12:04, 300, 400]</inputvalues>

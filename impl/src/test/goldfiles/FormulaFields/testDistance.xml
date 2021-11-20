@@ -17,7 +17,7 @@
       <!-- Test Case results don't match: viaFormula 8066.90 is not within range 0.01 of viaJavascriptLp 0 -->
       <inputvalues>[, ]</inputvalues>
          <formula>8066.8974274546545</formula>
-         <sql>8066.89742745465000000000000000000000</sql>
+         <sql>8066.89742745465</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
@@ -29,11 +29,11 @@
       <!-- Test Case results don't match: viaFormula 8066.90 is not within range 0.01 of viaJavascriptLp 0 -->
       <inputvalues>[0.0, 0.0]</inputvalues>
          <formula>8066.8974274546545</formula>
-         <sql>8066.89742745465000000000000000000000</sql>
+         <sql>8066.89742745465</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>8066.8974274546545</formulaNullAsNull>
-         <sqlNullAsNull>8066.89742745465000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>8066.89742745465</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
@@ -41,7 +41,7 @@
       <!-- Test Case results don't match: viaFormula 8066.90 is not within range 0.01 of viaJavascriptLp 0 -->
       <inputvalues>[0.0, ]</inputvalues>
          <formula>8066.8974274546545</formula>
-         <sql>8066.89742745465000000000000000000000</sql>
+         <sql>8066.89742745465</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
@@ -53,7 +53,7 @@
       <!-- Test Case results don't match: viaFormula 8066.90 is not within range 0.01 of viaJavascriptLp 0 -->
       <inputvalues>[, 0.0]</inputvalues>
          <formula>8066.8974274546545</formula>
-         <sql>8066.89742745465000000000000000000000</sql>
+         <sql>8066.89742745465</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
@@ -65,11 +65,11 @@
       <!-- Test Case results don't match: viaFormula 2618.91 is not within range 0.01 of viaJavascriptLp 0 -->
       <inputvalues>[43.094722, -75.275833]</inputvalues>
          <formula>2618.9134586986042</formula>
-         <sql>2618.91345869860000000000000000000000</sql>
+         <sql>2618.9134586986</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>2618.9134586986042</formulaNullAsNull>
-         <sqlNullAsNull>2618.91345869860000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>2618.9134586986</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
@@ -99,11 +99,11 @@
       <!-- Test Case results don't match: viaFormula 305.58 is not within range 0.01 of viaJavascriptLp 0 -->
       <inputvalues>[37.7899, -122.3969]</inputvalues>
          <formula>305.57560898133903</formula>
-         <sql>305.57560898133900000000000000000000</sql>
+         <sql>305.575608981339</sql>
          <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>305.57560898133903</formulaNullAsNull>
-         <sqlNullAsNull>305.57560898133900000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>305.575608981339</sqlNullAsNull>
          <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>

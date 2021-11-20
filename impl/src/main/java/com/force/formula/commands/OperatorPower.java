@@ -39,8 +39,14 @@ public class OperatorPower extends BinaryMathCommandBehavior {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
         String sql = "POWER(" + args[0] + ", " + args[1] + ")";
-        String guard = SQLPair.generateGuard(guards, "TRUNC(" + args[1] + ")<>" + args[1] +
-            " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");
+        String guard;
+    	if (context.getSqlStyle().isMysqlStyle()) {
+    		guard = SQLPair.generateGuard(guards, "TRUNCATE(" + args[1] + ",0)<>" + args[1] +
+    	            " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");    	
+    	} else {
+    		guard = SQLPair.generateGuard(guards, "TRUNC(" + args[1] + ")<>" + args[1] +
+    	            " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");    	
+    	}
         return new SQLPair(sql, guard);
     }
     

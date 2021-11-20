@@ -18,42 +18,42 @@
       <result>
       <inputvalues>[200, 20, 300, 40, 20]</inputvalues>
          <formula>560</formula>
-         <sql>560.000000000</sql>
+         <sql>560</sql>
          <formulaNullAsNull>560</formulaNullAsNull>
-         <sqlNullAsNull>560.000000000</sqlNullAsNull>
+         <sqlNullAsNull>560</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, .04, 40, , 10, 10]</inputvalues>
          <formula>50</formula>
-         <sql>50.000000000</sql>
+         <sql>50</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[32, 10, 50, 24, 12]</inputvalues>
          <formula>118</formula>
-         <sql>118.000000000</sql>
+         <sql>118</sql>
          <formulaNullAsNull>118</formulaNullAsNull>
-         <sqlNullAsNull>118.000000000</sqlNullAsNull>
+         <sqlNullAsNull>118</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 0, 0, 0, 0]</inputvalues>
          <formula>0</formula>
-         <sql>0.000000000</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.000000000</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, -1, -1, -1, -1]</inputvalues>
          <formula>-4</formula>
-         <sql>-4.000000000</sql>
+         <sql>-4</sql>
          <formulaNullAsNull>-4</formulaNullAsNull>
-         <sqlNullAsNull>-4.000000000</sqlNullAsNull>
+         <sqlNullAsNull>-4</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, , , -1, 1]</inputvalues>
          <formula>-1</formula>
-         <sql>-1.000000000</sql>
+         <sql>-1</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>

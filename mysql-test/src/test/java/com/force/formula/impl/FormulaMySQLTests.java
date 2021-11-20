@@ -15,7 +15,6 @@ import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
-import com.force.formula.sql.MariaDBContainerTester;
 import com.force.formula.sql.MySQLContainerTester;
 
 /**

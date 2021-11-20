@@ -16,9 +16,9 @@
       <result>
       <inputvalues>[1, 1, 1]</inputvalues>
          <formula>1</formula>
-         <sql>1.000000</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>1.000000</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 0, 0]</inputvalues>
@@ -30,37 +30,37 @@
       <result>
       <inputvalues>[10, 10, 10]</inputvalues>
          <formula>1</formula>
-         <sql>1.000000</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>1.000000</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 10, 10]</inputvalues>
          <formula>0</formula>
-         <sql>0.0000</sql>
+         <sql>0</sql>
          <formulaNullAsNull>10</formulaNullAsNull>
-         <sqlNullAsNull>10.0</sqlNullAsNull>
+         <sqlNullAsNull>10</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[10, , 10]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
          <sql>null</sql>
          <formulaNullAsNull>10</formulaNullAsNull>
-         <sqlNullAsNull>10.0</sqlNullAsNull>
+         <sqlNullAsNull>10</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[10, 10, ]</inputvalues>
          <formula>1</formula>
-         <sql>1.000000</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>1.000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 10]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
          <sql>null</sql>
          <formulaNullAsNull>10</formulaNullAsNull>
-         <sqlNullAsNull>10.0</sqlNullAsNull>
+         <sqlNullAsNull>10</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[10, , ]</inputvalues>
@@ -72,7 +72,7 @@
       <result>
       <inputvalues>[, 10, ]</inputvalues>
          <formula>0</formula>
-         <sql>0.0000</sql>
+         <sql>0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
@@ -86,9 +86,9 @@
       <result>
       <inputvalues>[1.1, 1.1, 1.1]</inputvalues>
          <formula>1</formula>
-         <sql>1.000000</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>1.000000</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1, 49, 1.49, 1.49]</inputvalues>
@@ -100,9 +100,9 @@
       <result>
       <inputvalues>[1.5, 1.5, 1.5]</inputvalues>
          <formula>1</formula>
-         <sql>1.000000</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>1.000000</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1, 99, 1.99, 1.99]</inputvalues>
@@ -114,9 +114,9 @@
       <result>
       <inputvalues>[0.01, 0.01, 0.01]</inputvalues>
          <formula>1</formula>
-         <sql>1.000000</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>1.000000</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

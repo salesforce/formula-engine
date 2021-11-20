@@ -16,44 +16,44 @@
       <result>
       <inputvalues>[2004:12:31:11:01:00, 2004:12:31:11:00:00]</inputvalues>
          <formula>60</formula>
-         <sql>59.00000000000000000000000000000000</sql>
+         <sql>59</sql>
          <formulaNullAsNull>60</formulaNullAsNull>
-         <sqlNullAsNull>59.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>59</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:11:01:00, 2004:12:31:09:00:00]</inputvalues>
          <formula>7260</formula>
-         <sql>7259.00000000000000000000000000000000</sql>
+         <sql>7259</sql>
          <formulaNullAsNull>7260</formulaNullAsNull>
-         <sqlNullAsNull>7259.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>7259</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:11:01:00, 2004:12:30:11:00:00]</inputvalues>
          <formula>86460</formula>
-         <sql>86459.00000000000000000000000000000000</sql>
+         <sql>86459</sql>
          <formulaNullAsNull>86460</formulaNullAsNull>
-         <sqlNullAsNull>86459.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>86459</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:11:01:00, 2004:12:20:11:00:00]</inputvalues>
          <formula>950460</formula>
-         <sql>950459.00000000000000000000000000000000</sql>
+         <sql>950459</sql>
          <formulaNullAsNull>950460</formulaNullAsNull>
-         <sqlNullAsNull>950459.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>950459</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:12:00:00, 2004:12:30:11:00:00]</inputvalues>
          <formula>90000</formula>
-         <sql>89999.00000000000000000000000000000000</sql>
+         <sql>89999</sql>
          <formulaNullAsNull>90000</formulaNullAsNull>
-         <sqlNullAsNull>89999.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>89999</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:12:00:01, 2004:12:30:12:00:00]</inputvalues>
          <formula>86401</formula>
-         <sql>86400.00000000000000000000000000000000</sql>
+         <sql>86400</sql>
          <formulaNullAsNull>86401</formulaNullAsNull>
-         <sqlNullAsNull>86400.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>86400</sqlNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="(floor((customdatetime2__c-customdatetime1__c)*1440*60))" returntype="Double" precision="12" scale="2">
@@ -72,44 +72,44 @@
       <result>
       <inputvalues>[2004:12:31:11:00:00, 2004:12:31:11:01:00]</inputvalues>
          <formula>-60</formula>
-         <sql>-59.00000000000000000000000000000000</sql>
+         <sql>-59</sql>
          <formulaNullAsNull>-60</formulaNullAsNull>
-         <sqlNullAsNull>-59.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>-59</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:09:00:00, 2004:12:31:11:01:00]</inputvalues>
          <formula>-7260</formula>
-         <sql>-7259.00000000000000000000000000000000</sql>
+         <sql>-7259</sql>
          <formulaNullAsNull>-7260</formulaNullAsNull>
-         <sqlNullAsNull>-7259.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>-7259</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:30:11:00:00, 2004:12:31:11:01:00]</inputvalues>
          <formula>-86460</formula>
-         <sql>-86459.00000000000000000000000000000000</sql>
+         <sql>-86459</sql>
          <formulaNullAsNull>-86460</formulaNullAsNull>
-         <sqlNullAsNull>-86459.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>-86459</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:20:11:00:00, 2004:12:31:11:01:00]</inputvalues>
          <formula>-950460</formula>
-         <sql>-950459.00000000000000000000000000000000</sql>
+         <sql>-950459</sql>
          <formulaNullAsNull>-950460</formulaNullAsNull>
-         <sqlNullAsNull>-950459.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>-950459</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:30:11:00:00, 2004:12:31:12:00:00]</inputvalues>
          <formula>-90000</formula>
-         <sql>-89999.00000000000000000000000000000000</sql>
+         <sql>-89999</sql>
          <formulaNullAsNull>-90000</formulaNullAsNull>
-         <sqlNullAsNull>-89999.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>-89999</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:30:12:00:00, 2004:12:31:12:00:01]</inputvalues>
          <formula>-86401</formula>
-         <sql>-86400.00000000000000000000000000000000</sql>
+         <sql>-86400</sql>
          <formulaNullAsNull>-86401</formulaNullAsNull>
-         <sqlNullAsNull>-86400.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>-86400</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

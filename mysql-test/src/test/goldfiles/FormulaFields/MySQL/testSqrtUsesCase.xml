@@ -30,30 +30,30 @@
       <result>
       <inputvalues>[2004:12:05, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>20.0</formula>
-         <sql>20.0</sql>
+         <sql>20</sql>
          <formulaNullAsNull>20.0</formulaNullAsNull>
-         <sqlNullAsNull>20.0</sqlNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>20.0</formula>
-         <sql>20.0</sql>
+         <sql>20</sql>
          <formulaNullAsNull>20.0</formulaNullAsNull>
-         <sqlNullAsNull>20.0</sqlNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>20.0</formula>
-         <sql>20.0</sql>
+         <sql>20</sql>
          <formulaNullAsNull>20.0</formulaNullAsNull>
-         <sqlNullAsNull>20.0</sqlNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 1600, , 300, 400]</inputvalues>
          <formula>40.0</formula>
-         <sql>40.0</sql>
+         <sql>40</sql>
          <formulaNullAsNull>40.0</formulaNullAsNull>
-         <sqlNullAsNull>40.0</sqlNullAsNull>
+         <sqlNullAsNull>40</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, , 200, 2004:12:04, 300, 400]</inputvalues>
@@ -65,14 +65,14 @@
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, , 2004:12:04, 300, 400]</inputvalues>
          <formula>0.0</formula>
-         <sql>0.0</sql>
+         <sql>0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:05, 200, 2004:12:04, , 400]</inputvalues>
          <formula>0.0</formula>
-         <sql>0.0</sql>
+         <sql>0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>

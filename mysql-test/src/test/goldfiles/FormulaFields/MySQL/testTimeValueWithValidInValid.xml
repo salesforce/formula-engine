@@ -14,20 +14,18 @@
     <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1))):null</JsOutput>
       <result>
-      <!-- Test Case results don't match: viaFormula 00:00:09 does not equal viaSql 00:00:00.009 -->
       <inputvalues>[2011-01-29 00:00:09]</inputvalues>
          <formula>00:00:09</formula>
-         <sql>00:00:00.009</sql>
+         <sql>00:00:09</sql>
          <formulaNullAsNull>00:00:09</formulaNullAsNull>
-         <sqlNullAsNull>00:00:00.009</sqlNullAsNull>
+         <sqlNullAsNull>00:00:09</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 00:00:09 does not equal viaSql 00:00:00.009 -->
       <inputvalues>[2011-01-9 00:00:09]</inputvalues>
          <formula>00:00:09</formula>
-         <sql>00:00:00.009</sql>
+         <sql>00:00:09</sql>
          <formulaNullAsNull>00:00:09</formulaNullAsNull>
-         <sqlNullAsNull>00:00:00.009</sqlNullAsNull>
+         <sqlNullAsNull>00:00:09</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-1-29 00:00:00]</inputvalues>
@@ -44,28 +42,25 @@
          <sqlNullAsNull>00:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 01:00 does not equal viaSql 00:00:03.600 -->
       <inputvalues>[2011-01-1 1:00:00]</inputvalues>
          <formula>01:00</formula>
-         <sql>00:00:03.600</sql>
+         <sql>01:00</sql>
          <formulaNullAsNull>01:00</formulaNullAsNull>
-         <sqlNullAsNull>00:00:03.600</sqlNullAsNull>
+         <sqlNullAsNull>01:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 02:22:59 does not equal viaSql 00:00:08.579 -->
       <inputvalues>[2011-1-23 2:22:59]</inputvalues>
          <formula>02:22:59</formula>
-         <sql>00:00:08.579</sql>
+         <sql>02:22:59</sql>
          <formulaNullAsNull>02:22:59</formulaNullAsNull>
-         <sqlNullAsNull>00:00:08.579</sqlNullAsNull>
+         <sqlNullAsNull>02:22:59</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 05:22:33 does not equal viaSql 00:00:19.353 -->
       <inputvalues>[2012-2-7 5:22:33]</inputvalues>
          <formula>05:22:33</formula>
-         <sql>00:00:19.353</sql>
+         <sql>05:22:33</sql>
          <formulaNullAsNull>05:22:33</formulaNullAsNull>
-         <sqlNullAsNull>00:00:19.353</sqlNullAsNull>
+         <sqlNullAsNull>05:22:33</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-13-29 00:00:09]</inputvalues>
@@ -103,12 +98,11 @@
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 23:59:59 does not equal viaSql 00:01:26.399 -->
       <inputvalues>[2012-01-01 23:59:59]</inputvalues>
          <formula>23:59:59</formula>
-         <sql>00:01:26.399</sql>
+         <sql>23:59:59</sql>
          <formulaNullAsNull>23:59:59</formulaNullAsNull>
-         <sqlNullAsNull>00:01:26.399</sqlNullAsNull>
+         <sqlNullAsNull>23:59:59</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-10-34 00:00:00]</inputvalues>
@@ -118,20 +112,18 @@
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 05:02:33 does not equal viaSql 00:00:18.153 -->
       <inputvalues>[2012-02-07 5:2:33]</inputvalues>
          <formula>05:02:33</formula>
-         <sql>00:00:18.153</sql>
+         <sql>05:02:33</sql>
          <formulaNullAsNull>05:02:33</formulaNullAsNull>
-         <sqlNullAsNull>00:00:18.153</sqlNullAsNull>
+         <sqlNullAsNull>05:02:33</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 05:22:03 does not equal viaSql 00:00:19.323 -->
       <inputvalues>[2012-02-07 5:22:3]</inputvalues>
          <formula>05:22:03</formula>
-         <sql>00:00:19.323</sql>
+         <sql>05:22:03</sql>
          <formulaNullAsNull>05:22:03</formulaNullAsNull>
-         <sqlNullAsNull>00:00:19.323</sqlNullAsNull>
+         <sqlNullAsNull>05:22:03</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

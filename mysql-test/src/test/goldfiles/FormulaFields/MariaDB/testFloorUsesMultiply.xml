@@ -94,30 +94,30 @@
       <result>
       <inputvalues>[123456789, 123456789]</inputvalues>
          <formula>152415787501905</formula>
-         <sql>152415787501905.00000000000000000000000000000000</sql>
+         <sql>152415787501905</sql>
          <formulaNullAsNull>152415787501905</formulaNullAsNull>
-         <sqlNullAsNull>152415787501905.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>152415787501905</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789, 123456789.123456789]</inputvalues>
          <formula>152415787806736</formula>
-         <sql>152415787806736.00000000000000000000000000000000</sql>
+         <sql>152415787806736</sql>
          <formulaNullAsNull>152415787806736</formulaNullAsNull>
-         <sqlNullAsNull>152415787806736.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>152415787806736</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789, -123456789.123456789]</inputvalues>
          <formula>-152415787806736</formula>
-         <sql>-152415787806736.00000000000000000000000000000000</sql>
+         <sql>-152415787806736</sql>
          <formulaNullAsNull>-152415787806736</formulaNullAsNull>
-         <sqlNullAsNull>-152415787806736.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>-152415787806736</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-123456789.123456789, -123456789.123456789]</inputvalues>
          <formula>152415787806736</formula>
-         <sql>152415787806736.00000000000000000000000000000000</sql>
+         <sql>152415787806736</sql>
          <formulaNullAsNull>152415787806736</formulaNullAsNull>
-         <sqlNullAsNull>152415787806736.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>152415787806736</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[600,  0.000600]</inputvalues>

@@ -16,16 +16,16 @@
       <result>
       <inputvalues>[0]</inputvalues>
          <formula>0</formula>
-         <sql>0.00</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.00</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20]</inputvalues>
          <formula>20</formula>
-         <sql>20.00</sql>
+         <sql>20</sql>
          <formulaNullAsNull>20</formulaNullAsNull>
-         <sqlNullAsNull>20.00</sqlNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.12345]</inputvalues>
@@ -37,9 +37,9 @@
       <result>
       <inputvalues>[-1]</inputvalues>
          <formula>1</formula>
-         <sql>1.00</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>1.00</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-123456789.123456789]</inputvalues>
@@ -58,16 +58,16 @@
       <result>
       <inputvalues>[46]</inputvalues>
          <formula>46</formula>
-         <sql>46.00</sql>
+         <sql>46</sql>
          <formulaNullAsNull>46</formulaNullAsNull>
-         <sqlNullAsNull>46.00</sqlNullAsNull>
+         <sqlNullAsNull>46</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0]</inputvalues>
          <formula>0</formula>
-         <sql>0.00</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.00</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0.00034]</inputvalues>
@@ -114,23 +114,23 @@
       <result>
       <inputvalues>[16]</inputvalues>
          <formula>16</formula>
-         <sql>16.00</sql>
+         <sql>16</sql>
          <formulaNullAsNull>16</formulaNullAsNull>
-         <sqlNullAsNull>16.00</sqlNullAsNull>
+         <sqlNullAsNull>16</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[256]</inputvalues>
          <formula>256</formula>
-         <sql>256.00</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>256.00</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-256]</inputvalues>
          <formula>256</formula>
-         <sql>256.00</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>256.00</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

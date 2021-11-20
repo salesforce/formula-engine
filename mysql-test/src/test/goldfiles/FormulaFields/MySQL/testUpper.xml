@@ -42,7 +42,6 @@
          <sqlNullAsNull>CASES</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula GROSSE does not equal viaSql GROßE -->
       <inputvalues>[große]</inputvalues>
          <formula>GROSSE</formula>
          <sql>GROßE</sql>

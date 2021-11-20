@@ -18,9 +18,9 @@
       <result>
       <inputvalues>[200, 20, 300, 40, 20]</inputvalues>
          <formula>560</formula>
-         <sql>560.00000000000000000000000000000000</sql>
+         <sql>560</sql>
          <formulaNullAsNull>560</formulaNullAsNull>
-         <sqlNullAsNull>560.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>560</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, .04, 40, , 10, 10]</inputvalues>
@@ -32,23 +32,23 @@
       <result>
       <inputvalues>[32, 10, 50, 24, 12]</inputvalues>
          <formula>118</formula>
-         <sql>118.00000000000000000000000000000000</sql>
+         <sql>118</sql>
          <formulaNullAsNull>118</formulaNullAsNull>
-         <sqlNullAsNull>118.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>118</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 0, 0, 0, 0]</inputvalues>
          <formula>0</formula>
-         <sql>0.00000000000000000000000000000000</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, -1, -1, -1, -1]</inputvalues>
          <formula>-4</formula>
-         <sql>-4.00000000000000000000000000000000</sql>
+         <sql>-4</sql>
          <formulaNullAsNull>-4</formulaNullAsNull>
-         <sqlNullAsNull>-4.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>-4</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, , , -1, 1]</inputvalues>
@@ -60,9 +60,9 @@
       <result>
       <inputvalues>[0.1234, 0.1234, 9.0456, 123456789.123456789, 0.123456789]</inputvalues>
          <formula>123456798.415913578</formula>
-         <sql>123456798.41591357800000000000000000000000</sql>
+         <sql>123456798.415913578</sql>
          <formulaNullAsNull>123456798.415913578</formulaNullAsNull>
-         <sqlNullAsNull>123456798.41591357800000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>123456798.415913578</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

@@ -19,35 +19,35 @@
       <result>
       <inputvalues>[2004:12:20, 2004:12:20, 0, 2004:12:20, 30]</inputvalues>
          <formula>2036.3</formula>
-         <sql>2036.300000</sql>
+         <sql>2036.3</sql>
          <formulaNullAsNull>2036.3</formulaNullAsNull>
-         <sqlNullAsNull>2036.300000</sqlNullAsNull>
+         <sqlNullAsNull>2036.3</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:20, 0, 2004:12:20, 30]</inputvalues>
          <formula>2016.3</formula>
-         <sql>2016.300000</sql>
+         <sql>2016.3</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:20, , , 2004:12:20, 10]</inputvalues>
          <formula>32.1</formula>
-         <sql>32.100000</sql>
+         <sql>32.1</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, , , , 10]</inputvalues>
          <formula>0.1</formula>
-         <sql>0.100000</sql>
+         <sql>0.1</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1900:12:20, 1900:12:20, , 1900:12:20, 10]</inputvalues>
          <formula>1932.1</formula>
-         <sql>1932.100000</sql>
+         <sql>1932.1</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>

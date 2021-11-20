@@ -44,16 +44,16 @@
       <result>
       <inputvalues>[0.00034]</inputvalues>
          <formula>0.0</formula>
-         <sql>0.0</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0.0</formulaNullAsNull>
-         <sqlNullAsNull>0.0</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.244]</inputvalues>
          <formula>0.0</formula>
-         <sql>0.0</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0.0</formulaNullAsNull>
-         <sqlNullAsNull>0.0</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[25.7456]</inputvalues>

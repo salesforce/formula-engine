@@ -69,7 +69,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
       	   return "REGEXP_REPLACE(%s,'[0-9]+','0','g') ~ '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'";
       	}
     	if (isMysqlStyle()) {
-       	   return "REGEXP_REPLACE(%s,'[0-9]+','0') REGEXP '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'";
+       	   return "REGEXP_REPLACE(%s,'[0-9]+','0') REGEXP '^[+-]?(0|0\\\\.|\\\\.0|0\\\\.0)([Ee][+-]?0)?$'";
        	}
         /*
          * Make the matching as efficient as possible (regex's are sloooowww).
@@ -185,7 +185,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 	            return "NLS_UPPER(%s,'NLS_SORT=xwest_european')";
 	        }
     	}
-    	// You could do UPPER(%s COLLATE %s), but that doesn't work in general.
+    	// You could do UPPER(%s COLLATE %s), but that doesn't work in general as collate isn't a parameter.
     	return "UPPER(%s)";
     }
 
@@ -272,7 +272,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     		return "(%s+'1 day'::interval+('1 month'::interval*TRUNC(%s)))-'1 day'::interval";
     	}
     	if (isMysqlStyle()) {
-    		return "DATE_ADD(%s, INTERVAL %s MONTH)";
+    		return "DATE_ADD(%s, INTERVAL TRUNCATE(%s,0) MONTH)";
 
     	}
     	throw new UnsupportedOperationException();
@@ -363,6 +363,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     		return String.format("CASE WHEN COALESCE(STRPOS(SUBSTR(%s,%s::integer),%s),0) > 0 THEN STRPOS(SUBSTR(%s,%s::integer),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     	}
     	if (isMysqlStyle()) {
+    		// Use binary comparison to be case sensitive
     		return String.format("CASE WHEN COALESCE(INSTR(binary SUBSTR(%s,%s),%s),0) > 0 THEN INSTR(binary SUBSTR(%s,%s),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     	}
 		return String.format("INSTR(%s, %s, %s)", strArg, substrArg, startLocation);

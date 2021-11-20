@@ -2,11 +2,11 @@
 <testCase name="testWeekday">
    <testInstance formula="WEEKDAY(customdate1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>1+EXTRACT (DOW FROM $!s0s!$.customdate1__c)::numeric</Sql>
+       <Sql>DAYOFWEEK($!s0s!$.customdate1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>1+EXTRACT (DOW FROM $!s0s!$.customdate1__c)::numeric</Sql>
+       <Sql>DAYOFWEEK($!s0s!$.customdate1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCDay()+1):null</JsOutput>
@@ -17,166 +17,106 @@
       <inputvalues>[, 40]</inputvalues>
          <formula>null</formula>
          <sql>null</sql>
-         <javascript>null</javascript>
-         <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>null</javascriptNullAsNull>
-         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2005:12:31, 4.00]</inputvalues>
          <formula>7</formula>
          <sql>7</sql>
-         <javascript>7</javascript>
-         <javascriptLp>7</javascriptLp>
          <formulaNullAsNull>7</formulaNullAsNull>
          <sqlNullAsNull>7</sqlNullAsNull>
-         <javascriptNullAsNull>7</javascriptNullAsNull>
-         <javascriptLpNullAsNull>7</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31, 3.00]</inputvalues>
          <formula>6</formula>
          <sql>6</sql>
-         <javascript>6</javascript>
-         <javascriptLp>6</javascriptLp>
          <formulaNullAsNull>6</formulaNullAsNull>
          <sqlNullAsNull>6</sqlNullAsNull>
-         <javascriptNullAsNull>6</javascriptNullAsNull>
-         <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:00:00:00, 4.00]</inputvalues>
          <formula>7</formula>
          <sql>7</sql>
-         <javascript>7</javascript>
-         <javascriptLp>7</javascriptLp>
          <formulaNullAsNull>7</formulaNullAsNull>
          <sqlNullAsNull>7</sqlNullAsNull>
-         <javascriptNullAsNull>7</javascriptNullAsNull>
-         <javascriptLpNullAsNull>7</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2000:02:28, 3.5]</inputvalues>
          <formula>2</formula>
          <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
          <formulaNullAsNull>2</formulaNullAsNull>
          <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2000:02:28, 3.4]</inputvalues>
          <formula>2</formula>
          <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
          <formulaNullAsNull>2</formulaNullAsNull>
          <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2000:02:28, 3.6]</inputvalues>
          <formula>2</formula>
          <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
          <formulaNullAsNull>2</formulaNullAsNull>
          <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2000:02:28, 40000]</inputvalues>
          <formula>2</formula>
          <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
          <formulaNullAsNull>2</formulaNullAsNull>
          <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2000:02:28, 365]</inputvalues>
          <formula>2</formula>
          <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
          <formulaNullAsNull>2</formulaNullAsNull>
          <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2000:02:28, 364]</inputvalues>
          <formula>2</formula>
          <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
          <formulaNullAsNull>2</formulaNullAsNull>
          <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2000:02:28, 30]</inputvalues>
          <formula>2</formula>
          <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
          <formulaNullAsNull>2</formulaNullAsNull>
          <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[1900:01:01, 30]</inputvalues>
          <formula>2</formula>
          <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
          <formulaNullAsNull>2</formulaNullAsNull>
          <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[4000:01:01, 30]</inputvalues>
          <formula>7</formula>
          <sql>7</sql>
-         <javascript>7</javascript>
-         <javascriptLp>7</javascriptLp>
          <formulaNullAsNull>7</formulaNullAsNull>
          <sqlNullAsNull>7</sqlNullAsNull>
-         <javascriptNullAsNull>7</javascriptNullAsNull>
-         <javascriptLpNullAsNull>7</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2000:01:01, 30]</inputvalues>
          <formula>7</formula>
          <sql>7</sql>
-         <javascript>7</javascript>
-         <javascriptLp>7</javascriptLp>
          <formulaNullAsNull>7</formulaNullAsNull>
          <sqlNullAsNull>7</sqlNullAsNull>
-         <javascriptNullAsNull>7</javascriptNullAsNull>
-         <javascriptLpNullAsNull>7</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[3999:01:01, 0.23456]</inputvalues>
          <formula>6</formula>
          <sql>6</sql>
-         <javascript>6</javascript>
-         <javascriptLp>6</javascriptLp>
          <formulaNullAsNull>6</formulaNullAsNull>
          <sqlNullAsNull>6</sqlNullAsNull>
-         <javascriptNullAsNull>6</javascriptNullAsNull>
-         <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
       </result>
    </testInstance>
 </testCase>

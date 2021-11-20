@@ -16,37 +16,37 @@
       <result>
       <inputvalues>[56.925559]</inputvalues>
          <formula>1.590000</formula>
-         <sql>1.590000</sql>
+         <sql>1.59</sql>
          <formulaNullAsNull>1.590000</formulaNullAsNull>
-         <sqlNullAsNull>1.590000</sqlNullAsNull>
+         <sqlNullAsNull>1.59</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111123]</inputvalues>
          <formula>1.230000</formula>
-         <sql>1.230000</sql>
+         <sql>1.23</sql>
          <formulaNullAsNull>1.230000</formulaNullAsNull>
-         <sqlNullAsNull>1.230000</sqlNullAsNull>
+         <sqlNullAsNull>1.23</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111145]</inputvalues>
          <formula>1.450000</formula>
-         <sql>1.450000</sql>
+         <sql>1.45</sql>
          <formulaNullAsNull>1.450000</formulaNullAsNull>
-         <sqlNullAsNull>1.450000</sqlNullAsNull>
+         <sqlNullAsNull>1.45</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111155]</inputvalues>
          <formula>1.550000</formula>
-         <sql>1.550000</sql>
+         <sql>1.55</sql>
          <formulaNullAsNull>1.550000</formulaNullAsNull>
-         <sqlNullAsNull>1.550000</sqlNullAsNull>
+         <sqlNullAsNull>1.55</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.111160]</inputvalues>
          <formula>1.600000</formula>
-         <sql>1.600000</sql>
+         <sql>1.6</sql>
          <formulaNullAsNull>1.600000</formulaNullAsNull>
-         <sqlNullAsNull>1.600000</sqlNullAsNull>
+         <sqlNullAsNull>1.6</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

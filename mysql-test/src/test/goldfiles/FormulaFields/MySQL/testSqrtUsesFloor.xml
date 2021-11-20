@@ -37,51 +37,51 @@
       <result>
       <inputvalues>[49.55]</inputvalues>
          <formula>7.0</formula>
-         <sql>7.0</sql>
+         <sql>7</sql>
          <formulaNullAsNull>7.0</formulaNullAsNull>
-         <sqlNullAsNull>7.0</sqlNullAsNull>
+         <sqlNullAsNull>7</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.00034]</inputvalues>
          <formula>0.0</formula>
-         <sql>0.0</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0.0</formulaNullAsNull>
-         <sqlNullAsNull>0.0</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.244]</inputvalues>
          <formula>0.0</formula>
-         <sql>0.0</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0.0</formulaNullAsNull>
-         <sqlNullAsNull>0.0</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[25.7456]</inputvalues>
          <formula>5.0</formula>
-         <sql>5.0</sql>
+         <sql>5</sql>
          <formulaNullAsNull>5.0</formulaNullAsNull>
-         <sqlNullAsNull>5.0</sqlNullAsNull>
+         <sqlNullAsNull>5</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[64.456]</inputvalues>
          <formula>8.0</formula>
-         <sql>8.0</sql>
+         <sql>8</sql>
          <formulaNullAsNull>8.0</formulaNullAsNull>
-         <sqlNullAsNull>8.0</sqlNullAsNull>
+         <sqlNullAsNull>8</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-.4]</inputvalues>
          <formula>0.0</formula>
-         <sql>0.0</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0.0</formulaNullAsNull>
-         <sqlNullAsNull>0.0</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-.7]</inputvalues>
          <formula>0.0</formula>
-         <sql>0.0</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0.0</formulaNullAsNull>
-         <sqlNullAsNull>0.0</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1.4]</inputvalues>

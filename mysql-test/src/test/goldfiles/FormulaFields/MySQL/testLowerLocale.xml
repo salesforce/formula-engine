@@ -84,7 +84,6 @@
          <sqlNullAsNull>idempotent</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula i̇dempotent does not equal viaSql idempotent -->
       <inputvalues>[İDEMPOTENT, ]</inputvalues>
          <formula>i̇dempotent</formula>
          <sql>idempotent</sql>
@@ -162,7 +161,6 @@
          <sqlNullAsNull>idempotent</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula i̇dempotent does not equal viaSql idempotent -->
       <inputvalues>[İDEMPOTENT, en_US]</inputvalues>
          <formula>i̇dempotent</formula>
          <sql>idempotent</sql>
@@ -233,7 +231,6 @@
          <sqlNullAsNull>ıdempotent</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula ıdempotent does not equal viaSql idempotent -->
       <inputvalues>[IDEMPOTENT, tr_TR]</inputvalues>
          <formula>ıdempotent</formula>
          <sql>idempotent</sql>
@@ -304,7 +301,6 @@
          <sqlNullAsNull>ıdempotent</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula ıdempotent does not equal viaSql idempotent -->
       <inputvalues>[IDEMPOTENT, tr]</inputvalues>
          <formula>ıdempotent</formula>
          <sql>idempotent</sql>

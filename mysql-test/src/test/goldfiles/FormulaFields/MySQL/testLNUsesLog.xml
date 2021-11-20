@@ -65,9 +65,9 @@
       <result>
       <inputvalues>[10]</inputvalues>
          <formula>0.0</formula>
-         <sql>0.0</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0.0</formulaNullAsNull>
-         <sqlNullAsNull>0.0</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[16]</inputvalues>

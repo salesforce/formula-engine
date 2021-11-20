@@ -16,16 +16,16 @@
       <result>
       <inputvalues>[true, 100, 200, 400]</inputvalues>
          <formula>100</formula>
-         <sql>100.00</sql>
+         <sql>100</sql>
          <formulaNullAsNull>100</formulaNullAsNull>
-         <sqlNullAsNull>100.00</sqlNullAsNull>
+         <sqlNullAsNull>100</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[false, 123456789, 123456789, 123456789]</inputvalues>
          <formula>123456789</formula>
-         <sql>123456789.00</sql>
+         <sql>123456789</sql>
          <formulaNullAsNull>123456789</formulaNullAsNull>
-         <sqlNullAsNull>123456789.00</sqlNullAsNull>
+         <sqlNullAsNull>123456789</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[true, 45.4356, 45, 900]</inputvalues>
@@ -37,16 +37,16 @@
       <result>
       <inputvalues>[true, 0.00000984, 0.9, 0.4560001]</inputvalues>
          <formula>0</formula>
-         <sql>0.00000000</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.00000000</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[false, -200, -0.000000008, -0.0000012]</inputvalues>
          <formula>0</formula>
-         <sql>0.000000000</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.000000000</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

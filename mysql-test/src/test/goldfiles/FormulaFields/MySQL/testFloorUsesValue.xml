@@ -3,11 +3,11 @@
    <testInstance formula="FLOOR(VALUE(customtext1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
        <Sql>CASE WHEN CAST($!s0s!$.customtext1__c AS DOUBLE)&gt;=0 THEN FLOOR(ROUND(CAST($!s0s!$.customtext1__c AS DOUBLE),33)) ELSE CEIL(ROUND(CAST($!s0s!$.customtext1__c AS DOUBLE),33)) END</Sql>
-       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$'</Guard>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
        <Sql>CASE WHEN CAST($!s0s!$.customtext1__c AS DOUBLE)&gt;=0 THEN FLOOR(ROUND(CAST($!s0s!$.customtext1__c AS DOUBLE),33)) ELSE CEIL(ROUND(CAST($!s0s!$.customtext1__c AS DOUBLE),33)) END</Sql>
-       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$'</Guard>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c).isPos()?$F.Decimal(context.record.customtext1__c).toDP(18).floor():$F.Decimal(context.record.customtext1__c).toDP(18).ceil())):null</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c).isPos()?$F.Decimal(context.record.customtext1__c).toDP(18).floor():$F.Decimal(context.record.customtext1__c).toDP(18).ceil())):null</JsOutput>
@@ -16,66 +16,66 @@
       <result>
       <inputvalues>[0]</inputvalues>
          <formula>0</formula>
-         <sql>0.0</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.0</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>1</formula>
-         <sql>1.0</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>1.0</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2]</inputvalues>
          <formula>2</formula>
-         <sql>2.0</sql>
+         <sql>2</sql>
          <formulaNullAsNull>2</formulaNullAsNull>
-         <sqlNullAsNull>2.0</sqlNullAsNull>
+         <sqlNullAsNull>2</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1]</inputvalues>
          <formula>-1</formula>
-         <sql>-1.0</sql>
+         <sql>-1</sql>
          <formulaNullAsNull>-1</formulaNullAsNull>
-         <sqlNullAsNull>-1.0</sqlNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-10]</inputvalues>
          <formula>-10</formula>
-         <sql>-10.0</sql>
+         <sql>-10</sql>
          <formulaNullAsNull>-10</formulaNullAsNull>
-         <sqlNullAsNull>-10.0</sqlNullAsNull>
+         <sqlNullAsNull>-10</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-100]</inputvalues>
          <formula>-100</formula>
-         <sql>-100.0</sql>
+         <sql>-100</sql>
          <formulaNullAsNull>-100</formulaNullAsNull>
-         <sqlNullAsNull>-100.0</sqlNullAsNull>
+         <sqlNullAsNull>-100</sqlNullAsNull>
       </result>
       <result>
       <!-- Test Case results don't match: viaFormula 56.00 does not equal viaSql 55.00 -->
       <inputvalues>[56]</inputvalues>
          <formula>56</formula>
-         <sql>55.0</sql>
+         <sql>55</sql>
          <formulaNullAsNull>56</formulaNullAsNull>
-         <sqlNullAsNull>55.0</sqlNullAsNull>
+         <sqlNullAsNull>55</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[110]</inputvalues>
          <formula>110</formula>
-         <sql>110.0</sql>
+         <sql>110</sql>
          <formulaNullAsNull>110</formulaNullAsNull>
-         <sqlNullAsNull>110.0</sqlNullAsNull>
+         <sqlNullAsNull>110</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20]</inputvalues>
          <formula>20</formula>
-         <sql>20.0</sql>
+         <sql>20</sql>
          <formulaNullAsNull>20</formulaNullAsNull>
-         <sqlNullAsNull>20.0</sqlNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

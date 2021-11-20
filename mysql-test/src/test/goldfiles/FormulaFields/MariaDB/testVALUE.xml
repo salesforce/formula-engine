@@ -3,11 +3,11 @@
    <testInstance formula="value(customtext1__c)" returntype="Double" precision="18" scale="2">
     <SqlOutput nullAsNull="true">
        <Sql>CAST($!s0s!$.customtext1__c AS DOUBLE)</Sql>
-       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$'</Guard>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
        <Sql>CAST($!s0s!$.customtext1__c AS DOUBLE)</Sql>
-       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$'</Guard>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?($F.Decimal(context.record.customtext1__c)):null</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?($F.Decimal(context.record.customtext1__c)):null</JsOutput>
@@ -44,16 +44,16 @@
       <result>
       <inputvalues>[--1234]</inputvalues>
          <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
-         <sql>0</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
-         <sqlNullAsNull>0</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1-234]</inputvalues>
          <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
-         <sql>1</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
-         <sqlNullAsNull>1</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1.2.34]</inputvalues>
