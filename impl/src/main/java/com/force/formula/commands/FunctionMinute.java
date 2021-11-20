@@ -38,8 +38,10 @@ public class FunctionMinute extends FormulaCommandInfoImpl {
     }
     
     public static String getMinuteExpr(String arg, FormulaContext context)  {
-    	String trunc = context.getSqlStyle().isMysqlStyle() ? "TRUNCATE" : "TRUNC";
-        return trunc + "((" + arg + "-"+trunc+"(" + arg + "/" + FormulaDateUtil.HOUR_IN_MILLIS+ ") * " + FormulaDateUtil.HOUR_IN_MILLIS + ")/" + FormulaDateUtil.MINUTE_IN_MILLIS + ")";
+    	if (context.getSqlStyle().isMysqlStyle()) {
+    		return "MINUTE(" + arg + ")";
+    	}
+        return "TRUNC((" + arg + "-TRUNC(" + arg + "/" + FormulaDateUtil.HOUR_IN_MILLIS+ ") * " + FormulaDateUtil.HOUR_IN_MILLIS + ")/" + FormulaDateUtil.MINUTE_IN_MILLIS + ")";
     }
 
     @Override

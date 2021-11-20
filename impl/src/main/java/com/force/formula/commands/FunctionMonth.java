@@ -30,7 +30,7 @@ public class FunctionMonth extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = "EXTRACT (MONTH FROM " + args[0] + ")";
+        String sql = "EXTRACT(MONTH FROM " + args[0] + ")";
         if (context.getSqlStyle() != null && context.getSqlStyle().isPostgresStyle()) {
             sql = sql + "::numeric";
         }

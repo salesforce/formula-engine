@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFindOnTextWithIndex">
+   <testInstance formula="FIND(customText1__c, customText2__c, customNumber__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(CASE WHEN COALESCE(INSTR(binary SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1),1)),$!s0s!$.customText1__c),0) &gt; 0 THEN INSTR(binary SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1),1)),$!s0s!$.customText1__c) + GREATEST(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1),1) - 1 ELSE 0 END, 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(CASE WHEN COALESCE(INSTR(binary SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1)),$!s0s!$.customText1__c),0) &gt; 0 THEN INSTR(binary SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1)),$!s0s!$.customText1__c) + GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1) - 1 ELSE 0 END, 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,$F.nvl(context.record.customNumber__c,new $F.Decimal('0'))-1)+1):0)))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,context.record.customNumber__c-1)+1):0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,$F.nvl(context.record.customNumber__c,0)-1)+1):0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,context.record.customNumber__c-1)+1):0)</JsOutput>
+      <result>
+      <inputvalues>[-, ABC - XYZ, 5]</inputvalues>
+         <formula>5</formula>
+         <sql>5.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>5</formulaNullAsNull>
+         <sqlNullAsNull>5.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-, ABC - XYZ, 6]</inputvalues>
+         <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Test, FTest, 1]</inputvalues>
+         <formula>2</formula>
+         <sql>2.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <sqlNullAsNull>2.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Test, FTest, 3]</inputvalues>
+         <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Test, FFFFTest, -1]</inputvalues>
+         <formula>5</formula>
+         <sql>5.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>5</formulaNullAsNull>
+         <sqlNullAsNull>5.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Test, FFFFTest, 5]</inputvalues>
+         <formula>5</formula>
+         <sql>5.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>5</formulaNullAsNull>
+         <sqlNullAsNull>5.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Test, FTest, 0]</inputvalues>
+         <formula>2</formula>
+         <sql>2.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <sqlNullAsNull>2.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-, ABC - XYZ, 10]</inputvalues>
+         <formula>0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -38,8 +38,10 @@ public class FunctionSecond extends FormulaCommandInfoImpl {
     }
     
     public static String getSecondExpr(String arg, FormulaContext context)  {
-    	String trunc = context.getSqlStyle().isMysqlStyle() ? "TRUNCATE" : "TRUNC";
-        return trunc + "((" + arg + "-"+trunc+"(" + arg + "/" + FormulaDateUtil.MINUTE_IN_MILLIS+ ") * " + FormulaDateUtil.MINUTE_IN_MILLIS + ")/1000)";
+    	if (context.getSqlStyle().isMysqlStyle()) {
+    		return "SECOND(" + arg + ")";
+    	}
+        return "TRUNC((" + arg + "-TRUNC(" + arg + "/" + FormulaDateUtil.MINUTE_IN_MILLIS+ ") * " + FormulaDateUtil.MINUTE_IN_MILLIS + ")/1000)";
     }
 
     @Override

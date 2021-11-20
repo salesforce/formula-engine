@@ -176,7 +176,7 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 	 * @param columnSql the SQL returned from the formula for the value.
 	 * @param formula the formula whose return type to check
 	 */
-	protected String fixSqlFormat(String columnSql, Formula formula) {
+	protected String fixSqlFormat(FormulaContext context, String columnSql, Formula formula) {
 		MockFormulaDataType returnType = (MockFormulaDataType) formula.getDataType();
 		switch (returnType) {
 		case DATETIME:
@@ -186,6 +186,12 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 		case BOOLEAN:
 			if (!columnSql.endsWith(" THEN '1' ELSE '0' END")) {  // TODO: This shouldn't work.
 				return "CASE WHEN " + columnSql + " THEN '1' ELSE '0' END";
+			}
+		case TIMEONLY:
+			if (context.getSqlStyle().isMysqlStyle()) {
+				return "TIME_TO_SEC("+columnSql+")";
+			} else {
+				return columnSql;
 			}
 		default:
 		}		
@@ -272,13 +278,13 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 	protected void bindSqlValue(PreparedStatement pstmt, DisplayField df, Object value, int position) throws SQLException {
 		switch ((MockFormulaDataType) df.getFormulaFieldInfo().getDataType()) {
 		case DATETIME:
-			pstmt.setTimestamp(position, new java.sql.Timestamp(((java.util.Date) value).getTime()));
+			pstmt.setTimestamp(position, new Timestamp(((java.util.Date) value).getTime()));
 			break;
 		case DATEONLY:
-			pstmt.setDate(position, new java.sql.Date(((java.util.Date) value).getTime()));
+			pstmt.setDate(position, new Date(((java.util.Date) value).getTime()));
 			break;
 		case TIMEONLY:
-			pstmt.setTime(position, new java.sql.Time(((FormulaTime)value).getTimeInMillis()));
+			pstmt.setTime(position, new Time(((FormulaTime)value).getTimeInMillis()));
 			break;
 		case PERCENT:
 		case CURRENCY:
@@ -327,7 +333,6 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
     	return Types.VARCHAR;
     }
     
-	
 	/**
 	 * Format the result from the database, which will be in column 1 of the result set, as a string suitable
 	 * for comparing with Java and Javascript evaluation
@@ -394,7 +399,7 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 			RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(type, formulaContext, formulaSource);
 			FormulaWithSql formula = (FormulaWithSql) formulaInfo.getFormula();
 			String column = formula.toSQL(registry);
-			column = fixSqlFormat(column, formula);
+			column = fixSqlFormat(formulaContext, column, formula);
 
 			try {
 				Connection conn = getConnection();
@@ -407,7 +412,7 @@ public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> ext
 					}
 				}
 			} catch (SQLException e) {
-				System.out.println(testName + ": SELECT " + column + subQuery.toString());  // For debugging
+				//System.out.println(testName + ": SELECT " + column + subQuery.toString());  // For debugging
 				throw e; // Useful for a breakpoint
 			}
 		}

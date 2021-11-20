@@ -162,17 +162,21 @@ public class FunctionText extends FormulaCommandInfoImpl implements FormulaComma
             StringBuilder sqlBuilder = new StringBuilder();
             
             if (clazz == FormulaTime.class)  {
-                // time values are represented by millisecs since midnight.  Divide by 1000 to get it of the form SSSSS.FF3
             	if (context.getSqlStyle().isMysqlStyle()) {
-            		sqlBuilder.append("CAST(" + args[0] + " AS CHAR)");
+            		sqlBuilder.append("SUBSTRING(CONVERT(").append(args[0]).append(",CHAR),1,13)");  // mysql uses microseconds
             	} else {
+                    // time values are represented by millisecs since midnight.  Divide by 1000 to get it of the form SSSSS.FF3
             		sqlBuilder.append("TO_CHAR(TO_TIMESTAMP(TO_CHAR(" + args[0] + "/1000, 'FM99990D999'), '"+getSqlHooks(context).sqlSecsAndMsecs()+"'), '"+getSqlHooks(context).sqlHMSAndMsecs()+"')");
             	}
             } else if (clazz == BigDecimal.class) {
             	sqlBuilder.append("(").append(String.format(getSqlHooks(context).sqlToChar(), args[0])).append(")");
             } else  {
             	if (context.getSqlStyle().isMysqlStyle()) {
-	                sqlBuilder.append("(CAST(").append(args[0]).append(") AS CHAR)");
+            		String convert = "CONVERT(" + args[0] + ",CHAR)";
+	                if (clazz == FormulaDateTime.class && parentType != Date.class) {
+	                	convert = "CONCAT(" + convert + ",'Z')";
+	                }
+	                sqlBuilder.append(convert);
             	} else {
 	                sqlBuilder.append("(TO_CHAR(");
 	                sqlBuilder.append(args[0]);

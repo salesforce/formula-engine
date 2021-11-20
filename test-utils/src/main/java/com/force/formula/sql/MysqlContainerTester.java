@@ -40,6 +40,7 @@ public class MysqlContainerTester extends DbContainerTester<MySQLContainer<?>> {
 	 * @return the value to use as a null value for the display field.
 	 * @param df the display field
 	 */
+	@Override
 	protected String getNullSqlValue(DisplayField df) {
 		return "NULL";
 	}
@@ -47,6 +48,7 @@ public class MysqlContainerTester extends DbContainerTester<MySQLContainer<?>> {
 	/**
 	 * @return the type to use as as text type when testing (text in postgres, varchar in oracle)
 	 */
+	@Override
 	protected String getTextType() {
 		return "varchar";
 	}
@@ -55,6 +57,7 @@ public class MysqlContainerTester extends DbContainerTester<MySQLContainer<?>> {
 	 * @param arg the string to convert to a timestamp
 	 * @return a SQL string that will convert arg to a datetime
 	 */
+	@Override
 	protected String stringToDateTime(String arg) {
 		return "TIMESTAMP("+arg+")";
 	}
@@ -63,6 +66,7 @@ public class MysqlContainerTester extends DbContainerTester<MySQLContainer<?>> {
 	 * @param arg the string to convert to a date
 	 * @return a SQL string that will convert arg to a datetime
 	 */
+	@Override
 	protected String stringToDate(String arg) {
 		return "STR_TO_DATE(" + arg + ",'%D-%m-%Y')";
 	}

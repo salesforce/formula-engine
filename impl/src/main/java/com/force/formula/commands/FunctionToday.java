@@ -44,8 +44,13 @@ public class FunctionToday extends FormulaCommandInfoImpl {
 
             if (value.contains(FunctionToday.TODAY_MARKER)) {
                 FormulaEngine.getHooks().adjustCalendarForTestEnvironment(c); // This allows tools like the report hammer to evaluate formulas as of the db cut date
-                value = value.replaceAll(FunctionToday.TODAY_MARKER, "DATE '" + c.get(Calendar.YEAR) + "-"
-                    + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE) + "'");
+                if (FormulaEngine.getHooks().getSqlStyle().isMysqlStyle()) {
+	                value = value.replaceAll(FunctionToday.TODAY_MARKER, "DATE('" + c.get(Calendar.YEAR) + "-"
+		                    + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE) + "')");
+                } else {
+	                value = value.replaceAll(FunctionToday.TODAY_MARKER, "DATE '" + c.get(Calendar.YEAR) + "-"
+	                    + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE) + "'");
+                }
             }
 
             return value;

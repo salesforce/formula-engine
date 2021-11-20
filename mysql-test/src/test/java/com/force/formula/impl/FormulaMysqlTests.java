@@ -15,10 +15,11 @@ import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
+import com.force.formula.sql.MariaDBContainerTester;
 import com.force.formula.sql.MysqlContainerTester;
 
 /**
- * Abstract class for testing formulas with oracle-xe
+ * Abstract class for testing formulas with Mysql
  * This *does* cross modules and looks in the filesystem.  Have impl generate a test jar file
  * if that is undesireable.
  * @author stamm

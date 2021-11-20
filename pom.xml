@@ -131,7 +131,7 @@
         <version>${embedded-postgres.version}</version>
       </dependency>
 
-      <!-- Dockerized mysql validation -->
+      <!-- Dockerized DB validations -->
       <dependency>
         <groupId>org.testcontainers</groupId>
         <artifactId>oracle-xe</artifactId>
@@ -140,6 +140,11 @@
       <dependency>
         <groupId>org.testcontainers</groupId>
         <artifactId>mysql</artifactId>
+        <version>${testcontainers.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>mariadb</artifactId>
         <version>${testcontainers.version}</version>
       </dependency>
       <dependency>

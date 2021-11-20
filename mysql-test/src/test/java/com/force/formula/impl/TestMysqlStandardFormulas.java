@@ -18,7 +18,7 @@ import org.xml.sax.SAXException;
 import junit.framework.TestSuite;
 
 /**
- * Contains non-extended tests for formulatests.xml in oracle
+ * Contains non-extended tests for formulatests.xml in Mysql
  * @author stamm
  * @since 0.2
  */

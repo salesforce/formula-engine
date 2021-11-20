@@ -29,7 +29,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	   return " NOT %s ~ '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\\d:[0-5]?\\d$' ";
     	}
     	if (isMysqlStyle()) {
-     	   return " %s NOT REGEXP '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\\d:[0-5]?\\d$' ";
+       	   return "1=0"; // mysql returns null on error
      	}
     	return " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\\d:[0-5]?\\d$')"
     			+ "/* Adding some comments to keep the same length for this guard as it was before improving to more robust one   */";
@@ -43,7 +43,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      	   return " NOT %s ~ '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$' ";
      	}
     	if (isMysqlStyle()) {
-      	   return " %s NOT REGEXP '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$' ";
+      	   return "1=0"; // mysql returns null on error
       	}
     	return " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') /*comments to keep size */ ";
     }
@@ -56,7 +56,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
       	   return " NOT %s ~ '^([01]\\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\\.[0-9][0-9][0-9]$' ";
       	}
     	if (isMysqlStyle()) {
-       	   return " %s NOT REGEXP '^([01]\\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\\.[0-9][0-9][0-9]$' ";
+       	   return "1=0"; // mysql returns null on error
        	}
         return " NOT REGEXP_LIKE (%s, '^([01]\\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\\.[0-9][0-9][0-9]$') /*comments to keep size */ ";
     }
@@ -68,6 +68,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isPostgresStyle()) {
       	   return "REGEXP_REPLACE(%s,'[0-9]+','0','g') ~ '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'";
       	}
+    	if (isMysqlStyle()) {
+       	   return "REGEXP_REPLACE(%s,'[0-9]+','0') REGEXP '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'";
+       	}
         /*
          * Make the matching as efficient as possible (regex's are sloooowww).
          * 1. condense sequences of digits to one 0
@@ -118,7 +121,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     		return "CAST(%s AS TEXT)";
     	}
     	if (isMysqlStyle()) {
-    		return "CAST(%s AS CHAR)";
+    		return "CONVERT(%s,CHAR)";
     	}
         return "TO_CHAR(%s)";
     }
@@ -208,6 +211,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      */
     default String psqlSubtractTwoTimestamps() {
+    	if (isMysqlStyle()) {
+    		return "((UNIX_TIMESTAMP(%s)-UNIX_TIMESTAMP(%s))/86400)";
+    	}
         return "((EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))::numeric/86400)";
     } 
     
@@ -336,13 +342,16 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	if (isPostgresStyle()) {
     		return String.format("STRPOS(%s, %s)", strArg, substrArg);
     	}
+    	if (isMysqlStyle()) {
+    		return String.format("INSTR(binary %s, %s)", strArg, substrArg);
+    	}
 		return String.format("INSTR(%s, %s)", strArg, substrArg);
     }
     
     
     /**
      * @return the formula for finding a substring in a string and returning the "position" 1-indexed.
-     * In oracle and mysql, it's INSTR.
+     * In oracle and mysql, it's INSTR.  Use binary for INSTR to keep it case sensitive
      * @param strArg the value of the string to search in
      * @param substrArg the value of the substring to search
      * @param startLocation the value of the start location to use as the offset (1-indexed)
@@ -354,7 +363,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     		return String.format("CASE WHEN COALESCE(STRPOS(SUBSTR(%s,%s::integer),%s),0) > 0 THEN STRPOS(SUBSTR(%s,%s::integer),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     	}
     	if (isMysqlStyle()) {
-    		return String.format("CASE WHEN COALESCE(INSTR(SUBSTR(%s,%s::integer),%s),0) > 0 THEN STRPOS(INSTR(%s,%s::integer),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
+    		return String.format("CASE WHEN COALESCE(INSTR(binary SUBSTR(%s,%s),%s),0) > 0 THEN INSTR(binary SUBSTR(%s,%s),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     	}
 		return String.format("INSTR(%s, %s, %s)", strArg, substrArg, startLocation);
     }

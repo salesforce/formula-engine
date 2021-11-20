@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSqrtUsesFloor">
+   <testInstance formula="SQRT(FLOOR(customnumber1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>SQRT(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END)</Sql>
+       <Guard>CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END&lt;0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>SQRT(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END)</Sql>
+       <Guard>CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END&lt;0</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.sqrt(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).isPos()?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).floor():$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toDP(18).ceil()))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?($F.Decimal.sqrt((context.record.customnumber1__c.isPos()?context.record.customnumber1__c.toDP(18).floor():context.record.customnumber1__c.toDP(18).ceil()))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.sqrt((($F.nvl(context.record.customnumber1__c,0))&gt;=0?Math.floor($F.nvl(context.record.customnumber1__c,0)):Math.ceil($F.nvl(context.record.customnumber1__c,0))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.sqrt(((context.record.customnumber1__c)&gt;=0?Math.floor(context.record.customnumber1__c):Math.ceil(context.record.customnumber1__c)))):null</JsOutput>
+      <result>
+      <inputvalues>[20.842345]</inputvalues>
+         <formula>4.47213595499958</formula>
+         <sql>4.47213595499958</sql>
+         <formulaNullAsNull>4.47213595499958</formulaNullAsNull>
+         <sqlNullAsNull>4.47213595499958</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.54321]</inputvalues>
+         <formula>11111.111060555555</formula>
+         <sql>11111.111060555555</sql>
+         <formulaNullAsNull>11111.111060555555</formulaNullAsNull>
+         <sqlNullAsNull>11111.111060555555</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789]</inputvalues>
+         <formula>11111.111060555555</formula>
+         <sql>11111.111060555555</sql>
+         <formulaNullAsNull>11111.111060555555</formulaNullAsNull>
+         <sqlNullAsNull>11111.111060555555</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[49.55]</inputvalues>
+         <formula>7.0</formula>
+         <sql>7</sql>
+         <formulaNullAsNull>7.0</formulaNullAsNull>
+         <sqlNullAsNull>7</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.00034]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.244]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[25.7456]</inputvalues>
+         <formula>5.0</formula>
+         <sql>5</sql>
+         <formulaNullAsNull>5.0</formulaNullAsNull>
+         <sqlNullAsNull>5</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[64.456]</inputvalues>
+         <formula>8.0</formula>
+         <sql>8</sql>
+         <formulaNullAsNull>8.0</formulaNullAsNull>
+         <sqlNullAsNull>8</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.4]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.7]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.4]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.7]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

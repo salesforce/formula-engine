@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAbsUsesMinus">
+   <testInstance formula="ABS((custompercent1__c-customcurrency1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>ABS((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)-COALESCE($!s0s!$.customcurrency1__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ABS((($!s0s!$.custompercent1__c / 100.0)-$!s0s!$.customcurrency1__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')).sub($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0'))).abs()</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.custompercent1__c!=null&amp;&amp;context.record.custompercent1__c.div(100)!=null&amp;&amp;context.record.customcurrency1__c!=null)?(context.record.custompercent1__c.div(100).sub(context.record.customcurrency1__c).abs()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.abs($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)-$F.nvl(context.record.customcurrency1__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.custompercent1__c!=null&amp;&amp;context.record.custompercent1__c/100.0!=null&amp;&amp;context.record.customcurrency1__c!=null)?(Math.abs(context.record.custompercent1__c/100.0-context.record.customcurrency1__c)):null</JsOutput>
+      <result>
+      <inputvalues>[, 24]</inputvalues>
+         <formula>24</formula>
+         <sql>24</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, 0.0]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.00, 0.00]</inputvalues>
+         <formula>0.00</formula>
+         <sql>0.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>0.00</formulaNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.000, 0.000]</inputvalues>
+         <formula>0.000</formula>
+         <sql>0.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>0.000</formulaNullAsNull>
+         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.0, 99.0]</inputvalues>
+         <formula>99.01</formula>
+         <sql>99.01000000000000000000000000000000</sql>
+         <formulaNullAsNull>99.01</formulaNullAsNull>
+         <sqlNullAsNull>99.01000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[99,  -1]</inputvalues>
+         <formula>1.99</formula>
+         <sql>1.99000000000000000000000000000000</sql>
+         <formulaNullAsNull>1.99</formulaNullAsNull>
+         <sqlNullAsNull>1.99000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-20, -40]</inputvalues>
+         <formula>39.8</formula>
+         <sql>39.80000000000000000000000000000000</sql>
+         <formulaNullAsNull>39.8</formulaNullAsNull>
+         <sqlNullAsNull>39.80000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.1111, 1.1111]</inputvalues>
+         <formula>1.099989</formula>
+         <sql>1.09998900000000000000000000000000</sql>
+         <formulaNullAsNull>1.099989</formulaNullAsNull>
+         <sqlNullAsNull>1.09998900000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.11114, 0.00000]</inputvalues>
+         <formula>0.0111114</formula>
+         <sql>0.01111140000000000000000000000000</sql>
+         <formulaNullAsNull>0.0111114</formulaNullAsNull>
+         <sqlNullAsNull>0.01111140000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.11115, 0.00000]</inputvalues>
+         <formula>0.0111115</formula>
+         <sql>0.01111150000000000000000000000000</sql>
+         <formulaNullAsNull>0.0111115</formulaNullAsNull>
+         <sqlNullAsNull>0.01111150000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.111112, 0.000043]</inputvalues>
+         <formula>0.01106812</formula>
+         <sql>0.01106812000000000000000000000000</sql>
+         <formulaNullAsNull>0.01106812</formulaNullAsNull>
+         <sqlNullAsNull>0.01106812000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789, 123456789]</inputvalues>
+         <formula>122222221.11</formula>
+         <sql>122222221.11000000000000000000000000000000</sql>
+         <formulaNullAsNull>122222221.11</formulaNullAsNull>
+         <sqlNullAsNull>122222221.11000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, 123456789.123456789]</inputvalues>
+         <formula>122222221.23222222111</formula>
+         <sql>122222221.23222222111000000000000000000000</sql>
+         <formulaNullAsNull>122222221.23222222111</formulaNullAsNull>
+         <sqlNullAsNull>122222221.23222222111000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, -123456789.123456789]</inputvalues>
+         <formula>124691357.01469135689</formula>
+         <sql>124691357.01469135689000000000000000000000</sql>
+         <formulaNullAsNull>124691357.01469135689</formulaNullAsNull>
+         <sqlNullAsNull>124691357.01469135689000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-123456789.123456789, -123456789.123456789]</inputvalues>
+         <formula>122222221.23222222111</formula>
+         <sql>122222221.23222222111000000000000000000000</sql>
+         <formulaNullAsNull>122222221.23222222111</formulaNullAsNull>
+         <sqlNullAsNull>122222221.23222222111000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[600,  0.000600]</inputvalues>
+         <formula>5.999400</formula>
+         <sql>5.99940000000000000000000000000000</sql>
+         <formulaNullAsNull>5.999400</formulaNullAsNull>
+         <sqlNullAsNull>5.99940000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[600,  -600]</inputvalues>
+         <formula>606</formula>
+         <sql>606.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>606</formulaNullAsNull>
+         <sqlNullAsNull>606.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.2345,  1.2345]</inputvalues>
+         <formula>1.222155</formula>
+         <sql>1.22215500000000000000000000000000</sql>
+         <formulaNullAsNull>1.222155</formulaNullAsNull>
+         <sqlNullAsNull>1.22215500000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.245,  0]</inputvalues>
+         <formula>0.01245</formula>
+         <sql>0.01245000000000000000000000000000</sql>
+         <formulaNullAsNull>0.01245</formulaNullAsNull>
+         <sqlNullAsNull>0.01245000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, ]</inputvalues>
+         <formula>0.01</formula>
+         <sql>0.01</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 12.123456789]</inputvalues>
+         <formula>12.123456789</formula>
+         <sql>12.123456789</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.00596, 240]</inputvalues>
+         <formula>239.9899404</formula>
+         <sql>239.98994040000000000000000000000000</sql>
+         <formulaNullAsNull>239.9899404</formulaNullAsNull>
+         <sqlNullAsNull>239.98994040000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 240]</inputvalues>
+         <formula>240</formula>
+         <sql>240.00000000000000000000000000000000</sql>
+         <formulaNullAsNull>240</formulaNullAsNull>
+         <sqlNullAsNull>240.00000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.0000000000001, 1000]</inputvalues>
+         <formula>999.999999999999999</formula>
+         <sql>999.99999999999999900000000000000000</sql>
+         <formulaNullAsNull>999.999999999999999</formulaNullAsNull>
+         <sqlNullAsNull>999.99999999999999900000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.0000000000001, -1000]</inputvalues>
+         <formula>1000.000000000000001</formula>
+         <sql>1000.00000000000000100000000000000000</sql>
+         <formulaNullAsNull>1000.000000000000001</formulaNullAsNull>
+         <sqlNullAsNull>1000.00000000000000100000000000000000</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

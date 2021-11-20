@@ -1793,9 +1793,9 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
      </testcase>
-     <testcase name="testLenUsesText" devName="testLenUsesText"
+     <testcase name="testLenUsesText" devName="testLenUsesText" compareType="none"
          labelName="testLenUsesText" dataType="Double" dataFile="sqrtData"
-         scale="2" precision="12" code="LEN(Text(customnumber1__c))" compareType="none">
+         scale="2" precision="12" code="LEN(Text(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>

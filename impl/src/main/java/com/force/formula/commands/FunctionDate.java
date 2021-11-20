@@ -46,7 +46,7 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         String day = (dayValue != BAD_VALUE) ? String.valueOf(dayValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[2] + ")");
         String date;
         if (context.getSqlStyle().isMysqlStyle()) {
-        	date = "CAST((" + year + " || '-' || " + month + " || '-' || " + day + ") AS DATE)";
+        	date = "DATE(CONCAT(" + year + ",'-'," + month + ",'-'," + day + "))";
         } else {
         	date = "TO_DATE(" + year + " || '-' || " + month + " || '-' || " + day + ", 'YYYY-MM-DD')";
         }
@@ -75,7 +75,7 @@ public class FunctionDate extends FormulaCommandInfoImpl {
                 guards,
                 errorCondition((FormulaSqlHooks)context.getSqlStyle(), args, yearValue, yearCanBeNull, monthValue, monthCanBeNull, dayValue,
                         dayCanBeNull));
-    return new SQLPair(sql, guard);
+        return new SQLPair(sql, guard);
     }
 
     private int getInt(FormulaAST currentNode) {
@@ -171,11 +171,20 @@ public class FunctionDate extends FormulaCommandInfoImpl {
     }
 
     private String getValidDayInMonthSQL(FormulaSqlHooks hooks, String[] args, int yearValue, int monthValue, int dayValue) {    	
-        String toDateSQL =  "TO_DATE("
- + (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue)
+        String toDateSQL;
+    	if (hooks.isMysqlStyle()) {
+    		toDateSQL =   "DATE(CONCAT("
+    		+ (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue)
+                        + ",'-',"
+                + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue)
+                        + ",'-01'))";
+    	} else {
+    		toDateSQL =   "TO_DATE("
+    		+ (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue)
                         + " || '-' || "
                 + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue)
                         + ",'YYYY-MM')";
+    	}
         String lastDaySQL = String.format(hooks.sqlLastDayOfMonth(), toDateSQL);
         
         return " " + (dayValue == BAD_VALUE ? args[2]: dayValue) + " >= " + lastDaySQL + "+1 ";

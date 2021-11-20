@@ -46,7 +46,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
         }
         else if (inputDataType == FormulaDateTime.class) {
         	if (context.getSqlStyle().isMysqlStyle()) {
-        		sql =  String.format("TIME_TO_SEC(TIME(%s))", args[0]);
+        		sql =  String.format("TIME(%s)", args[0]);
         	} else {
         		sql =  String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(%s, '"+getSqlHooks(context).sqlSecsInDay()+"')", args[0])) + " * 1000"; // date does not have millisec info        		
         	}
@@ -54,7 +54,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
         } 
         else {
         	if (context.getSqlStyle().isMysqlStyle()) {
-        		sql =  String.format("TIME_TO_SEC(TIME(%s))", args[0]);
+        		sql =  String.format("TIME(%s)", args[0]);
         	} else {
         		sql=  String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(TO_TIMESTAMP(%s, '"+getSqlHooks(context).sqlHMSAndMsecs()+"'),'"+getSqlHooks(context).sqlSecsAndMsecs()+"')", args[0])) + " * 1000" ;
         	}

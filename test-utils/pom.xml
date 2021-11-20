@@ -59,6 +59,11 @@
 	        <artifactId>mysql</artifactId>
 		    <optional>true</optional>
 		</dependency>        
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mariadb</artifactId>
+            <optional>true</optional>
+        </dependency>        
 		<dependency>
    	        <groupId>org.testcontainers</groupId>
 	        <artifactId>oracle-xe</artifactId>

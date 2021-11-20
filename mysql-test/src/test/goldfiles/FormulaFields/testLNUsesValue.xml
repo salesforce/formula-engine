@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesValue">
+   <testInstance formula="LN(VALUE(customtext1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>LN(CAST($!s0s!$.customtext1__c AS DOUBLE))</Sql>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$' OR CAST($!s0s!$.customtext1__c AS DOUBLE)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LN(CAST($!s0s!$.customtext1__c AS DOUBLE))</Sql>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$' OR CAST($!s0s!$.customtext1__c AS DOUBLE)&lt;=0</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c)).ln()):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c)).ln()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(Math.log(Number(context.record.customtext1__c))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(Math.log(Number(context.record.customtext1__c))):null</JsOutput>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0.0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2]</inputvalues>
+         <formula>0.6931471805599453</formula>
+         <sql>0.6931471805599453</sql>
+         <formulaNullAsNull>0.6931471805599453</formulaNullAsNull>
+         <sqlNullAsNull>0.6931471805599453</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-10]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-100]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[56]</inputvalues>
+         <formula>4.02535169073515</formula>
+         <sql>4.02535169073515</sql>
+         <formulaNullAsNull>4.02535169073515</formulaNullAsNull>
+         <sqlNullAsNull>4.02535169073515</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[110]</inputvalues>
+         <formula>4.700480365792417</formula>
+         <sql>4.700480365792417</sql>
+         <formulaNullAsNull>4.700480365792417</formulaNullAsNull>
+         <sqlNullAsNull>4.700480365792417</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20]</inputvalues>
+         <formula>2.995732273553991</formula>
+         <sql>2.995732273553991</sql>
+         <formulaNullAsNull>2.995732273553991</formulaNullAsNull>
+         <sqlNullAsNull>2.995732273553991</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
