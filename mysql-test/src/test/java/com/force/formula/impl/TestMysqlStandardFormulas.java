@@ -23,7 +23,7 @@ import junit.framework.TestSuite;
  * @since 0.2
  */
 @RunWith(AllTests.class)
-public class TestMysqlStandardFormulas extends FormulaMysqlTests {
+public class TestMysqlStandardFormulas extends FormulaMySQLTests {
 
 	
     public TestMysqlStandardFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {

@@ -332,9 +332,13 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <!-- AddMonths doesn't work right around leap years with dateonlys in Javascript... -->
+     <!-- AddMonths doesn't work right around leap years with dateonlys in Javascript... 
+            // TODO: AddMonths in Oracle has different behavior from Postgres for leap days.
+            // @see https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions004.htm
+            // "If date is the last day of the month or if the resulting month has fewer days than the 
+            //      day component of date, then the result is the last day of the resulting month. " -->
      <testcase name="testAddMonths" devName="testAddMonths" labels="extended"
-         labelName="testAddMonths" dataType="DateTime" dataFile="addMonths"
+         labelName="testAddMonths" dataType="DateTime" dataFile="addMonths" whyIgnoreSql="oracle:Leap day support"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateTime"/>
@@ -342,7 +346,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
      </testcase>
      <testcase name="testAddMonthsDate" devName="testAddMonthsDate" labels="extended"
-         labelName="testAddMonthsDate" dataType="DateOnly" dataFile="addMonths"
+         labelName="testAddMonthsDate" dataType="DateOnly" dataFile="addMonths" whyIgnoreSql="oracle:Leap day support"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateOnly"/>
@@ -359,7 +363,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddDateWithExpr" devName="testAddDateWithExpr"
          labelName="testAddDateWithExpr" dataType="DateOnly"
-         dataFile="addDateWithExpr" scale="2" precision="12" whyIgnoreSql="Date overflow"
+         dataFile="addDateWithExpr" scale="2" precision="12" whyIgnoreSql="all:Date overflow"
          code="(customformula0__c+customnumber1__c+customformula1__c+customcurrency1__c)">
          <referencefield devName="customformula0" labelName="customformula0"
              dataType="DateOnly" code="(customdate1__c+custompercent1__c)">
@@ -393,7 +397,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddMonthsDateTime" devName="testAddMonthsDateTime"
          labelName="testAddMonthsDateTime" dataType="DateTime" dataFile="addDateTime"
-         scale="2" precision="12"  whyIgnoreSql="TODO: psql fractional day support differs from java"
+         scale="2" precision="12"  whyIgnoreSql="postgres:TODO psql fractional day support differs from java"
          code="ADDMONTHS(customdatetime1__c,customnumber1__c)">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime"/>
@@ -432,7 +436,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddDateTimeWithExpr" devName="testAddDateTimeWithExpr"
          labelName="testAddDateTimeWithExpr" dataType="DateTime" compareTemplate="formula"
-         dataFile="addDateTimeWithExpr" scale="2" precision="12"  whyIgnoreSql="Date overflow"
+         dataFile="addDateTimeWithExpr" scale="2" precision="12"  whyIgnoreSql="all:Date overflow"
          code="(customformula0__c+custompercent2__c+customformula1__c+LEN(customtext1__c))">
          <referencefield devName="customformula0" labelName="customformula0"
              dataType="DateTime"
@@ -741,7 +745,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <!-- really dumb case... -->
      <testcase name="testIfNullNullIf" devName="testIfNullNullIf" labels="extended"
-         labelName="testIfNullNullIf" dataType="Text" scale="2" whyIgnoreSql="Postgres incorrectly converts null to text for number comparison"
+         labelName="testIfNullNullIf" dataType="Text" scale="2" whyIgnoreSql="postgres:incorrectly converts null to text for number comparison"
          dataFile="ifTextCompareReturnText" precision="12"
          code="if( if (customtext1__c=customtext2__c, null, null) = 0,  &quot;true&quot;, &quot;false&quot;)">
          <referencefield devName="customtext1" labelName="customtext1"
@@ -1927,7 +1931,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testFloorRound" devName="testFloorRound" labels="math" whyIgnoreSql="Psql precision differences"
+     <testcase name="testFloorRound" devName="testFloorRound" labels="math" whyIgnoreSql="postgres:precision differences"
          labelName="testFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="FLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1935,7 +1939,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMFloorRound" devName="testMFloorRound" whyIgnoreSql="Psql precision differences"
+     <testcase name="testMFloorRound" devName="testMFloorRound" whyIgnoreSql="postgres:precision differences"
          labelName="testMFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MFLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2073,7 +2077,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testCeilRound" devName="testCeilRound" labels="math" whyIgnoreSql="Psql precision differences"
+     <testcase name="testCeilRound" devName="testCeilRound" labels="math" whyIgnoreSql="postgres:precision differences"
          labelName="testCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="CEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2081,7 +2085,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMCeilRound" devName="testMCeilRound" labels="math" whyIgnoreSql="Psql precision differences"
+     <testcase name="testMCeilRound" devName="testMCeilRound" labels="math" whyIgnoreSql="postgres:precision differences"
          labelName="testMCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MCEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -3256,21 +3260,21 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" precision="13" scale="3"/>
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
-     <testcase name="testUpper" labels="basic" devName="testUpper" labelName="testUpper" whyIgnoreSql="Postgres ICU support"
+     <testcase name="testUpper" labels="basic" devName="testUpper" labelName="testUpper" whyIgnoreSql="postgres:ICU support"
             dataType="Text" code="upper(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
      <!-- Nashorn doesn't do toLocaleLowerCase/toLocaleUpperCase correctly.  It also creates a combining dotted mark for İ -->
-     <testcase name="testLower" labels="basic" devName="testLower" labelName="testLower" whyIgnoreSql="Postgres ICU support"
+     <testcase name="testLower" labels="basic" devName="testLower" labelName="testLower" whyIgnoreSql="postgres:ICU support"
             dataType="Text" code="lower(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
-     <testcase name="testUpperLocale" devName="testUpperLocale" labelName="testUpperLocale" whyIgnoreSql="Postgres ICU support"
+     <testcase name="testUpperLocale" devName="testUpperLocale" labelName="testUpperLocale" whyIgnoreSql="postgres: ICU support,oracle: turkish diff"
             dataType="Text" code="upper(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
-     <testcase name="testLowerLocale" devName="testLowerLocale" labelName="testLowerLocale" whyIgnoreSql="Postgres ICU support"
+     <testcase name="testLowerLocale" devName="testLowerLocale" labelName="testLowerLocale" whyIgnoreSql="postgres:ICU support,oracle: turkish diff"
             dataType="Text" code="lower(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />

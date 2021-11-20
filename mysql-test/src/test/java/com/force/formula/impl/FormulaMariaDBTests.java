@@ -16,7 +16,6 @@ import org.xml.sax.SAXException;
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
 import com.force.formula.sql.MariaDBContainerTester;
-import com.force.formula.sql.MysqlContainerTester;
 
 /**
  * Abstract class for testing formulas with MariaDB
@@ -81,19 +80,6 @@ public abstract class FormulaMariaDBTests extends FormulaGenericTests {
 		}
 
 		@Override
-		protected boolean shouldCompareSql() {
-			// TODO: AddMonths in Oracle has different behavior from Postgres for leap days.
-			// @see https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions004.htm
-			// "If date is the last day of the month or if the resulting month has fewer days than the 
-			//      day component of date, then the result is the last day of the resulting month. "
-			if ("testAddMonths".equals(getName()) ||
-					"testAddMonthsDate".equals(getName())) {
-				return false;
-			}
-			return super.shouldCompareSql();
-		}
-
-		@Override
 		protected String getDirectory() {
 			return "src/test/goldfiles/FormulaFields/MariaDB";
 		}
@@ -102,7 +88,7 @@ public abstract class FormulaMariaDBTests extends FormulaGenericTests {
     protected static class MysqlFormulaValidationHooks extends FieldTestFormulaValidationHooks {
         @Override
 		public FormulaSqlHooks getSqlStyle() {
-        	return FormulaSqlHooks.DefaultStyle.MYSQL;
+        	return FormulaSqlHooks.DefaultStyle.MARIADB;
 		}
     }
     

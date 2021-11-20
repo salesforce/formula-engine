@@ -14,6 +14,7 @@
     <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT'))!=null)?($F.addmonths(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT')),$F.nvl(context.record.customnumber1__c,0))):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT'))!=null)?($F.addmonths(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT')),context.record.customnumber1__c)):null</JsOutput>
       <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Fri Dec 31 11:32:00 GMT 2004 viaSql null -->
       <inputvalues>[2004:12:31:11:32:00, NULL]</inputvalues>
          <formula>Fri Dec 31 11:32:00 GMT 2004</formula>
          <sql>2004-12-31 11:32:00.0</sql>
@@ -77,6 +78,7 @@
          <sqlNullAsNull>2005-03-31 11:32:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1104492720000 (Fri Dec 31 11:32:00 GMT 2004) does not equal viaApi 1107171120000(2005-01-31 11:32:00.0) -->
       <inputvalues>[2004:12:31:11:32:00, 0.50]</inputvalues>
          <formula>Fri Dec 31 11:32:00 GMT 2004</formula>
          <sql>2005-01-31 11:32:00.0</sql>
@@ -91,6 +93,7 @@
          <sqlNullAsNull>2004-12-31 11:32:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1104492720000 (Fri Dec 31 11:32:00 GMT 2004) does not equal viaApi 1101814320000(2004-11-30 11:32:00.0) -->
       <inputvalues>[2004:12:31:11:32:00, -0.50]</inputvalues>
          <formula>Fri Dec 31 11:32:00 GMT 2004</formula>
          <sql>2004-11-30 11:32:00.0</sql>
@@ -112,6 +115,7 @@
          <sqlNullAsNull>2005-02-28 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1075534440000 (Sat Jan 31 07:34:00 GMT 2004) does not equal viaApi 1075361640000(2004-01-29 07:34:00.0) -->
       <inputvalues>[2004:02:29:07:34:00:GMT, -1.00]</inputvalues>
          <formula>Sat Jan 31 07:34:00 GMT 2004</formula>
          <sql>2004-01-29 07:34:00.0</sql>
@@ -119,6 +123,7 @@
          <sqlNullAsNull>2004-01-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1080718440000 (Wed Mar 31 07:34:00 GMT 2004) does not equal viaApi 1080545640000(2004-03-29 07:34:00.0) -->
       <inputvalues>[2004:02:29:07:34:00:GMT, 1.00]</inputvalues>
          <formula>Wed Mar 31 07:34:00 GMT 2004</formula>
          <sql>2004-03-29 07:34:00.0</sql>
@@ -126,6 +131,7 @@
          <sqlNullAsNull>2004-03-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1072856040000 (Wed Dec 31 07:34:00 GMT 2003) does not equal viaApi 1072683240000(2003-12-29 07:34:00.0) -->
       <inputvalues>[2004:02:29:07:34:00:GMT, -2.00]</inputvalues>
          <formula>Wed Dec 31 07:34:00 GMT 2003</formula>
          <sql>2003-12-29 07:34:00.0</sql>
@@ -133,6 +139,7 @@
          <sqlNullAsNull>2003-12-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1083310440000 (Fri Apr 30 07:34:00 GMT 2004) does not equal viaApi 1083224040000(2004-04-29 07:34:00.0) -->
       <inputvalues>[2004:02:29:07:34:00:GMT, 2.00]</inputvalues>
          <formula>Fri Apr 30 07:34:00 GMT 2004</formula>
          <sql>2004-04-29 07:34:00.0</sql>
@@ -140,6 +147,7 @@
          <sqlNullAsNull>2004-04-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1070177640000 (Sun Nov 30 07:34:00 GMT 2003) does not equal viaApi 1070091240000(2003-11-29 07:34:00.0) -->
       <inputvalues>[2004:02:29:07:34:00:GMT, -3.00]</inputvalues>
          <formula>Sun Nov 30 07:34:00 GMT 2003</formula>
          <sql>2003-11-29 07:34:00.0</sql>
@@ -147,6 +155,7 @@
          <sqlNullAsNull>2003-11-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1085988840000 (Mon May 31 07:34:00 GMT 2004) does not equal viaApi 1085816040000(2004-05-29 07:34:00.0) -->
       <inputvalues>[2004:02:29:07:34:00:GMT, 3.00]</inputvalues>
          <formula>Mon May 31 07:34:00 GMT 2004</formula>
          <sql>2004-05-29 07:34:00.0</sql>
@@ -154,6 +163,7 @@
          <sqlNullAsNull>2004-05-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1078040040000 (Sun Feb 29 07:34:00 GMT 2004) does not equal viaApi 1080545640000(2004-03-29 07:34:00.0) -->
       <inputvalues>[2004:02:29:07:34:00:GMT, 0.50]</inputvalues>
          <formula>Sun Feb 29 07:34:00 GMT 2004</formula>
          <sql>2004-03-29 07:34:00.0</sql>
@@ -168,6 +178,7 @@
          <sqlNullAsNull>2004-02-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1078040040000 (Sun Feb 29 07:34:00 GMT 2004) does not equal viaApi 1075361640000(2004-01-29 07:34:00.0) -->
       <inputvalues>[2004:02:29:07:34:00:GMT, -0.50]</inputvalues>
          <formula>Sun Feb 29 07:34:00 GMT 2004</formula>
          <sql>2004-01-29 07:34:00.0</sql>
@@ -189,6 +200,7 @@
          <sqlNullAsNull>2005-03-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1077953640000 (Sat Feb 28 07:34:00 GMT 2004) does not equal viaApi 1078040040000(2004-02-29 07:34:00.0) -->
       <inputvalues>[2004:03:29:07:34:00:GMT, -1.00]</inputvalues>
          <formula>Sat Feb 28 07:34:00 GMT 2004</formula>
          <sql>2004-02-29 07:34:00.0</sql>
@@ -231,6 +243,7 @@
          <sqlNullAsNull>2004-06-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1080545640000 (Mon Mar 29 07:34:00 GMT 2004) does not equal viaApi 1083224040000(2004-04-29 07:34:00.0) -->
       <inputvalues>[2004:03:29:07:34:00:GMT, 0.50]</inputvalues>
          <formula>Mon Mar 29 07:34:00 GMT 2004</formula>
          <sql>2004-04-29 07:34:00.0</sql>
@@ -245,6 +258,7 @@
          <sqlNullAsNull>2004-03-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1080545640000 (Mon Mar 29 07:34:00 GMT 2004) does not equal viaApi 1078040040000(2004-02-29 07:34:00.0) -->
       <inputvalues>[2004:03:29:07:34:00:GMT, -0.50]</inputvalues>
          <formula>Mon Mar 29 07:34:00 GMT 2004</formula>
          <sql>2004-02-29 07:34:00.0</sql>
@@ -266,6 +280,7 @@
          <sqlNullAsNull>2005-03-30 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1077953640000 (Sat Feb 28 07:34:00 GMT 2004) does not equal viaApi 1078040040000(2004-02-29 07:34:00.0) -->
       <inputvalues>[2004:03:30:07:34:00:GMT, -1.00]</inputvalues>
          <formula>Sat Feb 28 07:34:00 GMT 2004</formula>
          <sql>2004-02-29 07:34:00.0</sql>
@@ -273,6 +288,7 @@
          <sqlNullAsNull>2004-02-29 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1083224040000 (Thu Apr 29 07:34:00 GMT 2004) does not equal viaApi 1083310440000(2004-04-30 07:34:00.0) -->
       <inputvalues>[2004:03:30:07:34:00:GMT, 1.00]</inputvalues>
          <formula>Thu Apr 29 07:34:00 GMT 2004</formula>
          <sql>2004-04-30 07:34:00.0</sql>
@@ -301,6 +317,7 @@
          <sqlNullAsNull>2003-12-30 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1088494440000 (Tue Jun 29 07:34:00 GMT 2004) does not equal viaApi 1088580840000(2004-06-30 07:34:00.0) -->
       <inputvalues>[2004:03:30:07:34:00:GMT, 3.00]</inputvalues>
          <formula>Tue Jun 29 07:34:00 GMT 2004</formula>
          <sql>2004-06-30 07:34:00.0</sql>
@@ -308,6 +325,7 @@
          <sqlNullAsNull>2004-06-30 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1080632040000 (Tue Mar 30 07:34:00 GMT 2004) does not equal viaApi 1083310440000(2004-04-30 07:34:00.0) -->
       <inputvalues>[2004:03:30:07:34:00:GMT, 0.50]</inputvalues>
          <formula>Tue Mar 30 07:34:00 GMT 2004</formula>
          <sql>2004-04-30 07:34:00.0</sql>
@@ -322,6 +340,7 @@
          <sqlNullAsNull>2004-03-30 07:34:00.0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1080632040000 (Tue Mar 30 07:34:00 GMT 2004) does not equal viaApi 1078040040000(2004-02-29 07:34:00.0) -->
       <inputvalues>[2004:03:30:07:34:00:GMT, -0.50]</inputvalues>
          <formula>Tue Mar 30 07:34:00 GMT 2004</formula>
          <sql>2004-02-29 07:34:00.0</sql>

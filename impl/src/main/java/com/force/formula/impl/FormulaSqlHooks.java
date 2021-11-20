@@ -548,7 +548,8 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 	public static enum DefaultStyle implements FormulaSqlHooks {
 		POSTGRES,
 		ORACLE,
-		MYSQL;
+		MYSQL,
+		MARIADB;
 
 		@Override
 		public boolean isPostgresStyle() {
@@ -562,7 +563,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 
 		@Override
 		public boolean isMysqlStyle() {
-			return this == MYSQL;
+			return this == MYSQL || this == MARIADB;
 		}	
 	}
 }

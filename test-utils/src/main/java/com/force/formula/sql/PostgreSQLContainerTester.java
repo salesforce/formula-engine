@@ -8,17 +8,22 @@ import java.io.IOException;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 /**
- * Postgres tester that uses a container. 
+ * PostgreSQL tester that uses a container. 
  * @author stamm
  */
-public class PostgresContainerTester extends DbContainerTester<PostgreSQLContainer<?>> {
+public class PostgreSQLContainerTester extends DbContainerTester<PostgreSQLContainer<?>> {
 
 	/**
 	 * @throws IOException
 	 */
-	public PostgresContainerTester() throws IOException {
+	public PostgreSQLContainerTester() throws IOException {
 	}
 
+	@Override
+	public String getDbTypeName() {
+		return "postgres";
+	}
+	
 	@Override
 	protected PostgreSQLContainer<?> constructDb() throws IOException {
 		return new PostgreSQLContainer<>("postgres");

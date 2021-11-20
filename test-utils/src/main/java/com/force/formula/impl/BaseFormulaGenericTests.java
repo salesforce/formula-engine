@@ -865,6 +865,8 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		public DbTester() throws IOException {
 		}
 
+		public abstract String getDbTypeName();
+		
 		/**
 		 * Evaluate the sql for the formula using sql
 		 * @param formulaContext the formula context

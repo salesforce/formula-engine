@@ -24,7 +24,7 @@ import junit.framework.TestSuite;
  */
 @RunWith(AllTests.class)
 // @Ignore
-public class TestMysqlIgnoredFormulas extends FormulaMysqlTests {
+public class TestMysqlIgnoredFormulas extends FormulaMySQLTests {
 
     public TestMysqlIgnoredFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
         super("MysqlIgnoredFormulaTests");

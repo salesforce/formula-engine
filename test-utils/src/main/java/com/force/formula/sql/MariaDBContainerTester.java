@@ -31,6 +31,12 @@ public class MariaDBContainerTester extends DbContainerTester<MariaDBContainer<?
 	}
 	
 	@Override
+	public String getDbTypeName() {
+		return "mariadb";
+	}
+
+	
+	@Override
 	protected boolean useBinds() {
 		// The sql driver doesn't like control characters in literals it seems.
 		return true;

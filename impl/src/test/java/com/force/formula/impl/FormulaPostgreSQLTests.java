@@ -12,20 +12,20 @@ import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
-import com.force.formula.sql.EmbeddedPostgresqlTester;
-import com.force.formula.sql.PostgresContainerTester;
+import com.force.formula.sql.EmbeddedPostgresTester;
+import com.force.formula.sql.PostgreSQLContainerTester;
 
 /**
  * Abstract class for testing formulas with javascript and postgres
  * @author stamm
  * @since 0.1.11
  */
-public abstract class FormulaPostgresTests extends FormulaGenericTests {
+public abstract class FormulaPostgreSQLTests extends FormulaGenericTests {
 	// If true, use docker for testing the postgres DB with testcontainers.org.  Otherwise, use embedded
 	// The embedded one is quicker and easier to manage.
 	public static final boolean USE_DOCKER_FOR_DB = false;
 	
-    public FormulaPostgresTests(String name) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
+    public FormulaPostgreSQLTests(String name) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
         super(name);
     }
 
@@ -44,9 +44,9 @@ public abstract class FormulaPostgresTests extends FormulaGenericTests {
 	@Override
 	protected DbTester constructDbTester() throws IOException {
 		if (USE_DOCKER_FOR_DB) {
-			return new PostgresContainerTester();
+			return new PostgreSQLContainerTester();
 		} else {	
-			return new EmbeddedPostgresqlTester();
+			return new EmbeddedPostgresTester();
 		}
 	}
 }

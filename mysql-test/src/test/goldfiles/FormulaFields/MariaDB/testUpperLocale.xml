@@ -42,6 +42,7 @@
          <sqlNullAsNull>CASES</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula GROSSE does not equal viaSql GROßE -->
       <inputvalues>[große, ]</inputvalues>
          <formula>GROSSE</formula>
          <sql>GROßE</sql>
@@ -119,6 +120,7 @@
          <sqlNullAsNull>CASES</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula GROSSE does not equal viaSql GROßE -->
       <inputvalues>[große, en_US]</inputvalues>
          <formula>GROSSE</formula>
          <sql>GROßE</sql>
@@ -196,6 +198,7 @@
          <sqlNullAsNull>CASES</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula GROSSE does not equal viaSql GROßE -->
       <inputvalues>[große, tr_TR]</inputvalues>
          <formula>GROSSE</formula>
          <sql>GROßE</sql>
@@ -217,6 +220,7 @@
          <sqlNullAsNull>ÅNGSTROM</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula İDEMPOTENT does not equal viaSql IDEMPOTENT -->
       <inputvalues>[idempotent, tr_TR]</inputvalues>
          <formula>İDEMPOTENT</formula>
          <sql>IDEMPOTENT</sql>
@@ -266,6 +270,7 @@
          <sqlNullAsNull>CASES</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula GROSSE does not equal viaSql GROßE -->
       <inputvalues>[große, tr]</inputvalues>
          <formula>GROSSE</formula>
          <sql>GROßE</sql>
@@ -287,6 +292,7 @@
          <sqlNullAsNull>ÅNGSTROM</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula İDEMPOTENT does not equal viaSql IDEMPOTENT -->
       <inputvalues>[idempotent, tr]</inputvalues>
          <formula>İDEMPOTENT</formula>
          <sql>IDEMPOTENT</sql>

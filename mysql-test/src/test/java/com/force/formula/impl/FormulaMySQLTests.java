@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
 import com.force.formula.sql.MariaDBContainerTester;
-import com.force.formula.sql.MysqlContainerTester;
+import com.force.formula.sql.MySQLContainerTester;
 
 /**
  * Abstract class for testing formulas with Mysql
@@ -25,19 +25,19 @@ import com.force.formula.sql.MysqlContainerTester;
  * @author stamm
  * @since 0.2.0
  */
-public abstract class FormulaMysqlTests extends FormulaGenericTests {
+public abstract class FormulaMySQLTests extends FormulaGenericTests {
 
 	// use a single DB with a docker container, and not three of them by sharing them.
 	static DbTester SHARED_TESTER;
 	static {
 		try {
-			SHARED_TESTER = new MysqlContainerTester();
+			SHARED_TESTER = new MySQLContainerTester();
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
 	}
 	
-    public FormulaMysqlTests(String name) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
+    public FormulaMySQLTests(String name) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
         super(name);
     }
     
@@ -82,15 +82,12 @@ public abstract class FormulaMysqlTests extends FormulaGenericTests {
 
 		@Override
 		protected boolean shouldCompareSql() {
-			// TODO: AddMonths in Oracle has different behavior from Postgres for leap days.
-			// @see https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions004.htm
-			// "If date is the last day of the month or if the resulting month has fewer days than the 
-			//      day component of date, then the result is the last day of the resulting month. "
-			if ("testAddMonths".equals(getName()) ||
-					"testAddMonthsDate".equals(getName())) {
-				return false;
-			}
 			return super.shouldCompareSql();
+		}
+
+		@Override
+		protected String getDirectory() {
+			return "src/test/goldfiles/FormulaFields/MySQL";
 		}
 	}
 

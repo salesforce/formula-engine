@@ -13,12 +13,12 @@ import com.force.formula.DisplayField;
  * Mysql tester that uses a container. 
  * @author stamm
  */
-public class MysqlContainerTester extends DbContainerTester<MySQLContainer<?>> {
+public class MySQLContainerTester extends DbContainerTester<MySQLContainer<?>> {
 
 	/**
 	 * @throws IOException
 	 */
-	public MysqlContainerTester() throws IOException {
+	public MySQLContainerTester() throws IOException {
 	}
 
 	@Override
@@ -28,6 +28,11 @@ public class MysqlContainerTester extends DbContainerTester<MySQLContainer<?>> {
 		result.withCommand("--collation-server=utf8mb4_bin",
 						   "--character-set-server=utf8mb4");  // Formula engine assumes case sensitive.
 		return result;
+	}
+	
+	@Override
+	public String getDbTypeName() {
+		return "mysql";
 	}
 	
 	@Override

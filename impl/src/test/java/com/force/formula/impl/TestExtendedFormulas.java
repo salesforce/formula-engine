@@ -22,7 +22,7 @@ import junit.framework.TestSuite;
  * @since 0.2
  */
 @RunWith(AllTests.class)
-public class TestExtendedFormulas extends FormulaPostgresTests {
+public class TestExtendedFormulas extends FormulaPostgreSQLTests {
 
     public TestExtendedFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
         super("ExtendedFormulaTests");

@@ -20,6 +20,11 @@ public class OracleContainerTester extends DbContainerTester<OracleContainer> {
 	}
 
 	@Override
+	public String getDbTypeName() {
+		return "oracle";
+	}
+
+	@Override
 	protected OracleContainer constructDb() throws IOException {
 		return new OracleContainer("gvenzl/oracle-xe");
 	}

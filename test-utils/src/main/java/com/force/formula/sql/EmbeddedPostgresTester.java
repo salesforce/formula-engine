@@ -27,11 +27,16 @@ import io.zonky.test.db.postgres.embedded.EmbeddedPostgres;
  * 
  * @author stamm
  */
-public class EmbeddedPostgresqlTester extends DbTester {
+public class EmbeddedPostgresTester extends DbTester {
 
 	private EmbeddedPostgres pg = null;
 
-	public EmbeddedPostgresqlTester() throws IOException {
+	public EmbeddedPostgresTester() throws IOException {
+	}
+
+	@Override
+	public String getDbTypeName() {
+		return "postgres";
 	}
 
 	/**

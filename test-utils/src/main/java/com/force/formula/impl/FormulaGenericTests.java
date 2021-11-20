@@ -70,6 +70,15 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		return false;
 	}
 	
+	protected String getDbTypeName() {
+		try {
+			DbTester dbTester = getDbTester();
+			return dbTester.getDbTypeName();
+		} catch (IOException | SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	private DbTester dbTester;
 	// Simplify set of the db by creating one per suite.
 	protected final DbTester getDbTester() throws IOException, SQLException {
@@ -145,7 +154,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		 * @return whether for a give test, the values from the SL engine should be compared
 		 */
 		protected boolean shouldCompareSql() {
-			return shouldTestSql() && !getTestCaseInfo().ignoreSql();
+			return shouldTestSql() && null == getTestCaseInfo().whyIgnoreSql(((FormulaGenericTests)getSuite()).getDbTypeName());
 		}
 		
 		@Override

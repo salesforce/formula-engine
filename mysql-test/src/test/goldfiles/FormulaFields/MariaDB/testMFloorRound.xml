@@ -14,6 +14,7 @@
     <JsOutput highPrec="false" nullAsNull="false">(Math).floor(($F.nvl(context.record.customnumber1__c,0)/$F.nvl(context.record.customnumber2__c,0))*$F.nvl(context.record.customnumber2__c,0))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber2__c!=null)?((Math).floor((context.record.customnumber1__c/context.record.customnumber2__c)*context.record.customnumber2__c)):null</JsOutput>
       <result>
+      <!-- Test Case results don't match: viaFormula 1.00 does not equal viaSql 0.00 -->
       <inputvalues>[1, 9]</inputvalues>
          <formula>1</formula>
          <sql>0</sql>
@@ -21,6 +22,7 @@
          <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 2.00 does not equal viaSql 1.00 -->
       <inputvalues>[2, 9]</inputvalues>
          <formula>2</formula>
          <sql>1</sql>
@@ -28,6 +30,7 @@
          <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 3.00 does not equal viaSql 2.00 -->
       <inputvalues>[3, 9]</inputvalues>
          <formula>3</formula>
          <sql>2</sql>
@@ -35,6 +38,7 @@
          <sqlNullAsNull>2</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 4.00 does not equal viaSql 3.00 -->
       <inputvalues>[4, 9]</inputvalues>
          <formula>4</formula>
          <sql>3</sql>
@@ -42,6 +46,7 @@
          <sqlNullAsNull>3</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 5.00 does not equal viaSql 4.00 -->
       <inputvalues>[5, 9]</inputvalues>
          <formula>5</formula>
          <sql>4</sql>
@@ -49,6 +54,7 @@
          <sqlNullAsNull>4</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 6.00 does not equal viaSql 5.00 -->
       <inputvalues>[6, 9]</inputvalues>
          <formula>6</formula>
          <sql>5</sql>
@@ -56,6 +62,7 @@
          <sqlNullAsNull>5</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 7.00 does not equal viaSql 6.00 -->
       <inputvalues>[7, 9]</inputvalues>
          <formula>7</formula>
          <sql>6</sql>
@@ -63,6 +70,7 @@
          <sqlNullAsNull>6</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 8.00 does not equal viaSql 7.00 -->
       <inputvalues>[8, 9]</inputvalues>
          <formula>8</formula>
          <sql>7</sql>
@@ -70,6 +78,7 @@
          <sqlNullAsNull>7</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1.00 does not equal viaSql 0.00 -->
       <inputvalues>[1, 11]</inputvalues>
          <formula>1</formula>
          <sql>0</sql>
@@ -77,6 +86,7 @@
          <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 2.00 does not equal viaSql 1.00 -->
       <inputvalues>[2, 11]</inputvalues>
          <formula>2</formula>
          <sql>1</sql>
@@ -84,6 +94,7 @@
          <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 3.00 does not equal viaSql 2.00 -->
       <inputvalues>[3, 11]</inputvalues>
          <formula>3</formula>
          <sql>2</sql>
@@ -91,6 +102,7 @@
          <sqlNullAsNull>2</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 4.00 does not equal viaSql 3.00 -->
       <inputvalues>[4, 11]</inputvalues>
          <formula>4</formula>
          <sql>3</sql>
@@ -98,6 +110,7 @@
          <sqlNullAsNull>3</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 5.00 does not equal viaSql 4.00 -->
       <inputvalues>[5, 11]</inputvalues>
          <formula>5</formula>
          <sql>4</sql>
@@ -105,6 +118,7 @@
          <sqlNullAsNull>4</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 6.00 does not equal viaSql 5.00 -->
       <inputvalues>[6, 11]</inputvalues>
          <formula>6</formula>
          <sql>5</sql>
@@ -112,6 +126,7 @@
          <sqlNullAsNull>5</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 7.00 does not equal viaSql 6.00 -->
       <inputvalues>[7, 11]</inputvalues>
          <formula>7</formula>
          <sql>6</sql>
@@ -119,6 +134,7 @@
          <sqlNullAsNull>6</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 8.00 does not equal viaSql 7.00 -->
       <inputvalues>[8, 11]</inputvalues>
          <formula>8</formula>
          <sql>7</sql>
@@ -126,6 +142,7 @@
          <sqlNullAsNull>7</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 9.00 does not equal viaSql 8.00 -->
       <inputvalues>[9, 11]</inputvalues>
          <formula>9</formula>
          <sql>8</sql>
@@ -133,6 +150,7 @@
          <sqlNullAsNull>8</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 10.00 does not equal viaSql 9.00 -->
       <inputvalues>[10, 11]</inputvalues>
          <formula>10</formula>
          <sql>9</sql>
@@ -140,6 +158,7 @@
          <sqlNullAsNull>9</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 10.00 does not equal viaSql 9.00 -->
       <inputvalues>[10, 9]</inputvalues>
          <formula>10</formula>
          <sql>9</sql>
@@ -147,6 +166,7 @@
          <sqlNullAsNull>9</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 11.00 does not equal viaSql 10.00 -->
       <inputvalues>[11, 9]</inputvalues>
          <formula>11</formula>
          <sql>10</sql>
@@ -154,6 +174,7 @@
          <sqlNullAsNull>10</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 12.00 does not equal viaSql 11.00 -->
       <inputvalues>[12, 9]</inputvalues>
          <formula>12</formula>
          <sql>11</sql>
@@ -161,6 +182,7 @@
          <sqlNullAsNull>11</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 13.00 does not equal viaSql 12.00 -->
       <inputvalues>[13, 9]</inputvalues>
          <formula>13</formula>
          <sql>12</sql>
@@ -168,6 +190,7 @@
          <sqlNullAsNull>12</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 14.00 does not equal viaSql 13.00 -->
       <inputvalues>[14, 9]</inputvalues>
          <formula>14</formula>
          <sql>13</sql>
@@ -175,6 +198,7 @@
          <sqlNullAsNull>13</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 15.00 does not equal viaSql 14.00 -->
       <inputvalues>[15, 9]</inputvalues>
          <formula>15</formula>
          <sql>14</sql>
@@ -182,6 +206,7 @@
          <sqlNullAsNull>14</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 16.00 does not equal viaSql 15.00 -->
       <inputvalues>[16, 9]</inputvalues>
          <formula>16</formula>
          <sql>15</sql>
@@ -189,6 +214,7 @@
          <sqlNullAsNull>15</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 17.00 does not equal viaSql 16.00 -->
       <inputvalues>[17, 9]</inputvalues>
          <formula>17</formula>
          <sql>16</sql>
@@ -203,6 +229,7 @@
          <sqlNullAsNull>18</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 19.00 does not equal viaSql 18.00 -->
       <inputvalues>[19, 9]</inputvalues>
          <formula>19</formula>
          <sql>18</sql>
