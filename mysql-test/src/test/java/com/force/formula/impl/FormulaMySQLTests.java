@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
+import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.sql.MySQLContainerTester;
 
 /**
@@ -93,7 +94,7 @@ public abstract class FormulaMySQLTests extends FormulaGenericTests {
     protected static class MysqlFormulaValidationHooks extends FieldTestFormulaValidationHooks {
         @Override
 		public FormulaSqlHooks getSqlStyle() {
-        	return FormulaSqlHooks.DefaultStyle.MYSQL;
+        	return FormulaDefaultSqlStyle.MYSQL;
 		}
     }
     

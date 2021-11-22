@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import com.force.formula.*;
 import com.force.formula.commands.*;
 import com.force.formula.impl.BeanFormulaContext.BeanFormulaType;
+import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.template.commands.DynamicReference;
 import com.google.common.collect.*;
 
@@ -149,7 +150,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
 
         @Override
 		public FormulaSqlHooks getSqlStyle() {
-        	return FormulaSqlHooks.DefaultStyle.POSTGRES;
+        	return FormulaDefaultSqlStyle.POSTGRES;
 		}
 
 		@Override

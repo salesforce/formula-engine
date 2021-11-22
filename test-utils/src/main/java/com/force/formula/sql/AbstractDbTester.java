@@ -167,6 +167,16 @@ public abstract class AbstractDbTester implements DbTester {
 	}
 
 	/**
+	 * Get the bind value to use.  Overridable if types need to be coerced
+	 * @param df the field being bound
+	 * @param value the value of the field
+	 * @return the parameter, which must contain just one questionmark
+	 */
+	protected String getParamPlaceholder(DisplayField df, Object value) {
+		return "?";
+	}
+	
+	/**
 	 * Make a FROM clause with a subquery with alias "c" that contains all the
 	 * values as columns easily substituted in the formula below
 	 * 
@@ -187,7 +197,7 @@ public abstract class AbstractDbTester implements DbTester {
 				String sqlValue;
 
 				if (useBinds()) {
-					sqlValue = "?";
+					sqlValue = getParamPlaceholder(df, value);
 				} else {
 					if (value == null) {
 						sqlValue = getNullSqlValue(df);
@@ -334,7 +344,10 @@ public abstract class AbstractDbTester implements DbTester {
 			BigDecimal millis = rset.getBigDecimal(1);
 			if (millis == null)
 				return null;
-			return FormulaEngine.getHooks().constructTime(millis.movePointRight(3)).toString();
+			if (formulaContext.getSqlStyle().isMysqlStyle()) {
+				millis = millis.movePointRight(3);  // It's micro in mysql.
+			}
+			return FormulaEngine.getHooks().constructTime(millis).toString();
 		case BOOLEAN:
 			String result = rset.getString(1);
 			return "1".equals(result) ? "true" : "false";

@@ -1,113 +1,119 @@
 /**
  * 
  */
-package com.force.formula.impl;
+package com.force.formula.impl.sql;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
-import com.force.formula.sql.FormulaSqlStyle;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.util.FormulaI18nUtils;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 
 /**
- * A set of SQL hooks used in standard functionality to provide differences in SQL implementations.
- * 
+ * Implementation of FormulaSqlHooks for Oracle-style DBs
  * @author stamm
- * @since 0.1.0
+ * @since 0.2
  */
-public interface FormulaSqlHooks extends FormulaSqlStyle {
-	
-    // Handle plsql regexp differences (where oracle needs regexp_like and postgres wants ~ or similar to)
+public interface FormulaOracleHooks extends FormulaSqlHooks {
+	@Override
+	default boolean isOracleStyle() {
+		return true;
+	}	
+
+	// Handle plsql regexp differences (where oracle needs regexp_like and postgres wants ~ or similar to)
     /**
      * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for DateTime Value
      */
+	@Override
     default String sqlDatetimeValueGuard() {
-   	   return "1=0"; // assume null on error
+    	return " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\\d:[0-5]?\\d$')"
+    			+ "/* Adding some comments to keep the same length for this guard as it was before improving to more robust one   */";
     }
     
     /**
      * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a date Value
      */
+	@Override
     default String sqlDateValueGuard() {
-	   return "1=0"; // assume null on error
+    	return " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') /*comments to keep size */ ";
     }
     
     /**
      * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a date Value
      */
+	@Override
     default String sqlTimeValueGuard() {
-	   return "1=0"; // assume null on error
+        return " NOT REGEXP_LIKE (%s, '^([01]\\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\\.[0-9][0-9][0-9]$') /*comments to keep size */ ";
     }
     
     /**
      * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a date Value
      */
-    default String sqlIsNumber() {
-    	throw new UnsupportedOperationException();
+	@Override
+	default String sqlIsNumber() {
+        return "REGEXP_LIKE(REGEXP_REPLACE(%s,'[0-9]+','0'),'^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$')";
     }
     
     /**
      * @return the function to use for NVL.  In postgres, it's usually coalesce, but in oracle, you want NVL.
      */
-    default String sqlNvl() {
-		return "COALESCE";
+	@Override
+	default String sqlNvl() {
+        return "NVL";
     }
     
     /**
      * @return the string to use for String.format to convert something to date generically, without a specified
      */
+	@Override
     default String sqlToDate() {
-		return "CAST(%s AS DATE)";
+        return "TO_DATE(%s)";
     }
 
     /**
      * @return the string to use for String.format to convert something to number generically, without a format
      */
+	@Override
     default String sqlToNumber() {
-		return "CAST(%s AS NUMERIC)";
+
+        return "TO_NUMBER(%s)";
     }
 
     /**
      * @return the string to use for String.format to convert something to text generically, without a format
      */
+	@Override
     default String sqlToChar() {
-		return "CAST(%s AS CHAR)";
+        return "TO_CHAR(%s)";
     }
     
     /**
      * @return the string to use for TO_TIMESTAMP to get seconds.microseconds.  It's a subtle difference
      */
+	@Override
     default String sqlSecsAndMsecs() {
-		return "SSSS.MS";
+        return "SSSSS.FF3";
     }
     
     /**
      * @return the string to use for TO_TIMESTAMP to get seconds.microseconds.  It's a subtle difference
      */
+	@Override
     default String sqlHMSAndMsecs() {
-		return "HH24:mi:ss.MS";
+        return "HH24:mi:ss.FF3";
     }
     
     
     /**
      * @return the string to use for TO_TIMESTAMP to get seconds.  It's a subtle difference
      */
+	@Override
     default String sqlSecsInDay() {
-		return "SSSS";
-    }
-    
-    /**
-     * @return the function to use for conversion to Date generically.
-     */
-    default String sqlNullToDate() {
-    	return String.format(sqlToDate(), "NULL");
-    }
-
-    /**
-     * @return the function to use for conversion to Date generically.
-     */
-    default String sqlNullToNumber() {
-    	return String.format(sqlToNumber(), "NULL");
+        return "SSSSS"; // Oracle needs 5 Ss
     }
 	
     /**
@@ -116,9 +122,13 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
      * @return the sql expression to use for uppercase with a locale
      */
+	@Override
     default String sqlUpperCaseWithLocaleFormat(boolean hasLocaleOverride) {
-    	// You could do UPPER(%s COLLATE %s), but that doesn't work in general as collate isn't a parameter.
-    	return "UPPER(%s)";
+        if (hasLocaleOverride) {
+            return "NLS_UPPER(%s,CASE WHEN SUBSTR(%s,1,2) = 'tr' THEN 'NLS_SORT=xturkish' ELSE 'NLS_SORT=xwest_european' END)";
+        } else {
+            return "NLS_UPPER(%s,'NLS_SORT=xwest_european')";
+        }
     }
 
     /**
@@ -127,18 +137,14 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
      * @return the sql expression to use for lowercase with a locale
      */
+	@Override
     default String sqlLowerCaseWithLocaleFormat(boolean hasLocaleOverride) {
-        return "LOWER(%s)";
+        if (hasLocaleOverride) {
+            return "NLS_LOWER(%s,CASE WHEN SUBSTR(%s,1,2) = 'tr' THEN 'NLS_SORT=xturkish' ELSE 'NLS_SORT=xwest_european' END)";
+        } else {
+            return "NLS_LOWER(%s,'NLS_SORT=xwest_european')";
+        }
     }
-
-    /**
-     * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
-     * missing from psql, but available in oracle.  This allows you to try and fix that.
-     */
-    default String psqlSubtractTwoTimestamps() {
-    	throw new UnsupportedOperationException();
-    } 
-    
     
     /**
      * Function right can be... complicated, especially in Oracle
@@ -146,52 +152,54 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @param countArg the sql for the number of chars
      * @return the SQL for generating RIGHT()
      */
+	@Override
     default String sqlRight(String stringArg, String countArg) {
-        return "RIGHT(" + stringArg + ", GREATEST(" + countArg+ ", 0))";
+        // Oracle allows {n,m} where m < 0 and treats it as {0,0} but Postgres will throw an error, and
+        // this actually comes up in formula tests. The Postgres would work on both, but it makes the sql longer
+        // so that is not allowed for Oracle
+    	//return "REGEXP_SUBSTR("+stringArg+",'.{0,'||NVL2("+countArg+",CASE WHEN "+countArg+"<0 THEN 0 ELSE "+countArg+" END,0)||'}$',1,1,'n')"; 
+        return "REGEXP_SUBSTR("+stringArg+",'.{0,'||NVL("+countArg+",0)||'}$',1,1,'n')";
     }
     
     /**
      * @return the the date.  Overridable in case you want to change the timezone functionality with ::timestamp.
      */
+	@Override
     default String sqlNow() {
-        return "NOW()";
+		return "SYSDATE";
     }
     
     /**
      * @return the the current milliseconds of the day suitable.  You may want to use ::time instead, so overridable
      */
+	@Override
     default String sqlTimeNow() {
-    	throw new UnsupportedOperationException();
+		return "TO_NUMBER(TO_CHAR(SYSTIMESTAMP, '"+sqlSecsAndMsecs()+"'))*1000";    		
     }
     
     /**
      * @return the format to use for adding months.
      */
+	@Override
     default String sqlAddMonths() {
-    	throw new UnsupportedOperationException();
-     }
+		return "ADD_MONTHS(%s, %s)";
+    }
     
     
     /**
      * @return the format for converting to a datetime value
      */
+	@Override
     default String sqlToTimestampIso() {
 		return "TO_DATE(%s, 'YYYY-MM-DD HH24:MI:SS')";
     }
     
     /**
-     * @return the format for converting to a datetime value
-     */
-    default String sqlToDateIso() {
-		return "TO_DATE(%s, 'YYYY-MM-DD')";
-    }
-    
-    
-    /**
      * @return the function to use for getting the last day of the month of a date.
      */
+	@Override
     default String sqlLastDayOfMonth() {
-    	throw new UnsupportedOperationException();
+		return "TO_CHAR(LAST_DAY(%s),'DD')";
     }
 
     
@@ -199,31 +207,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the format for converting to a datetime value
      * @param withSpaces whether spaces should be used around the "||" for compatibility
      */
+	@Override
     default String sqlConcat(boolean withSpaces) {
-		// Formula engine generally allows || with nulls, as it's less confusing
-		return "CONCAT(%s, %s)";
-    }
-
-    /**
-     * @return the formula for finding a substring in a string and returning the "position" 1-indexed.
-     * In oracle and mysql, it's INSTR.
-     * @param strArg the value of the string to search in
-     * @param substrArg the value of the substring to search
-     */
-    default String sqlInstr2(String strArg, String substrArg) {
-		return String.format("INSTR(%s, %s)", strArg, substrArg);
-    }
-    
-    
-    /**
-     * @return the formula for finding a substring in a string and returning the "position" 1-indexed.
-     * In oracle and mysql, it's INSTR.  Use binary for INSTR to keep it case sensitive
-     * @param strArg the value of the string to search in
-     * @param substrArg the value of the substring to search
-     * @param startLocation the value of the start location to use as the offset (1-indexed)
-     */
-    default String sqlInstr3(String strArg, String substrArg, String startLocation) {
-		return String.format("INSTR(%s, %s, %s)", strArg, substrArg, startLocation);
+		return withSpaces ? "%s || %s" : "%s||%s";
     }
     
     /**
@@ -231,6 +217,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the SQL string to use to in TO_CHAR for the given scale.  This is used by 
      * {@link #getCurrencyFormat(String, String, boolean)}
      */
+	@Override
     default StringBuilder getCurrencyMask(int scale) {
         StringBuilder mask = new StringBuilder(40).append("'FM9G999G999G999G999G999G990");
         if (scale > 0) {
@@ -247,6 +234,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @param amountArg the argument with the numeric value of the currency
      * @param canAmountBeNull whether the argument can be null (should this be in a coalesce statement)
      */
+	@Override
     default String getCurrencyFormat(String isoCodeArg, String amountArg, boolean canAmountBeNull) {
         // Start with all statically-known currencies in the world and their default scales.
         Map<String,Integer> scaleByIsoCode = FormulaValidationHooks.get().getCurrencyScaleByIsoCode();
@@ -280,37 +268,51 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
             maskStr.append("ELSE").append(getCurrencyMask(2)).append("END");
         }
     	
-        // Assume postgres
-        // NOTE: This doesn't do the grouping/decimal correction like in oracle, as it isn't possible with postgres
+        // Get the decimal point and thousands separator characters
+        NumberFormat nf = FormulaI18nUtils.getLocalizer().getNumberFormat();
+        
+        char groupingSeparator = ','; // Default to comma.
+        char decimalSeparator = '.'; // Default to dot.
+        
+        if (nf instanceof DecimalFormat) {
+            groupingSeparator = ((DecimalFormat)nf).getDecimalFormatSymbols().getGroupingSeparator();
+            decimalSeparator = ((DecimalFormat)nf).getDecimalFormatSymbols().getDecimalSeparator();
+        } 
+        // Add this if using ICU number formatting.
+        /*
+        else if (nf instanceof NumberFormatICU) {
+            com.ibm.icu.text.NumberFormat nf_icu = ((NumberFormatICU)nf).unwrap();
+            if (nf_icu instanceof com.ibm.icu.text.DecimalFormat) {
+                groupingSeparator = ((com.ibm.icu.text.DecimalFormat)nf_icu).getDecimalFormatSymbols().getGroupingSeparator();
+                decimalSeparator = ((com.ibm.icu.text.DecimalFormat)nf_icu).getDecimalFormatSymbols().getDecimalSeparator();
+            }
+        }
+        */
+        
+        StringBuilder nlsParam = new StringBuilder(40).append("'NLS_NUMERIC_CHARACTERS=''").append(decimalSeparator);  // there are no weird DecimalSeparator characters
+        if (groupingSeparator == '\'')
+            nlsParam.append("''");  // the single quote character needs to be doubled up
+        else if (groupingSeparator == '\u00A0')
+            nlsParam.append(' ');  // oracle doesn't like the unicode NBSP character
+        else
+            nlsParam.append(groupingSeparator);
+        nlsParam.append("'''");
+
+        // Put everything together
         StringBuilder sql = new StringBuilder(800);
         if (canAmountBeNull) {
             // Handle null amount
-            sql.append("CASE WHEN ").append(amountArg).append(" IS NULL THEN NULL ELSE ");
+            sql.append("NVL2(").append(amountArg).append(',');
         }
-        sql.append("CONCAT(").append(isoCodeArg).append(",' ',TO_CHAR(").append(amountArg).append(',').append(maskStr).append("))");
+
+        sql.append(isoCodeArg).append("||' '||TO_CHAR(").append(amountArg).append(',').append(maskStr).append(',').append(nlsParam).append(')');
+
+
         if (canAmountBeNull) {
             // Handle null amount
-            sql.append("END");
+            sql.append(",NULL)");
         }
         return sql.toString();
     }
     
-    /**
-     * Formulas are usually numeric, but some functions, like round or trunc, require a cast to ::int in postgres
-     * @param argument scale argument
-     * @return the argument converted to an integer for rounding
-     */
-    default String sqlRoundScaleArg(String argument) {
-    	return argument;
-    }
-
-    /**
-     * Formulas are usually numeric, but some functions, like round or trunc, return an integer that may
-     * cause type cast issues
-     * @param argument argument that's in an integer
-     * @return the argument converted from an integer to numeric for use
-     */
-    default String sqlMakeDecimal(String argument) {
-    	return argument;
-    }
 }

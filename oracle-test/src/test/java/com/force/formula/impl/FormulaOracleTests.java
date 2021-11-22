@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
+import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.sql.OracleContainerTester;
 
 /**
@@ -82,7 +83,7 @@ public abstract class FormulaOracleTests extends FormulaGenericTests {
     protected static class OracleFormulaValidationHooks extends FieldTestFormulaValidationHooks {
         @Override
 		public FormulaSqlHooks getSqlStyle() {
-        	return FormulaSqlHooks.DefaultStyle.ORACLE;
+        	return FormulaDefaultSqlStyle.ORACLE;
 		}
     }
     
