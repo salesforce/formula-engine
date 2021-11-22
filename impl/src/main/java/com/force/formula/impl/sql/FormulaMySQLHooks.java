@@ -16,34 +16,22 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 		return true;
 	}	
 	
-
-    // Handle plsql regexp differences (where oracle needs regexp_like and postgres wants ~ or similar to)
-    /**
-     * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for DateTime Value
-     */
+	// Mysql doesn't need guards as it returns null for invalid dates instead of an error
 	@Override
     default String sqlDatetimeValueGuard() {
    	   return "1=0"; // mysql returns null on error
     }
-    
-    /**
-     * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a date Value
-     */
 	@Override
     default String sqlDateValueGuard() {
   	   return "1=0"; // mysql returns null on error
     }
-    
-    /**
-     * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a date Value
-     */
 	@Override
     default String sqlTimeValueGuard() {
    	   return "1=0"; // mysql returns null on error
     }
     
     /**
-     * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a date Value
+     * @return whether the string is a "number"
      */
 	@Override
     default String sqlIsNumber() {
@@ -51,7 +39,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     }
     
     /**
-     * @return the function to use for NVL.  In postgres, it's usually coalesce, but in oracle, you want NVL.
+     * @return the function to use for NVL.  In mysql, it's usually coalesce, but in oracle, you want NVL.
      */
     @Override
     default String sqlNvl() {
@@ -71,7 +59,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      */
     @Override
     default String sqlToNumber() {
-		return "CAST(%s AS DOUBLE)";   // Specify your own default precision.
+		return "CAST(%s AS DECIMAL(52,18))";   // Override to specify your own default precision.
     }
 
     /**
@@ -85,11 +73,12 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
-     * missing from psql, but available in oracle.  This allows you to try and fix that.
+     * missing from mysql, but available in oracle.  This allows you to try and fix that.
      */
     @Override
     default String psqlSubtractTwoTimestamps() {
-		return "((UNIX_TIMESTAMP(%s)-UNIX_TIMESTAMP(%s))/86400)";
+    	return "(-TIMESTAMPDIFF(SECOND,%s,%s)/86400)";
+    	//return "((UNIX_TIMESTAMP(%s)-UNIX_TIMESTAMP(%s))/86400)";
     } 
     
     
@@ -180,4 +169,11 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 		// Use binary comparison to be case sensitive
 		return String.format("CASE WHEN COALESCE(INSTR(binary SUBSTR(%s,%s),%s),0) > 0 THEN INSTR(binary SUBSTR(%s,%s),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     }
+
+	@Override
+	default String sqlConvertDateTimeToDate(String dateTime, String userTimezone, String userTzOffset) {
+		// TODO Auto-generated method stub
+		return "DATE(CONVERT_TZ("+dateTime+",'UTC',"+userTzOffset+"))";
+		
+	}
 }

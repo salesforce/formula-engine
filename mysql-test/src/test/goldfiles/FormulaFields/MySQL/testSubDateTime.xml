@@ -2,11 +2,11 @@
 <testCase name="testSubDateTime">
    <testInstance formula="(customdatetime1__c-customdatetime2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>((UNIX_TIMESTAMP($!s0s!$.customdatetime1__c)-UNIX_TIMESTAMP($!s0s!$.customdatetime2__c))/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>((UNIX_TIMESTAMP($!s0s!$.customdatetime1__c)-UNIX_TIMESTAMP($!s0s!$.customdatetime2__c))/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000)):null</JsOutput>
@@ -44,25 +44,25 @@
       <result>
       <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:00:00]</inputvalues>
          <formula>0.02083333333333333333333333333333</formula>
-         <sql>0.020833333</sql>
+         <sql>0.0208</sql>
          <formulaNullAsNull>0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>0.020833333</sqlNullAsNull>
+         <sqlNullAsNull>0.0208</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:23:30:00, 2004:02:28:24:00:00]</inputvalues>
          <formula>-0.02083333333333333333333333333333</formula>
-         <sql>-0.020833333</sql>
+         <sql>-0.0208</sql>
          <formulaNullAsNull>-0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>-0.020833333</sqlNullAsNull>
+         <sqlNullAsNull>-0.0208</sqlNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="(customdatetime2__c-customdatetime1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>((UNIX_TIMESTAMP($!s0s!$.customdatetime2__c)-UNIX_TIMESTAMP($!s0s!$.customdatetime1__c))/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c)/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>((UNIX_TIMESTAMP($!s0s!$.customdatetime2__c)-UNIX_TIMESTAMP($!s0s!$.customdatetime1__c))/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c)/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000)):null</JsOutput>
@@ -100,16 +100,16 @@
       <result>
       <inputvalues>[2004:12:31:11:00:00, 2004:12:31:11:30:00]</inputvalues>
          <formula>-0.02083333333333333333333333333333</formula>
-         <sql>-0.020833333</sql>
+         <sql>-0.0208</sql>
          <formulaNullAsNull>-0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>-0.020833333</sqlNullAsNull>
+         <sqlNullAsNull>-0.0208</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:24:00:00, 2004:02:28:23:30:00]</inputvalues>
          <formula>0.02083333333333333333333333333333</formula>
-         <sql>0.020833333</sql>
+         <sql>0.0208</sql>
          <formulaNullAsNull>0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>0.020833333</sqlNullAsNull>
+         <sqlNullAsNull>0.0208</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

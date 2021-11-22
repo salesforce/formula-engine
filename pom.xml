@@ -123,36 +123,14 @@
         <artifactId>javax.annotation-api</artifactId>
         <version>${javax.annotation.version}</version>
       </dependency>
-
+      
       <!-- Embedded postgres validation -->
       <dependency>
         <groupId>io.zonky.test</groupId>
         <artifactId>embedded-postgres</artifactId>
         <version>${embedded-postgres.version}</version>
       </dependency>
-
-      <!-- Dockerized DB validations -->
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>oracle-xe</artifactId>
-        <version>${testcontainers.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>mysql</artifactId>
-        <version>${testcontainers.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>mariadb</artifactId>
-        <version>${testcontainers.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>postgresql</artifactId>
-        <version>${testcontainers.version}</version>
-      </dependency>
-
+      
       <!-- GraalJS impl -->
       <dependency>
         <groupId>org.graalvm.sdk</groupId>

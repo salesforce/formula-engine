@@ -26,23 +26,23 @@ public interface FormulaSqlStyle {
 	}
 	
 	/**
-	 * @return whether or not to default to Oracle style of sql.
+	 * @return whether or not to default to Oracle style of sql. 
 	 */
 	default boolean isOracleStyle() {
 		return false;
 	}
 	
 	/**
-	 * @return whether or not to default to mysql style of sql.
+	 * @return whether or not to default to mysql (or mariadb) style of sql.
 	 */
 	default boolean isMysqlStyle() {
 		return false;
 	}
 	
 	/**
-	 * @return whether or not to default to sybase/ms sql server style of sql.
+	 * @return whether or not to default to transactsql (sybase/ms sql server) style of sql.
 	 */
-	default boolean isSybaseStyle() {
+	default boolean isTsqlStyle() {
 		return false;
 	}	
 }

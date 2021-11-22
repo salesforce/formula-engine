@@ -212,7 +212,18 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
 		return withSpaces ? "%s || %s" : "%s||%s";
     }
     
-    /**
+    @Override
+	default String sqlConvertDateTimeToDate(String dateTime, String userTimezone, String userTzOffset) {
+    	if (FormulaValidationHooks.get().canUseDatevalueFixedForDST()) {
+            // Oracle org with the DatevalueFixForDSTEnabled preference on
+            return "TRUNC(CAST((FROM_TZ(CAST("+dateTime+" AS TIMESTAMP), 'UTC') AT TIME ZONE '"+userTimezone+"') AS DATE))";
+        } else {
+            // Oracle org with the DatevalueFixForDSTEnabled preference off
+        	return "TRUNC("+dateTime+" + ("+userTzOffset+"/24.0))";
+        }
+  }
+
+	/**
      * @param scale the number of digits to the right of the radix
      * @return the SQL string to use to in TO_CHAR for the given scale.  This is used by 
      * {@link #getCurrencyFormat(String, String, boolean)}

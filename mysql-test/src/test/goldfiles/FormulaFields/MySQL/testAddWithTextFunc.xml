@@ -5,11 +5,11 @@
    <customformula1 dataType="ColumnType.DOUBLE" formula="LEN(customtext2__c)"/>
    <customformula2 dataType="ColumnType.DOUBLE" formula="(custompercent1__c*customcurrency1__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>((((COALESCE($!s0s!$.customnumber1__c, 0)+COALESCE(CAST($!s0s!$.customtext1__c AS DOUBLE), 0))+COALESCE($!s0s!$.customnumber2__c, 0))+COALESCE(COALESCE(LENGTH($!s0s!$.customtext2__c),0), 0))+COALESCE((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0))</Sql>
+       <Sql>((((COALESCE($!s0s!$.customnumber1__c, 0)+COALESCE(CAST($!s0s!$.customtext1__c AS DECIMAL(52,18)), 0))+COALESCE($!s0s!$.customnumber2__c, 0))+COALESCE(COALESCE(LENGTH($!s0s!$.customtext2__c),0), 0))+COALESCE((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0))</Sql>
        <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(((($!s0s!$.customnumber1__c+CAST($!s0s!$.customtext1__c AS DOUBLE))+$!s0s!$.customnumber2__c)+COALESCE(LENGTH($!s0s!$.customtext2__c),0))+(($!s0s!$.custompercent1__c / 100.0) * $!s0s!$.customcurrency1__c))</Sql>
+       <Sql>(((($!s0s!$.customnumber1__c+CAST($!s0s!$.customtext1__c AS DECIMAL(52,18)))+$!s0s!$.customnumber2__c)+COALESCE(LENGTH($!s0s!$.customtext2__c),0))+(($!s0s!$.custompercent1__c / 100.0) * $!s0s!$.customcurrency1__c))</Sql>
        <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0') REGEXP '^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$'</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).add($F.nvl((context.record.customtext1__c!=null)?($F.Decimal(context.record.customtext1__c)):null,new $F.Decimal('0'))).add($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))).add($F.nvl((new $F.Decimal(($F.anl([context.record.customtext2__c])?(new $F.Decimal(0)):(context.record.customtext2__c).length))),new $F.Decimal('0'))).add($F.nvl($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')).mul($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0'))),new $F.Decimal('0')))</JsOutput>

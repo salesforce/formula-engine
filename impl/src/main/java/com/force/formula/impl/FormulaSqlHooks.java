@@ -227,6 +227,17 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
+     * @return a sql expression to convert the date time to a date in the user's timezone
+     * (__TZ_ID__)
+     * @param dateTime the expression for the date time value.
+     * @param userTimezone a string representing the user timezone as an ID
+     * @param userTzOffset a string representing the user timezone offset as a number.
+     */
+    default String sqlConvertDateTimeToDate(String dateTime, String userTimezone, String userTzOffset) {
+    	return dateTime;  // Ignore the timezone argument.  This is almost always wrong
+    }
+    
+    /**
      * @param scale the number of digits to the right of the radix
      * @return the SQL string to use to in TO_CHAR for the given scale.  This is used by 
      * {@link #getCurrencyFormat(String, String, boolean)}

@@ -4,11 +4,11 @@
    <customformula0 dataType="ColumnType.DATEONLY" formula="(customdate1__c+custompercent1__c)"/>
    <customformula1 dataType="ColumnType.DOUBLE" formula="(customdate2__c-customdate3__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdate1__c, INTERVAL TRUNCATE(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0),0)*86400 SECOND), INTERVAL TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0),0)*86400 SECOND), INTERVAL TRUNCATE(COALESCE(((UNIX_TIMESTAMP($!s0s!$.customdate2__c)-UNIX_TIMESTAMP($!s0s!$.customdate3__c))/86400), 0),0)*86400 SECOND), INTERVAL TRUNCATE(COALESCE($!s0s!$.customcurrency1__c, 0),0)*86400 SECOND)</Sql>
+       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdate1__c, INTERVAL ROUND(TRUNCATE(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0),0)*86400) SECOND), INTERVAL ROUND(TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0),0)*86400) SECOND), INTERVAL ROUND(TRUNCATE(COALESCE((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate3__c)/86400), 0),0)*86400) SECOND), INTERVAL ROUND(TRUNCATE(COALESCE($!s0s!$.customcurrency1__c, 0),0)*86400) SECOND)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdate1__c, INTERVAL TRUNCATE(($!s0s!$.custompercent1__c / 100.0),0)*86400 SECOND), INTERVAL TRUNCATE($!s0s!$.customnumber1__c,0)*86400 SECOND), INTERVAL TRUNCATE(((UNIX_TIMESTAMP($!s0s!$.customdate2__c)-UNIX_TIMESTAMP($!s0s!$.customdate3__c))/86400),0)*86400 SECOND), INTERVAL TRUNCATE($!s0s!$.customcurrency1__c,0)*86400 SECOND)</Sql>
+       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdate1__c, INTERVAL ROUND(TRUNCATE(($!s0s!$.custompercent1__c / 100.0),0)*86400) SECOND), INTERVAL ROUND(TRUNCATE($!s0s!$.customnumber1__c,0)*86400) SECOND), INTERVAL ROUND(TRUNCATE((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate3__c)/86400),0)*86400) SECOND), INTERVAL ROUND(TRUNCATE($!s0s!$.customcurrency1__c,0)*86400) SECOND)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))|0))!=null)?(new Date(new Date(new Date(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))|0)).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))|0)).getTime()+86400000*(($F.nvl((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))!=null)?(new $F.Decimal((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getTime())/86400000)):null,new $F.Decimal('0')))|0)).getTime()+86400000*(($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')))|0))):null</JsOutput>
@@ -18,9 +18,9 @@
       <result>
       <inputvalues>[3998:01:31, 200, 10, 3999:12:31, 3999:12:01, 0]</inputvalues>
          <formula>Sat Mar 14 00:00:00 GMT 3998</formula>
-         <sql>3998-02-12 00:00:00.0</sql>
+         <sql>3998-03-14 00:00:00.0</sql>
          <formulaNullAsNull>Sat Mar 14 00:00:00 GMT 3998</formulaNullAsNull>
-         <sqlNullAsNull>3998-02-12 00:00:00.0</sqlNullAsNull>
+         <sqlNullAsNull>3998-03-14 00:00:00.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1900:01:01, .004, 1, 2004:12:31, 2004:12:31, 0]</inputvalues>

@@ -2,11 +2,11 @@
 <testCase name="testSubDate">
    <testInstance formula="(customdate1__c-customdate2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>((UNIX_TIMESTAMP($!s0s!$.customdate1__c)-UNIX_TIMESTAMP($!s0s!$.customdate2__c))/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdate1__c,$!s0s!$.customdate2__c)/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>((UNIX_TIMESTAMP($!s0s!$.customdate1__c)-UNIX_TIMESTAMP($!s0s!$.customdate2__c))/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdate1__c,$!s0s!$.customdate2__c)/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null)?(new $F.Decimal((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())/86400000)):null</JsOutput>
@@ -49,20 +49,18 @@
          <sqlNullAsNull>-29</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula -365 viaSql null -->
       <inputvalues>[1900:02:27, 1901:02:27]</inputvalues>
          <formula>-365</formula>
-         <sql>null</sql>
+         <sql>-365</sql>
          <formulaNullAsNull>-365</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>-365</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 365607 viaSql null -->
       <inputvalues>[3998:02:27, 2997:02:27]</inputvalues>
          <formula>365607</formula>
-         <sql>null</sql>
+         <sql>365607</sql>
          <formulaNullAsNull>365607</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>365607</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1999:12:31, 2000:01:01]</inputvalues>
@@ -81,11 +79,11 @@
    </testInstance>
    <testInstance formula="(customdate2__c-customdate1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>((UNIX_TIMESTAMP($!s0s!$.customdate2__c)-UNIX_TIMESTAMP($!s0s!$.customdate1__c))/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate1__c)/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>((UNIX_TIMESTAMP($!s0s!$.customdate2__c)-UNIX_TIMESTAMP($!s0s!$.customdate1__c))/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate1__c)/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new $F.Decimal((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime())/86400000)):null</JsOutput>
@@ -128,20 +126,18 @@
          <sqlNullAsNull>29</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 365 viaSql null -->
       <inputvalues>[1901:02:27, 1900:02:27]</inputvalues>
          <formula>365</formula>
-         <sql>null</sql>
+         <sql>365</sql>
          <formulaNullAsNull>365</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>365</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula -365607 viaSql null -->
       <inputvalues>[2997:02:27, 3998:02:27]</inputvalues>
          <formula>-365607</formula>
-         <sql>null</sql>
+         <sql>-365607</sql>
          <formulaNullAsNull>-365607</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>-365607</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2000:01:01, 1999:12:31]</inputvalues>

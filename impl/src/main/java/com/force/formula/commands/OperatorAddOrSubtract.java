@@ -214,12 +214,12 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
 	                    if (isDateTimeDatatype(lhsDataType)) {
 	                        // <date|timestamp> <+|-> <number>
 	                    	if ("-".equals(operator)) {
-		                        sql = String.format("DATE_SUB(%s, INTERVAL %s*86400 SECOND)", lhsValue, rhsValue);
+		                        sql = String.format("DATE_SUB(%s, INTERVAL ROUND(%s*86400) SECOND)", lhsValue, rhsValue);
 	                    	} else {
-		                        sql = String.format("DATE_ADD(%s, INTERVAL %s*86400 SECOND)", lhsValue, rhsValue);
+		                        sql = String.format("DATE_ADD(%s, INTERVAL ROUND(%s*86400) SECOND)", lhsValue, rhsValue);
 	                    	}
 	                    } else {
-	                        sql = String.format("ADDDATE(%s, %s)", rhsValue, lhsValue);
+	                        sql = String.format("DATE_ADD(%s, INTERVAL ROUND(%s*86400) SECOND)", rhsValue, lhsValue);
 	                    }
                 	}
                 } else if ("||".equals(operator)) {

@@ -2,11 +2,11 @@
 <testCase name="testISNULLWithError">
    <testInstance formula="if(isnull(customnumber1__c/customnumber2__c),null,customcurrency1__c)" returntype="Double" precision="18" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN ((COALESCE($!s0s!$.customnumber1__c, 0)/COALESCE($!s0s!$.customnumber2__c, 0)) IS NULL) THEN CAST(NULL AS DOUBLE) ELSE COALESCE($!s0s!$.customcurrency1__c, 0) END</Sql>
+       <Sql>CASE WHEN ((COALESCE($!s0s!$.customnumber1__c, 0)/COALESCE($!s0s!$.customnumber2__c, 0)) IS NULL) THEN CAST(NULL AS DECIMAL(52,18)) ELSE COALESCE($!s0s!$.customcurrency1__c, 0) END</Sql>
        <Guard>COALESCE($!s0s!$.customnumber2__c, 0)=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) IS NULL) THEN CAST(NULL AS DOUBLE) ELSE $!s0s!$.customcurrency1__c END</Sql>
+       <Sql>CASE WHEN (($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) IS NULL) THEN CAST(NULL AS DECIMAL(52,18)) ELSE $!s0s!$.customcurrency1__c END</Sql>
        <Guard>$!s0s!$.customnumber2__c=0</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">((null==$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).div($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))))?null:$F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')))</JsOutput>

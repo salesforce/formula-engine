@@ -155,6 +155,7 @@ public abstract class AbstractDbTester implements DbTester {
 			if (!columnSql.endsWith(" THEN '1' ELSE '0' END")) {  // TODO: This shouldn't work.
 				return "CASE WHEN " + columnSql + " THEN '1' ELSE '0' END";
 			}
+			break;
 		case TIMEONLY:
 			if (context.getSqlStyle().isMysqlStyle()) {
 				return "UNIX_TIMESTAMP("+columnSql+")%86400"; // The only way to get a real time value out.  
@@ -378,10 +379,12 @@ public abstract class AbstractDbTester implements DbTester {
 		String column = formula.toSQL(registry);
 		column = fixSqlFormat(formulaContext, column, formula);
 
+		String sql = "SELECT " + column + subQuery.toString();
 		try {
 			Connection conn = getConnection();
 			try {
-				try (PreparedStatement pstmt = conn.prepareStatement("SELECT " + column + subQuery.toString())) {
+				//System.out.println(testName + ": " + sql);  // For debugging
+				try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 					setVariables(pstmt, formulaContext, values);
 					try (ResultSet rset = pstmt.executeQuery()) {
 						if (rset.next()) {
@@ -393,7 +396,7 @@ public abstract class AbstractDbTester implements DbTester {
 				closeConnectionPerStmt(conn);
 			}
 		} catch (SQLException e) {
-			//System.out.println(testName + ": SELECT " + column + subQuery.toString());  // For debugging
+			//System.out.println(testName + ": " + sql);  // For debugging
 			throw e; // Useful for a breakpoint
 		}
 		return null;

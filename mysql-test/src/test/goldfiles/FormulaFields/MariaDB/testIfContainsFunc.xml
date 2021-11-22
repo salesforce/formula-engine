@@ -6,7 +6,7 @@
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (($!s0s!$.customtext2__c IS NULL) OR (INSTR(binary $!s0s!$.customtext1__c, $!s0s!$.customtext2__c) &gt;= 1)) THEN COALESCE(ABS($!s0s!$.customnumber1__c),CAST(NULL AS DOUBLE)) ELSE COALESCE(CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber2__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber2__c,33)) END,CAST(NULL AS DOUBLE)) END</Sql>
+       <Sql>CASE WHEN (($!s0s!$.customtext2__c IS NULL) OR (INSTR(binary $!s0s!$.customtext1__c, $!s0s!$.customtext2__c) &gt;= 1)) THEN COALESCE(ABS($!s0s!$.customnumber1__c),CAST(NULL AS DECIMAL(52,18))) ELSE COALESCE(CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber2__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber2__c,33)) END,CAST(NULL AS DECIMAL(52,18))) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">((!context.record.customtext2__c||(($F.nvl(context.record.customtext1__c,'')).indexOf(context.record.customtext2__c)&gt;=0))?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).abs():($F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).isPos()?$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toDP(18).floor():$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toDP(18).ceil()))</JsOutput>
@@ -102,7 +102,7 @@
          <formula>0.123456789</formula>
          <sql>0.123456789</sql>
          <formulaNullAsNull>0.123456789</formulaNullAsNull>
-         <sqlNullAsNull>0.12345678899999998</sqlNullAsNull>
+         <sqlNullAsNull>0.123456789</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[201, 200, 0.123456789, 0.123456789]</inputvalues>

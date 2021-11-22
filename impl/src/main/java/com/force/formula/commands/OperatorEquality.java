@@ -217,7 +217,7 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
             // But we want to force the result to true or false so subsequent operations do
             // the right thing. This little beauty forces null to a value that is different than
             // the other side unless both are null. Cool eh? Note this relies on (null || 'x')
-            // being 'x'.  In postgres, it relied on concat(...)
+            // being 'x'.  In postgres, it relies on concat(...)
         	FormulaSqlHooks sqlHooks = (FormulaSqlHooks) context.getSqlStyle();
             Object saveRhs = rhs;
             

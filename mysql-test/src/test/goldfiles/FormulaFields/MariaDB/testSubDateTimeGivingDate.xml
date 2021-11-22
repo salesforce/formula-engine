@@ -2,11 +2,11 @@
 <testCase name="testSubDateTimeGivingDate">
    <testInstance formula="(customdatetime1__c-customnumber1__c)" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>DATE_SUB($!s0s!$.customdatetime1__c, INTERVAL COALESCE($!s0s!$.customnumber1__c, 0)*86400 SECOND)</Sql>
+       <Sql>DATE_SUB($!s0s!$.customdatetime1__c, INTERVAL ROUND(COALESCE($!s0s!$.customnumber1__c, 0)*86400) SECOND)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATE_SUB($!s0s!$.customdatetime1__c, INTERVAL $!s0s!$.customnumber1__c*86400 SECOND)</Sql>
+       <Sql>DATE_SUB($!s0s!$.customdatetime1__c, INTERVAL ROUND($!s0s!$.customnumber1__c*86400) SECOND)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-(Math.round(86400*($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))))*1000))):null</JsOutput>
@@ -121,65 +121,65 @@
       <result>
       <inputvalues>[2009:02:07:10:00:00, 0.16666]</inputvalues>
          <formula>Sat Feb 07 06:00:01 GMT 2009</formula>
-         <sql>2009-02-07 06:00:00.576</sql>
+         <sql>2009-02-07 06:00:01.0</sql>
          <formulaNullAsNull>Sat Feb 07 06:00:01 GMT 2009</formulaNullAsNull>
-         <sqlNullAsNull>2009-02-07 06:00:00.576</sqlNullAsNull>
+         <sqlNullAsNull>2009-02-07 06:00:01.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2009:02:07:10:00:00, 0.166666]</inputvalues>
          <formula>Sat Feb 07 06:00:00 GMT 2009</formula>
-         <sql>2009-02-07 06:00:00.0576</sql>
+         <sql>2009-02-07 06:00:00.0</sql>
          <formulaNullAsNull>Sat Feb 07 06:00:00 GMT 2009</formulaNullAsNull>
-         <sqlNullAsNull>2009-02-07 06:00:00.0576</sqlNullAsNull>
+         <sqlNullAsNull>2009-02-07 06:00:00.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2009:02:07:10:00:00, 0.16596]</inputvalues>
          <formula>Sat Feb 07 06:01:01 GMT 2009</formula>
-         <sql>2009-02-07 06:01:01.056</sql>
+         <sql>2009-02-07 06:01:01.0</sql>
          <formulaNullAsNull>Sat Feb 07 06:01:01 GMT 2009</formulaNullAsNull>
-         <sqlNullAsNull>2009-02-07 06:01:01.056</sqlNullAsNull>
+         <sqlNullAsNull>2009-02-07 06:01:01.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2009:02:07:10:00:00, 0.1659664]</inputvalues>
          <formula>Sat Feb 07 06:01:01 GMT 2009</formula>
-         <sql>2009-02-07 06:01:00.50304</sql>
+         <sql>2009-02-07 06:01:01.0</sql>
          <formulaNullAsNull>Sat Feb 07 06:01:01 GMT 2009</formulaNullAsNull>
-         <sqlNullAsNull>2009-02-07 06:01:00.50304</sqlNullAsNull>
+         <sqlNullAsNull>2009-02-07 06:01:01.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2009:02:07:10:00:00, 0.16596643]</inputvalues>
          <formula>Sat Feb 07 06:01:01 GMT 2009</formula>
-         <sql>2009-02-07 06:01:00.500448</sql>
+         <sql>2009-02-07 06:01:01.0</sql>
          <formulaNullAsNull>Sat Feb 07 06:01:01 GMT 2009</formulaNullAsNull>
-         <sqlNullAsNull>2009-02-07 06:01:00.500448</sqlNullAsNull>
+         <sqlNullAsNull>2009-02-07 06:01:01.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2009:02:07:10:00:00, 0.16596644]</inputvalues>
          <formula>Sat Feb 07 06:01:00 GMT 2009</formula>
-         <sql>2009-02-07 06:01:00.499584</sql>
+         <sql>2009-02-07 06:01:00.0</sql>
          <formulaNullAsNull>Sat Feb 07 06:01:00 GMT 2009</formulaNullAsNull>
-         <sqlNullAsNull>2009-02-07 06:01:00.499584</sqlNullAsNull>
+         <sqlNullAsNull>2009-02-07 06:01:00.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2009:02:07:10:00:00, 0.1659665]</inputvalues>
          <formula>Sat Feb 07 06:01:00 GMT 2009</formula>
-         <sql>2009-02-07 06:01:00.4944</sql>
+         <sql>2009-02-07 06:01:00.0</sql>
          <formulaNullAsNull>Sat Feb 07 06:01:00 GMT 2009</formulaNullAsNull>
-         <sqlNullAsNull>2009-02-07 06:01:00.4944</sqlNullAsNull>
+         <sqlNullAsNull>2009-02-07 06:01:00.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2009:02:07:10:00:00, 0.16597]</inputvalues>
          <formula>Sat Feb 07 06:01:00 GMT 2009</formula>
-         <sql>2009-02-07 06:01:00.192</sql>
+         <sql>2009-02-07 06:01:00.0</sql>
          <formulaNullAsNull>Sat Feb 07 06:01:00 GMT 2009</formulaNullAsNull>
-         <sqlNullAsNull>2009-02-07 06:01:00.192</sqlNullAsNull>
+         <sqlNullAsNull>2009-02-07 06:01:00.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2009:02:07:10:00:00, 100.16597]</inputvalues>
          <formula>Thu Oct 30 06:01:00 GMT 2008</formula>
-         <sql>2008-10-30 06:01:00.192</sql>
+         <sql>2008-10-30 06:01:00.0</sql>
          <formulaNullAsNull>Thu Oct 30 06:01:00 GMT 2008</formulaNullAsNull>
-         <sqlNullAsNull>2008-10-30 06:01:00.192</sqlNullAsNull>
+         <sqlNullAsNull>2008-10-30 06:01:00.0</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

@@ -219,5 +219,10 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
     default String sqlMakeDecimal(String argument) {
 		return argument + "::numeric";
     }
+
+	@Override
+	default String sqlConvertDateTimeToDate(String dateTime, String userTimezone, String userTzOffset) {
+		return "DATE_TRUNC('DAY', ("+dateTime+" AT TIME ZONE 'UTC') AT TIME ZONE '"+userTimezone+"')::timestamp";
+	}
     
 }

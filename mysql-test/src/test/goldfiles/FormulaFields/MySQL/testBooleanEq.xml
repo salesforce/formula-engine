@@ -30,44 +30,39 @@
          <sqlNullAsNull>false</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula true does not equal viaSql false -->
       <inputvalues>[true, true, true, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>true</formula>
-         <sql>false</sql>
+         <sql>true</sql>
          <formulaNullAsNull>true</formulaNullAsNull>
-         <sqlNullAsNull>false</sqlNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula true does not equal viaSql false -->
       <inputvalues>[true, true, false, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>true</formula>
-         <sql>false</sql>
+         <sql>true</sql>
          <formulaNullAsNull>true</formulaNullAsNull>
-         <sqlNullAsNull>false</sqlNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula true does not equal viaSql false -->
       <inputvalues>[true, true, false, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>true</formula>
-         <sql>false</sql>
+         <sql>true</sql>
          <formulaNullAsNull>true</formulaNullAsNull>
-         <sqlNullAsNull>false</sqlNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula true does not equal viaSql false -->
       <inputvalues>[true, false, true, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>true</formula>
-         <sql>false</sql>
+         <sql>true</sql>
          <formulaNullAsNull>true</formulaNullAsNull>
-         <sqlNullAsNull>false</sqlNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula true does not equal viaSql false -->
       <inputvalues>[true, false, false, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
          <formula>true</formula>
-         <sql>false</sql>
+         <sql>true</sql>
          <formulaNullAsNull>true</formulaNullAsNull>
-         <sqlNullAsNull>false</sqlNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[false, false, false, 2005:12:31, 2005:11:31, 2004, 12, 01]</inputvalues>
