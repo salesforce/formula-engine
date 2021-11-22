@@ -397,7 +397,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddMonthsDateTime" devName="testAddMonthsDateTime"
          labelName="testAddMonthsDateTime" dataType="DateTime" dataFile="addDateTime"
-         scale="2" precision="12"  whyIgnoreSql="postgres:TODO psql fractional day support differs from java"
+         scale="2" precision="12"  whyIgnoreSql="postgres:TODO psql fractional day support differs from java,mysql:leap day,mariad:leap day"
          code="ADDMONTHS(customdatetime1__c,customnumber1__c)">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime"/>

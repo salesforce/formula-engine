@@ -2,11 +2,11 @@
 <testCase name="testSubtractTwoTimeFields">
    <testInstance formula="TimeValue(timeString2__c) - TimeValue(timeString1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TIME(ADDTIME(TIME($!s0s!$.timeString2__c),-(MOD(TIME($!s0s!$.timeString1__c)/1000,86400)))%TIME('24:00:00'))</Sql>
+       <Sql>(UNIX_TIMESTAMP(SUBTIME(TIME($!s0s!$.timeString2__c), TIME($!s0s!$.timeString1__c)))%86400)*1000</Sql>
        <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TIME(ADDTIME(TIME($!s0s!$.timeString2__c),-(MOD(TIME($!s0s!$.timeString1__c)/1000,86400)))%TIME('24:00:00'))</Sql>
+       <Sql>(UNIX_TIMESTAMP(SUBTIME(TIME($!s0s!$.timeString2__c), TIME($!s0s!$.timeString1__c)))%86400)*1000</Sql>
        <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?((new $F.Decimal(new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000).mod(86400000))):null</JsOutput>
@@ -14,68 +14,60 @@
     <JsOutput highPrec="false" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?(((new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000)%86400000)):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?(((new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000)%86400000)):null</JsOutput>
       <result>
-      <!-- Test Case results don't match: viaFormula 48304333.00 does not equal viaSql 235856.54 -->
       <inputvalues>[10:34:55.666, 23:59:59.999]</inputvalues>
          <formula>48304333</formula>
-         <sql>235856.54333400002</sql>
+         <sql>48304333</sql>
          <formulaNullAsNull>48304333</formulaNullAsNull>
-         <sqlNullAsNull>235856.54333400002</sqlNullAsNull>
+         <sqlNullAsNull>48304333</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 38095667.00 does not equal viaSql 103219.71 -->
       <inputvalues>[23:59:59.999, 10:34:55.666]</inputvalues>
          <formula>38095667</formula>
-         <sql>103219.706001</sql>
+         <sql>38095667</sql>
          <formulaNullAsNull>38095667</formulaNullAsNull>
-         <sqlNullAsNull>103219.706001</sqlNullAsNull>
+         <sqlNullAsNull>38095667</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 3794102.00 does not equal viaSql 5724.35 -->
       <inputvalues>[23:56:45.898, 01:00:00.000]</inputvalues>
          <formula>3794102</formula>
-         <sql>5724.354102</sql>
+         <sql>3794102</sql>
          <formulaNullAsNull>3794102</formulaNullAsNull>
-         <sqlNullAsNull>5724.354102</sqlNullAsNull>
+         <sqlNullAsNull>3794102</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 82605898.00 does not equal viaSql 235635.90 -->
       <inputvalues>[01:00:00.000, 23:56:45.898]</inputvalues>
          <formula>82605898</formula>
-         <sql>235635.89799999996</sql>
+         <sql>82605898</sql>
          <formulaNullAsNull>82605898</formulaNullAsNull>
-         <sqlNullAsNull>235635.89799999996</sqlNullAsNull>
+         <sqlNullAsNull>82605898</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 86399900.00 does not equal viaSql 29.22 -->
       <inputvalues>[00:00:29.345, 00:00:29.245]</inputvalues>
          <formula>86399900</formula>
-         <sql>29.215655</sql>
+         <sql>86399900</sql>
          <formulaNullAsNull>86399900</formulaNullAsNull>
-         <sqlNullAsNull>29.215655</sqlNullAsNull>
+         <sqlNullAsNull>86399900</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 100.00 does not equal viaSql 29.32 -->
       <inputvalues>[00:00:29.245, 00:00:29.345]</inputvalues>
          <formula>100</formula>
-         <sql>29.315754999999996</sql>
+         <sql>100</sql>
          <formulaNullAsNull>100</formulaNullAsNull>
-         <sqlNullAsNull>29.315754999999996</sqlNullAsNull>
+         <sqlNullAsNull>100</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 3600000.00 does not equal viaSql 10000.00 -->
       <inputvalues>[00:00:00.000, 01:00:00.000]</inputvalues>
          <formula>3600000</formula>
-         <sql>10000</sql>
+         <sql>3600000</sql>
          <formulaNullAsNull>3600000</formulaNullAsNull>
-         <sqlNullAsNull>10000</sqlNullAsNull>
+         <sqlNullAsNull>3600000</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 82800000.00 does not equal viaSql -10.00 -->
       <inputvalues>[01:00:00.000, 00:00:00.000]</inputvalues>
          <formula>82800000</formula>
-         <sql>-10</sql>
+         <sql>82800000</sql>
          <formulaNullAsNull>82800000</formulaNullAsNull>
-         <sqlNullAsNull>-10</sqlNullAsNull>
+         <sqlNullAsNull>82800000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[01:00:00.000, ]</inputvalues>

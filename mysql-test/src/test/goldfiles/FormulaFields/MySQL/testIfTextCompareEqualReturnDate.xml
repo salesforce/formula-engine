@@ -3,11 +3,11 @@
    <testInstance formula="IF((customtext1__c=customemail1__c),customdate1__c,customformula1__c)" returntype="DateOnly">
    <customformula1 dataType="ColumnType.DATEONLY" formula="(customdate2__c+customnumber1__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customemail1__c, 'x'))=COALESCE($!s0s!$.customemail1__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customtext1__c, 'x'))) THEN COALESCE($!s0s!$.customdate1__c,CAST(NULL AS DATE)) ELSE COALESCE(DATE_ADD($!s0s!$.customdate2__c, INTERVAL ROUND(TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0),0)*86400) SECOND),CAST(NULL AS DATE)) END</Sql>
+       <Sql>CASE WHEN (binary COALESCE($!s0s!$.customtext1__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customemail1__c, 'x'))=binary COALESCE($!s0s!$.customemail1__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customtext1__c, 'x'))) THEN COALESCE($!s0s!$.customdate1__c,CAST(NULL AS DATE)) ELSE COALESCE(DATE_ADD($!s0s!$.customdate2__c, INTERVAL ROUND(TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0),0)*86400) SECOND),CAST(NULL AS DATE)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customemail1__c, 'x'))=COALESCE($!s0s!$.customemail1__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customtext1__c, 'x'))) THEN COALESCE($!s0s!$.customdate1__c,CAST(NULL AS DATE)) ELSE COALESCE(DATE_ADD($!s0s!$.customdate2__c, INTERVAL ROUND(TRUNCATE($!s0s!$.customnumber1__c,0)*86400) SECOND),CAST(NULL AS DATE)) END</Sql>
+       <Sql>CASE WHEN (binary COALESCE($!s0s!$.customtext1__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customemail1__c, 'x'))=binary COALESCE($!s0s!$.customemail1__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customtext1__c, 'x'))) THEN COALESCE($!s0s!$.customdate1__c,CAST(NULL AS DATE)) ELSE COALESCE(DATE_ADD($!s0s!$.customdate2__c, INTERVAL ROUND(TRUNCATE($!s0s!$.customnumber1__c,0)*86400) SECOND),CAST(NULL AS DATE)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.noe(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),$F.nvl(($F.anl([context.record.customemail1__c])?null:context.record.customemail1__c),'')+'x'))==($F.noe(($F.anl([context.record.customemail1__c])?null:context.record.customemail1__c),$F.nvl(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),'')+'x'))?($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))):(($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null?(new Date(($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))|0))):null))</JsOutput>
@@ -22,20 +22,18 @@
          <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula Thu Jan 20 00:00:00 GMT 2005 (Thu Jan 20 00:00:00 GMT 2005) does not equal viaSql Fri Dec 31 00:00:00 GMT 2004(2004-12-31 00:00:00.0) -->
       <inputvalues>[sriKanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
-         <sql>2004-12-31 00:00:00.0</sql>
+         <sql>2005-01-20 00:00:00.0</sql>
          <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
-         <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
+         <sqlNullAsNull>2005-01-20 00:00:00.0</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula Thu Jan 20 00:00:00 GMT 2005 (Thu Jan 20 00:00:00 GMT 2005) does not equal viaSql Fri Dec 31 00:00:00 GMT 2004(2004-12-31 00:00:00.0) -->
       <inputvalues>[srikanth@yahoo.com, srikaNth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
          <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
-         <sql>2004-12-31 00:00:00.0</sql>
+         <sql>2005-01-20 00:00:00.0</sql>
          <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
-         <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
+         <sqlNullAsNull>2005-01-20 00:00:00.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>

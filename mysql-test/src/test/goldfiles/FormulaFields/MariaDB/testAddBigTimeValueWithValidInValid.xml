@@ -2,11 +2,11 @@
 <testCase name="testAddBigTimeValueWithValidInValid">
    <testInstance formula="TimeValue(dateString__c) + 93600000" returntype="TimeOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>TIME(ADDTIME(TIME($!s0s!$.dateString__c),MOD(93600000/1000,86400))%TIME('24:00:00'))</Sql>
+       <Sql>TIME(DATE_ADD(TIME($!s0s!$.dateString__c),INTERVAL MOD(93600000/1000,86400) SECOND))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TIME(ADDTIME(TIME($!s0s!$.dateString__c),MOD(93600000/1000,86400))%TIME('24:00:00'))</Sql>
+       <Sql>TIME(DATE_ADD(TIME($!s0s!$.dateString__c),INTERVAL MOD(93600000/1000,86400) SECOND))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).getTime()+new $F.Decimal('93600000').toNumber())):null</JsOutput>

@@ -178,11 +178,15 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
         String sql;
         if (lhsDataType == FormulaTime.class)  {
         	if (context.getSqlStyle().isMysqlStyle()) {
-	            if ("-".equals(operator)) {
-	            	sql = "TIME(ADDTIME(" + lhsValue + ",-(MOD(" + rhsValue + "/1000,86400)))%TIME('24:00:00'))";
-	            } else {
-	            	sql = "TIME(ADDTIME(" + lhsValue + ",MOD(" + rhsValue + "/1000,86400))%TIME('24:00:00'))";
-	            }
+        		if (rhsDataType == FormulaTime.class) {
+	            	sql = "(UNIX_TIMESTAMP(SUBTIME(" + lhsValue + ", " + rhsValue + "))%86400)*1000";
+        		} else {        	
+		            if ("-".equals(operator)) {
+		            	sql = "TIME(DATE_SUB(" + lhsValue + ",INTERVAL MOD(" + rhsValue + "/1000,86400) SECOND))";
+		            } else {
+		            	sql = "TIME(DATE_ADD(" + lhsValue + ",INTERVAL MOD(" + rhsValue + "/1000,86400) SECOND))";
+		            }
+        		}
         	} else {
 	            // if adding a number, make sure you don't add a number > FormulaDateUtil.MILLISECONDSPERDAY
 	            rhsValue = rhsDataType == BigDecimal.class ? "ROUND(MOD(" +String.format(getSqlHooks(context).sqlToNumber(), rhsValue) + ", " + FormulaDateUtil.MILLISECONDSPERDAY + "))" : rhsValue;

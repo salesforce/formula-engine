@@ -230,6 +230,11 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
             } else if ("''".equals(lhs)) {
                 lhs = String.format(sqlHooks.sqlConcat(false), saveRhs,  "'x'");
             }
+            
+            if (sqlHooks.isMysqlStyle()) {
+            	lhs = "binary " + lhs;
+            	rhs = "binary " + rhs;
+            }
         }
         return "(" + lhs + (negate ? "<>" : "=") + rhs + ")";
     }
