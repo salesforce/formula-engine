@@ -3,7 +3,12 @@
  */
 package com.force.formula.impl.sql;
 
+import java.util.*;
+
 import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 /**
  * Implementation of FormulaSqlHooks for Oracle-style DBs
@@ -172,8 +177,69 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 
 	@Override
 	default String sqlConvertDateTimeToDate(String dateTime, String userTimezone, String userTzOffset) {
-		// TODO Auto-generated method stub
-		return "DATE(CONVERT_TZ("+dateTime+",'UTC',"+userTzOffset+"))";
+		/* CONVERT_TZ is very finicky to get working.  This doesn't work in testing without some
+		 implementation dependent things
+		 % mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
+		 */
 		
+		// return "DATE(CONVERT_TZ("+dateTime+",'UTC',"+userTzOffset+"))";
+
+		// This does the java-based offset way which is wrong for daylight savings and
+		// historical timezone shifts.
+		return "DATE(ADDDATE("+dateTime+",INTERVAL "+userTzOffset + " HOUR))";
 	}
+	
+    /**
+     * @return the SQL string to use to format currency.
+     * @param isoCodeArg the argument with the 3 character (ISO 4217) currency code 
+     * @param amountArg the argument with the numeric value of the currency
+     * @param canAmountBeNull whether the argument can be null (should this be in a coalesce statement)
+     */
+	@Override
+    default String getCurrencyFormat(String isoCodeArg, String amountArg, boolean canAmountBeNull) {
+        // Start with all statically-known currencies in the world and their default scales.
+        Map<String,Integer> scaleByIsoCode = FormulaValidationHooks.get().getCurrencyScaleByIsoCode();
+
+        // Now group all currencies by their scale.  Skip all isocodes where the scale is 2.
+        // Among the 187 currencies today, 152 of them have a scale of 2, so we're not going
+        // to list them all in the sql.  Make sure it's sorted with a TreeSet
+        Multimap<Integer,String> isoCodesByScale = Multimaps.newSetMultimap(new HashMap<>(4), ()->new TreeSet<String>());
+        for (Map.Entry<String,Integer> entry : scaleByIsoCode.entrySet()) {
+            int scale = entry.getValue();
+            if (scale != 2) {
+                isoCodesByScale.put(scale, entry.getKey());
+            }
+        }
+        
+        // Generate the format mask for the FORMAT() function in mysql which only takes scale.
+        StringBuilder maskStr;
+        if (isoCodesByScale.isEmpty()) {
+            // For the unlikely event where you override every currency in the world to a scale of 2
+            maskStr = new StringBuilder("2");
+        } else {
+            // Generate a case statement to switch masks according to currency code
+            maskStr = new StringBuilder(400).append("CASE ");
+            for (Map.Entry<Integer,Collection<String>> entry : isoCodesByScale.asMap().entrySet()) {
+                maskStr.append("WHEN ").append(isoCodeArg).append(" IN(");
+                for (String isoCode : entry.getValue()) {
+                    maskStr.append('\'').append(isoCode).append("',");
+                }
+                maskStr.deleteCharAt(maskStr.length()-1).append(")THEN ").append(entry.getKey()).append(' ');
+            }
+            maskStr.append("ELSE").append(" 2 ").append("END");
+        }
+
+        // This is... not great
+        StringBuilder sql = new StringBuilder(800);
+        if (canAmountBeNull) {
+            // Handle null amount
+            sql.append("CASE WHEN ").append(amountArg).append(" IS NULL THEN NULL ELSE ");
+        }
+        sql.append("CONCAT_WS(\"\",").append(isoCodeArg).append(",' ',FORMAT(").append(amountArg).append(',').append(maskStr).append("))");
+        if (canAmountBeNull) {
+            // Handle null amount
+            sql.append("END");
+        }
+        return sql.toString();
+    }
 }
