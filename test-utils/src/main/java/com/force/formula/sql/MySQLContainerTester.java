@@ -25,6 +25,9 @@ public class MySQLContainerTester extends DbContainerTester<MySQLContainer<?>> {
 	protected MySQLContainer<?> constructDb() throws IOException {
 		// Mysql, like 
 		MySQLContainer<?> result = new MySQLContainer<>("mysql");
+
+		// @see https://github.com/testcontainers/testcontainers-java/issues/914
+		result.withConfigurationOverride(null); // If /tmp isn't visible to docker, this hangs
 		result.withCommand("--collation-server=utf8mb4_bin",
 						   "--character-set-server=utf8mb4");  // Formula engine assumes case sensitive.
 		return result;
