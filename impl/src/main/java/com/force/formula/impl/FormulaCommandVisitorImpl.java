@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.force.formula.*;
 import com.force.formula.commands.AbstractFormulaCommand;
+import com.force.formula.commands.FunctionFormatCurrency;
 import com.google.common.base.Joiner;
 
 /**
@@ -274,6 +275,27 @@ public abstract class FormulaCommandVisitorImpl implements FormulaCommandVisitor
 
         public Map<String, Object> getRefValues() {
             return this.refValuesMap;
+        }
+    }
+    
+
+    /**
+     * The formula contains FormulaCurrencyCommand.
+     */
+    static class FormatCurrencyVisitor extends FormulaCommandVisitorImpl {
+        private boolean containsCommand = false;
+
+        FormatCurrencyVisitor(FormulaContext formulaContext) {
+            super(formulaContext);
+        }
+
+        @Override
+        public void visit(FormulaCommand formulaCommand) {
+            this.containsCommand |= formulaCommand instanceof FunctionFormatCurrency.FunctionFormatCurrencyCommand;
+        }
+
+        public boolean containsCommand() {
+            return this.containsCommand;
         }
     }
 }

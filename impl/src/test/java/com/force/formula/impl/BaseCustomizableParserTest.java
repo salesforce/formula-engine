@@ -314,6 +314,11 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
 		public boolean getIsActive() {
 			return true;
 		}
+        public String getCurrencyIsoCode() {
+            return "USD";
+        }
+        public void setCurrencyIsoCode(String ignored) {
+        }
     }
     static class TestParentAccount {
         private String id;

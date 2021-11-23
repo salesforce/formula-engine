@@ -1,7 +1,6 @@
 package com.force.formula.impl;
 
 import java.io.StringReader;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -466,8 +465,7 @@ public class FormulaUtils {
         FormulaParserImpl4 parser = new FormulaParserImpl4(tokens);
 
         Map<Integer, Integer> numberOfCharactersBeforeLine = ANTLR4Utils.getNumberOfCharactersBeforeEachLine(source);
-        @SuppressWarnings("deprecation")
-		ANTLR4GrammarVisitor visitor = new ANTLR4GrammarVisitor(parser, source, startIndex, numberOfCharactersBeforeLine);
+		ANTLR4GrammarVisitor visitor = new ANTLR4GrammarVisitor(parser, startIndex, numberOfCharactersBeforeLine);
 
         parser.setAllowSubscripts(properties.getAllowSubscripts());
         parser.setErrorHandler(new ANTLR4ErrorStrategy());
@@ -586,62 +584,6 @@ public class FormulaUtils {
     	return type.isId() && "SObjectRow".equals(type.getName());
     }
 
-    @Deprecated
-    public static String getTypeName(Type type) {
-        return FormulaTypeUtils.getTypeName(type);
-    }
-
-    @Deprecated
-    public static String getTypeLabel(Type type) {
-        return FormulaTypeUtils.getTypeLabel(type);
-    }
-
-    @Deprecated
-    public static boolean isTypeText(Type type) {
-        return FormulaTypeUtils.isTypeText(type);
-    }
-
-    /**
-     * Same as isTypeText, but in cases where we think supporting an ID is ugly.
-     * @param type the type to test that may be an ID
-     * @return  is the type text (or ID)
-     * @deprecated use FormulaTypeUtils
-     */
-    @Deprecated
-    public static boolean isTypeTextUgly(Type type) {
-        return FormulaTypeUtils.isTypeTextUgly(type);
-    }
-
-    @Deprecated
-    public static boolean canCastTo(Type lhs, Type rhs) {
-        return FormulaTypeUtils.canCastTo(lhs, rhs);
-    }
-
-    /**
-     * @return whether the values on the left and right hand side have a common super type
-     * (i.e. they could be compared)
-     *
-     * For historical reasons, *all* IdFormulaTypes can be compared even if they have the wrong type
-     *
-     * @param lhs the left hand side of a comparison/equality
-     * @param rhs the right hand side of a comparison/equality
-     */
-    @Deprecated
-    public static boolean hasCommonSuperType(Type lhs, Type rhs) {
-        return FormulaTypeUtils.hasCommonSuperType(lhs, rhs);
-    }
-
-    /**
-     * For objects involved with a comparison, determine if there is a common supertype of
-     * the either side, and if so, return it.
-     * @param lhs the left hand side type
-     * @param rhs the right hand side type
-     * @return the common supertype between the left and right hand sides
-     */
-    @Deprecated
-    public static Type getCommonSuperType(Type lhs, Type rhs) {
-        return FormulaTypeUtils.getCommonSuperType(lhs, rhs);
-    }
 
     /**
      * Given a formula and context, return the set of references (without "record." prepended)

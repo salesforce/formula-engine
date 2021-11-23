@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import com.force.formula.*;
 import com.force.formula.FormulaRuntimeContext.InaccessibleFieldStrategy;
 import com.force.formula.commands.*;
+import com.force.formula.impl.FormulaCommandVisitorImpl.FormatCurrencyVisitor;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.*;
 import com.force.formula.util.FormulaI18nUtils;
@@ -793,6 +794,13 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
     }
 
     @Override
+	public boolean hasFormatCurrencyCommand() {
+        FormatCurrencyVisitor visitor = new FormatCurrencyVisitor(getContext());
+        formula.visitFormulaCommands(visitor);
+        return visitor.containsCommand();
+	}
+
+	@Override
     public boolean referenceEncryptedFields() {
         return this.referenceEncryptedFields;
     }

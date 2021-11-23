@@ -49,7 +49,8 @@ public class FunctionIsPickVal extends FormulaCommandInfoImpl
         FormulaAST first = (FormulaAST) node.getFirstChild();
         String fieldValue = ConstantString.getStringValue((FormulaAST) first.getNextSibling(), true);
         FormulaFieldInfo formulaFieldInfo = getFormulaFieldInfo(first, context);
-        return getTarget(formulaFieldInfo, fieldValue, context, forSql, false);
+        return FormulaEngine.getHooks().getUnderlyingValuesForPicklist(formulaFieldInfo, fieldValue, context, forSql,
+				false);
     }
 
     public static FormulaFieldInfo getFormulaFieldInfo(FormulaAST targetNode, FormulaContext context)
@@ -60,13 +61,6 @@ public class FunctionIsPickVal extends FormulaCommandInfoImpl
             name = targetNode.getFirstChild().getText();
         }
         return context.lookup(name);
-    }
-
-    @Deprecated
-    static List<String> getTarget(FormulaFieldInfo formulaFieldInfo, String fieldValue, FormulaContext context,
-            boolean forSql, boolean forJs) throws InvalidFieldReferenceException, UnsupportedTypeException {
-        return FormulaEngine.getHooks().getUnderlyingValuesForPicklist(formulaFieldInfo, fieldValue, context, forSql,
-                forJs);
     }
 
     @Override
