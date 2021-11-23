@@ -39,6 +39,8 @@ public class FunctionHour extends FormulaCommandInfoImpl {
     public static String getHourExpr(String arg, FormulaContext context)  {
     	if (context.getSqlStyle().isMysqlStyle()) {
     		return "HOUR(" + arg + ")";
+    	} else if (context.getSqlStyle().isTransactSqlStyle()) {
+    		return "DATEPART(hour,"+arg+")";
     	}
         return "TRUNC(" + arg + "/" + FormulaDateUtil.HOUR_IN_MILLIS + ")";
     }

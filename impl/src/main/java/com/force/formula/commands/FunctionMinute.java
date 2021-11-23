@@ -40,6 +40,8 @@ public class FunctionMinute extends FormulaCommandInfoImpl {
     public static String getMinuteExpr(String arg, FormulaContext context)  {
     	if (context.getSqlStyle().isMysqlStyle()) {
     		return "MINUTE(" + arg + ")";
+    	} else if (context.getSqlStyle().isTransactSqlStyle()) {
+    		return "DATEPART(minute,"+arg+")";
     	}
         return "TRUNC((" + arg + "-TRUNC(" + arg + "/" + FormulaDateUtil.HOUR_IN_MILLIS+ ") * " + FormulaDateUtil.HOUR_IN_MILLIS + ")/" + FormulaDateUtil.MINUTE_IN_MILLIS + ")";
     }

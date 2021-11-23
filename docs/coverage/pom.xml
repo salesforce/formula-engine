@@ -67,6 +67,11 @@
           <artifactId>formula-engine-mysql-test</artifactId>
           <version>${project.version}</version>
         </dependency>
+        <dependency>
+          <groupId>com.salesforce.formula</groupId>
+          <artifactId>formula-engine-sqlserver-test</artifactId>
+          <version>${project.version}</version>
+        </dependency>
       </dependencies>
     </profile>
   </profiles>  

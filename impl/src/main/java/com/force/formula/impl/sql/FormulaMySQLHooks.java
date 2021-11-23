@@ -3,10 +3,13 @@
  */
 package com.force.formula.impl.sql;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
+import com.force.formula.FormulaDateTime;
 import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.sql.SQLPair;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 
@@ -81,10 +84,26 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      * missing from mysql, but available in oracle.  This allows you to try and fix that.
      */
     @Override
-    default String psqlSubtractTwoTimestamps() {
+    default String sqlSubtractTwoTimestamps() {
     	return "(-TIMESTAMPDIFF(SECOND,%s,%s)/86400)";
     	//return "((UNIX_TIMESTAMP(%s)-UNIX_TIMESTAMP(%s))/86400)";
     } 
+    
+	
+	@Override
+    default String sqlAddDaysToDate(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType, boolean isAddition) {
+        if (lhsDataType == Date.class || lhsDataType==FormulaDateTime.class) {
+            // <date|timestamp> <+|-> <number>
+        	if (!isAddition) {
+                return String.format("DATE_SUB(%s, INTERVAL ROUND(%s*86400) SECOND)", lhsValue, rhsValue);
+        	} else {
+                return String.format("DATE_ADD(%s, INTERVAL ROUND(%s*86400) SECOND)", lhsValue, rhsValue);
+        	}
+        } else {
+            return String.format("DATE_ADD(%s, INTERVAL ROUND(%s*86400) SECOND)", rhsValue, lhsValue);
+        }
+     }
+
     
     
     /**
@@ -107,11 +126,22 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     }
     
     /**
+     * @return a date literal suitable for for representing "today"
+     * @param c the calendar to use 
+     */
+    @Override
+    default String getDateLiteralFromCalendar(Calendar c) {
+    	return "DATE('" + c.get(Calendar.YEAR) + "-"
+                + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE) + "')";
+    }
+    
+    
+    /**
      * @return the format to use for adding months.
      */
     @Override
-    default String sqlAddMonths() {
-		return "DATE_ADD(%s, INTERVAL TRUNCATE(%s,0) MONTH)";
+    default String sqlAddMonths(String dateArg, String numMonths) {
+		return String.format("DATE_ADD(%s, INTERVAL TRUNCATE(%s,0) MONTH)", dateArg, numMonths);
     }
     
     
@@ -241,5 +271,23 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
             sql.append("END");
         }
         return sql.toString();
+    }
+	
+	@Override
+    default String sqlTrunc(String argument) {
+    	return "TRUNCATE(" + argument + ",0)";
+    }
+		
+	@Override
+    default String sqlTrunc(String argument, String scale) {
+    	return "TRUNCATE(" + argument + "," + scale + ")";
+    }
+	
+	@Override
+    default SQLPair getPowerSql( String[] args, String[] guards) {
+        String sql = "POWER(" + args[0] + ", " + args[1] + ")";
+		String guard = SQLPair.generateGuard(guards, "TRUNCATE(" + args[1] + ",0)<>" + args[1] +
+	            " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");    
+        return new SQLPair(sql, guard);
     }
 }

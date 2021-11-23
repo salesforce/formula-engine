@@ -2,11 +2,11 @@
 <testCase name="testTruncUsesLog">
    <testInstance formula="TRUNC(LOG(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TRUNCATE(LOG(10, COALESCE($!s0s!$.customnumber1__c, 0)), COALESCE($!s0s!$.customnumber2__c, 0))</Sql>
+       <Sql>TRUNCATE(LOG(10, COALESCE($!s0s!$.customnumber1__c, 0)),COALESCE($!s0s!$.customnumber2__c, 0))</Sql>
        <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TRUNCATE(LOG(10, $!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c)</Sql>
+       <Sql>TRUNCATE(LOG(10, $!s0s!$.customnumber1__c),$!s0s!$.customnumber2__c)</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).log(10)).mul('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0)).trunc().div('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0))</JsOutput>

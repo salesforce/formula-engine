@@ -40,6 +40,8 @@ public class FunctionSecond extends FormulaCommandInfoImpl {
     public static String getSecondExpr(String arg, FormulaContext context)  {
     	if (context.getSqlStyle().isMysqlStyle()) {
     		return "SECOND(" + arg + ")";
+    	} else if (context.getSqlStyle().isTransactSqlStyle()) {
+    		return "DATEPART(second,"+arg+")";
     	}
         return "TRUNC((" + arg + "-TRUNC(" + arg + "/" + FormulaDateUtil.MINUTE_IN_MILLIS+ ") * " + FormulaDateUtil.MINUTE_IN_MILLIS + ")/1000)";
     }

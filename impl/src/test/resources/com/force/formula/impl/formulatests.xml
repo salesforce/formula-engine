@@ -338,7 +338,8 @@ author: Srikanth Yendluri/Doug Chasman
             // "If date is the last day of the month or if the resulting month has fewer days than the 
             //      day component of date, then the result is the last day of the resulting month. " -->
      <testcase name="testAddMonths" devName="testAddMonths" labels="extended"
-         labelName="testAddMonths" dataType="DateTime" dataFile="addMonths" whyIgnoreSql="oracle:Leap day support,mysql:leap day,mariadb:leap day"
+         labelName="testAddMonths" dataType="DateTime" dataFile="addMonths" 
+         whyIgnoreSql="oracle:Leap day support,mysql:leap day,mariadb:leap day,mssql: leap day"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateTime"/>
@@ -346,7 +347,8 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
      </testcase>
      <testcase name="testAddMonthsDate" devName="testAddMonthsDate" labels="extended"
-         labelName="testAddMonthsDate" dataType="DateOnly" dataFile="addMonths" whyIgnoreSql="oracle:Leap day support,mysql:leap day,mariadb:leap day"
+         labelName="testAddMonthsDate" dataType="DateOnly" dataFile="addMonths" 
+         whyIgnoreSql="oracle:Leap day support,mysql:leap day,mariadb:leap day,mssql: leap day"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateOnly"/>
@@ -2599,7 +2601,7 @@ author: Srikanth Yendluri/Doug Chasman
      <!-- Tests for BUG:  -->
      <testcase name="testBigDivide" devName="testBigDivide" labels="math"
          labelName="testBigDivide" dataType="Double" dataFile="BigDivide"
-         scale="2" precision="15"
+         scale="2" precision="15" whyIgnoreSql="mssql:precision limits"
          code="((customnumber1__c/customnumber2__c)*customnumber3__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="18"/>
@@ -2611,7 +2613,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testBigDivideWithFunc" labels="math"
          devName="testBigDivideWithFunc" labelName="testBigDivideWithFunc"
          dataType="Double" dataFile="threeNumericFields" scale="2"
-         precision="12"
+         precision="12" whyIgnoreSql="mssql:precision limits"
          code="( ( (customnumber1__c * customnumber2__c )/(value(text(customnumber2__c )) ^ customnumber2__c ) )*(customnumber3__c ^ customnumber3__c ))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="18"/>
@@ -3185,6 +3187,7 @@ author: Srikanth Yendluri/Doug Chasman
      <!-- TODO SLT: Ignore because isNan('&dash;&dash;1234') is wrong in Nashorn.. Note the double dash is two - -->
      <testcase name="testISNUMBER" devName="testISNUMBER"
          labelName="testISNUMBER" dataType="Double" scale="2" dataFile="valueFunctionData"
+         whyIgnoreSql="mssql:isnumeric allows minus sign"
          code="if(ISNUMBER(customtext1__c),1,0)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
@@ -3260,23 +3263,25 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" precision="13" scale="3"/>
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
-     <testcase name="testUpper" labels="basic" devName="testUpper" labelName="testUpper" whyIgnoreSql="postgres:ICU support,mysql:DoubleS,mariadb:DoubleS"
+     <testcase name="testUpper" labels="basic" devName="testUpper" labelName="testUpper" 
+     whyIgnoreSql="postgres:ICU support,mysql:DoubleS,mariadb:DoubleS,mssql:DoubleS"
             dataType="Text" code="upper(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
      <!-- Nashorn doesn't do toLocaleLowerCase/toLocaleUpperCase correctly.  It also creates a combining dotted mark for İ -->
-     <testcase name="testLower" labels="basic" devName="testLower" labelName="testLower" whyIgnoreSql="postgres:ICU support,mysql:DoubleS,mariadb:DoubleS"
+     <testcase name="testLower" labels="basic" devName="testLower" labelName="testLower" 
+     whyIgnoreSql="postgres:ICU support,mysql:DoubleS,mariadb:DoubleS,mssql:DoubleS"
             dataType="Text" code="lower(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
      <testcase name="testUpperLocale" devName="testUpperLocale" labelName="testUpperLocale" 
-            whyIgnoreSql="postgres: ICU support,oracle: turkish java diff,mysql:no collate,mariadb:no collate"
+            whyIgnoreSql="postgres: ICU support,oracle: turkish java diff,mysql:no collate,mariadb:no collate,mssql:no collate"
             dataType="Text" code="upper(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
      <testcase name="testLowerLocale" devName="testLowerLocale" labelName="testLowerLocale" 
-     whyIgnoreSql="postgres:ICU support,oracle: turkish java diff,mysql:no collate,mariadb:no collate"
+     whyIgnoreSql="postgres:ICU support,oracle: turkish java diff,mysql:no collate,mariadb:no collate,mssql:no collate"
             dataType="Text" code="lower(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
@@ -3329,6 +3334,36 @@ author: Srikanth Yendluri/Doug Chasman
         labelName="testFormatCurrency" dataType="Text" dataFile="formatCurrency" labels="extended"
         code="FORMATCURRENCY(isocode__c, customNumber1__c)">
         <referencefield devName="isocode" labelName="timeString" dataType="Text" length="50"/>
-         <referencefield devName="customNumber1" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
-      </testcase>
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+    </testcase>
+    <testcase name="testMax" devName="testMax"
+        labelName="testMax" dataType="Double" scale="2" precision="12" dataFile="twoNumericFields" labels="math"
+        whyIgnoreSql="postgres:ignores null"
+        code="MAX(customNumber1__c,customNumber2__c)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+    </testcase>
+    <testcase name="testMin" devName="testMin"
+        labelName="testMin" dataType="Double" scale="2" precision="12" dataFile="twoNumericFields" labels="math"
+        whyIgnoreSql="postgres:ignores null"
+        code="MIN(customNumber1__c,customNumber2__c)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+    </testcase>
+    <testcase name="testMax3" devName="testMax"
+        labelName="testMax3" dataType="Double" scale="2" precision="12" dataFile="threeNumericFields" labels="math"
+        whyIgnoreSql="postgres:ignores null"
+        code="MAX(customNumber1__c,customNumber2__c,customNumber3__c)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber3" labelName="customNumber3" dataType="Double" scale="2" precision="12" />
+    </testcase>
+    <testcase name="testMin3" devName="testMin"
+        labelName="testMin" dataType="Double" scale="2" precision="12" dataFile="threeNumericFields" labels="math"
+        whyIgnoreSql="postgres:ignores null"
+        code="MIN(customNumber1__c,customNumber2__c,customNumber3__c)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber3" labelName="customNumber3" dataType="Double" scale="2" precision="12" />
+    </testcase>
 </formula-test>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testConstDoubleNegation">
+   <testInstance formula="customnumber__c -- 2 + customnumber__c - (2-4) + customnumber__c - (-2)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>(((((COALESCE($!s0s!$.customnumber__c, 0)-(-2))+COALESCE($!s0s!$.customnumber__c, 0))-(-2))+COALESCE($!s0s!$.customnumber__c, 0))-(-2))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>((((($!s0s!$.customnumber__c-(-2))+$!s0s!$.customnumber__c)-(-2))+$!s0s!$.customnumber__c)-(-2))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber__c,new $F.Decimal('0')).sub(new $F.Decimal('2').neg()).add($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))).sub(new $F.Decimal('2').neg()).add($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))).sub(new $F.Decimal('2').neg())</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null)?(context.record.customnumber__c.sub(new $F.Decimal('2').neg()).add(context.record.customnumber__c).sub(new $F.Decimal('2').neg()).add(context.record.customnumber__c).sub(new $F.Decimal('2').neg())):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customnumber__c,0)-(-2)+$F.nvl(context.record.customnumber__c,0)-(-2)+$F.nvl(context.record.customnumber__c,0)-(-2)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null)?(context.record.customnumber__c-(-2)+context.record.customnumber__c-(-2)+context.record.customnumber__c-(-2)):null</JsOutput>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>6</formula>
+         <sql>6</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0]</inputvalues>
+         <formula>6.0</formula>
+         <sql>6</sql>
+         <formulaNullAsNull>6.0</formulaNullAsNull>
+         <sqlNullAsNull>6</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24]</inputvalues>
+         <formula>78</formula>
+         <sql>78</sql>
+         <formulaNullAsNull>78</formulaNullAsNull>
+         <sqlNullAsNull>78</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.99]</inputvalues>
+         <formula>8.97</formula>
+         <sql>8.97</sql>
+         <formulaNullAsNull>8.97</formulaNullAsNull>
+         <sqlNullAsNull>8.97</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-24]</inputvalues>
+         <formula>-66</formula>
+         <sql>-66</sql>
+         <formulaNullAsNull>-66</formulaNullAsNull>
+         <sqlNullAsNull>-66</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

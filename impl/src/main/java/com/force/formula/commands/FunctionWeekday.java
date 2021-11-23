@@ -38,6 +38,8 @@ public class FunctionWeekday extends FormulaCommandInfoImpl {
         	sql = "1+EXTRACT (DOW FROM " + args[0] + ")::numeric";
         } else if (hooks.isMysqlStyle()) {
         	sql = "DAYOFWEEK(" + args[0] + ")";
+        } else if (hooks.isTransactSqlStyle()) {
+        	sql = "DATEPART(weekday," + args[0] + ")";
         } else {
         	sql = "TO_NUMBER(TO_CHAR(" + args[0] + ",'d'))";
         }

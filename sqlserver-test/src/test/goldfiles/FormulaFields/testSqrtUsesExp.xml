@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSqrtUsesExp">
+   <testInstance formula="SQRT(EXP(customnumber1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(SQRT(CAST(EXP(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,10))) AS DECIMAL(38,18))</Sql>
+       <Guard>CAST(EXP(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,10))&lt;0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(SQRT(CAST(EXP($!s0s!$.customnumber1__c) AS DECIMAL(38,10))) AS DECIMAL(38,18))</Sql>
+       <Guard>CAST(EXP($!s0s!$.customnumber1__c) AS DECIMAL(38,10))&lt;0</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.sqrt($F.Decimal.exp($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?($F.Decimal.sqrt($F.Decimal.exp(context.record.customnumber1__c))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.sqrt(Math.exp($F.nvl(context.record.customnumber1__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.sqrt(Math.exp(context.record.customnumber1__c))):null</JsOutput>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1.0</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>1.6487212707001282</formula>
+         <sql>1.648721270712548259</sql>
+         <formulaNullAsNull>1.6487212707001282</formulaNullAsNull>
+         <sqlNullAsNull>1.648721270712548259</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2]</inputvalues>
+         <formula>2.718281828459045</formula>
+         <sql>2.718281828453407378</sql>
+         <formulaNullAsNull>2.718281828459045</formulaNullAsNull>
+         <sqlNullAsNull>2.718281828453407378</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1]</inputvalues>
+         <formula>0.6065306597126334</formula>
+         <sql>0.606530659736175259</sql>
+         <formulaNullAsNull>0.6065306597126334</formulaNullAsNull>
+         <sqlNullAsNull>0.606530659736175259</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-10]</inputvalues>
+         <formula>0.006737946999085467</formula>
+         <sql>0.006737944790512905</sql>
+         <formulaNullAsNull>0.006737946999085467</formulaNullAsNull>
+         <sqlNullAsNull>0.006737944790512905</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-100]</inputvalues>
+         <formula>0.00000000000000000000019287498480</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.00000000000000000000019287498480</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[56]</inputvalues>
+         <formula>1446257064291.475</formula>
+         <sql>1446257064291.47509765625</sql>
+         <formulaNullAsNull>1446257064291.475</formulaNullAsNull>
+         <sqlNullAsNull>1446257064291.47509765625</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[110]</inputvalues>
+         <formula>769478526514201800000000</formula>
+         <sql>Error: Arithmetic overflow error converting float to data type numeric.</sql>
+         <formulaNullAsNull>769478526514201800000000</formulaNullAsNull>
+         <sqlNullAsNull>Error: Arithmetic overflow error converting float to data type numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20]</inputvalues>
+         <formula>22026.465794806718</formula>
+         <sql>22026.465794806717894971</sql>
+         <formulaNullAsNull>22026.465794806718</formulaNullAsNull>
+         <sqlNullAsNull>22026.465794806717894971</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

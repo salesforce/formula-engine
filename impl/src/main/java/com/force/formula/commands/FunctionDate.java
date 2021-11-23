@@ -34,7 +34,8 @@ public class FunctionDate extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        FormulaAST yearNode = (FormulaAST)node.getFirstChild();
+    	FormulaSqlHooks hooks = getSqlHooks(context);
+    	FormulaAST yearNode = (FormulaAST)node.getFirstChild();
         int yearValue = getInt(yearNode);
         FormulaAST monthNode = (FormulaAST)yearNode.getNextSibling();
         int monthValue = getInt(monthNode);
@@ -45,8 +46,10 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         String month = (monthValue != BAD_VALUE) ? String.valueOf(monthValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[1] + ")");
         String day = (dayValue != BAD_VALUE) ? String.valueOf(dayValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[2] + ")");
         String date;
-        if (context.getSqlStyle().isMysqlStyle()) {
+        if (hooks.isMysqlStyle()) {
         	date = "DATE(CONCAT(" + year + ",'-'," + month + ",'-'," + day + "))";
+        } else if (hooks.isTransactSqlStyle()) {
+        	date = "DATEFROMPARTS(" + year + "," + month + "," + day + ")";
         } else {
         	date = "TO_DATE(" + year + " || '-' || " + month + " || '-' || " + day + ", 'YYYY-MM-DD')";
         }
@@ -73,7 +76,7 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         }
         String guard = SQLPair.generateGuard(
                 guards,
-                errorCondition((FormulaSqlHooks)context.getSqlStyle(), args, yearValue, yearCanBeNull, monthValue, monthCanBeNull, dayValue,
+                errorCondition(hooks, args, yearValue, yearCanBeNull, monthValue, monthCanBeNull, dayValue,
                         dayCanBeNull));
         return new SQLPair(sql, guard);
     }

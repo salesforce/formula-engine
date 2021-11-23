@@ -3,11 +3,11 @@
    <testInstance formula="TRUNC(TRUNC(custompercent1__c,customnumber1__c),customformula1__c)" returntype="Double" precision="12" scale="2">
    <customformula1 dataType="ColumnType.DOUBLE" formula="(customcurrency1__c-customcurrency2__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>TRUNCATE(TRUNCATE(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0), COALESCE($!s0s!$.customnumber1__c, 0)), COALESCE((COALESCE($!s0s!$.customcurrency1__c, 0)-COALESCE($!s0s!$.customcurrency2__c, 0)), 0))</Sql>
+       <Sql>TRUNCATE(TRUNCATE(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0),COALESCE($!s0s!$.customnumber1__c, 0)),COALESCE((COALESCE($!s0s!$.customcurrency1__c, 0)-COALESCE($!s0s!$.customcurrency2__c, 0)), 0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TRUNCATE(TRUNCATE(($!s0s!$.custompercent1__c / 100.0), $!s0s!$.customnumber1__c), ($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c))</Sql>
+       <Sql>TRUNCATE(TRUNCATE(($!s0s!$.custompercent1__c / 100.0),$!s0s!$.customnumber1__c),($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0'))).mul('1e'+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toFixed(0)).trunc().div('1e'+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toFixed(0))).mul('1e'+$F.nvl($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')).sub($F.nvl(context.record.customcurrency2__c,new $F.Decimal('0'))),new $F.Decimal('0')).toFixed(0)).trunc().div('1e'+$F.nvl($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')).sub($F.nvl(context.record.customcurrency2__c,new $F.Decimal('0'))),new $F.Decimal('0')).toFixed(0))</JsOutput>

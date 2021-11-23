@@ -488,6 +488,7 @@
         <module>test-utils</module>
         <module>oracle-test</module>
         <module>mysql-test</module>
+        <module>sqlserver-test</module>
         <module>docs/coverage</module>
       </modules>
     </profile>

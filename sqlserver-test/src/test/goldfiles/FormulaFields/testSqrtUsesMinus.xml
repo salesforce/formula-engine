@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSqrtUsesMinus">
+   <testInstance formula="SQRT((customcurrency1__c-customcurrency2__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(SQRT((COALESCE($!s0s!$.customcurrency1__c, 0)-COALESCE($!s0s!$.customcurrency2__c, 0))) AS DECIMAL(38,18))</Sql>
+       <Guard>(COALESCE($!s0s!$.customcurrency1__c, 0)-COALESCE($!s0s!$.customcurrency2__c, 0))&lt;0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(SQRT(($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c)) AS DECIMAL(38,18))</Sql>
+       <Guard>($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c)&lt;0</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.sqrt($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')).sub($F.nvl(context.record.customcurrency2__c,new $F.Decimal('0'))))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null)?($F.Decimal.sqrt(context.record.customcurrency1__c.sub(context.record.customcurrency2__c))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.sqrt($F.nvl(context.record.customcurrency1__c,0)-$F.nvl(context.record.customcurrency2__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null)?(Math.sqrt(context.record.customcurrency1__c-context.record.customcurrency2__c)):null</JsOutput>
+      <result>
+      <inputvalues>[, 24]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, 0.0]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.00, 0.00]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.000, 0.000]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.0, 99.0]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[99,  -1]</inputvalues>
+         <formula>10.0</formula>
+         <sql>10</sql>
+         <formulaNullAsNull>10.0</formulaNullAsNull>
+         <sqlNullAsNull>10</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-20, -40]</inputvalues>
+         <formula>4.47213595499958</formula>
+         <sql>4.47213595499957961</sql>
+         <formulaNullAsNull>4.47213595499958</formulaNullAsNull>
+         <sqlNullAsNull>4.47213595499957961</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.1111, 1.1111]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.11114, 0.00000]</inputvalues>
+         <formula>1.0541062565035841</formula>
+         <sql>1.054106256503584138</sql>
+         <formulaNullAsNull>1.0541062565035841</formulaNullAsNull>
+         <sqlNullAsNull>1.054106256503584138</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.11115, 0.00000]</inputvalues>
+         <formula>1.054110999847739</formula>
+         <sql>1.054110999847738928</sql>
+         <formulaNullAsNull>1.054110999847739</formulaNullAsNull>
+         <sqlNullAsNull>1.054110999847738928</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.111112, 0.000043]</inputvalues>
+         <formula>1.0540725781463058</formula>
+         <sql>1.054072578146305839</sql>
+         <formulaNullAsNull>1.0540725781463058</formulaNullAsNull>
+         <sqlNullAsNull>1.054072578146305839</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789, 123456789]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, 123456789.123456789]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, -123456789.123456789]</inputvalues>
+         <formula>15713.483962728113</formula>
+         <sql>15713.483962728112601326</sql>
+         <formulaNullAsNull>15713.483962728113</formulaNullAsNull>
+         <sqlNullAsNull>15713.483962728112601326</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-123456789.123456789, -123456789.123456789]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[600,  0.000600]</inputvalues>
+         <formula>24.494885180380006</formula>
+         <sql>24.494885180380006062</sql>
+         <formulaNullAsNull>24.494885180380006</formulaNullAsNull>
+         <sqlNullAsNull>24.494885180380006062</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[600,  -600]</inputvalues>
+         <formula>34.64101615137755</formula>
+         <sql>34.641016151377549193</sql>
+         <formulaNullAsNull>34.64101615137755</formulaNullAsNull>
+         <sqlNullAsNull>34.641016151377549193</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.2345,  1.2345]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.245,  0]</inputvalues>
+         <formula>1.11579568022107</formula>
+         <sql>1.115795680221070008</sql>
+         <formulaNullAsNull>1.11579568022107</formulaNullAsNull>
+         <sqlNullAsNull>1.115795680221070008</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, ]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 12.123456789]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.00596, 240]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 240]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.0000000000001, 1000]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.0000000000001, -1000]</inputvalues>
+         <formula>31.622776601683796</formula>
+         <sql>31.622776601683796116</sql>
+         <formulaNullAsNull>31.622776601683796</formulaNullAsNull>
+         <sqlNullAsNull>31.622776601683796116</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

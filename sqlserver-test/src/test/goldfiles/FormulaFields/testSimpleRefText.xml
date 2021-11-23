@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSimpleRefText">
+   <testInstance formula="customText1__c" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customText1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customText1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">context.record.customText1__c</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">context.record.customText1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">context.record.customText1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">context.record.customText1__c</JsOutput>
+      <result>
+      <inputvalues>[This is too good to be true]</inputvalues>
+         <formula>This is too good to be true</formula>
+         <sql>This is too good to be true</sql>
+         <formulaNullAsNull>This is too good to be true</formulaNullAsNull>
+         <sqlNullAsNull>This is too good to be true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[making a way]</inputvalues>
+         <formula>making a way</formula>
+         <sql>making a way</sql>
+         <formulaNullAsNull>making a way</formulaNullAsNull>
+         <sqlNullAsNull>making a way</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blunder]</inputvalues>
+         <formula>blunder</formula>
+         <sql>blunder</sql>
+         <formulaNullAsNull>blunder</formulaNullAsNull>
+         <sqlNullAsNull>blunder</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[makesense]</inputvalues>
+         <formula>makesense</formula>
+         <sql>makesense</sql>
+         <formulaNullAsNull>makesense</formulaNullAsNull>
+         <sqlNullAsNull>makesense</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[does not make sense]</inputvalues>
+         <formula>does not make sense</formula>
+         <sql>does not make sense</sql>
+         <formulaNullAsNull>does not make sense</formulaNullAsNull>
+         <sqlNullAsNull>does not make sense</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[working my way]</inputvalues>
+         <formula>working my way</formula>
+         <sql>working my way</sql>
+         <formulaNullAsNull>working my way</formulaNullAsNull>
+         <sqlNullAsNull>working my way</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[e]</inputvalues>
+         <formula>e</formula>
+         <sql>e</sql>
+         <formulaNullAsNull>e</formulaNullAsNull>
+         <sqlNullAsNull>e</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
+         <formula>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</formula>
+         <sql>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</sql>
+         <formulaNullAsNull>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</formulaNullAsNull>
+         <sqlNullAsNull>hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
+         <formula>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</formula>
+         <sql>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</sql>
+         <formulaNullAsNull>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</formulaNullAsNull>
+         <sqlNullAsNull>250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
+         <formula>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</formula>
+         <sql>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</sql>
+         <formulaNullAsNull>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</formulaNullAsNull>
+         <sqlNullAsNull>blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

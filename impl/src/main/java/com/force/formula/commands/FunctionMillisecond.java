@@ -37,8 +37,12 @@ public class FunctionMillisecond extends FormulaCommandInfoImpl {
     }
     
     public static String getMillisecondExpr(String arg, FormulaContext context)  {
-    	String trunc = context.getSqlStyle().isMysqlStyle() ? "TRUNCATE" : "TRUNC";
-        return trunc + "((" + arg + " -"+trunc+"(" + arg + "/1000) * 1000)) ";
+    	FormulaSqlHooks hooks = getSqlHooks(context);
+    	if (hooks.isTransactSqlStyle()) {
+    		return "DATEPART(MILLISECOND,"+arg+")";
+    	}
+    	String trunc = hooks.sqlTrunc(arg + "/1000");
+        return trunc + "((" + arg + " -"+trunc+" * 1000)) ";
     }
 
     @Override

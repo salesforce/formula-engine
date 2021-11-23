@@ -42,7 +42,14 @@ public interface FormulaSqlStyle {
 	/**
 	 * @return whether or not to default to transactsql (sybase/ms sql server) style of sql.
 	 */
-	default boolean isTsqlStyle() {
+	default boolean isTransactSqlStyle() {
 		return false;
 	}	
+	
+	/**
+	 * @return the function name for taking a substring.
+	 */
+	default String getSubstringFunction() {
+		return isTransactSqlStyle() ? "SUBSTRING" : "SUBSTR";
+	}
 }

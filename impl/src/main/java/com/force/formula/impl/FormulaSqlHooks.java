@@ -3,9 +3,11 @@
  */
 package com.force.formula.impl;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 import com.force.formula.sql.FormulaSqlStyle;
+import com.force.formula.sql.SQLPair;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 
@@ -135,9 +137,21 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      */
-    default String psqlSubtractTwoTimestamps() {
+    default String sqlSubtractTwoTimestamps() {
     	throw new UnsupportedOperationException();
     } 
+
+    /**
+     * Format the sql for adding a given number of days (fractionally) to a date
+     * @param lhsValue the left hand side (must be date or datetime if subtraction)
+     * @param rhsValue the right hand side (will be number if subtraction)
+     * @param isAddition whet
+     * @return a SQL expression for adding the given number of days to the date
+     */
+    default String sqlAddDaysToDate(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
+    	return "(" + lhsValue + (isAddition ? "+" : "-") + rhsValue + ")";
+    }
+    
     
     
     /**
@@ -158,6 +172,15 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
+     * @return a date literal suitable for for representing "today"
+     * @param c the calendar to use 
+     */
+    default String getDateLiteralFromCalendar(Calendar c) {
+    	return "DATE '" + c.get(Calendar.YEAR) + "-"
+    		    + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE) + "'";
+    }
+    
+    /**
      * @return the the current milliseconds of the day suitable.  You may want to use ::time instead, so overridable
      */
     default String sqlTimeNow() {
@@ -165,9 +188,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
-     * @return the format to use for adding months.
+     * @return the expression to use for adding a number of months to a date
      */
-    default String sqlAddMonths() {
+    default String sqlAddMonths(String dateArg, String numMonths) {
     	throw new UnsupportedOperationException();
      }
     
@@ -185,7 +208,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlToDateIso() {
 		return "TO_DATE(%s, 'YYYY-MM-DD')";
     }
-    
+   
     
     /**
      * @return the function to use for getting the last day of the month of a date.
@@ -323,5 +346,44 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     default String sqlMakeDecimal(String argument) {
     	return argument;
+    }
+    
+    /**
+     * @param argument the value to truncate
+     * @return how to call truncate to drop all decimal places
+     */
+    default String sqlTrunc(String argument) {
+    	return "TRUNC(" + argument + ")";
+    }
+    
+    
+    /**
+     * @param argument the value to truncate
+     * @param scale the scale to truncate to
+     * @return how to call truncate to drop to the given number of decimal places
+     */
+    default String sqlTrunc(String argument, String scale) {
+    	return "TRUNC(" + argument + ", " + scale + ")";
+    }
+    
+    
+    /**
+     * @param argument the value to truncate
+     * @return how to call exponent on the function, 
+     */
+    default String sqlExponent(String argument) {
+    	return "EXP(" + argument + ")";
+    }
+    
+    /**
+     * Get the sql guard and value for executing A^B.
+     * @param args the arguments where arg[0] is the operands and arg[1] is the exponent
+     * @param guards the guards to prevent errors when evaluating the args
+	 */
+    default SQLPair getPowerSql( String[] args, String[] guards) {
+        String sql = "POWER(" + args[0] + ", " + args[1] + ")";
+        String guard = SQLPair.generateGuard(guards, "TRUNC(" + args[1] + ")<>" + args[1] +
+    	            " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");    	
+        return new SQLPair(sql, guard);
     }
 }

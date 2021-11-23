@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDATEVALUEWithString">
+   <testInstance formula="datevalue(customtext1__c)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>CONVERT(DATE, $!s0s!$.customtext1__c)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CONVERT(DATE, $!s0s!$.customtext1__c)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+      <result>
+      <inputvalues>[2005-01-02]</inputvalues>
+         <formula>Sun Jan 02 00:00:00 GMT 2005</formula>
+         <sql>2005-01-02 00:00:00.0</sql>
+         <formulaNullAsNull>Sun Jan 02 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-01-02 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-1-2]</inputvalues>
+         <formula>Sun Jan 02 00:00:00 GMT 2005</formula>
+         <sql>2005-01-02 00:00:00.0</sql>
+         <formulaNullAsNull>Sun Jan 02 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-01-02 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[9999-01-15]</inputvalues>
+         <formula>Fri Jan 15 00:00:00 GMT 9999</formula>
+         <sql>9999-01-15 00:00:00.0</sql>
+         <formulaNullAsNull>Fri Jan 15 00:00:00 GMT 9999</formulaNullAsNull>
+         <sqlNullAsNull>9999-01-15 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0001-01-15]</inputvalues>
+         <formula>Sat Jan 15 00:00:00 GMT 1</formula>
+         <sql>0001-01-15 00:00:00.0</sql>
+         <formulaNullAsNull>Sat Jan 15 00:00:00 GMT 1</formulaNullAsNull>
+         <sqlNullAsNull>0001-01-15 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200-01-03]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200-1-3]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2-1-3]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>2003-02-01 00:00:00.0</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>2003-02-01 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-13-02]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-02-31]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-03-32]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[crapola]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000-0-2]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0000-12-12]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0-12-12]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2020-11-00]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

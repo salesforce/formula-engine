@@ -4,11 +4,10 @@ import static com.force.formula.commands.FormulaCommandInfoImpl.jsMathPkg;
 
 import java.math.BigDecimal;
 
-import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.FormulaAST;
-import com.force.formula.impl.JsValue;
+import com.force.formula.FormulaContext;
+import com.force.formula.impl.*;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -37,6 +36,10 @@ public class FunctionSquareRoot extends UnaryMathCommandBehavior {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
         String sql = "SQRT(" + args[0] + ")";
+        FormulaSqlHooks hooks = (FormulaSqlHooks)context.getSqlStyle();
+        if (hooks.isTransactSqlStyle()) {
+        	sql = String.format(hooks.sqlToNumber(), sql);
+        }
         String guard = SQLPair.generateGuard(guards, args[0] + "<0");
         return new SQLPair(sql, guard);
     }

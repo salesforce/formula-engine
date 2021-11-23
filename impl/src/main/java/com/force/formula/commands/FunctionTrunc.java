@@ -40,8 +40,7 @@ public class FunctionTrunc extends BinaryMathCommandBehavior {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
     	FormulaSqlHooks hooks = (FormulaSqlHooks) context.getSqlStyle();
-    	String trunc = hooks.isMysqlStyle() ? "TRUNCATE" : "TRUNC";
-        String sql = trunc + "(" + args[0] + ", " + hooks.sqlRoundScaleArg(args[1]) + ")";
+        String sql = hooks.sqlTrunc(args[0],hooks.sqlRoundScaleArg(args[1]));
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

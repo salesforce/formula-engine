@@ -28,7 +28,7 @@ public class FunctionMid extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = "SUBSTR(" + args[0] + ", GREATEST(" + args[1] + ", 1), GREATEST(" + args[2] + ", 0))";
+        String sql = context.getSqlStyle().getSubstringFunction() + "(" + args[0] + ", GREATEST(" + args[1] + ", 1), GREATEST(" + args[2] + ", 0))";
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

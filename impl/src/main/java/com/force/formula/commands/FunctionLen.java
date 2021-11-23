@@ -28,9 +28,11 @@ public class FunctionLen extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = getSqlHooks(context).sqlNvl() + "(LENGTH(" + args[0] + "),0)";
+    	FormulaSqlHooks hooks = getSqlHooks(context);
+    	String len = hooks.isTransactSqlStyle() ? "LEN" : "LENGTH";
+        String sql = hooks.sqlNvl() + "(" + len + "(" + args[0] + "),0)";
         // Make the sql be numeric if using postgres
-        sql = getSqlHooks(context).sqlMakeDecimal(sql);
+        sql = hooks.sqlMakeDecimal(sql);
         String guard = guards[0];
         return new SQLPair(sql, guard);
     }

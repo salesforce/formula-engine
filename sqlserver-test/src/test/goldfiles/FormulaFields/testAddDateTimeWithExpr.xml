@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateTimeWithExpr">
+   <testInstance formula="(customformula0__c+custompercent2__c+customformula1__c+LEN(customtext1__c))" returntype="DateTime">
+   <customformula0 dataType="ColumnType.DATETIME" formula="(customdatetime1__c+custompercent1__c)"/>
+   <customformula1 dataType="ColumnType.DOUBLE" formula="(customdatetime2__c-customdatetime3__c)"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEADD(second,ROUND(COALESCE(LEN($!s0s!$.customtext1__c),0)*86400,0),DATEADD(second,ROUND(COALESCE((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400), 0)*86400,0),DATEADD(second,ROUND(COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400,0),DATEADD(second,ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400,0),$!s0s!$.customdatetime1__c))))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>DATEADD(second,ROUND(COALESCE(LEN($!s0s!$.customtext1__c),0)*86400,0),DATEADD(second,ROUND((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400)*86400,0),DATEADD(second,ROUND(($!s0s!$.custompercent2__c / 100.0)*86400,0),DATEADD(second,ROUND(($!s0s!$.custompercent1__c / 100.0)*86400,0),$!s0s!$.customdatetime1__c))))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0'))))*1000))!=null)?(new Date(new Date(new Date(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0'))))*1000)).getTime()+(Math.round(86400*($F.nvl((context.record.custompercent2__c!=null)?(context.record.custompercent2__c.div(100)):null,new $F.Decimal('0'))))*1000)).getTime()+(Math.round(86400*($F.nvl((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT')).getTime())/86400000)):null,new $F.Decimal('0'))))*1000)).getTime()+(Math.round(86400*((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))))*1000))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT'))!=null&amp;&amp;context.record.custompercent2__c!=null&amp;&amp;context.record.custompercent1__c!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;context.record.custompercent1__c.div(100)!=null&amp;&amp;new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*(context.record.custompercent1__c.div(100)))*1000))!=null&amp;&amp;context.record.custompercent2__c.div(100)!=null&amp;&amp;new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT')).getTime())/86400000)!=null)?(new Date(new Date(new Date(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*(context.record.custompercent1__c.div(100)))*1000)).getTime()+(Math.round(86400*(context.record.custompercent2__c.div(100)))*1000)).getTime()+(Math.round(86400*(new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT')).getTime())/86400000)))*1000)).getTime()+(Math.round(86400*((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))))*1000))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)))*1000))!=null)?(new Date(new Date(new Date(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)))*1000)).getTime()+(Math.round(86400*($F.nvl((context.record.custompercent2__c!=null)?(context.record.custompercent2__c/100.0):null,0)))*1000)).getTime()+(Math.round(86400*($F.nvl((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT')).getTime())/86400000):null,0)))*1000)).getTime()+(Math.round(86400*(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)))*1000))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT'))!=null&amp;&amp;context.record.custompercent2__c!=null&amp;&amp;context.record.custompercent1__c!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;context.record.custompercent1__c/100.0!=null&amp;&amp;new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*(context.record.custompercent1__c/100.0))*1000))!=null&amp;&amp;context.record.custompercent2__c/100.0!=null&amp;&amp;(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT')).getTime())/86400000!=null)?(new Date(new Date(new Date(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*(context.record.custompercent1__c/100.0))*1000)).getTime()+(Math.round(86400*(context.record.custompercent2__c/100.0))*1000)).getTime()+(Math.round(86400*((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime3__c])?null:new Date(context.record.customdatetime3__c + ' GMT')).getTime())/86400000))*1000)).getTime()+(Math.round(86400*(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)))*1000))):null</JsOutput>
+      <result>
+      <inputvalues>[3998:01:31:23:00:00, 200, 10, 3999:12:31:00:00:00, 3999:12:01:00:00:00, thisistext]</inputvalues>
+         <formula>Sun Mar 15 01:24:00 GMT 3998</formula>
+         <sql>3998-03-15 01:24:00.0</sql>
+         <formulaNullAsNull>Sun Mar 15 01:24:00 GMT 3998</formulaNullAsNull>
+         <sqlNullAsNull>3998-03-15 01:24:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1900:01:01:12:00:00, .004, 1, 2004:12:31:12:00:00, 2004:12:31:12:00:00, thisisnottext]</inputvalues>
+         <formula>Sun Jan 14 12:14:27 GMT 1900</formula>
+         <sql>1900-01-14 12:14:27.0</sql>
+         <formulaNullAsNull>Sun Jan 14 12:14:27 GMT 1900</formulaNullAsNull>
+         <sqlNullAsNull>1900-01-14 12:14:27.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 100, , 2004:11:31:13:00:00, 2004:12:31:13:00:00, works]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 100, , , 2004:12:31:14:00:00, doesnotwork]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:23:00:00, , , 2004:11:31:24:00:00, 2004:12:31:14:00:00, flipping]</inputvalues>
+         <formula>Fri Dec 10 09:00:00 GMT 2004</formula>
+         <sql>2004-12-10 09:00:00.0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 100, , 2004:11:31:00:00:00, , not flipping]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

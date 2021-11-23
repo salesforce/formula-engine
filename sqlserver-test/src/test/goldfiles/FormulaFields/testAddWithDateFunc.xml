@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithDateFunc">
+   <testInstance formula="(customformula0__c+customformula1__c+customnumber1__c+customformula2__c+custompercent1__c)" returntype="Double" precision="12" scale="2">
+   <customformula0 dataType="ColumnType.DOUBLE" formula="DAY(customdate1__c)"/>
+   <customformula1 dataType="ColumnType.DOUBLE" formula="YEAR(customdate2__c)"/>
+   <customformula2 dataType="ColumnType.DOUBLE" formula="MONTH(customdate3__c)"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>((((COALESCE(DAY($!s0s!$.customdate1__c), 0)+COALESCE(YEAR($!s0s!$.customdate2__c), 0))+COALESCE($!s0s!$.customnumber1__c, 0))+COALESCE(MONTH($!s0s!$.customdate3__c), 0))+COALESCE(($!s0s!$.custompercent1__c / 100.0), 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>((((DAY($!s0s!$.customdate1__c)+YEAR($!s0s!$.customdate2__c))+$!s0s!$.customnumber1__c)+MONTH($!s0s!$.customdate3__c))+($!s0s!$.custompercent1__c / 100.0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new $F.Decimal(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCDate())):null,new $F.Decimal('0')).add($F.nvl((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null)?(new $F.Decimal(($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getUTCFullYear())):null,new $F.Decimal('0'))).add($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).add($F.nvl((($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))!=null)?(new $F.Decimal(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getUTCMonth()+1)):null,new $F.Decimal('0'))).add($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.custompercent1__c!=null&amp;&amp;($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;new $F.Decimal(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCDate())!=null&amp;&amp;new $F.Decimal(($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getUTCFullYear())!=null&amp;&amp;context.record.customnumber1__c!=null&amp;&amp;new $F.Decimal(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getUTCMonth()+1)!=null&amp;&amp;context.record.custompercent1__c.div(100)!=null)?(new $F.Decimal(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCDate()).add(new $F.Decimal(($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getUTCFullYear())).add(context.record.customnumber1__c).add(new $F.Decimal(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getUTCMonth()+1)).add(context.record.custompercent1__c.div(100))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCDate()):null,0)+$F.nvl((($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null)?(($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getUTCFullYear()):null,0)+$F.nvl(context.record.customnumber1__c,0)+$F.nvl((($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))!=null)?(($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getUTCMonth()+1):null,0)+$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.custompercent1__c!=null&amp;&amp;($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCDate()!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getUTCFullYear()!=null&amp;&amp;context.record.customnumber1__c!=null&amp;&amp;($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getUTCMonth()+1!=null&amp;&amp;context.record.custompercent1__c/100.0!=null)?(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCDate()+($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getUTCFullYear()+context.record.customnumber1__c+($F.anl([context.record.customdate3__c])?null:new Date(new Date(context.record.customdate3__c).setUTCHours(0,0,0,0))).getUTCMonth()+1+context.record.custompercent1__c/100.0):null</JsOutput>
+      <result>
+      <inputvalues>[2004:12:20, 2004:12:20, 0, 2004:12:20, 30]</inputvalues>
+         <formula>2036.3</formula>
+         <sql>2036.3</sql>
+         <formulaNullAsNull>2036.3</formulaNullAsNull>
+         <sqlNullAsNull>2036.3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2004:12:20, 0, 2004:12:20, 30]</inputvalues>
+         <formula>2016.3</formula>
+         <sql>2016.3</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:20, , , 2004:12:20, 10]</inputvalues>
+         <formula>32.1</formula>
+         <sql>32.1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , , , 10]</inputvalues>
+         <formula>0.1</formula>
+         <sql>0.1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1900:12:20, 1900:12:20, , 1900:12:20, 10]</inputvalues>
+         <formula>1932.1</formula>
+         <sql>1932.1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

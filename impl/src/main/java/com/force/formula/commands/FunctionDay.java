@@ -30,8 +30,11 @@ public class FunctionDay extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
+    	if (context.getSqlStyle().isTransactSqlStyle()) {
+    		return new SQLPair("DAY(" + args[0] + ")", guards[0]);
+    	}
         String sql = "EXTRACT(DAY FROM " + args[0] + ")";
-        if (context.getSqlStyle() != null && context.getSqlStyle().isPostgresStyle()) {
+        if (context.getSqlStyle().isPostgresStyle()) {
             sql = sql + "::numeric";
         }
         return new SQLPair(sql, guards[0]);

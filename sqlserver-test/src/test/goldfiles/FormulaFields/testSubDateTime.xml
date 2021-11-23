@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTime">
+   <testInstance formula="(customdatetime1__c-customdatetime2__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/86400000):null</JsOutput>
+      <result>
+      <inputvalues>[2004:12:31:11:00:00, 2004:12:25:11:00:00]</inputvalues>
+         <formula>6</formula>
+         <sql>6</sql>
+         <formulaNullAsNull>6</formulaNullAsNull>
+         <sqlNullAsNull>6</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:11:00:00, 2004:02:27:02:00:00]</inputvalues>
+         <formula>1.375</formula>
+         <sql>1.375</sql>
+         <formulaNullAsNull>1.375</formulaNullAsNull>
+         <sqlNullAsNull>1.375</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:00:00, 2005:01:01:11:00:00]</inputvalues>
+         <formula>-1</formula>
+         <sql>-1</sql>
+         <formulaNullAsNull>-1</formulaNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:11:00:00, 2004:03:01:02:00:00]</inputvalues>
+         <formula>-1.625</formula>
+         <sql>-1.625</sql>
+         <formulaNullAsNull>-1.625</formulaNullAsNull>
+         <sqlNullAsNull>-1.625</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:00:00]</inputvalues>
+         <formula>0.02083333333333333333333333333333</formula>
+         <sql>0.0208333333</sql>
+         <formulaNullAsNull>0.02083333333333333333333333333333</formulaNullAsNull>
+         <sqlNullAsNull>0.0208333333</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:23:30:00, 2004:02:28:24:00:00]</inputvalues>
+         <formula>-0.02083333333333333333333333333333</formula>
+         <sql>-0.0208333333</sql>
+         <formulaNullAsNull>-0.02083333333333333333333333333333</formulaNullAsNull>
+         <sqlNullAsNull>-0.0208333333</sqlNullAsNull>
+      </result>
+   </testInstance>
+   <testInstance formula="(customdatetime2__c-customdatetime1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new $F.Decimal((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime())/86400000):null</JsOutput>
+      <result>
+      <inputvalues>[2004:12:25:11:00:00, 2004:12:31:11:00:00]</inputvalues>
+         <formula>-6</formula>
+         <sql>-6</sql>
+         <formulaNullAsNull>-6</formulaNullAsNull>
+         <sqlNullAsNull>-6</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:27:02:00:00, 2004:02:28:11:00:00]</inputvalues>
+         <formula>-1.375</formula>
+         <sql>-1.375</sql>
+         <formulaNullAsNull>-1.375</formulaNullAsNull>
+         <sqlNullAsNull>-1.375</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005:01:01:11:00:00, 2004:12:31:11:00:00]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:03:01:02:00:00, 2004:02:28:11:00:00]</inputvalues>
+         <formula>1.625</formula>
+         <sql>1.625</sql>
+         <formulaNullAsNull>1.625</formulaNullAsNull>
+         <sqlNullAsNull>1.625</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:00:00, 2004:12:31:11:30:00]</inputvalues>
+         <formula>-0.02083333333333333333333333333333</formula>
+         <sql>-0.0208333333</sql>
+         <formulaNullAsNull>-0.02083333333333333333333333333333</formulaNullAsNull>
+         <sqlNullAsNull>-0.0208333333</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:24:00:00, 2004:02:28:23:30:00]</inputvalues>
+         <formula>0.02083333333333333333333333333333</formula>
+         <sql>0.0208333333</sql>
+         <formulaNullAsNull>0.02083333333333333333333333333333</formulaNullAsNull>
+         <sqlNullAsNull>0.0208333333</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

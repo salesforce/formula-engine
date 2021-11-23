@@ -191,7 +191,7 @@ public abstract class AbstractDbTester implements DbTester {
 
 		// Construct subquery
 		StringBuilder sub = new StringBuilder();
-		sub.append(" FROM (SELECT 1");
+		sub.append(" FROM (SELECT 1 as fake");
 		if (values != null) {
 			for (DisplayField df : formulaContext.getDisplayFields(mfc.getEntity())) {
 				Object value = values.get(df.getFormulaFieldInfo().getName());
@@ -304,7 +304,7 @@ public abstract class AbstractDbTester implements DbTester {
     	case DOUBLE:
     	case INTEGER:
     	case PERCENT:
-    		return Types.NUMERIC;
+    		return Types.DECIMAL;
     	default:
     	}
     	return Types.VARCHAR;
@@ -396,7 +396,7 @@ public abstract class AbstractDbTester implements DbTester {
 				closeConnectionPerStmt(conn);
 			}
 		} catch (SQLException e) {
-			//System.out.println(testName + ": " + sql);  // For debugging
+			// System.out.println(testName + ": " + sql);  // For debugging
 			throw e; // Useful for a breakpoint
 		}
 		return null;

@@ -181,8 +181,8 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
      * @return the format to use for adding months.
      */
 	@Override
-    default String sqlAddMonths() {
-		return "ADD_MONTHS(%s, %s)";
+    default String sqlAddMonths(String dateArg, String numMonths) {
+		return String.format("ADD_MONTHS(%s, %s)", dateArg, numMonths);
     }
     
     

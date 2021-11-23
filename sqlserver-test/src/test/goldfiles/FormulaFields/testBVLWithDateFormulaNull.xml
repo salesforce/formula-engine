@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBVLWithDateFormulaNull">
+   <testInstance formula="BLANKVALUE(customformula0__c,date(2000,1,1))" returntype="DateOnly">
+   <customformula0 dataType="ColumnType.DATEONLY" formula="NULL"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEFROMPARTS(2000,1,1)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>DATEFROMPARTS(2000,1,1)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(new Date(Date.UTC(new $F.Decimal('2000').toNumber(),new $F.Decimal('1').toNumber()-1,new $F.Decimal('1').toNumber())))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new Date(Date.UTC(new $F.Decimal('2000').toNumber(),new $F.Decimal('1').toNumber()-1,new $F.Decimal('1').toNumber())))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(new Date(Date.UTC(2000,1-1,1)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(new Date(Date.UTC(2000,1-1,1)))</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>Sat Jan 01 00:00:00 GMT 2000</formula>
+         <sql>2000-01-01 00:00:00.0</sql>
+         <formulaNullAsNull>Sat Jan 01 00:00:00 GMT 2000</formulaNullAsNull>
+         <sqlNullAsNull>2000-01-01 00:00:00.0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

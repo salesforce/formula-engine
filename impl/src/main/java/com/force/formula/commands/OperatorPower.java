@@ -5,8 +5,7 @@ import java.math.BigDecimal;
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.FormulaAST;
-import com.force.formula.impl.JsValue;
+import com.force.formula.impl.*;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.BigDecimalHelper;
 
@@ -38,16 +37,8 @@ public class OperatorPower extends BinaryMathCommandBehavior {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
-        String sql = "POWER(" + args[0] + ", " + args[1] + ")";
-        String guard;
-    	if (context.getSqlStyle().isMysqlStyle()) {
-    		guard = SQLPair.generateGuard(guards, "TRUNCATE(" + args[1] + ",0)<>" + args[1] +
-    	            " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");    	
-    	} else {
-    		guard = SQLPair.generateGuard(guards, "TRUNC(" + args[1] + ")<>" + args[1] +
-    	            " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");    	
-    	}
-        return new SQLPair(sql, guard);
+        FormulaSqlHooks sqlHooks = (FormulaSqlHooks) context.getSqlStyle();
+        return sqlHooks.getPowerSql(args, guards);
     }
     
     @Override

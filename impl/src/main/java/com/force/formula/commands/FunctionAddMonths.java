@@ -32,7 +32,7 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = String.format(getSqlHooks(context).sqlAddMonths(), args[0], args[1]);
+        String sql = getSqlHooks(context).sqlAddMonths(args[0], args[1]);
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

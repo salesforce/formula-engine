@@ -28,7 +28,7 @@ public class FunctionLeft extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = "SUBSTR(" + args[0] + ", 1, GREATEST(" + args[1] + ", 0))";
+        String sql = context.getSqlStyle().getSubstringFunction() + "(" + args[0] + ", 1, GREATEST(" + args[1] + ", 0))";
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

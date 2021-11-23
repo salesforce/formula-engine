@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLpad2">
+   <testInstance formula="lpad(customText1__c,customNumber1__c,customText2__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>LPAD($!s0s!$.customText1__c, GREATEST(COALESCE($!s0s!$.customNumber1__c, 0), 0), $!s0s!$.customText2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c, 0), $!s0s!$.customText2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?($F.lpad(context.record.customText1__c,$F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber(),$F.nvl(context.record.customText2__c,' '))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null&amp;&amp;context.record.customNumber1__c!=null)?($F.lpad(context.record.customText1__c,context.record.customNumber1__c.toNumber(),$F.nvl(context.record.customText2__c,' '))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null)?($F.lpad(context.record.customText1__c,$F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customText2__c,' '))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null&amp;&amp;context.record.customNumber1__c!=null)?($F.lpad(context.record.customText1__c,context.record.customNumber1__c,$F.nvl(context.record.customText2__c,' '))):null</JsOutput>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 0, ]</inputvalues>
+         <formula>null</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[, 0, x]</inputvalues>
+         <formula>null</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 0, x]</inputvalues>
+         <formula>null</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 1, x]</inputvalues>
+         <formula>s</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>s</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 5, x]</inputvalues>
+         <formula>strin</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>strin</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 6, x]</inputvalues>
+         <formula>string</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>string</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 7, x]</inputvalues>
+         <formula>xstring</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>xstring</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 11, x]</inputvalues>
+         <formula>xxxxxstring</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>xxxxxstring</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 0, abc]</inputvalues>
+         <formula>null</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 1, abc]</inputvalues>
+         <formula>s</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>s</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 5, abc]</inputvalues>
+         <formula>strin</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>strin</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 6, abc]</inputvalues>
+         <formula>string</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>string</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 7, abc]</inputvalues>
+         <formula>astring</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>astring</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'GREATEST' is not a recognized built-in function name. -->
+      <inputvalues>[string, 11, abc]</inputvalues>
+         <formula>abcabstring</formula>
+         <sql>Error: 'GREATEST' is not a recognized built-in function name.</sql>
+         <formulaNullAsNull>abcabstring</formulaNullAsNull>
+         <sqlNullAsNull>Error: 'GREATEST' is not a recognized built-in function name.</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

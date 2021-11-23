@@ -202,30 +202,9 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
                 // operations with date|timestamp types require special handling for Psql - W-7066598
                 if (isSubtractionOfDateTimeValues(lhsDataType, rhsDataType)) {
                     // <date|timestamp> - <date|timestamp>
-                    sql = String.format(getSqlHooks(context).psqlSubtractTwoTimestamps(), lhsValue, rhsValue);
+                    sql = String.format(getSqlHooks(context).sqlSubtractTwoTimestamps(), lhsValue, rhsValue);
                 } else if (isDateTimeAndNumberOperation(lhsDataType, rhsDataType) && !hooks.isOracleStyle()) {
-                	if (hooks.isPostgresStyle()) {
-	                    if (isDateTimeDatatype(lhsDataType)) {
-	                        // <date|timestamp> <+|-> <number>
-	                        sql = String.format("(%s%spg_catalog.make_interval(0,0,0,0,0,0,%s*86400))::timestamp(0)", lhsValue, operator, rhsValue);
-	                    } else {
-	                        // <number> + <date|timestamp>
-	                        sql = String.format("(pg_catalog.make_interval(0,0,0,0,0,0,%s*86400)%s%s)::timestamp(0)", lhsValue, operator, rhsValue);
-	                    }
-                	} else {
-                		// Mysql doesn't handle fractions well, so this does second granularity
-                		assert hooks.isMysqlStyle();
-	                    if (isDateTimeDatatype(lhsDataType)) {
-	                        // <date|timestamp> <+|-> <number>
-	                    	if ("-".equals(operator)) {
-		                        sql = String.format("DATE_SUB(%s, INTERVAL ROUND(%s*86400) SECOND)", lhsValue, rhsValue);
-	                    	} else {
-		                        sql = String.format("DATE_ADD(%s, INTERVAL ROUND(%s*86400) SECOND)", lhsValue, rhsValue);
-	                    	}
-	                    } else {
-	                        sql = String.format("DATE_ADD(%s, INTERVAL ROUND(%s*86400) SECOND)", rhsValue, lhsValue);
-	                    }
-                	}
+                	sql = hooks.sqlAddDaysToDate(lhsValue, lhsDataType, rhsValue, rhsDataType, !"-".equals(operator));
                 } else if ("||".equals(operator)) {
                     sql = "(" + String.format(getSqlHooks(context).sqlConcat(false), args[0], args[1]) + ")";
                 } else {
@@ -288,11 +267,7 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
 
     private String truncateIfRequired(FormulaContext context, Type valueClass, Type otherValueClass, String value) {
         if ((valueClass == BigDecimal.class) && (otherValueClass == Date.class)) {
-        	if (context.getSqlStyle().isMysqlStyle()) {
-        		value = "TRUNCATE(" + value + ",0)";
-        	} else {
-        		value = "TRUNC(" + value + ")";
-        	}
+        	value = getSqlHooks(context).sqlTrunc(value);
         }
 
         return value;

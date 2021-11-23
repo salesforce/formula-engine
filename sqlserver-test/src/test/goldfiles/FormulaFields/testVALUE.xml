@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testVALUE">
+   <testInstance formula="value(customtext1__c)" returntype="Double" precision="18" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))</Sql>
+       <Guard>NOT ISNUMERIC($!s0s!$.customtext1__c)=1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))</Sql>
+       <Guard>NOT ISNUMERIC($!s0s!$.customtext1__c)=1</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?($F.Decimal(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?($F.Decimal(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(Number(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(Number(context.record.customtext1__c)):null</JsOutput>
+      <result>
+      <inputvalues>[1234]</inputvalues>
+         <formula>1234</formula>
+         <sql>1234</sql>
+         <formulaNullAsNull>1234</formulaNullAsNull>
+         <sqlNullAsNull>1234</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1234]</inputvalues>
+         <formula>-1234</formula>
+         <sql>-1234</sql>
+         <formulaNullAsNull>-1234</formulaNullAsNull>
+         <sqlNullAsNull>-1234</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.234]</inputvalues>
+         <formula>1.234</formula>
+         <sql>1.234</sql>
+         <formulaNullAsNull>1.234</formulaNullAsNull>
+         <sqlNullAsNull>1.234</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.234]</inputvalues>
+         <formula>-1.234</formula>
+         <sql>-1.234</sql>
+         <formulaNullAsNull>-1.234</formulaNullAsNull>
+         <sqlNullAsNull>-1.234</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[--1234]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1-234]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.2.34]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>Error: Arithmetic overflow error converting varchar to data type numeric.</sql>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Arithmetic overflow error converting varchar to data type numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[..]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[..1]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1..]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1..1]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>Error: Error converting data type varchar to numeric.</sql>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.]</inputvalues>
+         <formula>Error: com.force.formula.impl.InvalidNumericValueException</formula>
+         <sql>Error: Error converting data type varchar to numeric.</sql>
+         <formulaNullAsNull>Error: com.force.formula.impl.InvalidNumericValueException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.1]</inputvalues>
+         <formula>0.1</formula>
+         <sql>0.1</sql>
+         <formulaNullAsNull>0.1</formulaNullAsNull>
+         <sqlNullAsNull>0.1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[+1.]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[+.1]</inputvalues>
+         <formula>0.1</formula>
+         <sql>0.1</sql>
+         <formulaNullAsNull>0.1</formulaNullAsNull>
+         <sqlNullAsNull>0.1</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
+      <inputvalues>[1.e1]</inputvalues>
+         <formula>10</formula>
+         <sql>Error: Error converting data type varchar to numeric.</sql>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
+      <inputvalues>[1.e+1]</inputvalues>
+         <formula>10</formula>
+         <sql>Error: Error converting data type varchar to numeric.</sql>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
+      <inputvalues>[1.e-1]</inputvalues>
+         <formula>0.1</formula>
+         <sql>Error: Error converting data type varchar to numeric.</sql>
+         <formulaNullAsNull>0.1</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
+      <inputvalues>[.1e1]</inputvalues>
+         <formula>1</formula>
+         <sql>Error: Error converting data type varchar to numeric.</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
+      <inputvalues>[.1e+1]</inputvalues>
+         <formula>1</formula>
+         <sql>Error: Error converting data type varchar to numeric.</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
+      <inputvalues>[.1e-1]</inputvalues>
+         <formula>0.01</formula>
+         <sql>Error: Error converting data type varchar to numeric.</sql>
+         <formulaNullAsNull>0.01</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
+      <inputvalues>[123.4512345e2]</inputvalues>
+         <formula>12345.12345</formula>
+         <sql>Error: Error converting data type varchar to numeric.</sql>
+         <formulaNullAsNull>12345.12345</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

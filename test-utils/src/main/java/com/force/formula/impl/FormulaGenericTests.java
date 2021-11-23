@@ -327,6 +327,16 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			c.setTime(viaFormulaDate);
 			return c;
 		}
+		
+		/**
+		 * @return the error message to mark as an exception, or "null" if you want to ignore the error
+		 * in this case
+		 * @param errorViaSql the error returned from sql
+		 * @param viaFormula the value via formula
+		 */
+		protected String getSqlErrorMessageResult(String errorViaSql, String viaFormula) {
+    		return "SQL had an error that didn't affect Java: " + errorViaSql; 
+		}
 
 		//  Determine if all paths resulted in same value (modulo various expected differences!)
 		//  returning null means success.
@@ -342,7 +352,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			}
             if (hasErrorMessage(viaSql)) {
             	if (shouldCompareSql()) {
-            		return "SQL had an error that didn't affect Java: " + viaSql; 
+            		return getSqlErrorMessageResult(viaSql, viaFormula); 
             	} else {
             		return null;  // It's an error, but just leave it.
             	}

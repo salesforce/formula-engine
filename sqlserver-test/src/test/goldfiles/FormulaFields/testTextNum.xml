@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextNum">
+   <testInstance formula="Text(customnumber1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>(CAST(COALESCE($!s0s!$.customnumber1__c, 0) AS CHAR))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(CAST($!s0s!$.customnumber1__c AS CHAR))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">&quot;&quot;+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(&quot;&quot;+context.record.customnumber1__c):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">&quot;&quot;+$F.nvl(context.record.customnumber1__c,0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(&quot;&quot;+context.record.customnumber1__c):null</JsOutput>
+      <result>
+      <!-- Test Case results don't match: NumberFormatException for one of viaFormula 1234567890, viaJavascript null .  -->
+      <inputvalues>[1234567890.0]</inputvalues>
+         <formula>1234567890</formula>
+         <sql>1234567890.0                  </sql>
+         <formulaNullAsNull>1234567890</formulaNullAsNull>
+         <sqlNullAsNull>1234567890.0                  </sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: NumberFormatException for one of viaFormula 1234567891, viaJavascript null .  -->
+      <inputvalues>[1234567891.0]</inputvalues>
+         <formula>1234567891</formula>
+         <sql>1234567891.0                  </sql>
+         <formulaNullAsNull>1234567891</formulaNullAsNull>
+         <sqlNullAsNull>1234567891.0                  </sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: NumberFormatException for one of viaFormula 1234567890, viaJavascript null .  -->
+      <inputvalues>[1234567890]</inputvalues>
+         <formula>1234567890</formula>
+         <sql>1234567890.0                  </sql>
+         <formulaNullAsNull>1234567890</formulaNullAsNull>
+         <sqlNullAsNull>1234567890.0                  </sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: NumberFormatException for one of viaFormula 1234567891, viaJavascript null .  -->
+      <inputvalues>[1234567891]</inputvalues>
+         <formula>1234567891</formula>
+         <sql>1234567891.0                  </sql>
+         <formulaNullAsNull>1234567891</formulaNullAsNull>
+         <sqlNullAsNull>1234567891.0                  </sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: NumberFormatException for one of viaFormula 0, viaJavascript null .  -->
+      <inputvalues>[, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0.000000000000000000          </sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

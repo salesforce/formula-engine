@@ -3,6 +3,10 @@
  */
 package com.force.formula.impl.sql;
 
+import java.lang.reflect.Type;
+import java.util.Date;
+
+import com.force.formula.FormulaDateTime;
 import com.force.formula.impl.FormulaSqlHooks;
 
 /**
@@ -112,10 +116,20 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      */
 	@Override
-    default String psqlSubtractTwoTimestamps() {
+    default String sqlSubtractTwoTimestamps() {
         return "((EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))::numeric/86400)";
     } 
-    
+	
+	@Override
+    default String sqlAddDaysToDate(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType, boolean isAddition) {
+        if (lhsDataType == Date.class || lhsDataType==FormulaDateTime.class) {
+            // <date|timestamp> <+|-> <number>
+            return String.format("(%s%spg_catalog.make_interval(0,0,0,0,0,0,%s*86400))::timestamp(0)", lhsValue, isAddition ? "+" : "-", rhsValue);
+        } else {
+            // <number> + <date|timestamp>
+            return String.format("(pg_catalog.make_interval(0,0,0,0,0,0,%s*86400)%s%s)::timestamp(0)", lhsValue, isAddition ? "+" : "-", rhsValue);
+        }
+     }
     
     /**
      * Function right can be... complicated, especially in Oracle
@@ -140,8 +154,8 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
      * @return the format to use for adding months.
      */
 	@Override
-    default String sqlAddMonths() {
-		return "(%s+'1 day'::interval+('1 month'::interval*TRUNC(%s)))-'1 day'::interval";
+    default String sqlAddMonths(String dateArg, String numMonths) {
+		return String.format("(%s+'1 day'::interval+('1 month'::interval*TRUNC(%s)))-'1 day'::interval", dateArg, numMonths);
     }
     
     
@@ -223,6 +237,13 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
 	@Override
 	default String sqlConvertDateTimeToDate(String dateTime, String userTimezone, String userTzOffset) {
 		return "DATE_TRUNC('DAY', ("+dateTime+" AT TIME ZONE 'UTC') AT TIME ZONE '"+userTimezone+"')::timestamp";
+	}
+
+	@Override
+	default String sqlExponent(String argument) {
+        // tests showed double precision was only 2.5% faster than numeric (i.e. the rest of
+        // the query processing machinery dominates, so go for max precision
+		return "EXP(" + argument + "::numeric(40,20))";
 	}
     
 }

@@ -37,7 +37,8 @@ public class FunctionFloor extends UnaryMathCommandBehavior {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
-        String sql = "CASE WHEN " + args[0] + ">=0 THEN FLOOR(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+")) ELSE CEIL(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+")) END";
+       	String ceil = context.getSqlStyle().isTransactSqlStyle() ? "CEILING" : "CEIL";
+       	String sql = "CASE WHEN " + args[0] + ">=0 THEN FLOOR(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+")) ELSE "+ceil+"(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+")) END";
         return new SQLPair(sql, guards[0]);
     }
     

@@ -162,7 +162,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
     
                 this.formula = new FormulaImpl(commandList.toArray(new FormulaCommand[commandList.size()]), sqlPair.sql,
                     sqlPair.guard, javascript, properties, context.getFormulaReturnType(), ast.getDataType(),
-                    propertyBits, referencesSubFormula, registry);
+                    propertyBits, referencesSubFormula, context.getSqlStyle(), registry);
     
                 logSuccess(startTime, isCreateOrEditFormula, source, astRoot, javascript);
             }

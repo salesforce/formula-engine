@@ -35,6 +35,7 @@ public class FunctionLpad extends FormulaCommandInfoImpl {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         String sql;
+        // SQLServer doesn't support GREATEST until version 2022
         if (node.getNumberOfChildren() == 3) {
         	sql = "LPAD(" + args[0] + ", GREATEST(" + getSqlHooks(context).sqlRoundScaleArg(args[1]) + ", 0), " + args[2]+ ")";
         } else if (context.getSqlStyle().isMysqlStyle()) { // mysql requires 3 arguments
