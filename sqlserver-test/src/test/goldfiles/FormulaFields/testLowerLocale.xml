@@ -16,9 +16,9 @@
       <result>
       <inputvalues>[﻿, ]</inputvalues>
          <formula>﻿</formula>
-         <sql>?</sql>
+         <sql>﻿</sql>
          <formulaNullAsNull>﻿</formulaNullAsNull>
-         <sqlNullAsNull>?</sqlNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[CASES, ]</inputvalues>
@@ -72,9 +72,9 @@
       <result>
       <inputvalues>[ıdempotent, ]</inputvalues>
          <formula>ıdempotent</formula>
-         <sql>idempotent</sql>
+         <sql>ıdempotent</sql>
          <formulaNullAsNull>ıdempotent</formulaNullAsNull>
-         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <sqlNullAsNull>ıdempotent</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[IDEMPOTENT, ]</inputvalues>
@@ -93,9 +93,9 @@
       <result>
       <inputvalues>[﻿, en_US]</inputvalues>
          <formula>﻿</formula>
-         <sql>?</sql>
+         <sql>﻿</sql>
          <formulaNullAsNull>﻿</formulaNullAsNull>
-         <sqlNullAsNull>?</sqlNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[CASES, en_US]</inputvalues>
@@ -149,9 +149,9 @@
       <result>
       <inputvalues>[ıdempotent, en_US]</inputvalues>
          <formula>ıdempotent</formula>
-         <sql>idempotent</sql>
+         <sql>ıdempotent</sql>
          <formulaNullAsNull>ıdempotent</formulaNullAsNull>
-         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <sqlNullAsNull>ıdempotent</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[IDEMPOTENT, en_US]</inputvalues>
@@ -170,9 +170,9 @@
       <result>
       <inputvalues>[﻿, tr_TR]</inputvalues>
          <formula>﻿</formula>
-         <sql>?</sql>
+         <sql>﻿</sql>
          <formulaNullAsNull>﻿</formulaNullAsNull>
-         <sqlNullAsNull>?</sqlNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[CASES, tr_TR]</inputvalues>
@@ -226,9 +226,9 @@
       <result>
       <inputvalues>[ıdempotent, tr_TR]</inputvalues>
          <formula>ıdempotent</formula>
-         <sql>idempotent</sql>
+         <sql>ıdempotent</sql>
          <formulaNullAsNull>ıdempotent</formulaNullAsNull>
-         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <sqlNullAsNull>ıdempotent</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[IDEMPOTENT, tr_TR]</inputvalues>
@@ -296,9 +296,9 @@
       <result>
       <inputvalues>[ıdempotent, tr]</inputvalues>
          <formula>ıdempotent</formula>
-         <sql>idempotent</sql>
+         <sql>ıdempotent</sql>
          <formulaNullAsNull>ıdempotent</formulaNullAsNull>
-         <sqlNullAsNull>idempotent</sqlNullAsNull>
+         <sqlNullAsNull>ıdempotent</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[IDEMPOTENT, tr]</inputvalues>

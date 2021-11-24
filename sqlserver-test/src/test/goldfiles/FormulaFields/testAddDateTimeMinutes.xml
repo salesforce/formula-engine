@@ -119,7 +119,6 @@
          <sqlNullAsNull>2009-02-07 14:01:00.0</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Arithmetic overflow error converting expression to data type int. -->
       <inputvalues>[2009:02:07:10:00:00, 123456789]</inputvalues>
          <formula>Thu Nov 02 07:09:00 GMT 2243</formula>
          <sql>Error: Arithmetic overflow error converting expression to data type int.</sql>

@@ -4,8 +4,13 @@
 package com.force.formula.sql;
 
 import java.io.IOException;
+import java.sql.*;
 
 import org.testcontainers.containers.MSSQLServerContainer;
+
+import com.force.formula.*;
+import com.force.formula.util.FormulaTextUtil;
+import com.google.common.base.CharMatcher;
 
 /**
  * MSSqlServer tester that uses a container. 
@@ -47,11 +52,31 @@ public class MSSQLServerContainerTester extends DbContainerTester<MSSQLServerCon
 	protected String stringToDate(String arg) {
 		return "CONVERT(DATE," + arg + ",105)";
 	}
+	
+	@Override
+	protected String getSqlLiteralValue(DisplayField df, Object value) {
+		if (df.getFormulaFieldInfo().getDataType() == MockFormulaDataType.TEXT) {
+			String strValue = String.valueOf(value);
+			if (CharMatcher.ascii().matchesAllOf(strValue)) {
+				return super.getSqlLiteralValue(df, strValue);
+			}
+			// With any non-ascii character, use NVARCHAR literals when doing binds
+			return "N'" + FormulaTextUtil.replaceSimple(String.valueOf(value), "'", "''") + "'";
+		}
+		return super.getSqlLiteralValue(df, value);
+	}
 
 	@Override
 	protected boolean useBinds() {
-		// Using bind with Mysql seems to be off.
+		// MSSQL completely misunderstands decimal scale when passed in and that makes the date math wrong 
 		return false;
 	}
 	
+	@Override
+	protected String formatDbTimeResult(ResultSet rset) throws SQLException {
+		Time time = rset.getTime(1);
+		if (time == null)
+			return null;
+		return FormulaEngine.getHooks().constructTime(time.getTime()).toString();
+	}
 }

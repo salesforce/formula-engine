@@ -28,7 +28,8 @@ public class FunctionMid extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = context.getSqlStyle().getSubstringFunction() + "(" + args[0] + ", GREATEST(" + args[1] + ", 1), GREATEST(" + args[2] + ", 0))";
+    	FormulaSqlHooks hooks = getSqlHooks(context);
+        String sql = hooks.getSubstringFunction() + "(" + args[0] + ", " + hooks.sqlGreatest(args[1], "1") + ", " + hooks.sqlEnsurePositive(args[2]) + ")";
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

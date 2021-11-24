@@ -2,11 +2,11 @@
 <testCase name="testLpad">
    <testInstance formula="lpad(customText1__c,customNumber1__c)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>LPAD($!s0s!$.customText1__c, GREATEST(NVL($!s0s!$.customNumber1__c, 0), 0))</Sql>
+       <Sql>LPAD($!s0s!$.customText1__c, GREATEST(NVL($!s0s!$.customNumber1__c, 0),0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>LPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c, 0))</Sql>
+       <Sql>LPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c,0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?($F.lpad(context.record.customText1__c,$F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber(),' ')):null</JsOutput>

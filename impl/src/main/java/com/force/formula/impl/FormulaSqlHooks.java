@@ -4,10 +4,12 @@
 package com.force.formula.impl;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.*;
 
 import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaDateUtil;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 
@@ -144,14 +146,30 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     /**
      * Format the sql for adding a given number of days (fractionally) to a date
      * @param lhsValue the left hand side (must be date or datetime if subtraction)
+     * @param lhsDataType the type of the left hand side
      * @param rhsValue the right hand side (will be number if subtraction)
-     * @param isAddition whet
+     * @param rhsDataType the type of the right hand side
+     * @param isAddition whether this is addition or subtraction
      * @return a SQL expression for adding the given number of days to the date
      */
     default String sqlAddDaysToDate(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
     	return "(" + lhsValue + (isAddition ? "+" : "-") + rhsValue + ")";
-    }
+    } 
     
+    /**
+     * Format the sql for adding a given number of milliseconds (fractionally) to a time
+     * @param lhsValue the left hand side (must be date or datetime if subtraction)
+     * @param lhsDataType the type of the left hand side
+     * @param rhsValue the right hand side (will be number if subtraction)
+     * @param rhsDataType the type of the right hand side
+     * @param isAddition whether this is addition or subtraction
+     * @return a SQL expression for adding the given number of days to the date
+     */
+    default String sqlAddMillisecondsToTime(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
+        rhsValue = rhsDataType == BigDecimal.class ? "ROUND(MOD(" +String.format(sqlToNumber(), rhsValue) + ", " + FormulaDateUtil.MILLISECONDSPERDAY + "))" : rhsValue;
+        // to prevent negative values when subtracting, always add FormulaDateUtil.MILLISECONDSPERDAY, and take the mod
+        return "MOD(" + lhsValue + (isAddition ? "+" : "-") + rhsValue + "+" + FormulaDateUtil.MILLISECONDSPERDAY + "," + FormulaDateUtil.MILLISECONDSPERDAY + ")";
+    }
     
     
     /**
@@ -161,7 +179,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the SQL for generating RIGHT()
      */
     default String sqlRight(String stringArg, String countArg) {
-        return "RIGHT(" + stringArg + ", GREATEST(" + countArg+ ", 0))";
+        return "RIGHT(" + stringArg + ", " + sqlEnsurePositive(countArg) + ")";
     }
     
     /**
@@ -298,6 +316,17 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         return mask;
     }
     
+	/**
+	 * Append the currency format to use for FORMAT_CURRENCY where the maskStr was generated above.
+	 * @param sql
+	 * @param isoCodeArg
+	 * @param amountArg
+	 * @param maskStr
+	 */
+	default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
+        sql.append("CONCAT(").append(isoCodeArg).append(",' ',TO_CHAR(").append(amountArg).append(',').append(maskStr).append("))");
+	}
+	
     /**
      * @return the SQL string to use to format currency.
      * @param isoCodeArg the argument with the 3 character (ISO 4217) currency code 
@@ -344,7 +373,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
             // Handle null amount
             sql.append("CASE WHEN ").append(amountArg).append(" IS NULL THEN NULL ELSE ");
         }
-        sql.append("CONCAT(").append(isoCodeArg).append(",' ',TO_CHAR(").append(amountArg).append(',').append(maskStr).append("))");
+        appendCurrencyFormat(sql, isoCodeArg, amountArg, maskStr);
         if (canAmountBeNull) {
             // Handle null amount
             sql.append("END");
@@ -399,11 +428,20 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
-     * @param argument the numeric value to ensure that it is positive
+     * @param arg the numeric value to ensure that it is positive
      * @return a sql expression that will return the argument, or 0 if the argument is negative
      */
-    default String sqlEnsurePositive(String argument) {
-    	return "GREATEST(" + argument + ",0)";
+    default String sqlEnsurePositive(String arg) {
+    	return sqlGreatest(arg, "0");
+    }
+    
+    /**
+     * @param arg1 the numeric value to compare
+     * @param arg2 the other numeric value to compare
+     * @return a sql expression that will return the max of the two arguments
+     */
+    default String sqlGreatest(String arg1, String arg2) {
+    	return "GREATEST(" + arg1 + "," + arg2 + ")";
     }
     
     
@@ -417,5 +455,41 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         String guard = SQLPair.generateGuard(guards, "TRUNC(" + args[1] + ")<>" + args[1] +
     	            " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");    	
         return new SQLPair(sql, guard);
+    }
+    
+    /**
+     * @param str the string to pad
+     * @param amount the number of characters to ensure (which will be rounded with sqlScaleArg and sqlGreatest)
+     * @param pad optional argument (may be null) with the string to pad with
+     * @return a sql expression that will return LPAD 
+     */
+    default String sqlLpad(String str, String amount, String pad) {
+        if (pad != null) {
+        	return "LPAD(" + str + ", " + amount + ", " + pad + ")";
+        } else {
+        	return "LPAD(" + str + ", " + amount + ")";
+        }
+    }
+    
+    /**
+     * @param str the string to pad
+     * @param amount the number of characters to ensure (which will be rounded with sqlScaleArg and sqlGreatest)
+     * @param pad optional argument (may be null) with the string to pad with
+     * @return a sql expression that will return RPAD 
+     */
+    default String sqlRpad(String str, String amount, String pad) {
+        if (pad != null) {
+        	return "RPAD(" + str + ", " + amount + ", " + pad + ")";
+        } else {
+        	return "RPAD(" + str + ", " + amount + ")";
+        }
+    }
+    
+    /**
+     * @param str the string expression that may be case sensitive
+     * @return the value for the string converted to case sensitivity for string comparison.
+	 */
+    default Object sqlMakeCaseSensitiveForComparison(Object str) {
+    	return str;
     }
 }

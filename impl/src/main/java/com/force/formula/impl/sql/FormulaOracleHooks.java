@@ -31,7 +31,7 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
 	@Override
     default String sqlDatetimeValueGuard() {
     	return " NOT REGEXP_LIKE (%s, '^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\\d:[0-5]?\\d$')"
-    			+ "/* Adding some comments to keep the same length for this guard as it was before improving to more robust one   */";
+    			+ "/* Adding some comments to keep the same length for this guard as it was before improving to more robust guard*/";
     }
     
     /**
@@ -239,7 +239,42 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
         return mask;
     }
     
-    /**
+    @Override
+	default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
+
+        // Get the decimal point and thousands separator characters
+        NumberFormat nf = FormulaI18nUtils.getLocalizer().getNumberFormat();
+        
+        char groupingSeparator = ','; // Default to comma.
+        char decimalSeparator = '.'; // Default to dot.
+        
+        if (nf instanceof DecimalFormat) {
+            groupingSeparator = ((DecimalFormat)nf).getDecimalFormatSymbols().getGroupingSeparator();
+            decimalSeparator = ((DecimalFormat)nf).getDecimalFormatSymbols().getDecimalSeparator();
+        } 
+        // Add this if using ICU number formatting.
+        /*
+        else if (nf instanceof NumberFormatICU) {
+            com.ibm.icu.text.NumberFormat nf_icu = ((NumberFormatICU)nf).unwrap();
+            if (nf_icu instanceof com.ibm.icu.text.DecimalFormat) {
+                groupingSeparator = ((com.ibm.icu.text.DecimalFormat)nf_icu).getDecimalFormatSymbols().getGroupingSeparator();
+                decimalSeparator = ((com.ibm.icu.text.DecimalFormat)nf_icu).getDecimalFormatSymbols().getDecimalSeparator();
+            }
+        }
+        */
+        StringBuilder nlsParam = new StringBuilder(40).append("'NLS_NUMERIC_CHARACTERS=''").append(decimalSeparator);  // there are no weird DecimalSeparator characters
+        if (groupingSeparator == '\'')
+            nlsParam.append("''");  // the single quote character needs to be doubled up
+        else if (groupingSeparator == '\u00A0')
+            nlsParam.append(' ');  // oracle doesn't like the unicode NBSP character
+        else
+            nlsParam.append(groupingSeparator);
+        nlsParam.append("'''");
+        sql.append(isoCodeArg).append("||' '||TO_CHAR(").append(amountArg).append(',').append(maskStr).append(',').append(nlsParam).append(')');
+
+    }
+
+	/**
      * @return the SQL string to use to format currency.
      * @param isoCodeArg the argument with the 3 character (ISO 4217) currency code 
      * @param amountArg the argument with the numeric value of the currency
@@ -278,36 +313,6 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
             }
             maskStr.append("ELSE").append(getCurrencyMask(2)).append("END");
         }
-    	
-        // Get the decimal point and thousands separator characters
-        NumberFormat nf = FormulaI18nUtils.getLocalizer().getNumberFormat();
-        
-        char groupingSeparator = ','; // Default to comma.
-        char decimalSeparator = '.'; // Default to dot.
-        
-        if (nf instanceof DecimalFormat) {
-            groupingSeparator = ((DecimalFormat)nf).getDecimalFormatSymbols().getGroupingSeparator();
-            decimalSeparator = ((DecimalFormat)nf).getDecimalFormatSymbols().getDecimalSeparator();
-        } 
-        // Add this if using ICU number formatting.
-        /*
-        else if (nf instanceof NumberFormatICU) {
-            com.ibm.icu.text.NumberFormat nf_icu = ((NumberFormatICU)nf).unwrap();
-            if (nf_icu instanceof com.ibm.icu.text.DecimalFormat) {
-                groupingSeparator = ((com.ibm.icu.text.DecimalFormat)nf_icu).getDecimalFormatSymbols().getGroupingSeparator();
-                decimalSeparator = ((com.ibm.icu.text.DecimalFormat)nf_icu).getDecimalFormatSymbols().getDecimalSeparator();
-            }
-        }
-        */
-        
-        StringBuilder nlsParam = new StringBuilder(40).append("'NLS_NUMERIC_CHARACTERS=''").append(decimalSeparator);  // there are no weird DecimalSeparator characters
-        if (groupingSeparator == '\'')
-            nlsParam.append("''");  // the single quote character needs to be doubled up
-        else if (groupingSeparator == '\u00A0')
-            nlsParam.append(' ');  // oracle doesn't like the unicode NBSP character
-        else
-            nlsParam.append(groupingSeparator);
-        nlsParam.append("'''");
 
         // Put everything together
         StringBuilder sql = new StringBuilder(800);
@@ -316,8 +321,7 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
             sql.append("NVL2(").append(amountArg).append(',');
         }
 
-        sql.append(isoCodeArg).append("||' '||TO_CHAR(").append(amountArg).append(',').append(maskStr).append(',').append(nlsParam).append(')');
-
+        appendCurrencyFormat(sql, isoCodeArg, amountArg, maskStr);
 
         if (canAmountBeNull) {
             // Handle null amount

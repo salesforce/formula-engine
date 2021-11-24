@@ -30,14 +30,15 @@ public class FunctionFind extends FormulaCommandInfoImpl {
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         StringBuilder sql = new StringBuilder();
 
+        FormulaSqlHooks hooks = getSqlHooks(context); 
         if (args.length == 3) {
         	// With postgres, you need to do a bunch of stuff to get around the lack of a built-in for the offset.
-            String startPosition = getSqlHooks(context).sqlNvl() + "(" + args[2] + ", 1)";
-	        String instr = getSqlHooks(context).sqlInstr3(args[1], args[0], "GREATEST("+startPosition+",1)");
-	        sql.append(String.format(getSqlHooks(context).sqlNvl() + "(" + instr + ", 0)", args[1], args[0], startPosition));
+            String startPosition = hooks.sqlNvl() + "(" + args[2] + ", 1)";
+	        String instr = hooks.sqlInstr3(args[1], args[0], hooks.sqlGreatest(startPosition, "1"));
+	        sql.append(String.format(hooks.sqlNvl() + "(" + instr + ", 0)", args[1], args[0], startPosition));
         } else {
         	// Use regular instr if there isn't a position offset
-	        sql.append(String.format(getSqlHooks(context).sqlNvl() + "(" + getSqlHooks(context).sqlInstr2(args[1], args[0]) + ", 0)", args[1], args[0]));
+	        sql.append(String.format(hooks.sqlNvl() + "(" + hooks.sqlInstr2(args[1], args[0]) + ", 0)", args[1], args[0]));
         }
 
         String guard = SQLPair.generateGuard(guards, null);

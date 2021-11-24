@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCase name="testFunctionRight">
-   <testInstance formula="RIGHT(customtext__c, customnumber__c)" returntype="Text">
+<testCase name="testFunctionLeft">
+   <testInstance formula="LEFT(customtext__c, customnumber__c)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>RIGHT($!s0s!$.customtext__c, ((COALESCE($!s0s!$.customnumber__c, 0) + ABS(COALESCE($!s0s!$.customnumber__c, 0)))/2))</Sql>
+       <Sql>SUBSTR($!s0s!$.customtext__c, 1, GREATEST(COALESCE($!s0s!$.customnumber__c, 0),0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>RIGHT($!s0s!$.customtext__c, (($!s0s!$.customnumber__c + ABS($!s0s!$.customnumber__c))/2))</Sql>
+       <Sql>SUBSTR($!s0s!$.customtext__c, 1, GREATEST($!s0s!$.customnumber__c,0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext__c!=null)?((($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))&lt;=0)?'':context.record.customtext__c).slice(-($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext__c!=null&amp;&amp;context.record.customnumber__c!=null)?(((context.record.customnumber__c&lt;=0)?'':context.record.customtext__c).slice(-(context.record.customnumber__c))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext__c!=null)?((($F.nvl(context.record.customnumber__c,0)&lt;=0)?'':context.record.customtext__c).slice(-($F.nvl(context.record.customnumber__c,0)))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext__c!=null&amp;&amp;context.record.customnumber__c!=null)?(((context.record.customnumber__c&lt;=0)?'':context.record.customtext__c).slice(-(context.record.customnumber__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext__c!=null)?(context.record.customtext__c.substring(0,$F.nvl(context.record.customnumber__c,new $F.Decimal('0')))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext__c!=null&amp;&amp;context.record.customnumber__c!=null)?(context.record.customtext__c.substring(0,context.record.customnumber__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext__c!=null)?(context.record.customtext__c.substring(0,$F.nvl(context.record.customnumber__c,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext__c!=null&amp;&amp;context.record.customnumber__c!=null)?(context.record.customtext__c.substring(0,context.record.customnumber__c)):null</JsOutput>
       <result>
       <inputvalues>[123456, 1]</inputvalues>
-         <formula>6</formula>
-         <sql>6</sql>
-         <formulaNullAsNull>6</formulaNullAsNull>
-         <sqlNullAsNull>6</sqlNullAsNull>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456, 2]</inputvalues>
-         <formula>56</formula>
-         <sql>56</sql>
-         <formulaNullAsNull>56</formulaNullAsNull>
-         <sqlNullAsNull>56</sqlNullAsNull>
+         <formula>12</formula>
+         <sql>12</sql>
+         <formulaNullAsNull>12</formulaNullAsNull>
+         <sqlNullAsNull>12</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456, 0]</inputvalues>
@@ -85,17 +85,17 @@
       </result>
       <result>
       <inputvalues>[会计年度开始月份, 1]</inputvalues>
-         <formula>份</formula>
-         <sql>份</sql>
-         <formulaNullAsNull>份</formulaNullAsNull>
-         <sqlNullAsNull>份</sqlNullAsNull>
+         <formula>会</formula>
+         <sql>会</sql>
+         <formulaNullAsNull>会</formulaNullAsNull>
+         <sqlNullAsNull>会</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[会计年度开始月份, 2]</inputvalues>
-         <formula>月份</formula>
-         <sql>月份</sql>
-         <formulaNullAsNull>月份</formulaNullAsNull>
-         <sqlNullAsNull>月份</sqlNullAsNull>
+         <formula>会计</formula>
+         <sql>会计</sql>
+         <formulaNullAsNull>会计</formulaNullAsNull>
+         <sqlNullAsNull>会计</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[会计年度开始月份, 0]</inputvalues>

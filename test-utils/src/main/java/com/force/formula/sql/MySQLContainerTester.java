@@ -4,10 +4,14 @@
 package com.force.formula.sql;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.testcontainers.containers.MySQLContainer;
 
 import com.force.formula.DisplayField;
+import com.force.formula.FormulaEngine;
 
 /**
  * Mysql tester that uses a container. 
@@ -77,5 +81,19 @@ public class MySQLContainerTester extends DbContainerTester<MySQLContainer<?>> {
 	@Override
 	protected String stringToDate(String arg) {
 		return "STR_TO_DATE(" + arg + ",'%D-%m-%Y')";
+	}
+	
+	@Override
+	protected String getTimeFormat(String columnSql) {
+		return "UNIX_TIMESTAMP("+columnSql+")%86400";
+	}
+	
+	@Override
+	protected String formatDbTimeResult(ResultSet rset) throws SQLException {
+		BigDecimal millis = rset.getBigDecimal(1);
+		if (millis == null)
+			return null;
+		millis = millis.movePointRight(3);  // It's micro in mysql.
+		return FormulaEngine.getHooks().constructTime(millis).toString();
 	}
 }

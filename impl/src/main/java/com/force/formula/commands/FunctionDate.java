@@ -181,6 +181,9 @@ public class FunctionDate extends FormulaCommandInfoImpl {
                         + ",'-',"
                 + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue)
                         + ",'-01'))";
+    	} else if (hooks.isTransactSqlStyle()) {
+    		toDateSQL = "DATEFROMPARTS(" + (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue) 
+    				+ "," + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue) + ",1)";
     	} else {
     		toDateSQL =   "TO_DATE("
     		+ (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue)

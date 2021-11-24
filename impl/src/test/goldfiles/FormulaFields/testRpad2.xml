@@ -2,11 +2,11 @@
 <testCase name="testRpad2">
    <testInstance formula="rpad(customText1__c,customNumber1__c,customText2__c)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>RPAD($!s0s!$.customText1__c, GREATEST(COALESCE($!s0s!$.customNumber1__c, 0)::integer, 0), $!s0s!$.customText2__c)</Sql>
+       <Sql>RPAD($!s0s!$.customText1__c, GREATEST(COALESCE($!s0s!$.customNumber1__c, 0)::integer,0), $!s0s!$.customText2__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>RPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c::integer, 0), $!s0s!$.customText2__c)</Sql>
+       <Sql>RPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c::integer,0), $!s0s!$.customText2__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null&amp;&amp;context.record.customText2__c!=null)?((context.record.customText1__c+Array(256).join(context.record.customText2__c)).substring(0,$F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber())):null</JsOutput>

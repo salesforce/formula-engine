@@ -140,7 +140,6 @@
          <sqlNullAsNull>0.1</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
       <inputvalues>[1.e1]</inputvalues>
          <formula>10</formula>
          <sql>Error: Error converting data type varchar to numeric.</sql>
@@ -148,7 +147,6 @@
          <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
       <inputvalues>[1.e+1]</inputvalues>
          <formula>10</formula>
          <sql>Error: Error converting data type varchar to numeric.</sql>
@@ -156,7 +154,6 @@
          <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
       <inputvalues>[1.e-1]</inputvalues>
          <formula>0.1</formula>
          <sql>Error: Error converting data type varchar to numeric.</sql>
@@ -164,7 +161,6 @@
          <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
       <inputvalues>[.1e1]</inputvalues>
          <formula>1</formula>
          <sql>Error: Error converting data type varchar to numeric.</sql>
@@ -172,7 +168,6 @@
          <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
       <inputvalues>[.1e+1]</inputvalues>
          <formula>1</formula>
          <sql>Error: Error converting data type varchar to numeric.</sql>
@@ -180,7 +175,6 @@
          <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
       <inputvalues>[.1e-1]</inputvalues>
          <formula>0.01</formula>
          <sql>Error: Error converting data type varchar to numeric.</sql>
@@ -188,7 +182,6 @@
          <sqlNullAsNull>Error: Error converting data type varchar to numeric.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Error converting data type varchar to numeric. -->
       <inputvalues>[123.4512345e2]</inputvalues>
          <formula>12345.12345</formula>
          <sql>Error: Error converting data type varchar to numeric.</sql>

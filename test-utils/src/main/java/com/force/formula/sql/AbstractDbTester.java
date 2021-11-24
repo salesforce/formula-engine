@@ -157,16 +157,20 @@ public abstract class AbstractDbTester implements DbTester {
 			}
 			break;
 		case TIMEONLY:
-			if (context.getSqlStyle().isMysqlStyle()) {
-				return "UNIX_TIMESTAMP("+columnSql+")%86400"; // The only way to get a real time value out.  
-			} else {
-				return columnSql;
-			}
+			return getTimeFormat(columnSql);
 		default:
 		}		
 		return columnSql;
 	}
 
+	/**
+	 * @param columnSql the expression that returns a time value 
+	 * @return the value of the time to return
+	 */
+	protected String getTimeFormat(String columnSql) {
+		return columnSql;
+	}
+	
 	/**
 	 * Get the bind value to use.  Overridable if types need to be coerced
 	 * @param df the field being bound
@@ -342,13 +346,7 @@ public abstract class AbstractDbTester implements DbTester {
 				return null;
 			return number.stripTrailingZeros().toPlainString(); // Strip trailing zeros because that's driver specific.
 		case TIMEONLY:
-			BigDecimal millis = rset.getBigDecimal(1);
-			if (millis == null)
-				return null;
-			if (formulaContext.getSqlStyle().isMysqlStyle()) {
-				millis = millis.movePointRight(3);  // It's micro in mysql.
-			}
-			return FormulaEngine.getHooks().constructTime(millis).toString();
+			return formatDbTimeResult(rset);
 		case BOOLEAN:
 			String result = rset.getString(1);
 			return "1".equals(result) ? "true" : "false";
@@ -359,6 +357,19 @@ public abstract class AbstractDbTester implements DbTester {
 			return null;
 		}
 		return result;
+	}
+	
+	/**
+	 * 
+	 * @param rset the value to retrieve from column 1
+	 * @return the value of the time formatted
+	 * @throws SQLException
+	 */
+	protected String formatDbTimeResult(ResultSet rset) throws SQLException {
+		BigDecimal millis = rset.getBigDecimal(1);
+		if (millis == null)
+			return null;
+		return FormulaEngine.getHooks().constructTime(millis).toString();
 	}
 	
 	/**

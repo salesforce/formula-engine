@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFunctionLeft">
+   <testInstance formula="LEFT(customtext__c, customnumber__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>SUBSTR($!s0s!$.customtext__c, 1, GREATEST(COALESCE($!s0s!$.customnumber__c, 0),0)::integer)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>SUBSTR($!s0s!$.customtext__c, 1, GREATEST($!s0s!$.customnumber__c,0)::integer)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext__c!=null)?(context.record.customtext__c.substring(0,$F.nvl(context.record.customnumber__c,new $F.Decimal('0')))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext__c!=null&amp;&amp;context.record.customnumber__c!=null)?(context.record.customtext__c.substring(0,context.record.customnumber__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext__c!=null)?(context.record.customtext__c.substring(0,$F.nvl(context.record.customnumber__c,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext__c!=null&amp;&amp;context.record.customnumber__c!=null)?(context.record.customtext__c.substring(0,context.record.customnumber__c)):null</JsOutput>
+      <result>
+      <inputvalues>[123456, 1]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, 2]</inputvalues>
+         <formula>12</formula>
+         <sql>12</sql>
+         <javascript>12</javascript>
+         <javascriptLp>12</javascriptLp>
+         <formulaNullAsNull>12</formulaNullAsNull>
+         <sqlNullAsNull>12</sqlNullAsNull>
+         <javascriptNullAsNull>12</javascriptNullAsNull>
+         <javascriptLpNullAsNull>12</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, 0]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, 6]</inputvalues>
+         <formula>123456</formula>
+         <sql>123456</sql>
+         <javascript>123456</javascript>
+         <javascriptLp>123456</javascriptLp>
+         <formulaNullAsNull>123456</formulaNullAsNull>
+         <sqlNullAsNull>123456</sqlNullAsNull>
+         <javascriptNullAsNull>123456</javascriptNullAsNull>
+         <javascriptLpNullAsNull>123456</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, 7]</inputvalues>
+         <formula>123456</formula>
+         <sql>123456</sql>
+         <javascript>123456</javascript>
+         <javascriptLp>123456</javascriptLp>
+         <formulaNullAsNull>123456</formulaNullAsNull>
+         <sqlNullAsNull>123456</sqlNullAsNull>
+         <javascriptNullAsNull>123456</javascriptNullAsNull>
+         <javascriptLpNullAsNull>123456</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, -1]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, -10]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 1]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, 1]</inputvalues>
+         <formula>会</formula>
+         <sql>会</sql>
+         <javascript>会</javascript>
+         <javascriptLp>会</javascriptLp>
+         <formulaNullAsNull>会</formulaNullAsNull>
+         <sqlNullAsNull>会</sqlNullAsNull>
+         <javascriptNullAsNull>会</javascriptNullAsNull>
+         <javascriptLpNullAsNull>会</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, 2]</inputvalues>
+         <formula>会计</formula>
+         <sql>会计</sql>
+         <javascript>会计</javascript>
+         <javascriptLp>会计</javascriptLp>
+         <formulaNullAsNull>会计</formulaNullAsNull>
+         <sqlNullAsNull>会计</sqlNullAsNull>
+         <javascriptNullAsNull>会计</javascriptNullAsNull>
+         <javascriptLpNullAsNull>会计</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, 0]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, 8]</inputvalues>
+         <formula>会计年度开始月份</formula>
+         <sql>会计年度开始月份</sql>
+         <javascript>会计年度开始月份</javascript>
+         <javascriptLp>会计年度开始月份</javascriptLp>
+         <formulaNullAsNull>会计年度开始月份</formulaNullAsNull>
+         <sqlNullAsNull>会计年度开始月份</sqlNullAsNull>
+         <javascriptNullAsNull>会计年度开始月份</javascriptNullAsNull>
+         <javascriptLpNullAsNull>会计年度开始月份</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, 10]</inputvalues>
+         <formula>会计年度开始月份</formula>
+         <sql>会计年度开始月份</sql>
+         <javascript>会计年度开始月份</javascript>
+         <javascriptLp>会计年度开始月份</javascriptLp>
+         <formulaNullAsNull>会计年度开始月份</formulaNullAsNull>
+         <sqlNullAsNull>会计年度开始月份</sqlNullAsNull>
+         <javascriptNullAsNull>会计年度开始月份</javascriptNullAsNull>
+         <javascriptLpNullAsNull>会计年度开始月份</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, -1]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, -10]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

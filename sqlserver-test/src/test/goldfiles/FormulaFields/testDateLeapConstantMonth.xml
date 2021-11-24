@@ -3,11 +3,11 @@
    <testInstance formula="DATE(year__c,2,day__c)" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
        <Sql>DATEFROMPARTS(CAST(FLOOR(COALESCE($!s0s!$.year__c, 0)) AS VARCHAR),2,CAST(FLOOR(COALESCE($!s0s!$.day__c, 0)) AS VARCHAR))</Sql>
-       <Guard>COALESCE($!s0s!$.year__c, 0) is null OR COALESCE($!s0s!$.year__c, 0)&lt; 1 OR COALESCE($!s0s!$.year__c, 0)&gt; 9999 OR COALESCE($!s0s!$.day__c, 0) is null OR COALESCE($!s0s!$.day__c, 0)&lt; 1 OR COALESCE($!s0s!$.day__c, 0) &gt;= 32 OR  COALESCE($!s0s!$.day__c, 0) &gt;= DAY(EOMONTH(TO_DATE(FLOOR(COALESCE($!s0s!$.year__c, 0)) || '-' || 2,'YYYY-MM')))+1 </Guard>
+       <Guard>COALESCE($!s0s!$.year__c, 0) is null OR COALESCE($!s0s!$.year__c, 0)&lt; 1 OR COALESCE($!s0s!$.year__c, 0)&gt; 9999 OR COALESCE($!s0s!$.day__c, 0) is null OR COALESCE($!s0s!$.day__c, 0)&lt; 1 OR COALESCE($!s0s!$.day__c, 0) &gt;= 32 OR  COALESCE($!s0s!$.day__c, 0) &gt;= DAY(EOMONTH(DATEFROMPARTS(FLOOR(COALESCE($!s0s!$.year__c, 0)),2,1)))+1 </Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
        <Sql>CASE WHEN $!s0s!$.year__c IS NULL THEN NULL WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE DATEFROMPARTS(CAST(FLOOR($!s0s!$.year__c) AS VARCHAR),2,CAST(FLOOR($!s0s!$.day__c) AS VARCHAR)) END</Sql>
-       <Guard>NOT ($!s0s!$.year__c IS NULL OR $!s0s!$.day__c IS NULL ) AND ($!s0s!$.year__c is null OR $!s0s!$.year__c&lt; 1 OR $!s0s!$.year__c&gt; 9999 OR $!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR  $!s0s!$.day__c &gt;= DAY(EOMONTH(TO_DATE(FLOOR($!s0s!$.year__c) || '-' || 2,'YYYY-MM')))+1 )</Guard>
+       <Guard>NOT ($!s0s!$.year__c IS NULL OR $!s0s!$.day__c IS NULL ) AND ($!s0s!$.year__c is null OR $!s0s!$.year__c&lt; 1 OR $!s0s!$.year__c&gt; 9999 OR $!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR  $!s0s!$.day__c &gt;= DAY(EOMONTH(DATEFROMPARTS(FLOOR($!s0s!$.year__c),2,1)))+1 )</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,new $F.Decimal('0')).toNumber(),new $F.Decimal('2').toNumber()-1,$F.nvl(context.record.day__c,new $F.Decimal('0')).toNumber()))</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.year__c!=null&amp;&amp;context.record.day__c!=null)?(new Date(Date.UTC(context.record.year__c.toNumber(),new $F.Decimal('2').toNumber()-1,context.record.day__c.toNumber()))):null</JsOutput>
@@ -16,48 +16,44 @@
       <result>
       <inputvalues>[2001, 29]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: Incorrect syntax near '|'.</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: Incorrect syntax near '|'.</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Incorrect syntax near '|'. -->
       <inputvalues>[2001, 28]</inputvalues>
          <formula>Wed Feb 28 00:00:00 GMT 2001</formula>
-         <sql>Error: Incorrect syntax near '|'.</sql>
+         <sql>2001-02-28 00:00:00.0</sql>
          <formulaNullAsNull>Wed Feb 28 00:00:00 GMT 2001</formulaNullAsNull>
-         <sqlNullAsNull>Error: Incorrect syntax near '|'.</sqlNullAsNull>
+         <sqlNullAsNull>2001-02-28 00:00:00.0</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Incorrect syntax near '|'. -->
       <inputvalues>[2012, 28]</inputvalues>
          <formula>Tue Feb 28 00:00:00 GMT 2012</formula>
-         <sql>Error: Incorrect syntax near '|'.</sql>
+         <sql>2012-02-28 00:00:00.0</sql>
          <formulaNullAsNull>Tue Feb 28 00:00:00 GMT 2012</formulaNullAsNull>
-         <sqlNullAsNull>Error: Incorrect syntax near '|'.</sqlNullAsNull>
+         <sqlNullAsNull>2012-02-28 00:00:00.0</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Incorrect syntax near '|'. -->
       <inputvalues>[2012, 29]</inputvalues>
          <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
-         <sql>Error: Incorrect syntax near '|'.</sql>
+         <sql>2012-02-29 00:00:00.0</sql>
          <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
-         <sqlNullAsNull>Error: Incorrect syntax near '|'.</sqlNullAsNull>
+         <sqlNullAsNull>2012-02-29 00:00:00.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2300, 29]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
-         <sql>Error: Incorrect syntax near '|'.</sql>
+         <sql>null</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
-         <sqlNullAsNull>Error: Incorrect syntax near '|'.</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Incorrect syntax near '|'. -->
       <inputvalues>[2300, 28]</inputvalues>
          <formula>Wed Feb 28 00:00:00 GMT 2300</formula>
-         <sql>Error: Incorrect syntax near '|'.</sql>
+         <sql>2300-02-28 00:00:00.0</sql>
          <formulaNullAsNull>Wed Feb 28 00:00:00 GMT 2300</formulaNullAsNull>
-         <sqlNullAsNull>Error: Incorrect syntax near '|'.</sqlNullAsNull>
+         <sqlNullAsNull>2300-02-28 00:00:00.0</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

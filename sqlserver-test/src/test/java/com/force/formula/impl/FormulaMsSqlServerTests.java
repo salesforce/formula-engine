@@ -86,6 +86,10 @@ public abstract class FormulaMsSqlServerTests extends FormulaGenericTests {
 			// floats for many of the functions like POWER and EXP, we get exceptions with overflow
 			// that we choose to accept.  So ignore these errors if the BigDecimal is giant
 			if (errorViaSql.startsWith("Error: Arithmetic overflow error")) {
+				// If it's a date, SqlServer doesn't like values beyond 2049.
+				if (viaFormula != null && viaFormula.contains(" GMT ")) {
+					return null;  // Ignore the error for big numbers
+				}
 				try {
 					BigDecimal bd = new BigDecimal(viaFormula);
 					if (bd.precision() > 20) {

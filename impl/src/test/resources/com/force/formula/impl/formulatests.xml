@@ -189,6 +189,15 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber" labelName="customnumber"
              dataType="Double" scale="4" precision="14"/>
      </testcase>
+     <testcase name="testFunctionLeft" devName="testFunctionLeft"
+         labelName="testFunctionLeft" dataType="Text"
+         dataFile="functionright" length="255"
+         code="LEFT(customtext__c, customnumber__c)">
+         <referencefield devName="customtext" labelName="customtext"
+                 dataType="Text" length="255"/>
+         <referencefield devName="customnumber" labelName="customnumber"
+             dataType="Double" scale="4" precision="14"/>
+     </testcase>
      <testcase name="testAddConcatSimple" devName="testAddConcatSimple"
          labelName="testAddConcatSimple" dataType="Text"
          dataFile="ifTextCompareReturnText" length="255"
@@ -399,7 +408,8 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddMonthsDateTime" devName="testAddMonthsDateTime"
          labelName="testAddMonthsDateTime" dataType="DateTime" dataFile="addDateTime"
-         scale="2" precision="12"  whyIgnoreSql="postgres:TODO psql fractional day support differs from java,mysql:leap day,mariad:leap day"
+         scale="2" precision="12"  
+         whyIgnoreSql="postgres:TODO psql fractional day support differs from java,mysql:leap day,mariad:leap day,mssql:leap day"
          code="ADDMONTHS(customdatetime1__c,customnumber1__c)">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime"/>
@@ -1933,7 +1943,8 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testFloorRound" devName="testFloorRound" labels="math" whyIgnoreSql="postgres:precision differences"
+     <testcase name="testFloorRound" devName="testFloorRound" labels="math" 
+         whyIgnoreSql="postgres:precision differences,mssql:precision differences"
          labelName="testFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="FLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1941,7 +1952,8 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMFloorRound" devName="testMFloorRound" whyIgnoreSql="postgres:precision differences"
+     <testcase name="testMFloorRound" devName="testMFloorRound"
+         whyIgnoreSql="postgres:precision differences,mssql:precision differences"
          labelName="testMFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MFLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -3178,6 +3190,7 @@ author: Srikanth Yendluri/Doug Chasman
      <!--  TODO SLT: Decimal fails on '+1' -->
      <testcase name="testVALUE" devName="testVALUE"
          labelName="testVALUE" dataType="Double" scale="2" dataFile="valueFunctionData"
+         whyIgnoreSql="mssql:no exponent support"
          code="value(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
@@ -3338,21 +3351,21 @@ author: Srikanth Yendluri/Doug Chasman
     </testcase>
     <testcase name="testMax" devName="testMax"
         labelName="testMax" dataType="Double" scale="2" precision="12" dataFile="twoNumericFields" labels="math"
-        whyIgnoreSql="postgres:ignores null"
+        whyIgnoreSql="postgres:ignores null,mssql:no greatest"
         code="MAX(customNumber1__c,customNumber2__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
     </testcase>
     <testcase name="testMin" devName="testMin"
         labelName="testMin" dataType="Double" scale="2" precision="12" dataFile="twoNumericFields" labels="math"
-        whyIgnoreSql="postgres:ignores null"
+        whyIgnoreSql="postgres:ignores null,mssql:no least"
         code="MIN(customNumber1__c,customNumber2__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
     </testcase>
     <testcase name="testMax3" devName="testMax"
         labelName="testMax3" dataType="Double" scale="2" precision="12" dataFile="threeNumericFields" labels="math"
-        whyIgnoreSql="postgres:ignores null"
+        whyIgnoreSql="postgres:ignores null,mssql:no greatest"
         code="MAX(customNumber1__c,customNumber2__c,customNumber3__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
@@ -3360,7 +3373,7 @@ author: Srikanth Yendluri/Doug Chasman
     </testcase>
     <testcase name="testMin3" devName="testMin"
         labelName="testMin" dataType="Double" scale="2" precision="12" dataFile="threeNumericFields" labels="math"
-        whyIgnoreSql="postgres:ignores null"
+        whyIgnoreSql="postgres:ignores null,mssql:no least"
         code="MIN(customNumber1__c,customNumber2__c,customNumber3__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />

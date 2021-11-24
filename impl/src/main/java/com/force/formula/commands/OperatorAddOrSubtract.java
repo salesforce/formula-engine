@@ -177,26 +177,11 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
         
         String sql;
         if (lhsDataType == FormulaTime.class)  {
-        	if (context.getSqlStyle().isMysqlStyle()) {
-        		if (rhsDataType == FormulaTime.class) {
-	            	sql = "(UNIX_TIMESTAMP(SUBTIME(" + lhsValue + ", " + rhsValue + "))%86400)*1000";
-        		} else {        	
-		            if ("-".equals(operator)) {
-		            	sql = "TIME(DATE_SUB(" + lhsValue + ",INTERVAL MOD(" + rhsValue + "/1000,86400) SECOND))";
-		            } else {
-		            	sql = "TIME(DATE_ADD(" + lhsValue + ",INTERVAL MOD(" + rhsValue + "/1000,86400) SECOND))";
-		            }
-        		}
-        	} else {
-	            // if adding a number, make sure you don't add a number > FormulaDateUtil.MILLISECONDSPERDAY
-	            rhsValue = rhsDataType == BigDecimal.class ? "ROUND(MOD(" +String.format(getSqlHooks(context).sqlToNumber(), rhsValue) + ", " + FormulaDateUtil.MILLISECONDSPERDAY + "))" : rhsValue;
-	            // to prevent negative values when subtracting, always add FormulaDateUtil.MILLISECONDSPERDAY, and take the mod
-	            sql = "MOD(" + lhsValue + operator + rhsValue + "+" + FormulaDateUtil.MILLISECONDSPERDAY + "," + FormulaDateUtil.MILLISECONDSPERDAY + ")";
-        	}
+        	sql = getSqlHooks(context).sqlAddMillisecondsToTime(lhsValue, lhsDataType, rhsValue, rhsDataType, !"-".equals(operator));
         }
         else  {
         	FormulaSqlHooks hooks = getSqlHooks(context);
-        	if (hooks.isOracleStyle()) {
+        	if (hooks.isOracleStyle()) { // Short circuit for oracle
                 sql = "(" + lhsValue + operator + rhsValue + ")";
         	} else {
                 // operations with date|timestamp types require special handling for Psql - W-7066598

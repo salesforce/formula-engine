@@ -231,10 +231,10 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
                 lhs = String.format(sqlHooks.sqlConcat(false), saveRhs,  "'x'");
             }
             
-            if (sqlHooks.isMysqlStyle()) {
-            	lhs = "binary " + lhs;
-            	rhs = "binary " + rhs;
-            }
+            // Mysql and TransactSql are case insensitive by default.  The formula engine isn't.
+            // so this allows customizing whether the comparisons should be case sensitive.
+            lhs = sqlHooks.sqlMakeCaseSensitiveForComparison(lhs);
+            rhs = sqlHooks.sqlMakeCaseSensitiveForComparison(rhs);
         }
         return "(" + lhs + (negate ? "<>" : "=") + rhs + ")";
     }

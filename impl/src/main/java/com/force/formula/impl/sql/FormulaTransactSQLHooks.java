@@ -4,12 +4,13 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaTime;
 import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaDateUtil;
 
 /**
  * Implementation of FormulaSqlHooks for Sybase/MS Sql Server style DBs
@@ -81,7 +82,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     
 	@Override
     default String sqlInstr3(String strArg, String substrArg, String startLocation) {
-		return String.format("CHARINDEX(%s, %s, %s COLLATE Latin1_General_CS_AS)", substrArg, strArg, startLocation);
+		return String.format("CHARINDEX(%s COLLATE Latin1_General_CS_AS, %s, %s )", substrArg, strArg, startLocation);
     }
 	
 	@Override
@@ -125,6 +126,10 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
         return "SUBSTRING(CONVERT(VARCHAR,%s),1,12)";  // mysql uses microseconds
     }
 	
+	@Override
+    default String sqlRight(String stringArg, String countArg) {
+        return "RIGHT(" + stringArg + ", " + sqlEnsurePositive(countArg) + ")";
+    }
 
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
@@ -159,7 +164,23 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
         	assert rhsDataType == FormulaDateTime.class : "Cannot add " + rhsDataType + " to " + lhsDataType;
             return String.format("DATEADD(second,ROUND(%s*86400,0),%s)", lhsValue, rhsValue);
         }
-     }
+    }
+	
+	@Override
+    default String sqlAddMillisecondsToTime(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
+		if (rhsDataType == FormulaTime.class) {
+			// Diff needs to be positvbe
+        	return "(DATEDIFF(millisecond," + rhsValue + "," + lhsValue + ")+"+FormulaDateUtil.MILLISECONDSPERDAY+")%"+FormulaDateUtil.MILLISECONDSPERDAY;
+		} else {        	
+            if (!isAddition) {
+            	return "DATEADD(millisecond,-(" + rhsValue + ")," + lhsValue + ")";
+            } else {
+            	return "DATEADD(millisecond," + rhsValue + "," + lhsValue + ")";
+            }
+		}
+    }
+    
+	
 	/**
      * @return the format to use for adding months.
      */
@@ -185,10 +206,70 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
         return new SQLPair(sql, guard);
     }
 	
+	// MSSqlServer doesn't support greatest or least until 2022.  So we do (a+b+ABS(a-b)/2)
+	@Override
+	default String sqlGreatest(String arg1, String arg2) {
+		return "(" + arg1 + "+" + arg2 + "+ABS(" + arg1 + "-" + arg2 + "))/2";
+	}
+
+
 	@Override
     default String sqlEnsurePositive(String argument) {
-		// SQL Server doesn't have greatest.
-    	return "(" + argument + " + ABS(" + argument + ")/2";
+		// SQL Server doesn't have greatest.  So do (a+abs(a))/2
+    	return "((" + argument + " + ABS(" + argument + "))/2)";
     }
 
+
+	@Override
+	default String sqlLpad(String str, String amount, String pad) {
+		// We need to fill the left side with the start of the string, not the end.  
+		// So if they pass in 'abc', the 'a' should be added, not the c.  So we need to do length
+		// checks.  Even if it's just ' ', we need to return the LEFT of the string.
+		if (pad != null) {
+			return "LEFT(REPLICATE("+pad+","+amount+"),CASE WHEN "+amount+" <= LEN("+str+") THEN 0 ELSE "+amount+" - LEN("+str+") END) + LEFT("+str+","+amount+")";
+		} else {
+			return "LEFT(SPACE("+amount+"),CASE WHEN "+amount+" <= LEN("+str+") THEN 0 ELSE "+amount+" - LEN("+str+") END) + LEFT("+str+","+amount+")";
+		}
+	}
+
+
+	// Rpad's simpler because we don't need to check the length of the string
+	@Override
+	default String sqlRpad(String str, String amount, String pad) {
+		if (pad != null) {
+			return "LEFT("+str+"+REPLICATE("+pad+","+amount+"/LEN("+pad+")),"+amount+")";
+		} else {
+			return "LEFT("+str+"+SPACE("+amount+"),"+amount+")";
+		}
+	}
+	
+	
+	@Override
+    default Object sqlMakeCaseSensitiveForComparison(Object str) {
+		return str + " COLLATE Latin1_General_CS_AS";
+    }
+
+	
+    /**
+     * @param scale the number of digits to the right of the radix
+     * @return the SQL string to use to in TO_CHAR for the given scale.  This is used by 
+     * {@link #getCurrencyFormat(String, String, boolean)}
+     */
+	@Override
+    default StringBuilder getCurrencyMask(int scale) {
+        StringBuilder mask = new StringBuilder(40).append("'###,###,###,###,##0");
+        if (scale > 0) {
+            mask.append('.');
+            for (int i = 0; i < scale; i++) mask.append('0');
+        }
+        mask.append('\'');
+        return mask;
+    }
+    
+
+	@Override
+	default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
+        sql.append("CONCAT(").append(isoCodeArg).append(",' ',FORMAT(").append(amountArg).append(',').append(maskStr).append("))");
+	}
+    
 }

@@ -2,11 +2,11 @@
 <testCase name="testSubtractBigTimeValue">
    <testInstance formula="TimeValue(dateString__c) - 180000000" returntype="TimeOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>MOD(CAST($!s0s!$.dateString__c as TIME)-ROUND(MOD(CAST(180000000 AS DECIMAL(38,18)), 86400000))+86400000,86400000)</Sql>
+       <Sql>DATEADD(millisecond,-(180000000),CAST($!s0s!$.dateString__c as TIME))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>MOD(CAST($!s0s!$.dateString__c as TIME)-ROUND(MOD(CAST(180000000 AS DECIMAL(38,18)), 86400000))+86400000,86400000)</Sql>
+       <Sql>DATEADD(millisecond,-(180000000),CAST($!s0s!$.dateString__c as TIME))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).getTime()-new $F.Decimal('180000000').toNumber())):null</JsOutput>
@@ -16,93 +16,93 @@
       <result>
       <inputvalues>[10:34:55.666]</inputvalues>
          <formula>Error: java.time.DateTimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>08:34:55.666</sql>
          <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>08:34:55.666</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[23:56:45.898]</inputvalues>
          <formula>Error: java.time.DateTimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>21:56:45.898</sql>
          <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>21:56:45.898</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[01:14:23.345]</inputvalues>
          <formula>Error: java.time.DateTimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>23:14:23.345</sql>
          <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>23:14:23.345</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[01:66:29.345]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[00:00:29.345]</inputvalues>
          <formula>Error: java.time.DateTimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>22:00:29.345</sql>
          <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>22:00:29.345</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[00:00:00.789]</inputvalues>
          <formula>Error: java.time.DateTimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>22:00:00.789</sql>
          <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>22:00:00.789</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[00:00:00.000]</inputvalues>
          <formula>Error: java.time.DateTimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>22:00</sql>
          <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>22:00</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[24:12:56.123]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[23:62:56.123]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[23:52:65.123]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[01:14:23.3456]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>23:14:23.346</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>23:14:23.346</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[00:00:01.000]</inputvalues>
          <formula>Error: java.time.DateTimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>22:00:01</sql>
          <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>22:00:01</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[23:59:59.999]</inputvalues>
          <formula>Error: java.time.DateTimeException</formula>
-         <sql>Error: 'MOD' is not a recognized built-in function name.</sql>
+         <sql>21:59:59.999</sql>
          <formulaNullAsNull>Error: java.time.DateTimeException</formulaNullAsNull>
-         <sqlNullAsNull>Error: 'MOD' is not a recognized built-in function name.</sqlNullAsNull>
+         <sqlNullAsNull>21:59:59.999</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

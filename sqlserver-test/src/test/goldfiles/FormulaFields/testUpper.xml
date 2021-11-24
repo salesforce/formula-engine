@@ -16,9 +16,9 @@
       <result>
       <inputvalues>[﻿]</inputvalues>
          <formula>﻿</formula>
-         <sql>?</sql>
+         <sql>﻿</sql>
          <formulaNullAsNull>﻿</formulaNullAsNull>
-         <sqlNullAsNull>?</sqlNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[CASES]</inputvalues>
@@ -86,9 +86,9 @@
       <result>
       <inputvalues>[İDEMPOTENT]</inputvalues>
          <formula>İDEMPOTENT</formula>
-         <sql>IDEMPOTENT</sql>
+         <sql>İDEMPOTENT</sql>
          <formulaNullAsNull>İDEMPOTENT</formulaNullAsNull>
-         <sqlNullAsNull>IDEMPOTENT</sqlNullAsNull>
+         <sqlNullAsNull>İDEMPOTENT</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>
