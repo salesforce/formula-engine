@@ -73,7 +73,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the string to use for String.format to convert something to text generically, without a format
      */
     default String sqlToChar() {
-		return "CAST(%s AS CHAR)";
+		return "CAST(%s AS VARCHAR)";
     }
     
     /**
@@ -208,8 +208,31 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlToDateIso() {
 		return "TO_DATE(%s, 'YYYY-MM-DD')";
     }
-   
     
+    /**
+     * @return the format for String.format for converting from a datetime value to a string YYYY-MM-DD HH24:MI:SS
+     */
+    default String sqlToCharTimestamp() {
+		return "TO_CHAR(%s, 'YYYY-MM-DD HH24:MI:SS')";
+    }
+    
+    /**
+     * @return the format for String.format for converting from a date value to a string YYYY-MM-DD
+     */
+    default String sqlToCharDate() {
+		return "TO_CHAR(%s, 'YYYY-MM-DD')";
+    }
+   
+
+    /**
+     * @return the format for for String.format for getting the time value as HH:MM:SS.mmm
+     */
+    default String sqlToCharTime() {
+        // time values are represented by millisecs since midnight.  Divide by 1000 to get it of the form SSSSS.FF3
+		return "TO_CHAR(TO_TIMESTAMP(TO_CHAR(%s/1000, 'FM99990D999'), '"+sqlSecsAndMsecs()+"'), '"+sqlHMSAndMsecs()+"')";
+    }
+
+        
     /**
      * @return the function to use for getting the last day of the month of a date.
      */
@@ -368,12 +391,21 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     
     
     /**
-     * @param argument the value to truncate
-     * @return how to call exponent on the function, 
+     * @param argument the value to exponent.
+     * @return how to call exponent on the function.  (i.e. 2^n)
      */
     default String sqlExponent(String argument) {
     	return "EXP(" + argument + ")";
     }
+    
+    /**
+     * @param argument the numeric value to ensure that it is positive
+     * @return a sql expression that will return the argument, or 0 if the argument is negative
+     */
+    default String sqlEnsurePositive(String argument) {
+    	return "GREATEST(" + argument + ",0)";
+    }
+    
     
     /**
      * Get the sql guard and value for executing A^B.

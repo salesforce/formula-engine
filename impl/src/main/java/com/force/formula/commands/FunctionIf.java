@@ -39,6 +39,11 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
         if ("NULL".equals(args[0])) { // Treat NULL as false
             sql = args[2];
             guard = guards[2];
+        } else if (context.getSqlStyle().isTransactSqlStyle() && "NULL".equals(args[1]) && "NULL".equals(args[2])) {
+        	// MSSqlServer throws "Error: At least one of the result expressions in a CASE specification must be an expression other than the NULL constant."
+        	// TODO: Should this be a general optimization?
+            sql = args[1];
+            guard = guards[1];
         } else {
             FormulaAST guardNode = (FormulaAST)node.getFirstChild();
             FormulaAST thenNode = (FormulaAST)guardNode.getNextSibling();

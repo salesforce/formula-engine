@@ -22,6 +22,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 		return true;
 	}	
 
+	
     /**
      * @return the string to use for String.format to convert something to date generically, without a specified
      */
@@ -107,6 +108,23 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 		return "DAY(EOMONTH(%s))";
 	}
 	
+    
+	// See https://docs.microsoft.com/en-us/sql/t-sql/functions/cast-and-convert-transact-sql?view=sql-server-ver15
+    @Override
+    default String sqlToCharTimestamp() {
+        return "CONVERT(VARCHAR,%s,120)";  // 120 = "yyyy-mm-dd hh:mi:ss (24h)"
+     }
+    
+    @Override
+    default String sqlToCharDate() {
+        return "CONVERT(VARCHAR,%s,105)";  // 105 = "dd-mm-yyyy"
+    }
+
+    @Override
+    default String sqlToCharTime() {
+        return "SUBSTRING(CONVERT(VARCHAR,%s),1,12)";  // mysql uses microseconds
+    }
+	
 
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
@@ -166,4 +184,11 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 	            " OR(" + args[0] + "<>0 AND LOG10(ABS(" + args[0] + "))*" + args[1] + ">38)");    	
         return new SQLPair(sql, guard);
     }
+	
+	@Override
+    default String sqlEnsurePositive(String argument) {
+		// SQL Server doesn't have greatest.
+    	return "(" + argument + " + ABS(" + argument + ")/2";
+    }
+
 }

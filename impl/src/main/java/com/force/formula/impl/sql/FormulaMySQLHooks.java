@@ -78,6 +78,20 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 		return "CONVERT(%s,CHAR)";
     }
     
+    @Override
+    default String sqlToCharTimestamp() {
+    	return sqlToChar();
+     }
+    
+    @Override
+    default String sqlToCharDate() {
+    	return sqlToChar();
+    }
+
+    @Override
+    default String sqlToCharTime() {
+        return "SUBSTRING(CONVERT(%s,CHAR),1,12)";  // mysql uses microseconds
+    }
 
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is

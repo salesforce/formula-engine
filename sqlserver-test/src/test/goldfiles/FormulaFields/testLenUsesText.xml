@@ -3,11 +3,11 @@
 <testCase name="testLenUsesText">
    <testInstance formula="LEN(Text(customnumber1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>COALESCE(LEN((CAST(COALESCE($!s0s!$.customnumber1__c, 0) AS CHAR))),0)</Sql>
+       <Sql>COALESCE(LEN((CAST(COALESCE($!s0s!$.customnumber1__c, 0) AS VARCHAR))),0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>COALESCE(LEN((CAST($!s0s!$.customnumber1__c AS CHAR))),0)</Sql>
+       <Sql>COALESCE(LEN((CAST($!s0s!$.customnumber1__c AS VARCHAR))),0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((&quot;&quot;+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).length)))</JsOutput>

@@ -2,11 +2,11 @@
 <testCase name="testDateLeapYear2">
    <testInstance formula="DATE(2012,month__c,29)" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>DATEFROMPARTS(2012,CAST(FLOOR(COALESCE($!s0s!$.month__c, 0)) AS CHAR),29)</Sql>
+       <Sql>DATEFROMPARTS(2012,CAST(FLOOR(COALESCE($!s0s!$.month__c, 0)) AS VARCHAR),29)</Sql>
        <Guard>COALESCE($!s0s!$.month__c, 0) is null  OR FLOOR(COALESCE($!s0s!$.month__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12)</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN $!s0s!$.month__c IS NULL THEN NULL ELSE DATEFROMPARTS(2012,CAST(FLOOR($!s0s!$.month__c) AS CHAR),29) END</Sql>
+       <Sql>CASE WHEN $!s0s!$.month__c IS NULL THEN NULL ELSE DATEFROMPARTS(2012,CAST(FLOOR($!s0s!$.month__c) AS VARCHAR),29) END</Sql>
        <Guard>NOT ($!s0s!$.month__c IS NULL ) AND ($!s0s!$.month__c is null  OR FLOOR($!s0s!$.month__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12))</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC(new $F.Decimal('2012').toNumber(),$F.nvl(context.record.month__c,new $F.Decimal('0')).toNumber()-1,new $F.Decimal('29').toNumber()))</JsOutput>

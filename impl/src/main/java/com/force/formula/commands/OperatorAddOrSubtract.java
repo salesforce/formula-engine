@@ -257,10 +257,7 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
      */
     private String castNullIfNeeded(FormulaContext context, Type parentType, Type otherType, String value) {
         if (!performAddition && parentType == BigDecimal.class && (otherType == FormulaDateTime.class || otherType == Date.class) && "NULL".equals(value)) {
-        	if (context.getSqlStyle().isMysqlStyle()) {
-        		return "CAST(NULL as DATE)";
-        	}
-            return "TO_DATE(NULL)";
+        	return String.format(getSqlHooks(context).sqlToDate(), "NULL");
         }
         return value;
     }
