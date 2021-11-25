@@ -14,7 +14,6 @@
     <JsOutput highPrec="false" nullAsNull="false">Math.min($F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customNumber2__c,0))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(Math.min(context.record.customNumber1__c,context.record.customNumber2__c)):null</JsOutput>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[, 24]</inputvalues>
          <formula>0</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -22,7 +21,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[0.0, 0.0]</inputvalues>
          <formula>0.0</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -30,7 +28,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[0.00, 0.00]</inputvalues>
          <formula>0.00</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -38,7 +35,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[0.000, 0.000]</inputvalues>
          <formula>0.000</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -46,7 +42,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[-1.0, 99.0]</inputvalues>
          <formula>-1.0</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -54,7 +49,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[99,  -1]</inputvalues>
          <formula>-1</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -62,7 +56,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[-20, -40]</inputvalues>
          <formula>-40</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -70,7 +63,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[1.1111, 1.1111]</inputvalues>
          <formula>1.1111</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -78,7 +70,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[1.11114, 0.00000]</inputvalues>
          <formula>0.00000</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -86,7 +77,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[1.11115, 0.00000]</inputvalues>
          <formula>0.00000</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -94,7 +84,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[1.111112, 0.000043]</inputvalues>
          <formula>0.000043</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -102,7 +91,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[123456789, 123456789]</inputvalues>
          <formula>123456789</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -110,7 +98,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[123456789.123456789, 123456789.123456789]</inputvalues>
          <formula>123456789.123456789</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -118,7 +105,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[123456789.123456789, -123456789.123456789]</inputvalues>
          <formula>-123456789.123456789</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -126,7 +112,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[-123456789.123456789, -123456789.123456789]</inputvalues>
          <formula>-123456789.123456789</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -134,7 +119,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[600,  0.000600]</inputvalues>
          <formula>0.000600</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -142,7 +126,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[600,  -600]</inputvalues>
          <formula>-600</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -150,7 +133,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[1.2345,  1.2345]</inputvalues>
          <formula>1.2345</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -158,7 +140,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[1.245,  0]</inputvalues>
          <formula>0</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -166,7 +147,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[, ]</inputvalues>
          <formula>0</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -174,7 +154,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[1, ]</inputvalues>
          <formula>0</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -182,7 +161,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[, 12.123456789]</inputvalues>
          <formula>0</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -190,7 +168,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[1.00596, 240]</inputvalues>
          <formula>1.00596</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -198,7 +175,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[0, 240]</inputvalues>
          <formula>0</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -206,7 +182,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[.0000000000001, 1000]</inputvalues>
          <formula>0.0000000000001</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
@@ -214,7 +189,6 @@
          <sqlNullAsNull>Error: 'LEAST' is not a recognized built-in function name.</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: 'LEAST' is not a recognized built-in function name. -->
       <inputvalues>[.0000000000001, -1000]</inputvalues>
          <formula>-1000</formula>
          <sql>Error: 'LEAST' is not a recognized built-in function name.</sql>
