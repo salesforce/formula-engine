@@ -3320,6 +3320,16 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customNumber" labelName="customNumber" dataType="Double" scale="2" precision="12" />
      </testcase>
+     <testcase name="testNullCompareWithEmptyString" devName="testNullCompareWithEmptyString"
+                labelName="testNullSpanCompareWithEmptyString" dataType="Boolean" eval="formula"
+                dataFile="findOnText" code="customText1__c = ''">
+          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" />
+      </testcase>
+      <testcase name="testNullNotEqualEmptyString" devName="testNullNotEqualEmptyString"
+                labelName="testNullSpanNotEqualEmptyString" dataType="Boolean" eval="formula"
+                dataFile="findOnText" code="customText1__c != ''">
+          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" />
+      </testcase>
     
     <testcase name="testAddHoursWithTwoCustFields" devName="testAddHoursWithTwoCustFields"
         labelName="testAddHoursWithTwoCustFields" dataType="TimeOnly" eval="formula,template" dataFile="timeAndHours"
