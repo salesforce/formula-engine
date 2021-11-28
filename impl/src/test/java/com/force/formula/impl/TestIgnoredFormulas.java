@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
  * @author stamm
  */
 @RunWith(AllTests.class)
-//@Ignore  // Yes, ignore them.
+@Ignore  // Yes, ignore them.
 public class TestIgnoredFormulas extends FormulaPostgreSQLTests {
 
     public TestIgnoredFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
