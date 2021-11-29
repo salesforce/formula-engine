@@ -62,5 +62,12 @@
          <formulaNullAsNull>true</formulaNullAsNull>
          <sqlNullAsNull>true</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[%]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>

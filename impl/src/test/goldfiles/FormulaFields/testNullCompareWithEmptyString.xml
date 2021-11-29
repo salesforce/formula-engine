@@ -90,5 +90,16 @@
          <javascriptNullAsNull>true</javascriptNullAsNull>
          <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
       </result>
+      <result>
+      <inputvalues>[%]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
    </testInstance>
 </testCase>

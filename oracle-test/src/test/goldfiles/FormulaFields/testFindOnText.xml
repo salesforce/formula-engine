@@ -63,7 +63,7 @@
          <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
-         <inputvalues>[%]</inputvalues>
+      <inputvalues>[%]</inputvalues>
          <formula>0</formula>
          <sql>0</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
