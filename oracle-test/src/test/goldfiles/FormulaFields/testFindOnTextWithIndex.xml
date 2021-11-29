@@ -69,5 +69,12 @@
          <formulaNullAsNull>0</formulaNullAsNull>
          <sqlNullAsNull>0</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[%, Foo%Foo, 2]</inputvalues>
+         <formula>4</formula>
+         <sql>4</sql>
+         <formulaNullAsNull>4</formulaNullAsNull>
+         <sqlNullAsNull>4</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>

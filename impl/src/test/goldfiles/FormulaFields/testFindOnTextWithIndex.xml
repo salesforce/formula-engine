@@ -101,5 +101,16 @@
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
+      <result>
+      <inputvalues>[%, Foo%Foo, 2]</inputvalues>
+         <formula>4</formula>
+         <sql>4.00000000000000000000000000000000</sql>
+         <javascript>4</javascript>
+         <javascriptLp>4</javascriptLp>
+         <formulaNullAsNull>4</formulaNullAsNull>
+         <sqlNullAsNull>4.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>4</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4</javascriptLpNullAsNull>
+      </result>
    </testInstance>
 </testCase>
