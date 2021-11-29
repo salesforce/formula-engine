@@ -104,7 +104,6 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
     //TODO(ifs): move to a util class?
     protected static String wrap(String expression, FormulaAST node, Type resultDataType, FormulaContext context) {
         Type argType = node.getDataType();
-        int nodeType = node.getType();
         if (argType == ConstantNull.class) {
             if ((resultDataType == FormulaDateTime.class) || (resultDataType == Date.class)) {
                 return getSqlHooks(context).sqlNullToDate();
@@ -120,6 +119,7 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
             }
         }
 
+        int nodeType = node.getType();
         if ((argType == FormulaDateTime.class) || (argType == Date.class) && node.canBeNull()) {
             return String.format(getSqlHooks(context).sqlNvl() + "(%s,"+getSqlHooks(context).sqlNullToDate()+")", expression);
         } else if (argType == BigDecimal.class && node.canBeNull() && node.getType() != FormulaTokenTypes.IDENT) {

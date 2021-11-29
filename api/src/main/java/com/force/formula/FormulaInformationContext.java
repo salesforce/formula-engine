@@ -18,31 +18,31 @@ public interface FormulaInformationContext /* implements Context */ {
     /**
      * @return Additional information which may be set by the caller of the formula engine
      */
-    public Map<String, String> getAdditionalInfo();
+    Map<String, String> getAdditionalInfo();
 
     /**
      * Each formula context can override {@link FormulaRuntimeContext#getMetaInformation()} to provide the formula engine
      * useful debugging information relevant to that specific context.
      * @return useful debugging information.
      */
-    public Map<String, String> getContextInfo();
+    Map<String, String> getContextInfo();
 
     /**
      * @return The name of the FormulaContext that this context was created with
      */
-    public String getContextName();
+    String getContextName();
 
     /**
      * @param stackLevel
      *            what level is this in the context stack?
      * @return a message suitable for appending to gack messages
      */
-    public String toGackMessage(int stackLevel);
+    String toGackMessage(int stackLevel);
 
     /**
      * A FormulaInformationContext Provider
      */
-    public interface Provider /* extends StackableContextProvider<FormulaInformationContext> */ {
+    interface Provider {
         /**
          * The new context of a process
          * @param context the context to push onto the stack
@@ -58,6 +58,9 @@ public interface FormulaInformationContext /* implements Context */ {
          */
         FormulaInformationContext pop(FormulaInformationContext assertContext);
 
+        /**
+         * @return the top of the stack as a string, suitable for debugging
+         */
         String peekStackInfo();
     }
 

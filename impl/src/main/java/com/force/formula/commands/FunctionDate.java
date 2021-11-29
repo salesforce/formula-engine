@@ -238,14 +238,14 @@ class FunctionDateCommand extends AbstractFormulaCommand {
             stack.push(null);
         else {
             int y = year.intValue();
-            int m = month.intValue();
-            int d = day.intValue();
             if ((y < 1) || (y > 9999))
                 throw new FormulaEvaluationException("Year out of range in DATE() function");
             try {
                 Calendar c = FormulaI18nUtils.getLocalizer().getCalendar(BaseLocalizer.GMT);
                 c.clear();
                 c.setLenient(false);
+                int m = month.intValue();
+                int d = day.intValue();
                 c.set(y, m - 1, d); // Months are zero-based in Java Calenders
                 stack.push(c.getTime());
             } catch (IllegalArgumentException x) {

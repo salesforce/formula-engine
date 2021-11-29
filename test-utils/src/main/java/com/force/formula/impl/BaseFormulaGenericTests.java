@@ -275,12 +275,6 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		// Run a test case (one formula, multiple instances, multiple evaluation methods, against multiple inputs
 		private boolean runTestCase(FormulaTestCaseInfo testCase, String entityRecId, StringBuilder testFailureMsg)
 				throws Exception {
-			// init the streams required to store the test results.
-			ByteArrayOutputStream xml = new ByteArrayOutputStream();
-			PrintStream xmlOut = new PrintStream(xml, false, "UTF-8");
-			JestDataModel jestDataModel = new JestDataModel();
-			boolean testPassed = true;
-
 			// get the testdata required for the test case into 2 dimensional List..
 			List<List<String>> testData = new ArrayList<List<String>>();
 
@@ -294,15 +288,21 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 				}
 			}
 
+			// init the streams required to store the test results.
+			ByteArrayOutputStream xml = new ByteArrayOutputStream();
+			PrintStream xmlOut = new PrintStream(xml, false, "UTF-8");
 			xmlOut.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 			if (testCase.getCompareType() == CompareType.None) {
 				xmlOut.println("<!-- Note: Results for different evaluation methods not compared for this test due to compareType=\"none\" . Check results carefully -->");
 			}
 			xmlOut.println("<testCase name=\"" + testCase.getName() + "\">");
+
+			JestDataModel jestDataModel = new JestDataModel();
 			jestDataModel.testSuiteName = testCase.getName();
 
 			String firstValueMismatchMessage = null;
 			List<FormulaTestRunnable> instances = testCase.getRunnables(suite.getTestUtils());
+			boolean testPassed = true;
 
 			for (FormulaTestRunnable instance : instances) {
 				try {
@@ -635,26 +635,18 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * Creates a Date Object from a String value of format YYYY:MM:DD:hh:mm:ss
 		 */
 		public Date getDateObject(String dateString, FormulaDataType fieldDataType) {
-			int year;
-			int month;
-			int dayOfMonth;
-			int hourOfDay;
-			int minutes;
-			int seconds;
-			TimeZone timeZone;
-
 			myCal.clear();
 
 			if (dateString == null || dateString.length() == 0) return myCal.getTime();
 
 			StringTokenizer stDate = new StringTokenizer(dateString, ":");
-			year = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) : 2004;
-			month = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) - 1 : 0;
-			dayOfMonth = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) : 1;
-			hourOfDay = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) : 0;
-			minutes = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) : 0;
-			seconds = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) : 0;
-			timeZone = stDate.hasMoreTokens() ? TimeZone.getTimeZone(stDate.nextToken()) : null;
+			int year = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) : 2004;
+			int month = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) - 1 : 0;
+			int dayOfMonth = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) : 1;
+			int hourOfDay = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) : 0;
+			int minutes = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) : 0;
+			int seconds = stDate.hasMoreTokens() ? Integer.parseInt(stDate.nextToken()) : 0;
+			TimeZone timeZone = stDate.hasMoreTokens() ? TimeZone.getTimeZone(stDate.nextToken()) : null;
 			if (timeZone == null) {
 				timeZone = TimeZone.getDefault();
 			}

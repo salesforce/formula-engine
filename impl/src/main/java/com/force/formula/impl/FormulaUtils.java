@@ -263,7 +263,7 @@ public class FormulaUtils {
      * @see FormulaUtils#parseTemplate(CharSequence, FormulaTemplateHandler)
      * @author stamm
      */
-    public static interface FormulaTemplateHandler {
+    public interface FormulaTemplateHandler {
     	/**
     	 * Handle the contents of a formula inside a template
     	 * @param formula the contents of the {!...} with the braces stripped off

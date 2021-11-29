@@ -45,12 +45,12 @@ public class FormulaStack extends AbstractCollection<Object> implements Deque<Ob
 	}
 
 	// Mask methods
-	private static final Object maskNull(Object o) {
+	private static Object maskNull(Object o) {
 		return o == null ? NULL_VALUE : o;
 	}
 
 	
-	private static final Object unmaskNull(Object o) {
+	private static Object unmaskNull(Object o) {
 		return o == NULL_VALUE ? null : o;
 	}
 	

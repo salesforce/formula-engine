@@ -170,7 +170,6 @@ class OperatorIfsFormulaCommand extends AbstractFormulaCommand {
     @Override
     public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
         Thunk elseVal = (Thunk)stack.pop();
-
         // Evaluate in short-circuit order so pull all the args off the stack first into a Deque
         Deque<Object> ifs = new FormulaStack(numArgs);
         for (int i = 0 ; i < numArgs-1; i++) {

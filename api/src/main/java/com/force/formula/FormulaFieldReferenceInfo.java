@@ -13,10 +13,10 @@ public interface FormulaFieldReferenceInfo {
     /**
      * @return the field or column associated with the field reference.  Probably a foreign key
      */
-    public FormulaSchema.FieldOrColumn getFieldOrColumn();
+    FormulaSchema.FieldOrColumn getFieldOrColumn();
 
     /**
      * @return The domain to use when multiple domains are available.
      */
-    public FormulaSchema.Entity getForeignKeyDomain();
+    FormulaSchema.Entity getForeignKeyDomain();
 }

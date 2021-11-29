@@ -342,9 +342,6 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		//  returning null means success.
 		private String verifyMultiplePath(
 				FieldDefinitionInfo fieldInfo, String viaFormula, String viaSql, String viaJavascript, String viaJavascriptLp, boolean nullIsNull) {
-
-			final CompareType compareType = getTestCaseInfo().getCompareType();
-
 			// If any of them generated a result with an error message, don't compare.
 
 			if (hasErrorMessage(viaFormula)) {
@@ -376,7 +373,6 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				}
             }
 
-
 			// If one is null, they all should be (except template should be "")
 			if (viaFormula == null || (shouldCompareSql() && viaSql == null)) {
                 String badNullMessage = "If one is null, they all should be null. viaFormula " + viaFormula + " viaSql " + viaSql;
@@ -401,6 +397,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
                 }
 			}
 
+			final CompareType compareType = getTestCaseInfo().getCompareType();
 			// So we know all non-null for the rest... (except template maybe)
 			if (compareType == CompareType.Number || compareType == CompareType.Approximate) {
 				try {

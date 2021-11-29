@@ -15,9 +15,9 @@ import com.force.formula.FormulaGeolocation.GeolocationDisplayMode;
  */
 public interface FormulaGeolocationService {
     // TODO: find a better place ? 
-    static final int DEFAULT_XYZ_LENGTH = 60;
+    int DEFAULT_XYZ_LENGTH = 60;
     // Location delimiter
-    static final String LOCATION_DELIMITER = "**";
+    String LOCATION_DELIMITER = "**";
 
     /**
      * @return the representation of the given location in the selected display mode.

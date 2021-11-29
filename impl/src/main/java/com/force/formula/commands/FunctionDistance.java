@@ -123,15 +123,17 @@ public class FunctionDistance extends FormulaCommandInfoImpl implements FormulaC
             throw new WrongNumberOfArgumentsException(node.getText(), 3, node);
 
         FormulaAST firstLocationNode = (FormulaAST)node.getFirstChild();
-        FormulaAST secondLocationNode = (FormulaAST)firstLocationNode.getNextSibling();
-        FormulaAST unitNode = (FormulaAST)secondLocationNode.getNextSibling();
-
         if (firstLocationNode.getDataType() != FormulaGeolocation.class)
             throw new WrongArgumentTypeException(firstLocationNode.getText(), new Class[] { FormulaGeolocation.class }, firstLocationNode);
+
+        FormulaAST secondLocationNode = (FormulaAST)firstLocationNode.getNextSibling();
         if (secondLocationNode.getDataType() != FormulaGeolocation.class)
             throw new WrongArgumentTypeException(secondLocationNode.getText(), new Class[] { FormulaGeolocation.class }, secondLocationNode);
+
+        FormulaAST unitNode = (FormulaAST)secondLocationNode.getNextSibling();
         if (unitNode.getDataType() != String.class)
             throw new WrongArgumentTypeException(unitNode.getText(), new Class[] { String.class }, unitNode);
+
         String unitString = FormulaTextUtil.removeEnclosingQuotes(unitNode.getText());
         if(unitNode.isLiteral()&& DistanceUnit.getUnitByName(unitString) == null) {
             throw new WrongArgumentException(getName(), "'mi'/'km'", unitNode);
@@ -161,16 +163,16 @@ class DistanceCommand extends AbstractFormulaCommand {
     @Override
     public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
         String unitAbbreviation     = checkStringType(stack.pop());
-        FormulaGeolocation secondLocation = checkGeoLocationType(stack.pop());
-        FormulaGeolocation firstLocation  = checkGeoLocationType(stack.pop());
         DistanceUnit unit = null;
-
         for (DistanceUnit tmpUnit : DistanceUnit.values())
             if (tmpUnit.getAbbreviation().equals(unitAbbreviation))
                 unit = tmpUnit;
 
         if (unit == null)
             throw new FormulaEvaluationException("Invalid unit for the distance() function: " + unitAbbreviation);
+
+        FormulaGeolocation secondLocation = checkGeoLocationType(stack.pop());
+        FormulaGeolocation firstLocation  = checkGeoLocationType(stack.pop());
 
         Double distance = getGeolocationService().computeDistance(firstLocation, secondLocation, unit);
         BigDecimal bigDistance = null;

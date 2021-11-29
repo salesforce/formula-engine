@@ -13,19 +13,19 @@ import java.util.regex.Pattern;
  * @since 140
  */
 public interface FormulaInfo<T extends FormulaFieldInfo> {
-    static final int MAX_FORMULA_LENGTH = 3900;
-    static final int MAX_STORAGE_SIZE = 4000;
-    static final int MAX_SQL_SIZE_NEW_FORMULA = 5000;
-    static final int MAX_SQL_SIZE_LIMIT = 8000;
-    static final int MAX_STRING_VALUE_LENGTH = 1300;
+    int MAX_FORMULA_LENGTH = 3900;
+    int MAX_STORAGE_SIZE = 4000;
+    int MAX_SQL_SIZE_NEW_FORMULA = 5000;
+    int MAX_SQL_SIZE_LIMIT = 8000;
+    int MAX_STRING_VALUE_LENGTH = 1300;
     /** The maximum JavaScript size for formulas that generate JS. */
-    static final int MAX_JS_SIZE = 5000;
+    int MAX_JS_SIZE = 5000;
     /** The JavaScript string size that halts JS generation if passed. */
-    static final int MAX_JS_SIZE_HARD_LIMIT = 15000;
+    int MAX_JS_SIZE_HARD_LIMIT = 15000;
 
-    static final Pattern ENCODED_REFERENCE_PATTERN = Pattern.compile("\\{!ID:([^}]+)\\}");
+    Pattern ENCODED_REFERENCE_PATTERN = Pattern.compile("\\{!ID:([^}]+)\\}");
 
-    public static final String FIELD_NAME_OVERRIDE = "common.config.field.FIELD_NAME_OVERRIDE";
+    String FIELD_NAME_OVERRIDE = "common.config.field.FIELD_NAME_OVERRIDE";
 
     /**
      * Return the FormulaFieldInfo(s) for fields directly referenced by this formula

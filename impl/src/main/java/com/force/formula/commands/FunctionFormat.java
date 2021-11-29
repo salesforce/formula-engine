@@ -77,13 +77,14 @@ public class FunctionFormat extends FormulaCommandInfoImpl implements FormulaCom
         }
 
         FormulaAST toConvert = (FormulaAST)node.getFirstChild();
-        Type resultType = String.class;
         Type clazz = toConvert.getDataType();
 
         if ((clazz != ConstantNull.class) && (clazz != RuntimeType.class)
             && (clazz != BigDecimal.class) && (clazz != Date.class) && (clazz != FormulaTime.class)
             && (clazz != FormulaDateTime.class) && (!FormulaTypeUtils.isTypeText(clazz)))
             throw new WrongArgumentTypeException(node.getText(), new Type[] { clazz }, toConvert);
+
+        Type resultType = String.class;
         if (clazz == RuntimeType.class) {
             resultType = clazz;
         }

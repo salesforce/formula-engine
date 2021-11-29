@@ -56,7 +56,7 @@ public class MockFormulaPicklistInfo implements FormulaPicklistInfo {
     }
 
 	
-    private final void ensureDbValueToEnumItemBuilt(){
+    private void ensureDbValueToEnumItemBuilt(){
         if (dbValueToEnumItem != null)
             return;
         Item[] items = getAllEnumItems();
@@ -71,7 +71,7 @@ public class MockFormulaPicklistInfo implements FormulaPicklistInfo {
      * @author stamm
      * Represents a picklist item.
      */
-    public static interface Item {
+    public interface Item {
         /**
          * @return the value to use when stored in the db
          */
@@ -116,9 +116,9 @@ public class MockFormulaPicklistInfo implements FormulaPicklistInfo {
      * Interface intended to signal to PicklistData that
      * this item should include hint text
      */
-    public static interface PicklistItemWithHint extends Item {
+    public interface PicklistItemWithHint extends Item {
 
-        public String getHint();
+        String getHint();
         
     }
 	

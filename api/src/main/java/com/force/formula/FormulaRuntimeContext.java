@@ -21,14 +21,14 @@ public interface FormulaRuntimeContext extends FormulaContext {
      * references formulaB which references fieldC, when applying this control to formulaA it only looks
      * at formulaB, not fieldC.
      */
-    public static final String HANDLE_INACCESSIBLE_FIELDS = "com.force.formula.impl.HANDLE_INACCESSIBLE_FIELDS";
+    String HANDLE_INACCESSIBLE_FIELDS = "com.force.formula.impl.HANDLE_INACCESSIBLE_FIELDS";
     /**
      * At runtime, what do you do with a field a user doesn't have access to?
      * Allow (Default) - elevate access and pretend the user has access
      * Throw - Throw an InvalidFieldReferenceException (to be handled by consumer)
      * Null - Replace the field with a null value.
      */
-    public static enum InaccessibleFieldStrategy {ALLOW, THROW_EXCEPTION, REPLACE_WITH_NULL};
+    enum InaccessibleFieldStrategy {ALLOW, THROW_EXCEPTION, REPLACE_WITH_NULL};
 
     default BigDecimal getNumber(FormulaFieldReference fieldName) throws InvalidFieldReferenceException, UnsupportedTypeException {
         if (fieldName.getBase() != null) {

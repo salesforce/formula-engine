@@ -31,7 +31,7 @@ public class FormulaTestUtils {
     private static final int DEFAULT_PRECISION = 18;
 
 
-    public static enum UPDATE_FLAGS {
+    public enum UPDATE_FLAGS {
         CREATE, UPDATE, NOCREATEUPDATE
     }
 
