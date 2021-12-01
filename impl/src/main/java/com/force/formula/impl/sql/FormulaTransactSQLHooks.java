@@ -206,7 +206,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
         return new SQLPair(sql, guard);
     }
 	
-	// MSSqlServer doesn't support greatest or least until 2022.  So we do (a+b+ABS(a-b)/2)
+	// MSSqlServer doesn't support greatest or least until 2022.  So we do (a+b+ABS(a-b))/2
 	@Override
 	default String sqlGreatest(String arg1, String arg2) {
 		return "(" + arg1 + "+" + arg2 + "+ABS(" + arg1 + "-" + arg2 + "))/2";

@@ -10,7 +10,7 @@ import com.force.formula.FormulaDateTime;
 import com.force.formula.impl.FormulaSqlHooks;
 
 /**
- * Implementation of FormulaSqlHooks for Oracle-style DBs
+ * Implementation of FormulaSqlHooks for PostgreSQL-style DBs
  * @author stamm
  * @since 0.2
  */

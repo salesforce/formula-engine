@@ -12,7 +12,7 @@ import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.sql.SQLPair;
 
 /**
- * Implementation of FormulaSqlHooks for Oracle-style DBs
+ * Implementation of FormulaSqlHooks for Mysql-style DBs
  * @author stamm
  * @since 0.2
  */
