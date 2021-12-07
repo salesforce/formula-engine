@@ -303,6 +303,11 @@
         <param name="WEEKDAY">WEEKDAY(date)</param>
         <param name="WEEKDAY_DESCR">Return the day of the week for the given date, using 1 for Sunday, 2 for Monday, through 7 for Saturday.</param>
 
+        <param name="UNIXTIMESTAMP">UNIXTIMESTAMP(date/time)</param>
+        <param name="UNIXTIMESTAMP_DESCR">Return the number of seconds since 1 Jan 1970 for the given date, or number of seconds in the day for a time.</param>
+        <param name="FROMUNIXTIME">FROMUNIXTIME(number)</param>
+        <param name="FROMUNIXTIME_DESCR">Return the datetime that represents the given number as the seconds elapsed since 1 Jan 1970.</param>
+
         <!-- Internal only.  Doesn't have to be translated-->
         <param name="FORMAT_ADDRESS">FORMAT_ADDRESS(street,city,state,zip,country[,lineSep])</param>
         <param name="FORMAT_ADDRESS_DESCR">Format the address in mailing format using the line separator provided if necessary.</param>
