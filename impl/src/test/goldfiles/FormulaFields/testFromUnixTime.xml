@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFromUnixTime">
+   <testInstance formula="FromUnixTime(customnumber1__c)" returntype="DateTime">
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_TIMESTAMP(COALESCE($!s0s!$.customnumber1__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_TIMESTAMP($!s0s!$.customnumber1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new Date(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber())*1000)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(new Date((context.record.customnumber1__c.toNumber())*1000)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(($F.nvl(context.record.customnumber1__c,0))*1000)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(new Date((context.record.customnumber1__c)*1000)):null</JsOutput>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>Thu Jan 01 00:00:00 GMT 1970</formula>
+         <sql>1970-01-01 00:00:00.0</sql>
+         <javascript>Thu Jan 01 00:00:00 GMT 1970</javascript>
+         <javascriptLp>Thu Jan 01 00:00:00 GMT 1970</javascriptLp>
+         <formulaNullAsNull>Thu Jan 01 00:00:00 GMT 1970</formulaNullAsNull>
+         <sqlNullAsNull>1970-01-01 00:00:00.0</sqlNullAsNull>
+         <javascriptNullAsNull>Thu Jan 01 00:00:00 GMT 1970</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Thu Jan 01 00:00:00 GMT 1970</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>Thu Jan 01 00:00:01 GMT 1970</formula>
+         <sql>1970-01-01 00:00:01.0</sql>
+         <javascript>Thu Jan 01 00:00:01 GMT 1970</javascript>
+         <javascriptLp>Thu Jan 01 00:00:01 GMT 1970</javascriptLp>
+         <formulaNullAsNull>Thu Jan 01 00:00:01 GMT 1970</formulaNullAsNull>
+         <sqlNullAsNull>1970-01-01 00:00:01.0</sqlNullAsNull>
+         <javascriptNullAsNull>Thu Jan 01 00:00:01 GMT 1970</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Thu Jan 01 00:00:01 GMT 1970</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-5]</inputvalues>
+         <formula>Wed Dec 31 23:59:55 GMT 1969</formula>
+         <sql>1969-12-31 23:59:55.0</sql>
+         <javascript>Wed Dec 31 23:59:55 GMT 1969</javascript>
+         <javascriptLp>Wed Dec 31 23:59:55 GMT 1969</javascriptLp>
+         <formulaNullAsNull>Wed Dec 31 23:59:55 GMT 1969</formulaNullAsNull>
+         <sqlNullAsNull>1969-12-31 23:59:55.0</sqlNullAsNull>
+         <javascriptNullAsNull>Wed Dec 31 23:59:55 GMT 1969</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Wed Dec 31 23:59:55 GMT 1969</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-885730575]</inputvalues>
+         <formula>Sun Dec 07 11:43:45 GMT 1941</formula>
+         <sql>1941-12-07 11:43:45.0</sql>
+         <javascript>Sun Dec 07 11:43:45 GMT 1941</javascript>
+         <javascriptLp>Sun Dec 07 11:43:45 GMT 1941</javascriptLp>
+         <formulaNullAsNull>Sun Dec 07 11:43:45 GMT 1941</formulaNullAsNull>
+         <sqlNullAsNull>1941-12-07 11:43:45.0</sqlNullAsNull>
+         <javascriptNullAsNull>Sun Dec 07 11:43:45 GMT 1941</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Sun Dec 07 11:43:45 GMT 1941</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1638902645]</inputvalues>
+         <formula>Tue Dec 07 18:44:05 GMT 2021</formula>
+         <sql>2021-12-07 18:44:05.0</sql>
+         <javascript>Tue Dec 07 18:44:05 GMT 2021</javascript>
+         <javascriptLp>Tue Dec 07 18:44:05 GMT 2021</javascriptLp>
+         <formulaNullAsNull>Tue Dec 07 18:44:05 GMT 2021</formulaNullAsNull>
+         <sqlNullAsNull>2021-12-07 18:44:05.0</sqlNullAsNull>
+         <javascriptNullAsNull>Tue Dec 07 18:44:05 GMT 2021</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Tue Dec 07 18:44:05 GMT 2021</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>Thu Jan 01 00:00:00 GMT 1970</formula>
+         <sql>1970-01-01 00:00:00.0</sql>
+         <javascript>Thu Jan 01 00:00:00 GMT 1970</javascript>
+         <javascriptLp>Thu Jan 01 00:00:00 GMT 1970</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

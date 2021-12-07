@@ -125,6 +125,8 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new FunctionIsPickVal());
         types.add(new FunctionPriorValue());
         types.add(new FunctionFormatCurrency());
+        types.add(new FunctionUnixTimestamp());
+        types.add(new FunctionFromUnixTime());
         types.add(new BinaryMathCommandInfo("TRUNC", new FunctionTrunc()));
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT"));

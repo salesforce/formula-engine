@@ -146,6 +146,29 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
       </testcase>
+      
+      <testcase name="testUnixTimestampWithDateTime" devName="testUnixTimestampWithDateTime"
+         labelName="testUnixTimestampWithDateTime" dataType="Double" eval="formula,template" dataFile="functiondatevalue-dateandtime"
+         scale="2" precision="12"
+         code="UnixTimestamp(DATETIMEVALUE(dateString__c))">
+         <referencefield devName="dateString" labelName="dateString"
+             dataType="Text"  length="50"/>
+      </testcase>
+      <testcase name="testFromUnixTime" devName="testFromUnixTime"
+         labelName="testFromUnixTime" dataType="DateTime" eval="formula,template" dataFile="unixtimestamp"
+         scale="3" precision="15"
+         code="FromUnixTime(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+      </testcase>
+      <testcase name="testUnixTimestampWithTime" devName="testUnixTimestampWithTime"
+         labelName="testUnixTimestampWithTime" dataType="Double" eval="formula,template" dataFile="functiontimevalue-dateandtime"
+         scale="2" precision="12"
+         code="UnixTimestamp(TimeValue(dateString__c))">
+         <referencefield devName="dateString" labelName="dateString"
+             dataType="Text"  length="50"/>
+      </testcase>
+            
       <!--  
       <testcase name="testUrlEncodingInWebLinks" devName="testUrlEncodingInWebLinks"
          labelName="testUrlEncodingInWebLinks" dataType="Text" encoding="UTF-8"
@@ -372,6 +395,14 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
+     <testcase name="testUnixTimestampWithDate" devName="testUnixTimestampWithDate"
+         labelName="testUnixTimestampWithDate" dataType="Double" dataFile="addDate"
+         scale="2" precision="12" code="UNIXTIMESTAMP(customdate1__c)">
+         <referencefield devName="customdate1" labelName="customdate1"
+             dataType="DateOnly"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>     
      <testcase name="testAddDateWithExpr" devName="testAddDateWithExpr"
          labelName="testAddDateWithExpr" dataType="DateOnly"
          dataFile="addDateWithExpr" scale="2" precision="12" whyIgnoreSql="all:Date overflow"

@@ -169,8 +169,33 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         rhsValue = rhsDataType == BigDecimal.class ? "ROUND(MOD(" +String.format(sqlToNumber(), rhsValue) + ", " + FormulaDateUtil.MILLISECONDSPERDAY + "))" : rhsValue;
         // to prevent negative values when subtracting, always add FormulaDateUtil.MILLISECONDSPERDAY, and take the mod
         return "MOD(" + lhsValue + (isAddition ? "+" : "-") + rhsValue + "+" + FormulaDateUtil.MILLISECONDSPERDAY + "," + FormulaDateUtil.MILLISECONDSPERDAY + ")";
+
+    /**
+     * @return how to get the unix epoch from a given date for String.format
+     */
+    default String sqlGetEpoch() {
+    	if (isPostgresStyle()) {
+        	return "EXTRACT(EPOCH FROM %s)::numeric";
+    	}
+    	return "ROUND((%s - DATE '1970-01-01') * 86400)";
     }
     
+    /**
+     * @return how to get the number of seconds in a day from a time value for String.format
+     */
+    default String sqlGetTimeInSeconds() {
+    	return "TRUNC(%s/1000)";
+    }
+
+    /**
+     * @return how to get a DateTime from a unix epoch time, suitable for String.format
+     */
+    default String getDateFromUnixTime() {
+    	if (isPostgresStyle()) {
+        	return "TO_TIMESTAMP(%s)";
+    	}
+    	return "(DATE '1970-01-01' + (%s/86400))";
+    }
     
     /**
      * Function right can be... complicated, especially in Oracle
