@@ -156,7 +156,8 @@ author: Srikanth Yendluri/Doug Chasman
       </testcase>
       <testcase name="testFromUnixTime" devName="testFromUnixTime"
          labelName="testFromUnixTime" dataType="DateTime" eval="formula,template" dataFile="unixtimestamp"
-         scale="3" precision="15"
+         scale="3" precision="15" 
+         whyIgnoreSql="mysql:no negative timestamp support"
          code="FromUnixTime(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
@@ -169,18 +170,6 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Text"  length="50"/>
       </testcase>
             
-      <!--  
-      <testcase name="testUrlEncodingInWebLinks" devName="testUrlEncodingInWebLinks"
-         labelName="testUrlEncodingInWebLinks" dataType="Text" encoding="UTF-8"
-         dataFile="weblinksEncoding" eval="formula, template" code="{!IF((customcflag__c), customurl1__c, customurl2__c)}">
-         <referencefield devName="customcflag" labelName="customcflag"
-             dataType="Boolean"/>
-         <referencefield devName="customurl1" labelName="customurl1"
-             dataType="url" length="255"/>
-         <referencefield devName="customurl2" labelName="customurl2"
-             dataType="url" length="255"/>
-     </testcase>
-    -->
      <testcase name="testTextFunctionWithDate" devName="testTextFunctionWithDate" eval="formula,template"
          labelName="testTextFunctionWithDate" dataType="Text" length="130" compareTemplate="formula"
          code="TEXT(DATE(2013,12,31))">
@@ -397,6 +386,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testUnixTimestampWithDate" devName="testUnixTimestampWithDate"
          labelName="testUnixTimestampWithDate" dataType="Double" dataFile="addDate"
+         whyIgnoreSql="mysql:no negative timestamp support"
          scale="2" precision="12" code="UNIXTIMESTAMP(customdate1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateOnly"/>

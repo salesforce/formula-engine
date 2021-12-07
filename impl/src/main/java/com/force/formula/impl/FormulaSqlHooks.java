@@ -169,6 +169,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         rhsValue = rhsDataType == BigDecimal.class ? "ROUND(MOD(" +String.format(sqlToNumber(), rhsValue) + ", " + FormulaDateUtil.MILLISECONDSPERDAY + "))" : rhsValue;
         // to prevent negative values when subtracting, always add FormulaDateUtil.MILLISECONDSPERDAY, and take the mod
         return "MOD(" + lhsValue + (isAddition ? "+" : "-") + rhsValue + "+" + FormulaDateUtil.MILLISECONDSPERDAY + "," + FormulaDateUtil.MILLISECONDSPERDAY + ")";
+    }
 
     /**
      * @return how to get the unix epoch from a given date for String.format
@@ -184,7 +185,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return how to get the number of seconds in a day from a time value for String.format
      */
     default String sqlGetTimeInSeconds() {
-    	return "TRUNC(%s/1000)";
+    	return sqlTrunc("%s/1000");
     }
 
     /**

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFromUnixTime">
+   <testInstance formula="FromUnixTime(customnumber1__c)" returntype="DateTime">
+    <SqlOutput nullAsNull="true">
+       <Sql>FROM_UNIXTIME(COALESCE($!s0s!$.customnumber1__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>FROM_UNIXTIME($!s0s!$.customnumber1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new Date(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber())*1000)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(new Date((context.record.customnumber1__c.toNumber())*1000)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(($F.nvl(context.record.customnumber1__c,0))*1000)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(new Date((context.record.customnumber1__c)*1000)):null</JsOutput>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>Thu Jan 01 00:00:00 GMT 1970</formula>
+         <sql>1970-01-01 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Jan 01 00:00:00 GMT 1970</formulaNullAsNull>
+         <sqlNullAsNull>1970-01-01 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>Thu Jan 01 00:00:01 GMT 1970</formula>
+         <sql>1970-01-01 00:00:01.0</sql>
+         <formulaNullAsNull>Thu Jan 01 00:00:01 GMT 1970</formulaNullAsNull>
+         <sqlNullAsNull>1970-01-01 00:00:01.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-5]</inputvalues>
+         <formula>Wed Dec 31 23:59:55 GMT 1969</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Wed Dec 31 23:59:55 GMT 1969</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-885730575]</inputvalues>
+         <formula>Sun Dec 07 11:43:45 GMT 1941</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Sun Dec 07 11:43:45 GMT 1941</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1638902645]</inputvalues>
+         <formula>Tue Dec 07 18:44:05 GMT 2021</formula>
+         <sql>2021-12-07 18:44:05.0</sql>
+         <formulaNullAsNull>Tue Dec 07 18:44:05 GMT 2021</formulaNullAsNull>
+         <sqlNullAsNull>2021-12-07 18:44:05.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>Thu Jan 01 00:00:00 GMT 1970</formula>
+         <sql>1970-01-01 00:00:00.0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

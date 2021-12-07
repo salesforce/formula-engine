@@ -2,12 +2,12 @@
 <testCase name="testUnixTimestampWithDateTime">
    <testInstance formula="UnixTimestamp(DATETIMEVALUE(dateString__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>ROUND((TO_DATE($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS') - DATE '1970-01-01') * 86400)</Sql>
-       <Guard> NOT REGEXP_LIKE ($!s0s!$.dateString__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$')/* Adding some comments to keep the same length for this guard as it was before improving to more robust guard*/</Guard>
+       <Sql>DATEDIFF_BIG(second, '1970-01-01', CONVERT(DATETIME, $!s0s!$.dateString__c))</Sql>
+       <Guard>1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>ROUND((TO_DATE($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS') - DATE '1970-01-01') * 86400)</Sql>
-       <Guard> NOT REGEXP_LIKE ($!s0s!$.dateString__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$')/* Adding some comments to keep the same length for this guard as it was before improving to more robust guard*/</Guard>
+       <Sql>DATEDIFF_BIG(second, '1970-01-01', CONVERT(DATETIME, $!s0s!$.dateString__c))</Sql>
+       <Guard>1=0</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?((new $F.Decimal(Math.trunc((new Date(context.record.dateString__c + ' GMT')).getTime()/1000)))):null</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?((new $F.Decimal(Math.trunc((new Date(context.record.dateString__c + ' GMT')).getTime()/1000)))):null</JsOutput>
@@ -65,37 +65,37 @@
       <result>
       <inputvalues>[2011-13-29 00:00:09]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>null</sql>
+         <sql>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012:02:02]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>null</sql>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-01-01 24:00:00]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>null</sql>
+         <sql>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-01-01 23:60:00]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>null</sql>
+         <sql>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-01-01 23:00:60]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>null</sql>
+         <sql>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-01-01 23:59:59]</inputvalues>
@@ -107,9 +107,9 @@
       <result>
       <inputvalues>[2012-10-34 00:00:00]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>null</sql>
+         <sql>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-02-07 5:2:33]</inputvalues>

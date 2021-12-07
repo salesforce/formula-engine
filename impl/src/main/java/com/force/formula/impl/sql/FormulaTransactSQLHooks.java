@@ -189,6 +189,30 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     	return String.format("DATEADD(MONTH, %s, %s)", numMonths, dateArg);
     }
 	
+
+    /**
+     * @return how to get the unix epoch from a given date for String.format
+     */
+	@Override
+    default String sqlGetEpoch() {
+    	return "DATEDIFF_BIG(second, '1970-01-01', %s)";
+    }
+    
+    /**
+     * @return how to get the number of seconds in a day from a time value for String.format
+     */
+	@Override
+    default String sqlGetTimeInSeconds() {
+    	return "DATEDIFF(second, '00:00:00', %s)";
+    }
+	
+    /**
+     * @return how to get a DateTime from a unix epoch time, suitable for String.format
+     */
+    @Override
+    default String getDateFromUnixTime() {
+    	return "DATEADD(second, %s, '1970-01-01')";
+    }
 	
 
 	@Override

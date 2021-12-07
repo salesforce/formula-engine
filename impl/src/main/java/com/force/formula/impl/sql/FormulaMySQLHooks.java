@@ -167,7 +167,31 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 		return String.format("DATE_ADD(%s, INTERVAL TRUNCATE(%s,0) MONTH)", dateArg, numMonths);
     }
     
+
+    /**
+     * @return how to get the unix epoch from a given date for String.format
+     */
+	@Override
+    default String sqlGetEpoch() {
+    	return "UNIX_TIMESTAMP(%s)";
+    }
     
+    /**
+     * @return how to get the number of seconds in a day from a time value for String.format
+     */
+	@Override
+    default String sqlGetTimeInSeconds() {
+    	return "TIME_TO_SEC(%s)";
+    }
+	
+    /**
+     * @return how to get a DateTime from a unix epoch time, suitable for String.format
+     */
+    @Override
+    default String getDateFromUnixTime() {
+    	return "FROM_UNIXTIME(%s)";
+    }
+
     /**
      * @return the format for converting to a datetime value
      */

@@ -175,6 +175,21 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
 		return "EXTRACT(DAY FROM (date_trunc('month',%s)+ interval '1 month -1 day')::timestamp(0))::numeric";
     }
 
+    /**
+     * @return how to get the unix epoch from a given date for String.format
+     */
+	@Override
+    default String sqlGetEpoch() {
+    	return "EXTRACT(EPOCH FROM %s)::numeric";
+    }
+    
+    /**
+     * @return how to get a DateTime from a unix epoch time, suitable for String.format
+     */
+    @Override
+    default String getDateFromUnixTime() {
+    	return "TO_TIMESTAMP(%s)";
+    }
     
     /**
      * @return the format for converting to a datetime value
