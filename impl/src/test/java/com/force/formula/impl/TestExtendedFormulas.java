@@ -53,7 +53,7 @@ public class TestExtendedFormulas extends FormulaPostgresTests {
 			return true;
 		}
 		if ("testInitCap".equals(testName)) {
-			// TODO: Initcap function I implemented is ascii only.
+			// TODO: Initcap function doesn't handle decomposed dotted I correctly.
 			return true;
 		}
 		return false;

@@ -181,5 +181,12 @@
          <formulaNullAsNull>Hi捦挺挎There</formulaNullAsNull>
          <sqlNullAsNull>Hi捦挺挎There</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[ijsland]</inputvalues>
+         <formula>Ijsland</formula>
+         <sql>Ijsland</sql>
+         <formulaNullAsNull>Ijsland</formulaNullAsNull>
+         <sqlNullAsNull>Ijsland</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>

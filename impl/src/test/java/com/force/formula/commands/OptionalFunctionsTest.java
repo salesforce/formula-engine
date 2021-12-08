@@ -91,6 +91,7 @@ public class OptionalFunctionsTest extends BaseCustomizableParserTest {
     public void testInitCap() throws Exception {
     	assertEquals("Mr. Smith", evaluateString("INITCAP(\"mr. smith\")"));
     	assertEquals("Mr. 123smith", evaluateString("INITCAP(\"mr. 123smith\")"));
+    	assertEquals("Mr. _Smith", evaluateString("INITCAP(\"mr. _smith\")"));
 
     }
 

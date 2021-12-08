@@ -30,7 +30,7 @@ public class FunctionInitCap extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        return new SQLPair("INITCAP(" + args[0] + ")", guards[0]);
+        return new SQLPair(String.format(getSqlHooks(context).sqlInitCap(false), args[0]), guards[0]);
     }
 
     @Override

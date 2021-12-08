@@ -1879,7 +1879,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testInitCap" devName="testInitCap" labels="extended"
          labelName="testInitCap" dataType="Text"
          dataFile="initCap" 
-         whyIgnoreSql="postgres:icu support,sqlserver:not implemented,mysql:not implemented"
+         whyIgnoreSql="sqlserver:not implemented,mysql:not implemented"
          whyIgnoreJavscript=""
          code="INITCAP(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"

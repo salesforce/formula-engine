@@ -180,9 +180,9 @@ public class FormulaJsTestUtils {
         				+ "var d = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));"
         				+ "var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));"
         				+ "return Math.ceil((1+(d - yearStart))/86400000);}\n")
-        		// Init cap... matches postgres so use "true" for ascii in calls to FormulaTextUtil.formulaInitCap
+        		// Init cap... Normalize and use unicode to match postgres/oracle behavior
         		.append("$F.initcap=function(a) {if (!a) return a;"
-        				+ "return a.toLowerCase().replace(/(?:^|\\s)[a-z]/g, function (m) {return m.toUpperCase();})}\n")
+        				+ "return a.toLowerCase().replace(/(?:^|[^\\p{Ll}\\p{Lm}\\p{Lu}\\p{N}])[\\p{Ll}]/gu, function (m) {return m.toUpperCase();})}\n")
         		;
 
         return fContext.toString();

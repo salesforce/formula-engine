@@ -187,6 +187,24 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	}
         return "LOWER(%s)";
     }
+    
+	
+    /**
+     * Perform the InitCap function to make "proper" names.
+     * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
+     * @return the sql expression to use for uppercase with a locale
+     */
+    default String sqlInitCap(boolean hasLocaleOverride) {
+    	if (isOracleStyle()) {
+	        if (hasLocaleOverride) {
+                return "NLS_INITCAP(%s,CASE WHEN SUBSTR(%s,1,2) = 'nl' THEN 'NLS_SORT=xdutch' ELSE 'NLS_SORT=xwest_european' END)";
+	        } else {
+	            return "INITCAP(%s)";
+	        }
+    	}
+    	return "INITCAP(%s COLLATE \"en_US\")";  // Use en_US so it isn't ascii only
+    }
+
 
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is

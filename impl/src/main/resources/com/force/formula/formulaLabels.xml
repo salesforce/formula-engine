@@ -308,6 +308,19 @@
         <param name="FROMUNIXTIME">FROMUNIXTIME(number)</param>
         <param name="FROMUNIXTIME_DESCR">Return the datetime that represents the given number as the seconds elapsed since 1 Jan 1970.</param>
 
+        <param name="ISOWEEK">ISOWEEK(date)</param>
+        <param name="ISOWEEK_DESCR">Return the ISO 8601 week number for the given date (from 1-53) so that the first week starts on monday.</param>
+        <param name="ISOYEAR">ISOYEAR(date)</param>
+        <param name="ISOYEAR_DESCR">Return the ISO 8601 week-numbering 4-digit year for the given date so that the first day is a monday.</param>
+        <param name="DAYOFYEAR">DAYOFYEAR(date)</param>
+        <param name="DAYOFYEAR_DESCR">Return the day of the calendar year (from 1-366).</param>
+
+        <param name="INITCAP">INITCAP(text)</param>
+        <param name="INITCAP_DESCR">Return the text as lowercase with first character of each word made uppercase.</param>
+
+        <param name="FORMATCURRENCY">FORMATCURRENCY(currencyisocode, number)</param>
+        <param name="FORMATCURRENCY_DESCR">Format the given number as a current using the scale of the given currency code, with that code prepended.</param>
+
         <!-- Internal only.  Doesn't have to be translated-->
         <param name="FORMAT_ADDRESS">FORMAT_ADDRESS(street,city,state,zip,country[,lineSep])</param>
         <param name="FORMAT_ADDRESS_DESCR">Format the address in mailing format using the line separator provided if necessary.</param>
