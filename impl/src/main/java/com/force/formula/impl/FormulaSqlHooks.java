@@ -199,7 +199,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 	        if (hasLocaleOverride) {
                 return "NLS_INITCAP(%s,CASE WHEN SUBSTR(%s,1,2) = 'nl' THEN 'NLS_SORT=xdutch' ELSE 'NLS_SORT=xwest_european' END)";
 	        } else {
-	            return "INITCAP(%s)";
+	            return "NLS_INITCAP(%s)";
 	        }
     	}
     	return "INITCAP(%s COLLATE \"en_US\")";  // Use en_US so it isn't ascii only
