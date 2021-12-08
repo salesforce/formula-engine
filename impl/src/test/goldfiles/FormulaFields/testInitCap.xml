@@ -269,17 +269,6 @@
          <javascriptLpNullAsNull>Bottom İDempotent</javascriptLpNullAsNull>
       </result>
       <result>
-      <inputvalues>[Hi捦挺挎There]</inputvalues>
-         <formula>Hi捦挺挎There</formula>
-         <sql>Hi捦挺挎There</sql>
-         <javascript>Hi捦挺挎There</javascript>
-         <javascriptLp>Hi捦挺挎There</javascriptLp>
-         <formulaNullAsNull>Hi捦挺挎There</formulaNullAsNull>
-         <sqlNullAsNull>Hi捦挺挎There</sqlNullAsNull>
-         <javascriptNullAsNull>Hi捦挺挎There</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Hi捦挺挎There</javascriptLpNullAsNull>
-      </result>
-      <result>
       <inputvalues>[ijsland]</inputvalues>
          <formula>Ijsland</formula>
          <sql>Ijsland</sql>
