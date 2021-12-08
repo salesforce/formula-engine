@@ -1884,13 +1884,21 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
      </testcase>
-     
+
      <testcase name="testChr" devName="testChr" labels="extended"
          labelName="testChr" dataType="Text"
          dataFile="unicodePoints" 
          code="CHR(customnumber__c)">
          <referencefield devName="customnumber" labelName="customnumber"
              dataType="Double" scale="2" precision="12"/>
+     </testcase>
+
+     <testcase name="testAscii" devName="testAscii" labels="extended"
+         labelName="testAscii" dataType="Double"
+         dataFile="unicodeChars" 
+         scale="2" precision="12" code="ASCII(customtext1__c)">
+         <referencefield devName="customtext1" labelName="customtext1"
+             dataType="Text" length="255"/>
      </testcase>
 
      <!-- NOTES: TESTCASES FOR EXP() FUNCTION -->

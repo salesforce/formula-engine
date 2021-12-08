@@ -217,6 +217,19 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	}
     	return "CHR(%s)";
     }
+    
+    /**
+     * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
+     */
+    default String sqlAscii() {
+    	if (isPostgresStyle()) {
+        	return "ASCII(%s)::integer";
+    	}
+    	if (isOracleStyle()) {
+        	return "ASCII(UNISTR(%s))";
+    	}
+    	return "ASCII(%s)";
+    }
 
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is

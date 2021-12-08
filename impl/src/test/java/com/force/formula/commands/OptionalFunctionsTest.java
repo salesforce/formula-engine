@@ -103,4 +103,12 @@ public class OptionalFunctionsTest extends BaseCustomizableParserTest {
     }
 
 
+    public void testAscii() throws Exception {
+    	assertEquals(null, evaluateBigDecimal("ASCII(null)"));
+    	assertEquals(null, evaluateBigDecimal("ASCII(\"\")"));
+    	assertEquals(new BigDecimal(32), evaluateBigDecimal("ASCII(\" \")"));
+    	assertEquals(new BigDecimal(9729), evaluateBigDecimal("ASCII(\"\u2601\")"));
+    	assertEquals(new BigDecimal(129525), evaluateBigDecimal("ASCII(\"\uD83E\uDDF5\")")); // thread
+    }
+
 }
