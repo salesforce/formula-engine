@@ -205,6 +205,18 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	return "INITCAP(%s COLLATE \"en_US\")";  // Use en_US so it isn't ascii only
     }
 
+    /**
+     * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
+     */
+    default String sqlChr() {
+    	if (isPostgresStyle()) {
+        	return "CHR(TRUNC(%s)::integer)";
+    	}
+    	if (isOracleStyle()) {
+        	return "CHR(%s USING NCHAR_CS)";
+    	}
+    	return "CHR(%s)";
+    }
 
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is

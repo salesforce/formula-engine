@@ -92,7 +92,14 @@ public class OptionalFunctionsTest extends BaseCustomizableParserTest {
     	assertEquals("Mr. Smith", evaluateString("INITCAP(\"mr. smith\")"));
     	assertEquals("Mr. 123smith", evaluateString("INITCAP(\"mr. 123smith\")"));
     	assertEquals("Mr. _Smith", evaluateString("INITCAP(\"mr. _smith\")"));
+    }
 
+    public void testChr() throws Exception {
+    	assertEquals(null, evaluateString("CHR(0)"));
+    	assertEquals(" ", evaluateString("CHR(32)"));
+		assertEquals(null, evaluateString("CHR(-32)"));
+    	assertEquals("\u2601", evaluateString("CHR(9729)")); // cloud
+    	assertEquals("\uD83E\uDDF5", evaluateString("CHR(129525)")); // thread
     }
 
 

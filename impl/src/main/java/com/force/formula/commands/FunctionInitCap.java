@@ -25,7 +25,7 @@ public class FunctionInitCap extends FormulaCommandInfoImpl {
 
     @Override
     public FormulaCommand getCommand(FormulaAST node, FormulaContext context) {
-        return new FunctionTrimCommand(this);
+        return new FunctionInitCapCommand(this);
     }
 
     @Override
@@ -38,10 +38,10 @@ public class FunctionInitCap extends FormulaCommandInfoImpl {
         return JsValue.forNonNullResult("$F.initcap("+args[0] +")",args);
     }
     
-    static class FunctionTrimCommand extends AbstractFormulaCommand {
+    static class FunctionInitCapCommand extends AbstractFormulaCommand {
 	    private static final long serialVersionUID = 1L;
 	
-		public FunctionTrimCommand(FormulaCommandInfo formulaCommandInfo) {
+		public FunctionInitCapCommand(FormulaCommandInfo formulaCommandInfo) {
 	        super(formulaCommandInfo);
 	    }
 	

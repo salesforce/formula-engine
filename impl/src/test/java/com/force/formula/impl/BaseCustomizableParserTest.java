@@ -131,6 +131,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new FunctionIsoYear());
         types.add(new FunctionDayOfYear());
         types.add(new FunctionInitCap());
+        types.add(new FunctionChr());
         types.add(new BinaryMathCommandInfo("TRUNC", new FunctionTrunc()));
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT"));

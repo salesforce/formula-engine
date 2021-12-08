@@ -318,6 +318,9 @@
         <param name="INITCAP">INITCAP(text)</param>
         <param name="INITCAP_DESCR">Return the text as lowercase with first character of each word made uppercase.</param>
 
+        <param name="CHR">CHR(number)</param>
+        <param name="CHR_DESCR">Return a string with the first character's code point as the given number.</param>
+
         <param name="FORMATCURRENCY">FORMATCURRENCY(currencyisocode, number)</param>
         <param name="FORMATCURRENCY_DESCR">Format the given number as a current using the scale of the given currency code, with that code prepended.</param>
 
