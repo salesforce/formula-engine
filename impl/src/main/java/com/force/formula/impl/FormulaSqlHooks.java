@@ -223,6 +223,38 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	return "(DATE '1970-01-01' + (%s/86400))";
     }
     
+    /**
+     * @return how to get the ISO 8601 week number from a date or datetime, suitable for String.format
+     */
+    default String sqlGetIsoWeek() {
+    	if (isPostgresStyle()) {
+    		return "CAST(TO_CHAR(%s, 'IW') AS NUMERIC)";
+    	}
+        return "TO_NUMBER(TO_CHAR(%s, 'IW'))";
+    }
+    
+    
+    /**
+    /**
+     * @return how to get the ISO 8601 year number from a date or datetime, suitable for String.format
+     */
+    default String sqlGetIsoYear() {
+    	if (isPostgresStyle()) {
+    		return "CAST(TO_CHAR(%s, 'IYYY') AS NUMERIC)";
+    	}
+        return "TO_NUMBER(TO_CHAR(%s, 'IYYY'))";
+    }
+    
+    /**
+     * @return how to get the day of the year from a date or datetime, suitable for String.format
+     */
+    default String sqlGetDayOfYear() {
+    	if (isPostgresStyle()) {
+    		return "CAST(TO_CHAR(%s, 'DDD') AS NUMERIC)";
+    	}
+        return "TO_NUMBER(TO_CHAR(%s, 'DDD'))";
+    }
+    
     
     /**
      * Function right can be... complicated, especially in Oracle

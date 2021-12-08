@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testInitCap">
+   <testInstance formula="INITCAP(customtext1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>INITCAP($!s0s!$.customtext1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>INITCAP($!s0s!$.customtext1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?($F.initcap(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?($F.initcap(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?($F.initcap(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?($F.initcap(context.record.customtext1__c)):null</JsOutput>
+      <result>
+      <inputvalues>[﻿]</inputvalues>
+         <formula>﻿</formula>
+         <sql>﻿</sql>
+         <javascript>﻿</javascript>
+         <javascriptLp>﻿</javascriptLp>
+         <formulaNullAsNull>﻿</formulaNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
+         <javascriptNullAsNull>﻿</javascriptNullAsNull>
+         <javascriptLpNullAsNull>﻿</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CASES]</inputvalues>
+         <formula>Cases</formula>
+         <sql>Cases</sql>
+         <javascript>Cases</javascript>
+         <javascriptLp>Cases</javascriptLp>
+         <formulaNullAsNull>Cases</formulaNullAsNull>
+         <sqlNullAsNull>Cases</sqlNullAsNull>
+         <javascriptNullAsNull>Cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[cases]</inputvalues>
+         <formula>Cases</formula>
+         <sql>Cases</sql>
+         <javascript>Cases</javascript>
+         <javascriptLp>Cases</javascriptLp>
+         <formulaNullAsNull>Cases</formulaNullAsNull>
+         <sqlNullAsNull>Cases</sqlNullAsNull>
+         <javascriptNullAsNull>Cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CaSeS]</inputvalues>
+         <formula>Cases</formula>
+         <sql>Cases</sql>
+         <javascript>Cases</javascript>
+         <javascriptLp>Cases</javascriptLp>
+         <formulaNullAsNull>Cases</formulaNullAsNull>
+         <sqlNullAsNull>Cases</sqlNullAsNull>
+         <javascriptNullAsNull>Cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[große]</inputvalues>
+         <formula>Große</formula>
+         <sql>Große</sql>
+         <javascript>Große</javascript>
+         <javascriptLp>Große</javascriptLp>
+         <formulaNullAsNull>Große</formulaNullAsNull>
+         <sqlNullAsNull>Große</sqlNullAsNull>
+         <javascriptNullAsNull>Große</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Große</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula Ångstrom does not equal viaJavascript ångstrom -->
+      <inputvalues>[ångstrom]</inputvalues>
+         <formula>Ångstrom</formula>
+         <sql>Ångstrom</sql>
+         <javascript>ångstrom</javascript>
+         <javascriptLp>ångstrom</javascriptLp>
+         <formulaNullAsNull>Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>Ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula Ångstrom does not equal viaJavascript ångstrom -->
+      <inputvalues>[ÅNGSTROM]</inputvalues>
+         <formula>Ångstrom</formula>
+         <sql>Ångstrom</sql>
+         <javascript>ångstrom</javascript>
+         <javascriptLp>ångstrom</javascriptLp>
+         <formulaNullAsNull>Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>Ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[idempotent]</inputvalues>
+         <formula>Idempotent</formula>
+         <sql>Idempotent</sql>
+         <javascript>Idempotent</javascript>
+         <javascriptLp>Idempotent</javascriptLp>
+         <formulaNullAsNull>Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>Idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula Idempotent does not equal viaJavascript ıdempotent -->
+      <inputvalues>[ıdempotent]</inputvalues>
+         <formula>Idempotent</formula>
+         <sql>Idempotent</sql>
+         <javascript>ıdempotent</javascript>
+         <javascriptLp>ıdempotent</javascriptLp>
+         <formulaNullAsNull>Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>ıdempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>ıdempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[IDEMPOTENT]</inputvalues>
+         <formula>Idempotent</formula>
+         <sql>Idempotent</sql>
+         <javascript>Idempotent</javascript>
+         <javascriptLp>Idempotent</javascriptLp>
+         <formulaNullAsNull>Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>Idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula İdempotent does not equal viaJavascript İdempotent -->
+      <inputvalues>[İDEMPOTENT]</inputvalues>
+         <formula>İdempotent</formula>
+         <sql>İdempotent</sql>
+         <javascript>İdempotent</javascript>
+         <javascriptLp>İdempotent</javascriptLp>
+         <formulaNullAsNull>İdempotent</formulaNullAsNull>
+         <sqlNullAsNull>İdempotent</sqlNullAsNull>
+         <javascriptNullAsNull>İdempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>İdempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Mr. CASES]</inputvalues>
+         <formula>Mr. Cases</formula>
+         <sql>Mr. Cases</sql>
+         <javascript>Mr. Cases</javascript>
+         <javascriptLp>Mr. Cases</javascriptLp>
+         <formulaNullAsNull>Mr. Cases</formulaNullAsNull>
+         <sqlNullAsNull>Mr. Cases</sqlNullAsNull>
+         <javascriptNullAsNull>Mr. Cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Mr. Cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[MR. cases]</inputvalues>
+         <formula>Mr. Cases</formula>
+         <sql>Mr. Cases</sql>
+         <javascript>Mr. Cases</javascript>
+         <javascriptLp>Mr. Cases</javascriptLp>
+         <formulaNullAsNull>Mr. Cases</formulaNullAsNull>
+         <sqlNullAsNull>Mr. Cases</sqlNullAsNull>
+         <javascriptNullAsNull>Mr. Cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Mr. Cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Herr.  CaSeS]</inputvalues>
+         <formula>Herr.  Cases</formula>
+         <sql>Herr.  Cases</sql>
+         <javascript>Herr.  Cases</javascript>
+         <javascriptLp>Herr.  Cases</javascriptLp>
+         <formulaNullAsNull>Herr.  Cases</formulaNullAsNull>
+         <sqlNullAsNull>Herr.  Cases</sqlNullAsNull>
+         <javascriptNullAsNull>Herr.  Cases</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Herr.  Cases</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[129 große]</inputvalues>
+         <formula>129 Große</formula>
+         <sql>129 Große</sql>
+         <javascript>129 Große</javascript>
+         <javascriptLp>129 Große</javascriptLp>
+         <formulaNullAsNull>129 Große</formulaNullAsNull>
+         <sqlNullAsNull>129 Große</sqlNullAsNull>
+         <javascriptNullAsNull>129 Große</javascriptNullAsNull>
+         <javascriptLpNullAsNull>129 Große</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[mr. 123smith]</inputvalues>
+         <formula>Mr. 123smith</formula>
+         <sql>Mr. 123smith</sql>
+         <javascript>Mr. 123smith</javascript>
+         <javascriptLp>Mr. 123smith</javascriptLp>
+         <formulaNullAsNull>Mr. 123smith</formulaNullAsNull>
+         <sqlNullAsNull>Mr. 123smith</sqlNullAsNull>
+         <javascriptNullAsNull>Mr. 123smith</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Mr. 123smith</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula Mr. _Smith does not equal viaJavascript Mr. _smith -->
+      <inputvalues>[mr. _smith]</inputvalues>
+         <formula>Mr. _Smith</formula>
+         <sql>Mr. _Smith</sql>
+         <javascript>Mr. _smith</javascript>
+         <javascriptLp>Mr. _smith</javascriptLp>
+         <formulaNullAsNull>Mr. _Smith</formulaNullAsNull>
+         <sqlNullAsNull>Mr. _Smith</sqlNullAsNull>
+         <javascriptNullAsNull>Mr. _smith</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Mr. _smith</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula Lower Ångstrom does not equal viaJavascript Lower ångstrom -->
+      <inputvalues>[LOWER ångstrom]</inputvalues>
+         <formula>Lower Ångstrom</formula>
+         <sql>Lower Ångstrom</sql>
+         <javascript>Lower ångstrom</javascript>
+         <javascriptLp>Lower ångstrom</javascriptLp>
+         <formulaNullAsNull>Lower Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>Lower Ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>Lower ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Lower ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula [] Ångstrom does not equal viaJavascript [] ångstrom -->
+      <inputvalues>[[] ÅNGSTROM]</inputvalues>
+         <formula>[] Ångstrom</formula>
+         <sql>[] Ångstrom</sql>
+         <javascript>[] ångstrom</javascript>
+         <javascriptLp>[] ångstrom</javascriptLp>
+         <formulaNullAsNull>[] Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>[] Ångstrom</sqlNullAsNull>
+         <javascriptNullAsNull>[] ångstrom</javascriptNullAsNull>
+         <javascriptLpNullAsNull>[] ångstrom</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[foo idempotent]</inputvalues>
+         <formula>Foo Idempotent</formula>
+         <sql>Foo Idempotent</sql>
+         <javascript>Foo Idempotent</javascript>
+         <javascriptLp>Foo Idempotent</javascriptLp>
+         <formulaNullAsNull>Foo Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Foo Idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>Foo Idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Foo Idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula Bar Idempotent does not equal viaJavascript Bar ıdempotent -->
+      <inputvalues>[bar ıdempotent]</inputvalues>
+         <formula>Bar Idempotent</formula>
+         <sql>Bar Idempotent</sql>
+         <javascript>Bar ıdempotent</javascript>
+         <javascriptLp>Bar ıdempotent</javascriptLp>
+         <formulaNullAsNull>Bar Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Bar Idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>Bar ıdempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Bar ıdempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[top IDEMPOTENT]</inputvalues>
+         <formula>Top Idempotent</formula>
+         <sql>Top Idempotent</sql>
+         <javascript>Top Idempotent</javascript>
+         <javascriptLp>Top Idempotent</javascriptLp>
+         <formulaNullAsNull>Top Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Top Idempotent</sqlNullAsNull>
+         <javascriptNullAsNull>Top Idempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Top Idempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula Bottom İdempotent does not equal viaJavascript Bottom İdempotent -->
+      <inputvalues>[bottom İDEMPOTENT]</inputvalues>
+         <formula>Bottom İdempotent</formula>
+         <sql>Bottom İdempotent</sql>
+         <javascript>Bottom İdempotent</javascript>
+         <javascriptLp>Bottom İdempotent</javascriptLp>
+         <formulaNullAsNull>Bottom İdempotent</formulaNullAsNull>
+         <sqlNullAsNull>Bottom İdempotent</sqlNullAsNull>
+         <javascriptNullAsNull>Bottom İdempotent</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Bottom İdempotent</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula Hi捦挺挎There does not equal viaJavascript Hi捦挺挎there -->
+      <inputvalues>[Hi捦挺挎There]</inputvalues>
+         <formula>Hi捦挺挎There</formula>
+         <sql>Hi捦挺挎There</sql>
+         <javascript>Hi捦挺挎there</javascript>
+         <javascriptLp>Hi捦挺挎there</javascriptLp>
+         <formulaNullAsNull>Hi捦挺挎There</formulaNullAsNull>
+         <sqlNullAsNull>Hi捦挺挎There</sqlNullAsNull>
+         <javascriptNullAsNull>Hi捦挺挎there</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Hi捦挺挎there</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
