@@ -806,4 +806,12 @@ public class BuiltinFunctionsTest extends ParserTestBase {
         assertFalse( evaluateBoolean("ISNUMBER(\"No\")")); 
     } 
 
+    public void testStringCmp() throws Exception {
+        assertTrue( evaluateBoolean("\"5\" > \"4\"")); 
+        assertFalse( evaluateBoolean("\"5\" <= \"4\"")); 
+        assertTrue( evaluateBoolean("\"Foo\" > \"FOO\"")); 
+        assertNull( evaluateBoolean("\"Foo\" > null")); 
+        assertNull( evaluateBoolean("null > \"foo\"")); 
+    }
+    
 }

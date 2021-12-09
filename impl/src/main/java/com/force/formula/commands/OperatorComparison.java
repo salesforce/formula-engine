@@ -31,7 +31,9 @@ public class OperatorComparison extends FormulaCommandInfoImpl implements Formul
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = "(" + args[0] + getName() + args[1] + ")";
+    	String lhs = args[0];
+    	String rhs = args[1];
+        String sql = "(" + lhs + getName() + rhs + ")";
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }
@@ -73,8 +75,9 @@ public class OperatorComparison extends FormulaCommandInfoImpl implements Formul
         if (clazz == ConstantNull.class  || clazz == RuntimeType.class)
             return;
 
-        // Only support comparison operation for Numeric, Date, and DateTime data types
-        if ((clazz != BigDecimal.class) && (clazz != Date.class) && (clazz != FormulaTime.class) && (clazz != FormulaDateTime.class))
+        // Only support comparison operation for Text, Numeric, Date, and DateTime data types
+        if ((clazz != BigDecimal.class) && (clazz != Date.class) && (clazz != FormulaTime.class) && (clazz != FormulaDateTime.class)
+        		&& !FormulaTypeUtils.isTypeText(clazz))
             throw new WrongArgumentTypeException(operator, new Class[] { BigDecimal.class, Date.class,
                 FormulaDateTime.class }, node);
     }
@@ -82,7 +85,7 @@ public class OperatorComparison extends FormulaCommandInfoImpl implements Formul
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         // null means false in SQL, 5 < null is false and 5 > null is false.
-        Type clazz = node.getDataType();
+        Type clazz = ((FormulaAST)node.getFirstChild()).getDataType();
         // Comparisons are particularly tricky in JS because null<1 = true and null>1 = new Date().  Sigh...
         String argGuard = JsValue.makeArgumentGuard(args);
         if (clazz == BigDecimal.class && context.useHighPrecisionJs()) {
@@ -93,7 +96,11 @@ public class OperatorComparison extends FormulaCommandInfoImpl implements Formul
             }
         }
         if (argGuard != null) {
-            return JsValue.generate("("+argGuard + "?(" + args[0] + getName() + args[1] + "):null)", new JsValue[0], args[0].couldBeNull || args[1].couldBeNull);
+        	boolean hasNullResult = true;
+        	if (FormulaTypeUtils.isTypeText(clazz)) {  // Text comparisons shouldn't be null
+        		hasNullResult = false;
+        	}
+            return JsValue.generate("("+argGuard + "?(" + args[0] + getName() + args[1] + "):"+(hasNullResult?"null":"false")+")", new JsValue[0], hasNullResult && (args[0].couldBeNull || args[1].couldBeNull));
         } else {
             return JsValue.forNonNullResult("(" + args[0] + getName() + args[1] + ")", args);
         }

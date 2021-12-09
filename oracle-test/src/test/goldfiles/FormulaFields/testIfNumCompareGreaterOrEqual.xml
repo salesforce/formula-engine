@@ -9,8 +9,8 @@
        <Sql>CASE WHEN ($!s0s!$.customcurrency1__c&gt;=$!s0s!$.customcurrency2__c) THEN $!s0s!$.customcurrency3__c ELSE $!s0s!$.customnumber1__c END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0'))&gt;=$F.nvl(context.record.customcurrency2__c,new $F.Decimal('0')))?$F.nvl(context.record.customcurrency3__c,new $F.Decimal('0')):$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">((context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null?(context.record.customcurrency1__c&gt;=context.record.customcurrency2__c):null)?context.record.customcurrency3__c:context.record.customnumber1__c)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')).comparedTo($F.nvl(context.record.customcurrency2__c,new $F.Decimal('0'))) &gt;= 0)?$F.nvl(context.record.customcurrency3__c,new $F.Decimal('0')):$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">((context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null?(context.record.customcurrency1__c.comparedTo(context.record.customcurrency2__c) &gt;= 0):null)?context.record.customcurrency3__c:context.record.customnumber1__c)</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">(($F.nvl(context.record.customcurrency1__c,0)&gt;=$F.nvl(context.record.customcurrency2__c,0))?$F.nvl(context.record.customcurrency3__c,0):$F.nvl(context.record.customnumber1__c,0))</JsOutput>
     <JsOutput highPrec="false" nullAsNull="true">((context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null?(context.record.customcurrency1__c&gt;=context.record.customcurrency2__c):null)?context.record.customcurrency3__c:context.record.customnumber1__c)</JsOutput>
       <result>

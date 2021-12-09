@@ -1,0 +1,12 @@
+foo,
+,foo
+,
+foo,foo
+FOO,foo
+foo,FOO
+Foo,Bar
+Left,Right
+Left, Left
+#Right ,Right  # the tester for oracle doesn't handle trailing characters correctly.
+1,2
+ß,ss
