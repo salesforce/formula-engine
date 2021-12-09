@@ -2,11 +2,11 @@
 <testCase name="testIfTextCompareLessEqual">
    <testInstance formula="text1__c&lt;=text2__c" returntype="Boolean">
     <SqlOutput nullAsNull="true">
-       <Sql>($!s0s!$.text1__c&lt;=$!s0s!$.text2__c)</Sql>
+       <Sql>(($!s0s!$.text1__c COLLATE &quot;POSIX&quot;)&lt;=($!s0s!$.text2__c COLLATE &quot;POSIX&quot;))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>($!s0s!$.text1__c&lt;=$!s0s!$.text2__c)</Sql>
+       <Sql>(($!s0s!$.text1__c COLLATE &quot;POSIX&quot;)&lt;=($!s0s!$.text2__c COLLATE &quot;POSIX&quot;))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.text1__c!=null&amp;&amp;context.record.text2__c!=null?(context.record.text1__c&lt;=context.record.text2__c):false)</JsOutput>

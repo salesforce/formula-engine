@@ -437,6 +437,23 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
+     * String in many DBs are compared using special rules for equality
+     * or inequality which doesn't match java/javascript.  This switches
+     * equality to match by making them use binary, case-sensitive comparison.
+     * 
+     * @param str the SQL expression for a string to be compared
+     * @param forCompare is it for Greater/LessThan.  otherwise it's for equality which may want different rules.
+     * @return the SQL expression that compare the strings using a binary expression
+     */
+
+    default Object sqlMakeStringComparable(Object str, boolean forCompare) {
+    	if (isPostgresStyle() && forCompare) {
+    		return "(" + str + " COLLATE \"POSIX\")";
+    	}
+    	return str;
+    }
+    
+    /**
      * @return the SQL string to use to format currency.
      * @param isoCodeArg the argument with the 3 character (ISO 4217) currency code 
      * @param amountArg the argument with the numeric value of the currency
