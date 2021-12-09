@@ -214,7 +214,37 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     	return "DATEADD(second, %s, '1970-01-01')";
     }
 	
+    @Override
+    default String sqlGetIsoWeek() {
+		return "DATEPART(isoww, %s)";
+    }
+    
+    @Override
+    default String sqlGetIsoYear() {
+		return "YEAR(DATEADD(day, 26 - DATEPART(isoww, %s), %s))";
+    }
+    
+    @Override
+    default String sqlGetDayOfYear() {
+		return "DATEPART(dayofyear, %s)";
+    }
+    
+    @Override
+    default String sqlInitCap(boolean hasLocaleOverride) {
+    	return "%s";  // Unsupported.  Requires user defined function
+    }
 
+    @Override
+    default String sqlChr() {
+    	return "NCHAR(ROUND(%s,0,1))";
+    }
+    
+    @Override
+    default String sqlAscii() {
+    	// They didn't make this easy...
+    	return "UNICODE(%s)"; 
+    }
+    
 	@Override
 	default String sqlExponent(String argument) {
         // tests showed double precision was only 2.5% faster than numeric (i.e. the rest of

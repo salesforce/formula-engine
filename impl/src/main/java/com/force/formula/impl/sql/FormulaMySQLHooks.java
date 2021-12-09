@@ -216,7 +216,37 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     default String sqlLastDayOfMonth() {
 		return "LAST_DAY(%s)";
     }
+    
+    @Override
+    default String sqlGetIsoWeek() {
+		return "CAST(DATE_FORMAT(%s,'%%v') AS DECIMAL(52,18))";
+    }
+    
+    @Override
+    default String sqlGetIsoYear() {
+		return "CAST(DATE_FORMAT(%s,'%%x') AS DECIMAL(52,18))";
+    }
+    
+    @Override
+    default String sqlGetDayOfYear() {
+		return "CAST(DATE_FORMAT(%s,'%%j') AS DECIMAL(52,18))";
+    }
+    
+    @Override
+    default String sqlInitCap(boolean hasLocaleOverride) {
+    	return "%s";  // Unsupported https://bugs.mysql.com/bug.php?id=2340
+    }
 
+    @Override
+    default String sqlChr() {
+    	return "CHAR(TRUNCATE(%s,0) USING ucs2)";
+    }
+    
+    @Override
+    default String sqlAscii() {
+    	// They didn't make this easy...
+    	return "CONV(HEX(CONVERT(LEFT(%s,1) using ucs2)),16,10)"; 
+    }
     
     /**
      * @return the format for converting to a datetime value

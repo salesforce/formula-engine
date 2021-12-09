@@ -202,6 +202,24 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
 		return "TO_CHAR(LAST_DAY(%s),'DD')";
     }
 
+	@Override
+    default String sqlInitCap(boolean hasLocaleOverride) {
+        if (hasLocaleOverride) {
+            return "NLS_INITCAP(%s,CASE WHEN SUBSTR(%s,1,2) = 'nl' THEN 'NLS_SORT=xdutch' ELSE 'NLS_SORT=xwest_european' END)";
+        } else {
+            return "NLS_INITCAP(%s)";
+        }
+    }
+
+	@Override
+    default String sqlChr() {
+    	return "CHR(%s USING NCHAR_CS)";
+    }
+    
+	@Override
+    default String sqlAscii() {
+    	return "ASCII(UNISTR(%s))";
+    }
     
     /**
      * @return the format for converting to a datetime value

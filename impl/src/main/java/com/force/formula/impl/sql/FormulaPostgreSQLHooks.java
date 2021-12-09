@@ -190,6 +190,36 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
     default String getDateFromUnixTime() {
     	return "TO_TIMESTAMP(%s)";
     }
+
+    @Override
+    default String sqlGetIsoWeek() {
+		return "CAST(TO_CHAR(%s, 'IW') AS NUMERIC)";
+    }
+    
+    @Override
+    default String sqlGetIsoYear() {
+		return "CAST(TO_CHAR(%s, 'IYYY') AS NUMERIC)";
+    }
+    
+    @Override
+    default String sqlGetDayOfYear() {
+		return "CAST(TO_CHAR(%s, 'DDD') AS NUMERIC)";
+    }
+    
+    @Override
+    default String sqlInitCap(boolean hasLocaleOverride) {
+    	return "INITCAP(%s COLLATE \"en_US\")";  // Use en_US so it isn't ascii only
+    }
+
+    @Override
+    default String sqlChr() {
+    	return "CHR(TRUNC(%s)::integer)";
+    }
+    
+    @Override
+    default String sqlAscii() {
+    	return "ASCII(%s)::integer";
+    }
     
     /**
      * @return the format for converting to a datetime value

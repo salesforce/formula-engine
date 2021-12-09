@@ -1898,7 +1898,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testInitCap" devName="testInitCap" labels="extended"
          labelName="testInitCap" dataType="Text"
          dataFile="initCap" 
-         whyIgnoreSql="sqlserver:not implemented,mysql:not implemented"
+         whyIgnoreSql="mssql:not implemented,mysql:not implemented"
          code="INITCAP(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>

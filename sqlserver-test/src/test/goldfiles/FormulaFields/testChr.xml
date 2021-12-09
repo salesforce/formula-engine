@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testChr">
+   <testInstance formula="CHR(customnumber__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>NCHAR(ROUND(COALESCE($!s0s!$.customnumber__c, 0),0,1))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber__c, 0)&lt;1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>NCHAR(ROUND($!s0s!$.customnumber__c,0,1))</Sql>
+       <Guard>$!s0s!$.customnumber__c&lt;1</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber__c,new $F.Decimal('0')).toNumber()&gt;0?String.fromCodePoint(Math.trunc($F.nvl(context.record.customnumber__c,new $F.Decimal('0')).toNumber())):null)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber__c&amp;&amp;context.record.customnumber__c.toNumber()&gt;0?String.fromCodePoint(Math.trunc(context.record.customnumber__c.toNumber())):null)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">($F.nvl(context.record.customnumber__c,0)&gt;0?String.fromCodePoint(Math.trunc($F.nvl(context.record.customnumber__c,0))):null)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber__c&amp;&amp;context.record.customnumber__c&gt;0?String.fromCodePoint(Math.trunc(context.record.customnumber__c)):null)</JsOutput>
+      <result>
+      <inputvalues>[, ﻿]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[9]</inputvalues>
+         <formula> </formula>
+         <sql> </sql>
+         <formulaNullAsNull> </formulaNullAsNull>
+         <sqlNullAsNull> </sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[13]</inputvalues>
+         <formula> </formula>
+         <sql> </sql>
+         <formulaNullAsNull> </formulaNullAsNull>
+         <sqlNullAsNull> </sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[32]</inputvalues>
+         <formula> </formula>
+         <sql> </sql>
+         <formulaNullAsNull> </formulaNullAsNull>
+         <sqlNullAsNull> </sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[95]</inputvalues>
+         <formula>_</formula>
+         <sql>_</sql>
+         <formulaNullAsNull>_</formulaNullAsNull>
+         <sqlNullAsNull>_</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[8364]</inputvalues>
+         <formula>€</formula>
+         <sql>€</sql>
+         <formulaNullAsNull>€</formulaNullAsNull>
+         <sqlNullAsNull>€</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[64.5]</inputvalues>
+         <formula>@</formula>
+         <sql>@</sql>
+         <formulaNullAsNull>@</formulaNullAsNull>
+         <sqlNullAsNull>@</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[11822]</inputvalues>
+         <formula>⸮</formula>
+         <sql>⸮</sql>
+         <formulaNullAsNull>⸮</formulaNullAsNull>
+         <sqlNullAsNull>⸮</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-32]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
