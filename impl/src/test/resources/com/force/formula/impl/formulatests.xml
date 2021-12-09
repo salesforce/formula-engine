@@ -147,14 +147,14 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Text"  length="50"/>
       </testcase>
       
-      <testcase name="testUnixTimestampWithDateTime" devName="testUnixTimestampWithDateTime"
+      <testcase name="testUnixTimestampWithDateTime" devName="testUnixTimestampWithDateTime" labels="extended"
          labelName="testUnixTimestampWithDateTime" dataType="Double" eval="formula,template" dataFile="functiondatevalue-dateandtime"
          scale="2" precision="12"
          code="UnixTimestamp(DATETIMEVALUE(dateString__c))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
       </testcase>
-      <testcase name="testFromUnixTime" devName="testFromUnixTime"
+      <testcase name="testFromUnixTime" devName="testFromUnixTime" labels="extended"
          labelName="testFromUnixTime" dataType="DateTime" eval="formula,template" dataFile="unixtimestamp"
          scale="3" precision="15" 
          whyIgnoreSql="mysql:no negative timestamp support"
@@ -162,7 +162,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
       </testcase>
-      <testcase name="testUnixTimestampWithTime" devName="testUnixTimestampWithTime"
+      <testcase name="testUnixTimestampWithTime" devName="testUnixTimestampWithTime" labels="extended"
          labelName="testUnixTimestampWithTime" dataType="Double" eval="formula,template" dataFile="functiontimevalue-dateandtime"
          scale="2" precision="12"
          code="UnixTimestamp(TimeValue(dateString__c))">
@@ -170,6 +170,48 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Text"  length="50"/>
       </testcase>
             
+      <testcase name="testIsoWeekWithDateTime" devName="testIsoWeekWithDateTime" labels="extended"
+         labelName="testIsoWeekWithDateTime" dataType="Double" eval="formula,template" dataFile="functiondatevalue-dateandtime"
+         scale="2" precision="12"
+         code="ISOWEEK(DATETIMEVALUE(dateString__c))">
+         <referencefield devName="dateString" labelName="dateString"
+             dataType="Text"  length="50"/>
+      </testcase>        
+      <testcase name="testIsoWeekWithDate" devName="testIsoWeekWithDate" labels="extended"
+         labelName="testIsoWeekWithDate" dataType="Double" dataFile="addDate"
+         scale="2" precision="12" code="ISOWEEK(customdate1__c)">
+         <referencefield devName="customdate1" labelName="customdate1"
+             dataType="DateOnly"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>     
+      <testcase name="testIsoYearWithDateTime" devName="testIsoYearWithDateTime" labels="extended"
+         labelName="testIsoYearWithDateTime" dataType="Double" eval="formula,template" dataFile="functiondatevalue-dateandtime"
+         scale="2" precision="12"
+         code="ISOYEAR(DATETIMEVALUE(dateString__c))">
+         <referencefield devName="dateString" labelName="dateString"
+             dataType="Text"  length="50"/>
+      </testcase>        
+      <testcase name="testIsoYearWithDate" devName="testIsoYearWithDate" labels="extended"
+         labelName="testIsoYearWithDate" dataType="Double" dataFile="addDate"
+         scale="2" precision="12" code="ISOYEAR(customdate1__c)">
+         <referencefield devName="customdate1" labelName="customdate1"
+             dataType="DateOnly"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>                   
+      <!--  
+      <testcase name="testUrlEncodingInWebLinks" devName="testUrlEncodingInWebLinks"
+         labelName="testUrlEncodingInWebLinks" dataType="Text" encoding="UTF-8"
+         dataFile="weblinksEncoding" eval="formula, template" code="{!IF((customcflag__c), customurl1__c, customurl2__c)}">
+         <referencefield devName="customcflag" labelName="customcflag"
+             dataType="Boolean"/>
+         <referencefield devName="customurl1" labelName="customurl1"
+             dataType="url" length="255"/>
+         <referencefield devName="customurl2" labelName="customurl2"
+             dataType="url" length="255"/>
+     </testcase>
+    -->
      <testcase name="testTextFunctionWithDate" devName="testTextFunctionWithDate" eval="formula,template"
          labelName="testTextFunctionWithDate" dataType="Text" length="130" compareTemplate="formula"
          code="TEXT(DATE(2013,12,31))">
@@ -379,6 +421,14 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testWeekday" devName="testWeekday"
          labelName="testWeekday" dataType="Double" dataFile="addDate"
          scale="2" precision="12" code="WEEKDAY(customdate1__c)">
+         <referencefield devName="customdate1" labelName="customdate1"
+             dataType="DateOnly"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testDayOfYear" devName="testDayOfYear" labels="extended"
+         labelName="testDayOfYear" dataType="Double" dataFile="addDate"
+         scale="2" precision="12" code="DAYOFYEAR(customdate1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateOnly"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -1841,6 +1891,31 @@ author: Srikanth Yendluri/Doug Chasman
          labelName="testTrim" dataType="Text"
          dataFile="singleTextFieldData" 
          code="TRIM(customtext1__c)">
+         <referencefield devName="customtext1" labelName="customtext1"
+             dataType="Text" length="255"/>
+     </testcase>
+
+     <testcase name="testInitCap" devName="testInitCap" labels="extended"
+         labelName="testInitCap" dataType="Text"
+         dataFile="initCap" 
+         whyIgnoreSql="sqlserver:not implemented,mysql:not implemented"
+         code="INITCAP(customtext1__c)">
+         <referencefield devName="customtext1" labelName="customtext1"
+             dataType="Text" length="255"/>
+     </testcase>
+
+     <testcase name="testChr" devName="testChr" labels="extended"
+         labelName="testChr" dataType="Text"
+         dataFile="unicodePoints" 
+         code="CHR(customnumber__c)">
+         <referencefield devName="customnumber" labelName="customnumber"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+
+     <testcase name="testAscii" devName="testAscii" labels="extended"
+         labelName="testAscii" dataType="Double"
+         dataFile="unicodeChars" 
+         scale="2" precision="12" code="ASCII(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
      </testcase>

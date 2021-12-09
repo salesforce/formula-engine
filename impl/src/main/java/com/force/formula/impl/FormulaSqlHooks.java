@@ -134,6 +134,49 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlLowerCaseWithLocaleFormat(boolean hasLocaleOverride) {
         return "LOWER(%s)";
     }
+    
+	
+    /**
+     * Perform the InitCap function to make "proper" names.
+     * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
+     * @return the sql expression to use for uppercase with a locale
+     */
+    default String sqlInitCap(boolean hasLocaleOverride) {
+    	if (isOracleStyle()) {
+	        if (hasLocaleOverride) {
+                return "NLS_INITCAP(%s,CASE WHEN SUBSTR(%s,1,2) = 'nl' THEN 'NLS_SORT=xdutch' ELSE 'NLS_SORT=xwest_european' END)";
+	        } else {
+	            return "NLS_INITCAP(%s)";
+	        }
+    	}
+    	return "INITCAP(%s COLLATE \"en_US\")";  // Use en_US so it isn't ascii only
+    }
+
+    /**
+     * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
+     */
+    default String sqlChr() {
+    	if (isPostgresStyle()) {
+        	return "CHR(TRUNC(%s)::integer)";
+    	}
+    	if (isOracleStyle()) {
+        	return "CHR(%s USING NCHAR_CS)";
+    	}
+    	return "CHR(%s)";
+    }
+    
+    /**
+     * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
+     */
+    default String sqlAscii() {
+    	if (isPostgresStyle()) {
+        	return "ASCII(%s)::integer";
+    	}
+    	if (isOracleStyle()) {
+        	return "ASCII(UNISTR(%s))";
+    	}
+    	return "ASCII(%s)";
+    }
 
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
@@ -197,6 +240,39 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	}
     	return "(DATE '1970-01-01' + (%s/86400))";
     }
+    
+    /**
+     * @return how to get the ISO 8601 week number from a date or datetime, suitable for String.format
+     */
+    default String sqlGetIsoWeek() {
+    	if (isPostgresStyle()) {
+    		return "CAST(TO_CHAR(%s, 'IW') AS NUMERIC)";
+    	}
+        return "TO_NUMBER(TO_CHAR(%s, 'IW'))";
+    }
+    
+    
+    /**
+    /**
+     * @return how to get the ISO 8601 year number from a date or datetime, suitable for String.format
+     */
+    default String sqlGetIsoYear() {
+    	if (isPostgresStyle()) {
+    		return "CAST(TO_CHAR(%s, 'IYYY') AS NUMERIC)";
+    	}
+        return "TO_NUMBER(TO_CHAR(%s, 'IYYY'))";
+    }
+    
+    /**
+     * @return how to get the day of the year from a date or datetime, suitable for String.format
+     */
+    default String sqlGetDayOfYear() {
+    	if (isPostgresStyle()) {
+    		return "CAST(TO_CHAR(%s, 'DDD') AS NUMERIC)";
+    	}
+        return "TO_NUMBER(TO_CHAR(%s, 'DDD'))";
+    }
+    
     
     /**
      * Function right can be... complicated, especially in Oracle

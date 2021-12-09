@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testInitCap">
+   <testInstance formula="INITCAP(customtext1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>NLS_INITCAP($!s0s!$.customtext1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>NLS_INITCAP($!s0s!$.customtext1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?($F.initcap(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?($F.initcap(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?($F.initcap(context.record.customtext1__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?($F.initcap(context.record.customtext1__c)):null</JsOutput>
+      <result>
+      <inputvalues>[﻿]</inputvalues>
+         <formula>﻿</formula>
+         <sql>﻿</sql>
+         <formulaNullAsNull>﻿</formulaNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CASES]</inputvalues>
+         <formula>Cases</formula>
+         <sql>Cases</sql>
+         <formulaNullAsNull>Cases</formulaNullAsNull>
+         <sqlNullAsNull>Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[cases]</inputvalues>
+         <formula>Cases</formula>
+         <sql>Cases</sql>
+         <formulaNullAsNull>Cases</formulaNullAsNull>
+         <sqlNullAsNull>Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CaSeS]</inputvalues>
+         <formula>Cases</formula>
+         <sql>Cases</sql>
+         <formulaNullAsNull>Cases</formulaNullAsNull>
+         <sqlNullAsNull>Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[große]</inputvalues>
+         <formula>Große</formula>
+         <sql>Große</sql>
+         <formulaNullAsNull>Große</formulaNullAsNull>
+         <sqlNullAsNull>Große</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ångstrom]</inputvalues>
+         <formula>Ångstrom</formula>
+         <sql>Ångstrom</sql>
+         <formulaNullAsNull>Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>Ångstrom</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ÅNGSTROM]</inputvalues>
+         <formula>Ångstrom</formula>
+         <sql>Ångstrom</sql>
+         <formulaNullAsNull>Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>Ångstrom</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[idempotent]</inputvalues>
+         <formula>Idempotent</formula>
+         <sql>Idempotent</sql>
+         <formulaNullAsNull>Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ıdempotent]</inputvalues>
+         <formula>Idempotent</formula>
+         <sql>Idempotent</sql>
+         <formulaNullAsNull>Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[IDEMPOTENT]</inputvalues>
+         <formula>Idempotent</formula>
+         <sql>Idempotent</sql>
+         <formulaNullAsNull>Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[İDEMPOTENT]</inputvalues>
+         <formula>İdempotent</formula>
+         <sql>İdempotent</sql>
+         <formulaNullAsNull>İdempotent</formulaNullAsNull>
+         <sqlNullAsNull>İdempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Mr. CASES]</inputvalues>
+         <formula>Mr. Cases</formula>
+         <sql>Mr. Cases</sql>
+         <formulaNullAsNull>Mr. Cases</formulaNullAsNull>
+         <sqlNullAsNull>Mr. Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[MR. cases]</inputvalues>
+         <formula>Mr. Cases</formula>
+         <sql>Mr. Cases</sql>
+         <formulaNullAsNull>Mr. Cases</formulaNullAsNull>
+         <sqlNullAsNull>Mr. Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Herr.  CaSeS]</inputvalues>
+         <formula>Herr.  Cases</formula>
+         <sql>Herr.  Cases</sql>
+         <formulaNullAsNull>Herr.  Cases</formulaNullAsNull>
+         <sqlNullAsNull>Herr.  Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[129 große]</inputvalues>
+         <formula>129 Große</formula>
+         <sql>129 Große</sql>
+         <formulaNullAsNull>129 Große</formulaNullAsNull>
+         <sqlNullAsNull>129 Große</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[mr. 123smith]</inputvalues>
+         <formula>Mr. 123smith</formula>
+         <sql>Mr. 123smith</sql>
+         <formulaNullAsNull>Mr. 123smith</formulaNullAsNull>
+         <sqlNullAsNull>Mr. 123smith</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[mr. _smith]</inputvalues>
+         <formula>Mr. _Smith</formula>
+         <sql>Mr. _Smith</sql>
+         <formulaNullAsNull>Mr. _Smith</formulaNullAsNull>
+         <sqlNullAsNull>Mr. _Smith</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[LOWER ångstrom]</inputvalues>
+         <formula>Lower Ångstrom</formula>
+         <sql>Lower Ångstrom</sql>
+         <formulaNullAsNull>Lower Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>Lower Ångstrom</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[[] ÅNGSTROM]</inputvalues>
+         <formula>[] Ångstrom</formula>
+         <sql>[] Ångstrom</sql>
+         <formulaNullAsNull>[] Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>[] Ångstrom</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[foo idempotent]</inputvalues>
+         <formula>Foo Idempotent</formula>
+         <sql>Foo Idempotent</sql>
+         <formulaNullAsNull>Foo Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Foo Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[bar ıdempotent]</inputvalues>
+         <formula>Bar Idempotent</formula>
+         <sql>Bar Idempotent</sql>
+         <formulaNullAsNull>Bar Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Bar Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[top IDEMPOTENT]</inputvalues>
+         <formula>Top Idempotent</formula>
+         <sql>Top Idempotent</sql>
+         <formulaNullAsNull>Top Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Top Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[bottom İDEMPOTENT]</inputvalues>
+         <formula>Bottom İdempotent</formula>
+         <sql>Bottom İdempotent</sql>
+         <formulaNullAsNull>Bottom İdempotent</formulaNullAsNull>
+         <sqlNullAsNull>Bottom İdempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ijsland]</inputvalues>
+         <formula>Ijsland</formula>
+         <sql>Ijsland</sql>
+         <formulaNullAsNull>Ijsland</formulaNullAsNull>
+         <sqlNullAsNull>Ijsland</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

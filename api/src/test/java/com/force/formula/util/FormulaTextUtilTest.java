@@ -243,4 +243,25 @@ public class FormulaTextUtilTest extends TestCase {
     	assertTrue(FormulaTextUtil.stringArraysAreEqualNullIsEmpty(new String[] {""}, new String[] {null}));
     	assertFalse(FormulaTextUtil.stringArraysAreEqualNullIsEmpty(new String[] {"a"}, new String[] {"b"}));
     }
+    
+    public void testFormulaInitCap() {
+    	assertEquals(null, FormulaTextUtil.formulaInitCap(null, false));
+    	assertEquals("", FormulaTextUtil.formulaInitCap("", false));
+    	assertEquals("       ", FormulaTextUtil.formulaInitCap("       ", false));
+        assertEquals("Mr. Smith", FormulaTextUtil.formulaInitCap("MR. SMITH", false));
+        assertEquals("Mr. Smith", FormulaTextUtil.formulaInitCap("mr. smith", false));
+        assertEquals("Mr.\nSmith", FormulaTextUtil.formulaInitCap("mr.\nsmith", false));
+        assertEquals("Mr.\n123smith", FormulaTextUtil.formulaInitCap("mr.\n123smith", false));
+        assertEquals("Mr.\n\u00c4smith", FormulaTextUtil.formulaInitCap("mr.\n\u00e4smith", false));  // Capitalize ä to Ä
+        
+    	assertEquals(null, FormulaTextUtil.formulaInitCap(null, true));
+    	assertEquals("", FormulaTextUtil.formulaInitCap("", true));
+    	assertEquals("       ", FormulaTextUtil.formulaInitCap("       ", true));
+        assertEquals("Mr. Smith", FormulaTextUtil.formulaInitCap("MR. SMITH", true));
+        assertEquals("Mr. Smith", FormulaTextUtil.formulaInitCap("mr. smith", true));
+        assertEquals("Mr.\nSmith", FormulaTextUtil.formulaInitCap("mr.\nsmith", true));
+        assertEquals("Mr.\n123smith", FormulaTextUtil.formulaInitCap("mr.\n123smith", true));
+        assertEquals("Mr.\n\u00e4Smith", FormulaTextUtil.formulaInitCap("mr.\n\u00e4smith", true));
+    }
+    
 }

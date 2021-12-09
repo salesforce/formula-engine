@@ -5,22 +5,57 @@
  */
 package com.force.formula.impl;
 
-import java.io.*;
-import java.math.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Assert;
 import org.xml.sax.SAXException;
 
-import com.force.formula.*;
+import com.force.formula.Formula;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaEngineHooks;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaFactory;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaTestBase;
+import com.force.formula.FormulaTypeSpec;
+import com.force.formula.MockFormulaType;
+import com.force.formula.RuntimeFormulaInfo;
 import com.force.formula.impl.FormulaTestCaseInfo.CompareType;
 import com.force.formula.impl.MapFormulaContext.MapEntity;
 import com.force.formula.impl.MapFormulaContext.MapFieldInfo;
 import com.force.formula.sql.FormulaWithSql;
 import com.force.formula.util.FormulaTextUtil;
+import com.github.difflib.DiffUtils;
+import com.github.difflib.UnifiedDiffUtils;
+import com.google.common.base.Charsets;
+import com.google.common.io.CharSource;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -375,15 +410,34 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		
 		protected boolean compareXmlResults(File f, byte[] xml, StringBuilder testFailureMsg) throws IOException {
 			byte[] contents = Files.asByteSource(f).read();
-			
+
 			if (!Arrays.equals(contents, xml)) {
 				testFailureMsg.append("\n\nTESTCASE: " + testCase.getName() +
 						" results changed from expected results.  Check gold file.\n");
+				appendDiffSnippet(contents, xml, testFailureMsg);
 				return false;
 			} else {
 				return true;
 			}
 
+		}
+		
+		/**
+		 * Append a diff snippet to go into the error log to make debugging easier if running remotely
+		 * @param goldfile the contents of the goldfile
+		 * @param results the contents of the result of the run
+		 * @param testFailureMsg the failure message to append the diff to.
+		 */
+		protected void appendDiffSnippet(byte[] goldfile, byte[] results, StringBuilder testFailureMsg) throws IOException {
+			List<String> before = CharSource.wrap(new String(goldfile, Charsets.UTF_8)).lines().collect(Collectors.toList());
+			List<String> after = CharSource.wrap(new String(results, Charsets.UTF_8)).lines().collect(Collectors.toList());
+			
+			com.github.difflib.patch.Patch<String> patch = DiffUtils.diff(before, after);
+			List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff(testCase.getName(), testCase.getName()+".results", before, patch, 1);
+			for (int i = 2; i < Math.min(20, unifiedDiff.size()); i++) {
+				testFailureMsg.append(unifiedDiff.get(i)).append('\n');
+			}
+			
 		}
 		
 		

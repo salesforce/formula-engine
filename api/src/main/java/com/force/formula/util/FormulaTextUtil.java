@@ -381,6 +381,56 @@ public final class FormulaTextUtil {
         }
     }
     
+    /**
+     * Used by Formula Field: INITCAP() function.  Where the string is lowercased, except for the start
+     * of each word.  This uses only unicode character sets to determine upper and lowercase (to match psql)
+     * @param value the string to init cap
+     * @return the string INITCAP'd the way the database does it.
+	 */
+    public static String formulaInitCap(String value) {
+    	return formulaInitCap(value, false);
+    }
+    
+    /**
+     * Used by Formula Field: INITCAP() function.  Where the string is lowercased, except for the start
+     * of each word
+     * @param value the string to init cap
+     * @param ascii if only ascii characters should be considered (to match psql).  Diacritics won't work
+     * @return the string INITCAP'd the way the database does it.
+     */
+    public static String formulaInitCap(String value, boolean ascii) {
+        if (value == null || value.length() == 0) {
+            return value;
+        }
+        DeferredStringBuilder buf = new DeferredStringBuilder(value);
+        // Optimized version of appendEscapedOutput where we can use appendQuicklyForEscapingWithoutSkips
+        boolean isStart = true;
+        final int length = value.length();
+        for (int i = 0; i < length; i++) {
+            char c = value.charAt(i);
+            if (ascii ? (c >= 'a' && c <= 'z') : Character.isLowerCase(c)) {
+            	if (isStart) {
+            		buf.append(Character.toUpperCase(c));
+            	} else {
+            		buf.append(c);
+            	}
+            	isStart = false;
+            } else if (ascii ? (c >= 'A' && c <= 'Z') : Character.isUpperCase(c)) {
+            	if (isStart) {
+            		buf.append(c);
+            	} else {
+            		buf.append(Character.toLowerCase(c));
+            	}
+            	isStart = false;
+            } else {
+            	isStart = ascii ? !(c >= '0' && c <= '9'): !Character.isDigit(c);   // alphanumeric
+            	buf.append(c);
+            }
+        }
+        return buf.toString();
+    }
+    
+    
 
     /**
      * Removes enclosing single or double quotes provided the string's first and last character are the quotes

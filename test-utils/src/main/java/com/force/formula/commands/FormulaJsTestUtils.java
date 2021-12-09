@@ -1,18 +1,29 @@
 package com.force.formula.commands;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.script.*;
+import javax.script.Bindings;
+import javax.script.Invocable;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Value;
@@ -20,7 +31,11 @@ import org.graalvm.polyglot.proxy.ProxyObject;
 
 import com.coveo.nashorn_modules.Require;
 import com.coveo.nashorn_modules.ResourceFolder;
-import com.force.formula.*;
+import com.force.formula.Formula;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
 import com.force.formula.util.FormulaDateUtil;
 import com.google.common.base.Charsets;
 import com.google.common.io.ByteStreams;
@@ -143,9 +158,33 @@ public class FormulaJsTestUtils {
 
                 // Note, these add months does what java does, but may not do what oracle/postgres does
                 
-                .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));return new Date(d.getTime()-86400000);};");
+                .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));return new Date(d.getTime()-86400000);};\n")
                 // Use this if you want to support fractional dates
         		//.append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));d.setUTCDate(d.getUTCDate()+Math.trunc((b%1)*365.24/12));return new Date(d.getTime()-86400000);};");
+
+                // ISO week/day functions
+        		.append("$F.isoweek=function(a) {if (!a) return a;"
+        				+ "var d = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));"
+        				+ "var dayNum = d.getUTCDay() || 7;"
+        				+ "d.setUTCDate(d.getUTCDate() + 4 - dayNum);"
+        				+ "var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));"
+        				+ "return Math.ceil((((d - yearStart)/86400000) + 1)/7);}\n")
+        		.append("$F.isoyear=function(a) {if (!a) return a;"
+        				+ "var d = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));"
+        				+ "var dayNum = d.getUTCDay() || 7;"
+        				+ "d.setUTCDate(d.getUTCDate() + 4 - dayNum);"
+        				+ "var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));"
+        				+ "return yearStart.getUTCFullYear();}\n")
+        		// Javascript doesn't have day of year either.
+        		.append("$F.dayofyear=function(a) {if (!a) return a;"
+        				+ "var d = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));"
+        				+ "var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));"
+        				+ "return Math.ceil((1+(d - yearStart))/86400000);}\n")
+        		// Init cap... Normalize and use unicode to match postgres/oracle behavior
+        		.append("$F.initcap=function(a) {if (!a) return a;"
+        				+ "return a.toLowerCase().replace(/(?:^|[^\\p{Ll}\\p{Lm}\\p{Lu}\\p{N}])[\\p{Ll}]/gu, function (m) {return m.toUpperCase();})}\n")
+        		;
+
         return fContext.toString();
     }
 

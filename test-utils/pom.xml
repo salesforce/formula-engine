@@ -39,6 +39,11 @@
             <version>2.8.2</version>
         </dependency>
         <dependency>
+          <groupId>io.github.java-diff-utils</groupId>
+          <artifactId>java-diff-utils</artifactId>
+          <version>4.11</version>
+        </dependency>  
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
