@@ -1,0 +1,25 @@
+﻿
+CASES
+cases
+CaSeS
+große
+ångstrom
+ÅNGSTROM
+idempotent
+ıdempotent
+IDEMPOTENT
+İDEMPOTENT
+Mr. CASES
+MR. cases
+Herr.  CaSeS
+129 große
+mr. 123smith
+mr. _smith
+LOWER ångstrom
+[] ÅNGSTROM
+foo idempotent
+bar ıdempotent
+top IDEMPOTENT
+bottom İDEMPOTENT
+#Hi捦挺挎There   # This differs in embedded postgres on mac vs linux
+ijsland

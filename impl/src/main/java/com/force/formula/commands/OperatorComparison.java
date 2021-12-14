@@ -5,10 +5,27 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaTime;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaRuntimeTypeException;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.FormulaTypeUtils;
+import com.force.formula.impl.IllegalArgumentTypeException;
+import com.force.formula.impl.InvalidNumericValueException;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.sql.SQLPair;
 import com.google.common.base.Objects;
 
@@ -31,7 +48,27 @@ public class OperatorComparison extends FormulaCommandInfoImpl implements Formul
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = "(" + args[0] + getName() + args[1] + ")";
+    	String lhs = args[0];
+    	String rhs = args[1];
+        
+        FormulaAST lhsNode = (FormulaAST)node.getFirstChild();
+        FormulaAST rhsNode = (FormulaAST)lhsNode.getNextSibling();
+
+        Type lhsType = lhsNode.getDataType();
+        Type rhsType = rhsNode.getDataType();
+
+        // Some DBs are case insensitive by default.  Others compare strings using special 
+        // equality rules.  The formula engine doesn't, and uses binary comparison.
+        // This allows customizing whether the comparisons should be case sensitive.
+        FormulaSqlHooks sqlHooks = getSqlHooks(context);
+        if (FormulaTypeUtils.isTypeText(lhsType)) {
+            lhs = (String) sqlHooks.sqlMakeStringComparable(lhs, true);
+        }
+        if (FormulaTypeUtils.isTypeText(rhsType)) {
+        	rhs = (String) sqlHooks.sqlMakeStringComparable(rhs, true);
+        }
+        String sql = "(" + lhs + getName() + rhs + ")";
+
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }
@@ -73,8 +110,9 @@ public class OperatorComparison extends FormulaCommandInfoImpl implements Formul
         if (clazz == ConstantNull.class  || clazz == RuntimeType.class)
             return;
 
-        // Only support comparison operation for Numeric, Date, and DateTime data types
-        if ((clazz != BigDecimal.class) && (clazz != Date.class) && (clazz != FormulaTime.class) && (clazz != FormulaDateTime.class))
+        // Only support comparison operation for Text, Numeric, Date, and DateTime data types
+        if ((clazz != BigDecimal.class) && (clazz != Date.class) && (clazz != FormulaTime.class) && (clazz != FormulaDateTime.class)
+        		&& !FormulaTypeUtils.isTypeText(clazz))
             throw new WrongArgumentTypeException(operator, new Class[] { BigDecimal.class, Date.class,
                 FormulaDateTime.class }, node);
     }
@@ -82,7 +120,7 @@ public class OperatorComparison extends FormulaCommandInfoImpl implements Formul
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         // null means false in SQL, 5 < null is false and 5 > null is false.
-        Type clazz = node.getDataType();
+        Type clazz = ((FormulaAST)node.getFirstChild()).getDataType();
         // Comparisons are particularly tricky in JS because null<1 = true and null>1 = new Date().  Sigh...
         String argGuard = JsValue.makeArgumentGuard(args);
         if (clazz == BigDecimal.class && context.useHighPrecisionJs()) {
@@ -93,7 +131,11 @@ public class OperatorComparison extends FormulaCommandInfoImpl implements Formul
             }
         }
         if (argGuard != null) {
-            return JsValue.generate("("+argGuard + "?(" + args[0] + getName() + args[1] + "):null)", new JsValue[0], args[0].couldBeNull || args[1].couldBeNull);
+        	boolean hasNullResult = true;
+        	if (FormulaTypeUtils.isTypeText(clazz)) {  // Text comparisons shouldn't be null
+        		hasNullResult = false;
+        	}
+            return JsValue.generate("("+argGuard + "?(" + args[0] + getName() + args[1] + "):"+(hasNullResult?"null":"false")+")", new JsValue[0], hasNullResult && (args[0].couldBeNull || args[1].couldBeNull));
         } else {
             return JsValue.forNonNullResult("(" + args[0] + getName() + args[1] + ")", args);
         }

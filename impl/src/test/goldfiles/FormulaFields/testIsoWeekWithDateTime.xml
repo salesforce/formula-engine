@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIsoWeekWithDateTime">
+   <testInstance formula="ISOWEEK(DATETIMEVALUE(dateString__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'IW') AS NUMERIC)</Sql>
+       <Guard> NOT $!s0s!$.dateString__c ~ '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$' </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'IW') AS NUMERIC)</Sql>
+       <Guard> NOT $!s0s!$.dateString__c ~ '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$' </Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?((new $F.Decimal($F.isoweek(new Date(context.record.dateString__c + ' GMT'))))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?((new $F.Decimal($F.isoweek(new Date(context.record.dateString__c + ' GMT'))))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?($F.isoweek(new Date(context.record.dateString__c + ' GMT'))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?($F.isoweek(new Date(context.record.dateString__c + ' GMT'))):null</JsOutput>
+      <result>
+      <inputvalues>[2011-01-29 00:00:09]</inputvalues>
+         <formula>4</formula>
+         <sql>4.00000000000000000000000000000000</sql>
+         <javascript>4</javascript>
+         <javascriptLp>4</javascriptLp>
+         <formulaNullAsNull>4</formulaNullAsNull>
+         <sqlNullAsNull>4.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>4</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-01-9 00:00:09]</inputvalues>
+         <formula>1</formula>
+         <sql>1.00000000000000000000000000000000</sql>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-1-29 00:00:00]</inputvalues>
+         <formula>4</formula>
+         <sql>4.00000000000000000000000000000000</sql>
+         <javascript>4</javascript>
+         <javascriptLp>4</javascriptLp>
+         <formulaNullAsNull>4</formulaNullAsNull>
+         <sqlNullAsNull>4.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>4</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-1-1 00:00:00]</inputvalues>
+         <formula>52</formula>
+         <sql>52.00000000000000000000000000000000</sql>
+         <javascript>52</javascript>
+         <javascriptLp>52</javascriptLp>
+         <formulaNullAsNull>52</formulaNullAsNull>
+         <sqlNullAsNull>52.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>52</javascriptNullAsNull>
+         <javascriptLpNullAsNull>52</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-01-1 1:00:00]</inputvalues>
+         <formula>52</formula>
+         <sql>52.00000000000000000000000000000000</sql>
+         <javascript>52</javascript>
+         <javascriptLp>52</javascriptLp>
+         <formulaNullAsNull>52</formulaNullAsNull>
+         <sqlNullAsNull>52.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>52</javascriptNullAsNull>
+         <javascriptLpNullAsNull>52</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-1-23 2:22:59]</inputvalues>
+         <formula>3</formula>
+         <sql>3.00000000000000000000000000000000</sql>
+         <javascript>3</javascript>
+         <javascriptLp>3</javascriptLp>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>3</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-2-7 5:22:33]</inputvalues>
+         <formula>6</formula>
+         <sql>6.00000000000000000000000000000000</sql>
+         <javascript>6</javascript>
+         <javascriptLp>6</javascriptLp>
+         <formulaNullAsNull>6</formulaNullAsNull>
+         <sqlNullAsNull>6.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>6</javascriptNullAsNull>
+         <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-13-29 00:00:09]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012:02:02]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 24:00:00]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <javascript>1</javascript>
+         <javascriptLp>1</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 23:60:00]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 23:00:60]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 23:59:59]</inputvalues>
+         <formula>52</formula>
+         <sql>52.00000000000000000000000000000000</sql>
+         <javascript>52</javascript>
+         <javascriptLp>52</javascriptLp>
+         <formulaNullAsNull>52</formulaNullAsNull>
+         <sqlNullAsNull>52.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>52</javascriptNullAsNull>
+         <javascriptLpNullAsNull>52</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-10-34 00:00:00]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-02-07 5:2:33]</inputvalues>
+         <formula>6</formula>
+         <sql>6.00000000000000000000000000000000</sql>
+         <javascript>6</javascript>
+         <javascriptLp>6</javascriptLp>
+         <formulaNullAsNull>6</formulaNullAsNull>
+         <sqlNullAsNull>6.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>6</javascriptNullAsNull>
+         <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-02-07 5:22:3]</inputvalues>
+         <formula>6</formula>
+         <sql>6.00000000000000000000000000000000</sql>
+         <javascript>6</javascript>
+         <javascriptLp>6</javascriptLp>
+         <formulaNullAsNull>6</formulaNullAsNull>
+         <sqlNullAsNull>6.00000000000000000000000000000000</sqlNullAsNull>
+         <javascriptNullAsNull>6</javascriptNullAsNull>
+         <javascriptLpNullAsNull>6</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

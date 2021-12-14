@@ -230,6 +230,13 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
             } else if ("''".equals(lhs)) {
                 lhs = String.format(sqlHooks.sqlConcat(false), saveRhs,  "'x'");
             }
+            
+            // Some DBs are case insensitive by default.  Others compare strings using special 
+            // equality rules.  The formula engine doesn't, and uses binary comparison.
+            // This allows customizing whether the comparisons should be case sensitive.
+            lhs = sqlHooks.sqlMakeStringComparable(lhs, false);
+            rhs = sqlHooks.sqlMakeStringComparable(rhs, false);
+
         }
         return "(" + lhs + (negate ? "<>" : "=") + rhs + ")";
     }
