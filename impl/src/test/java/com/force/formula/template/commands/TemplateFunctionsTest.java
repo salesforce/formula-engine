@@ -59,15 +59,17 @@ public class TemplateFunctionsTest extends ParserTestBase {
 
     
     public void testFormat() throws Exception {
+        FormulaFactory oldFactory = FormulaEngine.getFactory();
+
         // Not available by default
         try {
+            FormulaEngine.setFactory(new FormulaFactoryImpl());
             assertFalse( evaluateBoolean("\"HiHo\"=FORMAT(\"{0}{1}\",\"Hi\",\"Ho\")")); 
             fail("Format isn't a default method"); 
         } catch (InvalidFunctionReferenceException x) {
             assertEquals("Unknown function FORMAT. Check spelling.", x.getMessage());
         }
 
-        FormulaFactory oldFactory = FormulaEngine.getFactory();
         try {
             String LEAP = "2016-02-29 13:15:10";
             FormulaEngine.setFactory(TEST_FACTORY);
