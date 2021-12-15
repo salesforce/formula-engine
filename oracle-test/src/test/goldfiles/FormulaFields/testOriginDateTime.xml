@@ -9,10 +9,6 @@
        <Sql>TO_DATE('01-01-1900', 'DD-MM-YYYY')</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">($F.anl([$System.OriginDateTime])?null:new Date($System.OriginDateTime + ' GMT'))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">($F.anl([$System.OriginDateTime])?null:new Date($System.OriginDateTime + ' GMT'))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">($F.anl([$System.OriginDateTime])?null:new Date($System.OriginDateTime + ' GMT'))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">($F.anl([$System.OriginDateTime])?null:new Date($System.OriginDateTime + ' GMT'))</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>Mon Jan 01 00:00:00 GMT 1900</formula>

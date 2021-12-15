@@ -9,10 +9,6 @@
        <Sql>NULL</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">null</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>null</formula>

@@ -9,10 +9,6 @@
        <Sql>POWER($!s0s!$.customNumber1__c, $!s0s!$.customNumber2__c)</Sql>
        <Guard>TRUNC($!s0s!$.customNumber2__c)&lt;&gt;$!s0s!$.customNumber2__c OR($!s0s!$.customNumber1__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customNumber1__c))*$!s0s!$.customNumber2__c&gt;38)</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal(Math.pow($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')),$F.nvl(context.record.customNumber2__c,new $F.Decimal('0'))))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(new $F.Decimal(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.pow($F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customNumber2__c,0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c)):null</JsOutput>
       <result>
       <inputvalues>[, 24]</inputvalues>
          <formula>0</formula>

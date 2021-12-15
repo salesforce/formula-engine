@@ -9,10 +9,6 @@
        <Sql>'False'</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">&quot;False&quot;</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">&quot;False&quot;</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">&quot;False&quot;</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">&quot;False&quot;</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>False</formula>

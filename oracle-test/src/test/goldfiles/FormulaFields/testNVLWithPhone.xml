@@ -9,10 +9,6 @@
        <Sql>$!s0s!$.customphone1__c</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">context.record.customphone1__c</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">context.record.customphone1__c</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">context.record.customphone1__c</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">context.record.customphone1__c</JsOutput>
       <result>
       <inputvalues>[510-595-4547, Not Null]</inputvalues>
          <formula>510-595-4547</formula>

@@ -9,10 +9,6 @@
        <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000-TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000+86400000,86400000)</Sql>
        <Guard> NOT REGEXP_LIKE ($!s0s!$.timeString1__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */  OR  NOT REGEXP_LIKE ($!s0s!$.timeString2__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */ </Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?((new $F.Decimal(new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000).mod(86400000))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?((new $F.Decimal(new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000).mod(86400000))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?(((new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000)%86400000)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?(((new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000)%86400000)):null</JsOutput>
       <result>
       <inputvalues>[10:34:55.666, 23:59:59.999]</inputvalues>
          <formula>48304333</formula>

@@ -10,10 +10,6 @@
        <Sql>TO_DATE(2000 || '-' || 1 || '-' || 1, 'YYYY-MM-DD')</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(new Date(Date.UTC(new $F.Decimal('2000').toNumber(),new $F.Decimal('1').toNumber()-1,new $F.Decimal('1').toNumber())))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(new Date(Date.UTC(new $F.Decimal('2000').toNumber(),new $F.Decimal('1').toNumber()-1,new $F.Decimal('1').toNumber())))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(new Date(Date.UTC(2000,1-1,1)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(new Date(Date.UTC(2000,1-1,1)))</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>Sat Jan 01 00:00:00 GMT 2000</formula>

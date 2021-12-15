@@ -9,10 +9,6 @@
        <Sql>((((($!s0s!$.customnumber__c-(-2))+$!s0s!$.customnumber__c)-(-2))+$!s0s!$.customnumber__c)-(-2))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber__c,new $F.Decimal('0')).sub(new $F.Decimal('2').neg()).add($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))).sub(new $F.Decimal('2').neg()).add($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))).sub(new $F.Decimal('2').neg())</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null)?(context.record.customnumber__c.sub(new $F.Decimal('2').neg()).add(context.record.customnumber__c).sub(new $F.Decimal('2').neg()).add(context.record.customnumber__c).sub(new $F.Decimal('2').neg())):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customnumber__c,0)-(-2)+$F.nvl(context.record.customnumber__c,0)-(-2)+$F.nvl(context.record.customnumber__c,0)-(-2)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null&amp;&amp;context.record.customnumber__c!=null)?(context.record.customnumber__c-(-2)+context.record.customnumber__c-(-2)+context.record.customnumber__c-(-2)):null</JsOutput>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>6</formula>
