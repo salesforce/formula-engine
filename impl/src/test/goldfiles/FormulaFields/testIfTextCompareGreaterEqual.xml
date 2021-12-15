@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfTextCompareGreaterEqual">
+   <testInstance formula="text1__c&gt;=text2__c" returntype="Boolean">
+    <SqlOutput nullAsNull="true">
+       <Sql>(($!s0s!$.text1__c COLLATE &quot;POSIX&quot;)&gt;=($!s0s!$.text2__c COLLATE &quot;POSIX&quot;))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(($!s0s!$.text1__c COLLATE &quot;POSIX&quot;)&gt;=($!s0s!$.text2__c COLLATE &quot;POSIX&quot;))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.text1__c!=null&amp;&amp;context.record.text2__c!=null?(context.record.text1__c&gt;=context.record.text2__c):false)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.text1__c!=null&amp;&amp;context.record.text2__c!=null?(context.record.text1__c&gt;=context.record.text2__c):false)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.text1__c!=null&amp;&amp;context.record.text2__c!=null?(context.record.text1__c&gt;=context.record.text2__c):false)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.text1__c!=null&amp;&amp;context.record.text2__c!=null?(context.record.text1__c&gt;=context.record.text2__c):false)</JsOutput>
+      <result>
+      <inputvalues>[foo, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, foo]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[foo, foo]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[FOO, foo]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[foo, FOO]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Foo, Bar]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Left, Right]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Left,  Left]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 2]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ß, ss]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

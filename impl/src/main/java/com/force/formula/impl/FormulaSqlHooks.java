@@ -177,6 +177,49 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	}
     	return "ASCII(%s)";
     }
+    
+	
+    /**
+     * Perform the InitCap function to make "proper" names.
+     * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
+     * @return the sql expression to use for uppercase with a locale
+     */
+    default String sqlInitCap(boolean hasLocaleOverride) {
+    	if (isOracleStyle()) {
+	        if (hasLocaleOverride) {
+                return "NLS_INITCAP(%s,CASE WHEN SUBSTR(%s,1,2) = 'nl' THEN 'NLS_SORT=xdutch' ELSE 'NLS_SORT=xwest_european' END)";
+	        } else {
+	            return "NLS_INITCAP(%s)";
+	        }
+    	}
+    	return "INITCAP(%s COLLATE \"en_US\")";  // Use en_US so it isn't ascii only
+    }
+
+    /**
+     * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
+     */
+    default String sqlChr() {
+    	if (isPostgresStyle()) {
+        	return "CHR(TRUNC(%s)::integer)";
+    	}
+    	if (isOracleStyle()) {
+        	return "CHR(%s USING NCHAR_CS)";
+    	}
+    	return "CHR(%s)";
+    }
+    
+    /**
+     * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
+     */
+    default String sqlAscii() {
+    	if (isPostgresStyle()) {
+        	return "ASCII(%s)::integer";
+    	}
+    	if (isOracleStyle()) {
+        	return "ASCII(UNISTR(%s))";
+    	}
+    	return "ASCII(%s)";
+    }
 
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
@@ -415,6 +458,23 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         sql.append("CONCAT(").append(isoCodeArg).append(",' ',TO_CHAR(").append(amountArg).append(',').append(maskStr).append("))");
 	}
 	
+    /**
+     * String in many DBs are compared using special rules for equality
+     * or inequality which doesn't match java/javascript.  This switches
+     * equality to match by making them use binary, case-sensitive comparison.
+     * 
+     * @param str the SQL expression for a string to be compared
+     * @param forCompare is it for Greater/LessThan.  otherwise it's for equality which may want different rules.
+     * @return the SQL expression that compare the strings using a binary expression
+     */
+
+    default Object sqlMakeStringComparable(Object str, boolean forCompare) {
+    	if (isPostgresStyle() && forCompare) {
+    		return "(" + str + " COLLATE \"POSIX\")";
+    	}
+    	return str;
+    }
+    
     /**
      * @return the SQL string to use to format currency.
      * @param isoCodeArg the argument with the 3 character (ISO 4217) currency code 
