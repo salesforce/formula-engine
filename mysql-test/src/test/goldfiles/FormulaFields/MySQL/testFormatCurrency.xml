@@ -9,10 +9,6 @@
        <Sql>CASE WHEN $!s0s!$.customNumber1__c IS NULL THEN NULL ELSE CONCAT_WS(&quot;&quot;,$!s0s!$.isocode__c,' ',FORMAT($!s0s!$.customNumber1__c,CASE WHEN $!s0s!$.isocode__c IN('JPY')THEN 0 WHEN $!s0s!$.isocode__c IN('KWD')THEN 3 ELSE 2 END))END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.isocode__c?new Intl.NumberFormat('en-US',{style:'currency',currency:context.record.isocode__c,currencyDisplay:'code'}).format($F.nvl(context.record.customNumber1__c,new $F.Decimal('0'))):(' '+new Intl.NumberFormat('en-US',{minimumFractionDigits:2}).format($F.nvl(context.record.customNumber1__c,new $F.Decimal('0'))))).replace(/\u00a0/,' ')</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null)?((context.record.isocode__c?new Intl.NumberFormat('en-US',{style:'currency',currency:context.record.isocode__c,currencyDisplay:'code'}).format(context.record.customNumber1__c):(' '+new Intl.NumberFormat('en-US',{minimumFractionDigits:2}).format(context.record.customNumber1__c))).replace(/\u00a0/,' ')):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.isocode__c?new Intl.NumberFormat('en-US',{style:'currency',currency:context.record.isocode__c,currencyDisplay:'code'}).format($F.nvl(context.record.customNumber1__c,0)):(' '+new Intl.NumberFormat('en-US',{minimumFractionDigits:2}).format($F.nvl(context.record.customNumber1__c,0)))).replace(/\u00a0/,' ')</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null)?((context.record.isocode__c?new Intl.NumberFormat('en-US',{style:'currency',currency:context.record.isocode__c,currencyDisplay:'code'}).format(context.record.customNumber1__c):(' '+new Intl.NumberFormat('en-US',{minimumFractionDigits:2}).format(context.record.customNumber1__c))).replace(/\u00a0/,' ')):null</JsOutput>
       <result>
       <inputvalues>[USD, 1000]</inputvalues>
          <formula>USD 1,000.00</formula>

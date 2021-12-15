@@ -9,10 +9,6 @@
        <Sql>MINUTE(TIME(TIMESTAMP($!s0s!$.dateString__c)))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?(new $F.Decimal(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getUTCMinutes())):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?(new $F.Decimal(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getUTCMinutes())):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getUTCMinutes()):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getUTCMinutes()):null</JsOutput>
       <result>
       <inputvalues>[2011-01-29 00:00:09]</inputvalues>
          <formula>0</formula>

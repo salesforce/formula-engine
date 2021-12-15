@@ -9,10 +9,6 @@
        <Sql>'2013-12-31 01:02:03Z'</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">&quot;2013-12-31 01:02:03Z&quot;</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>2013-12-31 01:02:03Z</formula>

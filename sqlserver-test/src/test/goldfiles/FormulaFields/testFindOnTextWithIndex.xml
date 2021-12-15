@@ -9,10 +9,6 @@
        <Sql>COALESCE(CHARINDEX($!s0s!$.customText1__c COLLATE Latin1_General_CS_AS, $!s0s!$.customText2__c, (COALESCE($!s0s!$.customNumber__c, 1)+1+ABS(COALESCE($!s0s!$.customNumber__c, 1)-1))/2 ), 0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,$F.nvl(context.record.customNumber__c,new $F.Decimal('0'))-1)+1):0)))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,context.record.customNumber__c-1)+1):0)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,$F.nvl(context.record.customNumber__c,0)-1)+1):0)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,context.record.customNumber__c-1)+1):0)</JsOutput>
       <result>
       <inputvalues>[-, ABC - XYZ, 5]</inputvalues>
          <formula>5</formula>

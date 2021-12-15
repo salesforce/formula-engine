@@ -9,10 +9,6 @@
        <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (INSTR(binary $!s0s!$.customtextarea1__c, $!s0s!$.customtext1__c) &gt;= 1)) THEN $!s0s!$.customcurrency1__c ELSE ($!s0s!$.custompercent1__c / 100.0) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">((!context.record.customtext1__c||(($F.nvl(context.record.customtextarea1__c,'')).indexOf(context.record.customtext1__c)&gt;=0))?$F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')):$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">((!context.record.customtext1__c||(($F.nvl(context.record.customtextarea1__c,'')).indexOf(context.record.customtext1__c)&gt;=0))?context.record.customcurrency1__c:(context.record.custompercent1__c!=null?(context.record.custompercent1__c.div(100)):null))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">((!context.record.customtext1__c||(($F.nvl(context.record.customtextarea1__c,'')).indexOf(context.record.customtext1__c)&gt;=0))?$F.nvl(context.record.customcurrency1__c,0):$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">((!context.record.customtext1__c||(($F.nvl(context.record.customtextarea1__c,'')).indexOf(context.record.customtext1__c)&gt;=0))?context.record.customcurrency1__c:(context.record.custompercent1__c!=null?(context.record.custompercent1__c/100.0):null))</JsOutput>
       <result>
       <inputvalues>[Golden File, Gold, 200, 300]</inputvalues>
          <formula>200</formula>

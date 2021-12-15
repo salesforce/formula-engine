@@ -9,10 +9,6 @@
        <Sql>CASE WHEN $!s0s!$.year__c IS NULL THEN NULL WHEN $!s0s!$.month__c IS NULL THEN NULL ELSE DATE(CONCAT(CONVERT(FLOOR($!s0s!$.year__c),CHAR),'-',CONVERT(FLOOR($!s0s!$.month__c),CHAR),'-',29)) END</Sql>
        <Guard>NOT ($!s0s!$.year__c IS NULL OR $!s0s!$.month__c IS NULL ) AND ($!s0s!$.year__c is null OR $!s0s!$.year__c&lt; 1 OR $!s0s!$.year__c&gt; 9999 OR $!s0s!$.month__c is null  OR FLOOR($!s0s!$.month__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  29 &gt;= LAST_DAY(DATE(CONCAT(FLOOR($!s0s!$.year__c),'-',FLOOR($!s0s!$.month__c),'-01')))+1 )</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,new $F.Decimal('0')).toNumber(),$F.nvl(context.record.month__c,new $F.Decimal('0')).toNumber()-1,new $F.Decimal('29').toNumber()))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.year__c!=null&amp;&amp;context.record.month__c!=null)?(new Date(Date.UTC(context.record.year__c.toNumber(),context.record.month__c.toNumber()-1,new $F.Decimal('29').toNumber()))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,0),$F.nvl(context.record.month__c,0)-1,29))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.year__c!=null&amp;&amp;context.record.month__c!=null)?(new Date(Date.UTC(context.record.year__c,context.record.month__c-1,29))):null</JsOutput>
       <result>
       <inputvalues>[2012, 1]</inputvalues>
          <formula>Sun Jan 29 00:00:00 GMT 2012</formula>

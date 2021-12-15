@@ -9,10 +9,6 @@
        <Sql>($!s0s!$.customnumber1__c-$!s0s!$.customnumber2__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).sub($F.nvl(context.record.customnumber2__c,new $F.Decimal('0')))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(context.record.customnumber1__c.sub(context.record.customnumber2__c)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customnumber1__c,0)-$F.nvl(context.record.customnumber2__c,0)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(context.record.customnumber1__c-context.record.customnumber2__c):null</JsOutput>
       <result>
       <inputvalues>[, 24]</inputvalues>
          <formula>-24</formula>

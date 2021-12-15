@@ -9,10 +9,6 @@
        <Sql>CASE WHEN CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))&gt;=0 THEN CEILING(ROUND(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)),33)) ELSE FLOOR(ROUND(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)),33)) END</Sql>
        <Guard>NOT ISNUMERIC($!s0s!$.customtext1__c)=1</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c).isPos()?$F.Decimal(context.record.customtext1__c).toDP(18).ceil():$F.Decimal(context.record.customtext1__c).toDP(18).floor())):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c).isPos()?$F.Decimal(context.record.customtext1__c).toDP(18).ceil():$F.Decimal(context.record.customtext1__c).toDP(18).floor())):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(((Number(context.record.customtext1__c))&gt;=0?Math.ceil(Number(context.record.customtext1__c)):Math.floor(Number(context.record.customtext1__c)))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(((Number(context.record.customtext1__c))&gt;=0?Math.ceil(Number(context.record.customtext1__c)):Math.floor(Number(context.record.customtext1__c)))):null</JsOutput>
       <result>
       <inputvalues>[0]</inputvalues>
          <formula>0</formula>

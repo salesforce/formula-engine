@@ -9,10 +9,6 @@
        <Sql>DATEPART(isoww, CONVERT(DATETIME, $!s0s!$.dateString__c))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?((new $F.Decimal($F.isoweek(new Date(context.record.dateString__c + ' GMT'))))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?((new $F.Decimal($F.isoweek(new Date(context.record.dateString__c + ' GMT'))))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?($F.isoweek(new Date(context.record.dateString__c + ' GMT'))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?($F.isoweek(new Date(context.record.dateString__c + ' GMT'))):null</JsOutput>
       <result>
       <inputvalues>[2011-01-29 00:00:09]</inputvalues>
          <formula>4</formula>

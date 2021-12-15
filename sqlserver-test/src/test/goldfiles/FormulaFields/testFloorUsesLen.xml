@@ -9,10 +9,6 @@
        <Sql>CASE WHEN COALESCE(LEN($!s0s!$.customtext1__c),0)&gt;=0 THEN FLOOR(ROUND(COALESCE(LEN($!s0s!$.customtext1__c),0),33)) ELSE CEILING(ROUND(COALESCE(LEN($!s0s!$.customtext1__c),0),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).isPos()?(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).toDP(18).floor():(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).toDP(18).ceil())</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).isPos()?(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).toDP(18).floor():(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).toDP(18).ceil())</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">((($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))&gt;=0?Math.floor(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)):Math.ceil(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">((($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))&gt;=0?Math.floor(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)):Math.ceil(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)))</JsOutput>
       <result>
       <inputvalues>[This is too good to be true]</inputvalues>
          <formula>27</formula>

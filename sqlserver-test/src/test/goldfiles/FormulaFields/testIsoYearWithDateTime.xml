@@ -9,10 +9,6 @@
        <Sql>YEAR(DATEADD(day, 26 - DATEPART(isoww, CONVERT(DATETIME, $!s0s!$.dateString__c)), CONVERT(DATETIME, $!s0s!$.dateString__c)))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?((new $F.Decimal($F.isoyear(new Date(context.record.dateString__c + ' GMT'))))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?((new $F.Decimal($F.isoyear(new Date(context.record.dateString__c + ' GMT'))))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?($F.isoyear(new Date(context.record.dateString__c + ' GMT'))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?($F.isoyear(new Date(context.record.dateString__c + ' GMT'))):null</JsOutput>
       <result>
       <inputvalues>[2011-01-29 00:00:09]</inputvalues>
          <formula>2011</formula>

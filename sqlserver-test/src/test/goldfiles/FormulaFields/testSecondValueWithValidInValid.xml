@@ -9,10 +9,6 @@
        <Sql>DATEPART(second,CAST(CONVERT(DATETIME, $!s0s!$.dateString__c) as TIME))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?((new $F.Decimal(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getSeconds()))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?((new $F.Decimal(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getSeconds()))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getSeconds()):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getSeconds()):null</JsOutput>
       <result>
       <inputvalues>[2011-01-29 00:00:09]</inputvalues>
          <formula>9</formula>

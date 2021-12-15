@@ -9,10 +9,6 @@
        <Sql>DATEDIFF(second, '00:00:00', CAST($!s0s!$.dateString__c as TIME))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?((new $F.Decimal(Math.trunc((new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1))).getTime()/1000)))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?((new $F.Decimal(Math.trunc((new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1))).getTime()/1000)))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?(Math.trunc((new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1))).getTime()/1000)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?(Math.trunc((new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1))).getTime()/1000)):null</JsOutput>
       <result>
       <inputvalues>[10:34:55.666]</inputvalues>
          <formula>38095</formula>

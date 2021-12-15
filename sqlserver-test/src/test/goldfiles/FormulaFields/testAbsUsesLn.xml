@@ -9,10 +9,6 @@
        <Sql>ABS(CAST(LOG($!s0s!$.customnumber1__c) AS DECIMAL(38,18)))</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).ln().abs()</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?((context.record.customnumber1__c).ln().abs()):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.abs(Math.log($F.nvl(context.record.customnumber1__c,0)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.abs(Math.log(context.record.customnumber1__c))):null</JsOutput>
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>0.0</formula>

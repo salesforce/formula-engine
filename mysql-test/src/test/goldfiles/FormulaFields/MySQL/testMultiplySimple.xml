@@ -9,10 +9,6 @@
        <Sql>($!s0s!$.customcurrency1__c * $!s0s!$.customcurrency2__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')).mul($F.nvl(context.record.customcurrency2__c,new $F.Decimal('0')))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null)?(context.record.customcurrency1__c.mul(context.record.customcurrency2__c)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customcurrency1__c,0)*$F.nvl(context.record.customcurrency2__c,0)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null)?(context.record.customcurrency1__c*context.record.customcurrency2__c):null</JsOutput>
       <result>
       <inputvalues>[20, 40]</inputvalues>
          <formula>800</formula>

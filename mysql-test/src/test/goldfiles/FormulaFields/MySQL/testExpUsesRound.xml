@@ -9,10 +9,6 @@
        <Sql>EXP(ROUND($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.exp(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).mul('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0)).round().div('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0)))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?($F.Decimal.exp((context.record.customnumber1__c).mul('1e'+context.record.customnumber2__c.toFixed(0)).round().div('1e'+context.record.customnumber2__c.toFixed(0)))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.exp(($F.nvl(context.record.customnumber2__c,0)&gt;0)?Number(Number($F.nvl(context.record.customnumber1__c,0)).toFixed($F.nvl(context.record.customnumber2__c,0)&lt;=20?$F.nvl(context.record.customnumber2__c,0):20)):Math.round(($F.nvl(context.record.customnumber1__c,0))*('1e'+$F.nvl(context.record.customnumber2__c,0)))/('1e'+$F.nvl(context.record.customnumber2__c,0)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(Math.exp((context.record.customnumber2__c&gt;0)?Number(Number(context.record.customnumber1__c).toFixed(context.record.customnumber2__c&lt;=20?context.record.customnumber2__c:20)):Math.round((context.record.customnumber1__c)*('1e'+context.record.customnumber2__c))/('1e'+context.record.customnumber2__c))):null</JsOutput>
       <result>
       <inputvalues>[0, 0]</inputvalues>
          <formula>1.0</formula>

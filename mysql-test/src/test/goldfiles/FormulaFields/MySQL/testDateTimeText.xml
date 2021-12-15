@@ -9,10 +9,6 @@
        <Sql>(CONCAT_WS(&quot;&quot;,CONVERT($!s0s!$.customdatetime1__c,CHAR), 'Z' ))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).toISOString().replace('T',' ').substring(0,19)+'Z')):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).toISOString().replace('T',' ').substring(0,19)+'Z')):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).toISOString().replace('T',' ').substring(0,19)+'Z')):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).toISOString().replace('T',' ').substring(0,19)+'Z')):null</JsOutput>
       <result>
       <inputvalues>[2004:12:31:11:32:00, 3.00]</inputvalues>
          <formula>2004-12-31 11:32:00Z</formula>

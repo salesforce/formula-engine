@@ -9,10 +9,6 @@
        <Sql>CAST('10:40:55.666' as TIME)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>10:40:55.666</formula>

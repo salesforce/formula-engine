@@ -9,10 +9,6 @@
        <Sql>COALESCE(LEN($!s0s!$.customtext1__c),0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length)</JsOutput>
       <result>
       <inputvalues>[This is too good to be true]</inputvalues>
          <formula>27</formula>

@@ -9,10 +9,6 @@
        <Sql>CASE WHEN (NULL=0) THEN 'true' ELSE 'false' END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(((($F.noe(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),$F.nvl(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),'')+'x'))==($F.noe(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),$F.nvl(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),'')+'x'))?null:null))==(new $F.Decimal('0'))?&quot;true&quot;:&quot;false&quot;)</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(((($F.noe(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),$F.nvl(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),'')+'x'))==($F.noe(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),$F.nvl(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),'')+'x'))?null:null))==(new $F.Decimal('0'))?&quot;true&quot;:&quot;false&quot;)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(((($F.noe(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),$F.nvl(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),'')+'x'))==($F.noe(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),$F.nvl(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),'')+'x'))?null:null))==(0)?&quot;true&quot;:&quot;false&quot;)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(((($F.noe(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),$F.nvl(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),'')+'x'))==($F.noe(($F.anl([context.record.customtext2__c])?null:context.record.customtext2__c),$F.nvl(($F.anl([context.record.customtext1__c])?null:context.record.customtext1__c),'')+'x'))?null:null))==(0)?&quot;true&quot;:&quot;false&quot;)</JsOutput>
       <result>
       <inputvalues>[aaaa, aaaa]</inputvalues>
          <formula>false</formula>

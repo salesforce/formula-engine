@@ -9,10 +9,6 @@
        <Sql>ROUND(CAST(EXP(CAST(LOG($!s0s!$.customnumber1__c) AS DECIMAL(38,18))) AS DECIMAL(38,10)), 0)</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">($F.Decimal.exp(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).ln())).mul('1e'+new $F.Decimal('0').toFixed(0)).round().div('1e'+new $F.Decimal('0').toFixed(0))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(($F.Decimal.exp((context.record.customnumber1__c).ln())).mul('1e'+new $F.Decimal('0').toFixed(0)).round().div('1e'+new $F.Decimal('0').toFixed(0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Number(Number(Math.exp(Math.log($F.nvl(context.record.customnumber1__c,0)))).toFixed(0&lt;=20?0:20))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Number(Number(Math.exp(Math.log(context.record.customnumber1__c))).toFixed(0&lt;=20?0:20))):null</JsOutput>
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>1</formula>

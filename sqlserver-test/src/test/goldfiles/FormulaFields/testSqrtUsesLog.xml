@@ -9,10 +9,6 @@
        <Sql>ROUND(CAST(SQRT(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18))) AS DECIMAL(38,18)), 15)</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0 OR CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18))&lt;0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">($F.Decimal.sqrt(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).log(10))).mul('1e'+new $F.Decimal('15').toFixed(0)).round().div('1e'+new $F.Decimal('15').toFixed(0))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(($F.Decimal.sqrt((context.record.customnumber1__c).log(10))).mul('1e'+new $F.Decimal('15').toFixed(0)).round().div('1e'+new $F.Decimal('15').toFixed(0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Number(Number(Math.sqrt(Math.log($F.nvl(context.record.customnumber1__c,0))/Math.LN10)).toFixed(15&lt;=20?15:20))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Number(Number(Math.sqrt(Math.log(context.record.customnumber1__c)/Math.LN10)).toFixed(15&lt;=20?15:20))):null</JsOutput>
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>0.0</formula>

@@ -9,10 +9,6 @@
        <Sql>LOG(10, MOD($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c))</Sql>
        <Guard>MOD($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c)&lt;=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).mod($F.nvl(context.record.customnumber2__c,new $F.Decimal('0')))).log(10)</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?((context.record.customnumber1__c.mod(context.record.customnumber2__c)).log(10)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.log((($F.nvl(context.record.customnumber1__c,0))%($F.nvl(context.record.customnumber2__c,0))))/Math.LN10</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(Math.log(((context.record.customnumber1__c)%(context.record.customnumber2__c)))/Math.LN10):null</JsOutput>
       <result>
       <inputvalues>[0, 1]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>

@@ -9,10 +9,6 @@
        <Sql>DATEADD(day,ROUND($!s0s!$.customnumber1__c,0,1),$!s0s!$.customdate1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))|0))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;context.record.customnumber1__c!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*((context.record.customnumber1__c)|0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,0))|0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;context.record.customnumber1__c!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*((context.record.customnumber1__c)|0))):null</JsOutput>
       <result>
       <inputvalues>[, 40]</inputvalues>
          <formula>null</formula>
@@ -128,10 +124,6 @@
        <Sql>DATEADD(day,ROUND($!s0s!$.customnumber1__c,0,1),$!s0s!$.customdate1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))|0))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*((context.record.customnumber1__c)|0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*(($F.nvl(context.record.customnumber1__c,0))|0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new Date(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()+86400000*((context.record.customnumber1__c)|0))):null</JsOutput>
       <result>
       <inputvalues>[40, ]</inputvalues>
          <formula>null</formula>

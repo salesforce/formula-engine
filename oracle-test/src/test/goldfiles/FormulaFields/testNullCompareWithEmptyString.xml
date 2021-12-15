@@ -9,10 +9,6 @@
        <Sql>(NVL($!s0s!$.customText1__c, ''||'x')=$!s0s!$.customText1__c||'x')</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">($F.noe(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),(&quot;&quot;)+'x'))==($F.nvl(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),'')+'x')</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">($F.noe(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),(&quot;&quot;)+'x'))==($F.nvl(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),'')+'x')</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">($F.noe(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),(&quot;&quot;)+'x'))==($F.nvl(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),'')+'x')</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">($F.noe(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),(&quot;&quot;)+'x'))==($F.nvl(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),'')+'x')</JsOutput>
       <result>
       <inputvalues>[Text]</inputvalues>
          <formula>false</formula>

@@ -9,10 +9,6 @@
        <Sql>CASE WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE DATEFROMPARTS(2011,2,CAST(FLOOR($!s0s!$.day__c) AS VARCHAR)) END</Sql>
        <Guard>NOT ($!s0s!$.day__c IS NULL ) AND ($!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR $!s0s!$.day__c &gt;= 29)</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC(new $F.Decimal('2011').toNumber(),new $F.Decimal('2').toNumber()-1,$F.nvl(context.record.day__c,new $F.Decimal('0')).toNumber()))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.day__c!=null)?(new Date(Date.UTC(new $F.Decimal('2011').toNumber(),new $F.Decimal('2').toNumber()-1,context.record.day__c.toNumber()))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC(2011,2-1,$F.nvl(context.record.day__c,0)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.day__c!=null)?(new Date(Date.UTC(2011,2-1,context.record.day__c))):null</JsOutput>
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>Tue Feb 01 00:00:00 GMT 2011</formula>

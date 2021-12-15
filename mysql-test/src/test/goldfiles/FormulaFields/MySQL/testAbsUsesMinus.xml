@@ -9,10 +9,6 @@
        <Sql>ABS((($!s0s!$.custompercent1__c / 100.0)-$!s0s!$.customcurrency1__c))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')).sub($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0'))).abs()</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.custompercent1__c!=null&amp;&amp;context.record.custompercent1__c.div(100)!=null&amp;&amp;context.record.customcurrency1__c!=null)?(context.record.custompercent1__c.div(100).sub(context.record.customcurrency1__c).abs()):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.abs($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)-$F.nvl(context.record.customcurrency1__c,0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.custompercent1__c!=null&amp;&amp;context.record.custompercent1__c/100.0!=null&amp;&amp;context.record.customcurrency1__c!=null)?(Math.abs(context.record.custompercent1__c/100.0-context.record.customcurrency1__c)):null</JsOutput>
       <result>
       <inputvalues>[, 24]</inputvalues>
          <formula>24</formula>

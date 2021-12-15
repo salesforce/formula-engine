@@ -9,10 +9,6 @@
        <Sql>COALESCE(INSTR(binary $!s0s!$.customText1__c, 'Text'), 0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)</JsOutput>
       <result>
       <inputvalues>[Text]</inputvalues>
          <formula>1</formula>

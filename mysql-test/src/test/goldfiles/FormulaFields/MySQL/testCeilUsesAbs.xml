@@ -9,10 +9,6 @@
        <Sql>CASE WHEN ABS($!s0s!$.customnumber1__c)&gt;=0 THEN CEIL(ROUND(ABS($!s0s!$.customnumber1__c),33)) ELSE FLOOR(ROUND(ABS($!s0s!$.customnumber1__c),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).abs().isPos()?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).abs().toDP(18).ceil():$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).abs().toDP(18).floor())</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?((context.record.customnumber1__c.abs().isPos()?context.record.customnumber1__c.abs().toDP(18).ceil():context.record.customnumber1__c.abs().toDP(18).floor())):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">((Math.abs($F.nvl(context.record.customnumber1__c,0)))&gt;=0?Math.ceil(Math.abs($F.nvl(context.record.customnumber1__c,0))):Math.floor(Math.abs($F.nvl(context.record.customnumber1__c,0))))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(((Math.abs(context.record.customnumber1__c))&gt;=0?Math.ceil(Math.abs(context.record.customnumber1__c)):Math.floor(Math.abs(context.record.customnumber1__c)))):null</JsOutput>
       <result>
       <inputvalues>[0]</inputvalues>
          <formula>0</formula>

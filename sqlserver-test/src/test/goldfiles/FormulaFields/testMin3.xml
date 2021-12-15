@@ -9,10 +9,6 @@
        <Sql>LEAST($!s0s!$.customNumber1__c, $!s0s!$.customNumber2__c, $!s0s!$.customNumber3__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.min($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')),$F.nvl(context.record.customNumber2__c,new $F.Decimal('0')),$F.nvl(context.record.customNumber3__c,new $F.Decimal('0')))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null&amp;&amp;context.record.customNumber3__c!=null)?($F.Decimal.min(context.record.customNumber1__c,context.record.customNumber2__c,context.record.customNumber3__c)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.min($F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customNumber2__c,0),$F.nvl(context.record.customNumber3__c,0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null&amp;&amp;context.record.customNumber3__c!=null)?(Math.min(context.record.customNumber1__c,context.record.customNumber2__c,context.record.customNumber3__c)):null</JsOutput>
       <result>
       <inputvalues>[1, 1, 1]</inputvalues>
          <formula>1</formula>

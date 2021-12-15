@@ -9,10 +9,6 @@
        <Sql>CASE WHEN $!s0s!$.year__c IS NULL THEN NULL WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE DATEFROMPARTS(CAST(FLOOR($!s0s!$.year__c) AS VARCHAR),2,CAST(FLOOR($!s0s!$.day__c) AS VARCHAR)) END</Sql>
        <Guard>NOT ($!s0s!$.year__c IS NULL OR $!s0s!$.day__c IS NULL ) AND ($!s0s!$.year__c is null OR $!s0s!$.year__c&lt; 1 OR $!s0s!$.year__c&gt; 9999 OR $!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR  $!s0s!$.day__c &gt;= DAY(EOMONTH(DATEFROMPARTS(FLOOR($!s0s!$.year__c),2,1)))+1 )</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,new $F.Decimal('0')).toNumber(),new $F.Decimal('2').toNumber()-1,$F.nvl(context.record.day__c,new $F.Decimal('0')).toNumber()))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.year__c!=null&amp;&amp;context.record.day__c!=null)?(new Date(Date.UTC(context.record.year__c.toNumber(),new $F.Decimal('2').toNumber()-1,context.record.day__c.toNumber()))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,0),2-1,$F.nvl(context.record.day__c,0)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.year__c!=null&amp;&amp;context.record.day__c!=null)?(new Date(Date.UTC(context.record.year__c,2-1,context.record.day__c))):null</JsOutput>
       <result>
       <inputvalues>[2001, 29]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>

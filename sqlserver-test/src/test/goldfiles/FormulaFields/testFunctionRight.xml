@@ -9,10 +9,6 @@
        <Sql>RIGHT($!s0s!$.customtext__c, (($!s0s!$.customnumber__c + ABS($!s0s!$.customnumber__c))/2))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext__c!=null)?((($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))&lt;=0)?'':context.record.customtext__c).slice(-($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext__c!=null&amp;&amp;context.record.customnumber__c!=null)?(((context.record.customnumber__c&lt;=0)?'':context.record.customtext__c).slice(-(context.record.customnumber__c))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext__c!=null)?((($F.nvl(context.record.customnumber__c,0)&lt;=0)?'':context.record.customtext__c).slice(-($F.nvl(context.record.customnumber__c,0)))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext__c!=null&amp;&amp;context.record.customnumber__c!=null)?(((context.record.customnumber__c&lt;=0)?'':context.record.customtext__c).slice(-(context.record.customnumber__c))):null</JsOutput>
       <result>
       <inputvalues>[123456, 1]</inputvalues>
          <formula>6</formula>

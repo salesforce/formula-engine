@@ -9,10 +9,6 @@
        <Sql>LOG(10, LOG(10, $!s0s!$.customnumber1__c))</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0 OR LOG(10, $!s0s!$.customnumber1__c)&lt;=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).log(10)).log(10)</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(((context.record.customnumber1__c).log(10)).log(10)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.log(Math.log($F.nvl(context.record.customnumber1__c,0))/Math.LN10)/Math.LN10</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.log(Math.log(context.record.customnumber1__c)/Math.LN10)/Math.LN10):null</JsOutput>
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>Error: java.lang.NumberFormatException</formula>

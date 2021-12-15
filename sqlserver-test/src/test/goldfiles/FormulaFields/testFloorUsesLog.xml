@@ -9,10 +9,6 @@
        <Sql>CASE WHEN CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18))&gt;=0 THEN FLOOR(ROUND(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)),33)) ELSE CEILING(ROUND(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)),33)) END</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).log(10).isPos()?($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).log(10).toDP(18).floor():($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).log(10).toDP(18).ceil())</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(((context.record.customnumber1__c).log(10).isPos()?(context.record.customnumber1__c).log(10).toDP(18).floor():(context.record.customnumber1__c).log(10).toDP(18).ceil())):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">((Math.log($F.nvl(context.record.customnumber1__c,0))/Math.LN10)&gt;=0?Math.floor(Math.log($F.nvl(context.record.customnumber1__c,0))/Math.LN10):Math.ceil(Math.log($F.nvl(context.record.customnumber1__c,0))/Math.LN10))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(((Math.log(context.record.customnumber1__c)/Math.LN10)&gt;=0?Math.floor(Math.log(context.record.customnumber1__c)/Math.LN10):Math.ceil(Math.log(context.record.customnumber1__c)/Math.LN10))):null</JsOutput>
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>0</formula>

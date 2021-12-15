@@ -9,10 +9,6 @@
        <Sql>TIME(DATE_SUB(TIME($!s0s!$.dateString__c),INTERVAL MOD(7200000/1000,86400) SECOND))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).getTime()-new $F.Decimal('7200000').toNumber())):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).getTime()-new $F.Decimal('7200000').toNumber())):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).getTime()-7200000)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).getTime()-7200000)):null</JsOutput>
       <result>
       <inputvalues>[10:34:55.666]</inputvalues>
          <formula>08:34:55.666</formula>

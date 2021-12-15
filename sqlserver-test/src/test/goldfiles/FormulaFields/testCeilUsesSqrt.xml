@@ -9,10 +9,6 @@
        <Sql>CASE WHEN CAST(SQRT($!s0s!$.customnumber1__c) AS DECIMAL(38,18))&gt;=0 THEN CEILING(ROUND(CAST(SQRT($!s0s!$.customnumber1__c) AS DECIMAL(38,18)),33)) ELSE FLOOR(ROUND(CAST(SQRT($!s0s!$.customnumber1__c) AS DECIMAL(38,18)),33)) END</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">($F.Decimal.sqrt($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).isPos()?$F.Decimal.sqrt($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).toDP(18).ceil():$F.Decimal.sqrt($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).toDP(18).floor())</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(($F.Decimal.sqrt(context.record.customnumber1__c).isPos()?$F.Decimal.sqrt(context.record.customnumber1__c).toDP(18).ceil():$F.Decimal.sqrt(context.record.customnumber1__c).toDP(18).floor())):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">((Math.sqrt($F.nvl(context.record.customnumber1__c,0)))&gt;=0?Math.ceil(Math.sqrt($F.nvl(context.record.customnumber1__c,0))):Math.floor(Math.sqrt($F.nvl(context.record.customnumber1__c,0))))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(((Math.sqrt(context.record.customnumber1__c))&gt;=0?Math.ceil(Math.sqrt(context.record.customnumber1__c)):Math.floor(Math.sqrt(context.record.customnumber1__c)))):null</JsOutput>
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>1</formula>

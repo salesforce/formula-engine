@@ -9,10 +9,6 @@
        <Sql>NULL</Sql>
        <Guard>0=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new Date(&quot;sample &quot; + ' GMT')</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">new Date(&quot;sample &quot; + ' GMT')</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">new Date(&quot;sample &quot; + ' GMT')</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">new Date(&quot;sample &quot; + ' GMT')</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>

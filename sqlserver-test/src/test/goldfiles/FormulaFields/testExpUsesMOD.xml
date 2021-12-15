@@ -9,10 +9,6 @@
        <Sql>CAST(EXP(($!s0s!$.customnumber1__c % $!s0s!$.customnumber2__c)) AS DECIMAL(38,10))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.exp($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).mod($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?($F.Decimal.exp(context.record.customnumber1__c.mod(context.record.customnumber2__c))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.exp((($F.nvl(context.record.customnumber1__c,0))%($F.nvl(context.record.customnumber2__c,0))))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(Math.exp(((context.record.customnumber1__c)%(context.record.customnumber2__c)))):null</JsOutput>
       <result>
       <inputvalues>[0, 1]</inputvalues>
          <formula>1.0</formula>

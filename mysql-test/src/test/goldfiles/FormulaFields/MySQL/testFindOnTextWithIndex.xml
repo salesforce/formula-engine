@@ -9,10 +9,6 @@
        <Sql>COALESCE(CASE WHEN COALESCE(INSTR(binary SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1)),$!s0s!$.customText1__c),0) &gt; 0 THEN INSTR(binary SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1)),$!s0s!$.customText1__c) + GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1) - 1 ELSE 0 END, 0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,$F.nvl(context.record.customNumber__c,new $F.Decimal('0'))-1)+1):0)))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,context.record.customNumber__c-1)+1):0)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,$F.nvl(context.record.customNumber__c,0)-1)+1):0)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,context.record.customNumber__c-1)+1):0)</JsOutput>
       <result>
       <inputvalues>[-, ABC - XYZ, 5]</inputvalues>
          <formula>5</formula>

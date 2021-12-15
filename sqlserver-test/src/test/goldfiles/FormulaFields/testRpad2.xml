@@ -9,10 +9,6 @@
        <Sql>LEFT($!s0s!$.customText1__c+REPLICATE($!s0s!$.customText2__c,(($!s0s!$.customNumber1__c + ABS($!s0s!$.customNumber1__c))/2)/LEN($!s0s!$.customText2__c)),(($!s0s!$.customNumber1__c + ABS($!s0s!$.customNumber1__c))/2))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null&amp;&amp;context.record.customText2__c!=null)?((context.record.customText1__c+Array(256).join(context.record.customText2__c)).substring(0,$F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber())):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null&amp;&amp;context.record.customNumber1__c!=null&amp;&amp;context.record.customText2__c!=null)?((context.record.customText1__c+Array(256).join(context.record.customText2__c)).substring(0,context.record.customNumber1__c.toNumber())):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null&amp;&amp;context.record.customText2__c!=null)?((context.record.customText1__c+Array(256).join(context.record.customText2__c)).substring(0,$F.nvl(context.record.customNumber1__c,0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null&amp;&amp;context.record.customNumber1__c!=null&amp;&amp;context.record.customText2__c!=null)?((context.record.customText1__c+Array(256).join(context.record.customText2__c)).substring(0,context.record.customNumber1__c)):null</JsOutput>
       <result>
       <inputvalues>[string, 0, ]</inputvalues>
          <formula>null</formula>
