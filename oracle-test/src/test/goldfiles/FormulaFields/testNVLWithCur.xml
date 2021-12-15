@@ -9,10 +9,6 @@
        <Sql>NVL($!s0s!$.customcurrency1__c, ($!s0s!$.custompercent1__c / 100.0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customcurrency1__c,new $F.Decimal('0'))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">$F.nvl(context.record.customcurrency1__c,(context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customcurrency1__c,0)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">$F.nvl(context.record.customcurrency1__c,(context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null)</JsOutput>
       <result>
       <inputvalues>[10, 10]</inputvalues>
          <formula>1000</formula>

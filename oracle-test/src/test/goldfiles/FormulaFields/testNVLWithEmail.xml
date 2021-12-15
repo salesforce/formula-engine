@@ -9,10 +9,6 @@
        <Sql>$!s0s!$.customemail1__c</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">context.record.customemail1__c</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">context.record.customemail1__c</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">context.record.customemail1__c</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">context.record.customemail1__c</JsOutput>
       <result>
       <inputvalues>[syendluri@yahoo.com, Not Null]</inputvalues>
          <formula>syendluri@yahoo.com</formula>

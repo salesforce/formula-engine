@@ -9,10 +9,6 @@
        <Sql>(TO_CHAR($!s0s!$.customnumber1__c))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">&quot;&quot;+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(&quot;&quot;+context.record.customnumber1__c):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">&quot;&quot;+$F.nvl(context.record.customnumber1__c,0)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(&quot;&quot;+context.record.customnumber1__c):null</JsOutput>
       <result>
       <inputvalues>[1234567890.0]</inputvalues>
          <formula>1234567890</formula>

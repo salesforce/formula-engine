@@ -9,10 +9,6 @@
        <Sql>($!s0s!$.text1__c&gt;$!s0s!$.text2__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.text1__c!=null&amp;&amp;context.record.text2__c!=null?(context.record.text1__c&gt;context.record.text2__c):false)</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.text1__c!=null&amp;&amp;context.record.text2__c!=null?(context.record.text1__c&gt;context.record.text2__c):false)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.text1__c!=null&amp;&amp;context.record.text2__c!=null?(context.record.text1__c&gt;context.record.text2__c):false)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.text1__c!=null&amp;&amp;context.record.text2__c!=null?(context.record.text1__c&gt;context.record.text2__c):false)</JsOutput>
       <result>
       <inputvalues>[foo, ]</inputvalues>
          <formula>false</formula>

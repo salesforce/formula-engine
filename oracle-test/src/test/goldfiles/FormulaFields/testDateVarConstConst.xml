@@ -9,10 +9,6 @@
        <Sql>CASE WHEN $!s0s!$.customnumber1__c IS NULL THEN NULL ELSE TO_DATE(TO_CHAR(FLOOR($!s0s!$.customnumber1__c)) || '-' || 11 || '-' || 25, 'YYYY-MM-DD') END</Sql>
        <Guard>NOT ($!s0s!$.customnumber1__c IS NULL ) AND ($!s0s!$.customnumber1__c is null OR $!s0s!$.customnumber1__c&lt; 1 OR $!s0s!$.customnumber1__c&gt; 9999)</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber(),new $F.Decimal('11').toNumber()-1,new $F.Decimal('25').toNumber()))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(new Date(Date.UTC(context.record.customnumber1__c.toNumber(),new $F.Decimal('11').toNumber()-1,new $F.Decimal('25').toNumber()))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.customnumber1__c,0),11-1,25))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(new Date(Date.UTC(context.record.customnumber1__c,11-1,25))):null</JsOutput>
       <result>
       <inputvalues>[2007, 2, 29]</inputvalues>
          <formula>Sun Nov 25 00:00:00 GMT 2007</formula>

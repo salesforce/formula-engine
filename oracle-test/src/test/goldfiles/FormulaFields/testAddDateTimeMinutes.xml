@@ -9,10 +9,6 @@
        <Sql>($!s0s!$.customdatetime1__c+($!s0s!$.customnumber1__c/1440))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).div(new $F.Decimal('1440'))))*1000))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*(context.record.customnumber1__c.div(new $F.Decimal('1440'))))*1000))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*(($F.nvl(context.record.customnumber1__c,0)/1440)))*1000))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()+(Math.round(86400*((context.record.customnumber1__c/1440)))*1000))):null</JsOutput>
       <result>
       <inputvalues>[2009:02:07:10:00:00, 240]</inputvalues>
          <formula>Sat Feb 07 14:00:00 GMT 2009</formula>

@@ -10,10 +10,6 @@
        <Sql>TRUNC(CAST((FROM_TZ(CAST(($!s0s!$.customdatetime1__c-$!s0s!$.customnumber1__c) AS TIMESTAMP), 'UTC') AT TIME ZONE '__TZ_ID__') AS DATE))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new Date(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-(Math.round(86400*($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))))*1000)).setUTCHours(0,0,0,0))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;context.record.customnumber1__c!=null)?(new Date(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-(Math.round(86400*(context.record.customnumber1__c))*1000)).setUTCHours(0,0,0,0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?(new Date(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-(Math.round(86400*($F.nvl(context.record.customnumber1__c,0)))*1000)).setUTCHours(0,0,0,0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null&amp;&amp;context.record.customnumber1__c!=null)?(new Date(new Date(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-(Math.round(86400*(context.record.customnumber1__c))*1000)).setUTCHours(0,0,0,0))):null</JsOutput>
       <result>
       <inputvalues>[2004:12:31:11:32:00, 3.00]</inputvalues>
          <formula>Tue Dec 28 00:00:00 GMT 2004</formula>
