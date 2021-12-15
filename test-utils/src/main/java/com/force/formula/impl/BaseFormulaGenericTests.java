@@ -89,6 +89,23 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 	    return new FormulaTestUtils();
 	}
 	
+
+	/**
+	 * @return whether javascript should be tested for these formulas.  This should be used in -impl, and by default,
+	 * but is turned on in the db-test modules for speed (since it's duplicative)
+	 */
+	protected boolean shouldTestJavascript() {
+		return true;
+	}
+	
+	/**
+	 * @return whether sql should be tested for these formulas.  It validates more of the functionality... but is... slower.
+	 */
+	protected boolean shouldTestSql() {
+		return false;
+	}
+
+	
 	/**
 	 * @return the location of the xml that contains the data
 	 */
@@ -449,14 +466,16 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * @throws Exception if a problem occurs
 		 */
 		protected void outputEvalutionExpressions(FieldDefinitionInfo fieldInfo, PrintStream xmlOut, JestDataModel jestDataModel) throws Exception {
-			printOutputSql(fieldInfo, xmlOut, true);
-			printOutputSql(fieldInfo, xmlOut, false);
-			printOutputJavascript(fieldInfo, xmlOut, true, false, jestDataModel);
-			printOutputJavascript(fieldInfo, xmlOut, true, true, jestDataModel);
-			printOutputJavascript(fieldInfo, xmlOut, false, false, jestDataModel);
-			printOutputJavascript(fieldInfo, xmlOut, false, true, jestDataModel);
-
-
+			if (this.suite.shouldTestSql()) {
+				printOutputSql(fieldInfo, xmlOut, true);
+				printOutputSql(fieldInfo, xmlOut, false);
+			}
+			if (this.suite.shouldTestJavascript()) {
+				printOutputJavascript(fieldInfo, xmlOut, true, false, jestDataModel);
+				printOutputJavascript(fieldInfo, xmlOut, true, true, jestDataModel);
+				printOutputJavascript(fieldInfo, xmlOut, false, false, jestDataModel);
+				printOutputJavascript(fieldInfo, xmlOut, false, true, jestDataModel);
+			}
 		}
 
 		/**

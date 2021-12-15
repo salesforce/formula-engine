@@ -9,10 +9,6 @@
        <Sql>NVL($!s0s!$.customemail1__c, $!s0s!$.customtextarea1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customemail1__c,context.record.customtextarea1__c)</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">$F.nvl(context.record.customemail1__c,context.record.customtextarea1__c)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(context.record.customemail1__c,context.record.customtextarea1__c)</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">$F.nvl(context.record.customemail1__c,context.record.customtextarea1__c)</JsOutput>
       <result>
       <inputvalues>[syendluri@yahoo.com, Not Null]</inputvalues>
          <formula>syendluri@yahoo.com</formula>

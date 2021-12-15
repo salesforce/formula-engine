@@ -9,10 +9,6 @@
        <Sql>NVL($!s0s!$.customdatetime1__c, $!s0s!$.customdatetime2__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')),($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">$F.nvl(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')),($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')),($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">$F.nvl(($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')),($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')))</JsOutput>
       <result>
       <inputvalues>[2004:12:31:11:32:00, 2004:12:31:11:30:00]</inputvalues>
          <formula>Fri Dec 31 11:32:00 GMT 2004</formula>

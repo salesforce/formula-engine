@@ -9,10 +9,6 @@
        <Sql>ABS(TO_NUMBER($!s0s!$.customtext1__c))</Sql>
        <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?($F.Decimal(context.record.customtext1__c).abs()):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?($F.Decimal(context.record.customtext1__c).abs()):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(Math.abs(Number(context.record.customtext1__c))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(Math.abs(Number(context.record.customtext1__c))):null</JsOutput>
       <result>
       <inputvalues>[0]</inputvalues>
          <formula>0</formula>

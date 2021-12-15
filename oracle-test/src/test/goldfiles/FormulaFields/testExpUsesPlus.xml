@@ -10,10 +10,6 @@
        <Sql>EXP((($!s0s!$.custompercent1__c / 100.0)+$!s0s!$.customnumber1__c))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.exp($F.nvl($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')).add($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))),new $F.Decimal('0')))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.custompercent1__c!=null&amp;&amp;context.record.custompercent1__c.div(100)!=null&amp;&amp;context.record.customnumber1__c!=null&amp;&amp;context.record.custompercent1__c.div(100).add(context.record.customnumber1__c)!=null)?($F.Decimal.exp(context.record.custompercent1__c.div(100).add(context.record.customnumber1__c))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.exp($F.nvl($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)+$F.nvl(context.record.customnumber1__c,0),0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.custompercent1__c!=null&amp;&amp;context.record.custompercent1__c/100.0!=null&amp;&amp;context.record.customnumber1__c!=null&amp;&amp;context.record.custompercent1__c/100.0+context.record.customnumber1__c!=null)?(Math.exp(context.record.custompercent1__c/100.0+context.record.customnumber1__c)):null</JsOutput>
       <result>
       <inputvalues>[0, 0]</inputvalues>
          <formula>1.0</formula>

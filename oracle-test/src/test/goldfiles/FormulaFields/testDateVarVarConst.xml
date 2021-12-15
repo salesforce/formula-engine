@@ -9,10 +9,6 @@
        <Sql>CASE WHEN $!s0s!$.customnumber1__c IS NULL THEN NULL WHEN $!s0s!$.customnumber2__c IS NULL THEN NULL ELSE TO_DATE(TO_CHAR(FLOOR($!s0s!$.customnumber1__c)) || '-' || TO_CHAR(FLOOR($!s0s!$.customnumber2__c)) || '-' || 28, 'YYYY-MM-DD') END</Sql>
        <Guard>NOT ($!s0s!$.customnumber1__c IS NULL OR $!s0s!$.customnumber2__c IS NULL ) AND ($!s0s!$.customnumber1__c is null OR $!s0s!$.customnumber1__c&lt; 1 OR $!s0s!$.customnumber1__c&gt; 9999 OR $!s0s!$.customnumber2__c is null  OR FLOOR($!s0s!$.customnumber2__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= TO_CHAR(LAST_DAY(TO_DATE(FLOOR($!s0s!$.customnumber1__c) || '-' || FLOOR($!s0s!$.customnumber2__c),'YYYY-MM')),'DD')+1 )</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber(),$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toNumber()-1,new $F.Decimal('28').toNumber()))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(new Date(Date.UTC(context.record.customnumber1__c.toNumber(),context.record.customnumber2__c.toNumber()-1,new $F.Decimal('28').toNumber()))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.customnumber1__c,0),$F.nvl(context.record.customnumber2__c,0)-1,28))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(new Date(Date.UTC(context.record.customnumber1__c,context.record.customnumber2__c-1,28))):null</JsOutput>
       <result>
       <inputvalues>[2007, 2, 29]</inputvalues>
          <formula>Wed Feb 28 00:00:00 GMT 2007</formula>

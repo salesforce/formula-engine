@@ -9,10 +9,6 @@
        <Sql>SQRT(SQRT($!s0s!$.customnumber1__c))</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;0 OR SQRT($!s0s!$.customnumber1__c)&lt;0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.sqrt($F.Decimal.sqrt($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?($F.Decimal.sqrt($F.Decimal.sqrt(context.record.customnumber1__c))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.sqrt(Math.sqrt($F.nvl(context.record.customnumber1__c,0)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.sqrt(Math.sqrt(context.record.customnumber1__c))):null</JsOutput>
       <result>
       <inputvalues>[1]</inputvalues>
          <formula>1.0</formula>

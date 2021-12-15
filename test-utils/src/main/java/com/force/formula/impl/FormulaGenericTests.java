@@ -53,23 +53,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 	IOException {
 		super(name, "labels", true);
 	}
-	
-	
-	/**
-	 * @return whether javascript should be tested for these formulas.  This should be used in -impl, and by default,
-	 * but is turned on in the db-test modules for speed (since it's duplicative)
-	 */
-	protected boolean shouldTestJavascript() {
-		return true;
-	}
-	
-	/**
-	 * @return whether sql should be tested for these formulas.  It validates more of the functionality... but is... slower.
-	 */
-	protected boolean shouldTestSql() {
-		return false;
-	}
-	
+		
 	protected String getDbTypeName() {
 		try {
 			DbTester dbTester = getDbTester();

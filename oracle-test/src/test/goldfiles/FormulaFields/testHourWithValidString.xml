@@ -9,10 +9,6 @@
        <Sql>10</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal('10')</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">new $F.Decimal('10')</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">10</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">10</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>10</formula>

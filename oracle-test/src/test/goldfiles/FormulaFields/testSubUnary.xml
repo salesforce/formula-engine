@@ -9,10 +9,6 @@
        <Sql>(-$!s0s!$.customnumber1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).neg()</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(context.record.customnumber1__c.neg()):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(-$F.nvl(context.record.customnumber1__c,0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?((-context.record.customnumber1__c)):null</JsOutput>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>0</formula>

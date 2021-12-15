@@ -9,10 +9,6 @@
        <Sql>$!s0s!$.customtextarea1__c</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">context.record.customtextarea1__c</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">context.record.customtextarea1__c</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">context.record.customtextarea1__c</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">context.record.customtextarea1__c</JsOutput>
       <result>
       <inputvalues>[Has it,  Not Null]</inputvalues>
          <formula> Not Null</formula>

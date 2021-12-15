@@ -9,10 +9,6 @@
        <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (INSTR($!s0s!$.customphone1__c, $!s0s!$.customtext1__c) = 1)) THEN $!s0s!$.customnumber1__c ELSE ($!s0s!$.custompercent1__c / 100.0) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.customphone1__c!=null&amp;&amp;context.record.customtext1__c!=null &amp;&amp; (!context.record.customtext1__c||context.record.customphone1__c.lastIndexOf($F.nvl(context.record.customtext1__c,''),0)===0)?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')):$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customphone1__c!=null&amp;&amp;context.record.customtext1__c!=null &amp;&amp; (!context.record.customtext1__c||context.record.customphone1__c.lastIndexOf($F.nvl(context.record.customtext1__c,''),0)===0)?context.record.customnumber1__c:(context.record.custompercent1__c!=null?(context.record.custompercent1__c.div(100)):null))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.customphone1__c!=null&amp;&amp;context.record.customtext1__c!=null &amp;&amp; (!context.record.customtext1__c||context.record.customphone1__c.lastIndexOf($F.nvl(context.record.customtext1__c,''),0)===0)?$F.nvl(context.record.customnumber1__c,0):$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customphone1__c!=null&amp;&amp;context.record.customtext1__c!=null &amp;&amp; (!context.record.customtext1__c||context.record.customphone1__c.lastIndexOf($F.nvl(context.record.customtext1__c,''),0)===0)?context.record.customnumber1__c:(context.record.custompercent1__c!=null?(context.record.custompercent1__c/100.0):null))</JsOutput>
       <result>
       <inputvalues>[Golden File, File, 200, 300]</inputvalues>
          <formula>3</formula>

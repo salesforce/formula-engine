@@ -9,10 +9,6 @@
        <Sql>NLS_UPPER($!s0s!$.customText1__c,CASE WHEN SUBSTR($!s0s!$.customText2__c,1,2) = 'tr' THEN 'NLS_SORT=xturkish' ELSE 'NLS_SORT=xwest_european' END)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleUpperCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleUpperCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleUpperCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleUpperCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
       <result>
       <inputvalues>[﻿, ]</inputvalues>
          <formula>﻿</formula>

@@ -9,10 +9,6 @@
        <Sql>LPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c,0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?($F.lpad(context.record.customText1__c,$F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber(),' ')):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null&amp;&amp;context.record.customNumber1__c!=null)?($F.lpad(context.record.customText1__c,context.record.customNumber1__c.toNumber(),' ')):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null)?($F.lpad(context.record.customText1__c,$F.nvl(context.record.customNumber1__c,0),' ')):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null&amp;&amp;context.record.customNumber1__c!=null)?($F.lpad(context.record.customText1__c,context.record.customNumber1__c,' ')):null</JsOutput>
       <result>
       <inputvalues>[, 0]</inputvalues>
          <formula>null</formula>

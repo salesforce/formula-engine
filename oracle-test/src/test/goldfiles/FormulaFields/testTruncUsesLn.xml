@@ -9,10 +9,6 @@
        <Sql>TRUNC(LN($!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c)</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).ln()).mul('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0)).trunc().div('1e'+$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toFixed(0))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(((context.record.customnumber1__c).ln()).mul('1e'+context.record.customnumber2__c.toFixed(0)).trunc().div('1e'+context.record.customnumber2__c.toFixed(0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.trunc((Math.log($F.nvl(context.record.customnumber1__c,0)))*('1e'+$F.nvl(context.record.customnumber2__c,0)))/('1e'+$F.nvl(context.record.customnumber2__c,0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(Math.trunc((Math.log(context.record.customnumber1__c))*('1e'+context.record.customnumber2__c))/('1e'+context.record.customnumber2__c)):null</JsOutput>
       <result>
       <inputvalues>[1, 0]</inputvalues>
          <formula>0</formula>

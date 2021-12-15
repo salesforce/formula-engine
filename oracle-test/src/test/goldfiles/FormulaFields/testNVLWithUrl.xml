@@ -9,10 +9,6 @@
        <Sql>$!s0s!$.customurl1__c</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">context.record.customurl1__c</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">context.record.customurl1__c</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">context.record.customurl1__c</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">context.record.customurl1__c</JsOutput>
       <result>
       <inputvalues>[http://salesforce.com, Not Null]</inputvalues>
          <formula>http://salesforce.com</formula>
