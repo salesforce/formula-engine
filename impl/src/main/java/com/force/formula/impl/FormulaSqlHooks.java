@@ -142,13 +142,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the sql expression to use for uppercase with a locale
      */
     default String sqlInitCap(boolean hasLocaleOverride) {
-    	if (isOracleStyle()) {
-	        if (hasLocaleOverride) {
-                return "NLS_INITCAP(%s,CASE WHEN SUBSTR(%s,1,2) = 'nl' THEN 'NLS_SORT=xdutch' ELSE 'NLS_SORT=xwest_european' END)";
-	        } else {
-	            return "NLS_INITCAP(%s)";
-	        }
-    	}
     	return "INITCAP(%s COLLATE \"en_US\")";  // Use en_US so it isn't ascii only
     }
 
@@ -156,12 +149,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
      */
     default String sqlChr() {
-    	if (isPostgresStyle()) {
-        	return "CHR(TRUNC(%s)::integer)";
-    	}
-    	if (isOracleStyle()) {
-        	return "CHR(%s USING NCHAR_CS)";
-    	}
     	return "CHR(%s)";
     }
     
@@ -169,58 +156,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
      */
     default String sqlAscii() {
-    	if (isPostgresStyle()) {
-        	return "ASCII(%s)::integer";
-    	}
-    	if (isOracleStyle()) {
-        	return "ASCII(UNISTR(%s))";
-    	}
     	return "ASCII(%s)";
     }
     
-	
-    /**
-     * Perform the InitCap function to make "proper" names.
-     * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
-     * @return the sql expression to use for uppercase with a locale
-     */
-    default String sqlInitCap(boolean hasLocaleOverride) {
-    	if (isOracleStyle()) {
-	        if (hasLocaleOverride) {
-                return "NLS_INITCAP(%s,CASE WHEN SUBSTR(%s,1,2) = 'nl' THEN 'NLS_SORT=xdutch' ELSE 'NLS_SORT=xwest_european' END)";
-	        } else {
-	            return "NLS_INITCAP(%s)";
-	        }
-    	}
-    	return "INITCAP(%s COLLATE \"en_US\")";  // Use en_US so it isn't ascii only
-    }
-
-    /**
-     * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
-     */
-    default String sqlChr() {
-    	if (isPostgresStyle()) {
-        	return "CHR(TRUNC(%s)::integer)";
-    	}
-    	if (isOracleStyle()) {
-        	return "CHR(%s USING NCHAR_CS)";
-    	}
-    	return "CHR(%s)";
-    }
-    
-    /**
-     * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
-     */
-    default String sqlAscii() {
-    	if (isPostgresStyle()) {
-        	return "ASCII(%s)::integer";
-    	}
-    	if (isOracleStyle()) {
-        	return "ASCII(UNISTR(%s))";
-    	}
-    	return "ASCII(%s)";
-    }
-
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
      * missing from psql, but available in oracle.  This allows you to try and fix that.
@@ -261,9 +199,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return how to get the unix epoch from a given date for String.format
      */
     default String sqlGetEpoch() {
-    	if (isPostgresStyle()) {
-        	return "EXTRACT(EPOCH FROM %s)::numeric";
-    	}
     	return "ROUND((%s - DATE '1970-01-01') * 86400)";
     }
     
@@ -469,9 +404,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
 
     default Object sqlMakeStringComparable(Object str, boolean forCompare) {
-    	if (isPostgresStyle() && forCompare) {
-    		return "(" + str + " COLLATE \"POSIX\")";
-    	}
     	return str;
     }
     
@@ -631,13 +563,5 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         } else {
         	return "RPAD(" + str + ", " + amount + ")";
         }
-    }
-    
-    /**
-     * @param str the string expression that may be case sensitive
-     * @return the value for the string converted to case sensitivity for string comparison.
-	 */
-    default Object sqlMakeCaseSensitiveForComparison(Object str) {
-    	return str;
     }
 }

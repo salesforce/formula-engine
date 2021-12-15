@@ -299,7 +299,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 	
 	
 	@Override
-    default Object sqlMakeCaseSensitiveForComparison(Object str) {
+    default Object sqlMakeStringComparable(Object str, boolean forCompare) {
 		return str + " COLLATE Latin1_General_CS_AS";
     }
 

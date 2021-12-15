@@ -345,7 +345,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     }
 	
 	@Override
-    default Object sqlMakeCaseSensitiveForComparison(Object str) {
+    default Object sqlMakeStringComparable(Object str, boolean forCompare) {
 		return "binary " + str;
     }
 }

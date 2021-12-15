@@ -257,6 +257,13 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
 		return String.format("CASE WHEN COALESCE(STRPOS(SUBSTR(%s,%s::integer),%s),0) > 0 THEN STRPOS(SUBSTR(%s,%s::integer),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     }
     
+	@Override
+    default Object sqlMakeStringComparable(Object str, boolean forCompare) {
+    	if (forCompare) {
+    		return "(" + str + " COLLATE \"POSIX\")";
+    	}
+    	return str;
+    }
     
     /**
      * Formulas are usually numeric, but some functions, like round or trunc, require a cast to ::int in postgres
