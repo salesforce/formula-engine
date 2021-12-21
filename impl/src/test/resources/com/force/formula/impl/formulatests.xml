@@ -384,9 +384,13 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <!-- AddMonths doesn't work right around leap years with dateonlys in Javascript... -->
+     <!-- AddMonths doesn't work right around leap years with dateonlys in Javascript... 
+            // TODO: AddMonths in Oracle has different behavior from Postgres for leap days.
+            // @see https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions004.htm
+            // "If date is the last day of the month or if the resulting month has fewer days than the 
+            //      day component of date, then the result is the last day of the resulting month. " -->
      <testcase name="testAddMonths" devName="testAddMonths" labels="extended"
-         labelName="testAddMonths" dataType="DateTime" dataFile="addMonths"
+         labelName="testAddMonths" dataType="DateTime" dataFile="addMonths" 
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateTime"/>
@@ -427,7 +431,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>     
      <testcase name="testAddDateWithExpr" devName="testAddDateWithExpr"
          labelName="testAddDateWithExpr" dataType="DateOnly"
-         dataFile="addDateWithExpr" scale="2" precision="12" whyIgnoreSql="Date overflow"
+         dataFile="addDateWithExpr" scale="2" precision="12" whyIgnoreSql="all:Date overflow"
          code="(customformula0__c+customnumber1__c+customformula1__c+customcurrency1__c)">
          <referencefield devName="customformula0" labelName="customformula0"
              dataType="DateOnly" code="(customdate1__c+custompercent1__c)">
@@ -500,7 +504,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddDateTimeWithExpr" devName="testAddDateTimeWithExpr"
          labelName="testAddDateTimeWithExpr" dataType="DateTime" compareTemplate="formula"
-         dataFile="addDateTimeWithExpr" scale="2" precision="12"  whyIgnoreSql="Date overflow"
+         dataFile="addDateTimeWithExpr" scale="2" precision="12"  whyIgnoreSql="all:Date overflow"
          code="(customformula0__c+custompercent2__c+customformula1__c+LEN(customtext1__c))">
          <referencefield devName="customformula0" labelName="customformula0"
              dataType="DateTime"
@@ -809,7 +813,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <!-- really dumb case... -->
      <testcase name="testIfNullNullIf" devName="testIfNullNullIf" labels="extended"
-         labelName="testIfNullNullIf" dataType="Text" scale="2" whyIgnoreSql="Postgres incorrectly converts null to text for number comparison"
+         labelName="testIfNullNullIf" dataType="Text" scale="2" whyIgnoreSql="postgres:incorrectly converts null to text for number comparison"
          dataFile="ifTextCompareReturnText" precision="12"
          code="if( if (customtext1__c=customtext2__c, null, null) = 0,  &quot;true&quot;, &quot;false&quot;)">
          <referencefield devName="customtext1" labelName="customtext1"
@@ -1861,9 +1865,9 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
      </testcase>
-     <testcase name="testLenUsesText" devName="testLenUsesText"
+     <testcase name="testLenUsesText" devName="testLenUsesText" compareType="none"
          labelName="testLenUsesText" dataType="Double" dataFile="sqrtData"
-         scale="2" precision="12" code="LEN(Text(customnumber1__c))" compareType="none">
+         scale="2" precision="12" code="LEN(Text(customnumber1__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
@@ -1879,7 +1883,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testInitCap" devName="testInitCap" labels="extended"
          labelName="testInitCap" dataType="Text"
          dataFile="initCap" 
-         whyIgnoreSql="sqlserver:not implemented,mysql:not implemented"
+         whyIgnoreSql="mssql:not implemented,mysql:not implemented"
          code="INITCAP(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
@@ -2020,7 +2024,8 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testFloorRound" devName="testFloorRound" labels="math" whyIgnoreSql="Psql precision differences"
+     <testcase name="testFloorRound" devName="testFloorRound" labels="math" 
+         whyIgnoreSql="postgres:precision differences,mssql:precision differences"
          labelName="testFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="FLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2028,7 +2033,8 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMFloorRound" devName="testMFloorRound" whyIgnoreSql="Psql precision differences"
+     <testcase name="testMFloorRound" devName="testMFloorRound"
+         whyIgnoreSql="postgres:precision differences,mssql:precision differences"
          labelName="testMFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MFLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2166,7 +2172,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testCeilRound" devName="testCeilRound" labels="math" whyIgnoreSql="Psql precision differences"
+     <testcase name="testCeilRound" devName="testCeilRound" labels="math" whyIgnoreSql="postgres:precision differences"
          labelName="testCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="CEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2174,7 +2180,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMCeilRound" devName="testMCeilRound" labels="math" whyIgnoreSql="Psql precision differences"
+     <testcase name="testMCeilRound" devName="testMCeilRound" labels="math" whyIgnoreSql="postgres:precision differences"
          labelName="testMCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MCEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2688,7 +2694,7 @@ author: Srikanth Yendluri/Doug Chasman
      <!-- Tests for BUG:  -->
      <testcase name="testBigDivide" devName="testBigDivide" labels="math"
          labelName="testBigDivide" dataType="Double" dataFile="BigDivide"
-         scale="2" precision="15"
+         scale="2" precision="15" whyIgnoreSql="mssql:precision limits"
          code="((customnumber1__c/customnumber2__c)*customnumber3__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="18"/>
@@ -3265,6 +3271,7 @@ author: Srikanth Yendluri/Doug Chasman
      <!--  TODO SLT: Decimal fails on '+1' -->
      <testcase name="testVALUE" devName="testVALUE"
          labelName="testVALUE" dataType="Double" scale="2" dataFile="valueFunctionData"
+         whyIgnoreSql="mssql:no exponent support"
          code="value(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
@@ -3389,6 +3396,16 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customNumber" labelName="customNumber" dataType="Double" scale="2" precision="12" />
      </testcase>
+     <testcase name="testNullCompareWithEmptyString" devName="testNullCompareWithEmptyString"
+                labelName="testNullSpanCompareWithEmptyString" dataType="Boolean" eval="formula"
+                dataFile="findOnText" code="customText1__c = ''">
+          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" />
+      </testcase>
+      <testcase name="testNullNotEqualEmptyString" devName="testNullNotEqualEmptyString"
+                labelName="testNullSpanNotEqualEmptyString" dataType="Boolean" eval="formula"
+                dataFile="findOnText" code="customText1__c != ''">
+          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" />
+      </testcase>
     
     <testcase name="testAddHoursWithTwoCustFields" devName="testAddHoursWithTwoCustFields"
         labelName="testAddHoursWithTwoCustFields" dataType="TimeOnly" eval="formula,template" dataFile="timeAndHours"
@@ -3416,11 +3433,11 @@ author: Srikanth Yendluri/Doug Chasman
         labelName="testFormatCurrency" dataType="Text" dataFile="formatCurrency" labels="extended"
         code="FORMATCURRENCY(isocode__c, customNumber1__c)">
         <referencefield devName="isocode" labelName="timeString" dataType="Text" length="50"/>
-         <referencefield devName="customNumber1" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+        <referencefield devName="customNumber1" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
       </testcase>
       
      <testcase name="testIfTextCompareLessThan" labels="extended"
-         devName="testIfTextCompareLessThan"
+          devName="testIfTextCompareLessThan"
          labelName="testIfTextCompareLessThan" dataType="Boolean"
          dataFile="twoTextFields"
          code="text1__c&lt;text2__c">
@@ -3451,5 +3468,34 @@ author: Srikanth Yendluri/Doug Chasman
         <referencefield devName="text1" labelName="text2" dataType="Text" length="50"/>
         <referencefield devName="text2" labelName="text2" dataType="Text" length="50"/>
      </testcase>      
-      
+     <testcase name="testMax" devName="testMax"
+        labelName="testMax" dataType="Double" scale="2" precision="12" dataFile="twoNumericFields" labels="math"
+        whyIgnoreSql="postgres:ignores null,mssql:no greatest"
+        code="MAX(customNumber1__c,customNumber2__c)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+    </testcase>
+    <testcase name="testMin" devName="testMin"
+        labelName="testMin" dataType="Double" scale="2" precision="12" dataFile="twoNumericFields" labels="math"
+        whyIgnoreSql="postgres:ignores null,mssql:no least"
+        code="MIN(customNumber1__c,customNumber2__c)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+    </testcase>
+    <testcase name="testMax3" devName="testMax"
+        labelName="testMax3" dataType="Double" scale="2" precision="12" dataFile="threeNumericFields" labels="math"
+        whyIgnoreSql="postgres:ignores null,mssql:no greatest"
+        code="MAX(customNumber1__c,customNumber2__c,customNumber3__c)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber3" labelName="customNumber3" dataType="Double" scale="2" precision="12" />
+    </testcase>
+    <testcase name="testMin3" devName="testMin"
+        labelName="testMin" dataType="Double" scale="2" precision="12" dataFile="threeNumericFields" labels="math"
+        whyIgnoreSql="postgres:ignores null,mssql:no least"
+        code="MIN(customNumber1__c,customNumber2__c,customNumber3__c)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customNumber3" labelName="customNumber3" dataType="Double" scale="2" precision="12" />
+    </testcase>
 </formula-test>
