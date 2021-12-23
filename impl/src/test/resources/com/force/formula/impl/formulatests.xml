@@ -3453,9 +3453,42 @@ author: Srikanth Yendluri/Doug Chasman
         labelName="testFormatCurrency" dataType="Text" dataFile="formatCurrency" labels="extended"
         code="FORMATCURRENCY(isocode__c, customNumber1__c)">
         <referencefield devName="isocode" labelName="timeString" dataType="Text" length="50"/>
-         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
-    </testcase>
-    <testcase name="testMax" devName="testMax"
+        <referencefield devName="customNumber1" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+      </testcase>
+      
+     <testcase name="testIfTextCompareLessThan" labels="extended"
+          devName="testIfTextCompareLessThan"
+         labelName="testIfTextCompareLessThan" dataType="Boolean"
+         dataFile="twoTextFields"
+         code="text1__c&lt;text2__c">
+        <referencefield devName="text1" labelName="text2" dataType="Text" length="50"/>
+        <referencefield devName="text2" labelName="text2" dataType="Text" length="50"/>
+     </testcase>      
+     <testcase name="testIfTextCompareGreaterThan" labels="extended"
+         devName="testIfTextCompareGreaterThan"
+         labelName="testIfTextCompareGreaterThan" dataType="Boolean"
+         dataFile="twoTextFields"
+         code="text1__c&gt;text2__c">
+        <referencefield devName="text1" labelName="text2" dataType="Text" length="50"/>
+        <referencefield devName="text2" labelName="text2" dataType="Text" length="50"/>
+     </testcase>      
+     <testcase name="testIfTextCompareLessEqual" labels="extended"
+         devName="testIfTextCompareLessEqual"
+         labelName="testIfTextCompareLessEqual" dataType="Boolean"
+         dataFile="twoTextFields"
+         code="text1__c&lt;=text2__c">
+        <referencefield devName="text1" labelName="text2" dataType="Text" length="50"/>
+        <referencefield devName="text2" labelName="text2" dataType="Text" length="50"/>
+     </testcase>      
+     <testcase name="testIfTextCompareGreaterEqual" labels="extended"
+         devName="testIfTextCompareGreaterEqual"
+         labelName="testIfTextCompareGreaterEqual" dataType="Boolean"
+         dataFile="twoTextFields"
+         code="text1__c&gt;=text2__c">
+        <referencefield devName="text1" labelName="text2" dataType="Text" length="50"/>
+        <referencefield devName="text2" labelName="text2" dataType="Text" length="50"/>
+     </testcase>      
+     <testcase name="testMax" devName="testMax"
         labelName="testMax" dataType="Double" scale="2" precision="12" dataFile="twoNumericFields" labels="math"
         whyIgnoreSql="postgres:ignores null,mssql:no greatest"
         code="MAX(customNumber1__c,customNumber2__c)">

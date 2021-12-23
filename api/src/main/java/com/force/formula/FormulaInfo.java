@@ -16,7 +16,7 @@ public interface FormulaInfo<T extends FormulaFieldInfo> {
     int MAX_FORMULA_LENGTH = 3900;
     int MAX_STORAGE_SIZE = 4000;
     int MAX_SQL_SIZE_NEW_FORMULA = 5000;
-    int MAX_SQL_SIZE_LIMIT = 8000;
+    int MAX_SQL_SIZE_LIMIT = 100000;  // Oracle's limit is 400K on a statement, so 100K should be enough
     int MAX_STRING_VALUE_LENGTH = 1300;
     /** The maximum JavaScript size for formulas that generate JS. */
     int MAX_JS_SIZE = 5000;
