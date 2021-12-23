@@ -20,6 +20,7 @@ public class FormulaPropertiesTest {
 		props.setMaxSqlSize(500000);
 	}
 
+	@Test
 	public void testFormulaProps() {
 		FormulaProperties props = new FormulaProperties();
 		props.setMaxSqlSize(15000);

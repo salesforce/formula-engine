@@ -300,6 +300,9 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 	
 	@Override
     default Object sqlMakeStringComparable(Object str, boolean forCompare) {
+		if (forCompare) {
+			return str + " COLLATE Latin1_General_100_BIN2";
+		}
 		return str + " COLLATE Latin1_General_CS_AS";
     }
 
