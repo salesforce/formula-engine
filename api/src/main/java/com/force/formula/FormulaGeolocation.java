@@ -18,7 +18,7 @@ public interface FormulaGeolocation {
     Number getLongitude();
 
     // Optional enum for helping with display.  Not required, but used by the GeolocationService
-    public enum GeolocationDisplayMode {
+    enum GeolocationDisplayMode {
         DecimalDegrees,
         DegreesMinutesSeconds,
         ;

@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.salesforce.formula</groupId>
     <artifactId>formula-engine</artifactId>
-    <version>0.1.25-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -31,7 +31,6 @@
       <groupId>com.salesforce.formula</groupId>
       <artifactId>formula-engine-test-utils</artifactId>
       <version>${project.version}</version>
-      <scope>test</scope>
     </dependency>
     <!-- Get the test classes/resources for validation of oracle -->
     <dependency>
@@ -51,7 +50,7 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>oracle-xe</artifactId>
-      <scope>test</scope>
+      <version>${testcontainers.version}</version>
     </dependency>
     <dependency>
       <groupId>com.oracle.ojdbc</groupId>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfContainsUsesEmail">
+   <testInstance formula="IF(CONTAINS(customemail1__c,customtext1__c),customnumber1__c,customcurrency1__c)" returntype="Percent" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (CHARINDEX($!s0s!$.customtext1__c, $!s0s!$.customemail1__c COLLATE Latin1_General_CS_AS) &gt;= 1)) THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE($!s0s!$.customcurrency1__c, 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (CHARINDEX($!s0s!$.customtext1__c, $!s0s!$.customemail1__c COLLATE Latin1_General_CS_AS) &gt;= 1)) THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customcurrency1__c END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[email@aa.com, aa, 200, 300]</inputvalues>
+         <formula>20000</formula>
+         <sql>20000.00000</sql>
+         <formulaNullAsNull>20000</formulaNullAsNull>
+         <sqlNullAsNull>20000.00000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[works@bvv.net, works@, 200, 300]</inputvalues>
+         <formula>20000</formula>
+         <sql>20000.00000</sql>
+         <formulaNullAsNull>20000</formulaNullAsNull>
+         <sqlNullAsNull>20000.00000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[testing@test.com, testing@, 200, 300]</inputvalues>
+         <formula>20000</formula>
+         <sql>20000.00000</sql>
+         <formulaNullAsNull>20000</formulaNullAsNull>
+         <sqlNullAsNull>20000.00000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[a@salesforce.com, salesforce.com, 200, 300]</inputvalues>
+         <formula>20000</formula>
+         <sql>20000.00000</sql>
+         <formulaNullAsNull>20000</formulaNullAsNull>
+         <sqlNullAsNull>20000.00000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[a@salesforce.com, Salesforce.com, 200, 300]</inputvalues>
+         <formula>30000</formula>
+         <sql>30000.00000</sql>
+         <formulaNullAsNull>30000</formulaNullAsNull>
+         <sqlNullAsNull>30000.00000</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

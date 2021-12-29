@@ -5,11 +5,14 @@ package com.force.formula.template.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.PatternSyntaxException;
 
 import com.force.formula.*;
 import com.force.formula.commands.*;
 import com.force.formula.impl.*;
+import com.force.formula.impl.FormulaValidationHooks.ParseOption;
+import com.force.i18n.BaseLocalizer;
 
 /**
  * Unit tests for functions normally used in templates for formatting values.
@@ -354,5 +357,62 @@ public class TemplateFunctionsTest extends ParserTestBase {
         }
     }
 
-    
+    /**
+     * Test parsing with other parse options to make sure it returns the right errors
+     * @throws Exception
+     */
+    public void testParseTemplateWithBoth() throws Exception {
+    	final AtomicReference<ParseOption> OPTION = new AtomicReference<>(ParseOption.PARSE_USING_BOTH_BUT_RETURN_ANTLR2);
+        FormulaEngine.setHooks(new FormulaValidationHooks() {
+			@Override
+			public BaseLocalizer getLocalizer() {
+				return new MockLocalizerContext.MockLocalizer();
+			}
+
+			@Override
+			public ParseOption parseHook_getParseOption(String formula, FormulaProperties properties) {
+				return OPTION.get();
+			}
+
+			@Override
+			public void parseHook_logParsingMetrics(String formula, FormulaProperties properties,
+					ParsingMetrics parsingMetrics) {
+				FormulaValidationHooks.super.parseHook_logParsingMetrics(formula, properties, parsingMetrics);
+				assertEquals(OPTION.get(), parsingMetrics.parseOption);
+				String diff = JvmMetrics.diff(parsingMetrics.before, parsingMetrics.after).toString();
+				assertNotNull(diff);
+				assertTrue(diff.contains("threadAllocatedBytes=0"));
+			}
+		});
+
+        FormulaFactory oldFactory = FormulaEngine.getFactory();
+        try {
+            FormulaEngine.setFactory(TEST_FACTORY);
+            assertTrue( evaluateBoolean("\"HiHo\"=FORMAT(\"{0}{1}\",\"Hi\",\"Ho\")")); 
+	        String expression = "This is a test of format currency {!formatcurrency(\"USD\", 100.0)}";
+	        assertTemplateFormula("This is a test of format currency USD 100.00", expression);
+
+	        // Do the parse exception and make sure it works.
+	        try {
+	        	evaluateBoolean("\"HiHo\"="); 
+	        } catch (FormulaParseException ex) {
+	        	assertEquals("Syntax error.  Found 'end of formula'", ex.getMessage());
+	        }
+	        OPTION.set(ParseOption.PARSE_USING_BOTH_BUT_RETURN_ANTLR4);
+	        try {
+	        	evaluateBoolean("\"HiHo\"="); 
+	        } catch (FormulaParseException ex) {
+	        	assertEquals("Syntax error.  Found 'end of formula'", ex.getMessage());
+	        }
+	        OPTION.set(ParseOption.PARSE_USING_ANTLR2_ONLY);
+	        try {
+	        	evaluateBoolean("\"HiHo\"="); 
+	        } catch (FormulaParseException ex) {
+	        	assertEquals("Syntax error.  Found 'end of formula'", ex.getMessage());
+	        }
+
+        } finally {
+            FormulaEngine.setFactory(oldFactory);
+        }
+    }
 }

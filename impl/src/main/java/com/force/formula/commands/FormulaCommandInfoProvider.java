@@ -13,5 +13,5 @@ public interface FormulaCommandInfoProvider {
      * registered to command registry.
      * @return the set of all formula commands allowed
      */
-    public FormulaCommandInfo[] getFormulas();
+    FormulaCommandInfo[] getFormulas();
 }

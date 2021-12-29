@@ -38,7 +38,12 @@ public class FunctionMod extends BinaryMathCommandBehavior {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
-        String sql = "MOD(" + args[0] + ", " + args[1] + ")";
+        String sql;
+        if (context.getSqlStyle().isTransactSqlStyle()) {
+        	sql = "(" + args[0] + " % " + args[1] + ")";
+        } else {
+        	sql = "MOD(" + args[0] + ", " + args[1] + ")";
+        }
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

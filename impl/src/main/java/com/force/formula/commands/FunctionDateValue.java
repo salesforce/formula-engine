@@ -49,18 +49,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
         String sql;
         String guard;
         if (inputDataType == FormulaDateTime.class) {
-            if (getSqlHooks(context).isPostgresStyle()) {
-                // Postgres org (we don't need to check the DatevalueFixForDSTEnabled preference in non-oracle)
-                sql = String.format("DATE_TRUNC('DAY', (%s AT TIME ZONE 'UTC') AT TIME ZONE '%s')::timestamp", args[0],
-                        USERS_TIMEZONE_ID_MARKER);
-            } else if (FormulaValidationHooks.get().canUseDatevalueFixedForDST()) {
-                // Oracle org with the DatevalueFixForDSTEnabled preference on
-                sql = String.format("TRUNC(CAST((FROM_TZ(CAST(%s AS TIMESTAMP), 'UTC') AT TIME ZONE '%s') AS DATE))",
-                        args[0], USERS_TIMEZONE_ID_MARKER);
-            } else {
-                // Oracle org with the DatevalueFixForDSTEnabled preference off
-                sql = String.format("TRUNC(%s + (%s/24.0))", args[0], USERS_TIMEZONE_OFFSET_MARKER);
-            }
+        	sql = getSqlHooks(context).sqlConvertDateTimeToDate(args[0], USERS_TIMEZONE_ID_MARKER, USERS_TIMEZONE_OFFSET_MARKER);
             guard = SQLPair.generateGuard(guards, null);
         } else {
             sql = String.format(getSqlHooks(context).sqlToDateIso(), args[0]);
@@ -73,7 +62,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
                 } else {
                     // we know it's false
                     guard = SQLPair.generateGuard(guards, "0=0");
-                    sql = "TO_DATE(NULL)";
+                    sql = String.format(getSqlHooks(context).sqlToDate(), "NULL");
                 }
             } else {
                 // Guard protects against malformed dates as strings. It assumes all months have 31 days. Validates invalid months. Accepts years from 0000-9999.

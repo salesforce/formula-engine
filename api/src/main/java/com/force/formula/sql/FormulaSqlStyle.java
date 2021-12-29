@@ -6,11 +6,12 @@ package com.force.formula.sql;
 /**
  * Parameterize the SQL style for low-level differences in sql style.
  * It isn't an enum so that you can override these behavior for non-ansi sql extensions
- * in a parameterize manner, but there is a DefaultSqlStyle included.
+ * in a parameterized manner, but there is a DefaultSqlStyle included.
  * 
- * There are a few implementation details here around style, but mostly
+ * There are a few implementation details here around style, but mostly functional differenceds
+ * in the DBs.
  * 
- * Note: the default implementations in the formula engine assume oracle style, not postgresql style.
+ * Note: the default implementations in the formula engine generally assume oracle style, not postgresql style.
  * 
  * @author stamm
  * @since 0.1.0
@@ -18,13 +19,37 @@ package com.force.formula.sql;
 public interface FormulaSqlStyle {
 
 	/**
-	 * @return whether or not to default to Postgresql Styles
+	 * @return whether or not to default to Postgresql style of sql.
 	 */
-	boolean isPostgresStyle();
+	default boolean isPostgresStyle() {
+		return false;
+	}
 	
 	/**
-	 * @return whether or not to default to Oracle styles.
+	 * @return whether or not to default to Oracle style of sql. 
 	 */
-	boolean isOracleStyle();
+	default boolean isOracleStyle() {
+		return false;
+	}
 	
+	/**
+	 * @return whether or not to default to mysql (or mariadb) style of sql.
+	 */
+	default boolean isMysqlStyle() {
+		return false;
+	}
+	
+	/**
+	 * @return whether or not to default to transactsql (sybase/ms sql server) style of sql.
+	 */
+	default boolean isTransactSqlStyle() {
+		return false;
+	}	
+	
+	/**
+	 * @return the function name for taking a substring.
+	 */
+	default String getSubstringFunction() {
+		return isTransactSqlStyle() ? "SUBSTRING" : "SUBSTR";
+	}
 }

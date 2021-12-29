@@ -32,12 +32,17 @@ public class FunctionMillisecond extends FormulaCommandInfoImpl {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         // convert muillisecs since midnight to millseconds portion of time  trunc((args[0] -trunc(args[0]/1000) * 1000))
-        String sql = getMillisecondExpr(args[0]); 
+        String sql = getMillisecondExpr(args[0], context); 
         return new SQLPair(sql, guards[0]);
     }
     
-    public static String getMillisecondExpr(String arg)  {
-        return "TRUNC((" + arg + " -TRUNC(" + arg + "/1000) * 1000)) ";
+    public static String getMillisecondExpr(String arg, FormulaContext context)  {
+    	FormulaSqlHooks hooks = getSqlHooks(context);
+    	if (hooks.isTransactSqlStyle()) {
+    		return "DATEPART(MILLISECOND,"+arg+")";
+    	}
+    	String trunc = hooks.sqlTrunc(arg + "/1000");
+        return trunc + "((" + arg + " -"+trunc+" * 1000)) ";
     }
 
     @Override

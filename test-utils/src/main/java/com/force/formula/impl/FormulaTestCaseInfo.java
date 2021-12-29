@@ -22,17 +22,17 @@ import com.google.common.collect.ImmutableMap;
 public class FormulaTestCaseInfo {
 
     // Whether to compare the results of the different evaluation methods.
-    public static enum CompareType {Number, Text, Approximate, None, Date, DateTime, Default }
+    public enum CompareType {Number, Text, Approximate, None, Date, DateTime, Default }
     // TODO: Make this an extensible enum to  be generic
     
-    public static interface EvaluationContext {
+    public interface EvaluationContext {
     	
     }
-    public static enum DefaultEvaluationContext implements EvaluationContext {Formula, Template}
+    public enum DefaultEvaluationContext implements EvaluationContext {Formula, Template}
 
     public FormulaTestCaseInfo(FormulaTestUtils utils, String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
                                List<FieldDefinitionInfo> referenceFields, String owner, String compareType, String evalContexts,  String compareTemplate,
-                               String whyIgnoreSql, 
+                               String whyIgnoreSql, String whyIgnoreJs,
                                boolean multipleResultTypes) {
         this.testUtils = utils;
         this.testCaseName = tcName;
@@ -59,7 +59,8 @@ public class FormulaTestCaseInfo {
             } else
                 this.compare = CompareType.Text;
         }
-        this.whyIgnoreSql = whyIgnoreSql.length() > 0 ? whyIgnoreSql : null;
+        this.whyIgnoreSql = parseWhyIgnoreSql(whyIgnoreSql);
+        this.whyIgnoreJs = whyIgnoreJs.length() > 0 ? whyIgnoreJs : null;
         this.evalContexts = parseContext(evalContexts);
         this.compareContexts = parseContext(compareTemplate);
         this.multipleResultTypes = multipleResultTypes;
@@ -81,6 +82,13 @@ public class FormulaTestCaseInfo {
             ctx.add(DefaultEvaluationContext.Template);
         }
         return ctx;
+    }
+    
+    protected Map<String,String> parseWhyIgnoreSql(String str) {
+    	if (str == null || str.length() == 0) {
+    		return Collections.emptyMap();
+    	}
+    	return Splitter.on(',').withKeyValueSeparator(':').split(str);
     }
 
     public String getDataFileName() {
@@ -128,11 +136,19 @@ public class FormulaTestCaseInfo {
         return this.swapTypes;
     }
     
-    public boolean ignoreSql() {
-    	return this.whyIgnoreSql != null;
+    public String whyIgnoreSql(String dbTypeName) {
+    	String forAll = this.whyIgnoreSql.get("all");
+    	if (forAll != null) {
+    		return forAll;
+    	}
+    	return this.whyIgnoreSql.get(dbTypeName);
     }
     
-    public String getWhyIgnoreSql() {
+    public String whyIgnoreJ() {
+    	return this.whyIgnoreJs;
+    }
+    
+    public Map<String,String> getWhyIgnoreSql() {
     	return this.whyIgnoreSql;
     }
     
@@ -355,7 +371,7 @@ public class FormulaTestCaseInfo {
         this.encoding = encoding;
     }
 
-    public static enum AccuracyIssue {
+    public enum AccuracyIssue {
         Normal("normal"), 
         BadDecimal("badDecimal"),        // Bug in Decimal
         NeedHighPrecision("needHp"),  // Need high precision
@@ -391,7 +407,8 @@ public class FormulaTestCaseInfo {
     private boolean swapTypes = false;
     private boolean swapArgs = false;
     private boolean isNegative = false;
-    private String whyIgnoreSql;
+    private Map<String,String> whyIgnoreSql;
+    private String whyIgnoreJs;
     private String errorCode = null;
     private String errorMsg = null;
     private String encoding = null;

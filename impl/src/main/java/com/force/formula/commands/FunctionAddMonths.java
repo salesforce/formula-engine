@@ -32,7 +32,7 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = String.format(getSqlHooks(context).sqlAddMonths(), args[0], args[1]);
+        String sql = getSqlHooks(context).sqlAddMonths(args[0], args[1]);
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }
@@ -44,10 +44,11 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
 
         FormulaAST firstNode = (FormulaAST)node.getFirstChild();
         Type inputDataType = firstNode.getDataType();
-        Type rhsType = ((FormulaAST)firstNode.getNextSibling()).getDataType();
-
+        
         if (inputDataType != FormulaDateTime.class && inputDataType != Date.class
                 && inputDataType != RuntimeType.class) { throw new IllegalArgumentTypeException(node.getText()); }
+
+        Type rhsType = ((FormulaAST)firstNode.getNextSibling()).getDataType();
 
         if (rhsType != RuntimeType.class && rhsType != BigDecimal.class) {
         	throw new IllegalArgumentTypeException(node.getText());

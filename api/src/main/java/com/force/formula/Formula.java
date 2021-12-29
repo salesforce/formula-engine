@@ -102,7 +102,7 @@ public interface Formula extends Comparable<Formula>, Serializable {
     /**
      * @return the formula's actual return type
      */
-    public Type getActualReturnType();
+    Type getActualReturnType();
 
     FormulaDataType getDataType();
 

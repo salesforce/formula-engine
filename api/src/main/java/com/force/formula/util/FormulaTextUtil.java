@@ -317,7 +317,7 @@ public final class FormulaTextUtil {
      *        the trie representing the words to search and replace for
      * @return the text with the search words swapped by the replacements
      */
-    public static final String replaceMultiple(String s, TrieMatcher trieMatcher) {
+    public static String replaceMultiple(String s, TrieMatcher trieMatcher) {
         if (s == null || trieMatcher == null || s.length() == 0) {
             return s;
         }

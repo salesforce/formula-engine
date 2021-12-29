@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfTextCompareEqualReturnDate">
+   <testInstance formula="IF((customtext1__c=customemail1__c),customdate1__c,customformula1__c)" returntype="DateOnly">
+   <customformula1 dataType="ColumnType.DATEONLY" formula="(customdate2__c+customnumber1__c)"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customemail1__c, 'x')) COLLATE Latin1_General_CS_AS=COALESCE($!s0s!$.customemail1__c, CONCAT($!s0s!$.customtext1__c, 'x')) COLLATE Latin1_General_CS_AS) THEN COALESCE($!s0s!$.customdate1__c,CONVERT(DATETIME,NULL)) ELSE COALESCE(DATEADD(day,ROUND(COALESCE($!s0s!$.customnumber1__c, 0),0,1),$!s0s!$.customdate2__c),CONVERT(DATETIME,NULL)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customemail1__c, 'x')) COLLATE Latin1_General_CS_AS=COALESCE($!s0s!$.customemail1__c, CONCAT($!s0s!$.customtext1__c, 'x')) COLLATE Latin1_General_CS_AS) THEN COALESCE($!s0s!$.customdate1__c,CONVERT(DATETIME,NULL)) ELSE COALESCE(DATEADD(day,ROUND($!s0s!$.customnumber1__c,0,1),$!s0s!$.customdate2__c),CONVERT(DATETIME,NULL)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
+         <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>2004-12-31 00:00:00.0</sql>
+         <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[sriKanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
+         <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>2005-01-20 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-01-20 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, srikaNth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
+         <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>2005-01-20 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-01-20 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
+         <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>2004-12-31 00:00:00.0</sql>
+         <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, aa@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
+         <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>2005-01-20 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-01-20 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
+         <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>2004-12-31 00:00:00.0</sql>
+         <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, srikanth@yahoo.com, 2004:12:31, 2004:12:31, 20]</inputvalues>
+         <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>2005-01-20 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-01-20 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, , 2004:12:31, 2004:12:31, 20]</inputvalues>
+         <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>2005-01-20 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-01-20 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , 2004:12:31, 2004:12:31, 20]</inputvalues>
+         <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>2004-12-31 00:00:00.0</sql>
+         <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, , 2004:12:31, 20]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, , 20]</inputvalues>
+         <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>2004-12-31 00:00:00.0</sql>
+         <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, srianth@yahoo.com, , 2004:12:31, 20]</inputvalues>
+         <formula>Thu Jan 20 00:00:00 GMT 2005</formula>
+         <sql>2005-01-20 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Jan 20 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-01-20 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, ]</inputvalues>
+         <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>2004-12-31 00:00:00.0</sql>
+         <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, , , ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , , , ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[srikanth@yahoo.com, srikanth@yahoo.com, 2004:12:31, 2004:12:31, -30]</inputvalues>
+         <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
+         <sql>2004-12-31 00:00:00.0</sql>
+         <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-12-31 00:00:00.0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

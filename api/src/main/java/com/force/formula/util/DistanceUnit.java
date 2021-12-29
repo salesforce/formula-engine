@@ -15,7 +15,7 @@ public enum DistanceUnit {
     private final double diameter;
     private final String abbrev;
 
-    private DistanceUnit(String abbrev, double radius) {
+    DistanceUnit(String abbrev, double radius) {
         this.abbrev = abbrev;
         this.diameter = 2 * radius;
     }

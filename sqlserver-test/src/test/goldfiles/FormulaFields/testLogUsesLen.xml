@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesLen">
+   <testInstance formula="Log(LEN(customtext1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(LOG10(COALESCE(LEN($!s0s!$.customtext1__c),0)) AS DECIMAL(38,18))</Sql>
+       <Guard>COALESCE(LEN($!s0s!$.customtext1__c),0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(LOG10(COALESCE(LEN($!s0s!$.customtext1__c),0)) AS DECIMAL(38,18))</Sql>
+       <Guard>COALESCE(LEN($!s0s!$.customtext1__c),0)&lt;=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[This is too good to be true]</inputvalues>
+         <formula>1.4313637641589871</formula>
+         <sql>1.431363764158987362</sql>
+         <formulaNullAsNull>1.4313637641589871</formulaNullAsNull>
+         <sqlNullAsNull>1.431363764158987362</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[making a way]</inputvalues>
+         <formula>1.0791812460476247</formula>
+         <sql>1.079181246047624887</sql>
+         <formulaNullAsNull>1.0791812460476247</formulaNullAsNull>
+         <sqlNullAsNull>1.079181246047624887</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blunder]</inputvalues>
+         <formula>0.8450980400142567</formula>
+         <sql>0.845098040014256813</sql>
+         <formulaNullAsNull>0.8450980400142567</formulaNullAsNull>
+         <sqlNullAsNull>0.845098040014256813</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[makesense]</inputvalues>
+         <formula>0.9542425094393249</formula>
+         <sql>0.954242509439324871</sql>
+         <formulaNullAsNull>0.9542425094393249</formulaNullAsNull>
+         <sqlNullAsNull>0.954242509439324871</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[does not make sense]</inputvalues>
+         <formula>1.2787536009528289</formula>
+         <sql>1.278753600952828862</sql>
+         <formulaNullAsNull>1.2787536009528289</formulaNullAsNull>
+         <sqlNullAsNull>1.278753600952828862</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[working my way]</inputvalues>
+         <formula>1.1461280356782377</formula>
+         <sql>1.146128035678237955</sql>
+         <formulaNullAsNull>1.1461280356782377</formulaNullAsNull>
+         <sqlNullAsNull>1.146128035678237955</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[e]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
+         <formula>2.2355284469075487</formula>
+         <sql>2.235528446907548705</sql>
+         <formulaNullAsNull>2.2355284469075487</formulaNullAsNull>
+         <sqlNullAsNull>2.235528446907548705</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
+         <formula>1.716003343634799</formula>
+         <sql>1.716003343634799228</sql>
+         <formulaNullAsNull>1.716003343634799</formulaNullAsNull>
+         <sqlNullAsNull>1.716003343634799228</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
+         <formula>1.7558748556724912</formula>
+         <sql>1.755874855672491464</sql>
+         <formulaNullAsNull>1.7558748556724912</formulaNullAsNull>
+         <sqlNullAsNull>1.755874855672491464</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

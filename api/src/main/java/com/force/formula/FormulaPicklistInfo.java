@@ -18,7 +18,7 @@ public interface FormulaPicklistInfo {
 	 * of those values to prevent DB/cache thrashing.
 	 * @author stamm
 	 */
-	public interface Dynamic {
+	interface Dynamic {
 		/**
 		 * Register that this value needs to be cached appropriately
 		 * @param dbValue the DB Value

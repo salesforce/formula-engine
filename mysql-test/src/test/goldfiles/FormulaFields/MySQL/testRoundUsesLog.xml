@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRoundUsesLog">
+   <testInstance formula="ROUND(LOG(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>ROUND(LOG(10, COALESCE($!s0s!$.customnumber1__c, 0)), COALESCE($!s0s!$.customnumber2__c, 0))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ROUND(LOG(10, $!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c)</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[1, 0]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2, 1]</inputvalues>
+         <formula>0.3</formula>
+         <sql>0.3</sql>
+         <formulaNullAsNull>0.3</formulaNullAsNull>
+         <sqlNullAsNull>0.3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3, 2]</inputvalues>
+         <formula>0.48</formula>
+         <sql>0.4799999999999999</sql>
+         <formulaNullAsNull>0.48</formulaNullAsNull>
+         <sqlNullAsNull>0.4799999999999999</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[4.1234, 2]</inputvalues>
+         <formula>0.62</formula>
+         <sql>0.62</sql>
+         <formulaNullAsNull>0.62</formulaNullAsNull>
+         <sqlNullAsNull>0.62</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[5.000000008, 8]</inputvalues>
+         <formula>0.69897001</formula>
+         <sql>0.69897001</sql>
+         <formulaNullAsNull>0.69897001</formulaNullAsNull>
+         <sqlNullAsNull>0.69897001</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-200, 2]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10000, -2]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, 10]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1.0</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[16, 16]</inputvalues>
+         <formula>1.2041199826559246</formula>
+         <sql>1.2041199826559246</sql>
+         <formulaNullAsNull>1.2041199826559246</formulaNullAsNull>
+         <sqlNullAsNull>1.2041199826559246</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2.56, 19]</inputvalues>
+         <formula>0.40823996531184953</formula>
+         <sql>0.40823996531184953</sql>
+         <formulaNullAsNull>0.40823996531184953</formulaNullAsNull>
+         <sqlNullAsNull>0.40823996531184953</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, 12]</inputvalues>
+         <formula>8.091514977604</formula>
+         <sql>8.091514977604</sql>
+         <formulaNullAsNull>8.091514977604</formulaNullAsNull>
+         <sqlNullAsNull>8.091514977604</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

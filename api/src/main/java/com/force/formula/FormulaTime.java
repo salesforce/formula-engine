@@ -60,7 +60,7 @@ public interface FormulaTime extends Comparable<FormulaTime> {
      * Default implementation of FormulaTime that wraps java.time.LocalTime
      * @author stamm
      */
-    public static class TimeWrapper implements FormulaTime {
+    class TimeWrapper implements FormulaTime {
     	private final java.time.LocalTime delegate;
     	public TimeWrapper(java.time.LocalTime delegate) {
     		assert delegate != null;

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import com.force.formula.*;
 import com.force.formula.commands.*;
+import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.sql.*;
 import com.force.formula.util.*;
 import com.force.i18n.BaseLocalizer;
@@ -73,7 +74,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
 	 */
     @Override
 	default FormulaSqlStyle getSqlStyle() {
-		return FormulaSqlHooks.DefaultStyle.POSTGRES;
+		return FormulaDefaultSqlStyle.POSTGRES;
 	}
 
     @Override

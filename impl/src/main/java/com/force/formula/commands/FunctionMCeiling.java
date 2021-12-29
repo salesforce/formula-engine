@@ -43,7 +43,8 @@ public class FunctionMCeiling extends UnaryMathCommandBehavior {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
-        String sql = "CEIL(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+"))";
+       	String ceil = context.getSqlStyle().isTransactSqlStyle() ? "CEILING" : "CEIL";
+       	String sql = ceil + "(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+"))";
         return new SQLPair(sql, guards[0]);
     }
     

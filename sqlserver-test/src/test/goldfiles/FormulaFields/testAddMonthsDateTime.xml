@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddMonthsDateTime">
+   <testInstance formula="ADDMONTHS(customdatetime1__c,customnumber1__c)" returntype="DateTime">
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEADD(MONTH, COALESCE($!s0s!$.customnumber1__c, 0), $!s0s!$.customdatetime1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>DATEADD(MONTH, $!s0s!$.customnumber1__c, $!s0s!$.customdatetime1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2004:12:31:11:32:00, 3.00]</inputvalues>
+         <formula>Thu Mar 31 11:32:00 GMT 2005</formula>
+         <sql>2005-03-31 11:32:00.0</sql>
+         <formulaNullAsNull>Thu Mar 31 11:32:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-03-31 11:32:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, 4.00]</inputvalues>
+         <formula>Mon Jun 28 10:34:00 GMT 2004</formula>
+         <sql>2004-06-28 10:34:00.0</sql>
+         <formulaNullAsNull>Mon Jun 28 10:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-06-28 10:34:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:32:00, 3.50]</inputvalues>
+         <formula>Thu Mar 31 11:32:00 GMT 2005</formula>
+         <sql>2005-03-31 11:32:00.0</sql>
+         <formulaNullAsNull>Thu Mar 31 11:32:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-03-31 11:32:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, 4.50]</inputvalues>
+         <formula>Mon Jun 28 10:34:00 GMT 2004</formula>
+         <sql>2004-06-28 10:34:00.0</sql>
+         <formulaNullAsNull>Mon Jun 28 10:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-06-28 10:34:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:32:00, 3.10]</inputvalues>
+         <formula>Thu Mar 31 11:32:00 GMT 2005</formula>
+         <sql>2005-03-31 11:32:00.0</sql>
+         <formulaNullAsNull>Thu Mar 31 11:32:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-03-31 11:32:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, 4.10]</inputvalues>
+         <formula>Mon Jun 28 10:34:00 GMT 2004</formula>
+         <sql>2004-06-28 10:34:00.0</sql>
+         <formulaNullAsNull>Mon Jun 28 10:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-06-28 10:34:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:32:00, 3.60]</inputvalues>
+         <formula>Thu Mar 31 11:32:00 GMT 2005</formula>
+         <sql>2005-03-31 11:32:00.0</sql>
+         <formulaNullAsNull>Thu Mar 31 11:32:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-03-31 11:32:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, 4.60]</inputvalues>
+         <formula>Mon Jun 28 10:34:00 GMT 2004</formula>
+         <sql>2004-06-28 10:34:00.0</sql>
+         <formulaNullAsNull>Mon Jun 28 10:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-06-28 10:34:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:23:32:00, 0.50]</inputvalues>
+         <formula>Fri Dec 31 23:32:00 GMT 2004</formula>
+         <sql>2004-12-31 23:32:00.0</sql>
+         <formulaNullAsNull>Fri Dec 31 23:32:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-12-31 23:32:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:23:34:00, 0.40]</inputvalues>
+         <formula>Sat Feb 28 23:34:00 GMT 2004</formula>
+         <sql>2004-02-28 23:34:00.0</sql>
+         <formulaNullAsNull>Sat Feb 28 23:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-02-28 23:34:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:23:34:00, 1.00]</inputvalues>
+         <formula>Sun Mar 28 23:34:00 GMT 2004</formula>
+         <sql>2004-03-28 23:34:00.0</sql>
+         <formulaNullAsNull>Sun Mar 28 23:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-03-28 23:34:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:01:34:00, 1.00]</inputvalues>
+         <formula>Sun Mar 28 01:34:00 GMT 2004</formula>
+         <sql>2004-03-28 01:34:00.0</sql>
+         <formulaNullAsNull>Sun Mar 28 01:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-03-28 01:34:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:23:34:00:PST, 1.00]</inputvalues>
+         <formula>Wed Mar 31 07:34:00 GMT 2004</formula>
+         <sql>2004-03-29 07:34:00.0</sql>
+         <formulaNullAsNull>Wed Mar 31 07:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-03-29 07:34:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:29:07:34:00:GMT, 1.00]</inputvalues>
+         <formula>Wed Mar 31 07:34:00 GMT 2004</formula>
+         <sql>2004-03-29 07:34:00.0</sql>
+         <formulaNullAsNull>Wed Mar 31 07:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-03-29 07:34:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:01:34:00:PST, 1.00]</inputvalues>
+         <formula>Sun Mar 28 09:34:00 GMT 2004</formula>
+         <sql>2004-03-28 09:34:00.0</sql>
+         <formulaNullAsNull>Sun Mar 28 09:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-03-28 09:34:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009:02:07:10:00:00, 0.16666]</inputvalues>
+         <formula>Sat Feb 07 10:00:00 GMT 2009</formula>
+         <sql>2009-02-07 10:00:00.0</sql>
+         <formulaNullAsNull>Sat Feb 07 10:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-02-07 10:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009:02:07:10:00:00, 0.166666]</inputvalues>
+         <formula>Sat Feb 07 10:00:00 GMT 2009</formula>
+         <sql>2009-02-07 10:00:00.0</sql>
+         <formulaNullAsNull>Sat Feb 07 10:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-02-07 10:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009:02:07:10:00:00, 0.16596]</inputvalues>
+         <formula>Sat Feb 07 10:00:00 GMT 2009</formula>
+         <sql>2009-02-07 10:00:00.0</sql>
+         <formulaNullAsNull>Sat Feb 07 10:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-02-07 10:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009:02:07:10:00:00, 0.1659664]</inputvalues>
+         <formula>Sat Feb 07 10:00:00 GMT 2009</formula>
+         <sql>2009-02-07 10:00:00.0</sql>
+         <formulaNullAsNull>Sat Feb 07 10:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-02-07 10:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009:02:07:10:00:00, 0.16596643]</inputvalues>
+         <formula>Sat Feb 07 10:00:00 GMT 2009</formula>
+         <sql>2009-02-07 10:00:00.0</sql>
+         <formulaNullAsNull>Sat Feb 07 10:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-02-07 10:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009:02:07:10:00:00, 0.16596644]</inputvalues>
+         <formula>Sat Feb 07 10:00:00 GMT 2009</formula>
+         <sql>2009-02-07 10:00:00.0</sql>
+         <formulaNullAsNull>Sat Feb 07 10:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-02-07 10:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009:02:07:10:00:00, 0.1659665]</inputvalues>
+         <formula>Sat Feb 07 10:00:00 GMT 2009</formula>
+         <sql>2009-02-07 10:00:00.0</sql>
+         <formulaNullAsNull>Sat Feb 07 10:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-02-07 10:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009:02:07:10:00:00, 0.16597]</inputvalues>
+         <formula>Sat Feb 07 10:00:00 GMT 2009</formula>
+         <sql>2009-02-07 10:00:00.0</sql>
+         <formulaNullAsNull>Sat Feb 07 10:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-02-07 10:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009:02:07:10:00:00, 100.16597]</inputvalues>
+         <formula>Wed Jun 07 10:00:00 GMT 2017</formula>
+         <sql>2017-06-07 10:00:00.0</sql>
+         <formulaNullAsNull>Wed Jun 07 10:00:00 GMT 2017</formulaNullAsNull>
+         <sqlNullAsNull>2017-06-07 10:00:00.0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

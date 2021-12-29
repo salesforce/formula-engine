@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
 
     <description>
-        UISF PMD ruleset used by the Maven PMD Plugin.
+        PMD ruleset used by the Maven PMD Plugin.
         
         Add/Remove rules as needed.
 
@@ -34,7 +34,7 @@
     <!--  <rule ref="category/java/codestyle.xml/PrematureDeclaration" />  -->
     <rule ref="category/java/codestyle.xml/TooManyStaticImports" />
     <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName" />
-    <!-- <rule ref="category/java/codestyle.xml/UnnecessaryModifier" /> -->
+    <rule ref="category/java/codestyle.xml/UnnecessaryModifier" />
     <rule ref="category/java/codestyle.xml/UnnecessaryReturn" />
     <!-- <rule ref="category/java/codestyle.xml/UselessParentheses" /> -->
     <rule ref="category/java/codestyle.xml/UselessQualifiedThis" />

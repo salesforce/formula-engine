@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfNotNull">
+   <testInstance formula="if (not(null), &quot;True&quot;, &quot;False&quot;)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>'False'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>'False'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>False</formula>
+         <sql>False</sql>
+         <formulaNullAsNull>False</formulaNullAsNull>
+         <sqlNullAsNull>False</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

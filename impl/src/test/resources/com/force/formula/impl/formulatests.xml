@@ -156,7 +156,8 @@ author: Srikanth Yendluri/Doug Chasman
       </testcase>
       <testcase name="testFromUnixTime" devName="testFromUnixTime" labels="extended"
          labelName="testFromUnixTime" dataType="DateTime" eval="formula,template" dataFile="unixtimestamp"
-         scale="3" precision="15"
+         scale="3" precision="15" 
+         whyIgnoreSql="mysql:no negative timestamp support"
          code="FromUnixTime(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
@@ -168,6 +169,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
       </testcase>
+            
       <testcase name="testIsoWeekWithDateTime" devName="testIsoWeekWithDateTime" labels="extended"
          labelName="testIsoWeekWithDateTime" dataType="Double" eval="formula,template" dataFile="functiondatevalue-dateandtime"
          scale="2" precision="12"
@@ -236,6 +238,15 @@ author: Srikanth Yendluri/Doug Chasman
          labelName="testFunctionRight" dataType="Text"
          dataFile="functionright" length="255"
          code="RIGHT(customtext__c, customnumber__c)">
+         <referencefield devName="customtext" labelName="customtext"
+                 dataType="Text" length="255"/>
+         <referencefield devName="customnumber" labelName="customnumber"
+             dataType="Double" scale="4" precision="14"/>
+     </testcase>
+     <testcase name="testFunctionLeft" devName="testFunctionLeft"
+         labelName="testFunctionLeft" dataType="Text"
+         dataFile="functionright" length="255"
+         code="LEFT(customtext__c, customnumber__c)">
          <referencefield devName="customtext" labelName="customtext"
                  dataType="Text" length="255"/>
          <referencefield devName="customnumber" labelName="customnumber"
@@ -391,6 +402,7 @@ author: Srikanth Yendluri/Doug Chasman
             //      day component of date, then the result is the last day of the resulting month. " -->
      <testcase name="testAddMonths" devName="testAddMonths" labels="extended"
          labelName="testAddMonths" dataType="DateTime" dataFile="addMonths" 
+         whyIgnoreSql="oracle:Leap day support,mysql:leap day,mariadb:leap day,mssql: leap day"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateTime"/>
@@ -398,7 +410,8 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
      </testcase>
      <testcase name="testAddMonthsDate" devName="testAddMonthsDate" labels="extended"
-         labelName="testAddMonthsDate" dataType="DateOnly" dataFile="addMonths"
+         labelName="testAddMonthsDate" dataType="DateOnly" dataFile="addMonths" 
+         whyIgnoreSql="oracle:Leap day support,mysql:leap day,mariadb:leap day,mssql: leap day"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateOnly"/>
@@ -423,6 +436,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testUnixTimestampWithDate" devName="testUnixTimestampWithDate"
          labelName="testUnixTimestampWithDate" dataType="Double" dataFile="addDate"
+         whyIgnoreSql="mysql:no negative timestamp support"
          scale="2" precision="12" code="UNIXTIMESTAMP(customdate1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateOnly"/>
@@ -465,7 +479,8 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddMonthsDateTime" devName="testAddMonthsDateTime"
          labelName="testAddMonthsDateTime" dataType="DateTime" dataFile="addDateTime"
-         scale="2" precision="12"  whyIgnoreSql="TODO: psql fractional day support differs from java"
+         scale="2" precision="12"  
+         whyIgnoreSql="postgres:TODO psql fractional day support differs from java,mysql:leap day,mariad:leap day,mssql:leap day"
          code="ADDMONTHS(customdatetime1__c,customnumber1__c)">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime"/>
@@ -2706,7 +2721,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testBigDivideWithFunc" labels="math"
          devName="testBigDivideWithFunc" labelName="testBigDivideWithFunc"
          dataType="Double" dataFile="threeNumericFields" scale="2"
-         precision="12"
+         precision="12" whyIgnoreSql="mssql:precision limits"
          code="( ( (customnumber1__c * customnumber2__c )/(value(text(customnumber2__c )) ^ customnumber2__c ) )*(customnumber3__c ^ customnumber3__c ))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="18"/>
@@ -3281,6 +3296,7 @@ author: Srikanth Yendluri/Doug Chasman
      <!-- TODO SLT: Ignore because isNan('&dash;&dash;1234') is wrong in Nashorn.. Note the double dash is two - -->
      <testcase name="testISNUMBER" devName="testISNUMBER"
          labelName="testISNUMBER" dataType="Double" scale="2" dataFile="valueFunctionData"
+         whyIgnoreSql="mssql:isnumeric allows minus sign"
          code="if(ISNUMBER(customtext1__c),1,0)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
@@ -3356,21 +3372,25 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" precision="13" scale="3"/>
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
-     <testcase name="testUpper" labels="basic" devName="testUpper" labelName="testUpper" whyIgnoreSql="Postgres ICU support"
+     <testcase name="testUpper" labels="basic" devName="testUpper" labelName="testUpper" 
+     whyIgnoreSql="postgres:ICU support,mysql:DoubleS,mariadb:DoubleS,mssql:DoubleS"
             dataType="Text" code="upper(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
      <!-- Nashorn doesn't do toLocaleLowerCase/toLocaleUpperCase correctly.  It also creates a combining dotted mark for İ -->
-     <testcase name="testLower" labels="basic" devName="testLower" labelName="testLower" whyIgnoreSql="Postgres ICU support"
+     <testcase name="testLower" labels="basic" devName="testLower" labelName="testLower" 
+     whyIgnoreSql="postgres:ICU support,mysql:DoubleS,mariadb:DoubleS,mssql:DoubleS"
             dataType="Text" code="lower(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
-     <testcase name="testUpperLocale" devName="testUpperLocale" labelName="testUpperLocale" whyIgnoreSql="Postgres ICU support"
+     <testcase name="testUpperLocale" devName="testUpperLocale" labelName="testUpperLocale" 
+            whyIgnoreSql="postgres: ICU support,oracle: turkish java diff,mysql:no collate,mariadb:no collate,mssql:no collate"
             dataType="Text" code="upper(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
-     <testcase name="testLowerLocale" devName="testLowerLocale" labelName="testLowerLocale" whyIgnoreSql="Postgres ICU support"
+     <testcase name="testLowerLocale" devName="testLowerLocale" labelName="testLowerLocale" 
+     whyIgnoreSql="postgres:ICU support,oracle: turkish java diff,mysql:no collate,mariadb:no collate,mssql:no collate"
             dataType="Text" code="lower(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />

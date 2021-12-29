@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testUnixTimestampWithTime">
+   <testInstance formula="UnixTimestamp(TimeValue(dateString__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>TIME_TO_SEC(TIME($!s0s!$.dateString__c))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TIME_TO_SEC(TIME($!s0s!$.dateString__c))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[10:34:55.666]</inputvalues>
+         <formula>38095</formula>
+         <sql>38095</sql>
+         <formulaNullAsNull>38095</formulaNullAsNull>
+         <sqlNullAsNull>38095</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:56:45.898]</inputvalues>
+         <formula>86205</formula>
+         <sql>86205</sql>
+         <formulaNullAsNull>86205</formulaNullAsNull>
+         <sqlNullAsNull>86205</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:14:23.345]</inputvalues>
+         <formula>4463</formula>
+         <sql>4463</sql>
+         <formulaNullAsNull>4463</formulaNullAsNull>
+         <sqlNullAsNull>4463</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:66:29.345]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.345]</inputvalues>
+         <formula>29</formula>
+         <sql>29</sql>
+         <formulaNullAsNull>29</formulaNullAsNull>
+         <sqlNullAsNull>29</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:00.789]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:00.000]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24:12:56.123]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>87176</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>87176</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:62:56.123]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:52:65.123]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:14:23.3456]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>4463</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>4463</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:01.000]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:59:59.999]</inputvalues>
+         <formula>86399</formula>
+         <sql>86399</sql>
+         <formulaNullAsNull>86399</formulaNullAsNull>
+         <sqlNullAsNull>86399</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

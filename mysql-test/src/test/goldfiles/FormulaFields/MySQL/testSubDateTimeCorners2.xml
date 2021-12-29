@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTimeCorners2">
+   <testInstance formula="(ceiling((customdatetime1__c-customdatetime2__c)*1440*60))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)/86400) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)/86400) * 1440) * 60),33)) ELSE FLOOR(ROUND((((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)/86400) * 1440) * 60),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)/86400) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)/86400) * 1440) * 60),33)) ELSE FLOOR(ROUND((((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)/86400) * 1440) * 60),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2004:12:31:11:01:00, 2004:12:31:11:00:00]</inputvalues>
+         <formula>60</formula>
+         <sql>60</sql>
+         <formulaNullAsNull>60</formulaNullAsNull>
+         <sqlNullAsNull>60</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:01:00, 2004:12:31:09:00:00]</inputvalues>
+         <formula>7260</formula>
+         <sql>7260</sql>
+         <formulaNullAsNull>7260</formulaNullAsNull>
+         <sqlNullAsNull>7260</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:01:00, 2004:12:30:11:00:00]</inputvalues>
+         <formula>86460</formula>
+         <sql>86460</sql>
+         <formulaNullAsNull>86460</formulaNullAsNull>
+         <sqlNullAsNull>86460</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:01:00, 2004:12:20:11:00:00]</inputvalues>
+         <formula>950460</formula>
+         <sql>950460</sql>
+         <formulaNullAsNull>950460</formulaNullAsNull>
+         <sqlNullAsNull>950460</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:12:00:00, 2004:12:30:11:00:00]</inputvalues>
+         <formula>90000</formula>
+         <sql>90000</sql>
+         <formulaNullAsNull>90000</formulaNullAsNull>
+         <sqlNullAsNull>90000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:12:00:01, 2004:12:30:12:00:00]</inputvalues>
+         <formula>86401</formula>
+         <sql>86401</sql>
+         <formulaNullAsNull>86401</formulaNullAsNull>
+         <sqlNullAsNull>86401</sqlNullAsNull>
+      </result>
+   </testInstance>
+   <testInstance formula="(ceiling((customdatetime2__c-customdatetime1__c)*1440*60))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c)/86400) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c)/86400) * 1440) * 60),33)) ELSE FLOOR(ROUND((((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c)/86400) * 1440) * 60),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c)/86400) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c)/86400) * 1440) * 60),33)) ELSE FLOOR(ROUND((((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c)/86400) * 1440) * 60),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2004:12:31:11:00:00, 2004:12:31:11:01:00]</inputvalues>
+         <formula>-60</formula>
+         <sql>-60</sql>
+         <formulaNullAsNull>-60</formulaNullAsNull>
+         <sqlNullAsNull>-60</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:09:00:00, 2004:12:31:11:01:00]</inputvalues>
+         <formula>-7260</formula>
+         <sql>-7260</sql>
+         <formulaNullAsNull>-7260</formulaNullAsNull>
+         <sqlNullAsNull>-7260</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:30:11:00:00, 2004:12:31:11:01:00]</inputvalues>
+         <formula>-86460</formula>
+         <sql>-86460</sql>
+         <formulaNullAsNull>-86460</formulaNullAsNull>
+         <sqlNullAsNull>-86460</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:20:11:00:00, 2004:12:31:11:01:00]</inputvalues>
+         <formula>-950460</formula>
+         <sql>-950460</sql>
+         <formulaNullAsNull>-950460</formulaNullAsNull>
+         <sqlNullAsNull>-950460</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:30:11:00:00, 2004:12:31:12:00:00]</inputvalues>
+         <formula>-90000</formula>
+         <sql>-90000</sql>
+         <formulaNullAsNull>-90000</formulaNullAsNull>
+         <sqlNullAsNull>-90000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:30:12:00:00, 2004:12:31:12:00:01]</inputvalues>
+         <formula>-86401</formula>
+         <sql>-86401</sql>
+         <formulaNullAsNull>-86401</formulaNullAsNull>
+         <sqlNullAsNull>-86401</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

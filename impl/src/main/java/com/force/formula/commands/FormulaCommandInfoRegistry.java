@@ -41,16 +41,7 @@ public class FormulaCommandInfoRegistry {
         String name = typeToName.get(node.getType());
         return get((name != null) ? name : node.getText(), node.getToken());
     }
-    
-    /**
-     * @return the set of all commands allowed
-     * @deprecated use FormulaEngine directly
-     */
-    @Deprecated // Use FormulaEngine directly
-    public static FormulaCommandInfo[] getCommands() {
-    	return FormulaEngine.getFactory().getTypeRegistry().getCommands().toArray(new FormulaCommandInfo[0]);
-    }
-
+   
 
     private static FormulaCommandInfo get(String name, Token token) throws InvalidFunctionReferenceException {
         FormulaCommandInfo commandInfo = (FormulaCommandInfo) FormulaEngine.getFactory().getTypeRegistry().getAllowNull(name);
@@ -60,16 +51,6 @@ public class FormulaCommandInfoRegistry {
         } else {
             throw new InvalidFunctionReferenceException(name, token != null ? token.getColumn() : -1);
         }
-    }
-    
-    /**
-     * @param name the name of the function to lookup
-     * @return the function, or null if missing
-     * @deprecated use FormulaEngine directly
-     */
-    @Deprecated // Use FormulaEngine directly    
-    public static FormulaCommandInfo getAllowNull(String name) {
-    	return (FormulaCommandInfo) FormulaEngine.getFactory().getTypeRegistry().getAllowNull(name);
     }
 
     // Note: since the binding observers are registered with the functions are created, we need to do this here.

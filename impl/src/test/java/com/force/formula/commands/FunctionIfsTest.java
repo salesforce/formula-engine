@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.force.formula.*;
 import com.force.formula.impl.*;
+import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -184,7 +185,7 @@ public class FunctionIfsTest extends BaseCustomizableParserTest {
 
         @Override
 		public FormulaSqlHooks getSqlStyle() {
-        	return FormulaSqlHooks.DefaultStyle.ORACLE;
+        	return FormulaDefaultSqlStyle.ORACLE;
 		}
 
 		@Override

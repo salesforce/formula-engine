@@ -18,17 +18,17 @@ public interface FormulaTypeSpec {
     /**
      * @return the maximum length of the field containing the encoded value
      */
-    public int getMaxLength();
+    int getMaxLength();
     
     /**
      * @return a display suitable for putting in errors
      */
-    public String getDisplay();
+    String getDisplay();
     
     /**
      * @return the default properties to use with this FormulaType
      */
-    public FormulaProperties getDefaultProperties();
+    FormulaProperties getDefaultProperties();
     
     default boolean isTemplate() {
         return false;

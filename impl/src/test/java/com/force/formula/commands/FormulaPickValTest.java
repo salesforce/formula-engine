@@ -14,6 +14,7 @@ import com.force.formula.FormulaSchema.Entity;
 import com.force.formula.MockFormulaPicklistInfo.Item;
 import com.force.formula.impl.*;
 import com.force.formula.impl.BeanFormulaContext.BeanFormulaType;
+import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.sql.SQLPair;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -117,7 +118,7 @@ public class FormulaPickValTest extends BaseCustomizableParserTest {
 
         @Override
 		public FormulaSqlHooks getSqlStyle() {
-        	return FormulaSqlHooks.DefaultStyle.ORACLE;
+        	return FormulaDefaultSqlStyle.ORACLE;
 		}
 
 		@Override

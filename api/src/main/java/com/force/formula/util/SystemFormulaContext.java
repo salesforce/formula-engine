@@ -55,6 +55,12 @@ public class SystemFormulaContext extends NullFormulaContext {
     @Override
     public ContextualFormulaFieldInfo lookup(String name, boolean isDynamicRefBase) throws InvalidFieldReferenceException, UnsupportedTypeException {
         if (ORIGIN_DATE_TIME.equalsIgnoreCase(name)) {
+        	FormulaSqlStyle style = FormulaEngine.getHooks().getSqlStyle();
+        	if (style != null && style.isMysqlStyle()) {
+        		return originDateTime_MYSQL;
+        	} else if (style != null && style.isTransactSqlStyle()) {
+        		return originDateTime_TSQL;
+        	}
             return originDateTime;
         } else {
             throw new InvalidFieldReferenceException(name, "Unknown field");
@@ -113,6 +119,10 @@ public class SystemFormulaContext extends NullFormulaContext {
     private static final FormulaDateTime beginingOfTime;
     private static final SystemFormulaFieldInfo originDateTime = new SystemFormulaFieldInfo(ORIGIN_DATE_TIME,
         FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("TO_DATE('01-01-1900', 'DD-MM-YYYY')", null));
+    private static final SystemFormulaFieldInfo originDateTime_MYSQL = new SystemFormulaFieldInfo(ORIGIN_DATE_TIME,
+            FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("DATE('1900-01-01')", null));
+    private static final SystemFormulaFieldInfo originDateTime_TSQL = new SystemFormulaFieldInfo(ORIGIN_DATE_TIME,
+            FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("DATEFROMPARTS(1900,1,1)", null));
     private static DisplayField[] displayFields = new DisplayField[] { new DisplayField(SYSTEM_NAMESPACE, SYSTEM_NAMESPACE, originDateTime) };
 
     static {

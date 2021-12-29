@@ -2,11 +2,11 @@
 <testCase name="testLpad2">
    <testInstance formula="lpad(customText1__c,customNumber1__c,customText2__c)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>LPAD($!s0s!$.customText1__c, GREATEST(COALESCE($!s0s!$.customNumber1__c, 0)::integer, 0), $!s0s!$.customText2__c)</Sql>
+       <Sql>LPAD($!s0s!$.customText1__c, GREATEST(COALESCE($!s0s!$.customNumber1__c, 0)::integer,0), $!s0s!$.customText2__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>LPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c::integer, 0), $!s0s!$.customText2__c)</Sql>
+       <Sql>LPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c::integer,0), $!s0s!$.customText2__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?($F.lpad(context.record.customText1__c,$F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber(),$F.nvl(context.record.customText2__c,' '))):null</JsOutput>
