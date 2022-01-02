@@ -42,7 +42,7 @@ public class FunctionMillisecond extends FormulaCommandInfoImpl {
     		return "DATEPART(MILLISECOND,"+arg+")";
     	}
     	String trunc = hooks.sqlTrunc(arg + "/1000");
-        return trunc + "((" + arg + " -"+trunc+" * 1000)) ";
+        return hooks.sqlTrunc("(" + arg + " -"+trunc+" * 1000)");
     }
 
     @Override

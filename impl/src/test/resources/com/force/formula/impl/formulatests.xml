@@ -60,6 +60,12 @@ author: Srikanth Yendluri/Doug Chasman
          scale="2" precision="12"
          code="MilliSecond(TIMEVALUE(&quot;10:40:55.666&quot;))">
      </testcase>
+          
+     <testcase name="testMillisecWithValidDateTimeString" devName="testMillisecWithValidDateTimeString"
+         labelName="testMillisecWithValidDateTimeString" dataType="Double" eval="formula,template"
+         scale="2" precision="12"
+         code="MilliSecond(TIMEVALUE(&quot;2015-03-17 17:00:00&quot;))">
+     </testcase>
      
      <testcase name="testTimeValueWithValidInValid" devName="testTimeValueWithValidInValid"
          labelName="testTimeValueWithValidInValid" dataType="TimeOnly" eval="formula,template" dataFile="functiondatevalue-dateandtime"
