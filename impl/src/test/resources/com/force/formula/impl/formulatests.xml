@@ -132,7 +132,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testMillisecondValueWithValidInValid" devName="testMilliecondValueWithValidInValid"
          labelName="testSecondValueWithValidInValid" dataType="Double" eval="formula,template" dataFile="functiondatevalue-dateandtime"
          scale="2" precision="12"  labels="extended"
-         code="Second(TimeValue(DATETIMEVALUE(dateString__c)))">
+         code="MilliSecond(TimeValue(DATETIMEVALUE(dateString__c)))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
       </testcase>
