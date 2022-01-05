@@ -78,6 +78,7 @@
         <param name="InvalidSubscriptBase">Expression of type {0} cannot be subscripted.</param>
         <param name="FieldReferenceCycleDetectedException">Formula cannot use another formula field that directly or indirectly refers to itself. {1}</param>
         <param name="EncodedByteLengthTooLong">The size of your string is {0} bytes but may not exceed {1} bytes.</param>
+        <param name="invalidLabelRef"><![CDATA[$Label references must be of the form $Label.<section>.<key>]]></param>
         <!--  these are used in exception messages to describe formula element -->
         <param name="function">function ''{0}()''</param>
         <param name="operator">operator ''{0}''</param>
@@ -103,6 +104,8 @@
         <param name="com.force.formula.commands.RuntimeType">Runtime Validated Type</param>
         <param name="java.util.Calendar">DateTime</param>
         <param name="shared.xml.soap.DateOnlyWrapper">Date</param>
+        <param name="com.force.i18n.LabelReference">Label Reference</param>
+        <param name="com.force.i18n.Renameable">Renameable Object</param>
     </section>
     <section name="FormulaFieldHelpMessage">
         <param name="ExampleString">Enclose text and picklist value API names in double quotes </param>
@@ -323,6 +326,9 @@
 
         <param name="FORMATCURRENCY">FORMATCURRENCY(currencyisocode, number)</param>
         <param name="FORMATCURRENCY_DESCR">Format the given number as a current using the scale of the given currency code, with that code prepended.</param>
+
+        <param name="LABEL">LABEL(section, key, [arg0,...])</param>
+        <param name="LABEL_DESCR">Render the label in the language of the user for the given section and key.</param>
 
         <!-- Internal only.  Doesn't have to be translated-->
         <param name="FORMAT_ADDRESS">FORMAT_ADDRESS(street,city,state,zip,country[,lineSep])</param>

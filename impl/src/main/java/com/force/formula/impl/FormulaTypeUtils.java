@@ -7,10 +7,13 @@ package com.force.formula.impl;
 
 import java.lang.reflect.Type;
 
-import com.force.formula.*;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaSchema;
+import com.force.formula.FormulaTypeWithDomain;
 import com.force.formula.commands.ConstantNull;
 import com.force.formula.commands.RuntimeType;
 import com.force.formula.util.FormulaI18nUtils;
+import com.force.i18n.LabelReference;
 import com.google.common.base.Objects;
 
 /**
@@ -66,6 +69,9 @@ public class FormulaTypeUtils {
         }
         if (type instanceof FormulaTypeWithDomain.IdType) {
             return ((FormulaTypeWithDomain.IdType)type).isTypeText();
+        }
+        if (type == LabelReference.class) {
+            return true;
         }
         return false;
     }
