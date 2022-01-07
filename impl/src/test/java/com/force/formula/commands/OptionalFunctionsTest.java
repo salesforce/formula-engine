@@ -110,5 +110,39 @@ public class OptionalFunctionsTest extends BaseCustomizableParserTest {
     	assertEquals(new BigDecimal(9729), evaluateBigDecimal("ASCII(\"\u2601\")"));
     	assertEquals(new BigDecimal(129525), evaluateBigDecimal("ASCII(\"\uD83E\uDDF5\")")); // thread
     }
+    
+    // Test FormatCurrency
+    public void testFormatDuration() throws Exception {
+        assertEquals("00:00:00", evaluateString("FORMATDURATION(0)"));
+        assertEquals("00:00:01", evaluateString("FORMATDURATION(1)"));
+        assertEquals("00:00:01", evaluateString("FORMATDURATION(-1)"));
+        assertEquals("277:46:40", evaluateString("FORMATDURATION(1000000)"));
+        assertEquals("277:46:41", evaluateString("FORMATDURATION(1000001)"));
+        assertEquals("277:46:41", evaluateString("FORMATDURATION(-1000001)"));
+
+        assertEquals("00:00:00", evaluateString("FORMATDURATION(0, FALSE)"));
+        assertEquals("00:00:01", evaluateString("FORMATDURATION(1, FALSE)"));
+        assertEquals("00:00:01", evaluateString("FORMATDURATION(-1, FALSE)"));
+        assertEquals("277:46:40", evaluateString("FORMATDURATION(1000000, FALSE)"));
+        assertEquals("277:46:41", evaluateString("FORMATDURATION(1000001, FALSE)"));
+        assertEquals("277:46:41", evaluateString("FORMATDURATION(-1000001, FALSE)"));
+
+        assertEquals("0:00:00:00", evaluateString("FORMATDURATION(0, TRUE)"));
+        assertEquals("0:00:00:01", evaluateString("FORMATDURATION(1, TRUE)"));
+        assertEquals("0:00:00:01", evaluateString("FORMATDURATION(-1, TRUE)"));
+        assertEquals("11:13:46:40", evaluateString("FORMATDURATION(1000000, TRUE)"));
+        assertEquals("11:13:46:41", evaluateString("FORMATDURATION(1000001, TRUE)"));
+        assertEquals("11:13:46:41", evaluateString("FORMATDURATION(-1000001, TRUE)"));
+
+        assertEquals("0:00:00:01", evaluateString("FORMATDURATION(datetimevalue(\"2005-11-15 17:00:00\"), datetimevalue(\"2005-11-15 17:00:01\"))"));
+        assertEquals("0:00:00:01", evaluateString("FORMATDURATION(datetimevalue(\"2005-11-15 17:00:01\"), datetimevalue(\"2005-11-15 17:00:00\"))"));
+        assertEquals("1:00:00:00", evaluateString("FORMATDURATION(datetimevalue(\"2005-11-15 17:00:00\"), datetimevalue(\"2005-11-16 17:00:00\"))"));
+
+        assertEquals("02:00:00", evaluateString("FORMATDURATION(timeValue(\"08:34:56.789\"),timeValue(\"06:34:56.789\"))"));
+        assertEquals("02:00:00", evaluateString("FORMATDURATION(timeValue(\"06:34:56.789\"),timeValue(\"08:34:56.789\"))"));
+        assertEquals("17:00:00", evaluateString("FORMATDURATION(timeValue(\"06:34:56.789\"),timeValue(\"23:34:56.789\"))"));
+
+        
+    }
 
 }

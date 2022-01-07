@@ -4,7 +4,8 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaTime;
@@ -328,5 +329,11 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 	default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
         sql.append("CONCAT(").append(isoCodeArg).append(",' ',FORMAT(").append(amountArg).append(',').append(maskStr).append("))");
 	}
+        
+    @Override
+    default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
+        throw new UnsupportedOperationException("FORMATDURATION not implemented yet in transactsql");
+    }
     
+
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationDateTime">
+   <testInstance formula="FORMATDURATION(customdatetime2__c,customdatetime1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>NVL2(ABS(TRUNC(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)),TO_CHAR(TRUNC((ABS(TRUNC(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/86400))||':'||TO_CHAR(MOD((ABS(TRUNC(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/3600,24),'FM09')||':'||TO_CHAR(MOD(TRUNC((ABS(TRUNC(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(ABS(TRUNC(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400))),60),'FM09'),NULL)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>NVL2(ABS(TRUNC(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)),TO_CHAR(TRUNC((ABS(TRUNC(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/86400))||':'||TO_CHAR(MOD((ABS(TRUNC(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/3600,24),'FM09')||':'||TO_CHAR(MOD(TRUNC((ABS(TRUNC(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(ABS(TRUNC(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400))),60),'FM09'),NULL)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2004:12:31:11:32:00, 2004:12:31:11:30:00]</inputvalues>
+         <formula>0:00:02:00</formula>
+         <sql>0:00:02:00</sql>
+         <formulaNullAsNull>0:00:02:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:02:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, 2008:02:28:10:34:00]</inputvalues>
+         <formula>1461:00:00:00</formula>
+         <sql>1461:00:00:00</sql>
+         <formulaNullAsNull>1461:00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>1461:00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:32:00]</inputvalues>
+         <formula>0:00:02:00</formula>
+         <sql>0:00:02:00</sql>
+         <formulaNullAsNull>0:00:02:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:02:00</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula 1:13:26:00 does not equal viaSql 1:13:25:59 -->
+      <inputvalues>[2004:02:28:10:34:00, 2004:03:01:00:00:00]</inputvalues>
+         <formula>1:13:26:00</formula>
+         <sql>1:13:25:59</sql>
+         <formulaNullAsNull>1:13:26:00</formulaNullAsNull>
+         <sqlNullAsNull>1:13:25:59</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2004:12:31:11:32:00]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3999:02:28:10:34:00, 1780:02:28:10:34:00]</inputvalues>
+         <formula>810473:00:00:00</formula>
+         <sql>810473:00:00:00</sql>
+         <formulaNullAsNull>810473:00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>810473:00:00:00</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

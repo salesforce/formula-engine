@@ -4,7 +4,8 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaTime;
@@ -295,6 +296,19 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 		// historical timezone shifts.
 		return "DATE(ADDDATE("+dateTime+",INTERVAL "+userTzOffset + " HOUR))";
 	}
+	
+    /**
+     * Intervals in mysql aren't helpful for formatting, so don't use them.
+     */
+    @Override
+    default String sqlIntervalFromSeconds() {
+        return "ABS(TRUNCATE(%s,0))";
+    }
+    
+    @Override
+    default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
+        throw new UnsupportedOperationException("FORMATDURATION not implemented in mysql");
+    }
 	
 	@Override
     default StringBuilder getCurrencyMask(int scale) {

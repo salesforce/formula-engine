@@ -3524,4 +3524,38 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber3" labelName="customNumber3" dataType="Double" scale="2" precision="12" />
     </testcase>
+
+    <testcase name="testFormatDurationTime" devName="testFormatDurationTime" labels="extended"
+        labelName="testFormatDurationTime" dataType="Text" eval="formula,template" dataFile="twoTimeFields"
+         whyIgnoreSql="mysql:no interval format support,msssql:no interval format support"
+        code="FORMATDURATION(TimeValue(timeString2__c),TimeValue(timeString1__c))">
+        <referencefield devName="timeString1" labelName="timeString1" dataType="Text" length="50"/>
+        <referencefield devName="timeString2" labelName="timeString2" dataType="Text" length="50"/>
+    </testcase>
+    <testcase name="testFormatDurationDateTime" devName="testFormatDurationDateTime" labels="extended"
+        labelName="testFormatDurationDateTime" dataType="Text" eval="formula,template" dataFile="TwoDateFields"
+         whyIgnoreSql="mysql:no interval format support,msssql:no interval format support"
+        code="FORMATDURATION(customdatetime2__c,customdatetime1__c)">
+         <referencefield devName="customdatetime1" labelName="customdatetime1"
+             dataType="DateTime" length="255"/>
+         <referencefield devName="customdatetime2" labelName="customdatetime2"
+             dataType="DateTime" length="255"/>
+    </testcase>
+    <testcase name="testFormatDurationSecondsBool" devName="testFormatDurationSecondsBool" labels="extended"
+        labelName="testFormatDurationSecondsBool" dataType="Text" eval="formula,template" dataFile="formatDurationNumber"
+         whyIgnoreSql="mysql:no interval format support,msssql:no interval format support"
+        code="FORMATDURATION(customNumber1__c, customcheckbox1__c)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customcheckbox1" labelName="customcheckbox1"
+             dataType="Boolean" length="255"/>
+    </testcase>
+    <testcase name="testFormatDurationSeconds" devName="testFormatDurationSeconds" labels="extended"
+        labelName="testFormatDurationSeconds" dataType="Text" eval="formula,template" dataFile="formatDurationNumber"
+         whyIgnoreSql="mysql:no interval format support,msssql:no interval format support"
+        code="FORMATDURATION(customNumber1__c)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+         <referencefield devName="customcheckbox1" labelName="customcheckbox1"
+             dataType="Boolean" length="255"/>
+    </testcase>
+
 </formula-test>

@@ -5,7 +5,11 @@ package com.force.formula.impl;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
 
 import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
@@ -164,7 +168,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      */
     default String sqlSubtractTwoTimestamps() {
-    	throw new UnsupportedOperationException();
+        return "(%s-%s)";
     } 
 
     /**
@@ -306,6 +310,30 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlToCharDate() {
 		return "TO_CHAR(%s, 'YYYY-MM-DD')";
     }
+    
+    /**
+     * @return the format for String.format for converting from HH:MM:SS or (DDD:HH:MM:SS) if includeDays is true
+     * @param intervalArg
+     * @param includeDays whether days should be included
+     * @param daysIsParam whether the "days" should be the second parameter passed in
+     */
+    default String sqlIntervalToDurationString(String intervalArg, boolean includeDays, String daysIsParam) {
+        if (daysIsParam != null) {
+            return "CASE WHEN "+daysIsParam+" THEN EXTRACT(HOUR FROM "+intervalArg+")::int/24||':'||TO_CHAR(EXTRACT(HOUR FROM "+intervalArg+")::int%24,'FM09')||':'||TO_CHAR("+intervalArg+",'MI:SS') ELSE TO_CHAR("+intervalArg+",'HH24:MI:SS') END";
+        } else if (includeDays) {
+            return "EXTRACT(HOUR FROM "+intervalArg+")::int/24 || ':' || TO_CHAR(EXTRACT(HOUR FROM "+intervalArg+")::int%24,'FM09') || ':' || TO_CHAR("+intervalArg+", 'MI:SS')";
+        } else {
+            return "TO_CHAR("+intervalArg+", 'HH24:MI:SS')";
+        }
+    }
+   
+    /**
+     * @return the format for String.format for converting a number to an interval suitable for to DurationString
+     */
+    default String sqlIntervalFromSeconds() {
+        return "(INTERVAL '1 second' * ABS(%s))";
+    }
+   
    
 
     /**

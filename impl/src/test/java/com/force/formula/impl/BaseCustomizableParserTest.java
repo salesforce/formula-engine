@@ -6,15 +6,56 @@
 package com.force.formula.impl;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Currency;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
-import com.force.formula.*;
-import com.force.formula.commands.*;
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.DisplayField;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaEngineHooks;
+import com.force.formula.FormulaFactory;
+import com.force.formula.FormulaFieldReferenceInfo;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.MockFormulaDataType;
+import com.force.formula.MockFormulaType;
+import com.force.formula.MockLocation;
+import com.force.formula.ParserTestBase;
+import com.force.formula.UnsupportedTypeException;
+import com.force.formula.commands.BinaryMathCommandInfo;
+import com.force.formula.commands.FieldReferenceCommandInfo;
+import com.force.formula.commands.FormulaCommandInfo;
+import com.force.formula.commands.FunctionAscii;
+import com.force.formula.commands.FunctionChr;
+import com.force.formula.commands.FunctionDayOfYear;
+import com.force.formula.commands.FunctionDistance;
+import com.force.formula.commands.FunctionFormat;
+import com.force.formula.commands.FunctionFormatCurrency;
+import com.force.formula.commands.FunctionFormatDuration;
+import com.force.formula.commands.FunctionFromUnixTime;
+import com.force.formula.commands.FunctionIfs;
+import com.force.formula.commands.FunctionInitCap;
+import com.force.formula.commands.FunctionIsChanged;
+import com.force.formula.commands.FunctionIsPickVal;
+import com.force.formula.commands.FunctionIsoWeek;
+import com.force.formula.commands.FunctionIsoYear;
+import com.force.formula.commands.FunctionPriorValue;
+import com.force.formula.commands.FunctionTrunc;
+import com.force.formula.commands.FunctionUnixTimestamp;
 import com.force.formula.impl.BeanFormulaContext.BeanFormulaType;
 import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.template.commands.DynamicReference;
-import com.google.common.collect.*;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * FieldReferenceTest that includes a "bare" set of functions to validate
@@ -135,6 +176,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new FunctionChr());
         types.add(new FunctionAscii());
         types.add(new BinaryMathCommandInfo("TRUNC", new FunctionTrunc()));
+        types.add(new FunctionFormatDuration());
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         c.clear();
