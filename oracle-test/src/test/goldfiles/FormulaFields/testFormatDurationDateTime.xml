@@ -31,7 +31,6 @@
          <sqlNullAsNull>0:00:02:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 1:13:26:00 does not equal viaSql 1:13:25:59 -->
       <inputvalues>[2004:02:28:10:34:00, 2004:03:01:00:00:00]</inputvalues>
          <formula>1:13:26:00</formula>
          <sql>1:13:25:59</sql>
