@@ -302,12 +302,26 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      */
     @Override
     default String sqlIntervalFromSeconds() {
-        return "ABS(TRUNCATE(%s,0))";
+        return "SEC_TO_TIME(ABS(TRUNCATE(%s,0)))";
     }
+
+    @Override
+    default String sqlSubtractTwoTimes() {
+        return "TIME_TO_SEC(TIMEDIFF(%s,%s))";
+    } 
+    
     
     @Override
     default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
-        throw new UnsupportedOperationException("FORMATDURATION not implemented in mysql");
+        String result;
+        if (daysIsParam != null) {
+            result = "(CASE WHEN "+daysIsParam+" THEN DATE_FORMAT("+arg+",'%j:%H:%i:%s') ELSE TIME_FORMAT("+arg+",'%H:%i:%s') END)";
+        } else if (includeDays) {
+            result = "DATE_FORMAT("+arg+",'%j:%H:%i:%s')";
+        } else {
+            result = "TIME_FORMAT("+arg+",'%H:%i:%s')";
+        }
+        return result;
     }
 	
 	@Override

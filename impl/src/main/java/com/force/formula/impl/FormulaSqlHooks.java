@@ -171,6 +171,14 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         return "(%s-%s)";
     } 
 
+    
+    /**
+     * @return the function that allows subtraction of two time values to get the second/day difference.
+     */
+    default String sqlSubtractTwoTimes() {
+        return "((%s)-(%s))/1000";
+    } 
+    
     /**
      * Format the sql for adding a given number of days (fractionally) to a date
      * @param lhsValue the left hand side (must be date or datetime if subtraction)

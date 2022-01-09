@@ -142,6 +142,11 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     	return "(CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))/86400)";  
     } 
     
+
+    @Override
+    default String sqlSubtractTwoTimes() {
+        return "CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))";
+    } 
 	
 	@Override
     default String sqlAddDaysToDate(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType, boolean isAddition) {
@@ -228,6 +233,25 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     @Override
     default String sqlGetDayOfYear() {
 		return "DATEPART(dayofyear, %s)";
+    }
+    
+    @Override
+    default String sqlIntervalFromSeconds() {
+        return "DATEADD(second, ROUND(ABS(%s),0,1), '1970-01-01')";
+    }
+    
+    @Override
+    default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
+        String result;
+        // Getting the "days" is difficult.
+        if (daysIsParam != null) {
+            result = "IIF("+arg+" IS NULL, NULL, CONCAT(CASE WHEN "+daysIsParam+" THEN CONCAT(DATEPART(dy,"+arg+")-1,':') ELSE '' END, CONVERT(VARCHAR,"+arg+",108)))";
+        } else if (includeDays) {
+            result = "IIF("+arg+" IS NULL, NULL, CONCAT(DATEPART(dy,"+arg+")-1,':',CONVERT(VARCHAR,"+arg+",108)))";
+        } else {
+            result = "CONVERT(VARCHAR,"+arg+",108)";
+        }
+        return result;
     }
     
     @Override
@@ -330,10 +354,5 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
         sql.append("CONCAT(").append(isoCodeArg).append(",' ',FORMAT(").append(amountArg).append(',').append(maskStr).append("))");
 	}
         
-    @Override
-    default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
-        throw new UnsupportedOperationException("FORMATDURATION not implemented yet in transactsql");
-    }
-    
 
 }

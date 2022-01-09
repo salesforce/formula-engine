@@ -2,12 +2,12 @@
 <testCase name="testFormatDurationTime">
    <testInstance formula="FORMATDURATION(TimeValue(timeString2__c),TimeValue(timeString1__c))" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>NVL2(TRUNC(ABS(((TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000)-(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000))/1000)),TO_CHAR(TRUNC((TRUNC(ABS(((TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000)-(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000))/1000)))/3600),'FM99999909')||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS(((TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000)-(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000))/1000)))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(TRUNC(ABS(((TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000)-(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000))/1000))),60),'FM09'),NULL)</Sql>
-       <Guard> NOT REGEXP_LIKE ($!s0s!$.timeString1__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */  OR  NOT REGEXP_LIKE ($!s0s!$.timeString2__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */ </Guard>
+       <Sql>CONVERT(VARCHAR,DATEADD(second, ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1), '1970-01-01'),108)</Sql>
+       <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>NVL2(TRUNC(ABS(((TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000)-(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000))/1000)),TO_CHAR(TRUNC((TRUNC(ABS(((TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000)-(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000))/1000)))/3600),'FM99999909')||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS(((TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000)-(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000))/1000)))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(TRUNC(ABS(((TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString1__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000)-(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString2__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000))/1000))),60),'FM09'),NULL)</Sql>
-       <Guard> NOT REGEXP_LIKE ($!s0s!$.timeString1__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */  OR  NOT REGEXP_LIKE ($!s0s!$.timeString2__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */ </Guard>
+       <Sql>CONVERT(VARCHAR,DATEADD(second, ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1), '1970-01-01'),108)</Sql>
+       <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
       <result>
       <inputvalues>[10:34:55.666, 23:59:59.999]</inputvalues>
@@ -82,16 +82,16 @@
       <result>
       <inputvalues>[01:00:00.000, 01:66:29.345]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>null</sql>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[01:66:29.345, 01:00:00.000]</inputvalues>
          <formula>Error: java.lang.RuntimeException</formula>
-         <sql>null</sql>
+         <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
          <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

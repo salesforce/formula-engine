@@ -222,7 +222,7 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
      */
     @Override
     default String sqlIntervalFromSeconds() {
-        return "ABS(TRUNC(%s))";
+        return "TRUNC(ABS(%s))";
     }
    
 	// Use expensive overcalculating date math.   Sorry, but oracle doesn't support formatting a duration
