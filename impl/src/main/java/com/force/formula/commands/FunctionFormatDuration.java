@@ -121,7 +121,7 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
             sql = hooks.sqlIntervalToDurationString(interval, false, null);
         } else if (lhsDataType == FormulaDateTime.class) {
             String diff = String.format(hooks.sqlSubtractTwoTimestamps(), args[1], args[0]);
-            String interval = String.format(hooks.sqlIntervalFromSeconds(), diff+"*86400"); // SubtractTwoTimestamps returns days
+            String interval = String.format(hooks.sqlIntervalFromSeconds(), diff);
             sql = hooks.sqlIntervalToDurationString(interval, true, null);
         } else {
             throw new UnsupportedOperationException();

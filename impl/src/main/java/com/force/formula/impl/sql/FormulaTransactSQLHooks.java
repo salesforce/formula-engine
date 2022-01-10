@@ -139,7 +139,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     @Override
     default String sqlSubtractTwoTimestamps() {
     	// If you are older than sqlserver 16, you'll need to use DATEDIFF and deal with the errors
-    	return "(CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))/86400)";  
+    	return "CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))";  
     } 
     
 

@@ -216,7 +216,7 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
             return "NLS_INITCAP(%s)";
         }
     }
-
+	
     /**
      * Intervals in oracle aren't helpful, so don't use them.
      */

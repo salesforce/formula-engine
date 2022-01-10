@@ -98,7 +98,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      */
     @Override
     default String sqlSubtractTwoTimestamps() {
-    	return "(-TIMESTAMPDIFF(SECOND,%s,%s)/86400)";
+    	return "-TIMESTAMPDIFF(SECOND,%s,%s)";
     	//return "((UNIX_TIMESTAMP(%s)-UNIX_TIMESTAMP(%s))/86400)";
     } 
     
@@ -302,7 +302,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      */
     @Override
     default String sqlIntervalFromSeconds() {
-        return "SEC_TO_TIME(ABS(TRUNCATE(%s,0)))";
+        return "TRUNCATE(ABS(%s),0)";
     }
 
     @Override
@@ -315,11 +315,11 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
         String result;
         if (daysIsParam != null) {
-            result = "(CASE WHEN "+daysIsParam+" THEN DATE_FORMAT("+arg+",'%j:%H:%i:%s') ELSE TIME_FORMAT("+arg+",'%H:%i:%s') END)";
+            result = "(CASE WHEN "+daysIsParam+" THEN CONCAT(TRUNCATE(("+arg+")/86400,0),':',TIME_FORMAT(SEC_TO_TIME("+arg+"%86400),'%H:%i:%s')) ELSE TIME_FORMAT(SEC_TO_TIME("+arg+"),'%H:%i:%s') END)";
         } else if (includeDays) {
-            result = "DATE_FORMAT("+arg+",'%j:%H:%i:%s')";
+            result = "CONCAT(TRUNCATE(("+arg+")/86400,0),':',TIME_FORMAT(SEC_TO_TIME("+arg+"%86400),'%H:%i:%s'))";
         } else {
-            result = "TIME_FORMAT("+arg+",'%H:%i:%s')";
+            result = "TIME_FORMAT(SEC_TO_TIME("+arg+"),'%H:%i:%s')";
         }
         return result;
     }

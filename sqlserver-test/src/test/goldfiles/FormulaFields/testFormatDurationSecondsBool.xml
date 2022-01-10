@@ -87,6 +87,7 @@
          <sqlNullAsNull>1:00:00:00</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 24:00:00 does not equal viaSql 00:00:00 -->
       <inputvalues>[86400, FALSE]</inputvalues>
          <formula>24:00:00</formula>
          <sql>00:00:00</sql>
@@ -101,6 +102,7 @@
          <sqlNullAsNull>11:13:46:40</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 277:46:40 does not equal viaSql 13:46:40 -->
       <inputvalues>[1000000, FALSE]</inputvalues>
          <formula>277:46:40</formula>
          <sql>13:46:40</sql>
@@ -115,6 +117,7 @@
          <sqlNullAsNull>11:13:46:40</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 277:46:40 does not equal viaSql 13:46:40 -->
       <inputvalues>[-1000000, FALSE]</inputvalues>
          <formula>277:46:40</formula>
          <sql>13:46:40</sql>

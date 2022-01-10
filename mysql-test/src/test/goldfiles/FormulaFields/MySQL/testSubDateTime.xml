@@ -2,11 +2,11 @@
 <testCase name="testSubDateTime">
    <testInstance formula="(customdatetime1__c-customdatetime2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c))/86400</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c))/86400</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -54,11 +54,11 @@
    </testInstance>
    <testInstance formula="(customdatetime2__c-customdatetime1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c)/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c))/86400</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c)/86400)</Sql>
+       <Sql>(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c))/86400</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

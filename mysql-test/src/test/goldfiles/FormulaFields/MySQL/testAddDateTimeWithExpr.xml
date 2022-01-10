@@ -4,11 +4,11 @@
    <customformula0 dataType="ColumnType.DATETIME" formula="(customdatetime1__c+custompercent1__c)"/>
    <customformula1 dataType="ColumnType.DOUBLE" formula="(customdatetime2__c-customdatetime3__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdatetime1__c, INTERVAL ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400) SECOND), INTERVAL ROUND(COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400) SECOND), INTERVAL ROUND(COALESCE((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c)/86400), 0)*86400) SECOND), INTERVAL ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)*86400) SECOND)</Sql>
+       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdatetime1__c, INTERVAL ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400) SECOND), INTERVAL ROUND(COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400) SECOND), INTERVAL ROUND(COALESCE((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c))/86400, 0)*86400) SECOND), INTERVAL ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)*86400) SECOND)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdatetime1__c, INTERVAL ROUND(($!s0s!$.custompercent1__c / 100.0)*86400) SECOND), INTERVAL ROUND(($!s0s!$.custompercent2__c / 100.0)*86400) SECOND), INTERVAL ROUND((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c)/86400)*86400) SECOND), INTERVAL ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)*86400) SECOND)</Sql>
+       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdatetime1__c, INTERVAL ROUND(($!s0s!$.custompercent1__c / 100.0)*86400) SECOND), INTERVAL ROUND(($!s0s!$.custompercent2__c / 100.0)*86400) SECOND), INTERVAL ROUND((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c))/86400*86400) SECOND), INTERVAL ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)*86400) SECOND)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

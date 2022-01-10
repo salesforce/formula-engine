@@ -3533,7 +3533,7 @@ author: Srikanth Yendluri/Doug Chasman
     </testcase>
     <testcase name="testFormatDurationDateTime" devName="testFormatDurationDateTime" labels="extended"
         labelName="testFormatDurationDateTime" dataType="Text" eval="formula,template" dataFile="TwoDateFields"
-         whyIgnoreSql="mysql:no interval format support,oracle:fractional difference,mssql:no interval format support"
+         whyIgnoreSql="oracle:fractional difference,mssql:no interval format support"
         code="FORMATDURATION(customdatetime2__c,customdatetime1__c)">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime" length="255"/>
@@ -3542,7 +3542,7 @@ author: Srikanth Yendluri/Doug Chasman
     </testcase>
     <testcase name="testFormatDurationSecondsBool" devName="testFormatDurationSecondsBool" labels="extended"
         labelName="testFormatDurationSecondsBool" dataType="Text" eval="formula,template" dataFile="formatDurationNumber"
-         whyIgnoreSql="mysql:no interval format support,mssql:no interval format support"
+         whyIgnoreSql="mssql:no interval format support"
         code="FORMATDURATION(customNumber1__c, customcheckbox1__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customcheckbox1" labelName="customcheckbox1"
@@ -3550,7 +3550,7 @@ author: Srikanth Yendluri/Doug Chasman
     </testcase>
     <testcase name="testFormatDurationSeconds" devName="testFormatDurationSeconds" labels="extended"
         labelName="testFormatDurationSeconds" dataType="Text" eval="formula,template" dataFile="formatDurationNumber"
-         whyIgnoreSql="mysql:no interval format support,mssql:no interval format support"
+         whyIgnoreSql="mssql:no interval format support"
         code="FORMATDURATION(customNumber1__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customcheckbox1" labelName="customcheckbox1"

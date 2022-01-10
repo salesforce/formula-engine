@@ -2,21 +2,22 @@
 <testCase name="testFormatDurationDateTime">
    <testInstance formula="FORMATDURATION(customdatetime2__c,customdatetime1__c)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>IIF(DATEADD(second, ROUND(ABS((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400)*86400),0,1), '1970-01-01') IS NULL, NULL, CONCAT(DATEPART(dy,DATEADD(second, ROUND(ABS((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400)*86400),0,1), '1970-01-01'))-1,':',CONVERT(VARCHAR,DATEADD(second, ROUND(ABS((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400)*86400),0,1), '1970-01-01'),108)))</Sql>
+       <Sql>IIF(DATEADD(second, ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))),0,1), '1970-01-01') IS NULL, NULL, CONCAT(DATEPART(dy,DATEADD(second, ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))),0,1), '1970-01-01'))-1,':',CONVERT(VARCHAR,DATEADD(second, ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))),0,1), '1970-01-01'),108)))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>IIF(DATEADD(second, ROUND(ABS((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400)*86400),0,1), '1970-01-01') IS NULL, NULL, CONCAT(DATEPART(dy,DATEADD(second, ROUND(ABS((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400)*86400),0,1), '1970-01-01'))-1,':',CONVERT(VARCHAR,DATEADD(second, ROUND(ABS((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400)*86400),0,1), '1970-01-01'),108)))</Sql>
+       <Sql>IIF(DATEADD(second, ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))),0,1), '1970-01-01') IS NULL, NULL, CONCAT(DATEPART(dy,DATEADD(second, ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))),0,1), '1970-01-01'))-1,':',CONVERT(VARCHAR,DATEADD(second, ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))),0,1), '1970-01-01'),108)))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
       <inputvalues>[2004:12:31:11:32:00, 2004:12:31:11:30:00]</inputvalues>
          <formula>0:00:02:00</formula>
-         <sql>0:00:01:59</sql>
+         <sql>0:00:02:00</sql>
          <formulaNullAsNull>0:00:02:00</formulaNullAsNull>
-         <sqlNullAsNull>0:00:01:59</sqlNullAsNull>
+         <sqlNullAsNull>0:00:02:00</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: viaFormula 1461:00:00:00 does not equal viaSql 0:00:00:00 -->
       <inputvalues>[2004:02:28:10:34:00, 2008:02:28:10:34:00]</inputvalues>
          <formula>1461:00:00:00</formula>
          <sql>0:00:00:00</sql>
@@ -26,16 +27,16 @@
       <result>
       <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:32:00]</inputvalues>
          <formula>0:00:02:00</formula>
-         <sql>0:00:01:59</sql>
+         <sql>0:00:02:00</sql>
          <formulaNullAsNull>0:00:02:00</formulaNullAsNull>
-         <sqlNullAsNull>0:00:01:59</sqlNullAsNull>
+         <sqlNullAsNull>0:00:02:00</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:10:34:00, 2004:03:01:00:00:00]</inputvalues>
          <formula>1:13:26:00</formula>
-         <sql>1:13:25:59</sql>
+         <sql>1:13:26:00</sql>
          <formulaNullAsNull>1:13:26:00</formulaNullAsNull>
-         <sqlNullAsNull>1:13:25:59</sqlNullAsNull>
+         <sqlNullAsNull>1:13:26:00</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:31:11:32:00]</inputvalues>
@@ -59,6 +60,7 @@
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Arithmetic overflow error converting expression to data type int. -->
       <inputvalues>[3999:02:28:10:34:00, 1780:02:28:10:34:00]</inputvalues>
          <formula>810473:00:00:00</formula>
          <sql>Error: Arithmetic overflow error converting expression to data type int.</sql>

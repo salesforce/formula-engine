@@ -2,11 +2,11 @@
 <testCase name="testFormatDurationSecondsBool">
    <testInstance formula="FORMATDURATION(customNumber1__c, customcheckbox1__c)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN DATE_FORMAT(SEC_TO_TIME(ABS(TRUNCATE(COALESCE($!s0s!$.customNumber1__c, 0),0))),'%j:%H:%i:%s') ELSE TIME_FORMAT(SEC_TO_TIME(ABS(TRUNCATE(COALESCE($!s0s!$.customNumber1__c, 0),0))),'%H:%i:%s') END)</Sql>
+       <Sql>(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN CONCAT(TRUNCATE((TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0))/86400,0),':',TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)%86400),'%H:%i:%s')) ELSE TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)),'%H:%i:%s') END)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN DATE_FORMAT(SEC_TO_TIME(ABS(TRUNCATE($!s0s!$.customNumber1__c,0))),'%j:%H:%i:%s') ELSE TIME_FORMAT(SEC_TO_TIME(ABS(TRUNCATE($!s0s!$.customNumber1__c,0))),'%H:%i:%s') END)</Sql>
+       <Sql>(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN CONCAT(TRUNCATE((TRUNCATE(ABS($!s0s!$.customNumber1__c),0))/86400,0),':',TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)%86400),'%H:%i:%s')) ELSE TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)),'%H:%i:%s') END)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -19,7 +19,7 @@
       <result>
       <inputvalues>[, TRUE]</inputvalues>
          <formula>0:00:00:00</formula>
-         <sql>009:00:00:00</sql>
+         <sql>0:00:00:00</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
@@ -33,9 +33,9 @@
       <result>
       <inputvalues>[0.0, TRUE]</inputvalues>
          <formula>0:00:00:00</formula>
-         <sql>009:00:00:00</sql>
+         <sql>0:00:00:00</sql>
          <formulaNullAsNull>0:00:00:00</formulaNullAsNull>
-         <sqlNullAsNull>009:00:00:00</sqlNullAsNull>
+         <sqlNullAsNull>0:00:00:00</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.0, FALSE]</inputvalues>
@@ -54,9 +54,9 @@
       <result>
       <inputvalues>[24, TRUE]</inputvalues>
          <formula>0:00:00:24</formula>
-         <sql>009:00:00:24</sql>
+         <sql>0:00:00:24</sql>
          <formulaNullAsNull>0:00:00:24</formulaNullAsNull>
-         <sqlNullAsNull>009:00:00:24</sqlNullAsNull>
+         <sqlNullAsNull>0:00:00:24</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[24, FALSE]</inputvalues>
@@ -68,9 +68,9 @@
       <result>
       <inputvalues>[.99, TRUE]</inputvalues>
          <formula>0:00:00:00</formula>
-         <sql>009:00:00:00</sql>
+         <sql>0:00:00:00</sql>
          <formulaNullAsNull>0:00:00:00</formulaNullAsNull>
-         <sqlNullAsNull>009:00:00:00</sqlNullAsNull>
+         <sqlNullAsNull>0:00:00:00</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[.99, FALSE]</inputvalues>
@@ -82,9 +82,9 @@
       <result>
       <inputvalues>[86400, TRUE]</inputvalues>
          <formula>1:00:00:00</formula>
-         <sql>010:00:00:00</sql>
+         <sql>1:00:00:00</sql>
          <formulaNullAsNull>1:00:00:00</formulaNullAsNull>
-         <sqlNullAsNull>010:00:00:00</sqlNullAsNull>
+         <sqlNullAsNull>1:00:00:00</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[86400, FALSE]</inputvalues>
@@ -96,9 +96,9 @@
       <result>
       <inputvalues>[1000000, TRUE]</inputvalues>
          <formula>11:13:46:40</formula>
-         <sql>020:13:46:40</sql>
+         <sql>11:13:46:40</sql>
          <formulaNullAsNull>11:13:46:40</formulaNullAsNull>
-         <sqlNullAsNull>020:13:46:40</sqlNullAsNull>
+         <sqlNullAsNull>11:13:46:40</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1000000, FALSE]</inputvalues>
@@ -110,9 +110,9 @@
       <result>
       <inputvalues>[-1000000, TRUE]</inputvalues>
          <formula>11:13:46:40</formula>
-         <sql>020:13:46:40</sql>
+         <sql>11:13:46:40</sql>
          <formulaNullAsNull>11:13:46:40</formulaNullAsNull>
-         <sqlNullAsNull>020:13:46:40</sqlNullAsNull>
+         <sqlNullAsNull>11:13:46:40</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1000000, FALSE]</inputvalues>
