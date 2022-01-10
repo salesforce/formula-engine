@@ -319,11 +319,19 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 		return "TO_CHAR(%s, 'YYYY-MM-DD')";
     }
     
+    
     /**
-     * @return the format for String.format for converting from HH:MM:SS or (DDD:HH:MM:SS) if includeDays is true
-     * @param intervalArg
-     * @param includeDays whether days should be included
-     * @param daysIsParam whether the "days" should be the second parameter passed in
+     * @return the format for String.format for converting a number to an interval suitable for to {@link #sqlIntervalToDurationString(String, boolean, String)}
+     */
+    default String sqlIntervalFromSeconds() {
+        return "(INTERVAL '1 second' * ABS(%s))";
+    }
+    
+    /**
+     * @return the sql expression for converting from HH:MM:SS or (DDD:HH:MM:SS) if includeDays is true
+     * @param intervalArg the argument resulting from the call to {@link #sqlIntervalFromSeconds()}
+     * @param includeDays whether days should be included in the strings
+     * @param daysIsParam whether the "days" should be the second parameter passed in (if not null)
      */
     default String sqlIntervalToDurationString(String intervalArg, boolean includeDays, String daysIsParam) {
         if (daysIsParam != null) {
@@ -334,13 +342,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
             return "TO_CHAR("+intervalArg+", 'HH24:MI:SS')";
         }
     }
-   
-    /**
-     * @return the format for String.format for converting a number to an interval suitable for to DurationString
-     */
-    default String sqlIntervalFromSeconds() {
-        return "(INTERVAL '1 second' * ABS(%s))";
-    }
+
    
    
 

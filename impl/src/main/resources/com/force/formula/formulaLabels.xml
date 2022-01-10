@@ -328,6 +328,12 @@
         <param name="FORMATCURRENCY">FORMATCURRENCY(currencyisocode, number)</param>
         <param name="FORMATCURRENCY_DESCR">Format the given number as a current using the scale of the given currency code, with that code prepended.</param>
 
+        <param name="FORMAT">FORMAT(value[, format] | messageFormat[, args...])</param>
+        <param name="FORMAT_DESCR">Format the number, date or time with an optional format, or use the java-style message format with optional arguments.</param>
+
+        <param name="FORMATDURATION">FORMATCURRENCY(numSeconds[, includeDays] | dateTime/time, dateTime/time)</param>
+        <param name="FORMATDURATION_DESCR">Format the number of seconds, or the diff between times or dateTimes as HH:SS:MM, with optional days.</param>
+
         <!-- Internal only.  Doesn't have to be translated-->
         <param name="FORMAT_ADDRESS">FORMAT_ADDRESS(street,city,state,zip,country[,lineSep])</param>
         <param name="FORMAT_ADDRESS_DESCR">Format the address in mailing format using the line separator provided if necessary.</param>

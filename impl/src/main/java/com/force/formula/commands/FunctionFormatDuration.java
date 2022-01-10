@@ -58,7 +58,7 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
         FormulaAST lhsNode = (FormulaAST)node.getFirstChild();
         Type lhs = lhsNode.getDataType();
 
-        // handle unary operation for a number of seconds
+        // handle unary operation for a number of seconds (BigDecimal)
         if (numberOfChildren == 1) {
             if (lhs != BigDecimal.class && lhs != RuntimeType.class) {
                 throw new WrongArgumentTypeException(node.getText(), new Class[] { BigDecimal.class }, lhsNode);
@@ -66,7 +66,7 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
 
             return lhs == RuntimeType.class ? lhs : String.class;
         } else {
-            // Valid datatype combinations are [Number +/- Number], [Date - (Number | Date)], [Date + Number], [String + String], Time + Number, [Time - (Time + Number)
+            // Valid datatype combinations are BigDecimal,Boolean or DateTime,DateTime or Time,Time
             FormulaAST rhsNode = (FormulaAST)lhsNode.getNextSibling();
             FormulaAST invalidNode = lhsNode;
 
@@ -121,7 +121,7 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
             sql = hooks.sqlIntervalToDurationString(interval, false, null);
         } else if (lhsDataType == FormulaDateTime.class) {
             String diff = String.format(hooks.sqlSubtractTwoTimestamps(), args[1], args[0]);
-            String interval = String.format(hooks.sqlIntervalFromSeconds(), diff+"*86400");
+            String interval = String.format(hooks.sqlIntervalFromSeconds(), diff+"*86400"); // SubtractTwoTimestamps returns days
             sql = hooks.sqlIntervalToDurationString(interval, true, null);
         } else {
             throw new UnsupportedOperationException();
@@ -150,34 +150,34 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
         }    
     }
 
-
     public static class FunctionFormatDurationCommand extends AbstractFormulaCommand {
-		private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1L;
 
-	    private int kids;
-		public FunctionFormatDurationCommand(FormulaCommandInfo info, int kids) {
+        private int kids;
+
+        public FunctionFormatDurationCommand(FormulaCommandInfo info, int kids) {
             super(info);
             this.kids = kids;
         }
-		
+
         @Override
         public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
             Object rhs = stack.pop();
             Long numSeconds = null;
             boolean includeDays = false;
             if (kids == 1) {
-                BigDecimal amt = checkNumberType(rhs);  // not really rhs.
+                BigDecimal amt = checkNumberType(rhs); // not really rhs.
                 numSeconds = amt != null ? amt.longValue() : null;
             } else {
                 Object lhs = stack.pop();
                 if (lhs instanceof BigDecimal) {
-                    BigDecimal amt = checkNumberType(lhs);  // not really rhs.
+                    BigDecimal amt = checkNumberType(lhs); 
                     numSeconds = amt.longValue();
                     includeDays = checkBooleanType(rhs) == Boolean.TRUE;
                 } else if (lhs instanceof FormulaTime) {
-                    FormulaTime lhsTime = (FormulaTime) lhs;
-                    FormulaTime rhsTime = (FormulaTime) rhs;
-                    numSeconds = rhsTime != null ? (rhsTime.getTimeInSeconds() - lhsTime.getTimeInSeconds()) : null;  
+                    FormulaTime lhsTime = (FormulaTime)lhs;
+                    FormulaTime rhsTime = (FormulaTime)rhs;
+                    numSeconds = rhsTime != null ? (rhsTime.getTimeInSeconds() - lhsTime.getTimeInSeconds()) : null;
                 } else if (lhs instanceof FormulaDateTime) {
                     FormulaDateTime lhsDate = checkDateTimeType(lhs);
                     FormulaDateTime rhsDate = checkDateTimeType(rhs);
@@ -189,12 +189,14 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
             if (numSeconds == null) {
                 stack.push(null);
                 return;
-            }            
-            
+            }
+
+            // java.time doesn't include a suitable DurationFormat and using ICU4J is not easy
             String result;
             numSeconds = Math.abs(numSeconds);
             if (includeDays) {
-                result = String.format("%d:%02d:%02d:%02d", numSeconds / 86400, (numSeconds / 3600) % 24, (numSeconds / 60) % 60, numSeconds % 60);
+                result = String.format("%d:%02d:%02d:%02d", numSeconds / 86400, (numSeconds / 3600) % 24,
+                        (numSeconds / 60) % 60, numSeconds % 60);
             } else {
                 result = String.format("%02d:%02d:%02d", (numSeconds / 3600), (numSeconds / 60) % 60, numSeconds % 60);
             }
