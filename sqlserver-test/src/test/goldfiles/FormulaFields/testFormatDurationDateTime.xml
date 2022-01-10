@@ -17,7 +17,6 @@
          <sqlNullAsNull>0:00:02:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 1461:00:00:00 does not equal viaSql 0:00:00:00 -->
       <inputvalues>[2004:02:28:10:34:00, 2008:02:28:10:34:00]</inputvalues>
          <formula>1461:00:00:00</formula>
          <sql>0:00:00:00</sql>
@@ -60,7 +59,6 @@
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Arithmetic overflow error converting expression to data type int. -->
       <inputvalues>[3999:02:28:10:34:00, 1780:02:28:10:34:00]</inputvalues>
          <formula>810473:00:00:00</formula>
          <sql>Error: Arithmetic overflow error converting expression to data type int.</sql>
