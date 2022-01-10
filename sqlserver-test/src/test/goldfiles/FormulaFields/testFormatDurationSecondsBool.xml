@@ -2,11 +2,11 @@
 <testCase name="testFormatDurationSecondsBool">
    <testInstance formula="FORMATDURATION(customNumber1__c, customcheckbox1__c)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>IIF(DATEADD(second, ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1), '1970-01-01') IS NULL, NULL, CONCAT(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN CONCAT(DATEPART(dy,DATEADD(second, ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1), '1970-01-01'))-1,':') ELSE '' END, CONVERT(VARCHAR,DATEADD(second, ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1), '1970-01-01'),108)))</Sql>
+       <Sql>IIF(ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1) IS NULL, NULL, CONCAT(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN CONCAT(CONVERT(int,(ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1))/86400),':',FORMAT(CONVERT(int,((ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1))/3600)%24),'00')) ELSE FORMAT(CONVERT(int,ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1)/3600),'########00') END,':',FORMAT(CONVERT(int,((ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1))%60),'00')))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>IIF(DATEADD(second, ROUND(ABS($!s0s!$.customNumber1__c),0,1), '1970-01-01') IS NULL, NULL, CONCAT(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN CONCAT(DATEPART(dy,DATEADD(second, ROUND(ABS($!s0s!$.customNumber1__c),0,1), '1970-01-01'))-1,':') ELSE '' END, CONVERT(VARCHAR,DATEADD(second, ROUND(ABS($!s0s!$.customNumber1__c),0,1), '1970-01-01'),108)))</Sql>
+       <Sql>IIF(ROUND(ABS($!s0s!$.customNumber1__c),0,1) IS NULL, NULL, CONCAT(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN CONCAT(CONVERT(int,(ROUND(ABS($!s0s!$.customNumber1__c),0,1))/86400),':',FORMAT(CONVERT(int,((ROUND(ABS($!s0s!$.customNumber1__c),0,1))/3600)%24),'00')) ELSE FORMAT(CONVERT(int,ROUND(ABS($!s0s!$.customNumber1__c),0,1)/3600),'########00') END,':',FORMAT(CONVERT(int,((ROUND(ABS($!s0s!$.customNumber1__c),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS($!s0s!$.customNumber1__c),0,1))%60),'00')))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -89,9 +89,9 @@
       <result>
       <inputvalues>[86400, FALSE]</inputvalues>
          <formula>24:00:00</formula>
-         <sql>00:00:00</sql>
+         <sql>24:00:00</sql>
          <formulaNullAsNull>24:00:00</formulaNullAsNull>
-         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+         <sqlNullAsNull>24:00:00</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1000000, TRUE]</inputvalues>
@@ -103,9 +103,9 @@
       <result>
       <inputvalues>[1000000, FALSE]</inputvalues>
          <formula>277:46:40</formula>
-         <sql>13:46:40</sql>
+         <sql>277:46:40</sql>
          <formulaNullAsNull>277:46:40</formulaNullAsNull>
-         <sqlNullAsNull>13:46:40</sqlNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1000000, TRUE]</inputvalues>
@@ -117,9 +117,9 @@
       <result>
       <inputvalues>[-1000000, FALSE]</inputvalues>
          <formula>277:46:40</formula>
-         <sql>13:46:40</sql>
+         <sql>277:46:40</sql>
          <formulaNullAsNull>277:46:40</formulaNullAsNull>
-         <sqlNullAsNull>13:46:40</sqlNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

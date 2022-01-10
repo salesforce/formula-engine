@@ -2,11 +2,11 @@
 <testCase name="testFormatDurationTime">
    <testInstance formula="FORMATDURATION(TimeValue(timeString2__c),TimeValue(timeString1__c))" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>CONVERT(VARCHAR,DATEADD(second, ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1), '1970-01-01'),108)</Sql>
+       <Sql>IIF(ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1) IS NULL, NULL, CONCAT(FORMAT(CONVERT(int,ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1)/3600),'########00'),':',FORMAT(CONVERT(int,((ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1))%60),'00')))</Sql>
        <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CONVERT(VARCHAR,DATEADD(second, ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1), '1970-01-01'),108)</Sql>
+       <Sql>IIF(ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1) IS NULL, NULL, CONCAT(FORMAT(CONVERT(int,ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1)/3600),'########00'),':',FORMAT(CONVERT(int,((ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1))%60),'00')))</Sql>
        <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
       <result>

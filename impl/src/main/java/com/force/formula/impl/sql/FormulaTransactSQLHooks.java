@@ -235,23 +235,34 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 		return "DATEPART(dayofyear, %s)";
     }
     
+
+    /**
+     * Intervals in oracle aren't helpful, so don't use them.
+     */
     @Override
     default String sqlIntervalFromSeconds() {
-        return "DATEADD(second, ROUND(ABS(%s),0,1), '1970-01-01')";
+        return "ROUND(ABS(%s),0,1)";
+        // return "DATEADD(second, ROUND(ABS(%s),0,1), '1970-01-01')";   // intervals aren't available in sqlserver
     }
-    
+   
+    // Use expensive overcalculating date math.   Sorry, but oracle doesn't support formatting a duration
+    // and the format it does use is difficult to work with if not including days
+    // TODO: Use the interval output and SUBSTR what is needed
     @Override
     default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
         String result;
-        // Getting the "days" is difficult.
         if (daysIsParam != null) {
-            result = "IIF("+arg+" IS NULL, NULL, CONCAT(CASE WHEN "+daysIsParam+" THEN CONCAT(DATEPART(dy,"+arg+")-1,':') ELSE '' END, CONVERT(VARCHAR,"+arg+",108)))";
+            result = "CONCAT(CASE WHEN "+daysIsParam+" THEN CONCAT(CONVERT(int,("+arg+")/86400),':',FORMAT(CONVERT(int,(("+arg+")/3600)%24),'00')) ELSE FORMAT(CONVERT(int,"+arg+"/3600),'########00') END,':',FORMAT(CONVERT(int,(("+arg+")/60)%60),'00'),':',FORMAT(CONVERT(int,("+arg+")%60),'00'))";
+            //result = "IIF("+arg+" IS NULL, NULL, CONCAT(CASE WHEN "+daysIsParam+" THEN CONCAT(DATEPART(dy,"+arg+")-1,':') ELSE '' END, CONVERT(VARCHAR,"+arg+",108)))";
         } else if (includeDays) {
-            result = "IIF("+arg+" IS NULL, NULL, CONCAT(DATEPART(dy,"+arg+")-1,':',CONVERT(VARCHAR,"+arg+",108)))";
+            result = "CONCAT(CONVERT(int,("+arg+")/86400),':',FORMAT(CONVERT(int,("+arg+")/3600%24),'00'),':',FORMAT(CONVERT(int,(("+arg+")/60)%60),'00'),':',FORMAT(CONVERT(int,("+arg+")%60),'00'))";
+            //result = "IIF("+arg+" IS NULL, NULL, CONCAT(DATEPART(dy,"+arg+")-1,':',CONVERT(VARCHAR,"+arg+",108)))";
         } else {
-            result = "CONVERT(VARCHAR,"+arg+",108)";
+            result = "CONCAT(FORMAT(CONVERT(int,"+arg+"/3600),'########00'),':',FORMAT(CONVERT(int,(("+arg+")/60)%60),'00'),':',FORMAT(CONVERT(int,("+arg+")%60),'00'))";
+            //result = "CONVERT(VARCHAR,"+arg+",108)";
         }
-        return result;
+                
+        return "IIF("+arg+" IS NULL, NULL, "+result+")";
     }
     
     @Override
