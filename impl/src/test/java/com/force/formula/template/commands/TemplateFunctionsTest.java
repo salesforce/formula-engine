@@ -3,16 +3,60 @@
  */
 package com.force.formula.template.commands;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.PatternSyntaxException;
 
-import com.force.formula.*;
-import com.force.formula.commands.*;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaEngineHooks;
+import com.force.formula.FormulaEvaluationException;
+import com.force.formula.FormulaFactory;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.MockFormulaType;
+import com.force.formula.MockLocalizerContext;
+import com.force.formula.MockLocalizerContext.MockLocalizer;
+import com.force.formula.ParserTestBase;
+import com.force.formula.commands.FieldReferenceCommandInfo;
+import com.force.formula.commands.FormulaCommandInfo;
+import com.force.formula.commands.FunctionFormat;
+import com.force.formula.commands.FunctionFormatCurrency;
+import com.force.formula.commands.FunctionIsChanged;
+import com.force.formula.commands.FunctionLabel;
+import com.force.formula.commands.FunctionPriorValue;
+import com.force.formula.impl.FormulaCommandTypeRegistryImpl;
+import com.force.formula.impl.FormulaFactoryImpl;
+import com.force.formula.impl.FormulaParseException;
+import com.force.formula.impl.FormulaValidationHooks;
 import com.force.formula.impl.FormulaValidationHooks.ParseOption;
+import com.force.formula.impl.InvalidFunctionReferenceException;
+import com.force.formula.impl.JvmMetrics;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.i18n.BaseLocalizer;
+import com.force.i18n.HumanLanguage;
+import com.force.i18n.LabelSetDescriptorImpl;
+import com.force.i18n.LanguageLabelSetDescriptor.GrammaticalLabelSetDescriptor;
+import com.force.i18n.LanguageProviderFactory;
+import com.force.i18n.grammar.GrammaticalLabelSetProvider;
+import com.force.i18n.grammar.GrammaticalLocalizer;
+import com.force.i18n.grammar.GrammaticalLocalizerFactory;
+import com.force.i18n.grammar.LanguageArticle;
+import com.force.i18n.grammar.LanguageDeclension;
+import com.force.i18n.grammar.LanguageGender;
+import com.force.i18n.grammar.LanguageNumber;
+import com.force.i18n.grammar.LanguageStartsWith;
+import com.force.i18n.grammar.Noun;
+import com.force.i18n.grammar.Noun.NounType;
+import com.force.i18n.grammar.RenamingProvider;
+import com.force.i18n.grammar.RenamingProviderFactory;
+import com.force.i18n.grammar.impl.LanguageDeclensionFactory;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Unit tests for functions normally used in templates for formatting values.
@@ -56,7 +100,10 @@ public class TemplateFunctionsTest extends ParserTestBase {
         types.add(new FunctionTemplate());
         types.add(new FunctionPriorValue());
         types.add(new FunctionIsChanged());
+        types.add(new FunctionLabel());
         types.add(new FieldReferenceCommandInfo());
+
+        types.add(new FunctionRenameable());  // TEST FUNCTION ONLY
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
     }
 
@@ -356,7 +403,89 @@ public class TemplateFunctionsTest extends ParserTestBase {
             FormulaEngine.setFactory(oldFactory);
         }
     }
+     
+    public void testLabel() throws Exception { 
+        // Get some sample labels from grammaticus tests that exercize the various functions
+        RenamingProvider curProvider = RenamingProviderFactory.get().getProvider();
+        URL url = TemplateFunctionsTest.class.getResource("/com/force/formula/impl/labels/labels.xml");
+        HumanLanguage language = LanguageProviderFactory.get().getBaseLanguage();
+        GrammaticalLabelSetDescriptor desc = new LabelSetDescriptorImpl(url, language, "labels", "labels.xml", "names.xml");
+        GrammaticalLabelSetProvider provider = GrammaticalLocalizerFactory.getLoader(MockLocalizerContext.getLabelDesc(), null);
+        
+        GrammaticalLocalizer localizer = new MockLocalizer(Locale.US, Locale.US, TimeZone.getTimeZone("GMT"), language,
+                GrammaticalLocalizerFactory.getLoader(desc, provider).getSet(language));
+        FormulaEngine.setHooks(getHooksOverrideLocalizer(oldHooks, localizer));
+        
+        FormulaFactory oldFactory = FormulaEngine.getFactory();
+        try {
+            FormulaEngine.setFactory(TEST_FACTORY); 
+            
+            
+            // Use the "standard" formula labels for some testing
+            assertEquals("subscript", evaluateString("LABEL(\"FormulaFieldExceptionMessages\",\"subscript\")"));
+            assertEquals("Close Parenthesis", evaluateString("LABEL(\"FormulaFieldOperators\",\"RPAREN\")"));
+            // Test use in format
+            assertEquals("Close Parenthesis", evaluateString("FORMAT(LABEL(\"FormulaFieldOperators\",\"RPAREN\"))"));
+            // Test use in functions
+            assertEquals("su", evaluateString("LEFT(LABEL(\"FormulaFieldExceptionMessages\",\"subscript\"),2)"));
+            // Missing keys generate Missing Labels, but don't error out by default.
+            assertEquals("__MISSING LABEL__", evaluateString("LEFT(LABEL(\"FormulaFieldExceptionMessages\",\"unknown\"),17)"));            
+            try {
+                evaluateString("LEFT(LABEL(\"unknown\",\"unknown\"),17)");
+                fail("Invalid section names cause exceptions");
+            } catch (FormulaEvaluationException ex) {
+                assertEquals("PropertyFile - section unknown not found.", ex.getCause().getMessage());
+            }
+            
+            // Test arguments
+            assertEquals("Show 5 items", evaluateString("LABEL(\"Page_Overviews\",\"hotlist_toggle_list_length\", 5.2)"));
+            assertEquals("Before: 5.2", evaluateString("LABEL(\"List\",\"last_detail\", \"Before\", 5.2)"));
+            assertEquals("An Activity", evaluateString("FORMAT(LABEL(\"Global\",\"aentity\"),RENAMEABLE(\"Activity\"))"));
+            assertEquals("A User", evaluateString("FORMAT(LABEL(\"Global\",\"aentity\"),RENAMEABLE(\"User\"))"));
+            assertEquals("Back to Activity: List View", evaluateString("FORMAT(LABEL(\"List\",\"back_detail\",\"List View\"),RENAMEABLE(\"Activity\"))"));
 
+            // Rename activity and make sure the labels include the right ones.
+            MockRenamingProvider newProvider = new MockRenamingProvider(makeEnglishNoun("Activity", NounType.ENTITY, LanguageStartsWith.CONSONANT,
+                    "Task", "Task"));
+            RenamingProviderFactory.get().setProvider(newProvider);
+            assertEquals("A Task", evaluateString("FORMAT(LABEL(\"Global\",\"aentity\"),RENAMEABLE(\"Activity\"))"));
+            assertEquals("A User", evaluateString("FORMAT(LABEL(\"Global\",\"aentity\"),RENAMEABLE(\"User\"))"));
+            assertEquals("Back to Task: List View", evaluateString("FORMAT(LABEL(\"List\",\"back_detail\",\"List View\"),RENAMEABLE(\"Activity\"))"));
+
+            // Now use german and try the same thing
+            language = LanguageProviderFactory.get().getLanguage(Locale.GERMAN);
+            localizer = new MockLocalizer(Locale.GERMANY, Locale.GERMANY, TimeZone.getTimeZone("GMT"), language,
+                    GrammaticalLocalizerFactory.getLoader(desc, provider).getSet(language));
+            FormulaEngine.setHooks(getHooksOverrideLocalizer(oldHooks, localizer));
+            
+            assertEquals("5 Elemente anzeigen", evaluateString("LABEL(\"Page_Overviews\",\"hotlist_toggle_list_length\", 5.2)"));
+            assertEquals("Before: 5,2", evaluateString("LABEL(\"List\",\"last_detail\", \"Before\", 5.2)"));  // Yes, comma
+            assertEquals("Eine Aktivität", evaluateString("FORMAT(LABEL(\"Global\",\"aentity\"),RENAMEABLE(\"Activity\"))"));
+            assertEquals("Ein Benutzer", evaluateString("FORMAT(LABEL(\"Global\",\"aentity\"),RENAMEABLE(\"User\"))"));
+            assertEquals("Zurück zu Aktivität: Listenansicht", evaluateString("FORMAT(LABEL(\"List\",\"back_detail\",\"Listenansicht\"),RENAMEABLE(\"Activity\"))"));
+
+            language = LanguageProviderFactory.get().getLanguage(Locale.JAPANESE);
+            localizer = new MockLocalizer(Locale.JAPAN, Locale.JAPAN, TimeZone.getTimeZone("GMT"), language,
+                    GrammaticalLocalizerFactory.getLoader(desc, provider).getSet(language));
+            FormulaEngine.setHooks(getHooksOverrideLocalizer(oldHooks, localizer));
+
+            assertEquals("5 件表示する", evaluateString("LABEL(\"Page_Overviews\",\"hotlist_toggle_list_length\", 5.2)"));
+            assertEquals("Before: 5.2", evaluateString("LABEL(\"List\",\"last_detail\", \"Before\", 5.2)"));
+            assertEquals("活動: リストビュー に戻る", evaluateString("FORMAT(LABEL(\"List\",\"back_detail\",\"リストビュー\"),RENAMEABLE(\"Activity\"))"));
+
+        } finally {
+            FormulaEngine.setFactory(oldFactory);
+            RenamingProviderFactory.get().setProvider(curProvider);
+        }
+    }
+
+    protected Noun makeEnglishNoun(String name, NounType type, LanguageStartsWith startsWith, String singular, String plural) {
+        LanguageDeclension decl = LanguageDeclensionFactory.get().getDeclension(LanguageProviderFactory.get().getBaseLanguage());
+        return decl.createNoun(name, type, null, startsWith, LanguageGender.NEUTER,
+                ImmutableMap.of(decl.getNounForm(LanguageNumber.SINGULAR, LanguageArticle.ZERO), singular,
+                        decl.getNounForm(LanguageNumber.PLURAL, LanguageArticle.ZERO), plural));
+    }
+    
     /**
      * Test parsing with other parse options to make sure it returns the right errors
      * @throws Exception

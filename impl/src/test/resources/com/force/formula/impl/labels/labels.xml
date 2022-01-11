@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE iniFile SYSTEM "labels.dtd">
+<iniFile>
+    <section name="Global" all_languages="true">
+        <param name="new">New</param>
+        <param name="activity"><Activity/></param>
+        <param name="myactivity"><My/> <Activity/></param>
+        <param name="aentity"><A/> <Entity entity="0"/></param>
+    </section>
+    <section name="publicsection" all_languages="true" public="true">
+        <param name="file_not_found">File Not Found</param>
+    </section>
+    <section name="List" all_languages="true">
+        <param name="last_detail">{0}: {1}</param>  <!-- 0=EntityTypeName 1=ObjectName-->
+        <param name="back_detail">Back to <Entity entity="0" plural="n"/>: {0}</param>  <!-- 0=EntityTypeName 1=ObjectName-->
+    </section>
+    <section name="Page_Overviews" all_languages="yes">
+        <param name="hotlist_toggle_list_length">Show {0,number,integer} items</param>
+    </section>
+</iniFile>

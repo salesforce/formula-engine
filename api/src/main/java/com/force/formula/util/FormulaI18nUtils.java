@@ -3,8 +3,17 @@ package com.force.formula.util;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import com.force.formula.*;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaEvaluationException;
+import com.force.formula.FormulaInfo;
+import com.force.formula.FormulaReturnType;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaTooLongException;
+import com.force.i18n.BaseLocalizer;
+import com.force.i18n.LabelReference;
+import com.force.i18n.Renameable;
 import com.force.i18n.grammar.GrammaticalLocalizer;
+import com.force.i18n.settings.SettingsSectionNotFoundException;
 import com.google.common.base.Joiner;
 
 /**
@@ -18,6 +27,24 @@ public enum FormulaI18nUtils {
 
     public static GrammaticalLocalizer getLocalizer() {
     	return (GrammaticalLocalizer) FormulaEngine.getHooks().getLocalizer();
+    }
+    
+    /**
+     * Render the given label reference.
+     * @param labelRef the label reference returend from LABEL()
+     * @param nouns optional set of entities that can be used to render renameable nouns.
+     * @return a string representing the label reference for the current localizer's language
+     */
+    public static String renderLabelReference(LabelReference labelRef, Renameable... nouns) {
+        try {
+            BaseLocalizer localizer = FormulaEngine.getHooks().getLocalizer();
+            if (nouns != null && nouns.length > 0) {
+                return ((GrammaticalLocalizer)localizer).getLabel(labelRef.getSection(), nouns, labelRef.getKey(), labelRef.getArguments());
+            }
+            return localizer.getLabel(labelRef.getSection(), labelRef.getKey(), labelRef.getArguments());
+        } catch (SettingsSectionNotFoundException ex) {
+            throw new FormulaEvaluationException(ex);
+        }
     }
     
     /**
@@ -37,8 +64,14 @@ public enum FormulaI18nUtils {
                 String stringValue;
                 if (result instanceof String) {
                     stringValue = (String)result;
-                } else {
+                } else if (result instanceof Object[]) {
                     stringValue = Joiner.on("").useForNull("null").join((Object[])result);
+                } else if (result instanceof LabelReference) {
+                    stringValue = renderLabelReference((LabelReference)result);
+                } else {
+                	// This is an error. A non-text value is being treated as text.  However, instead of throwing an exception
+                	// allow the caller to manage it.
+                	return result;
                 }
 
                 result = stringValue.substring(0, Math.min(stringValue.length(), FormulaInfo.MAX_STRING_VALUE_LENGTH));

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE iniFile SYSTEM "../labels.dtd">
+<iniFile>
+    <section name="Global" all_languages="true">
+        <param name="new">新規</param>
+    </section>
+    <section name="List" all_languages="true">
+        <param name="last_detail">{0}: {1}</param>  <!-- 0=EntityTypeName 1=ObjectName-->
+        <param name="back_detail"><Entity entity="0" plural="n"/>: {0} に戻る</param>  <!-- 0=EntityTypeName 1=ObjectName-->
+    </section>
+    <section name="Page_Overviews" all_languages="true">
+        <param name="hotlist_toggle_list_length">{0,number,integer} 件表示する</param>
+    </section>
+</iniFile>
+

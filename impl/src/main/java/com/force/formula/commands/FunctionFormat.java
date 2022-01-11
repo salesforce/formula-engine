@@ -7,17 +7,37 @@ package com.force.formula.commands;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.text.*;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.MessageFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEvaluationException;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaSchema;
+import com.force.formula.FormulaTime;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaTypeUtils;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
+import com.force.i18n.LabelReference;
+import com.force.i18n.Renameable;
 
 /**
  * Format a value into text in the Grammaticus format, or using a java based format the same as the one
@@ -81,6 +101,7 @@ public class FunctionFormat extends FormulaCommandInfoImpl implements FormulaCom
 
         if ((clazz != ConstantNull.class) && (clazz != RuntimeType.class)
             && (clazz != BigDecimal.class) && (clazz != Date.class) && (clazz != FormulaTime.class)
+            && (clazz != LabelReference.class)
             && (clazz != FormulaDateTime.class) && (!FormulaTypeUtils.isTypeText(clazz)))
             throw new WrongArgumentTypeException(node.getText(), new Type[] { clazz }, toConvert);
 
@@ -89,16 +110,27 @@ public class FunctionFormat extends FormulaCommandInfoImpl implements FormulaCom
             resultType = clazz;
         }
 
-        if (FormulaTypeUtils.isTypeTextUgly(clazz)|| clazz == RuntimeType.class) {
-            // We can have have as many kids as we want here, but they all need to be Strings
+        if (clazz == LabelReference.class) {  // Since LabelReference converts to a string, we have to put it before the isTypeTextUgly check
+            // We can have have as many kids as we want here, but they all need to be entity references
             while (null != (toConvert = (FormulaAST) toConvert.getNextSibling())) {
                 Type clazz2 = toConvert.getDataType();
-                if ((clazz2 != ConstantNull.class) && (!FormulaTypeUtils.isTypeTextUgly(clazz2)) && (clazz2 != Object.class) && clazz2 != RuntimeType.class)
-                    throw new WrongArgumentTypeException(node.getText(), new Type[] { clazz, clazz2 }, toConvert);
+                if ((clazz2 != ConstantNull.class) && clazz2 != FormulaSchema.Entity.class && clazz2 != Renameable.class && clazz2 != RuntimeType.class) {
+                    throw new WrongArgumentTypeException(node.getText(), new Type[] { Renameable.class }, toConvert);
+                }
                 if (clazz2 == RuntimeType.class) {
                     resultType = clazz2;
                 }
-
+            }
+        } else if (FormulaTypeUtils.isTypeTextUgly(clazz) || clazz == RuntimeType.class) {
+            // We can have have as many kids as we want here, but they all need to be Strings
+            while (null != (toConvert = (FormulaAST) toConvert.getNextSibling())) {
+                Type clazz2 = toConvert.getDataType();
+                if ((clazz2 != ConstantNull.class) && (!FormulaTypeUtils.isTypeTextUgly(clazz2)) && (clazz2 != Object.class) && clazz2 != RuntimeType.class) {
+                    throw new WrongArgumentTypeException(node.getText(), new Type[] { clazz, clazz2 }, toConvert);
+                }
+                if (clazz2 == RuntimeType.class) {
+                    resultType = clazz2;
+                }
             }
         } else if (kids == 2) {
             toConvert = (FormulaAST) toConvert.getNextSibling();
@@ -152,6 +184,20 @@ class FunctionFormatCommand extends AbstractFormulaCommand {
                 throw new FormulaEvaluationException(ex);
             }
             return;
+        }
+
+        // If it's a label reference, the arguments are supposed to be renameable, and provided from a formula context value or another
+        // implementation specific function (as renameable entities are very implementation specific)
+        if (first instanceof LabelReference) {
+            Renameable[] renameable = new Renameable[args.length];
+            for (int i = 0; i < args.length; i++) {
+                if (args[i] instanceof Renameable) {
+                    renameable[i] = (Renameable) args[i];
+                }
+                // If the object isn't renameable, just ignore it for now.
+            }
+            stack.push(FormulaI18nUtils.renderLabelReference((LabelReference)first, renameable));
+            return;        	
         }
 
         if (numNodes > 2) {
@@ -217,7 +263,7 @@ class FunctionFormatCommand extends AbstractFormulaCommand {
         stack.push(result);
 
     }
-
+   
 
     private DateFormat getFormatter(String pattern) {
         if (FunctionFormat.LOCAL_TIME.equals(pattern)) {
