@@ -7,9 +7,25 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.force.formula.*;
+import com.force.formula.FieldSetMemberInfo;
+import com.force.formula.FormulaCommand;
+import com.force.formula.FormulaCommandVisitor;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaCurrencyData;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaDmlType;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaFieldReferenceInfo;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.UnsupportedTypeException;
 import com.force.formula.impl.FormulaRuntimeTypeException;
 import com.force.formula.sql.ITableAliasRegistry;
+import com.force.formula.util.FormulaI18nUtils;
+import com.force.i18n.LabelReference;
 
 public abstract class AbstractFormulaCommand implements FormulaCommand {
 
@@ -99,6 +115,8 @@ public abstract class AbstractFormulaCommand implements FormulaCommand {
             return ((FieldSetMemberInfo)obj).getFieldPath();
         } else if (obj instanceof String ) {
         	return obj;
+        } else if (obj instanceof LabelReference) {
+            return FormulaI18nUtils.renderLabelReference((LabelReference)obj);
         }
         return FormulaEngine.getHooks().convertToString(obj);
     }
