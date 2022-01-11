@@ -228,6 +228,8 @@
         <param name="BLANKVALUE_DESCR">Checks whether expression is blank and returns substitute_expression if it is blank. If expression is not blank, returns the original expression value.</param>
         <param name="ROUND">ROUND(number,num_digits)</param>
         <param name="ROUND_DESCR">Rounds a number to a specified number of digits</param>
+        <param name="TRUNC">TRUNC(number,num_digits)</param>
+        <param name="TRUNC_DESCR">Truncates a number to a specified number of digits</param>
         <param name="SQRT">SQRT(number)</param>
         <param name="SQRT_DESCR">Returns the positive square root of a number</param>
         <param name="BEGINS">BEGINS(text, compare_text)</param>
@@ -323,6 +325,8 @@
 
         <param name="CHR">CHR(number)</param>
         <param name="CHR_DESCR">Return a string with the first character's code point as the given number.</param>
+        <param name="ASCII">CHR(text)</param>
+        <param name="ASCII_DESCR">Return the first character's code point from the given string as a number.</param>
 
         <param name="FORMATCURRENCY">FORMATCURRENCY(currencyisocode, number)</param>
         <param name="FORMATCURRENCY_DESCR">Format the given number as a current using the scale of the given currency code, with that code prepended.</param>

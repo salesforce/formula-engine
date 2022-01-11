@@ -16,11 +16,11 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>666</formula>
-         <sql>666.00000000000000000000000000000000</sql>
+         <sql>666</sql>
          <javascript>666</javascript>
          <javascriptLp>666</javascriptLp>
          <formulaNullAsNull>666</formulaNullAsNull>
-         <sqlNullAsNull>666.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>666</sqlNullAsNull>
          <javascriptNullAsNull>666</javascriptNullAsNull>
          <javascriptLpNullAsNull>666</javascriptLpNullAsNull>
       </result>

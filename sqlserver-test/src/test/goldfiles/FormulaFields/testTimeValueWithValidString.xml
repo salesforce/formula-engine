@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTimeValueWithValidString">
+   <testInstance formula="TIMEVALUE(&quot;10:40:55.666&quot;)" returntype="TimeOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST('10:40:55.666' as TIME)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST('10:40:55.666' as TIME)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>10:40:55.666</formula>
+         <sql>10:40:55.666</sql>
+         <formulaNullAsNull>10:40:55.666</formulaNullAsNull>
+         <sqlNullAsNull>10:40:55.666</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

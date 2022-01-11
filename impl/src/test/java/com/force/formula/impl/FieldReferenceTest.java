@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.force.formula.*;
+import com.force.formula.sql.FormulaWithSql;
 import com.google.common.collect.ImmutableSet;
 
 /**
@@ -74,6 +75,23 @@ public class FieldReferenceTest extends BaseFieldReferenceTest {
         assertFalse(formulaInfo.hasAIPredictionFieldReference());
         assertFalse(formulaInfo.referenceEncryptedFields());
         assertTrue(formulaInfo.isDeterministic());
+        FormulaWithSql formula = (FormulaWithSql) formulaInfo.getFormula();
+        assertTrue(formula.isCustomIndexable(context));
+        assertTrue(formula.isDeterministic(context));
+        assertFalse(formula.isPostSaveIndexUpdated(context, null));
+        assertFalse(formula.isStale(context));
+        
+        // Now try one that isn't  deterministic
+        formulaInfo = FormulaEngine.getFactory().create(getFormulaType(), context, "TODAY() > Account.CreatedDate + 7");
+        formula = (FormulaWithSql) formulaInfo.getFormula();
+        assertFalse(formulaInfo.isDeterministic());
+        assertFalse(formula.isCustomIndexable(context));
+        assertFalse(formula.isDeterministic(context));
+        
+        // Now format currency
+        context = setupMockContext(MockFormulaDataType.TEXT);
+        formulaInfo = FormulaEngine.getFactory().create(getFormulaType(), context, "FORMATCURRENCY(Account.CurrencyIsoCode, Account.Amount)");
+        assertTrue(formulaInfo.hasFormatCurrencyCommand());
     }
 
     

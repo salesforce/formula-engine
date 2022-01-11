@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateAllConstantsNonLeap">
+   <testInstance formula="DATE(2011,2,29)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEFROMPARTS(2011,2,29)</Sql>
+       <Guard>1=1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>DATEFROMPARTS(2011,2,29)</Sql>
+       <Guard>1=1</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -411,7 +411,6 @@ public class TemplateFunctionsTest extends ParserTestBase {
         
         FormulaFactory oldFactory = FormulaEngine.getFactory();
         try {
-
             FormulaEngine.setFactory(TEST_FACTORY); 
             
             
@@ -480,4 +479,62 @@ public class TemplateFunctionsTest extends ParserTestBase {
                         decl.getNounForm(LanguageNumber.PLURAL, LanguageArticle.ZERO), plural));
     }
     
+    /**
+     * Test parsing with other parse options to make sure it returns the right errors
+     * @throws Exception
+     */
+    public void testParseTemplateWithBoth() throws Exception {
+    	final AtomicReference<ParseOption> OPTION = new AtomicReference<>(ParseOption.PARSE_USING_BOTH_BUT_RETURN_ANTLR2);
+        FormulaEngine.setHooks(new FormulaValidationHooks() {
+			@Override
+			public BaseLocalizer getLocalizer() {
+				return new MockLocalizerContext.MockLocalizer();
+			}
+
+			@Override
+			public ParseOption parseHook_getParseOption(String formula, FormulaProperties properties) {
+				return OPTION.get();
+			}
+
+			@Override
+			public void parseHook_logParsingMetrics(String formula, FormulaProperties properties,
+					ParsingMetrics parsingMetrics) {
+				FormulaValidationHooks.super.parseHook_logParsingMetrics(formula, properties, parsingMetrics);
+				assertEquals(OPTION.get(), parsingMetrics.parseOption);
+				String diff = JvmMetrics.diff(parsingMetrics.before, parsingMetrics.after).toString();
+				assertNotNull(diff);
+				assertTrue(diff.contains("threadAllocatedBytes=0"));
+			}
+		});
+
+        FormulaFactory oldFactory = FormulaEngine.getFactory();
+        try {
+            FormulaEngine.setFactory(TEST_FACTORY);
+            assertTrue( evaluateBoolean("\"HiHo\"=FORMAT(\"{0}{1}\",\"Hi\",\"Ho\")")); 
+	        String expression = "This is a test of format currency {!formatcurrency(\"USD\", 100.0)}";
+	        assertTemplateFormula("This is a test of format currency USD 100.00", expression);
+
+	        // Do the parse exception and make sure it works.
+	        try {
+	        	evaluateBoolean("\"HiHo\"="); 
+	        } catch (FormulaParseException ex) {
+	        	assertEquals("Syntax error.  Found 'end of formula'", ex.getMessage());
+	        }
+	        OPTION.set(ParseOption.PARSE_USING_BOTH_BUT_RETURN_ANTLR4);
+	        try {
+	        	evaluateBoolean("\"HiHo\"="); 
+	        } catch (FormulaParseException ex) {
+	        	assertEquals("Syntax error.  Found 'end of formula'", ex.getMessage());
+	        }
+	        OPTION.set(ParseOption.PARSE_USING_ANTLR2_ONLY);
+	        try {
+	        	evaluateBoolean("\"HiHo\"="); 
+	        } catch (FormulaParseException ex) {
+	        	assertEquals("Syntax error.  Found 'end of formula'", ex.getMessage());
+	        }
+
+        } finally {
+            FormulaEngine.setFactory(oldFactory);
+        }
+    }
 }

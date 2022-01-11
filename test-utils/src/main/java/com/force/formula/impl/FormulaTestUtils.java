@@ -31,7 +31,7 @@ public class FormulaTestUtils {
     private static final int DEFAULT_PRECISION = 18;
 
 
-    public static enum UPDATE_FLAGS {
+    public enum UPDATE_FLAGS {
         CREATE, UPDATE, NOCREATEUPDATE
     }
 
@@ -41,9 +41,9 @@ public class FormulaTestUtils {
     
     protected FormulaTestCaseInfo constructFormulaTestCaseInfo(String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
             List<FieldDefinitionInfo> referenceFields, String owner, String compareType, String evalContexts,  String compareTemplate,
-            String whyIgnoreSql, boolean multipleResultTypes, Element testCaseElement) {
+            String whyIgnoreSql, String whyIgnoreJs, boolean multipleResultTypes, Element testCaseElement) {
         return new FormulaTestCaseInfo(this, tcName, testLabels, accuracyIssue, tcFormulaFieldInfo, referenceFields, owner, compareType, 
-                evalContexts, compareTemplate, whyIgnoreSql, multipleResultTypes);
+                evalContexts, compareTemplate, whyIgnoreSql, whyIgnoreJs, multipleResultTypes);
     }
 
     /*
@@ -93,6 +93,7 @@ public class FormulaTestUtils {
             String compareTemplate = testCase.getAttribute("compareTemplate");
             String domain = testCase.getAttribute("domain");
             String whyIgnoreSql = testCase.getAttribute("whyIgnoreSql");
+            String whyIgnoreJs = testCase.getAttribute("whyIgnoreJs");
 
             String scale = testCase.getAttribute("scale");
             int tcScale = (scale.length() > 0) ? Integer.parseInt(scale) : DEFAULT_SCALE;
@@ -116,7 +117,7 @@ public class FormulaTestUtils {
             }
 
             FormulaTestCaseInfo tcInfo = constructFormulaTestCaseInfo(tcName, testLabels, accuracyIssue, tcFormulaFieldInfo,
-                referenceFields, owner, compareType, eval, compareTemplate, whyIgnoreSql, swapResultTypes, testCase);
+                referenceFields, owner, compareType, eval, compareTemplate, whyIgnoreSql, whyIgnoreJs, swapResultTypes, testCase);
 
             if (filter != null && !filter.test(tcInfo)) {
                 continue;

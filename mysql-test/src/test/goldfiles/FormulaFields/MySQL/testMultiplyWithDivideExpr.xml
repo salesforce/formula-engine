@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMultiplyWithDivideExpr">
+   <testInstance formula="(customformula0__c*customnumber1__c)" returntype="Currency" precision="12" scale="2">
+   <customformula0 dataType="ColumnType.DOUBLE" formula="(custompercent1__c/customcurrency1__c)"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>(COALESCE((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)/COALESCE($!s0s!$.customcurrency1__c, 0)), 0) * COALESCE($!s0s!$.customnumber1__c, 0))</Sql>
+       <Guard>COALESCE($!s0s!$.customcurrency1__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>((($!s0s!$.custompercent1__c / 100.0)/$!s0s!$.customcurrency1__c) * $!s0s!$.customnumber1__c)</Sql>
+       <Guard>$!s0s!$.customcurrency1__c=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[100, 200, 100]</inputvalues>
+         <formula>0.500</formula>
+         <sql>0.5000000000000000000</sql>
+         <formulaNullAsNull>0.500</formulaNullAsNull>
+         <sqlNullAsNull>0.5000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[4, 4, 4]</inputvalues>
+         <formula>0.04</formula>
+         <sql>0.0400000000000000000</sql>
+         <formulaNullAsNull>0.04</formulaNullAsNull>
+         <sqlNullAsNull>0.0400000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, -1, -1]</inputvalues>
+         <formula>-0.01</formula>
+         <sql>-0.0100000000000000000</sql>
+         <formulaNullAsNull>-0.01</formulaNullAsNull>
+         <sqlNullAsNull>-0.0100000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789, 123456789, 12345678]</inputvalues>
+         <formula>123456.78</formula>
+         <sql>123456.7800000000000000000</sql>
+         <formulaNullAsNull>123456.78</formulaNullAsNull>
+         <sqlNullAsNull>123456.7800000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-9, -22, 10]</inputvalues>
+         <formula>0.04090909090909090909090909090909</formula>
+         <sql>0.0409090909090909091</sql>
+         <formulaNullAsNull>0.04090909090909090909090909090909</formulaNullAsNull>
+         <sqlNullAsNull>0.0409090909090909091</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[9, -6, 10]</inputvalues>
+         <formula>-0.150</formula>
+         <sql>-0.1500000000000000000</sql>
+         <formulaNullAsNull>-0.150</formulaNullAsNull>
+         <sqlNullAsNull>-0.1500000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2, 20]</inputvalues>
+         <formula>0</formula>
+         <sql>0.0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 2, 20]</inputvalues>
+         <formula>0</formula>
+         <sql>0E-19</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0E-19</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.2, 0.02, .002]</inputvalues>
+         <formula>0.0002</formula>
+         <sql>0.00020000000000000000</sql>
+         <formulaNullAsNull>0.0002</formulaNullAsNull>
+         <sqlNullAsNull>0.00020000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.2, 0.002, .02]</inputvalues>
+         <formula>0.02</formula>
+         <sql>0.0200000000000000000</sql>
+         <formulaNullAsNull>0.02</formulaNullAsNull>
+         <sqlNullAsNull>0.0200000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.111, 1.222, 1.333]</inputvalues>
+         <formula>0.01211917348608837970540098199673</formula>
+         <sql>0.01211917348608837971</sql>
+         <formulaNullAsNull>0.01211917348608837970540098199673</formulaNullAsNull>
+         <sqlNullAsNull>0.01211917348608837971</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

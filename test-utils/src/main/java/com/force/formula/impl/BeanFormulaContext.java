@@ -176,7 +176,6 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
             } else {
                 formulaSource = null;
             }
-            int scale = annotation != null ? annotation.scale() : 0;
 
             Entity[] fks = null;
             if (dataType == MockFormulaDataType.ENTITYID) {
@@ -196,6 +195,7 @@ public class BeanFormulaContext extends BaseObjectFormulaContext<Object> {
 					throw new RuntimeException(e);
 				}
             }
+            int scale = annotation != null ? annotation.scale() : 0;
             return new BeanField(entity, desc, dataType, formulaSource, fks, scale, info);
         }
         

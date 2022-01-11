@@ -15,21 +15,21 @@ import com.force.formula.sql.FormulaSqlStyle;
  * @since 140
  */
 public interface FormulaContext extends Tokenizer {
-    public static final String DO_NOT_TREAT_NULLS_AS_STRING = "com.force.formula.DO_NOT_TREAT_NULLS_AS_STRING";
-    public static final String ALLOW_NULL_MAP_KEY = "com.force.formula.ALLOW_NULL_MAP_KEY";
-    public static final String FILTER_ENCRYPTED_FIELDS = "filterEncryptedFields";
-    public static final String DO_NOT_USE_DB_VALUE_FOR_PICKLIST_EVALUATION = "com.force.formula.DO_NOT_USE_DB_VALUE_FOR_PICKLIST_EVALUATION";
-    public static final String SKIP_PERCENT_VALUE_ADJUST = "com.force.formula.SKIP_PERCENT_VALUE_ADJUST";
+    String DO_NOT_TREAT_NULLS_AS_STRING = "com.force.formula.DO_NOT_TREAT_NULLS_AS_STRING";
+    String ALLOW_NULL_MAP_KEY = "com.force.formula.ALLOW_NULL_MAP_KEY";
+    String FILTER_ENCRYPTED_FIELDS = "filterEncryptedFields";
+    String DO_NOT_USE_DB_VALUE_FOR_PICKLIST_EVALUATION = "com.force.formula.DO_NOT_USE_DB_VALUE_FOR_PICKLIST_EVALUATION";
+    String SKIP_PERCENT_VALUE_ADJUST = "com.force.formula.SKIP_PERCENT_VALUE_ADJUST";
     /** When generating javascript or determining references, should formula fields be expanded recursively? If not set, defaults to no. **/
-    public static final String EXPAND_FORMULA_REFERENCES = "com.force.formula.EXPAND_FORMULA_REFERENCES";
-    public static final String FORMULA_FILTER = "common.config.field.FORMULA_FILTER";
-    public static final String CHECK_SQL_LENGTH_LIMIT = "com.force.formula.impl.CHECK_SQL_LENGTH_LIMIT";
-    public static final String HIGHPRECISION_JS = "com.force.formula.impl.HIGHPRECISION_JS";
+    String EXPAND_FORMULA_REFERENCES = "com.force.formula.EXPAND_FORMULA_REFERENCES";
+    String FORMULA_FILTER = "common.config.field.FORMULA_FILTER";
+    String CHECK_SQL_LENGTH_LIMIT = "com.force.formula.impl.CHECK_SQL_LENGTH_LIMIT";
+    String HIGHPRECISION_JS = "com.force.formula.impl.HIGHPRECISION_JS";
     /** See {@link #jsDatesAreStrings} */
-    public static final String JS_DATES_ARE_STRINGS = "com.force.formula.impl.JS_DATES_ARE_STRINGS";
+    String JS_DATES_ARE_STRINGS = "com.force.formula.impl.JS_DATES_ARE_STRINGS";
 
-    public static final String IS_CREATE_OR_EDIT_FORMULA = "com.force.formula.impl.IS_CREATE_OR_EDIT_FORMULA";
-    public static final String FORCE_DISABLED = "com.force.formula.impl.FORCE_DISABLED";
+    String IS_CREATE_OR_EDIT_FORMULA = "com.force.formula.impl.IS_CREATE_OR_EDIT_FORMULA";
+    String FORCE_DISABLED = "com.force.formula.impl.FORCE_DISABLED";
 
     String getName();
 

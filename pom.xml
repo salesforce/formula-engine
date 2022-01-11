@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.salesforce.formula</groupId>
   <artifactId>formula-engine</artifactId>
-  <version>0.1.25-SNAPSHOT</version>
+  <version>0.2.3-SNAPSHOT</version>
   <name>Formula Engine</name>
   <description>
     Implementation of a formula engine in the "salesforce" style, which
@@ -122,31 +122,14 @@
         <artifactId>javax.annotation-api</artifactId>
         <version>${javax.annotation.version}</version>
       </dependency>
-
+      
       <!-- Embedded postgres validation -->
       <dependency>
         <groupId>io.zonky.test</groupId>
         <artifactId>embedded-postgres</artifactId>
         <version>${embedded-postgres.version}</version>
       </dependency>
-
-      <!-- Dockerized mysql validation -->
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>oracle-xe</artifactId>
-        <version>${testcontainers.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>mysql</artifactId>
-        <version>${testcontainers.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>postgresql</artifactId>
-        <version>${testcontainers.version}</version>
-      </dependency>
-
+      
       <!-- GraalJS impl -->
       <dependency>
         <groupId>org.graalvm.sdk</groupId>
@@ -503,6 +486,8 @@
         <module>impl</module>
         <module>test-utils</module>
         <module>oracle-test</module>
+        <module>mysql-test</module>
+        <module>sqlserver-test</module>
         <module>docs/coverage</module>
       </modules>
     </profile>

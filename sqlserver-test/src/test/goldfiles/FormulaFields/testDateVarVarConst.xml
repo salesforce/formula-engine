@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateVarVarConst">
+   <testInstance formula="DATE(customnumber1__c,customnumber2__c,28)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEFROMPARTS(CAST(FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) AS VARCHAR),CAST(FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) AS VARCHAR),28)</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0) is null OR COALESCE($!s0s!$.customnumber1__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber1__c, 0)&gt; 9999 OR COALESCE($!s0s!$.customnumber2__c, 0) is null  OR FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= DAY(EOMONTH(DATEFROMPARTS(FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)),FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)),1)))+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customnumber1__c IS NULL THEN NULL WHEN $!s0s!$.customnumber2__c IS NULL THEN NULL ELSE DATEFROMPARTS(CAST(FLOOR($!s0s!$.customnumber1__c) AS VARCHAR),CAST(FLOOR($!s0s!$.customnumber2__c) AS VARCHAR),28) END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber1__c IS NULL OR $!s0s!$.customnumber2__c IS NULL ) AND ($!s0s!$.customnumber1__c is null OR $!s0s!$.customnumber1__c&lt; 1 OR $!s0s!$.customnumber1__c&gt; 9999 OR $!s0s!$.customnumber2__c is null  OR FLOOR($!s0s!$.customnumber2__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= DAY(EOMONTH(DATEFROMPARTS(FLOOR($!s0s!$.customnumber1__c),FLOOR($!s0s!$.customnumber2__c),1)))+1 )</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2007, 2, 29]</inputvalues>
+         <formula>Wed Feb 28 00:00:00 GMT 2007</formula>
+         <sql>2007-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Wed Feb 28 00:00:00 GMT 2007</formulaNullAsNull>
+         <sqlNullAsNull>2007-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2008, 2, 29]</inputvalues>
+         <formula>Thu Feb 28 00:00:00 GMT 2008</formula>
+         <sql>2008-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Feb 28 00:00:00 GMT 2008</formulaNullAsNull>
+         <sqlNullAsNull>2008-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2007, 3, 32]</inputvalues>
+         <formula>Wed Mar 28 00:00:00 GMT 2007</formula>
+         <sql>2007-03-28 00:00:00.0</sql>
+         <formulaNullAsNull>Wed Mar 28 00:00:00 GMT 2007</formulaNullAsNull>
+         <sqlNullAsNull>2007-03-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10000, 3, 2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[9999, 12, 31]</inputvalues>
+         <formula>Tue Dec 28 00:00:00 GMT 9999</formula>
+         <sql>9999-12-28 00:00:00.0</sql>
+         <formulaNullAsNull>Tue Dec 28 00:00:00 GMT 9999</formulaNullAsNull>
+         <sqlNullAsNull>9999-12-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10000, 1, 1]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1000, 3, 2]</inputvalues>
+         <formula>Thu Mar 28 00:00:00 GMT 1000</formula>
+         <sql>1000-03-28 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Mar 28 00:00:00 GMT 1000</formulaNullAsNull>
+         <sqlNullAsNull>1000-03-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2010, , 29]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2010, 2, ]</inputvalues>
+         <formula>Sun Feb 28 00:00:00 GMT 2010</formula>
+         <sql>2010-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Sun Feb 28 00:00:00 GMT 2010</formulaNullAsNull>
+         <sqlNullAsNull>2010-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2, 29]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2010, 0, 2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2010, , ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2, ]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , 11]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009.5, 3, 2]</inputvalues>
+         <formula>Sat Mar 28 00:00:00 GMT 2009</formula>
+         <sql>2009-03-28 00:00:00.0</sql>
+         <formulaNullAsNull>Sat Mar 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-03-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 3.5, 2]</inputvalues>
+         <formula>Sat Mar 28 00:00:00 GMT 2009</formula>
+         <sql>2009-03-28 00:00:00.0</sql>
+         <formulaNullAsNull>Sat Mar 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-03-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 3, 2.5]</inputvalues>
+         <formula>Sat Mar 28 00:00:00 GMT 2009</formula>
+         <sql>2009-03-28 00:00:00.0</sql>
+         <formulaNullAsNull>Sat Mar 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-03-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 12.5, 31.5]</inputvalues>
+         <formula>Mon Dec 28 00:00:00 GMT 2009</formula>
+         <sql>2009-12-28 00:00:00.0</sql>
+         <formulaNullAsNull>Mon Dec 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-12-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 12, 32.1]</inputvalues>
+         <formula>Mon Dec 28 00:00:00 GMT 2009</formula>
+         <sql>2009-12-28 00:00:00.0</sql>
+         <formulaNullAsNull>Mon Dec 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-12-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 12, 0.9]</inputvalues>
+         <formula>Mon Dec 28 00:00:00 GMT 2009</formula>
+         <sql>2009-12-28 00:00:00.0</sql>
+         <formulaNullAsNull>Mon Dec 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-12-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 0.9, 26]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-2009, 2, 3]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, -3, 4]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 3, -4]</inputvalues>
+         <formula>Sat Mar 28 00:00:00 GMT 2009</formula>
+         <sql>2009-03-28 00:00:00.0</sql>
+         <formulaNullAsNull>Sat Mar 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-03-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-2009.2, 3, 2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, -3.2, 4]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2009, 2, -4.2]</inputvalues>
+         <formula>Sat Feb 28 00:00:00 GMT 2009</formula>
+         <sql>2009-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Sat Feb 28 00:00:00 GMT 2009</formulaNullAsNull>
+         <sqlNullAsNull>2009-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 2, 2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012, 0, 2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012, 2, 0]</inputvalues>
+         <formula>Tue Feb 28 00:00:00 GMT 2012</formula>
+         <sql>2012-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Tue Feb 28 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2013, 2, 29]</inputvalues>
+         <formula>Thu Feb 28 00:00:00 GMT 2013</formula>
+         <sql>2013-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Feb 28 00:00:00 GMT 2013</formulaNullAsNull>
+         <sqlNullAsNull>2013-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2013, 2, 28]</inputvalues>
+         <formula>Thu Feb 28 00:00:00 GMT 2013</formula>
+         <sql>2013-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Thu Feb 28 00:00:00 GMT 2013</formulaNullAsNull>
+         <sqlNullAsNull>2013-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2016, 2, 28]</inputvalues>
+         <formula>Sun Feb 28 00:00:00 GMT 2016</formula>
+         <sql>2016-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Sun Feb 28 00:00:00 GMT 2016</formulaNullAsNull>
+         <sqlNullAsNull>2016-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2016, 2, 29]</inputvalues>
+         <formula>Sun Feb 28 00:00:00 GMT 2016</formula>
+         <sql>2016-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Sun Feb 28 00:00:00 GMT 2016</formulaNullAsNull>
+         <sqlNullAsNull>2016-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2016, 2, 30]</inputvalues>
+         <formula>Sun Feb 28 00:00:00 GMT 2016</formula>
+         <sql>2016-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Sun Feb 28 00:00:00 GMT 2016</formulaNullAsNull>
+         <sqlNullAsNull>2016-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

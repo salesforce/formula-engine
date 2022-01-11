@@ -22,7 +22,7 @@ import junit.framework.TestSuite;
  * @since 0.2
  */
 @RunWith(AllTests.class)
-public class TestExtendedFormulas extends FormulaPostgresTests {
+public class TestExtendedFormulas extends FormulaPostgreSQLTests {
 
     public TestExtendedFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
         super("ExtendedFormulaTests");
@@ -52,6 +52,12 @@ public class TestExtendedFormulas extends FormulaPostgresTests {
 			// TODO: AddMonths in javascript doesn't handle leap year + daylight savings + last day of month.
 			return true;
 		}
+		if ("testFormatCurrency".equals(testName)) {
+			// TODO: The negative sign shows up in front of the code in javascript.  
+			// "-USD 100.00" instead of "USD -100.00"
+			return true;
+		}
+
 		if ("testInitCap".equals(testName)) {
 			// TODO: Initcap function doesn't handle decomposed dotted I correctly.
 			return true;

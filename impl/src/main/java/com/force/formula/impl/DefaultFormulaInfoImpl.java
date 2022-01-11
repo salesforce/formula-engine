@@ -23,17 +23,7 @@ public final class DefaultFormulaInfoImpl extends BaseFormulaInfoImpl implements
 			boolean existingFormula, boolean forceDisabled, boolean isCreateOrEditFormula) throws FormulaException {
 		super(context, originalSource, properties, existingFormula, forceDisabled, isCreateOrEditFormula);
 	}
-
-	@Override
-	public boolean referenceEncryptedFields() {
-		return false;
-	}
-
-	@Override
-	public boolean hasFormatCurrencyCommand() {
-		return false;
-	}
-
+	
 	@Override
 	public FormulaWithSql getFormula() throws FormulaException {
 		return (FormulaWithSql) super.getFormula();

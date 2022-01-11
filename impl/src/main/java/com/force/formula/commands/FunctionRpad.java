@@ -32,8 +32,9 @@ public class FunctionRpad extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = node.getNumberOfChildren() == 3 ? "RPAD(" + args[0] + ", GREATEST(" + getSqlHooks(context).sqlRoundScaleArg(args[1]) + ", 0), " + args[2]+ ")"
-            : "RPAD(" + args[0] + ", GREATEST(" + getSqlHooks(context).sqlRoundScaleArg(args[1]) + ", 0))";
+        FormulaSqlHooks hooks = getSqlHooks(context);
+        String amount = hooks.sqlEnsurePositive(hooks.sqlRoundScaleArg(args[1]));  // prevent negative numbers
+        String sql = hooks.sqlRpad(args[0], amount, node.getNumberOfChildren() == 3 ? args[2] : null);
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

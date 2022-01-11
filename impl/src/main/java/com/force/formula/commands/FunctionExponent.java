@@ -9,8 +9,7 @@ import java.math.BigDecimal;
 import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.FormulaAST;
-import com.force.formula.impl.JsValue;
+import com.force.formula.impl.*;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -38,13 +37,9 @@ public class FunctionExponent extends UnaryMathCommandBehavior {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
-        if (context.getSqlStyle() != null && context.getSqlStyle().isPostgresStyle()) {
-            // tests showed double precision was only 2.5% faster than numeric (i.e. the rest of
-            // the query processing machinery dominates, so go for max precision
-            return new SQLPair("EXP(" + args[0] + "::numeric(40,20))", guards[0]);
-        } else {
-            return new SQLPair("EXP(" + args[0] + ")", guards[0]);
-        }
+    	FormulaSqlHooks hooks = (FormulaSqlHooks) context.getSqlStyle();
+    	String sql = hooks.sqlExponent(args[0]);
+        return new SQLPair(sql, guards[0]);
     }
     
     @Override

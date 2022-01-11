@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFunctionLeft">
+   <testInstance formula="LEFT(customtext__c, customnumber__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>SUBSTRING($!s0s!$.customtext__c, 1, ((COALESCE($!s0s!$.customnumber__c, 0) + ABS(COALESCE($!s0s!$.customnumber__c, 0)))/2))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>SUBSTRING($!s0s!$.customtext__c, 1, (($!s0s!$.customnumber__c + ABS($!s0s!$.customnumber__c))/2))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[123456, 1]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, 2]</inputvalues>
+         <formula>12</formula>
+         <sql>12</sql>
+         <formulaNullAsNull>12</formulaNullAsNull>
+         <sqlNullAsNull>12</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, 0]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, 6]</inputvalues>
+         <formula>123456</formula>
+         <sql>123456</sql>
+         <formulaNullAsNull>123456</formulaNullAsNull>
+         <sqlNullAsNull>123456</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, 7]</inputvalues>
+         <formula>123456</formula>
+         <sql>123456</sql>
+         <formulaNullAsNull>123456</formulaNullAsNull>
+         <sqlNullAsNull>123456</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, -1]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, -10]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 1]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, 1]</inputvalues>
+         <formula>会</formula>
+         <sql>会</sql>
+         <formulaNullAsNull>会</formulaNullAsNull>
+         <sqlNullAsNull>会</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, 2]</inputvalues>
+         <formula>会计</formula>
+         <sql>会计</sql>
+         <formulaNullAsNull>会计</formulaNullAsNull>
+         <sqlNullAsNull>会计</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, 0]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, 8]</inputvalues>
+         <formula>会计年度开始月份</formula>
+         <sql>会计年度开始月份</sql>
+         <formulaNullAsNull>会计年度开始月份</formulaNullAsNull>
+         <sqlNullAsNull>会计年度开始月份</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, 10]</inputvalues>
+         <formula>会计年度开始月份</formula>
+         <sql>会计年度开始月份</sql>
+         <formulaNullAsNull>会计年度开始月份</formulaNullAsNull>
+         <sqlNullAsNull>会计年度开始月份</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, -1]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, -10]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[会计年度开始月份, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

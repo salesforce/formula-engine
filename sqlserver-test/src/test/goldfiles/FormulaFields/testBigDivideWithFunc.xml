@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBigDivideWithFunc">
+   <testInstance formula="( ( (customnumber1__c * customnumber2__c )/(value(text(customnumber2__c )) ^ customnumber2__c ) )*(customnumber3__c ^ customnumber3__c ))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>(((COALESCE($!s0s!$.customnumber1__c, 0) * COALESCE($!s0s!$.customnumber2__c, 0))/CAST(POWER(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS VARCHAR)) AS DECIMAL(38,18)), COALESCE($!s0s!$.customnumber2__c, 0)) AS DECIMAL(38,10))) * CAST(POWER(COALESCE($!s0s!$.customnumber3__c, 0), COALESCE($!s0s!$.customnumber3__c, 0)) AS DECIMAL(38,10)))</Sql>
+       <Guard>ROUND(COALESCE($!s0s!$.customnumber3__c, 0),0,1)&lt;&gt;COALESCE($!s0s!$.customnumber3__c, 0) OR(COALESCE($!s0s!$.customnumber3__c, 0)&lt;&gt;0 AND LOG10(ABS(COALESCE($!s0s!$.customnumber3__c, 0)))*COALESCE($!s0s!$.customnumber3__c, 0)&gt;38) OR NOT ISNUMERIC((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS VARCHAR)))=1 OR ROUND(COALESCE($!s0s!$.customnumber2__c, 0),0,1)&lt;&gt;COALESCE($!s0s!$.customnumber2__c, 0) OR(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS VARCHAR)) AS DECIMAL(38,18))&lt;&gt;0 AND LOG10(ABS(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS VARCHAR)) AS DECIMAL(38,18))))*COALESCE($!s0s!$.customnumber2__c, 0)&gt;38) OR CAST(POWER(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS VARCHAR)) AS DECIMAL(38,18)), COALESCE($!s0s!$.customnumber2__c, 0)) AS DECIMAL(38,10))=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>((($!s0s!$.customnumber1__c * $!s0s!$.customnumber2__c)/CAST(POWER(CAST((CAST($!s0s!$.customnumber2__c AS VARCHAR)) AS DECIMAL(38,18)), $!s0s!$.customnumber2__c) AS DECIMAL(38,10))) * CAST(POWER($!s0s!$.customnumber3__c, $!s0s!$.customnumber3__c) AS DECIMAL(38,10)))</Sql>
+       <Guard>ROUND($!s0s!$.customnumber3__c,0,1)&lt;&gt;$!s0s!$.customnumber3__c OR($!s0s!$.customnumber3__c&lt;&gt;0 AND LOG10(ABS($!s0s!$.customnumber3__c))*$!s0s!$.customnumber3__c&gt;38) OR NOT ISNUMERIC((CAST($!s0s!$.customnumber2__c AS VARCHAR)))=1 OR ROUND($!s0s!$.customnumber2__c,0,1)&lt;&gt;$!s0s!$.customnumber2__c OR(CAST((CAST($!s0s!$.customnumber2__c AS VARCHAR)) AS DECIMAL(38,18))&lt;&gt;0 AND LOG10(ABS(CAST((CAST($!s0s!$.customnumber2__c AS VARCHAR)) AS DECIMAL(38,18))))*$!s0s!$.customnumber2__c&gt;38) OR CAST(POWER(CAST((CAST($!s0s!$.customnumber2__c AS VARCHAR)) AS DECIMAL(38,18)), $!s0s!$.customnumber2__c) AS DECIMAL(38,10))=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[1, 1, 1]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 0, 0]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, 10, 10]</inputvalues>
+         <formula>100.00000000</formula>
+         <sql>100</sql>
+         <formulaNullAsNull>100.00000000</formulaNullAsNull>
+         <sqlNullAsNull>100</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 10, 10]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, , 10]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, 10, ]</inputvalues>
+         <formula>0.00000001</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , 10]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, , ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 10, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , , ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.1, 1.1, 1.1]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 49, 1.49, 1.49]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.5, 1.5, 1.5]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 99, 1.99, 1.99]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.01, 0.01, 0.01]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -53,6 +53,15 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 	IOException {
 		super(name, "labels", true);
 	}
+		
+	protected String getDbTypeName() {
+		try {
+			DbTester dbTester = getDbTester();
+			return dbTester.getDbTypeName();
+		} catch (IOException | SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 	private DbTester dbTester;
 	// Simplify set of the db by creating one per suite.
@@ -129,7 +138,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		 * @return whether for a give test, the values from the SL engine should be compared
 		 */
 		protected boolean shouldCompareSql() {
-			return shouldTestSql() && !getTestCaseInfo().ignoreSql();
+			return shouldTestSql() && null == getTestCaseInfo().whyIgnoreSql(((FormulaGenericTests)getSuite()).getDbTypeName());
 		}
 		
 		@Override
@@ -213,7 +222,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		 */
 		private String evaluateSql(FormulaRuntimeContext formulaContext, Map<String, Object> entityObject, String formulaSource, boolean nullAsNull) {
 			try {
-				return ((FormulaGenericTests)getSuite()).getDbTester().evaluateSql(formulaContext, entityObject, formulaSource, nullAsNull);
+				return ((FormulaGenericTests)getSuite()).getDbTester().evaluateSql(getName(), formulaContext, entityObject, formulaSource, nullAsNull);
 			} catch (Throwable e) {
 				logger.log(Level.FINER, "Error in sql", e);
 				return "Error: " + e.getMessage();
@@ -302,14 +311,21 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			c.setTime(viaFormulaDate);
 			return c;
 		}
+		
+		/**
+		 * @return the error message to mark as an exception, or "null" if you want to ignore the error
+		 * in this case
+		 * @param errorViaSql the error returned from sql
+		 * @param viaFormula the value via formula
+		 */
+		protected String getSqlErrorMessageResult(String errorViaSql, String viaFormula) {
+    		return "SQL had an error that didn't affect Java: " + errorViaSql; 
+		}
 
 		//  Determine if all paths resulted in same value (modulo various expected differences!)
 		//  returning null means success.
 		private String verifyMultiplePath(
 				FieldDefinitionInfo fieldInfo, String viaFormula, String viaSql, String viaJavascript, String viaJavascriptLp, boolean nullIsNull) {
-
-			final CompareType compareType = getTestCaseInfo().getCompareType();
-
 			// If any of them generated a result with an error message, don't compare.
 
 			if (hasErrorMessage(viaFormula)) {
@@ -317,7 +333,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			}
             if (hasErrorMessage(viaSql)) {
             	if (shouldCompareSql()) {
-            		return "SQL had an error that didn't affect Java: " + viaSql; 
+            		return getSqlErrorMessageResult(viaSql, viaFormula); 
             	} else {
             		return null;  // It's an error, but just leave it.
             	}
@@ -340,7 +356,6 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 					}
 				}
             }
-
 
 			// If one is null, they all should be (except template should be "")
 			if (viaFormula == null || (shouldCompareSql() && viaSql == null)) {
@@ -366,6 +381,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
                 }
 			}
 
+			final CompareType compareType = getTestCaseInfo().getCompareType();
 			// So we know all non-null for the rest... (except template maybe)
 			if (compareType == CompareType.Number || compareType == CompareType.Approximate) {
 				try {

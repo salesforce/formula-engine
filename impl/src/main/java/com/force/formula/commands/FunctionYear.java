@@ -30,7 +30,10 @@ public class FunctionYear extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String sql = "EXTRACT (YEAR FROM " + args[0] + ")";
+    	if (context.getSqlStyle().isTransactSqlStyle()) {
+    		return new SQLPair("YEAR(" + args[0] + ")", guards[0]);
+    	}
+        String sql = "EXTRACT(YEAR FROM " + args[0] + ")";
         if (getSqlHooks(context).isPostgresStyle()) {
             sql = sql + "::numeric";
         }

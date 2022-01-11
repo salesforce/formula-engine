@@ -38,7 +38,7 @@ public interface FormulaTypeWithDomain extends Type, ParameterizedType{
      * Allows additional annotation to be an specialized sobjectrow self reference.
      * @author stamm
      */
-    public interface IdType extends FormulaTypeWithDomain {
+    interface IdType extends FormulaTypeWithDomain {
     	
     	/**
     	 * @return the set of entities that represent the domain

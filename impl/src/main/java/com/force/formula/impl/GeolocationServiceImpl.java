@@ -98,7 +98,7 @@ public class GeolocationServiceImpl implements FormulaGeolocationService  {
 
         private final String initial;
 
-        private CardinalPoint(final String initial) { this.initial = initial; }
+        CardinalPoint(final String initial) { this.initial = initial; }
         
         private String getInitial() { return this.initial; }
     }

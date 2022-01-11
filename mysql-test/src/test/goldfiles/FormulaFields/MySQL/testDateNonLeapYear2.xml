@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateNonLeapYear2">
+   <testInstance formula="DATE(2011,month__c,29)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE(CONCAT(2011,'-',CONVERT(FLOOR(COALESCE($!s0s!$.month__c, 0)),CHAR),'-',29))</Sql>
+       <Guard>COALESCE($!s0s!$.month__c, 0) is null  OR FLOOR(COALESCE($!s0s!$.month__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR FLOOR(COALESCE($!s0s!$.month__c, 0))=2</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.month__c IS NULL THEN NULL ELSE DATE(CONCAT(2011,'-',CONVERT(FLOOR($!s0s!$.month__c),CHAR),'-',29)) END</Sql>
+       <Guard>NOT ($!s0s!$.month__c IS NULL ) AND ($!s0s!$.month__c is null  OR FLOOR($!s0s!$.month__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR FLOOR($!s0s!$.month__c)=2)</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>Sat Jan 29 00:00:00 GMT 2011</formula>
+         <sql>2011-01-29 00:00:00.0</sql>
+         <formulaNullAsNull>Sat Jan 29 00:00:00 GMT 2011</formulaNullAsNull>
+         <sqlNullAsNull>2011-01-29 00:00:00.0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

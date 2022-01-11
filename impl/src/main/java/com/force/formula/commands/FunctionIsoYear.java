@@ -43,7 +43,8 @@ public class FunctionIsoYear extends FormulaCommandInfoImpl implements FormulaCo
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        return new SQLPair(String.format(getSqlHooks(context).sqlGetIsoYear(), args[0]), guards[0]);
+    	// Pass in the date twice because sqlserver uses is
+        return new SQLPair(String.format(getSqlHooks(context).sqlGetIsoYear(), args[0], args[0]), guards[0]);
     }
   
     @Override

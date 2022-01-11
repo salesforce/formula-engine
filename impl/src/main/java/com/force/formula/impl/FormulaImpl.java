@@ -15,8 +15,7 @@ import com.force.formula.commands.ConstantString.StringWrapper;
 import com.force.formula.commands.FormulaCommandInfoRegistry;
 import com.force.formula.commands.FunctionDateValue.OperatorDateValueFormulaCommand;
 import com.force.formula.commands.FunctionNullValue.FunctionNullValueFormulaCommand;
-import com.force.formula.sql.FormulaTableRegistry;
-import com.force.formula.sql.FormulaWithSql;
+import com.force.formula.sql.*;
 import com.force.formula.util.FormulaI18nUtils;
 
 /**
@@ -29,12 +28,8 @@ public class FormulaImpl implements FormulaWithSql {
 
     private static final long serialVersionUID = 1L;
 
-    public FormulaImpl() {
-        dataType = null;
-    }
-
     public FormulaImpl(FormulaCommand[] commands, String sqlInitial, String guard, JsValue javascript, FormulaProperties properties, FormulaReturnType formulaFieldInfo,  // NOPMD
-            Type actualReturnType, BitSet inputAttributes, boolean referencesSubFormula, 
+            Type actualReturnType, BitSet inputAttributes, boolean referencesSubFormula, FormulaSqlStyle style,
             TableAliasRegistry registry) { 
         this.commands = commands;
         this.sqlRaw = sqlInitial;
@@ -61,7 +56,7 @@ public class FormulaImpl implements FormulaWithSql {
             attributes.set(FormulaUtils.JS_COULD_BE_NULL);
         }
 
-        String tempSql = massageSqlForType(formulaFieldInfo, sqlInitial);
+        String tempSql = massageSqlForType(style, formulaFieldInfo, sqlInitial);
 
         // Sanity check guard is the same, since the next statement assumes that the error column
         // is determined by the Oracle guard presense.
@@ -83,10 +78,11 @@ public class FormulaImpl implements FormulaWithSql {
     /**
      * We apply final formatting syntax to deal with the expected length/precision.
      */
-    static String massageSqlForType(FormulaReturnType formulaFieldInfo, String sqlInitial) {
+    static String massageSqlForType(FormulaSqlStyle style, FormulaReturnType formulaFieldInfo, String sqlInitial) {
         if (formulaFieldInfo.getDataType().isSimpleText()) {
             // Truncate strings to max string length
-            return "SUBSTR(" + sqlInitial + ", 0, " + FormulaInfo.MAX_STRING_VALUE_LENGTH + ")";
+        	String substr = style.getSubstringFunction();
+            return substr + "(" + sqlInitial + ", 1, " + FormulaInfo.MAX_STRING_VALUE_LENGTH + ")";
         } else if (formulaFieldInfo.getDataType().isPercent()) {
             // Set the scale as determined by the field
             // Multiply by 100 to display correctly.

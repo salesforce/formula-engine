@@ -16,77 +16,77 @@
       <result>
       <inputvalues>[2011-01-29 00:00:09]</inputvalues>
          <formula>1296259209</formula>
-         <sql>1296259209.00000000000000000000000000000000</sql>
+         <sql>1296259209</sql>
          <javascript>1296259209</javascript>
          <javascriptLp>1296259209</javascriptLp>
          <formulaNullAsNull>1296259209</formulaNullAsNull>
-         <sqlNullAsNull>1296259209.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1296259209</sqlNullAsNull>
          <javascriptNullAsNull>1296259209</javascriptNullAsNull>
          <javascriptLpNullAsNull>1296259209</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-01-9 00:00:09]</inputvalues>
          <formula>1294531209</formula>
-         <sql>1294531209.00000000000000000000000000000000</sql>
+         <sql>1294531209</sql>
          <javascript>1294531209</javascript>
          <javascriptLp>1294531209</javascriptLp>
          <formulaNullAsNull>1294531209</formulaNullAsNull>
-         <sqlNullAsNull>1294531209.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1294531209</sqlNullAsNull>
          <javascriptNullAsNull>1294531209</javascriptNullAsNull>
          <javascriptLpNullAsNull>1294531209</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-1-29 00:00:00]</inputvalues>
          <formula>1296259200</formula>
-         <sql>1296259200.00000000000000000000000000000000</sql>
+         <sql>1296259200</sql>
          <javascript>1296259200</javascript>
          <javascriptLp>1296259200</javascriptLp>
          <formulaNullAsNull>1296259200</formulaNullAsNull>
-         <sqlNullAsNull>1296259200.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1296259200</sqlNullAsNull>
          <javascriptNullAsNull>1296259200</javascriptNullAsNull>
          <javascriptLpNullAsNull>1296259200</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-1-1 00:00:00]</inputvalues>
          <formula>1293840000</formula>
-         <sql>1293840000.00000000000000000000000000000000</sql>
+         <sql>1293840000</sql>
          <javascript>1293840000</javascript>
          <javascriptLp>1293840000</javascriptLp>
          <formulaNullAsNull>1293840000</formulaNullAsNull>
-         <sqlNullAsNull>1293840000.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1293840000</sqlNullAsNull>
          <javascriptNullAsNull>1293840000</javascriptNullAsNull>
          <javascriptLpNullAsNull>1293840000</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-01-1 1:00:00]</inputvalues>
          <formula>1293843600</formula>
-         <sql>1293843600.00000000000000000000000000000000</sql>
+         <sql>1293843600</sql>
          <javascript>1293843600</javascript>
          <javascriptLp>1293843600</javascriptLp>
          <formulaNullAsNull>1293843600</formulaNullAsNull>
-         <sqlNullAsNull>1293843600.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1293843600</sqlNullAsNull>
          <javascriptNullAsNull>1293843600</javascriptNullAsNull>
          <javascriptLpNullAsNull>1293843600</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-1-23 2:22:59]</inputvalues>
          <formula>1295749379</formula>
-         <sql>1295749379.00000000000000000000000000000000</sql>
+         <sql>1295749379</sql>
          <javascript>1295749379</javascript>
          <javascriptLp>1295749379</javascriptLp>
          <formulaNullAsNull>1295749379</formulaNullAsNull>
-         <sqlNullAsNull>1295749379.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1295749379</sqlNullAsNull>
          <javascriptNullAsNull>1295749379</javascriptNullAsNull>
          <javascriptLpNullAsNull>1295749379</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-2-7 5:22:33]</inputvalues>
          <formula>1328592153</formula>
-         <sql>1328592153.00000000000000000000000000000000</sql>
+         <sql>1328592153</sql>
          <javascript>1328592153</javascript>
          <javascriptLp>1328592153</javascriptLp>
          <formulaNullAsNull>1328592153</formulaNullAsNull>
-         <sqlNullAsNull>1328592153.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1328592153</sqlNullAsNull>
          <javascriptNullAsNull>1328592153</javascriptNullAsNull>
          <javascriptLpNullAsNull>1328592153</javascriptLpNullAsNull>
       </result>
@@ -148,11 +148,11 @@
       <result>
       <inputvalues>[2012-01-01 23:59:59]</inputvalues>
          <formula>1325462399</formula>
-         <sql>1325462399.00000000000000000000000000000000</sql>
+         <sql>1325462399</sql>
          <javascript>1325462399</javascript>
          <javascriptLp>1325462399</javascriptLp>
          <formulaNullAsNull>1325462399</formulaNullAsNull>
-         <sqlNullAsNull>1325462399.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1325462399</sqlNullAsNull>
          <javascriptNullAsNull>1325462399</javascriptNullAsNull>
          <javascriptLpNullAsNull>1325462399</javascriptLpNullAsNull>
       </result>
@@ -170,22 +170,22 @@
       <result>
       <inputvalues>[2012-02-07 5:2:33]</inputvalues>
          <formula>1328590953</formula>
-         <sql>1328590953.00000000000000000000000000000000</sql>
+         <sql>1328590953</sql>
          <javascript>1328590953</javascript>
          <javascriptLp>1328590953</javascriptLp>
          <formulaNullAsNull>1328590953</formulaNullAsNull>
-         <sqlNullAsNull>1328590953.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1328590953</sqlNullAsNull>
          <javascriptNullAsNull>1328590953</javascriptNullAsNull>
          <javascriptLpNullAsNull>1328590953</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-02-07 5:22:3]</inputvalues>
          <formula>1328592123</formula>
-         <sql>1328592123.00000000000000000000000000000000</sql>
+         <sql>1328592123</sql>
          <javascript>1328592123</javascript>
          <javascriptLp>1328592123</javascriptLp>
          <formulaNullAsNull>1328592123</formulaNullAsNull>
-         <sqlNullAsNull>1328592123.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>1328592123</sqlNullAsNull>
          <javascriptNullAsNull>1328592123</javascriptNullAsNull>
          <javascriptLpNullAsNull>1328592123</javascriptLpNullAsNull>
       </result>

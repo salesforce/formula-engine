@@ -34,7 +34,8 @@ public class FunctionDate extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        FormulaAST yearNode = (FormulaAST)node.getFirstChild();
+    	FormulaSqlHooks hooks = getSqlHooks(context);
+    	FormulaAST yearNode = (FormulaAST)node.getFirstChild();
         int yearValue = getInt(yearNode);
         FormulaAST monthNode = (FormulaAST)yearNode.getNextSibling();
         int monthValue = getInt(monthNode);
@@ -44,7 +45,14 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         String year = (yearValue != BAD_VALUE) ? String.valueOf(yearValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[0] + ")");
         String month = (monthValue != BAD_VALUE) ? String.valueOf(monthValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[1] + ")");
         String day = (dayValue != BAD_VALUE) ? String.valueOf(dayValue) : String.format(getSqlHooks(context).sqlToChar(), "FLOOR(" + args[2] + ")");
-        String date = "TO_DATE(" + year + " || '-' || " + month + " || '-' || " + day + ", 'YYYY-MM-DD')";
+        String date;
+        if (hooks.isMysqlStyle()) {
+        	date = "DATE(CONCAT(" + year + ",'-'," + month + ",'-'," + day + "))";
+        } else if (hooks.isTransactSqlStyle()) {
+        	date = "DATEFROMPARTS(" + year + "," + month + "," + day + ")";
+        } else {
+        	date = "TO_DATE(" + year + " || '-' || " + month + " || '-' || " + day + ", 'YYYY-MM-DD')";
+        }
 
         String nullBits = "";
         boolean yearCanBeNull = yearValue == BAD_VALUE && yearNode.canBeNull();
@@ -68,9 +76,9 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         }
         String guard = SQLPair.generateGuard(
                 guards,
-                errorCondition((FormulaSqlHooks)context.getSqlStyle(), args, yearValue, yearCanBeNull, monthValue, monthCanBeNull, dayValue,
+                errorCondition(hooks, args, yearValue, yearCanBeNull, monthValue, monthCanBeNull, dayValue,
                         dayCanBeNull));
-    return new SQLPair(sql, guard);
+        return new SQLPair(sql, guard);
     }
 
     private int getInt(FormulaAST currentNode) {
@@ -165,12 +173,24 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         return result;
     }
 
-    private String getValidDayInMonthSQL(FormulaSqlHooks hooks, String[] args, int yearValue, int monthValue, int dayValue) {
-        String toDateSQL = "TO_DATE("
- + (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue)
+    private String getValidDayInMonthSQL(FormulaSqlHooks hooks, String[] args, int yearValue, int monthValue, int dayValue) {    	
+        String toDateSQL;
+    	if (hooks.isMysqlStyle()) {
+    		toDateSQL =   "DATE(CONCAT("
+    		+ (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue)
+                        + ",'-',"
+                + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue)
+                        + ",'-01'))";
+    	} else if (hooks.isTransactSqlStyle()) {
+    		toDateSQL = "DATEFROMPARTS(" + (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue) 
+    				+ "," + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue) + ",1)";
+    	} else {
+    		toDateSQL =   "TO_DATE("
+    		+ (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue)
                         + " || '-' || "
                 + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue)
                         + ",'YYYY-MM')";
+    	}
         String lastDaySQL = String.format(hooks.sqlLastDayOfMonth(), toDateSQL);
         
         return " " + (dayValue == BAD_VALUE ? args[2]: dayValue) + " >= " + lastDaySQL + "+1 ";
@@ -218,14 +238,14 @@ class FunctionDateCommand extends AbstractFormulaCommand {
             stack.push(null);
         else {
             int y = year.intValue();
-            int m = month.intValue();
-            int d = day.intValue();
             if ((y < 1) || (y > 9999))
                 throw new FormulaEvaluationException("Year out of range in DATE() function");
             try {
                 Calendar c = FormulaI18nUtils.getLocalizer().getCalendar(BaseLocalizer.GMT);
                 c.clear();
                 c.setLenient(false);
+                int m = month.intValue();
+                int d = day.intValue();
                 c.set(y, m - 1, d); // Months are zero-based in Java Calenders
                 stack.push(c.getTime());
             } catch (IllegalArgumentException x) {

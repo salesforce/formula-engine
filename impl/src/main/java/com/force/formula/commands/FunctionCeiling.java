@@ -41,7 +41,8 @@ public class FunctionCeiling extends UnaryMathCommandBehavior {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
-        String sql = "CASE WHEN " + args[0] + ">=0 THEN CEIL(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+")) ELSE FLOOR(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+")) END";
+    	String ceil = context.getSqlStyle().isTransactSqlStyle() ? "CEILING" : "CEIL";
+        String sql = "CASE WHEN " + args[0] + ">=0 THEN "+ceil+"(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+")) ELSE FLOOR(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+")) END";
         return new SQLPair(sql, guards[0]);
     }
     

@@ -38,6 +38,27 @@
          <sqlNullAsNull>true</sqlNullAsNull>
       </result>
       <result>
+      <inputvalues>[&quot;&quot;]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>['']</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
       <inputvalues>[%]</inputvalues>
          <formula>true</formula>
          <sql>true</sql>

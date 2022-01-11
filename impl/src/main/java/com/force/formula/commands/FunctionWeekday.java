@@ -33,8 +33,13 @@ public class FunctionWeekday extends FormulaCommandInfoImpl {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
     	String sql;
-        if (getSqlHooks(context).isPostgresStyle()) {
+    	FormulaSqlHooks hooks = getSqlHooks(context);
+        if (hooks.isPostgresStyle()) {
         	sql = "1+EXTRACT (DOW FROM " + args[0] + ")::numeric";
+        } else if (hooks.isMysqlStyle()) {
+        	sql = "DAYOFWEEK(" + args[0] + ")";
+        } else if (hooks.isTransactSqlStyle()) {
+        	sql = "DATEPART(weekday," + args[0] + ")";
         } else {
         	sql = "TO_NUMBER(TO_CHAR(" + args[0] + ",'d'))";
         }

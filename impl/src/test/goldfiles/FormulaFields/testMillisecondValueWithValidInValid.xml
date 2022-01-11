@@ -1,94 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testMillisecondValueWithValidInValid">
-   <testInstance formula="Second(TimeValue(DATETIMEVALUE(dateString__c)))" returntype="Double" precision="12" scale="2">
+   <testInstance formula="MilliSecond(TimeValue(DATETIMEVALUE(dateString__c)))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TRUNC((CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000-TRUNC(CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000/60000) * 60000)/1000)</Sql>
+       <Sql>TRUNC((CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000 -TRUNC(CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000/1000) * 1000))</Sql>
        <Guard> NOT $!s0s!$.dateString__c ~ '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$' </Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TRUNC((CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000-TRUNC(CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000/60000) * 60000)/1000)</Sql>
+       <Sql>TRUNC((CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000 -TRUNC(CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS'), 'SSSS') AS NUMERIC) * 1000/1000) * 1000))</Sql>
        <Guard> NOT $!s0s!$.dateString__c ~ '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$' </Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?((new $F.Decimal(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getSeconds()))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?((new $F.Decimal(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getSeconds()))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getSeconds()):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getSeconds()):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getMilliseconds()):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getMilliseconds()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getMilliseconds()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(new Date(context.record.dateString__c + ' GMT').setUTCFullYear(1970,0,1)).getMilliseconds()):null</JsOutput>
       <result>
       <inputvalues>[2011-01-29 00:00:09]</inputvalues>
-         <formula>9</formula>
-         <sql>9.00000000000000000000000000000000</sql>
-         <javascript>9</javascript>
-         <javascriptLp>9</javascriptLp>
-         <formulaNullAsNull>9</formulaNullAsNull>
-         <sqlNullAsNull>9.00000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>9</javascriptNullAsNull>
-         <javascriptLpNullAsNull>9</javascriptLpNullAsNull>
+         <formula>0</formula>
+         <sql>0</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-01-9 00:00:09]</inputvalues>
-         <formula>9</formula>
-         <sql>9.00000000000000000000000000000000</sql>
-         <javascript>9</javascript>
-         <javascriptLp>9</javascriptLp>
-         <formulaNullAsNull>9</formulaNullAsNull>
-         <sqlNullAsNull>9.00000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>9</javascriptNullAsNull>
-         <javascriptLpNullAsNull>9</javascriptLpNullAsNull>
+         <formula>0</formula>
+         <sql>0</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-1-29 00:00:00]</inputvalues>
          <formula>0</formula>
-         <sql>0.00000000000000000000000000000000</sql>
+         <sql>0</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-1-1 00:00:00]</inputvalues>
          <formula>0</formula>
-         <sql>0.00000000000000000000000000000000</sql>
+         <sql>0</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-01-1 1:00:00]</inputvalues>
          <formula>0</formula>
-         <sql>0.00000000000000000000000000000000</sql>
+         <sql>0</sql>
          <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0.00000000000000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
          <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-1-23 2:22:59]</inputvalues>
-         <formula>59</formula>
-         <sql>59.00000000000000000000000000000000</sql>
-         <javascript>59</javascript>
-         <javascriptLp>59</javascriptLp>
-         <formulaNullAsNull>59</formulaNullAsNull>
-         <sqlNullAsNull>59.00000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>59</javascriptNullAsNull>
-         <javascriptLpNullAsNull>59</javascriptLpNullAsNull>
+         <formula>0</formula>
+         <sql>0</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-2-7 5:22:33]</inputvalues>
-         <formula>33</formula>
-         <sql>33.00000000000000000000000000000000</sql>
-         <javascript>33</javascript>
-         <javascriptLp>33</javascriptLp>
-         <formulaNullAsNull>33</formulaNullAsNull>
-         <sqlNullAsNull>33.00000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>33</javascriptNullAsNull>
-         <javascriptLpNullAsNull>33</javascriptLpNullAsNull>
+         <formula>0</formula>
+         <sql>0</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2011-13-29 00:00:09]</inputvalues>
@@ -147,14 +147,14 @@
       </result>
       <result>
       <inputvalues>[2012-01-01 23:59:59]</inputvalues>
-         <formula>59</formula>
-         <sql>59.00000000000000000000000000000000</sql>
-         <javascript>59</javascript>
-         <javascriptLp>59</javascriptLp>
-         <formulaNullAsNull>59</formulaNullAsNull>
-         <sqlNullAsNull>59.00000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>59</javascriptNullAsNull>
-         <javascriptLpNullAsNull>59</javascriptLpNullAsNull>
+         <formula>0</formula>
+         <sql>0</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-10-34 00:00:00]</inputvalues>
@@ -169,25 +169,25 @@
       </result>
       <result>
       <inputvalues>[2012-02-07 5:2:33]</inputvalues>
-         <formula>33</formula>
-         <sql>33.00000000000000000000000000000000</sql>
-         <javascript>33</javascript>
-         <javascriptLp>33</javascriptLp>
-         <formulaNullAsNull>33</formulaNullAsNull>
-         <sqlNullAsNull>33.00000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>33</javascriptNullAsNull>
-         <javascriptLpNullAsNull>33</javascriptLpNullAsNull>
+         <formula>0</formula>
+         <sql>0</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-02-07 5:22:3]</inputvalues>
-         <formula>3</formula>
-         <sql>3.00000000000000000000000000000000</sql>
-         <javascript>3</javascript>
-         <javascriptLp>3</javascriptLp>
-         <formulaNullAsNull>3</formulaNullAsNull>
-         <sqlNullAsNull>3.00000000000000000000000000000000</sqlNullAsNull>
-         <javascriptNullAsNull>3</javascriptNullAsNull>
-         <javascriptLpNullAsNull>3</javascriptLpNullAsNull>
+         <formula>0</formula>
+         <sql>0</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
    </testInstance>
 </testCase>

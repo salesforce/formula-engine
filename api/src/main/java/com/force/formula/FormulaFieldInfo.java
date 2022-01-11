@@ -46,7 +46,7 @@ public interface FormulaFieldInfo extends FormulaReturnType {
      * @author stamm
      * @since 0.2
      */
-    public interface FormulaFieldType {
+    interface FormulaFieldType {
         /**
          * @return <code>true</code> if this is a primary key field type
          */

@@ -41,11 +41,6 @@ public class ANTLR4GrammarVisitor extends FormulaBaseVisitor<FormulaAST> {
     private Map<Integer, Integer> numberOfCharactersBeforeLine;
 
     public ANTLR4GrammarVisitor(FormulaParser parser, int startIndex, Map<Integer, Integer> numberOfCharactersBeforeLine) {
-        this(parser, null, startIndex, numberOfCharactersBeforeLine);
-    }
-
-    @Deprecated
-    public ANTLR4GrammarVisitor(FormulaParser parser, String formula, int startIndex, Map<Integer, Integer> numberOfCharactersBeforeLine) {  // NOPMD
         this.parser = parser;
         this.startIndex = startIndex;
         this.numberOfCharactersBeforeLine = numberOfCharactersBeforeLine;

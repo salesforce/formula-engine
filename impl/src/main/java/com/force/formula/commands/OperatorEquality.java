@@ -224,8 +224,10 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
             if (rhsType != FormulaTokenTypes.STRING_LITERAL) {
                 rhs = sqlHooks.sqlNvl() + "(" + rhs + ", " + String.format(sqlHooks.sqlConcat(false), lhs,  "'x'") + ")";
             } else if ("''".equals(rhs) || ("NULL".equals(rhs) && sqlHooks.isPostgresStyle())) {  // see ConstantString for postgres
-            	rhs = String.format(sqlHooks.sqlConcat(false), lhs,  "'x'");
-            } if (lhsType != FormulaTokenTypes.STRING_LITERAL) {
+                rhs = String.format(sqlHooks.sqlConcat(false), lhs,  "'x'");
+            }
+            
+            if (lhsType != FormulaTokenTypes.STRING_LITERAL) {
                 lhs = sqlHooks.sqlNvl() + "(" + lhs + ", " + String.format(sqlHooks.sqlConcat(false), saveRhs,  "'x'") + ")";
             } else if ("''".equals(lhs) || ("NULL".equals(lhs) && sqlHooks.isPostgresStyle())) {
                 lhs = String.format(sqlHooks.sqlConcat(false), saveRhs,  "'x'");

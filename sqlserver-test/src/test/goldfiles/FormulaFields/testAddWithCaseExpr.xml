@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithCaseExpr">
+   <testInstance formula="(customformula0__c+customcurrency2__c+customformula1__c)" returntype="Double" precision="12" scale="2">
+   <customformula0 dataType="ColumnType.DOUBLE" formula="CASE(customtext1__c,customtext2__c,custompercent1__c,customtext3__c,customcurrency1__c,customnumber1__c)"/>
+   <customformula1 dataType="ColumnType.PERCENT" formula="(custompercent2__c+customnumber2__c)"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>((COALESCE(CASE  WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customtext2__c, 'x')) COLLATE Latin1_General_CS_AS=COALESCE($!s0s!$.customtext2__c, CONCAT($!s0s!$.customtext1__c, 'x')) COLLATE Latin1_General_CS_AS) THEN COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customtext3__c, 'x')) COLLATE Latin1_General_CS_AS=COALESCE($!s0s!$.customtext3__c, CONCAT($!s0s!$.customtext1__c, 'x')) COLLATE Latin1_General_CS_AS) THEN COALESCE($!s0s!$.customcurrency1__c, 0) ELSE COALESCE($!s0s!$.customnumber1__c, 0) END, 0)+COALESCE($!s0s!$.customcurrency2__c, 0))+COALESCE((COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)+COALESCE($!s0s!$.customnumber2__c, 0)), 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>((CASE  WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customtext2__c, 'x')) COLLATE Latin1_General_CS_AS=COALESCE($!s0s!$.customtext2__c, CONCAT($!s0s!$.customtext1__c, 'x')) COLLATE Latin1_General_CS_AS) THEN ($!s0s!$.custompercent1__c / 100.0) WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customtext3__c, 'x')) COLLATE Latin1_General_CS_AS=COALESCE($!s0s!$.customtext3__c, CONCAT($!s0s!$.customtext1__c, 'x')) COLLATE Latin1_General_CS_AS) THEN $!s0s!$.customcurrency1__c ELSE $!s0s!$.customnumber1__c END+$!s0s!$.customcurrency2__c)+(($!s0s!$.custompercent2__c / 100.0)+$!s0s!$.customnumber2__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[Partner, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
+         <formula>504</formula>
+         <sql>504</sql>
+         <formulaNullAsNull>504</formulaNullAsNull>
+         <sqlNullAsNull>504</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Reseller, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
+         <formula>902</formula>
+         <sql>902</sql>
+         <formulaNullAsNull>902</formulaNullAsNull>
+         <sqlNullAsNull>902</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Partner, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
+         <formula>504</formula>
+         <sql>504</sql>
+         <formulaNullAsNull>504</formulaNullAsNull>
+         <sqlNullAsNull>504</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
+         <formula>602</formula>
+         <sql>602</sql>
+         <formulaNullAsNull>602</formulaNullAsNull>
+         <sqlNullAsNull>602</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Partner, , 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
+         <formula>602</formula>
+         <sql>602</sql>
+         <formulaNullAsNull>602</formulaNullAsNull>
+         <sqlNullAsNull>602</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Var, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
+         <formula>602</formula>
+         <sql>602</sql>
+         <formulaNullAsNull>602</formulaNullAsNull>
+         <sqlNullAsNull>602</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Partner, Partner, , Reseller, 400, 100, 400, 200, 100]</inputvalues>
+         <formula>502</formula>
+         <sql>502</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, 200, 100]</inputvalues>
+         <formula>504</formula>
+         <sql>504</sql>
+         <formulaNullAsNull>504</formulaNullAsNull>
+         <sqlNullAsNull>504</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, , 100]</inputvalues>
+         <formula>502</formula>
+         <sql>502</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, 200, 100]</inputvalues>
+         <formula>504</formula>
+         <sql>504</sql>
+         <formulaNullAsNull>504</formulaNullAsNull>
+         <sqlNullAsNull>504</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMillisecWithValidDateTimeString">
+   <testInstance formula="MilliSecond(TIMEVALUE(&quot;2015-03-17 17:00:00&quot;))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>TRUNC((NULL -TRUNC(NULL/1000) * 1000))</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TRUNC((NULL -TRUNC(NULL/1000) * 1000))</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">new Date(new Date(&quot;2015-03-17 17:00:00&quot;).setUTCFullYear(1970,0,1)).getMilliseconds()</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new Date(new Date(&quot;2015-03-17 17:00:00&quot;).setUTCFullYear(1970,0,1)).getMilliseconds()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(new Date(&quot;2015-03-17 17:00:00&quot;).setUTCFullYear(1970,0,1)).getMilliseconds()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">new Date(new Date(&quot;2015-03-17 17:00:00&quot;).setUTCFullYear(1970,0,1)).getMilliseconds()</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>Error: ERROR: function round(double precision, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37</sqlNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
