@@ -2,11 +2,11 @@
 <testCase name="testSubDate">
    <testInstance formula="(customdate1__c-customdate2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate1__c,$!s0s!$.customdate2__c) AS DECIMAL(38,10)))/86400</Sql>
+       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate1__c,$!s0s!$.customdate2__c) AS DECIMAL(38,10))/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate1__c,$!s0s!$.customdate2__c) AS DECIMAL(38,10)))/86400</Sql>
+       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate1__c,$!s0s!$.customdate2__c) AS DECIMAL(38,10))/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -75,11 +75,11 @@
    </testInstance>
    <testInstance formula="(customdate2__c-customdate1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate1__c) AS DECIMAL(38,10)))/86400</Sql>
+       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate1__c) AS DECIMAL(38,10))/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate1__c) AS DECIMAL(38,10)))/86400</Sql>
+       <Sql>(CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate1__c) AS DECIMAL(38,10))/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

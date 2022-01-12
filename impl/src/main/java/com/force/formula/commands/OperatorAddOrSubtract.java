@@ -202,7 +202,7 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
                 // operations with date|timestamp types require special handling for Psql - W-7066598
                 if (isSubtractionOfDateTimeValues(lhsDataType, rhsDataType)) {
                     // <date|timestamp> - <date|timestamp>
-                    sql = String.format("("+getSqlHooks(context).sqlSubtractTwoTimestamps()+")/86400", lhsValue, rhsValue);
+                    sql = String.format(getSqlHooks(context).sqlSubtractTwoTimestamps(false), lhsValue, rhsValue);
                 } else if (isDateTimeAndNumberOperation(lhsDataType, rhsDataType) && !hooks.isOracleStyle()) {
                 	sql = hooks.sqlAddDaysToDate(lhsValue, lhsDataType, rhsValue, rhsDataType, !"-".equals(operator));
                 } else if ("||".equals(operator)) {
