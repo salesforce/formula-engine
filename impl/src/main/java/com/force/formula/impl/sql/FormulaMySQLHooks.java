@@ -97,8 +97,8 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      * missing from mysql, but available in oracle.  This allows you to try and fix that.
      */
     @Override
-    default String sqlSubtractTwoTimestamps() {
-    	return "-TIMESTAMPDIFF(SECOND,%s,%s)";
+    default String sqlSubtractTwoTimestamps(boolean inSeconds) {
+    	return inSeconds ? "-TIMESTAMPDIFF(SECOND,%s,%s)": "(-TIMESTAMPDIFF(SECOND,%s,%s)/86400)";
     	//return "((UNIX_TIMESTAMP(%s)-UNIX_TIMESTAMP(%s))/86400)";
     } 
     

@@ -116,8 +116,9 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      */
 	@Override
-    default String sqlSubtractTwoTimestamps() {
-        return "(EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))::numeric";
+    default String sqlSubtractTwoTimestamps(boolean inSeconds) {
+        return inSeconds ? "(EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))::numeric"
+                : "((EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))::numeric/86400)";
     } 
 	
 	@Override

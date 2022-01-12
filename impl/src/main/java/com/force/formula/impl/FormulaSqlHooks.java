@@ -167,10 +167,11 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      * 
-     * Return the difference in the two timestamps *in seconds*
+     * @param inSeconds, should difference be returned in seconds or in days.  This will allow precision errors to be
+     * handled better.
      */
-    default String sqlSubtractTwoTimestamps() {
-        return "(%s-%s)*86400";
+    default String sqlSubtractTwoTimestamps(boolean inSeconds) {
+        return inSeconds ? "(%s-%s)*86400" : "(%s-%s)";
     } 
 
     
