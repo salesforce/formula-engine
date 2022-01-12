@@ -329,8 +329,13 @@
         <param name="ASCII_DESCR">Return the first character's code point from the given string as a number.</param>
 
         <param name="FORMATCURRENCY">FORMATCURRENCY(currencyisocode, number)</param>
-        <param name="FORMATCURRENCY_DESCR">Format the given number as a current using the scale of the given currency code, with that code prepended.</param>
+        <param name="FORMATCURRENCY_DESCR">Format the given number as a currency using the scale of the given currency code, with that code prepended.</param>
 
+        <param name="FORMAT">FORMAT(value[, format] | messageFormat[, args...])</param>
+        <param name="FORMAT_DESCR">Format the number, date or time with an optional format, or use the java-style message format with optional arguments.</param>
+
+        <param name="FORMATDURATION">FORMATCURRENCY(numSeconds[, includeDays] | dateTime/time, dateTime/time)</param>
+        <param name="FORMATDURATION_DESCR">Format the number of seconds with optional says, or the difference between times or dateTimes as HH:MI:SS.</param>
         <param name="LABEL">LABEL(section, key, [arg0,...])</param>
         <param name="LABEL_DESCR">Render the label in the language of the user for the given section and key.</param>
 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationTime">
+   <testInstance formula="FORMATDURATION(TimeValue(timeString2__c),TimeValue(timeString1__c))" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS(TIME_TO_SEC(TIMEDIFF(TIME($!s0s!$.timeString1__c),TIME($!s0s!$.timeString2__c)))),0)),'%H:%i:%s')</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS(TIME_TO_SEC(TIMEDIFF(TIME($!s0s!$.timeString1__c),TIME($!s0s!$.timeString2__c)))),0)),'%H:%i:%s')</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[10:34:55.666, 23:59:59.999]</inputvalues>
+         <formula>13:25:04</formula>
+         <sql>13:25:04</sql>
+         <formulaNullAsNull>13:25:04</formulaNullAsNull>
+         <sqlNullAsNull>13:25:04</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:59:59.999, 10:34:55.666]</inputvalues>
+         <formula>13:25:04</formula>
+         <sql>13:25:04</sql>
+         <formulaNullAsNull>13:25:04</formulaNullAsNull>
+         <sqlNullAsNull>13:25:04</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:56:45.898, 01:00:00.000]</inputvalues>
+         <formula>22:56:45</formula>
+         <sql>22:56:45</sql>
+         <formulaNullAsNull>22:56:45</formulaNullAsNull>
+         <sqlNullAsNull>22:56:45</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 23:56:45.898]</inputvalues>
+         <formula>22:56:45</formula>
+         <sql>22:56:45</sql>
+         <formulaNullAsNull>22:56:45</formulaNullAsNull>
+         <sqlNullAsNull>22:56:45</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.345, 00:00:29.245]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.245, 00:00:29.345]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:00.000, 01:00:00.000]</inputvalues>
+         <formula>01:00:00</formula>
+         <sql>01:00:00</sql>
+         <formulaNullAsNull>01:00:00</formulaNullAsNull>
+         <sqlNullAsNull>01:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:00.000]</inputvalues>
+         <formula>01:00:00</formula>
+         <sql>01:00:00</sql>
+         <formulaNullAsNull>01:00:00</formulaNullAsNull>
+         <sqlNullAsNull>01:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 01:00:00.000]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 01:66:29.345]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:66:29.345, 01:00:00.000]</inputvalues>
+         <formula>Error: java.lang.RuntimeException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

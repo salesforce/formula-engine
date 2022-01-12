@@ -4,7 +4,8 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaTime;
@@ -97,7 +98,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      */
     @Override
     default String sqlSubtractTwoTimestamps() {
-    	return "(-TIMESTAMPDIFF(SECOND,%s,%s)/86400)";
+    	return "-TIMESTAMPDIFF(SECOND,%s,%s)";
     	//return "((UNIX_TIMESTAMP(%s)-UNIX_TIMESTAMP(%s))/86400)";
     } 
     
@@ -295,6 +296,33 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 		// historical timezone shifts.
 		return "DATE(ADDDATE("+dateTime+",INTERVAL "+userTzOffset + " HOUR))";
 	}
+	
+    /**
+     * Intervals in mysql aren't helpful for formatting, so don't use them.
+     */
+    @Override
+    default String sqlIntervalFromSeconds() {
+        return "TRUNCATE(ABS(%s),0)";
+    }
+
+    @Override
+    default String sqlSubtractTwoTimes() {
+        return "TIME_TO_SEC(TIMEDIFF(%s,%s))";
+    } 
+    
+    
+    @Override
+    default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
+        String result;
+        if (daysIsParam != null) {
+            result = "(CASE WHEN "+daysIsParam+" THEN CONCAT(TRUNCATE(("+arg+")/86400,0),':',TIME_FORMAT(SEC_TO_TIME("+arg+"%86400),'%H:%i:%s')) ELSE TIME_FORMAT(SEC_TO_TIME("+arg+"),'%H:%i:%s') END)";
+        } else if (includeDays) {
+            result = "CONCAT(TRUNCATE(("+arg+")/86400,0),':',TIME_FORMAT(SEC_TO_TIME("+arg+"%86400),'%H:%i:%s'))";
+        } else {
+            result = "TIME_FORMAT(SEC_TO_TIME("+arg+"),'%H:%i:%s')";
+        }
+        return result;
+    }
 	
 	@Override
     default StringBuilder getCurrencyMask(int scale) {

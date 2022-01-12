@@ -8,10 +8,25 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaTime;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaRuntimeTypeException;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.FormulaTypeUtils;
+import com.force.formula.impl.IllegalArgumentTypeException;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.BigDecimalHelper;
@@ -187,7 +202,7 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
                 // operations with date|timestamp types require special handling for Psql - W-7066598
                 if (isSubtractionOfDateTimeValues(lhsDataType, rhsDataType)) {
                     // <date|timestamp> - <date|timestamp>
-                    sql = String.format(getSqlHooks(context).sqlSubtractTwoTimestamps(), lhsValue, rhsValue);
+                    sql = String.format("("+getSqlHooks(context).sqlSubtractTwoTimestamps()+")/86400", lhsValue, rhsValue);
                 } else if (isDateTimeAndNumberOperation(lhsDataType, rhsDataType) && !hooks.isOracleStyle()) {
                 	sql = hooks.sqlAddDaysToDate(lhsValue, lhsDataType, rhsValue, rhsDataType, !"-".equals(operator));
                 } else if ("||".equals(operator)) {

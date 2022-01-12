@@ -183,6 +183,13 @@ public class FormulaJsTestUtils {
         		// Init cap... Normalize and use unicode to match postgres/oracle behavior
         		.append("$F.initcap=function(a) {if (!a) return a;"
         				+ "return a.toLowerCase().replace(/(?:^|[^\\p{Ll}\\p{Lm}\\p{Lu}\\p{N}])[\\p{Ll}]/gu, function (m) {return m.toUpperCase();})}\n")
+        		// Format duration is complicated.  Trunc seconds, then 
+        		.append("$F.formatduration=function(s,includeDays) {if (isNaN(s)) return null;"
+                        + "if (includeDays) {"
+        		        + " return Math.trunc(s/86400)+':'+(''+Math.trunc(s/3600)%24).padStart(2,'0')+':'+(''+Math.trunc(s/60)%60).padStart(2,'0')+':'+(''+Math.trunc(s%60)).padStart(2,'0');"
+        		        + "} else {"
+        		        + " return (''+Math.trunc(s/3600)).padStart(2,'0')+':'+(''+Math.trunc(s/60)%60).padStart(2,'0')+':'+(''+Math.trunc(s%60)).padStart(2,'0');"
+        		        + "}}\n")
         		;
 
         return fContext.toString();

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationSeconds">
+   <testInstance formula="FORMATDURATION(customNumber1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_CHAR((INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))), 'HH24:MI:SS')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_CHAR((INTERVAL '1 second' * ABS($!s0s!$.customNumber1__c)), 'HH24:MI:SS')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.formatduration(Math.abs($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber()),false)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null)?($F.formatduration(Math.abs(context.record.customNumber1__c.toNumber()),false)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.formatduration(Math.abs($F.nvl(context.record.customNumber1__c,0)),false)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null)?($F.formatduration(Math.abs(context.record.customNumber1__c),false)):null</JsOutput>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <javascript>00:00:00</javascript>
+         <javascriptLp>00:00:00</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, TRUE]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <javascript>00:00:00</javascript>
+         <javascriptLp>00:00:00</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, FALSE]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <javascript>00:00:00</javascript>
+         <javascriptLp>00:00:00</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, TRUE]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <javascript>00:00:00</javascript>
+         <javascriptLp>00:00:00</javascriptLp>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, FALSE]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <javascript>00:00:00</javascript>
+         <javascriptLp>00:00:00</javascriptLp>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, ]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <javascript>00:00:00</javascript>
+         <javascriptLp>00:00:00</javascriptLp>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24, TRUE]</inputvalues>
+         <formula>00:00:24</formula>
+         <sql>00:00:24</sql>
+         <javascript>00:00:24</javascript>
+         <javascriptLp>00:00:24</javascriptLp>
+         <formulaNullAsNull>00:00:24</formulaNullAsNull>
+         <sqlNullAsNull>00:00:24</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:24</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:24</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24, FALSE]</inputvalues>
+         <formula>00:00:24</formula>
+         <sql>00:00:24</sql>
+         <javascript>00:00:24</javascript>
+         <javascriptLp>00:00:24</javascriptLp>
+         <formulaNullAsNull>00:00:24</formulaNullAsNull>
+         <sqlNullAsNull>00:00:24</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:24</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:24</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.99, TRUE]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <javascript>00:00:00</javascript>
+         <javascriptLp>00:00:00</javascriptLp>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.99, FALSE]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <javascript>00:00:00</javascript>
+         <javascriptLp>00:00:00</javascriptLp>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[86400, TRUE]</inputvalues>
+         <formula>24:00:00</formula>
+         <sql>24:00:00</sql>
+         <javascript>24:00:00</javascript>
+         <javascriptLp>24:00:00</javascriptLp>
+         <formulaNullAsNull>24:00:00</formulaNullAsNull>
+         <sqlNullAsNull>24:00:00</sqlNullAsNull>
+         <javascriptNullAsNull>24:00:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>24:00:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[86400, FALSE]</inputvalues>
+         <formula>24:00:00</formula>
+         <sql>24:00:00</sql>
+         <javascript>24:00:00</javascript>
+         <javascriptLp>24:00:00</javascriptLp>
+         <formulaNullAsNull>24:00:00</formulaNullAsNull>
+         <sqlNullAsNull>24:00:00</sqlNullAsNull>
+         <javascriptNullAsNull>24:00:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>24:00:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1000000, TRUE]</inputvalues>
+         <formula>277:46:40</formula>
+         <sql>277:46:40</sql>
+         <javascript>277:46:40</javascript>
+         <javascriptLp>277:46:40</javascriptLp>
+         <formulaNullAsNull>277:46:40</formulaNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
+         <javascriptNullAsNull>277:46:40</javascriptNullAsNull>
+         <javascriptLpNullAsNull>277:46:40</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1000000, FALSE]</inputvalues>
+         <formula>277:46:40</formula>
+         <sql>277:46:40</sql>
+         <javascript>277:46:40</javascript>
+         <javascriptLp>277:46:40</javascriptLp>
+         <formulaNullAsNull>277:46:40</formulaNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
+         <javascriptNullAsNull>277:46:40</javascriptNullAsNull>
+         <javascriptLpNullAsNull>277:46:40</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1000000, TRUE]</inputvalues>
+         <formula>277:46:40</formula>
+         <sql>277:46:40</sql>
+         <javascript>277:46:40</javascript>
+         <javascriptLp>277:46:40</javascriptLp>
+         <formulaNullAsNull>277:46:40</formulaNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
+         <javascriptNullAsNull>277:46:40</javascriptNullAsNull>
+         <javascriptLpNullAsNull>277:46:40</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1000000, FALSE]</inputvalues>
+         <formula>277:46:40</formula>
+         <sql>277:46:40</sql>
+         <javascript>277:46:40</javascript>
+         <javascriptLp>277:46:40</javascriptLp>
+         <formulaNullAsNull>277:46:40</formulaNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
+         <javascriptNullAsNull>277:46:40</javascriptNullAsNull>
+         <javascriptLpNullAsNull>277:46:40</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

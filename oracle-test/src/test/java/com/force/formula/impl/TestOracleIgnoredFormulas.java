@@ -1,10 +1,9 @@
-package com.force.formula.impl;
 /*
  * Copyright, 1999-2018, salesforce.com
  * All Rights Reserved
  * Company Confidential
  */
-
+package com.force.formula.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,22 +18,23 @@ import org.xml.sax.SAXException;
 import junit.framework.TestSuite;
 
 /**
- * Contains non-extended tests for formulatests.xml in Mysql
+ * Contains ignored or bad tests for formulatests.xml
  * @author stamm
  * @since 0.2
  */
 @RunWith(AllTests.class)
 @Ignore
-public class TestMysqlIgnoredFormulas extends FormulaMySQLTests {
+public class TestOracleIgnoredFormulas extends FormulaOracleTests {
 
-    public TestMysqlIgnoredFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
-        super("MysqlIgnoredFormulaTests");
+	
+    public TestOracleIgnoredFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
+        super("OracleIgnoredFormulaTests");
     }
 
     public static TestSuite suite()
     {
         try {
-            return new TestMysqlIgnoredFormulas("no");
+            return new TestOracleIgnoredFormulas("no");
         } catch (ParserConfigurationException | SAXException | IOException x) {
             throw new RuntimeException(x);
         }
@@ -42,6 +42,6 @@ public class TestMysqlIgnoredFormulas extends FormulaMySQLTests {
 
     @Override
     protected boolean filterTests(FormulaTestCaseInfo testCase) {
-        return testCase.getTestLabels().contains("ignore");
-    }
+        return testCase.getTestLabels().contains("ignore") || testCase.getTestLabels().contains("badNashorn");
+    }    
 }

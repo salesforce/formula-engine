@@ -4,7 +4,8 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaTime;
@@ -138,9 +139,14 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     @Override
     default String sqlSubtractTwoTimestamps() {
     	// If you are older than sqlserver 16, you'll need to use DATEDIFF and deal with the errors
-    	return "(CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))/86400)";  
+    	return "CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))";  
     } 
     
+
+    @Override
+    default String sqlSubtractTwoTimes() {
+        return "CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))";
+    } 
 	
 	@Override
     default String sqlAddDaysToDate(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType, boolean isAddition) {
@@ -227,6 +233,36 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     @Override
     default String sqlGetDayOfYear() {
 		return "DATEPART(dayofyear, %s)";
+    }
+    
+
+    /**
+     * Intervals in oracle aren't helpful, so don't use them.
+     */
+    @Override
+    default String sqlIntervalFromSeconds() {
+        return "ROUND(ABS(%s),0,1)";
+        // return "DATEADD(second, ROUND(ABS(%s),0,1), '1970-01-01')";   // intervals aren't available in sqlserver
+    }
+   
+    // Use expensive overcalculating date math.   Sorry, but oracle doesn't support formatting a duration
+    // and the format it does use is difficult to work with if not including days
+    // TODO: Use the interval output and SUBSTR what is needed
+    @Override
+    default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
+        String result;
+        if (daysIsParam != null) {
+            result = "CONCAT(CASE WHEN "+daysIsParam+" THEN CONCAT(CONVERT(int,("+arg+")/86400),':',FORMAT(CONVERT(int,(("+arg+")/3600)%24),'00')) ELSE FORMAT(CONVERT(int,"+arg+"/3600),'########00') END,':',FORMAT(CONVERT(int,(("+arg+")/60)%60),'00'),':',FORMAT(CONVERT(int,("+arg+")%60),'00'))";
+            //result = "IIF("+arg+" IS NULL, NULL, CONCAT(CASE WHEN "+daysIsParam+" THEN CONCAT(DATEPART(dy,"+arg+")-1,':') ELSE '' END, CONVERT(VARCHAR,"+arg+",108)))";
+        } else if (includeDays) {
+            result = "CONCAT(CONVERT(int,("+arg+")/86400),':',FORMAT(CONVERT(int,("+arg+")/3600%24),'00'),':',FORMAT(CONVERT(int,(("+arg+")/60)%60),'00'),':',FORMAT(CONVERT(int,("+arg+")%60),'00'))";
+            //result = "IIF("+arg+" IS NULL, NULL, CONCAT(DATEPART(dy,"+arg+")-1,':',CONVERT(VARCHAR,"+arg+",108)))";
+        } else {
+            result = "CONCAT(FORMAT(CONVERT(int,"+arg+"/3600),'########00'),':',FORMAT(CONVERT(int,(("+arg+")/60)%60),'00'),':',FORMAT(CONVERT(int,("+arg+")%60),'00'))";
+            //result = "CONVERT(VARCHAR,"+arg+",108)";
+        }
+                
+        return "IIF("+arg+" IS NULL, NULL, "+result+")";
     }
     
     @Override
@@ -328,5 +364,6 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 	default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
         sql.append("CONCAT(").append(isoCodeArg).append(",' ',FORMAT(").append(amountArg).append(',').append(maskStr).append("))");
 	}
-    
+        
+
 }

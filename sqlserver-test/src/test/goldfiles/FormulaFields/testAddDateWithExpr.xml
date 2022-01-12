@@ -4,11 +4,11 @@
    <customformula0 dataType="ColumnType.DATEONLY" formula="(customdate1__c+custompercent1__c)"/>
    <customformula1 dataType="ColumnType.DOUBLE" formula="(customdate2__c-customdate3__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>DATEADD(day,ROUND(COALESCE($!s0s!$.customcurrency1__c, 0),0,1),DATEADD(day,ROUND(COALESCE((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate3__c) AS DECIMAL(38,10))/86400), 0),0,1),DATEADD(day,ROUND(COALESCE($!s0s!$.customnumber1__c, 0),0,1),DATEADD(day,ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0),0,1),$!s0s!$.customdate1__c))))</Sql>
+       <Sql>DATEADD(day,ROUND(COALESCE($!s0s!$.customcurrency1__c, 0),0,1),DATEADD(day,ROUND(COALESCE((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate3__c) AS DECIMAL(38,10)))/86400, 0),0,1),DATEADD(day,ROUND(COALESCE($!s0s!$.customnumber1__c, 0),0,1),DATEADD(day,ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0),0,1),$!s0s!$.customdate1__c))))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATEADD(day,ROUND($!s0s!$.customcurrency1__c,0,1),DATEADD(day,ROUND((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate3__c) AS DECIMAL(38,10))/86400),0,1),DATEADD(day,ROUND($!s0s!$.customnumber1__c,0,1),DATEADD(day,ROUND(($!s0s!$.custompercent1__c / 100.0),0,1),$!s0s!$.customdate1__c))))</Sql>
+       <Sql>DATEADD(day,ROUND($!s0s!$.customcurrency1__c,0,1),DATEADD(day,ROUND((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate3__c) AS DECIMAL(38,10)))/86400,0,1),DATEADD(day,ROUND($!s0s!$.customnumber1__c,0,1),DATEADD(day,ROUND(($!s0s!$.custompercent1__c / 100.0),0,1),$!s0s!$.customdate1__c))))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

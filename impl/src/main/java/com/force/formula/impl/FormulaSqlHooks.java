@@ -5,7 +5,11 @@ package com.force.formula.impl;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
 
 import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
@@ -162,11 +166,22 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
      * missing from psql, but available in oracle.  This allows you to try and fix that.
+     * 
+     * Return the difference in the two timestamps *in seconds*
      */
     default String sqlSubtractTwoTimestamps() {
-    	throw new UnsupportedOperationException();
+        return "(%s-%s)*86400";
     } 
 
+    
+    /**
+     * @return the function that allows subtraction of two time values to get the second/day difference.
+     * Return the difference in the two times *in seconds*
+     */
+    default String sqlSubtractTwoTimes() {
+        return "((%s)-(%s))/1000";
+    } 
+    
     /**
      * Format the sql for adding a given number of days (fractionally) to a date
      * @param lhsValue the left hand side (must be date or datetime if subtraction)
@@ -306,6 +321,32 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlToCharDate() {
 		return "TO_CHAR(%s, 'YYYY-MM-DD')";
     }
+    
+    
+    /**
+     * @return the format for String.format for converting a number to an interval suitable for to {@link #sqlIntervalToDurationString(String, boolean, String)}
+     */
+    default String sqlIntervalFromSeconds() {
+        return "(INTERVAL '1 second' * ABS(%s))";
+    }
+    
+    /**
+     * @return the sql expression for converting from HH:MM:SS or (DDD:HH:MM:SS) if includeDays is true
+     * @param intervalArg the argument resulting from the call to {@link #sqlIntervalFromSeconds()}
+     * @param includeDays whether days should be included in the strings
+     * @param daysIsParam whether the "days" should be the second parameter passed in (if not null)
+     */
+    default String sqlIntervalToDurationString(String intervalArg, boolean includeDays, String daysIsParam) {
+        if (daysIsParam != null) {
+            return "CASE WHEN "+daysIsParam+" THEN EXTRACT(HOUR FROM "+intervalArg+")::int/24||':'||TO_CHAR(EXTRACT(HOUR FROM "+intervalArg+")::int%24,'FM09')||':'||TO_CHAR("+intervalArg+",'MI:SS') ELSE TO_CHAR("+intervalArg+",'HH24:MI:SS') END";
+        } else if (includeDays) {
+            return "EXTRACT(HOUR FROM "+intervalArg+")::int/24 || ':' || TO_CHAR(EXTRACT(HOUR FROM "+intervalArg+")::int%24,'FM09') || ':' || TO_CHAR("+intervalArg+", 'MI:SS')";
+        } else {
+            return "TO_CHAR("+intervalArg+", 'HH24:MI:SS')";
+        }
+    }
+
+   
    
 
     /**

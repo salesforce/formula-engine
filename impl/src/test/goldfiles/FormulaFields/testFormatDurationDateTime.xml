@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationDateTime">
+   <testInstance formula="FORMATDURATION(customdatetime2__c,customdatetime1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>EXTRACT(HOUR FROM (INTERVAL '1 second' * ABS((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))::numeric)))::int/24 || ':' || TO_CHAR(EXTRACT(HOUR FROM (INTERVAL '1 second' * ABS((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))::numeric)))::int%24,'FM09') || ':' || TO_CHAR((INTERVAL '1 second' * ABS((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))::numeric)), 'MI:SS')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>EXTRACT(HOUR FROM (INTERVAL '1 second' * ABS((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))::numeric)))::int/24 || ':' || TO_CHAR(EXTRACT(HOUR FROM (INTERVAL '1 second' * ABS((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))::numeric)))::int%24,'FM09') || ':' || TO_CHAR((INTERVAL '1 second' * ABS((EXTRACT(EPOCH FROM $!s0s!$.customdatetime1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdatetime2__c))::numeric)), 'MI:SS')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?($F.formatduration(Math.abs((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/1000),true)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?($F.formatduration(Math.abs((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/1000),true)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?($F.formatduration(Math.abs((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/1000),true)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT'))!=null&amp;&amp;($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT'))!=null)?($F.formatduration(Math.abs((($F.anl([context.record.customdatetime1__c])?null:new Date(context.record.customdatetime1__c + ' GMT')).getTime()-($F.anl([context.record.customdatetime2__c])?null:new Date(context.record.customdatetime2__c + ' GMT')).getTime())/1000),true)):null</JsOutput>
+      <result>
+      <inputvalues>[2004:12:31:11:32:00, 2004:12:31:11:30:00]</inputvalues>
+         <formula>0:00:02:00</formula>
+         <sql>0:00:02:00</sql>
+         <javascript>0:00:02:00</javascript>
+         <javascriptLp>0:00:02:00</javascriptLp>
+         <formulaNullAsNull>0:00:02:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:02:00</sqlNullAsNull>
+         <javascriptNullAsNull>0:00:02:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0:00:02:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, 2008:02:28:10:34:00]</inputvalues>
+         <formula>1461:00:00:00</formula>
+         <sql>1461:00:00:00</sql>
+         <javascript>1461:00:00:00</javascript>
+         <javascriptLp>1461:00:00:00</javascriptLp>
+         <formulaNullAsNull>1461:00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>1461:00:00:00</sqlNullAsNull>
+         <javascriptNullAsNull>1461:00:00:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1461:00:00:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:32:00]</inputvalues>
+         <formula>0:00:02:00</formula>
+         <sql>0:00:02:00</sql>
+         <javascript>0:00:02:00</javascript>
+         <javascriptLp>0:00:02:00</javascriptLp>
+         <formulaNullAsNull>0:00:02:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:02:00</sqlNullAsNull>
+         <javascriptNullAsNull>0:00:02:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0:00:02:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, 2004:03:01:00:00:00]</inputvalues>
+         <formula>1:13:26:00</formula>
+         <sql>1:13:26:00</sql>
+         <javascript>1:13:26:00</javascript>
+         <javascriptLp>1:13:26:00</javascriptLp>
+         <formulaNullAsNull>1:13:26:00</formulaNullAsNull>
+         <sqlNullAsNull>1:13:26:00</sqlNullAsNull>
+         <javascriptNullAsNull>1:13:26:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1:13:26:00</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2004:12:31:11:32:00]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3999:02:28:10:34:00, 1780:02:28:10:34:00]</inputvalues>
+         <formula>810473:00:00:00</formula>
+         <sql>810473:00:00:00</sql>
+         <javascript>810473:00:00:00</javascript>
+         <javascriptLp>810473:00:00:00</javascriptLp>
+         <formulaNullAsNull>810473:00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>810473:00:00:00</sqlNullAsNull>
+         <javascriptNullAsNull>810473:00:00:00</javascriptNullAsNull>
+         <javascriptLpNullAsNull>810473:00:00:00</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

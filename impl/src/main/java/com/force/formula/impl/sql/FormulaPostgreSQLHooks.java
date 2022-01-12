@@ -117,7 +117,7 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
      */
 	@Override
     default String sqlSubtractTwoTimestamps() {
-        return "((EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))::numeric/86400)";
+        return "(EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))::numeric";
     } 
 	
 	@Override

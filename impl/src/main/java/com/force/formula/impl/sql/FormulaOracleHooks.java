@@ -5,7 +5,10 @@ package com.force.formula.impl.sql;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
 
 import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.impl.FormulaValidationHooks;
@@ -202,6 +205,9 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
 		return "TO_CHAR(LAST_DAY(%s),'DD')";
     }
 
+	   
+
+	
 	@Override
     default String sqlInitCap(boolean hasLocaleOverride) {
         if (hasLocaleOverride) {
@@ -210,7 +216,31 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
             return "NLS_INITCAP(%s)";
         }
     }
-
+	
+    /**
+     * Intervals in oracle aren't helpful, so don't use them.
+     */
+    @Override
+    default String sqlIntervalFromSeconds() {
+        return "TRUNC(ABS(%s))";
+    }
+   
+	// Use expensive overcalculating date math.   Sorry, but oracle doesn't support formatting a duration
+    // and the format it does use is difficult to work with if not including days
+    // TODO: Use the interval output and SUBSTR what is needed
+	@Override
+    default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
+	    String result;
+        if (daysIsParam != null) {
+            result = "(CASE WHEN "+daysIsParam+" THEN TO_CHAR(TRUNC(("+arg+")/86400))||':'||TO_CHAR(MOD(TRUNC(("+arg+")/3600),24),'FM09') ELSE TO_CHAR(TRUNC(("+arg+")/3600),'FM99999909') END)||':'||TO_CHAR(MOD(TRUNC(("+arg+")/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC("+arg+"),60),'FM09')";
+        } else if (includeDays) {
+            result = "TO_CHAR(TRUNC(("+arg+")/86400))||':'||TO_CHAR(MOD(("+arg+")/3600,24),'FM09')||':'||TO_CHAR(MOD(TRUNC(("+arg+")/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC("+arg+"),60),'FM09')";
+        } else {
+            result = "TO_CHAR(TRUNC(("+arg+")/3600),'FM99999909')||':'||TO_CHAR(MOD(TRUNC(("+arg+")/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC("+arg+"),60),'FM09')";
+        }
+        return "NVL2("+arg+","+result+",NULL)";
+    }
+	
 	@Override
     default String sqlChr() {
     	return "CHR(%s USING NCHAR_CS)";

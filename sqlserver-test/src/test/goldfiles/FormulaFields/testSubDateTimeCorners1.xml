@@ -2,11 +2,11 @@
 <testCase name="testSubDateTimeCorners1">
    <testInstance formula="(floor((customdatetime1__c-customdatetime2__c)*1440*60))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN (((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60)&gt;=0 THEN FLOOR(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) ELSE CEILING(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) END</Sql>
+       <Sql>CASE WHEN (((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10)))/86400 * 1440) * 60)&gt;=0 THEN FLOOR(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10)))/86400 * 1440) * 60),33)) ELSE CEILING(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10)))/86400 * 1440) * 60),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60)&gt;=0 THEN FLOOR(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) ELSE CEILING(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) END</Sql>
+       <Sql>CASE WHEN (((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10)))/86400 * 1440) * 60)&gt;=0 THEN FLOOR(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10)))/86400 * 1440) * 60),33)) ELSE CEILING(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10)))/86400 * 1440) * 60),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -54,11 +54,11 @@
    </testInstance>
    <testInstance formula="(floor((customdatetime2__c-customdatetime1__c)*1440*60))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN (((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60)&gt;=0 THEN FLOOR(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) ELSE CEILING(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) END</Sql>
+       <Sql>CASE WHEN (((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10)))/86400 * 1440) * 60)&gt;=0 THEN FLOOR(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10)))/86400 * 1440) * 60),33)) ELSE CEILING(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10)))/86400 * 1440) * 60),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60)&gt;=0 THEN FLOOR(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) ELSE CEILING(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) END</Sql>
+       <Sql>CASE WHEN (((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10)))/86400 * 1440) * 60)&gt;=0 THEN FLOOR(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10)))/86400 * 1440) * 60),33)) ELSE CEILING(ROUND((((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10)))/86400 * 1440) * 60),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
