@@ -1,12 +1,16 @@
 package com.force.formula;
 
-import java.net.URL;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import com.force.i18n.*;
+import com.force.formula.util.FormulaI18nUtils;
+import com.force.i18n.HumanLanguage;
 import com.force.i18n.LanguageLabelSetDescriptor.GrammaticalLabelSetDescriptor;
-import com.force.i18n.grammar.*;
+import com.force.i18n.LanguageProviderFactory;
+import com.force.i18n.LocalizerFactory;
+import com.force.i18n.grammar.GrammaticalLabelSet;
+import com.force.i18n.grammar.GrammaticalLocalizer;
+import com.force.i18n.grammar.GrammaticalLocalizerFactory;
 import com.force.i18n.grammar.parser.GrammaticalLabelSetLoader;
 
 /**
@@ -28,19 +32,13 @@ public final class MockLocalizerContext {
     }
     	
     public static GrammaticalLabelSet getLabels() {
-        URL url = MockLocalizerContext.class.getResource("/com/force/formula/formulaLabels.xml");
         HumanLanguage language = LanguageProviderFactory.get().getBaseLanguage();
-        GrammaticalLabelSetDescriptor desc = new LabelSetDescriptorImpl(url, language, "formulaLabels", "formulaLabels.xml", "formulaNames.xml");
-        return GrammaticalLocalizerFactory.getLoader(desc, null).getSet(language);
-    }
-
-    public static GrammaticalLabelSetDescriptor getLabelDesc() {
-        URL url = MockLocalizerContext.class.getResource("/com/force/formula/formulaLabels.xml");
-        HumanLanguage language = LanguageProviderFactory.get().getBaseLanguage();
-        return new LabelSetDescriptorImpl(url, language, "formulaLabels", "formulaLabels.xml", "formulaNames.xml");
+        return FormulaI18nUtils.getFormulaEngineLabelsProvider(null).getSet(language);
     }
 
     public static void establishMock() {
-    	LocalizerFactory.set(new GrammaticalLocalizerFactory(new GrammaticalLabelSetLoader(getLabelDesc())));
+        HumanLanguage language = LanguageProviderFactory.get().getBaseLanguage();
+        GrammaticalLabelSetDescriptor desc = FormulaI18nUtils.getFormulaEngineLabelsDesc(language);
+        LocalizerFactory.set(new GrammaticalLocalizerFactory(new GrammaticalLabelSetLoader(desc)));
     }
 }

@@ -38,6 +38,7 @@ import com.force.formula.impl.InvalidFunctionReferenceException;
 import com.force.formula.impl.JvmMetrics;
 import com.force.formula.impl.WrongArgumentTypeException;
 import com.force.formula.impl.WrongNumberOfArgumentsException;
+import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
 import com.force.i18n.HumanLanguage;
 import com.force.i18n.LabelSetDescriptorImpl;
@@ -410,7 +411,7 @@ public class TemplateFunctionsTest extends ParserTestBase {
         URL url = TemplateFunctionsTest.class.getResource("/com/force/formula/impl/labels/labels.xml");
         HumanLanguage language = LanguageProviderFactory.get().getBaseLanguage();
         GrammaticalLabelSetDescriptor desc = new LabelSetDescriptorImpl(url, language, "labels", "labels.xml", "names.xml");
-        GrammaticalLabelSetProvider provider = GrammaticalLocalizerFactory.getLoader(MockLocalizerContext.getLabelDesc(), null);
+        GrammaticalLabelSetProvider provider = FormulaI18nUtils.getFormulaEngineLabelsProvider(null);
         
         GrammaticalLocalizer localizer = new MockLocalizer(Locale.US, Locale.US, TimeZone.getTimeZone("GMT"), language,
                 GrammaticalLocalizerFactory.getLoader(desc, provider).getSet(language));

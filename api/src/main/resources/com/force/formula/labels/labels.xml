@@ -334,8 +334,8 @@
         <param name="FORMAT">FORMAT(value[, format] | messageFormat[, args...])</param>
         <param name="FORMAT_DESCR">Format the number, date or time with an optional format, or use the java-style message format with optional arguments.</param>
 
-        <param name="FORMATDURATION">FORMATCURRENCY(numSeconds[, includeDays] | dateTime/time, dateTime/time)</param>
-        <param name="FORMATDURATION_DESCR">Format the number of seconds with optional says, or the difference between times or dateTimes as HH:MI:SS.</param>
+        <param name="FORMATDURATION">FORMATDURATION(numSeconds[, includeDays] | dateTime/time, dateTime/time)</param>
+        <param name="FORMATDURATION_DESCR">Format the number of seconds with optional days, or the difference between times or dateTimes as HH:MI:SS.</param>
         <param name="LABEL">LABEL(section, key, [arg0,...])</param>
         <param name="LABEL_DESCR">Render the label in the language of the user for the given section and key.</param>
 
