@@ -2,6 +2,9 @@ package com.force.formula.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
+import java.util.Locale;
+import java.util.function.Supplier;
 
 import com.force.formula.FormulaEngine;
 import com.force.formula.FormulaEvaluationException;
@@ -10,11 +13,21 @@ import com.force.formula.FormulaReturnType;
 import com.force.formula.FormulaRuntimeContext;
 import com.force.formula.FormulaTooLongException;
 import com.force.i18n.BaseLocalizer;
+import com.force.i18n.HumanLanguage;
 import com.force.i18n.LabelReference;
+import com.force.i18n.LabelSetDescriptorImpl;
+import com.force.i18n.LanguageLabelSetDescriptor.GrammaticalLabelSetDescriptor;
+import com.force.i18n.LanguageProviderFactory;
 import com.force.i18n.Renameable;
+import com.force.i18n.grammar.GrammaticalLabelSetProvider;
 import com.force.i18n.grammar.GrammaticalLocalizer;
+import com.force.i18n.grammar.GrammaticalLocalizerFactory;
 import com.force.i18n.settings.SettingsSectionNotFoundException;
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 /**
  * Class with some sample Internationalization and Localization Utilities
@@ -95,5 +108,39 @@ public enum FormulaI18nUtils {
         }
 
         return result;
+    }
+    
+    
+    /**
+     * The name of the formula-engine labels
+     */
+    public static final String LABEL_SET_NAME = "formula-engine";
+
+    static final Supplier<Function<HumanLanguage, URL>> LABEL_DIR = ()->LabelSetDescriptorImpl.getLabelRootFunction("/com/force/formula/labels",
+            "labels.xml", FormulaI18nUtils.class.getClassLoader());
+    
+    static final LoadingCache<HumanLanguage, URL> CACHED_LABEL_DIR = CacheBuilder.newBuilder().build(
+            new CacheLoader<HumanLanguage, URL>() {
+                @Override
+                public URL load(HumanLanguage key) throws Exception {
+                    return LABEL_DIR.get().apply(key);
+                }
+            });
+
+
+    /**
+     * @param parent the parent labels to include as fallback for the formula-engine labels
+     * @return a provider of the formula-engine labels
+     */
+    public static GrammaticalLabelSetProvider getFormulaEngineLabelsProvider(GrammaticalLabelSetProvider parent) {
+        HumanLanguage defLang = LanguageProviderFactory.get().getLanguage(Locale.US);
+        return GrammaticalLocalizerFactory.getLoader(getFormulaEngineLabelsDesc(defLang), parent);
+    }
+    
+    /**
+     * @return a LanguageLabelSetDescriptor for the formula-engine labels
+     */
+    public static GrammaticalLabelSetDescriptor getFormulaEngineLabelsDesc(HumanLanguage language) {
+        return LabelSetDescriptorImpl.getWithMultipleRoots(CACHED_LABEL_DIR, language, LABEL_SET_NAME, "labels.xml", "names.xml");
     }
 }
