@@ -112,9 +112,15 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
 
         String sql;
         if (lhsDataType == BigDecimal.class) {
-            // The second parameter is the boolean to include date or not.
+            // The second parameter is the boolean to include date or not.  Simplify the logic if it's a constant
             String interval = String.format(hooks.sqlIntervalFromSeconds(), args[0]);
-            sql = hooks.sqlIntervalToDurationString(interval, true, args[1]);
+            if ("(1=1)".equals(args[1]) || "TRUE".equalsIgnoreCase(args[1])) {
+                sql = hooks.sqlIntervalToDurationString(interval, true, null);  // Include days
+            } else if ("(0=1)".equals(args[1]) || "FALSE".equalsIgnoreCase(args[1])) {
+                sql = hooks.sqlIntervalToDurationString(interval, false, null); // Don't include days
+            } else {
+                sql = hooks.sqlIntervalToDurationString(interval, true, args[1]);  // Have the complicated logic
+            }
         } else if (lhsDataType == FormulaTime.class) {
             String diff = String.format(hooks.sqlSubtractTwoTimes(), args[1], args[0]);
             String interval = String.format(hooks.sqlIntervalFromSeconds(), diff);

@@ -3541,7 +3541,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="DateTime" length="255"/>
     </testcase>
     <testcase name="testFormatDurationSecondsBool" devName="testFormatDurationSecondsBool" labels="extended"
-        labelName="testFormatDurationSecondsBool" dataType="Text" eval="formula,template" dataFile="formatDurationNumber"
+        labelName="testFormatDurationSecondsBool" dataType="Text" eval="formula,template" dataFile="formatDurationNumberBool"
         code="FORMATDURATION(customNumber1__c, customcheckbox1__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customcheckbox1" labelName="customcheckbox1"
@@ -3551,8 +3551,17 @@ author: Srikanth Yendluri/Doug Chasman
         labelName="testFormatDurationSeconds" dataType="Text" eval="formula,template" dataFile="formatDurationNumber"
         code="FORMATDURATION(customNumber1__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
-         <referencefield devName="customcheckbox1" labelName="customcheckbox1"
-             dataType="Boolean" length="255"/>
     </testcase>
+
+     <testcase name="testFormatDurationWithTrue" devName="testFormatDurationWithTrue"
+         labelName="testFormatDurationWithTrue" dataType="Text" length="130" compareTemplate="formula" dataFile="formatDurationNumber"
+         code="FORMATDURATION(customNumber1__c,TRUE)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+     </testcase>
+     <testcase name="testFormatDurationWithFalse" devName="testFormatDurationWithFalse"
+         labelName="testFormatDurationWithFalse" dataType="Text" length="130"  dataFile="formatDurationNumber"
+         code="FORMATDURATION(customNumber1__c,FALSE)">
+         <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
+     </testcase>             
 
 </formula-test>

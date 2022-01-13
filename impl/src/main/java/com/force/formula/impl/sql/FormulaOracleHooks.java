@@ -234,7 +234,7 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
         if (daysIsParam != null) {
             result = "(CASE WHEN "+daysIsParam+" THEN TO_CHAR(TRUNC(("+arg+")/86400))||':'||TO_CHAR(MOD(TRUNC(("+arg+")/3600),24),'FM09') ELSE TO_CHAR(TRUNC(("+arg+")/3600),'FM99999909') END)||':'||TO_CHAR(MOD(TRUNC(("+arg+")/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC("+arg+"),60),'FM09')";
         } else if (includeDays) {
-            result = "TO_CHAR(TRUNC(("+arg+")/86400))||':'||TO_CHAR(MOD(("+arg+")/3600,24),'FM09')||':'||TO_CHAR(MOD(TRUNC(("+arg+")/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC("+arg+"),60),'FM09')";
+            result = "TO_CHAR(TRUNC(("+arg+")/86400))||':'||TO_CHAR(MOD(TRUNC(("+arg+")/3600),24),'FM09')||':'||TO_CHAR(MOD(TRUNC(("+arg+")/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC("+arg+"),60),'FM09')";
         } else {
             result = "TO_CHAR(TRUNC(("+arg+")/3600),'FM99999909')||':'||TO_CHAR(MOD(TRUNC(("+arg+")/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC("+arg+"),60),'FM09')";
         }

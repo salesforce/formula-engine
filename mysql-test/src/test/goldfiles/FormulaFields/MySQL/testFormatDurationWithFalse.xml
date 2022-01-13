@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCase name="testFormatDurationSeconds">
-   <testInstance formula="FORMATDURATION(customNumber1__c)" returntype="Text">
+<testCase name="testFormatDurationWithFalse">
+   <testInstance formula="FORMATDURATION(customNumber1__c,FALSE)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>IIF(ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1) IS NULL, NULL, CONCAT(FORMAT(CONVERT(int,ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1)/3600),'########00'),':',FORMAT(CONVERT(int,((ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0,1))%60),'00')))</Sql>
+       <Sql>TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)),'%H:%i:%s')</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>IIF(ROUND(ABS($!s0s!$.customNumber1__c),0,1) IS NULL, NULL, CONCAT(FORMAT(CONVERT(int,ROUND(ABS($!s0s!$.customNumber1__c),0,1)/3600),'########00'),':',FORMAT(CONVERT(int,((ROUND(ABS($!s0s!$.customNumber1__c),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS($!s0s!$.customNumber1__c),0,1))%60),'00')))</Sql>
+       <Sql>TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)),'%H:%i:%s')</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

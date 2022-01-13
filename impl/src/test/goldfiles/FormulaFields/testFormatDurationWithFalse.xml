@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCase name="testFormatDurationSeconds">
-   <testInstance formula="FORMATDURATION(customNumber1__c)" returntype="Text">
+<testCase name="testFormatDurationWithFalse">
+   <testInstance formula="FORMATDURATION(customNumber1__c,FALSE)" returntype="Text">
     <SqlOutput nullAsNull="true">
        <Sql>TO_CHAR((INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))), 'HH24:MI:SS')</Sql>
        <Guard>null</Guard>
