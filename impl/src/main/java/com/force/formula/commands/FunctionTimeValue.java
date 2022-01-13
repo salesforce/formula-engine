@@ -3,12 +3,27 @@ package com.force.formula.commands;
 import java.lang.reflect.Type;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Deque;
+import java.util.GregorianCalendar;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDateException;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaTime;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.IllegalArgumentTypeException;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaDateUtil;
 import com.force.i18n.BaseLocalizer;
@@ -120,7 +135,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
         }
 
         @Override
-        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) throws FormulaException {
             Object input = stack.pop();
 
             FormulaTime value = null;

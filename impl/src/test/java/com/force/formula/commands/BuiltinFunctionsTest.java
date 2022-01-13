@@ -10,7 +10,14 @@ import java.util.Date;
 
 import org.junit.Assert;
 
-import com.force.formula.*;
+import com.force.formula.FormulaDateException;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaEngineHooks;
+import com.force.formula.FormulaEvaluationException;
+import com.force.formula.FormulaTime;
+import com.force.formula.MockFormulaDataType;
+import com.force.formula.ParserTestBase;
 import com.force.formula.util.FormulaDateUtil;
 import com.force.i18n.BaseLocalizer;
 
@@ -616,8 +623,8 @@ public class BuiltinFunctionsTest extends ParserTestBase {
         try {
             evaluateTime("timeValue(\"12:34:56.789Z\")");
             fail("Expected FormulaDateException");
-        } catch (RuntimeException e) {
-            assertTrue("Expected FormulaDateException, but got " + e, e.getCause() instanceof FormulaDateException);
+        } catch (FormulaDateException e) {
+            assertEquals("Invalid time format: 12:34:56.789Z", e.getMessage());
         }
     }
 

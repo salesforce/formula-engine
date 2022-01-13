@@ -125,22 +125,22 @@
       </result>
       <result>
       <inputvalues>[01:00:00.000, 01:66:29.345]</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>null</sql>
          <javascript>82800000</javascript>
          <javascriptLp>82800000</javascriptLp>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>82800000</javascriptNullAsNull>
          <javascriptLpNullAsNull>82800000</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[01:66:29.345, 01:00:00.000]</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>null</sql>
          <javascript>3600000</javascript>
          <javascriptLp>3600000</javascriptLp>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>3600000</javascriptNullAsNull>
          <javascriptLpNullAsNull>3600000</javascriptLpNullAsNull>

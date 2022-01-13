@@ -11,9 +11,9 @@
     </SqlOutput>
       <result>
       <inputvalues>No data</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>Error: At least one of the result expressions in a CASE specification must be an expression other than the NULL constant.</sql>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>Error: At least one of the result expressions in a CASE specification must be an expression other than the NULL constant.</sqlNullAsNull>
       </result>
    </testInstance>

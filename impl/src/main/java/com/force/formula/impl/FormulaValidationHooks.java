@@ -6,16 +6,44 @@ package com.force.formula.impl;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
-import java.text.*;
+import java.text.DateFormat;
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.force.formula.*;
-import com.force.formula.commands.*;
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.Formula;
+import com.force.formula.FormulaCommand;
+import com.force.formula.FormulaCommandVisitor;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaEngineHooks;
+import com.force.formula.FormulaEvaluationException;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaFieldReferenceInfo;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaSchema;
+import com.force.formula.FormulaTypeWithDomain;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.UnsupportedTypeException;
+import com.force.formula.commands.FieldReferenceCommand;
+import com.force.formula.commands.FieldReferenceCommandInfo;
+import com.force.formula.commands.FormulaCommandInfo;
 import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
-import com.force.formula.sql.*;
-import com.force.formula.util.*;
+import com.force.formula.sql.FormulaSqlStyle;
+import com.force.formula.sql.FormulaWithSql;
+import com.force.formula.sql.ITableAliasRegistry;
+import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaFieldReferenceInfoImpl;
+import com.force.formula.util.FormulaGeolocationService;
 import com.force.i18n.BaseLocalizer;
 import com.google.common.base.CharMatcher;
 
@@ -472,6 +500,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
             return ShortCircuitBehavior.THUNK_REST;
         case "AND":
         case "OR":
+        case "IFERROR":
         case "TEMPLATE":
             // PrevGroupVal and ParentGroupVal arguments are used at parse time only and somewhat costly to evaluate
             // Delay all of the arguments

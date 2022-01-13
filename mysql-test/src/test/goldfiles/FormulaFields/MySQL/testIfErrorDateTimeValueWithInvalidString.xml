@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorDateTimeValueWithInvalidString">
+   <testInstance formula="IFERROR(DATETIMEVALUE(&quot;sample &quot;),DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;))" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 0=0 THEN TIMESTAMP('2005-11-15 17:00:00 ') ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 0=0 THEN TIMESTAMP('2005-11-15 17:00:00 ') ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>Tue Nov 15 17:00:00 GMT 2005</formula>
+         <sql>2005-11-15 17:00:00.0</sql>
+         <formulaNullAsNull>Tue Nov 15 17:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-11-15 17:00:00.0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

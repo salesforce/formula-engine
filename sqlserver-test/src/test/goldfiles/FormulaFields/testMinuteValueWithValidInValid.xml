@@ -60,37 +60,37 @@
       </result>
       <result>
       <inputvalues>[2011-13-29 00:00:09]</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sql>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012:02:02]</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-01-01 24:00:00]</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sql>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-01-01 23:60:00]</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sql>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-01-01 23:00:60]</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sql>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sqlNullAsNull>
       </result>
       <result>
@@ -102,9 +102,9 @@
       </result>
       <result>
       <inputvalues>[2012-10-34 00:00:00]</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sql>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>Error: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.</sqlNullAsNull>
       </result>
       <result>

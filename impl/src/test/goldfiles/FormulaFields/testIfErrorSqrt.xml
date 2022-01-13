@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorSqrt">
+   <testInstance formula="IFERROR(SQRT(customnumber1__c),-1)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&lt;0 THEN (-1) ELSE SQRT(COALESCE($!s0s!$.customnumber1__c, 0)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customnumber1__c&lt;0 THEN (-1) ELSE SQRT($!s0s!$.customnumber1__c) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(isNaN($F.Decimal.sqrt($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))))?new $F.Decimal('1').neg():$F.Decimal.sqrt($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(!(context.record.customnumber1__c!=null) || isNaN($F.Decimal.sqrt(context.record.customnumber1__c)))?new $F.Decimal('1').neg():$F.Decimal.sqrt(context.record.customnumber1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(isNaN(Math.sqrt($F.nvl(context.record.customnumber1__c,0))))?(-1):Math.sqrt($F.nvl(context.record.customnumber1__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(!(context.record.customnumber1__c!=null) || isNaN(Math.sqrt(context.record.customnumber1__c)))?(-1):Math.sqrt(context.record.customnumber1__c)</JsOutput>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula null viaJavascript -1 -->
+      <inputvalues>[, ]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>-1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-1</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <javascript>0</javascript>
+         <javascriptLp>0</javascriptLp>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24]</inputvalues>
+         <formula>4.898979485566356</formula>
+         <sql>4.898979485566356</sql>
+         <javascript>4.898979485566356</javascript>
+         <javascriptLp>4.8989795</javascriptLp>
+         <formulaNullAsNull>4.898979485566356</formulaNullAsNull>
+         <sqlNullAsNull>4.898979485566356</sqlNullAsNull>
+         <javascriptNullAsNull>4.898979485566356</javascriptNullAsNull>
+         <javascriptLpNullAsNull>4.8989795</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.99]</inputvalues>
+         <formula>0.99498743710662</formula>
+         <sql>0.99498743710661995</sql>
+         <javascript>0.99498743710662</javascript>
+         <javascriptLp>0.9949874</javascriptLp>
+         <formulaNullAsNull>0.99498743710662</formulaNullAsNull>
+         <sqlNullAsNull>0.99498743710661995</sqlNullAsNull>
+         <javascriptNullAsNull>0.99498743710662</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.9949874</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-24]</inputvalues>
+         <formula>-1</formula>
+         <sql>-1</sql>
+         <javascript>-1</javascript>
+         <javascriptLp>-1</javascriptLp>
+         <formulaNullAsNull>-1</formulaNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
+         <javascriptNullAsNull>-1</javascriptNullAsNull>
+         <javascriptLpNullAsNull>-1</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

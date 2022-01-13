@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorDateTimeValueWithInvalidString">
+   <testInstance formula="IFERROR(DATETIMEVALUE(&quot;sample &quot;),DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;))" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 0=0 THEN TO_TIMESTAMP('2005-11-15 17:00:00 ', 'YYYY-MM-DD HH24:MI:SS') ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 0=0 THEN TO_TIMESTAMP('2005-11-15 17:00:00 ', 'YYYY-MM-DD HH24:MI:SS') ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(Object.prototype.toString.call(new Date(&quot;sample &quot; + ' GMT')) !== '[object Date]') || isNaN(new Date(&quot;sample &quot; + ' GMT').getTime())?new Date(&quot;2005-11-15 17:00:00 &quot; + ' GMT'):new Date(&quot;sample &quot; + ' GMT')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(Object.prototype.toString.call(new Date(&quot;sample &quot; + ' GMT')) !== '[object Date]') || isNaN(new Date(&quot;sample &quot; + ' GMT').getTime())?new Date(&quot;2005-11-15 17:00:00 &quot; + ' GMT'):new Date(&quot;sample &quot; + ' GMT')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(Object.prototype.toString.call(new Date(&quot;sample &quot; + ' GMT')) !== '[object Date]') || isNaN(new Date(&quot;sample &quot; + ' GMT').getTime())?new Date(&quot;2005-11-15 17:00:00 &quot; + ' GMT'):new Date(&quot;sample &quot; + ' GMT')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(Object.prototype.toString.call(new Date(&quot;sample &quot; + ' GMT')) !== '[object Date]') || isNaN(new Date(&quot;sample &quot; + ' GMT').getTime())?new Date(&quot;2005-11-15 17:00:00 &quot; + ' GMT'):new Date(&quot;sample &quot; + ' GMT')</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>Tue Nov 15 17:00:00 GMT 2005</formula>
+         <sql>2005-11-15 17:00:00.0</sql>
+         <javascript>Tue Nov 15 17:00:00 GMT 2005</javascript>
+         <javascriptLp>Tue Nov 15 17:00:00 GMT 2005</javascriptLp>
+         <formulaNullAsNull>Tue Nov 15 17:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-11-15 17:00:00.0</sqlNullAsNull>
+         <javascriptNullAsNull>Tue Nov 15 17:00:00 GMT 2005</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Tue Nov 15 17:00:00 GMT 2005</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

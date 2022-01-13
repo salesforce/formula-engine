@@ -15,11 +15,11 @@
     <JsOutput highPrec="false" nullAsNull="true">new Date(&quot;sample &quot; + ' GMT')</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>null</sql>
          <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
          <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
          <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
          <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>

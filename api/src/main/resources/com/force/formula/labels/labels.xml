@@ -276,6 +276,8 @@
         <param name="SUBSTITUTE_DESCR">Substitutes new_text for old_text in a text string. Use SUBSTITUTE when you want to replace specific text in a text string</param>
         <param name="ISNUMBER">ISNUMBER(Text)</param>
         <param name="ISNUMBER_DESCR">Returns TRUE if the text value is a number. Otherwise, it returns FALSE.</param>
+        <param name="IFERROR">IFERROR(expression, substitute_expression)</param>
+        <param name="IFERROR_DESCR">Checks whether expression would produce an error returning substitute_expression if it would, the expression if it is valid.</param>
         <param name="REGEX">REGEX(Text, RegEx_Text)</param>
         <param name="REGEX_DESCR">Returns TRUE if Text matches the regular expression RegEx_Text. Otherwise, it returns FALSE.</param>
         <param name="DISTANCE">DISTANCE(location, location, unit)</param>

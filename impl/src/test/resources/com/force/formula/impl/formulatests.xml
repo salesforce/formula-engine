@@ -3563,5 +3563,53 @@ author: Srikanth Yendluri/Doug Chasman
          code="FORMATDURATION(customNumber1__c,FALSE)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
      </testcase>             
+     
+     
+     <testcase name="testIfErrorDateTimeValueWithInvalidString" devName="testIfErrorDateTimeValueWithInvalidString" labels="extended"
+         labelName="testIfErrorDateTimeValueWithInvalidString" dataType="DateOnly" eval="formula,template"
+         code="IFERROR(DATETIMEVALUE(&quot;sample &quot;),DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;))">
+     </testcase>
+     <testcase name="testIfErrorDateTimeValueWithBadElse" devName="testIfErrorDateTimeValueWithBadElse" labels="ignore"
+         labelName="testIfErrorDateTimeValueWithBadElse" dataType="DateOnly" eval="formula,template"
+         code="IFERROR(DATETIMEVALUE(&quot;sample &quot;),DATETIMEVALUE(&quot;sample &quot;))">
+     </testcase>
+      <testcase name="testIfErrorDateTimeValueWithValidInValid" devName="testIfErrorDateTimeValueWithValidInValid" labels="extended"
+         whyIgnoreJs="24:00 works for time"
+         labelName="testIfErrorDateTimeValueWithValidInValid" dataType="DateOnly" eval="formula,template" dataFile="functiondatevalue-dateandtime"
+         code="IFERROR(DATETIMEVALUE(dateString__c),DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;))">
+         <referencefield devName="dateString" labelName="dateString"
+             dataType="Text"  length="50"/>
+      </testcase>
+     <testcase name="testIfErrorSqrt" devName="testIfErrorSqrt" labels="math"
+         labelName="testIfErrorSqrt" dataType="Double" dataFile="oneNumericField"
+         scale="2" precision="12"
+         whyIgnoreJs="nullAsNull difference in sqrt returning -1"
+         code="IFERROR(SQRT(customnumber1__c),-1)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+
+      <testcase name="testIfErrorTextTimeValueWithValidInValid" devName="testIfErrorTextTimeValueWithValidInValid" labels="extended"
+         labelName="testIfErrorTextTimeValueWithValidInValid" dataType="Text" eval="formula,template" dataFile="functiontimevalue-dateandtime"
+         whyIgnoreJs="Invalid times work with isocode"
+         code="IFERROR(Text(TimeValue(dateString__c)),NULL)">
+         <referencefield devName="dateString" labelName="dateString"
+             dataType="Text"  length="50"/>
+      </testcase>                       
+
+     <testcase name="testIfErrorBigDivide" devName="testIfErrorBigDivide" labels="math"
+         labelName="testIfErrorBigDivide" dataType="Double" dataFile="BigDivide"
+         scale="2" precision="15" whyIgnoreSql="mssql:precision limits"
+         whyIgnoreJs="nullAsNull returns 0 for NaN"
+         code="IFERROR(((customnumber1__c/customnumber2__c)*customnumber3__c),0)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="18"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="18"/>
+         <referencefield devName="customnumber3" labelName="customnumber3"
+             dataType="Double" scale="2" precision="18"/>
+     </testcase>
+
+
 
 </formula-test>
