@@ -11,19 +11,19 @@
     <parent>
         <groupId>com.salesforce.formula</groupId>
         <artifactId>formula-engine</artifactId>
-        <version>0.2.5</version>
+        <version>0.2.6-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.salesforce.formula</groupId>
             <artifactId>formula-engine-api</artifactId>
-            <version>0.2.5</version>
+            <version>0.2.6-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.salesforce.formula</groupId>
             <artifactId>formula-engine-test-utils</artifactId>
-            <version>0.2.5</version>
+            <version>0.2.6-SNAPSHOT</version>
 	    <scope>test</scope>
         </dependency>
         <dependency>
