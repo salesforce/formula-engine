@@ -41,6 +41,7 @@ import com.force.formula.commands.FunctionFormat;
 import com.force.formula.commands.FunctionFormatCurrency;
 import com.force.formula.commands.FunctionFormatDuration;
 import com.force.formula.commands.FunctionFromUnixTime;
+import com.force.formula.commands.FunctionIfError;
 import com.force.formula.commands.FunctionIfs;
 import com.force.formula.commands.FunctionInitCap;
 import com.force.formula.commands.FunctionIsChanged;
@@ -160,6 +161,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         List<FormulaCommandInfo> types = new ArrayList<>(FormulaCommandTypeRegistryImpl.getDefaultCommands());
         types.add(new FieldReferenceCommandInfo());
         types.add(new DynamicReference());
+        types.add(new FunctionIfError());
         types.add(new FunctionIfs());
         types.add(new FunctionDistance());
         types.add(new FunctionIsChanged());

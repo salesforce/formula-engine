@@ -2,10 +2,15 @@ package com.force.formula;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import com.force.formula.sql.FormulaSqlStyle;
-import com.force.formula.util.*;
+import com.force.formula.util.FormulaGeolocationService;
+import com.force.formula.util.FormulaI18nUtils;
+import com.force.formula.util.FormulaTextUtil;
 import com.force.i18n.BaseLocalizer;
 import com.force.i18n.LocalizerFactory;
 import com.google.common.collect.Lists;
@@ -74,16 +79,16 @@ public interface FormulaEngineHooks {
      * Convert the checked exception for FormulaDateException to a user-manageable Date Exception
      * @param ex the date exception to handle
      */
-	default void handleFormulaDateException(FormulaDateException ex) {
-		throw new RuntimeException(ex);
+	default void handleFormulaDateException(FormulaDateException ex) throws FormulaDateException {
+		throw ex;
 	}
 
 	/**
      * Convert the checked exception for FormulaTimeException to a user-manageable Time Exception
      * @param ex the time exception to handle
      */
-    default void handleFormulaTimeException(FormulaDateException ex) {
-        throw new RuntimeException(ex);
+    default void handleFormulaTimeException(FormulaDateException ex) throws FormulaDateException {
+        throw ex;
     }
 
 	/**

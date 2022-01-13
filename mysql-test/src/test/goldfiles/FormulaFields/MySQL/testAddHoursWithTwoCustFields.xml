@@ -32,9 +32,9 @@
       </result>
       <result>
       <inputvalues>[01:66:29.345,  0]</inputvalues>
-         <formula>Error: java.lang.RuntimeException</formula>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>null</sql>
-         <formulaNullAsNull>Error: java.lang.RuntimeException</formulaNullAsNull>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>

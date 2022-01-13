@@ -8,11 +8,16 @@ package com.force.formula.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.*;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +25,13 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import com.force.formula.*;
+import com.force.formula.Formula;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaTypeSpec;
+import com.force.formula.MockFormulaType;
+import com.force.formula.RuntimeFormulaInfo;
 import com.force.formula.commands.FormulaJsTestUtils;
 import com.force.formula.impl.FormulaTestCaseInfo.CompareType;
 import com.force.formula.impl.FormulaTestCaseInfo.DefaultEvaluationContext;
@@ -143,7 +154,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		
 		@Override
 		protected boolean ignoreJavascriptValueMismatchInAutobuilds() {
-			return ((FormulaGenericTests)getSuite()).ignoreJavascriptValueMismatchInAutobuilds(getName());
+			return ((FormulaGenericTests)getSuite()).ignoreJavascriptValueMismatchInAutobuilds(getName()) || getTestCaseInfo().getWhyIgnoreJs() != null;
 		}
 
 		@Override
