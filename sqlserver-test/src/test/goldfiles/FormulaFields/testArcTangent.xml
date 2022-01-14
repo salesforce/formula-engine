@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testArcTangent">
+   <testInstance formula="ATAN(customnumber1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(ATAN(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(ATAN($!s0s!$.customnumber1__c) AS DECIMAL(38,18))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, ]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, ]</inputvalues>
+         <formula>0.7853981633974483</formula>
+         <sql>0.785398163397448279</sql>
+         <formulaNullAsNull>0.7853981633974483</formulaNullAsNull>
+         <sqlNullAsNull>0.785398163397448279</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, ]</inputvalues>
+         <formula>-0.7853981633974483</formula>
+         <sql>-0.785398163397448279</sql>
+         <formulaNullAsNull>-0.7853981633974483</formulaNullAsNull>
+         <sqlNullAsNull>-0.785398163397448279</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3.141592653589793]</inputvalues>
+         <formula>1.2626272556789115</formula>
+         <sql>1.262627255678911542</sql>
+         <formulaNullAsNull>1.2626272556789115</formulaNullAsNull>
+         <sqlNullAsNull>1.262627255678911542</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-3.141592653589793]</inputvalues>
+         <formula>-1.2626272556789115</formula>
+         <sql>-1.262627255678911542</sql>
+         <formulaNullAsNull>-1.2626272556789115</formulaNullAsNull>
+         <sqlNullAsNull>-1.262627255678911542</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[6.283185307179586]</inputvalues>
+         <formula>1.4129651365067377</formula>
+         <sql>1.412965136506737718</sql>
+         <formulaNullAsNull>1.4129651365067377</formulaNullAsNull>
+         <sqlNullAsNull>1.412965136506737718</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-6.283185307179586]</inputvalues>
+         <formula>-1.4129651365067377</formula>
+         <sql>-1.412965136506737718</sql>
+         <formulaNullAsNull>-1.4129651365067377</formulaNullAsNull>
+         <sqlNullAsNull>-1.412965136506737718</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2.718281828459045]</inputvalues>
+         <formula>1.2182829050172777</formula>
+         <sql>1.218282905017277651</sql>
+         <formulaNullAsNull>1.2182829050172777</formulaNullAsNull>
+         <sqlNullAsNull>1.218282905017277651</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-2.718281828459045]</inputvalues>
+         <formula>-1.2182829050172777</formula>
+         <sql>-1.218282905017277651</sql>
+         <formulaNullAsNull>-1.2182829050172777</formulaNullAsNull>
+         <sqlNullAsNull>-1.218282905017277651</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

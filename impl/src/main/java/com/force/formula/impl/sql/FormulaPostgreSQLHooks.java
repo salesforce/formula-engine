@@ -299,4 +299,10 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
 		return "EXP(" + argument + "::numeric(40,20))";
 	}
     
+    @Override
+    default String sqlTrigConvert(String argument) {
+        return argument+"::numeric(40,20)";   // Override to specify your own default precision.
+    }
+
+    
 }

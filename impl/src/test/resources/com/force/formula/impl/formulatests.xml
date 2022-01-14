@@ -3611,5 +3611,48 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
 
+     <testcase name="testSine" devName="testSin" labels="math"
+         labelName="testSine" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="SIN(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testCosine" devName="testCosine" labels="math"
+         labelName="testCosine" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="COS(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testTangent" devName="testTangent" labels="math"
+         labelName="testTangent" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="TAN(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testArcSine" devName="testArcSine" labels="math"
+         labelName="testArcSine" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="ASIN(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testArcCosine" devName="testArcCosine" labels="math"
+         labelName="testArcCosine" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="ACOS(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testArcTangent" devName="testArcTangent" labels="math"
+         labelName="testArcTangent" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="ATAN(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+
 
 </formula-test>
