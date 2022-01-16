@@ -3,14 +3,23 @@
  */
 package com.force.formula.util;
 
-import java.net.URL;
-import java.util.*;
+import org.junit.Assert;
+import org.junit.Test;
 
-import org.junit.*;
-
-import com.force.formula.*;
-import com.force.i18n.*;
-import com.force.i18n.grammar.GrammaticalLocalizer;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaReturnType;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaTypeSpec;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.UnsupportedTypeException;
+import com.force.i18n.HumanLanguage;
+import com.force.i18n.LanguageLabelSetDescriptor.GrammaticalLabelSetDescriptor;
+import com.force.i18n.LanguageProviderFactory;
+import com.force.i18n.LocalizerFactory;
+import com.force.i18n.grammar.GrammaticalLocalizerFactory;
+import com.force.i18n.grammar.parser.GrammaticalLabelSetLoader;
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -198,54 +207,12 @@ public class BaseCompositeFormulaContextTest {
 			}
 		};
 	}
-	
-	// Set a localizer that returns "section.name" for every label.
-	void setLocalizer() {
-		final GrammaticalLocalizer localizer = new GrammaticalLocalizer(null, null, null, null, null) {
-			@Override
-			public String getLabel(String section, String name) {
-				return section + "." + name;
-			}
-			@Override
-			public String getLabel(String section, String key, Object... args) {
-				return section + "." + key;
-			}
-			
-		};
-		LocalizerFactory.set(new LocalizerProvider() {
-			@Override
-			public BaseLocalizer getLocalizer(Locale locale, Locale currencyLocale, HumanLanguage language, TimeZone timeZone) {
-				return localizer;
-			}
-			@Override
-			public BaseLocalizer getLocalizer(HumanLanguage language) {
-				return localizer;
-			}
-			@Override
-			public BaseLocalizer getLocalizer(Locale langLocale) {
-				return localizer;
-			}
-			@Override
-			public URL getLabelsDirectory() {
-				return null;
-			}
-			@Override
-			public BaseLocalizer getLabelLocalizer(HumanLanguage language) {
-				return localizer;
-			}
-			@Override
-			public BaseLocalizer getEnglishLocalizer() {
-				return localizer;
-			}
-			@Override
-			public BaseLocalizer getDefaultLocalizer() {
-				return localizer;
-			}
-			@Override
-			public LabelSet findLabelSet(HumanLanguage language) {
-				return null;
-			}
-		});		
+
+
+	public static void setLocalizer() {
+        HumanLanguage language = LanguageProviderFactory.get().getBaseLanguage();
+        GrammaticalLabelSetDescriptor desc = FormulaI18nUtils.getFormulaEngineLabelsDesc(language);
+        LocalizerFactory.set(new GrammaticalLocalizerFactory(new GrammaticalLabelSetLoader(desc)));
 	}
 	
 }
