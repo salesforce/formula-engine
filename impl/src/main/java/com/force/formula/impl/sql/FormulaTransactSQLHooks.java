@@ -58,8 +58,12 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 		return "CAST(%s AS DECIMAL(38,18))";   // Override to specify your own default precision.
     }
 
-    
 	@Override
+    default String sqlTrigConvert(String argument) {
+        return "CAST("+argument+" AS DECIMAL(38,18))";   // Override to specify your own default precision.
+    }
+
+    @Override
     default String sqlTrunc(String argument) {
     	return "ROUND(" + argument + ",0,1)"; // The third argument means truncate
     }

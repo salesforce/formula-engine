@@ -11,7 +11,6 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.FormulaContext;
 import com.force.formula.FormulaDateTime;
-import com.force.formula.FormulaEvaluationException;
 import com.force.formula.FormulaException;
 import com.force.formula.FormulaProperties;
 import com.force.formula.FormulaRuntimeContext;
@@ -114,8 +113,9 @@ public class FunctionIfError extends FormulaCommandInfoImpl implements FormulaCo
             
             try {
                 thenVal.executeReally(context, stack);
-            } catch (FormulaEvaluationException | FormulaException | IllegalArgumentException | ArithmeticException ex) {
-                // Not catching RuntimeException because we want to keep this to validation errors.
+            } catch (RuntimeException | FormulaException ex) {
+                // Using RuntimeException here instead of FormulaEvaluationException | ArithmeticException | IllegalArgumentException
+                // because Date exceptions can be turned into any RuntimeException by FormuleEngineHooks.handleFormulaDateException
                 elseVal.executeReally(context, stack);
             }
         }

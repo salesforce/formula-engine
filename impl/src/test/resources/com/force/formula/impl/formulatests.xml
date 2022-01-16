@@ -3611,5 +3611,62 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
 
+     <testcase name="testSine" devName="testSine" labels="math"
+         labelName="testSine" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="SIN(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testCosine" devName="testCosine" labels="math"
+         labelName="testCosine" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="COS(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testTangent" devName="testTangent" labels="math"
+         labelName="testTangent" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="TAN(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testArcSine" devName="testArcSine" labels="math"
+         labelName="testArcSine" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="ASIN(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testArcCosine" devName="testArcCosine" labels="math"
+         labelName="testArcCosine" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="ACOS(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testArcTangent" devName="testArcTangent" labels="math"
+         labelName="testArcTangent" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="ATAN(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testPi" devName="testPi" labels="math"
+         labelName="testPi" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="ROUND(PI(),12)">
+     </testcase>
+     <testcase name="testArcTan2" devName="testArcTan2"
+         labelName="testArcTan2" dataType="Double"
+         dataFile="twoNumericFields" scale="2" labels="math"
+         whyIgnoreSql="oracle:Divide by zero yields null not 0,mssql:Divide by zero yields null not 0"
+         precision="12" code="ATAN2(customnumber1__c,customnumber2__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
 
 </formula-test>

@@ -6,9 +6,10 @@ package com.force.formula.commands;
 
 import java.math.BigDecimal;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
+import com.force.formula.FormulaContext;
 import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.JsValue;
 import com.force.formula.sql.SQLPair;
@@ -63,4 +64,5 @@ public class OperatorDivide extends BinaryMathCommandBehavior {
 
         return new SQLPair(sql, guard);
     }
+  
 }

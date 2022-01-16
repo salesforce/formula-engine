@@ -820,5 +820,5 @@ public class BuiltinFunctionsTest extends ParserTestBase {
         assertNull( evaluateBoolean("\"Foo\" > null")); 
         assertNull( evaluateBoolean("null > \"foo\"")); 
     }
-    
+        
 }

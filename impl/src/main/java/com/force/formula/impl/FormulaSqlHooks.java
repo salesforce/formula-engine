@@ -550,6 +550,14 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
+     * @param argument the value that is a function call to a trig function.
+     * @return how to call a trigonometric on the function and return the right numeric value (cast to decimal)
+     */
+    default String sqlTrigConvert(String argument) {
+        return argument;
+    }
+    
+    /**
      * @param arg the numeric value to ensure that it is positive
      * @return a sql expression that will return the argument, or 0 if the argument is negative
      */

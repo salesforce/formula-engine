@@ -141,8 +141,13 @@ public class OptionalFunctionsTest extends BaseCustomizableParserTest {
         assertEquals("02:00:00", evaluateString("FORMATDURATION(timeValue(\"08:34:56.789\"),timeValue(\"06:34:56.789\"))"));
         assertEquals("02:00:00", evaluateString("FORMATDURATION(timeValue(\"06:34:56.789\"),timeValue(\"08:34:56.789\"))"));
         assertEquals("17:00:00", evaluateString("FORMATDURATION(timeValue(\"06:34:56.789\"),timeValue(\"23:34:56.789\"))"));
-
-        
     }
 
+    
+    public void testTrig() throws Exception {
+        // Round to 7 becuase javascript precision is highly variable
+        assertEquals(new BigDecimal("3.1415927"), evaluateBigDecimal("ROUND(PI(),7)")); 
+        assertEquals(new BigDecimal("3.1415927"), evaluateBigDecimal("ROUND(PI(),7)")); 
+    }
+   
 }
