@@ -285,6 +285,24 @@
         <param name="GEOLOCATION">GEOLOCATION(latitude, longitude)</param>
         <param name="GEOLOCATION_DESCR">Returns a location based on the provided latitude and longitude.</param>
 
+        <param name="PI">PI()</param>
+        <param name="PI_DESCR">Returns pi  </param>
+        <param name="SIN">SIN(number)</param>
+        <param name="SIN_DESCR">Returns the sine of the number, where the number given in radians</param>
+        <param name="COS">COS(number)</param>
+        <param name="COS_DESCR">Returns the cosine of the number, where the number given in radians</param>
+        <param name="TAN">TAN(number)</param>
+        <param name="TAN_DESCR">Returns the tangent of the number, where the number given in radians</param>
+        <param name="ASIN">ASIN(number)</param>
+        <param name="ASIN_DESCR">Returns the arc sine of the number in radians, if the given number is between -1 and 1.  Otherwise NULL.</param>
+        <param name="ACOS">ACOS(number)</param>
+        <param name="ACOS_DESCR">Returns the arc cosine of the number in radians, if the given number is between -1 and 1.  Otherwise NULL.</param>
+        <param name="ATAN">ATAN(number)</param>
+        <param name="ATAN_DESCR">Returns the arc tangent of the number in radians.</param>
+        <param name="ATAN2">ATAN2(y, x)</param>
+        <param name="ATAN2_DESCR">Returns the arc tangent of the quotient of y and x in radians.</param>
+
+
         <param name="LPAD">LPAD(text, padded_length [, pad_string])</param>
         <param name="LPAD_DESCR">Pad the left side of the value with spaces or the optional pad string so that the length is padded_length</param>
         <param name="RPAD">RPAD(text, padded_length [, pad_string])</param>

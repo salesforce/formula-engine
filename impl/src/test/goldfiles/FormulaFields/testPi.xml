@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testPi">
+   <testInstance formula="ROUND(PI(),12)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>ROUND(PI()::numeric(40,20), 12::integer)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ROUND(PI()::numeric(40,20), 12::integer)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">($F.Decimal.acos(-1)).mul('1e'+new $F.Decimal('12').toFixed(0)).round().div('1e'+new $F.Decimal('12').toFixed(0))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">($F.Decimal.acos(-1)).mul('1e'+new $F.Decimal('12').toFixed(0)).round().div('1e'+new $F.Decimal('12').toFixed(0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Number(Number(Math.PI).toFixed(12&lt;=20?12:20))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">Number(Number(Math.PI).toFixed(12&lt;=20?12:20))</JsOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>3.141592653590</formula>
+         <sql>3.14159265359</sql>
+         <javascript>3.14159265359</javascript>
+         <javascriptLp>3.1415927</javascriptLp>
+         <formulaNullAsNull>3.141592653590</formulaNullAsNull>
+         <sqlNullAsNull>3.14159265359</sqlNullAsNull>
+         <javascriptNullAsNull>3.14159265359</javascriptNullAsNull>
+         <javascriptLpNullAsNull>3.1415927</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

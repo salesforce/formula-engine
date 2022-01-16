@@ -3611,7 +3611,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
 
-     <testcase name="testSine" devName="testSin" labels="math"
+     <testcase name="testSine" devName="testSine" labels="math"
          labelName="testSine" dataType="Double" dataFile="radians"
          scale="2" precision="12"
          code="SIN(customnumber1__c)">
@@ -3653,6 +3653,20 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-
+     <testcase name="testPi" devName="testPi" labels="math"
+         labelName="testPi" dataType="Double" dataFile="radians"
+         scale="2" precision="12"
+         code="ROUND(PI(),12)">
+     </testcase>
+     <testcase name="testArcTan2" devName="testArcTan2"
+         labelName="testArcTan2" dataType="Double"
+         dataFile="twoNumericFields" scale="2" labels="math"
+         whyIgnoreSql="oracle:Divide by zero yields null not 0,mssql:Divide by zero yields null not 0"
+         precision="12" code="ATAN2(customnumber1__c,customnumber2__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
 
 </formula-test>

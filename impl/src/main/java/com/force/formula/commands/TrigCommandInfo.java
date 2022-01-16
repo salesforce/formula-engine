@@ -52,10 +52,12 @@ public class TrigCommandInfo extends FormulaCommandInfoImpl {
         Range<BigDecimal> range = trigFunction.getRange();
         if (range != null) {
             // If there's a range on inputs, put in a SQL guard to prevent errors
-            guard = args[0] + (range.lowerBoundType() == BoundType.CLOSED ? "<" : "<=") + range.lowerEndpoint() + " OR " + args[0] + 
-                    (range.lowerBoundType() == BoundType.CLOSED ? ">" : ">=") + range.upperEndpoint();
+            guard = SQLPair.generateGuard(guards, args[0] + (range.lowerBoundType() == BoundType.CLOSED ? "<" : "<=") + range.lowerEndpoint() + " OR " + args[0] + 
+                    (range.lowerBoundType() == BoundType.CLOSED ? ">" : ">=") + range.upperEndpoint());
+        } else {
+            SQLPair.generateGuard(guards, null);
         }
-        
+            
         return new SQLPair(sql, guard);
     }
 

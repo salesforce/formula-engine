@@ -35,10 +35,11 @@ public class FunctionPi extends FormulaCommandInfoImpl {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         FormulaSqlHooks hooks = getSqlHooks(context);
+        String function = "PI()";
         if (hooks.isOracleStyle()) {
-            return new SQLPair("ACOS(-1)",null);
+            function = "3.14159265358979323846"; // Use a constant
         }
-        return new SQLPair("PI()",null);
+        return new SQLPair(hooks.sqlTrigConvert(function), null);
     }
     
     @Override
@@ -51,17 +52,16 @@ public class FunctionPi extends FormulaCommandInfoImpl {
         }
     }
 
-}
-
-class FunctionPiCommand extends AbstractFormulaCommand {
-    private static final long serialVersionUID = 1L;
-
-	public FunctionPiCommand(FormulaCommandInfo formulaCommandInfo) {
-        super(formulaCommandInfo);
-    }
-
-	@Override
-    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
-	    stack.push(new BigDecimal("3.14159265358979323846"));
-    }
+    static class FunctionPiCommand extends AbstractFormulaCommand {
+        private static final long serialVersionUID = 1L;
+    
+    	public FunctionPiCommand(FormulaCommandInfo formulaCommandInfo) {
+            super(formulaCommandInfo);
+        }
+    
+    	@Override
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
+    	    stack.push(new BigDecimal("3.14159265358979323846"));
+        }
+    }	
 }

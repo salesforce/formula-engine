@@ -34,6 +34,7 @@ import com.force.formula.commands.BinaryMathCommandInfo;
 import com.force.formula.commands.FieldReferenceCommandInfo;
 import com.force.formula.commands.FormulaCommandInfo;
 import com.force.formula.commands.FunctionAscii;
+import com.force.formula.commands.FunctionAtan2;
 import com.force.formula.commands.FunctionChr;
 import com.force.formula.commands.FunctionDayOfYear;
 import com.force.formula.commands.FunctionDistance;
@@ -188,6 +189,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new TrigCommandInfo(FormulaTrigFunction.ACOS));
         types.add(new TrigCommandInfo(FormulaTrigFunction.ATAN));
         types.add(new FunctionPi());
+        types.add(new FunctionAtan2());
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         c.clear();

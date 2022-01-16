@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testArcTan2">
+   <testInstance formula="ATAN2(customnumber1__c,customnumber2__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>ATAN2(NVL($!s0s!$.customnumber1__c, 0),NVL($!s0s!$.customnumber2__c, 0))</Sql>
+       <Guard>NVL($!s0s!$.customnumber2__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ATAN2($!s0s!$.customnumber1__c,$!s0s!$.customnumber2__c)</Sql>
+       <Guard>$!s0s!$.customnumber2__c=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[, 24]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>Error: java.lang.NullPointerException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, 0.0]</inputvalues>
+         <formula>0.0</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.00, 0.00]</inputvalues>
+         <formula>0.0</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.000, 0.000]</inputvalues>
+         <formula>0.0</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.0, 99.0]</inputvalues>
+         <formula>-0.010100666585321907</formula>
+         <sql>-0.01010066658532190657197339861986</sql>
+         <formulaNullAsNull>-0.010100666585321907</formulaNullAsNull>
+         <sqlNullAsNull>-0.01010066658532190657197339861986</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[99,  -1]</inputvalues>
+         <formula>1.5808969933802186</formula>
+         <sql>1.58089699338021852580329509025961</sql>
+         <formulaNullAsNull>1.5808969933802186</formulaNullAsNull>
+         <sqlNullAsNull>1.58089699338021852580329509025961</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-20, -40]</inputvalues>
+         <formula>-2.677945044588987</formula>
+         <sql>-2.67794504458898712224838715181829</sql>
+         <formulaNullAsNull>-2.677945044588987</formulaNullAsNull>
+         <sqlNullAsNull>-2.67794504458898712224838715181829</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.1111, 1.1111]</inputvalues>
+         <formula>0.7853981633974483</formula>
+         <sql>0.78539816339744830961566084581988</sql>
+         <formulaNullAsNull>0.7853981633974483</formulaNullAsNull>
+         <sqlNullAsNull>0.78539816339744830961566084581988</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.11114, 0.00000]</inputvalues>
+         <formula>1.5707963267948966</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1.5707963267948966</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.11115, 0.00000]</inputvalues>
+         <formula>1.5707963267948966</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1.5707963267948966</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.111112, 0.000043]</inputvalues>
+         <formula>1.5707576268258758</formula>
+         <sql>1.57075762682587591461795573647974</sql>
+         <formulaNullAsNull>1.5707576268258758</formulaNullAsNull>
+         <sqlNullAsNull>1.57075762682587591461795573647974</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789, 123456789]</inputvalues>
+         <formula>0.7853981633974483</formula>
+         <sql>0.78539816339744830961566084581988</sql>
+         <formulaNullAsNull>0.7853981633974483</formulaNullAsNull>
+         <sqlNullAsNull>0.78539816339744830961566084581988</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, 123456789.123456789]</inputvalues>
+         <formula>0.7853981633974483</formula>
+         <sql>0.78539816339744830961566084581988</sql>
+         <formulaNullAsNull>0.7853981633974483</formulaNullAsNull>
+         <sqlNullAsNull>0.78539816339744830961566084581988</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, -123456789.123456789]</inputvalues>
+         <formula>2.356194490192345</formula>
+         <sql>2.35619449019234492884698253745963</sql>
+         <formulaNullAsNull>2.356194490192345</formulaNullAsNull>
+         <sqlNullAsNull>2.35619449019234492884698253745963</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-123456789.123456789, -123456789.123456789]</inputvalues>
+         <formula>-2.356194490192345</formula>
+         <sql>-2.35619449019234492884698253745963</sql>
+         <formulaNullAsNull>-2.356194490192345</formulaNullAsNull>
+         <sqlNullAsNull>-2.35619449019234492884698253745963</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[600,  0.000600]</inputvalues>
+         <formula>1.5707953267948966</formula>
+         <sql>1.57079532679489661956465502497288</sql>
+         <formulaNullAsNull>1.5707953267948966</formulaNullAsNull>
+         <sqlNullAsNull>1.57079532679489661956465502497288</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[600,  -600]</inputvalues>
+         <formula>2.356194490192345</formula>
+         <sql>2.35619449019234492884698253745963</sql>
+         <formulaNullAsNull>2.356194490192345</formulaNullAsNull>
+         <sqlNullAsNull>2.35619449019234492884698253745963</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.2345,  1.2345]</inputvalues>
+         <formula>0.7853981633974483</formula>
+         <sql>0.78539816339744830961566084581988</sql>
+         <formulaNullAsNull>0.7853981633974483</formulaNullAsNull>
+         <sqlNullAsNull>0.78539816339744830961566084581988</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.245,  0]</inputvalues>
+         <formula>1.5707963267948966</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1.5707963267948966</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0.0</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NullPointerException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, ]</inputvalues>
+         <formula>1.5707963267948966</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NullPointerException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 12.123456789]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>Error: java.lang.NullPointerException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.00596, 240]</inputvalues>
+         <formula>0.004191475453895499</formula>
+         <sql>0.00419147545389549966780469113149</sql>
+         <formulaNullAsNull>0.004191475453895499</formulaNullAsNull>
+         <sqlNullAsNull>0.00419147545389549966780469113149</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 240]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.0000000000001, 1000]</inputvalues>
+         <formula>0.00000000000000010</formula>
+         <sql>0.0000000000000001</sql>
+         <formulaNullAsNull>0.00000000000000010</formulaNullAsNull>
+         <sqlNullAsNull>0.0000000000000001</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.0000000000001, -1000]</inputvalues>
+         <formula>3.141592653589793</formula>
+         <sql>3.1415926535897931384626433832795</sql>
+         <formulaNullAsNull>3.141592653589793</formulaNullAsNull>
+         <sqlNullAsNull>3.1415926535897931384626433832795</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
