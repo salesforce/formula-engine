@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE iniFile SYSTEM "labels.dtd">
+<!DOCTYPE iniFile SYSTEM "../labels.dtd">
 <iniFile>
     <section name="Formula_General">
         <param name="BlankFieldHandlingTitle">Gestione dei campi vuoti</param>
@@ -65,7 +65,7 @@
         <param name="InvalidNumericValueException">Il valore "{0}" non è un numero valido.</param>
         <param name="InvalidValueException_ForOperator"><![CDATA[Il valore ''{0}'' non è valido per l''operatore ''{1}''.]]></param>
         <param name="SpanningRelationshipLimit_remove">Per salvare questo/a {1}, è necessario rimuovere almeno {0} relazione/i.</param>
-        <param name="SpanningRelationshipLimit_thisFormula">Oggetti correlati a cui si fa riferimento in <this/>{0}:</param>
+        <param name="SpanningRelationshipLimit_thisFormula">Oggetti correlati a cui si fa riferimento in questo {0}:</param>
         <param name="EndOfFormula">fine della formula</param>
         <param name="FieldReference">field name</param>
         <param name="Evaluation_Exception">#Errore!</param>

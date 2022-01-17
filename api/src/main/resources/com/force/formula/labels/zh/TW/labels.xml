@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE iniFile SYSTEM "labels.dtd">
+<!DOCTYPE iniFile SYSTEM "../../labels.dtd">
 <iniFile>
     <section name="Formula_General">
         <param name="BlankFieldHandlingTitle">空白欄位處理</param>
