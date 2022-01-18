@@ -23,7 +23,7 @@ import com.google.common.collect.Range;
  * @author stamm
  * @since 0.2.0
  */
-@AllowedContext(section=SelectorSection.MATH)
+@AllowedContext(section=SelectorSection.MATH, isOffline=true)
 public class TrigCommandInfo extends FormulaCommandInfoImpl {
     public TrigCommandInfo(FormulaTrigFunction function) {
         super(function.name(), BigDecimal.class, new Class[] { BigDecimal.class });
