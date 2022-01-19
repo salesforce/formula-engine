@@ -3,7 +3,13 @@ package com.force.formula.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.force.formula.*;
+import com.force.formula.Formula;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaException;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.MockFormulaType;
+import com.force.formula.RuntimeFormulaInfo;
+import com.force.formula.UnsupportedTypeException;
 import com.force.formula.commands.FormulaJsTestUtils;
 import com.google.common.collect.ImmutableMap;
 
@@ -29,7 +35,7 @@ public class FieldReferenceJsTest extends BaseFieldReferenceTest {
     }
 
     @Override
-    protected Object evaluate(String formulaSource, FormulaDataType columnType) throws Exception {
+    protected Object evaluate(String formulaSource, FormulaDataType columnType) throws FormulaException {
         BeanFormulaContext context = setupMockContext(columnType);
         RuntimeFormulaInfo formulaInfo = FormulaInfoFactory.create(getFormulaType(), context, formulaSource);
         Formula formula = formulaInfo.getFormula();

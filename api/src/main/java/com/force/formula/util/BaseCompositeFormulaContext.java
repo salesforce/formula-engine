@@ -3,10 +3,30 @@ package com.force.formula.util;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.force.formula.*;
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.DisplayField;
+import com.force.formula.FormulaCommandType;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaCurrencyData;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEvaluationException;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.FormulaReturnType;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaSchema;
 import com.force.formula.FormulaSchema.ApiElement;
+import com.force.formula.FormulaTime;
+import com.force.formula.FormulaTypeSpec;
+import com.force.formula.GlobalFormulaProperties;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.UnsupportedTypeException;
 import com.google.common.base.Ascii;
 
 /**
@@ -23,29 +43,6 @@ public class BaseCompositeFormulaContext implements FormulaRuntimeContext {
     public interface FormulaRuntimeContextProvider {
         FormulaRuntimeContext get(FormulaContext outerContext) throws FormulaException, SQLException;
     }
-    
-    // Use this to prevent any funny business with formula properties
-    public static class ConstantGlobalFormulaProperties extends GlobalFormulaProperties {
-        public ConstantGlobalFormulaProperties(FormulaTypeSpec topLevelType) {
-            super(topLevelType);
-        }
-
-        @Override
-        public void pushFormulaType(FormulaTypeSpec type) {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public FormulaTypeSpec popFormulaType() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public void setShouldIgnoreFls(boolean ignore) {
-            throw new UnsupportedOperationException();
-        }
-    }
-    
 
     public BaseCompositeFormulaContext(FormulaRuntimeContext defaultContext, FormulaTypeSpec topLevelFormulaType) {
         this.defaultContext = defaultContext;
@@ -54,6 +51,15 @@ public class BaseCompositeFormulaContext implements FormulaRuntimeContext {
         this.additionalContexts = new HashMap<String, FormulaRuntimeContext>();
         this.allowSelfReference = true;
     }
+
+    public BaseCompositeFormulaContext(FormulaRuntimeContext defaultContext, GlobalFormulaProperties globalProperties) {
+        this.defaultContext = defaultContext;
+        this.globalFormulaProperties = globalProperties;
+        this.additionalContextProviders = new HashMap<String, FormulaRuntimeContextProvider>();
+        this.additionalContexts = new HashMap<String, FormulaRuntimeContext>();
+        this.allowSelfReference = true;
+    }
+
 
     /**
      * Provide a way for a child formula context to filter out formulas simply without breaking inheritance

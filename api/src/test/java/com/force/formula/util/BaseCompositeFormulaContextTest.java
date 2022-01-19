@@ -153,14 +153,6 @@ public class BaseCompositeFormulaContextTest {
 	static FormulaReturnType getReturnType() {
 		return new FormulaReturnType() {
 			@Override
-			public int getScale() {
-				return 0;
-			}
-			@Override
-			public String getName() {
-				return "name";
-			}
-			@Override
 			public FormulaDataType getDataType() {
 				return new FormulaDataType() {
 					@Override

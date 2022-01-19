@@ -55,18 +55,6 @@ public class MockFormulaContext extends NullFormulaContext {
                 // for now we only return formulas that evaluate to numbers
                 return returnType;
             }
-            @Override
-            public FormulaSchema.FieldOrColumn getFieldOrColumnInfo() {
-                return null;
-            }
-            @Override
-            public String getName() {
-                return null;
-            }
-            @Override
-            public int getScale() {
-                return 32;
-            }
         };
     }
 
