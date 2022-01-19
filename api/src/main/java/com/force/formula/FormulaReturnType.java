@@ -11,7 +11,9 @@ public interface FormulaReturnType {
     /**
      * @return the name of the field,  if it's a custom formula field
      */
-    String getName();
+    default String getName() {
+        return null;
+    }
 
     /**
      * @return the DataType of this formula
@@ -21,7 +23,9 @@ public interface FormulaReturnType {
     /**
      * @return scale of the number, if the return type is a number
      */
-    int getScale();
+    default int getScale() {
+        return 32;
+    }
     
     /**
      * @return the FieldOrColumnInfo backing this formula.  This may return null as some formulas are not applicable to fields or columns.

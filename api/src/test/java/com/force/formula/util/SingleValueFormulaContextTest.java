@@ -17,6 +17,7 @@ import com.force.formula.FormulaDataType;
 import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaEvaluationException;
 import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaReturnType;
 import com.force.formula.FormulaRuntimeContext;
 import com.force.formula.FormulaTime;
 import com.force.formula.FormulaTypeSpec;
@@ -142,9 +143,18 @@ public class SingleValueFormulaContextTest {
     }
     
     
+    @Test
+    public void testProperties() throws Exception {
+        SingleValueFormulaContext context = new TestSingleValueFormulaContext(null, BigDecimal.ONE);
+        Assert.assertEquals(null, context.<Object>getProperty("foo"));
+        context.setProperty("foo", "bar");
+        Assert.assertEquals("bar", context.getProperty("foo"));
+    }
+    
+    
     static class TestSingleValueFormulaContext extends SingleValueFormulaContext<Object> {
         public TestSingleValueFormulaContext(FormulaDataType type, Object value) {
-            super(null, new FormulaTypeSpec() {
+            super(new FormulaTypeSpec() {
                 @Override
                 public int getMaxLength() {
                     return 0;
@@ -156,6 +166,11 @@ public class SingleValueFormulaContextTest {
                 @Override
                 public FormulaProperties getDefaultProperties() {
                     return new FormulaProperties();
+                }
+            }, new FormulaReturnType() {
+                @Override
+                public FormulaDataType getDataType() {
+                    return null;
                 }
             }, type, value);
         }

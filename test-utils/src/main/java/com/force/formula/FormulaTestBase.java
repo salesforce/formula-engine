@@ -3,10 +3,14 @@ package com.force.formula;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import com.force.formula.commands.FormulaJsTestUtils;
-import com.force.formula.sql.*;
+import com.force.formula.sql.FormulaWithSql;
+import com.force.formula.sql.RuntimeSqlFormulaInfo;
+import com.force.formula.sql.SQLPair;
 import com.force.i18n.BaseLocalizer;
 
 import junit.framework.TestCase;
@@ -27,27 +31,27 @@ public abstract class FormulaTestBase extends TestCase {
         return mergeFieldName.replaceFirst("\\{\\!", "").replaceFirst("\\}", "");
     }
 
-    protected BigDecimal evaluateBigDecimal(String formulaSource) throws Exception {
+    protected BigDecimal evaluateBigDecimal(String formulaSource) throws FormulaException {
         return (BigDecimal)evaluate(formulaSource, MockFormulaDataType.DOUBLE);
     }
 
-    protected Boolean evaluateBoolean(String formulaSource) throws Exception {
+    protected Boolean evaluateBoolean(String formulaSource) throws FormulaException {
         return (Boolean)evaluate(formulaSource, MockFormulaDataType.BOOLEAN);
     }
 
-    protected String evaluateString(String formulaSource) throws Exception {
+    protected String evaluateString(String formulaSource) throws FormulaException {
         return (String)evaluate(formulaSource, MockFormulaDataType.TEXT);
     }
 
-    protected Date evaluateDate(String formulaSource) throws Exception {
+    protected Date evaluateDate(String formulaSource) throws FormulaException {
         return (Date)evaluate(formulaSource, MockFormulaDataType.DATEONLY);
     }
 
-    protected FormulaDateTime evaluateDateTime(String formulaSource) throws Exception {
+    protected FormulaDateTime evaluateDateTime(String formulaSource) throws FormulaException {
         return (FormulaDateTime)evaluate(formulaSource, MockFormulaDataType.DATETIME);
     }
 
-    protected FormulaTime evaluateTime(String formulaSource) throws Exception {
+    protected FormulaTime evaluateTime(String formulaSource) throws FormulaException {
         return (FormulaTime)evaluate(formulaSource, MockFormulaDataType.TIMEONLY);
     }
     
@@ -60,9 +64,9 @@ public abstract class FormulaTestBase extends TestCase {
      * @param formulaSource the source of the formula
      * @param columnType the column type expected 
      * @return the result of evaluating the formula
-     * @throws Exception if there is an issue during parsing or evaluation
+     * @throws FormulaException if there is an issue during parsing or evaluation
      */
-    protected Object evaluate(String formulaSource, FormulaDataType columnType) throws Exception {
+    protected Object evaluate(String formulaSource, FormulaDataType columnType) throws FormulaException {
         FormulaRuntimeContext context = setupMockContext(columnType);
         RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(getFormulaType(), context, formulaSource);
         Formula formula = formulaInfo.getFormula();
@@ -74,10 +78,10 @@ public abstract class FormulaTestBase extends TestCase {
      * @param formulaSource the source of the formula
      * @param columnType the column type expected 
      * @return the result of evaluating the formula
-     * @throws Exception if there is an issue during parsing or evaluation
+     * @throws FormulaException if there is an issue during parsing or evaluation
      */
 
-    protected Object evaluateJavascript(String formulaSource, FormulaDataType columnType) throws Exception {
+    protected Object evaluateJavascript(String formulaSource, FormulaDataType columnType) throws FormulaException {
         FormulaRuntimeContext context = setupMockContext(columnType);
         RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(MockFormulaType.JAVASCRIPT, context, formulaSource);
         Formula formula = formulaInfo.getFormula();
@@ -89,9 +93,9 @@ public abstract class FormulaTestBase extends TestCase {
      * @param formulaSource the formula to parse and evaluate.
      * @param exceptionType the exception type expected
      * @param message the message asso
-     * @throws Exception in case some other exception is thrown.
+     * @throws FormulaException in case some other exception is thrown.
      */
-    protected void evaluateFail(String formulaSource, Class<? extends Exception> exceptionType, String message) throws Exception {
+    protected void evaluateFail(String formulaSource, Class<? extends Exception> exceptionType, String message) throws FormulaException {
     	evaluateFail(formulaSource, MockFormulaDataType.TEXT, exceptionType, message);
     }
     
@@ -101,9 +105,9 @@ public abstract class FormulaTestBase extends TestCase {
      * @param dataType the data type expected fro the result
      * @param exceptionType the exception type expected
      * @param message the message asso
-     * @throws Exception in case some other exception is thrown.
+     * @throws FormulaException in case some other exception is thrown.
      */
-    protected void evaluateFail(String formulaSource, FormulaDataType dataType, Class<? extends Exception> exceptionType, String message) throws Exception {
+    protected void evaluateFail(String formulaSource, FormulaDataType dataType, Class<? extends Exception> exceptionType, String message) throws FormulaException {
     	try {
     		evaluate(formulaSource, MockFormulaDataType.TEXT);
     		fail("Should have gotten exception: " + exceptionType.getName());
@@ -119,7 +123,7 @@ public abstract class FormulaTestBase extends TestCase {
     }
 
 
-    protected SQLPair getSqlPair(String formulaSource, FormulaDataType columnType) throws Exception {
+    protected SQLPair getSqlPair(String formulaSource, FormulaDataType columnType) throws FormulaException {
         FormulaRuntimeContext context = setupMockContext(columnType);
         RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(getFormulaType(), context, formulaSource);
         FormulaWithSql formula = (FormulaWithSql) formulaInfo.getFormula();
@@ -130,9 +134,9 @@ public abstract class FormulaTestBase extends TestCase {
      * Evaluate as a template, with the {!...} syntax
      * @param formulaSource the formula to evaluate
      * @return the result of evaluating the formula agianst a mock context.
-     * @throws Exception if an error occurred while evaluating the template
+     * @throws FormulaException if an error occurred while evaluating the template
      */
-    protected Object evaluateTemplate(String formulaSource) throws Exception {
+    protected Object evaluateTemplate(String formulaSource) throws FormulaException {
         FormulaRuntimeContext context = setupMockContext(MockFormulaDataType.TEXT);
         RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(context, formulaSource, getTemplateProperties());
         Formula formula = formulaInfo.getFormula();
@@ -169,9 +173,9 @@ public abstract class FormulaTestBase extends TestCase {
      * Parse the expression like a template (with {!...} syntax) and validate that it matches
      * @param expectedResult the result of the text
      * @param expression the expression to parse
-     * @throws Exception if an error occurs while processing the expression
+     * @throws FormulaException if an error occurs while processing the expression
      */
-    public void assertTemplateFormula(String expectedResult, String expression) throws Exception {
+    public void assertTemplateFormula(String expectedResult, String expression) throws FormulaException {
         FormulaRuntimeContext context  = setupMockContext(MockFormulaDataType.TEXT);
         RuntimeSqlFormulaInfo formulaInfo = (RuntimeSqlFormulaInfo) FormulaEngine.getFactory().create(context, expression, getTemplateProperties());
         Formula formula = formulaInfo.getFormula();

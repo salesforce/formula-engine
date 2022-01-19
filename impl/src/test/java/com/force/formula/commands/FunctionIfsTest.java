@@ -7,8 +7,14 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-import com.force.formula.*;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaException;
+import com.force.formula.MockFormulaDataType;
+import com.force.formula.MockFormulaType;
+import com.force.formula.impl.BaseCustomizableParserTest;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.sql.SQLPair;
 
@@ -68,7 +74,7 @@ public class FunctionIfsTest extends BaseCustomizableParserTest {
     	return isJs() ? MockFormulaType.JAVASCRIPT : MockFormulaType.DEFAULT;
     }
     @Override
-    protected Object evaluate(String formulaSource, FormulaDataType columnType) throws Exception {
+    protected Object evaluate(String formulaSource, FormulaDataType columnType) throws FormulaException {
     	if (!isJs()) {
     		return super.evaluate(formulaSource, columnType);
     	} else {

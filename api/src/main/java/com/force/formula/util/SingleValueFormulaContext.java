@@ -13,7 +13,6 @@ import com.force.formula.FormulaDataType;
 import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaGeolocation;
 import com.force.formula.FormulaReturnType;
-import com.force.formula.FormulaRuntimeContext;
 import com.force.formula.FormulaSchema;
 import com.force.formula.FormulaTime;
 import com.force.formula.FormulaTypeSpec;
@@ -28,7 +27,7 @@ import com.force.formula.UnsupportedTypeException;
  * @author stamm
  * @since 0.2.6
  */
-public class SingleValueFormulaContext<T> extends BaseCompositeFormulaContext {
+public class SingleValueFormulaContext<T> extends BaseRootFormulaContext {
     public static final String VALUE_NAME = "Value";
     
     private final FormulaDataType dataType;
@@ -37,8 +36,8 @@ public class SingleValueFormulaContext<T> extends BaseCompositeFormulaContext {
     /**
      * @param outerContext
      */
-    public SingleValueFormulaContext(FormulaRuntimeContext outerContext, FormulaTypeSpec topLevelFormulaType, FormulaDataType dataType, T value) {
-        super(outerContext, topLevelFormulaType);
+    public SingleValueFormulaContext(FormulaTypeSpec topLevelFormulaType, FormulaReturnType returnType, FormulaDataType dataType, T value) {
+        super(topLevelFormulaType, returnType);
         this.dataType = dataType;
         this.value = value;
     }
@@ -149,16 +148,6 @@ public class SingleValueFormulaContext<T> extends BaseCompositeFormulaContext {
     }
 
     @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public FormulaReturnType getFormulaReturnType() {
-        return null;
-    }
-
-    @Override
     public ContextualFormulaFieldInfo lookup(String name, boolean isDynamicRefBase) throws InvalidFieldReferenceException, UnsupportedTypeException {
         if (getValueName().equalsIgnoreCase(name)) {
             return new SingleValueFormulaFieldInfo(getValueName(), this.getValueType());
@@ -184,8 +173,8 @@ public class SingleValueFormulaContext<T> extends BaseCompositeFormulaContext {
     public String fromDurableName(String reference) throws InvalidFieldReferenceException, UnsupportedTypeException {
         return reference;
     }
-
-    static class SingleValueFormulaFieldInfo extends FormulaFieldInfoImpl {
+    
+    class SingleValueFormulaFieldInfo extends FormulaFieldInfoImpl {
 
         public SingleValueFormulaFieldInfo(String name, FormulaDataType columnType) {
             super(name, name, name);
@@ -204,5 +193,4 @@ public class SingleValueFormulaContext<T> extends BaseCompositeFormulaContext {
 
         private final FormulaDataType columnType;
     }
-
 }

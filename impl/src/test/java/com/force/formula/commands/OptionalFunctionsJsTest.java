@@ -8,6 +8,7 @@ package com.force.formula.commands;
 import java.util.TimeZone;
 
 import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaException;
 import com.force.formula.MockFormulaType;
 
 /**
@@ -39,7 +40,7 @@ public class OptionalFunctionsJsTest extends OptionalFunctionsTest {
     }
 
     @Override
-    protected Object evaluate(String formulaSource, FormulaDataType columnType) throws Exception {
+    protected Object evaluate(String formulaSource, FormulaDataType columnType) throws FormulaException {
     	return evaluateJavascript(formulaSource, columnType);
     }
 
