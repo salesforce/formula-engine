@@ -5,7 +5,13 @@
  */
 package com.force.formula.util;
 
-import com.force.formula.*;
+import java.util.Objects;
+
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaPicklistInfo;
+import com.force.formula.FormulaSchema;
 
 /**
  * Base Implementation of FormulaFieldInfo that provides default implementations of most methods.
@@ -95,9 +101,25 @@ public abstract class FormulaFieldInfoImpl implements ContextualFormulaFieldInfo
     public boolean isRuntimeType() {
         return false;
     }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, label);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        FormulaFieldInfoImpl other = (FormulaFieldInfoImpl)obj;
+        return Objects.equals(id, other.id)
+                && Objects.equals(name, other.name)
+                && Objects.equals(label, other.label);
+    }
 
     private final Object id;
     private final String name;
     private final Object label;
+
 
 }
