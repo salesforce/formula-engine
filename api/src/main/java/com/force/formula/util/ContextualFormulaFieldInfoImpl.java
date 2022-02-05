@@ -6,10 +6,19 @@
 package com.force.formula.util;
 
 import java.lang.reflect.Proxy;
+import java.util.Objects;
 
-import com.force.formula.*;
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.Formula;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaProvider;
+import com.force.formula.FormulaSchema;
 import com.force.formula.FormulaSchema.Entity;
 import com.force.formula.FormulaSchema.FieldOrColumn;
+import com.force.formula.FormulaTypeSpec;
 import com.force.formula.sql.InvalidFormula;
 
 /**
@@ -91,4 +100,17 @@ public class ContextualFormulaFieldInfoImpl extends FormulaFieldInfoImpl impleme
     public String getSource() throws FormulaException {
         return formulaSource;
     }    
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode() * Objects.hash(field, context);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) return false;
+        ContextualFormulaFieldInfoImpl other = (ContextualFormulaFieldInfoImpl) obj;
+        return Objects.equals(field, other.field)
+                && Objects.equals(context, other.context);
+    }
 }
