@@ -36,7 +36,6 @@ import com.force.formula.impl.FormulaValidationHooks;
 import com.force.formula.impl.FormulaValidationHooks.ParseOption;
 import com.force.formula.impl.InvalidFunctionReferenceException;
 import com.force.formula.impl.JvmMetrics;
-import com.force.formula.impl.WrongArgumentTypeException;
 import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
@@ -291,6 +290,7 @@ public class TemplateFunctionsTest extends ParserTestBase {
      */
     public void testTemplateFormatText() throws Exception {
         FormulaFactory oldFactory = FormulaEngine.getFactory();
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
         try {
             FormulaEngine.setFactory(TEST_FACTORY);
             String expression = "This is a test of format {!format()}";
@@ -316,17 +316,21 @@ public class TemplateFunctionsTest extends ParserTestBase {
             expression = "This is a test of format {!format(\"Test {0}\",null,\"USD\")}";
             assertTemplateFormula("This is a test of format Test ", expression);
     
-            try {
-                expression = "This is a test of format {!format(\"Test {0}\",10.0,\"USD\")}";
-                assertTemplateFormula("This is a test of format Test null", expression);
-                fail();
-            }
-            catch (WrongArgumentTypeException ex) {
-                assertTrue(ex.getMessage(), ex.getMessage().contains("Incorrect parameter type"));
-            }
-    
+            expression = "This is a test of format {!format(\"Test {0}\",10.0,\"USD\")}";
+            assertTemplateFormula("This is a test of format Test 10", expression);
+
+            expression = "This is a test of format {!format(\"Test {0}\",10.0,\"USD\")}";
+            assertTemplateFormula("This is a test of format Test 10", expression);
+
             expression = "This is a test of format {!format(\"Test {3}\",\"USD\",\"USD\")}";
             assertTemplateFormula("This is a test of format Test {3}", expression);
+            
+            expression = "This is a test of format {!format(\"Test {0,date}\",DATE(2015,11,2))}";
+            assertTemplateFormula("This is a test of format Test Nov 2, 2015", expression);
+
+            expression = "This is a test of format {!format(\"Test {0,time}\",TIMEVALUE(\"12:00:00.000\"))}";
+            assertTemplateFormula("This is a test of format Test 12:00:00 PM", expression);
+
         } finally {
             FormulaEngine.setFactory(oldFactory);
         }
