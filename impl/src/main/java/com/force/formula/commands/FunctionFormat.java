@@ -122,14 +122,12 @@ public class FunctionFormat extends FormulaCommandInfoImpl implements FormulaCom
                 }
             }
         } else if (FormulaTypeUtils.isTypeTextUgly(clazz) || clazz == RuntimeType.class) {
-            // We can have have as many kids as we want here, but they all need to be Strings
+            // We can have have as many kids as we want here, but they need to be suitable for MessageFormat (date, time, number, string)
             while (null != (toConvert = (FormulaAST) toConvert.getNextSibling())) {
                 Type clazz2 = toConvert.getDataType();
-                if ((clazz2 != ConstantNull.class) && (!FormulaTypeUtils.isTypeTextUgly(clazz2)) && (clazz2 != Object.class) && clazz2 != RuntimeType.class) {
+                if ((clazz2 != ConstantNull.class) && (!FormulaTypeUtils.isTypeTextUgly(clazz2)) && (clazz2 != Object.class) && clazz2 != RuntimeType.class
+                        && clazz2 != Date.class && clazz2 != FormulaDateTime.class && clazz2 != BigDecimal.class && clazz2 != FormulaTime.class) {
                     throw new WrongArgumentTypeException(node.getText(), new Type[] { clazz, clazz2 }, toConvert);
-                }
-                if (clazz2 == RuntimeType.class) {
-                    resultType = clazz2;
                 }
             }
         } else if (kids == 2) {
@@ -176,7 +174,20 @@ class FunctionFormatCommand extends AbstractFormulaCommand {
 
         boolean isStringFormat = numNodes > 0 && first instanceof String;
         if (isStringFormat) {
-            String pattern = FormulaValidationHooks.get().validateMessageFormat((String)first, args);
+            FormulaValidationHooks hooks = FormulaValidationHooks.get();
+            
+            // Convert dates
+            for (int i = 0; i < args.length; i++) {
+                Object value = args[i];
+                if (value instanceof FormulaDateTime) {
+                    args[i] = ((FormulaDateTime)value).getDate();
+                } else if (value instanceof FormulaTime) {
+                    args[i] = new Date(((FormulaTime)value).getTimeInMillis());
+                } else {
+                    args[i] = hooks.convertToString(args[i]);
+                }
+            }
+            String pattern = hooks.validateMessageFormat((String)first, args);
 
             try {
                 stack.push(MessageFormat.format(pattern, args));
