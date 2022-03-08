@@ -3,11 +3,19 @@ package com.force.formula.commands;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommandType;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
-import com.force.formula.sql.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaException;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.sql.ITableAliasRegistry;
+import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaTextUtil;
 
 /**
@@ -180,14 +188,14 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
      * 
      * @return whether to use the "Decimal" or "Math" packages for math functions
      */
-    static String jsMathPkg(FormulaContext context) {
+    protected static String jsMathPkg(FormulaContext context) {
 		return context.useHighPrecisionJs() ? "$F.Decimal" : "Math";
     }
 
     /**
      * Convert the value *to* a high precision decimal from a javascript number
      */
-    static String jsToDec(FormulaContext context, String val) {
+    protected static String jsToDec(FormulaContext context, String val) {
         return context.useHighPrecisionJs() ? "(new $F.Decimal(" + val + "))" : val;
     }
 
@@ -198,7 +206,7 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
      * @param val
      * @return
      */
-    static String jsToNum(FormulaContext context, String val) {
+    protected static String jsToNum(FormulaContext context, String val) {
         return context.useHighPrecisionJs() ? val + ".toNumber()" : val;
     }
 
