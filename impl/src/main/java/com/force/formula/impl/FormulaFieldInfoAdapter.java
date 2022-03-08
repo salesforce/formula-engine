@@ -1,6 +1,17 @@
 package com.force.formula.impl;
 
-import com.force.formula.*;
+import java.util.Objects;
+
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.Formula;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaFieldInfo;
+import com.force.formula.FormulaPicklistInfo;
+import com.force.formula.FormulaProvider;
+import com.force.formula.FormulaSchema;
+import com.force.formula.FormulaTypeSpec;
 import com.force.formula.sql.FormulaSQLProvider;
 import com.force.formula.util.FormulaFieldInfoImpl;
 
@@ -111,6 +122,20 @@ public abstract class FormulaFieldInfoAdapter extends FormulaFieldInfoImpl imple
     @Override
     public FormulaContext getFormulaContext() {
         return info.getFormulaContext();
+    }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode() * Objects.hash(this.namespace, this.fieldOrColumnInfo, this.info);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!super.equals(obj)) return false;
+        FormulaFieldInfoAdapter other = (FormulaFieldInfoAdapter) obj;
+        return Objects.equals(this.namespace, other.namespace)
+                && Objects.equals(this.fieldOrColumnInfo, other.fieldOrColumnInfo)
+                && Objects.equals(this.info, other.info);
     }
 
     private final String namespace;
