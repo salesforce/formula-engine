@@ -57,6 +57,7 @@ import com.force.formula.commands.TrigCommandInfo;
 import com.force.formula.impl.BeanFormulaContext.BeanFormulaType;
 import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.template.commands.DynamicReference;
+import com.force.formula.template.commands.FunctionTemplate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -162,6 +163,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
     static {
         // Register all of the commands defined in SFDC, and then use provider factory to get the rest.
         List<FormulaCommandInfo> types = new ArrayList<>(FormulaCommandTypeRegistryImpl.getDefaultCommands());
+        types.add(new FunctionTemplate());
         types.add(new FieldReferenceCommandInfo());
         types.add(new DynamicReference());
         types.add(new FunctionIfError());
