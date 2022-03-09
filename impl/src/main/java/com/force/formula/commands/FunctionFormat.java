@@ -189,8 +189,18 @@ class FunctionFormatCommand extends AbstractFormulaCommand {
             }
             String pattern = hooks.validateMessageFormat((String)first, args);
 
+            // Try to set the locale and timezone for 
             try {
-                stack.push(MessageFormat.format(pattern, args));
+                BaseLocalizer localizer = hooks.getLocalizer();
+                MessageFormat mf = new MessageFormat(pattern, localizer.getLocale());
+                Object [] formats = mf.getFormats();
+                for (int i = 0; i < formats.length; i++) {
+                    if (formats[i] instanceof DateFormat) {
+                        ((DateFormat)formats[i]).setTimeZone(hooks.getLocalizer().getTimeZone());
+                    }
+                }
+                String result = mf.format(args);
+                stack.push(result);
             } catch (IllegalArgumentException ex) {
                 throw new FormulaEvaluationException(ex);
             }
@@ -287,7 +297,7 @@ class FunctionFormatCommand extends AbstractFormulaCommand {
             return FormulaI18nUtils.getLocalizer().getLongDateFormat();
         } else if (pattern != null && pattern.contains(FunctionFormat.USE_LANGUAGE_PREFIX)) {
             String newPattern = pattern.substring(FunctionFormat.USE_LANGUAGE_PREFIX.length());
-            return new SimpleDateFormat(newPattern, FormulaI18nUtils.getLocalizer().getLanguage());
+            return new SimpleDateFormat(newPattern, FormulaI18nUtils.getLocalizer().getUserLanguage().getLocale());
         } else {
             return new SimpleDateFormat(pattern, FormulaI18nUtils.getLocalizer().getLocale());
         }
