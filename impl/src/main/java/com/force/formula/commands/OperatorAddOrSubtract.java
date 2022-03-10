@@ -257,7 +257,7 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
      */
     private String castNullIfNeeded(FormulaContext context, Type parentType, Type otherType, String value) {
         if (!performAddition && parentType == BigDecimal.class && (otherType == FormulaDateTime.class || otherType == Date.class) && "NULL".equals(value)) {
-        	return String.format(getSqlHooks(context).sqlToDate(), "NULL");
+        	return getSqlHooks(context).sqlNullToDate();
         }
         return value;
     }

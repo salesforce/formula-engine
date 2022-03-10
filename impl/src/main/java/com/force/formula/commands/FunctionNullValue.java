@@ -4,10 +4,24 @@ package com.force.formula.commands;
 import java.lang.reflect.Type;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.FormulaTypeUtils;
+import com.force.formula.impl.IllegalArgumentTypeException;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
@@ -40,8 +54,9 @@ public class FunctionNullValue extends FormulaCommandInfoImpl implements Formula
             sql = args[0];
             guard = guards[0];
         } else {
-        	if (!"NULL".equalsIgnoreCase(args[0])) { 
-        		sql = getSqlHooks(context).sqlNvl() + "(" + args[0] + ", " + args[1] + ")";
+            FormulaSqlHooks hooks = getSqlHooks(context);
+        	if (!hooks.isNullArgument(args[0])) { 
+        		sql = hooks.sqlNvl() + "(" + args[0] + ", " + args[1] + ")";
         	} else {
         		sql = args[1]; // If args[0] is obviously NULL from a formula reference, optimize it away. 
         	}
@@ -77,6 +92,18 @@ public class FunctionNullValue extends FormulaCommandInfoImpl implements Formula
             return RuntimeType.class;
         }
         return (lhs != ConstantNull.class) ? lhs : rhs;
+    }
+    
+    /**
+     * @return whether the given node is the first child of NULLVALUE or BLANKVALUE
+     * @param node the node you're checking on 
+     */
+    public static boolean isFirstNodeOfNullValue(FormulaAST node) {
+        FormulaAST parent = node.getParent();
+        if (parent == null || node.getFirstChild() != node) {
+            return false;
+        }
+        return FormulaAST.isFunctionNode(parent, "nullvalue") || FormulaAST.isFunctionNode(parent, "blankvalue");
     }
 
     @Override

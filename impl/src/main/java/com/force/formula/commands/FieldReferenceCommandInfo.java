@@ -5,15 +5,47 @@ package com.force.formula.commands;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import com.force.formula.*;
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.Formula;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaFieldInfo;
+import com.force.formula.FormulaFieldReference;
+import com.force.formula.FormulaFieldReferenceInfo;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaProvider;
+import com.force.formula.FormulaSchema;
 import com.force.formula.FormulaSchema.FieldOrColumn;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaTime;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.RuntimeFormulaInfo;
+import com.force.formula.UnsupportedTypeException;
+import com.force.formula.impl.FieldReferenceCycleDetectedException;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaInfoFactory;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.NestedFormulaException;
+import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.parser.gen.FormulaTokenTypes;
-import com.force.formula.sql.*;
+import com.force.formula.sql.FormulaSQLProvider;
+import com.force.formula.sql.FormulaWithSql;
+import com.force.formula.sql.ITableAliasRegistry;
+import com.force.formula.sql.InvalidFormula;
+import com.force.formula.sql.SQLPair;
+import com.force.formula.sql.TableSet;
 import com.force.formula.util.BaseCompositeFormulaContext;
 import com.force.formula.util.FormulaFieldReferenceImpl;
 import com.google.common.base.Splitter;
@@ -232,12 +264,33 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
             // Can't go through getDbColumnForCalculatedField because that tacks stuff on
             sql = formula.getSQLRaw();
             guard = formula.getGuard();
-
+            
+            // Nulls for field columns need to be cast to the "right" column.  This happens with invalid formulas
+            // or bad field references.  By default this will be "null", but you can use this to throw an exception
+            if (formula instanceof InvalidFormula) {
+                FormulaEngine.getHooks().handleBadFormulaReference((InvalidFormula) formula);
+            }
+            
             ITableAliasRegistry nestedRegistry = formula.getTableAliasRegistry();
             sql = registry.translate(sql, nestedRegistry, fieldPath);
             guard = registry.translate(guard, nestedRegistry, fieldPath);
         }        
-    
+
+        // Treat nulls like they need to be typed (except in oracle)
+        if (sql != null && ("NULL".equalsIgnoreCase(sql))) {
+            FormulaSqlHooks sqlHooks = getSqlHooks(context);
+            if (!sqlHooks.isOracleStyle() && // Opt oracle out of it since it does autoconversion everywhere
+                    !FunctionNullValue.isFirstNodeOfNullValue(node)) {  // If NullValue or BlankValue
+                if (formulaFieldInfo.getDataType().isDate()) {
+                    sql = sqlHooks.sqlNullToDate();
+                } else if (formulaFieldInfo.getDataType().isNumber()) {
+                    sql = sqlHooks.sqlNullToNumber();
+                } else if (formulaFieldInfo.getDataType().isBoolean()) {
+                    sql = "0";
+                }
+            }
+        }
+        
         // Allow overriding of the sql
         sql = FormulaValidationHooks.get().overrideFieldReferenceSql(formula, sql, fieldPath, formulaFieldInfo, registry);
                 

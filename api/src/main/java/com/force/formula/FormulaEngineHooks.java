@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import com.force.formula.sql.FormulaSqlStyle;
+import com.force.formula.sql.InvalidFormula;
 import com.force.formula.util.FormulaGeolocationService;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.formula.util.FormulaTextUtil;
@@ -89,6 +90,16 @@ public interface FormulaEngineHooks {
      */
     default void handleFormulaTimeException(FormulaDateException ex) throws FormulaDateException {
         throw ex;
+    }
+    
+
+    /**
+     * Convert the checked exception for FormulaTimeException to a user-manageable Time Exception
+     * @param ex the time exception to handle
+     */
+    default void handleBadFormulaReference(InvalidFormula formula) throws FormulaException {
+        // Do nothing.  If you want to have a bad formula reference bubble up, throw 
+        // formula.evaluate(null);
     }
 
 	/**

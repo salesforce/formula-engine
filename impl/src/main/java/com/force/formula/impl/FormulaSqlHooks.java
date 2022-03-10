@@ -83,6 +83,13 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
+     * @return whether the string is a "null" argument (i.e. a NULL or a cast as null)
+     */
+    default boolean isNullArgument(String argument) {
+        return "NULL".equalsIgnoreCase(argument) || sqlNullToDate().equals(argument) || sqlNullToNumber().equals(argument);
+    }
+    
+    /**
      * @return the string to use for TO_TIMESTAMP to get seconds.microseconds.  It's a subtle difference
      */
     default String sqlSecsAndMsecs() {

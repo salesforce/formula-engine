@@ -4,10 +4,22 @@ package com.force.formula.commands;
 import java.lang.reflect.Type;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.InvalidFieldReferenceForFunctionException;
+import com.force.formula.UnsupportedTypeException;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.IllegalArgumentTypeException;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
@@ -79,7 +91,7 @@ public class FunctionPriorValue extends FormulaCommandInfoImpl implements Formul
         FormulaAST fieldReferenceArgument = (FormulaAST)node.getFirstChild();
 
         // Check to see if the function has been wrapped for null value handling
-        if ("NULLVALUE".equals(fieldReferenceArgument.getText())) {
+        if (FormulaAST.isFunctionNode(fieldReferenceArgument, "nullvalue") || FormulaAST.isFunctionNode(fieldReferenceArgument, "blankvalue") ) {
             fieldReferenceArgument = (FormulaAST)fieldReferenceArgument.getFirstChild();
         }
         return fieldReferenceArgument;
