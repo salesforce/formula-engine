@@ -20,6 +20,11 @@ author: Srikanth Yendluri/Doug Chasman
          scale="2" precision="12"
          code="DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;)">
      </testcase>
+      <testcase name="testDateTimeValueWithTimeZone" devName="testDateTimeValueWithTimeZone"
+         labelName="testDateTimeValueWithTimeZone" dataType="DateOnly" eval="formula,template"
+         scale="2" precision="12"
+         code="DATETIMEVALUE(&quot;2021-08-12 03:26:09+1100&quot;)">
+     </testcase>
       <testcase name="testDateTimeValueWithValidInValid" devName="testDateTimeValueWithValidInValid"
          labelName="testDateTimeValueWithValidInValid" dataType="DateOnly" eval="formula,template" dataFile="functiondatevalue-dateandtime"
          scale="2" precision="12"

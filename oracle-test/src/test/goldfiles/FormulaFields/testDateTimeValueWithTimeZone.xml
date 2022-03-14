@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateTimeValueWithTimeZone">
+   <testInstance formula="DATETIMEVALUE(&quot;2021-08-12 03:26:09+1100&quot;)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>NULL</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>NULL</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Thu Aug 12 03:26:09 GMT 2021 viaSql null -->
+      <inputvalues>No data</inputvalues>
+         <formula>Thu Aug 12 03:26:09 GMT 2021</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Thu Aug 12 03:26:09 GMT 2021</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
