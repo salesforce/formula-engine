@@ -2,12 +2,12 @@
 <testCase name="testDateTimeValueWithTimeZone">
    <testInstance formula="DATETIMEVALUE(&quot;2021-08-12 03:26:09+1100&quot;)" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>NULL</Sql>
-       <Guard>0=0</Guard>
+       <Sql>TO_TIMESTAMP('2021-08-12 03:26:09+1100', 'YYYY-MM-DD HH24:MI:SS')</Sql>
+       <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>NULL</Sql>
-       <Guard>0=0</Guard>
+       <Sql>TO_TIMESTAMP('2021-08-12 03:26:09+1100', 'YYYY-MM-DD HH24:MI:SS')</Sql>
+       <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new Date(&quot;2021-08-12 03:26:09+1100&quot; + ' GMT')</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">new Date(&quot;2021-08-12 03:26:09+1100&quot; + ' GMT')</JsOutput>
@@ -17,11 +17,11 @@
       <!-- Test Case results don't match: Javascript had an error when no other did: should be Thu Aug 12 03:26:09 GMT 2021 but was Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong(). -->
       <inputvalues>No data</inputvalues>
          <formula>Thu Aug 12 03:26:09 GMT 2021</formula>
-         <sql>null</sql>
+         <sql>2021-08-12 03:26:09.0</sql>
          <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
          <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
          <formulaNullAsNull>Thu Aug 12 03:26:09 GMT 2021</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
+         <sqlNullAsNull>2021-08-12 03:26:09.0</sqlNullAsNull>
          <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
          <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
       </result>

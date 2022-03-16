@@ -19,6 +19,7 @@ import com.force.formula.FormulaException;
 import com.force.formula.FormulaProperties;
 import com.force.formula.FormulaRuntimeContext;
 import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.impl.IllegalArgumentTypeException;
 import com.force.formula.impl.JsValue;
 import com.force.formula.impl.TableAliasRegistry;
@@ -56,17 +57,19 @@ public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements For
             sql = args[0];
             guard = SQLPair.generateGuard(guards, null);
         } else {
-            sql = String.format(getSqlHooks(context).sqlToTimestampIso(), args[0]);
+            FormulaSqlHooks hooks = getSqlHooks(context);
+            sql = String.format(hooks.sqlToTimestampIso(), args[0]);
 
             FormulaAST child = (FormulaAST)node.getFirstChild();
             if (child != null && child.isLiteral() && child.getDataType() == String.class) {
-                if (OperatorDatetimeValueFormulaCommand.isValidDateTime(ConstantString.getStringValue(child, true), true)) {
+                boolean noExtraChars = !hooks.isPostgresStyle(); // Postgres works like JDK, so allow it.
+                if (OperatorDatetimeValueFormulaCommand.isValidDateTime(ConstantString.getStringValue(child, true), noExtraChars)) {
                     // no guard needed
                     guard = SQLPair.generateGuard(guards, null);
                 } else {
                     // we know it's false
                     guard = SQLPair.generateGuard(guards, "0=0");
-                    sql = "NULL";
+                    sql = hooks.sqlNullToDate();
                 }
             } else {
                 // Guard protects against malformed dates as strings
@@ -146,11 +149,11 @@ class OperatorDatetimeValueFormulaCommand extends AbstractFormulaCommand {
     /**
      * @return whether datetime is a valid value
      * @param datetime the string of the format "yyyy-MM-dd HH:mm:ss"
-     * @param strict whether to be "strict" and only allow whitespace after parsing
+     * @param forSqlGeneration whether to be "strict" and only allow whitespace after parsing for sql generation
      */
-    protected static boolean isValidDateTime(String datetime, boolean strict) {
+    protected static boolean isValidDateTime(String datetime, boolean forSqlGeneration) {
         try {
-            parseDateTime(datetime, strict);
+            parseDateTime(datetime, forSqlGeneration);
             return true;
         } catch (FormulaDateException x) {
             return false;
@@ -160,11 +163,11 @@ class OperatorDatetimeValueFormulaCommand extends AbstractFormulaCommand {
     private static Pattern DATE_PATTERN = Pattern.compile("\\d{4}-.*");
     /**
      * @param input the date time to parse
-     * @param strict means that only whitespace is allowed at the end of the date format string
+     * @param forSqlGeneration means that only whitespace is allowed at the end of the date format string, as is required for oracle
      * @return the DateTime of the parsed value
      * @throws FormulaDateException
      */
-    protected static FormulaDateTime parseDateTime(String input, boolean strict) throws FormulaDateException {
+    protected static FormulaDateTime parseDateTime(String input, boolean forSqlGeneration) throws FormulaDateException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateFormat.setLenient(false);
         dateFormat.setTimeZone(BaseLocalizer.GMT_TZ);
@@ -175,7 +178,10 @@ class OperatorDatetimeValueFormulaCommand extends AbstractFormulaCommand {
         }
         ParsePosition p = new ParsePosition(0);
         Date ret = dateFormat.parse(input, p);
-        if (ret == null || p.getErrorIndex() != -1 || (strict && !input.substring(p.getIndex()).isBlank())) {
+        // JDK's Date Format (and postgres) ignores characters past the date format, but Oracle and javascript do not.
+        // So for non-literal values, we don't allow extra characters, but for literal values we do, but only
+        // in Java.  We don't know if we're generating SQL or JS at this point, so we allow it for backwards compatibilty.
+        if (ret == null || p.getErrorIndex() != -1 || (forSqlGeneration && !input.substring(p.getIndex()).isBlank())) {
             throw new FormulaDateException("Invalid date format: " + input);
         }
         return new FormulaDateTime(ret);

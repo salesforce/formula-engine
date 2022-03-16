@@ -2,11 +2,11 @@
 <testCase name="testIfErrorDateTimeValueWithInvalidString">
    <testInstance formula="IFERROR(DATETIMEVALUE(&quot;sample &quot;),DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;))" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN 0=0 THEN CONVERT(DATETIME, '2005-11-15 17:00:00 ') ELSE NULL END</Sql>
+       <Sql>CASE WHEN 0=0 THEN CONVERT(DATETIME, '2005-11-15 17:00:00 ') ELSE CONVERT(DATETIME,NULL) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN 0=0 THEN CONVERT(DATETIME, '2005-11-15 17:00:00 ') ELSE NULL END</Sql>
+       <Sql>CASE WHEN 0=0 THEN CONVERT(DATETIME, '2005-11-15 17:00:00 ') ELSE CONVERT(DATETIME,NULL) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

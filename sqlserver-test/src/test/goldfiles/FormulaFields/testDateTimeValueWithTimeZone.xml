@@ -2,11 +2,11 @@
 <testCase name="testDateTimeValueWithTimeZone">
    <testInstance formula="DATETIMEVALUE(&quot;2021-08-12 03:26:09+1100&quot;)" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>TO_DATE(NULL)</Sql>
+       <Sql>CONVERT(DATETIME,NULL)</Sql>
        <Guard>0=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TO_DATE(NULL)</Sql>
+       <Sql>CONVERT(DATETIME,NULL)</Sql>
        <Guard>0=0</Guard>
     </SqlOutput>
       <result>
