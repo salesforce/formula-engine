@@ -1,0 +1,9 @@
+clean: true
+mock_secret: []
+false_positive:
+- id: formula-engine://.github/workflows/maven-release.yml_bcc1aea6f75e0b8e6a45f0bc66bc7577ec5f857b
+  justification: Production Secret
+- id: formula-engine://.github/workflows/maven-publish.yml_bcc1aea6f75e0b8e6a45f0bc66bc7577ec5f857b
+  justification: Production Secret
+non_production_secret: []
+production_secret: []
