@@ -15,13 +15,13 @@ import org.junit.Test;
 public class FormulaPropertiesTest {
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testMaxSqlSize() {
+	public void testMaxSqlSizeFails() {
 		FormulaProperties props = new FormulaProperties();
 		props.setMaxSqlSize(500000);
 	}
 
 	@Test
-	public void testFormulaProps() {
+	public void testMaxSqlSizeSuccess() {
 		FormulaProperties props = new FormulaProperties();
 		props.setMaxSqlSize(15000);
 		Assert.assertEquals(15000, props.getMaxSqlSize());
