@@ -86,6 +86,13 @@
     <build>
         <plugins>
             <plugin>
+            <!-- 
+            In JDK 17, use                 
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>antlr-maven-plugin</artifactId>
+                <version>2.4</version>
+             -->
+            
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>antlr-maven-plugin</artifactId>
                 <version>2.2</version>

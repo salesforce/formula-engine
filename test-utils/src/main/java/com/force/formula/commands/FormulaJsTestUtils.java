@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -562,6 +565,30 @@ public class FormulaJsTestUtils {
         }
         return jsMap;
     }
+
+    
+    // Nashorn was removed in JDK 17, but this is here to support 11.
+    private static final Class<?> SCRIPT_OBJECT_MIRROR;
+    private static final MethodHandle SOM_HASMEMBER;
+    private static final MethodHandle SOM_CALLMEMBER;
+    static
+    {
+        Class<?> som;
+        MethodHandle hasMember;
+        MethodHandle callMember;
+        try {
+            som = Class.forName("jdk.nashorn.api.scripting.ScriptObjectMirror");
+            hasMember = MethodHandles.publicLookup().findVirtual(som, "hasMember", MethodType.methodType(String.class));
+            callMember = MethodHandles.publicLookup().findVirtual(som, "callMember", MethodType.methodType(String.class, Object[].class));
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException ex) {
+            som = null;
+            hasMember = null;
+            callMember = null;
+        }
+        SCRIPT_OBJECT_MIRROR = som;
+        SOM_HASMEMBER = hasMember;
+        SOM_CALLMEMBER = callMember;
+    }
     
 
     /**
@@ -570,7 +597,6 @@ public class FormulaJsTestUtils {
      * @param obj an object returned from nashorn
      * @return a formula engine useful version.
      */
-    @SuppressWarnings({ "removal", "deprecation" })
     public Object convertFromNashorn(ScriptEngine engine, Object obj) {
         if (obj instanceof Number) {
             if (obj instanceof BigDecimal) {
@@ -586,14 +612,17 @@ public class FormulaJsTestUtils {
             }
         }
         
-        if (obj instanceof jdk.nashorn.api.scripting.ScriptObjectMirror) {
-            jdk.nashorn.api.scripting.ScriptObjectMirror mirror = (jdk.nashorn.api.scripting.ScriptObjectMirror) obj;
-            if (mirror.hasMember("getTime")) {
-                // It's a ScriptObjectMirror with 'time'.  Assume date
-                JsDateWrapper wrapper = ((Invocable)engine).getInterface(obj, JsDateWrapper.class);
-                return new Date(wrapper.getTime());
-            } else {
-                return new BigDecimal((String)mirror.callMember("toString"));
+        if (SCRIPT_OBJECT_MIRROR != null && SCRIPT_OBJECT_MIRROR.isInstance(obj)) {
+            try {
+                if ((Boolean) SOM_HASMEMBER.invoke(obj, "getTime")) {
+                    // It's a ScriptObjectMirror with 'time'.  Assume date
+                    JsDateWrapper wrapper = ((Invocable)engine).getInterface(obj, JsDateWrapper.class);
+                    return new Date(wrapper.getTime());
+                } else {
+                    return new BigDecimal((String) SOM_CALLMEMBER.invoke(obj, "toString", null));
+                }
+            } catch (Throwable e) {
+                logger.log(Level.FINEST, "Can't convert from nashorn", e);
             }
         }
         if ("".equals(obj)) return null;  // Oracle compatibility
