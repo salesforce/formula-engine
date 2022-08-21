@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testJsonValue">
+   <testInstance formula="JSONVALUE(customjson__c, 'Temperature')" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>json_extract_path_text($!s0s!$.customjson__c::json,'Temperature')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>json_extract_path_text($!s0s!$.customjson__c::json,'Temperature')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.tostr(JSON.parse(context.record.customjson__c||'{}')[&quot;Temperature&quot;])</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.tostr(JSON.parse(context.record.customjson__c||'{}')[&quot;Temperature&quot;])</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.tostr(JSON.parse(context.record.customjson__c||'{}')[&quot;Temperature&quot;])</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.tostr(JSON.parse(context.record.customjson__c||'{}')[&quot;Temperature&quot;])</JsOutput>
+      <result>
+      <inputvalues>[, Temperature]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[{}, Temperature]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[{&quot;Temperature&quot;: 50}, Temperature]</inputvalues>
+         <formula>50</formula>
+         <sql>50</sql>
+         <javascript>50</javascript>
+         <javascriptLp>50</javascriptLp>
+         <formulaNullAsNull>50</formulaNullAsNull>
+         <sqlNullAsNull>50</sqlNullAsNull>
+         <javascriptNullAsNull>50</javascriptNullAsNull>
+         <javascriptLpNullAsNull>50</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[{&quot;Temperature&quot;: &quot;a&quot;}, Temperature]</inputvalues>
+         <formula>a</formula>
+         <sql>a</sql>
+         <javascript>a</javascript>
+         <javascriptLp>a</javascriptLp>
+         <formulaNullAsNull>a</formulaNullAsNull>
+         <sqlNullAsNull>a</sqlNullAsNull>
+         <javascriptNullAsNull>a</javascriptNullAsNull>
+         <javascriptLpNullAsNull>a</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

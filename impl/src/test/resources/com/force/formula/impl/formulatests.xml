@@ -3669,4 +3669,22 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
      </testcase>
 
+    <testcase name="testJsonValue" devName="testJsonValue" labels="extended"
+        labelName="testJsonValue" dataType="Text"
+        dataFile="functionjsonvalue" length="255"
+        code="JSONVALUE(customjson__c, 'Temperature')">
+        <referencefield devName="customjson" labelName="customjson"
+                dataType="Text" length="255"/>
+        <referencefield devName="customtext" labelName="customtext"
+                dataType="Text" length="255"/>
+    </testcase>
+    <testcase name="testJsonPathValue" devName="testJsonPathValue" labels="extended"
+        labelName="testJsonPathValue" dataType="Text"
+        dataFile="functionjsonpathvalue" length="255"
+        code="JSONPATHVALUE(customjson__c, '$.Temperature')">
+        <referencefield devName="customjson" labelName="customjson"
+                dataType="Text" length="255"/>
+        <referencefield devName="customtext" labelName="customtext"
+                dataType="Text" length="255"/>
+    </testcase>
 </formula-test>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testJsonPathValue">
+   <testInstance formula="JSONPATHVALUE(customjson__c, '$.Temperature')" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>(jsonb_path_query($!s0s!$.customjson__c::jsonb,'$.Temperature') #&gt;&gt; '{}')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(jsonb_path_query($!s0s!$.customjson__c::jsonb,'$.Temperature') #&gt;&gt; '{}')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customjson__c!=null)?(typeof $F==='undefined'?undefined:(String($F.jsonPath(JSON.parse(context.record.customjson__c),&quot;$.Temperature&quot;)||''))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customjson__c!=null)?(typeof $F==='undefined'?undefined:(String($F.jsonPath(JSON.parse(context.record.customjson__c),&quot;$.Temperature&quot;)||''))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customjson__c!=null)?(typeof $F==='undefined'?undefined:(String($F.jsonPath(JSON.parse(context.record.customjson__c),&quot;$.Temperature&quot;)||''))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customjson__c!=null)?(typeof $F==='undefined'?undefined:(String($F.jsonPath(JSON.parse(context.record.customjson__c),&quot;$.Temperature&quot;)||''))):null</JsOutput>
+      <result>
+      <inputvalues>[, $.Temperature]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[{}, $.Temperature]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[{&quot;Temperature&quot;: 50}, $.Temperature]</inputvalues>
+         <formula>50</formula>
+         <sql>50</sql>
+         <javascript>50</javascript>
+         <javascriptLp>50</javascriptLp>
+         <formulaNullAsNull>50</formulaNullAsNull>
+         <sqlNullAsNull>50</sqlNullAsNull>
+         <javascriptNullAsNull>50</javascriptNullAsNull>
+         <javascriptLpNullAsNull>50</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[{&quot;Temperature&quot;: &quot;a&quot;}, $.Temperature]</inputvalues>
+         <formula>a</formula>
+         <sql>a</sql>
+         <javascript>a</javascript>
+         <javascriptLp>a</javascriptLp>
+         <formulaNullAsNull>a</formulaNullAsNull>
+         <sqlNullAsNull>a</sqlNullAsNull>
+         <javascriptNullAsNull>a</javascriptNullAsNull>
+         <javascriptLpNullAsNull>a</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

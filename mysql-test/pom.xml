@@ -32,7 +32,7 @@
       <artifactId>formula-engine-test-utils</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <!-- Get the test classes/resources for validation of oracle -->
+    <!-- Get the test classes/resources for validation of mysql -->
     <dependency>
       <groupId>com.salesforce.formula</groupId>
       <artifactId>formula-engine-impl</artifactId>
@@ -42,6 +42,27 @@
       <scope>test</scope>
     </dependency>
 
+    <!--  Json Function Dependencies -->
+    <dependency>
+      <groupId>com.jayway.jsonpath</groupId>
+      <artifactId>json-path</artifactId>
+      <version>2.4.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.10.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.10.3</version>
+      <scope>test</scope>
+    </dependency>
+
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

@@ -159,6 +159,12 @@ public class FormulaJsTestUtils {
                         + "return value;};")
                 .append("$F.lpad=function(a,b,c) {return !a||!b||b<1?null:(b<=a.length?a.substring(0,b):((Array(256).join(c)+'').substring(0,b-a.length))+a)};")
 
+                // For json
+                .append("$F.tostr=function(value)"
+                        + "{if(value===undefined||value===null||value===''){return value;}"
+                        + "return String(value);};")
+                
+                
                 // Note, these add months does what java does, but may not do what oracle/postgres does
                 
                 .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));return new Date(d.getTime()-86400000);};\n")
@@ -464,7 +470,7 @@ public class FormulaJsTestUtils {
             bindings.put("$F.Decimal", compEngine.eval("Object.defineProperty($F, 'Decimal', { value : Decimal});"));
         } catch (IOException e) {
             logger.log(Level.CONFIG, "Cannot load decimal.js", e);
-        }       
+        }             
     }
 
     
@@ -488,6 +494,22 @@ public class FormulaJsTestUtils {
 
     private AtomicReference<Context> ROOT_CONTEXT = new AtomicReference<>();
 
+    /**
+     * Load the file from the resource and put it on disk, so graalvm can load it normally.
+     * @param resourcePath the path relative to this classloader
+     * @param tmpName the tmpName to use for the jsfile
+     * @return a file that will be deleted on exit
+     * @throws IOException if the file can't be found.
+     */
+    private File makeJsFileFromResource(String resourcePath, String tmpName) throws IOException {
+        InputStream decimalUrlStream = FormulaJsTestUtils.class.getClassLoader().getResourceAsStream(resourcePath);
+        byte[] buffer = ByteStreams.toByteArray(decimalUrlStream);
+        File tmp = File.createTempFile(tmpName, ".js");
+        tmp.deleteOnExit();
+        Files.write(buffer, tmp);
+        return tmp;
+    }
+    
     public Context getGraalContext() {
         Context context = ROOT_CONTEXT.get();
         if (context == null) {
@@ -502,13 +524,14 @@ public class FormulaJsTestUtils {
                 evalGraalContextGlobals(context);
 
                 // Need native access for this. :-/.  It also requires a file on disk.
-                InputStream decimalUrlStream = FormulaJsTestUtils.class.getClassLoader().getResourceAsStream("com/force/formula/decimal.js");
-                byte[] buffer = ByteStreams.toByteArray(decimalUrlStream);
-                File tmp = File.createTempFile("decimal", ".js");
-                tmp.deleteOnExit();
-                Files.write(buffer, tmp);
+                File tmp = makeJsFileFromResource("com/force/formula/decimal.js", "decimal");
                 context.eval("js", "load('" + tmp.getAbsolutePath() + "')");
                 context.eval("js",  "Object.defineProperty($F, 'Decimal', { value : Decimal});");
+
+                tmp = makeJsFileFromResource("com/force/formula/jsonpath.js", "jsonpath");
+                context.eval("js", "load('" + tmp.getAbsolutePath() + "')");
+                context.eval("js",  "Object.defineProperty($F, 'jsonPath', { value : jsonPath});");
+
                 ROOT_CONTEXT.set(context);
             } catch (IOException x) {
                 throw new RuntimeException(x);

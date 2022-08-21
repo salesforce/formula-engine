@@ -57,6 +57,27 @@
       <artifactId>ojdbc8</artifactId>
       <version>19.3.0.0</version>
     </dependency>
+
+  <!--  Json Function Dependencies -->
+  <dependency>
+    <groupId>com.jayway.jsonpath</groupId>
+    <artifactId>json-path</artifactId>
+    <version>2.4.0</version>
+    <scope>test</scope>
+  </dependency>
+  <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-core</artifactId>
+    <version>2.10.3</version>
+    <scope>test</scope>
+  </dependency>
+  <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.10.3</version>
+    <scope>test</scope>
+  </dependency>
+    
   </dependencies>
 
   <!--
