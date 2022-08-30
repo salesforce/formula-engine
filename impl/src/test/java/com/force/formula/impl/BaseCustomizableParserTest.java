@@ -49,6 +49,8 @@ import com.force.formula.commands.FunctionIsChanged;
 import com.force.formula.commands.FunctionIsPickVal;
 import com.force.formula.commands.FunctionIsoWeek;
 import com.force.formula.commands.FunctionIsoYear;
+import com.force.formula.commands.FunctionJsonPathValue;
+import com.force.formula.commands.FunctionJsonValue;
 import com.force.formula.commands.FunctionPi;
 import com.force.formula.commands.FunctionPriorValue;
 import com.force.formula.commands.FunctionTrunc;
@@ -192,6 +194,8 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new TrigCommandInfo(FormulaTrigFunction.ATAN));
         types.add(new FunctionPi());
         types.add(new FunctionAtan2());
+        types.add(new FunctionJsonPathValue());
+        types.add(new FunctionJsonValue());
         TEST_FACTORY = new FormulaFactoryImpl(new FormulaCommandTypeRegistryImpl(types));
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         c.clear();

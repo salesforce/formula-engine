@@ -1,0 +1,6 @@
+#JSONVALUE(json, text)
+,Temperature
+{},Temperature
+`"{\"Temperature\": 50}",Temperature
+`"{\"Temperature\": \"a\"}",Temperature
+#`"{\"Temperature\": [\"a\"]}",Temperature

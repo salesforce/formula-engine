@@ -1,12 +1,25 @@
 package com.force.formula.impl;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
-import javax.xml.parsers.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -188,7 +201,11 @@ public class FormulaTestUtils {
             if (temp.length() == 0 || temp.charAt(0) == '#') {
                 continue;
             }
-            dataSet.add(Arrays.asList(temp.split(",", -1)));
+            if (temp.charAt(0) == '`') {  // Use backtick as a "use quoting and escaping" for json/complex strings
+                dataSet.add(splitSimpleWithQuoteAndEsc(temp.substring(1), ','));
+            } else {
+                dataSet.add(Arrays.asList(temp.split(",", -1)));
+            }
         }
 
         input.close();
@@ -353,5 +370,150 @@ public class FormulaTestUtils {
             fieldDefinitions.add(fieldDefinition);
         }
         return fieldDefinitions;
+    }
+    
+    
+
+    /**
+     * Splits the given string str using the given delimiter and returns the result as a string list. Double-quotes and
+     * escaped characters using backslash as the escape character are honored. If str is null, then null is returned.<br>
+     * <br>
+     * The returned string list is an ArrayList that is constructed using four as the ArrayList's initial size. If you
+     * expect to have more than four elements more than just on the rare occasion, then please consider using another
+     * splitSimpleWithQuoteAndEsc overload that lets you pass in the expected size.
+     *
+     * @param str
+     *            The string to split
+     * @param delimiter
+     *            The delimiter to split the string using
+     * @param expectedSize
+     *            The expected number of elements in the output list. If you don't know, or if it could be arbitrarily
+     *            large, and if you will only access the returned list sequentially with an iterator, then use 0 to tell
+     *            this method to use a LinkedList
+     * @return String list or, if str was null, then null
+     */
+    public static List<String> splitSimpleWithQuoteAndEsc(String str, char delimiter) {
+        return splitSimpleWithQuoteAndEsc(str, delimiter, 4, false);
+    }
+
+    /**
+     * Splits the given string str using the given delimiter and returns the result as a string list. Double-quotes and
+     * escaped characters using backslash as the escape character are honored. If str is null, then null is returned.<br>
+     * <br>
+     * The returned string list is an ArrayList that is constructed using the given expected size as the ArrayList's
+     * initial size. If you are not aware of the expected size, then use 0, which will cause this method to use a
+     * LinkedList instead of an ArrayList.
+     *
+     * @param str
+     *            The string to split
+     * @param delimiter
+     *            The delimiter to split the string using
+     * @param expectedSize
+     *            The expected number of elements in the output list. If you don't know, or if it could be arbitrarily
+     *            large, and if you will only access the returned list sequentially with an iterator, then use 0 to tell
+     *            this method to use a LinkedList
+     * @return String list or, if str was null, then null
+     */
+    public static List<String> splitSimpleWithQuoteAndEsc(String str, char delimiter, int expectedSize) {
+        return splitSimpleWithQuoteAndEsc(str, delimiter, expectedSize, false);
+    }
+
+    /**
+     * Splits the given string str using the given delimiter, trims each element, and returns the result as a string
+     * list. Double-quotes and escaped characters using backslash as the escape character are honored. If str is null,
+     * then null is returned.<br>
+     * <br>
+     * The returned string list is an ArrayList that is constructed using the given expected size as the ArrayList's
+     * initial size. If you are not aware of the expected size, then use 0, which will cause this method to use a
+     * LinkedList instead of an ArrayList.
+     *
+     * @param str
+     *            The string to split
+     * @param delimiter
+     *            The delimiter to split the string using
+     * @param expectedSize
+     *            The expected number of elements in the output list. If you don't know, or if it could be arbitrarily
+     *            large, and if you will only access the returned list sequentially with an iterator, then use 0 to tell
+     *            this method to use a LinkedList
+     * @return String list or, if str was null, then null
+     */
+    public static List<String> splitSimpleAndTrimWithQuoteAndEsc(String str, char delimiter, int expectedSize) {
+        return splitSimpleWithQuoteAndEsc(str, delimiter, expectedSize, true);
+    }
+
+    /**
+     * Splits the given string str using the given delimiter and returns the result as a string list. Double-quotes and
+     * escaped characters using backslash as the escape character are honored. If str is null, then null is returned.<br>
+     * <br>
+     * The returned string list is an ArrayList that is constructed using the given expected size as the ArrayList's
+     * initial size. If you are not aware of the expected size, then use 0, which will cause this method to use a
+     * LinkedList instead of an ArrayList.
+     *
+     * @param str
+     *            The string to split
+     * @param delimiter
+     *            The delimiter to split the string using
+     * @param expectedSize
+     *            The expected number of elements in the output list. If you don't know, or if it could be arbitrarily
+     *            large, and if you will only access the returned list sequentially with an iterator, then use 0 to tell
+     *            this method to use a LinkedList
+     * @param trim
+     *            When true, each element is trimmed before being added to the returned string list
+     * @return String list or, if str was null, then null
+     */
+    private static List<String> splitSimpleWithQuoteAndEsc(String str, char delimiter, int expectedSize, boolean trim) {
+        if (str == null) {
+            return null;
+        }
+        List<String> result = (expectedSize == 0)? new LinkedList<String>(): new ArrayList<String>(expectedSize);
+
+        StringBuilder cur = new StringBuilder(25);
+        boolean inQuote = false;
+        boolean inEscape = false;
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (inEscape) { // escaped character
+                switch (ch) {
+                    case 'n':
+                        cur.append('\n');
+                        break;
+                    case 'r':
+                        cur.append('\r');
+                        break;
+                    case 't':
+                        cur.append('\t');
+                        break;
+                    default:
+                        cur.append(ch);
+                }
+                inEscape = false;
+            } else if (ch == '\\') { // Escaping
+                inEscape = true;
+            } else if (ch == '\"') { // Quoting
+                inQuote = !inQuote;
+            } else if (!inQuote && ch == delimiter) { // A delimiter
+                if (trim) {
+                    result.add(cur.toString().trim());
+                } else {
+                    result.add(cur.toString());
+                }
+                cur.setLength(0);
+            } else { // normal
+                cur.append(ch);
+            }
+        }
+
+        if (inEscape || inQuote) {
+            throw new IllegalArgumentException("illegal string for splitting: " + str);
+        }
+
+        if (trim) {
+            result.add(cur.toString().trim());
+        } else {
+            result.add(cur.toString());
+        }
+
+        return result;
     }
 }
