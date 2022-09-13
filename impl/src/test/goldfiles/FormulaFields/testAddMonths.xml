@@ -2,11 +2,11 @@
 <testCase name="testAddMonths">
    <testInstance formula="ADDMONTHS(customdate1__c,customnumber1__c)" returntype="DateTime">
     <SqlOutput nullAsNull="true">
-       <Sql>($!s0s!$.customdate1__c+'1 day'::interval+('1 month'::interval*TRUNC(COALESCE($!s0s!$.customnumber1__c, 0))))-'1 day'::interval</Sql>
+       <Sql>($!s0s!$.customdate1__c +  (CASE WHEN extract(day FROM (date_trunc('month', $!s0s!$.customdate1__c) + interval '1 month -1 day')::timestamp(0))::numeric =       extract(day FROM (date_trunc('day', $!s0s!$.customdate1__c)))::numeric  THEN '1 day' ELSE '0 day' END )::interval  + ('1 month'::interval*TRUNC(COALESCE($!s0s!$.customnumber1__c, 0)))) -  (CASE WHEN extract(day FROM (date_trunc('month', $!s0s!$.customdate1__c) + interval '1 month -1 day')::timestamp(0))::numeric =       extract(day FROM (date_trunc('day', $!s0s!$.customdate1__c)))::numeric  THEN '1 day' ELSE '0 day' END )::interval </Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>($!s0s!$.customdate1__c+'1 day'::interval+('1 month'::interval*TRUNC($!s0s!$.customnumber1__c)))-'1 day'::interval</Sql>
+       <Sql>($!s0s!$.customdate1__c +  (CASE WHEN extract(day FROM (date_trunc('month', $!s0s!$.customdate1__c) + interval '1 month -1 day')::timestamp(0))::numeric =       extract(day FROM (date_trunc('day', $!s0s!$.customdate1__c)))::numeric  THEN '1 day' ELSE '0 day' END )::interval  + ('1 month'::interval*TRUNC($!s0s!$.customnumber1__c))) -  (CASE WHEN extract(day FROM (date_trunc('month', $!s0s!$.customdate1__c) + interval '1 month -1 day')::timestamp(0))::numeric =       extract(day FROM (date_trunc('day', $!s0s!$.customdate1__c)))::numeric  THEN '1 day' ELSE '0 day' END )::interval </Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT'))!=null)?($F.addmonths(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT')),$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber())):null</JsOutput>
@@ -290,12 +290,12 @@
       </result>
       <result>
       <inputvalues>[2004:03:29:07:34:00:GMT, -1.00]</inputvalues>
-         <formula>Sat Feb 28 07:34:00 GMT 2004</formula>
-         <sql>2004-02-28 07:34:00.0</sql>
+         <formula>Sun Feb 29 07:34:00 GMT 2004</formula>
+         <sql>2004-02-29 07:34:00.0</sql>
          <javascript>Sun Feb 29 07:34:00 GMT 2004</javascript>
          <javascriptLp>Sun Feb 29 07:34:00 GMT 2004</javascriptLp>
-         <formulaNullAsNull>Sat Feb 28 07:34:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-02-28 07:34:00.0</sqlNullAsNull>
+         <formulaNullAsNull>Sun Feb 29 07:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-02-29 07:34:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Sun Feb 29 07:34:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sun Feb 29 07:34:00 GMT 2004</javascriptLpNullAsNull>
       </result>
@@ -411,23 +411,23 @@
       </result>
       <result>
       <inputvalues>[2004:03:30:07:34:00:GMT, -1.00]</inputvalues>
-         <formula>Sat Feb 28 07:34:00 GMT 2004</formula>
-         <sql>2004-02-28 07:34:00.0</sql>
+         <formula>Sun Feb 29 07:34:00 GMT 2004</formula>
+         <sql>2004-02-29 07:34:00.0</sql>
          <javascript>Mon Mar 01 07:34:00 GMT 2004</javascript>
          <javascriptLp>Mon Mar 01 07:34:00 GMT 2004</javascriptLp>
-         <formulaNullAsNull>Sat Feb 28 07:34:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-02-28 07:34:00.0</sqlNullAsNull>
+         <formulaNullAsNull>Sun Feb 29 07:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-02-29 07:34:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Mon Mar 01 07:34:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Mon Mar 01 07:34:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:03:30:07:34:00:GMT, 1.00]</inputvalues>
-         <formula>Thu Apr 29 07:34:00 GMT 2004</formula>
-         <sql>2004-04-29 07:34:00.0</sql>
+         <formula>Fri Apr 30 07:34:00 GMT 2004</formula>
+         <sql>2004-04-30 07:34:00.0</sql>
          <javascript>Fri Apr 30 07:34:00 GMT 2004</javascript>
          <javascriptLp>Fri Apr 30 07:34:00 GMT 2004</javascriptLp>
-         <formulaNullAsNull>Thu Apr 29 07:34:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-04-29 07:34:00.0</sqlNullAsNull>
+         <formulaNullAsNull>Fri Apr 30 07:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-04-30 07:34:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Fri Apr 30 07:34:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Fri Apr 30 07:34:00 GMT 2004</javascriptLpNullAsNull>
       </result>
@@ -466,12 +466,12 @@
       </result>
       <result>
       <inputvalues>[2004:03:30:07:34:00:GMT, 3.00]</inputvalues>
-         <formula>Tue Jun 29 07:34:00 GMT 2004</formula>
-         <sql>2004-06-29 07:34:00.0</sql>
+         <formula>Wed Jun 30 07:34:00 GMT 2004</formula>
+         <sql>2004-06-30 07:34:00.0</sql>
          <javascript>Wed Jun 30 07:34:00 GMT 2004</javascript>
          <javascriptLp>Wed Jun 30 07:34:00 GMT 2004</javascriptLp>
-         <formulaNullAsNull>Tue Jun 29 07:34:00 GMT 2004</formulaNullAsNull>
-         <sqlNullAsNull>2004-06-29 07:34:00.0</sqlNullAsNull>
+         <formulaNullAsNull>Wed Jun 30 07:34:00 GMT 2004</formulaNullAsNull>
+         <sqlNullAsNull>2004-06-30 07:34:00.0</sqlNullAsNull>
          <javascriptNullAsNull>Wed Jun 30 07:34:00 GMT 2004</javascriptNullAsNull>
          <javascriptLpNullAsNull>Wed Jun 30 07:34:00 GMT 2004</javascriptLpNullAsNull>
       </result>
