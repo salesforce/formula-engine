@@ -755,18 +755,23 @@ public class BuiltinFunctionsTest extends ParserTestBase {
     }
 
     public void testADDMONTHS() throws Exception {
-        String PRELEAP = "date(2016, 2, 28)";
-        String LEAP = "date(2016, 2, 29)";
-        String MARCH = "date(2016, 3, 31)";
-        String MARCH28 = "date(2016, 3, 28)";
-        String JANUARY = "date(2016, 1, 31)";
+        // last day of the month
+        assertEquals(evaluateDate("date(2020, 2, 29)"), evaluateDate("ADDMONTHS(date(2020, 1, 31), 1)"));
+        assertEquals(evaluateDate("date(2020, 7, 31)"), evaluateDate("ADDMONTHS(date(2020, 4, 30), 3)"));
+        assertEquals(evaluateDate("date(2019, 1, 31)"), evaluateDate("ADDMONTHS(date(2019, 2, 28), -1)"));
+        assertEquals(evaluateDate("date(2020, 4, 30)"), evaluateDate("ADDMONTHS(date(2020, 7, 31), -3)"));
 
-        assertEquals(evaluateDate(MARCH), evaluateDate("ADDMONTHS(" + LEAP + ",1)"));
-        assertEquals(evaluateDate(MARCH28), evaluateDate("ADDMONTHS(" + PRELEAP + ",1)"));
-        assertEquals(evaluateDate(JANUARY), evaluateDate("ADDMONTHS(" + LEAP + ",-1)"));
-    	assertEquals(evaluateDate(LEAP), evaluateDate("ADDMONTHS(" + LEAP + ",0.5)"));
-        assertEquals(evaluateDate(LEAP), evaluateDate("ADDMONTHS(" + JANUARY + ",1)"));
-        assertEquals(evaluateDate(JANUARY), evaluateDate("ADDMONTHS(" + MARCH + ",-2)"));
+        // day greater than the max day of the resulting month
+        assertEquals(evaluateDate("date(2020, 2, 29)"), evaluateDate("ADDMONTHS(date(2020, 1, 30), 1)"));
+        assertEquals(evaluateDate("date(2020, 2, 29)"), evaluateDate("ADDMONTHS(date(2020, 5, 30), -3)"));
+
+        // day not fewer than the max day of the resulting month
+        assertEquals(evaluateDate("date(2020, 2, 25)"), evaluateDate("ADDMONTHS(date(2020, 1, 25), 1)"));
+        assertEquals(evaluateDate("date(2020, 2, 10)"), evaluateDate("ADDMONTHS(date(2020, 5, 10), -3)"));
+
+        // fractional month
+        assertEquals(evaluateDate("date(2020, 1, 25)"), evaluateDate("ADDMONTHS(date(2020, 1, 25), 0.5)"));
+        assertEquals(evaluateDate("date(2020, 2, 29)"), evaluateDate("ADDMONTHS(date(2020, 2, 29), -0.8)"));
     }
     
     private FormulaDateTime parseDT(String dt) throws ParseException {

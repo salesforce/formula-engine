@@ -5,12 +5,23 @@ package com.force.formula.commands;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.IllegalArgumentTypeException;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
@@ -19,6 +30,7 @@ import com.force.i18n.BaseLocalizer;
  * @author stamm
  * @since 0.1.0
  */
+
 @AllowedContext(section=SelectorSection.DATE_TIME)
 public class FunctionAddMonths extends FormulaCommandInfoImpl implements FormulaCommandValidator {
     public FunctionAddMonths() {
@@ -63,7 +75,17 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
         String js =  "$F.addmonths(" + args[0] + "," + jsToNum(context, args[1].js) + ")";
         return JsValue.generate(js, args, true, args[0]);
     }
-    
+
+    /**
+     * Specification:
+     * https://www.oracletutorial.com/oracle-date-functions/oracle-add_months
+     *
+     * The ADD_MONTHS() returns a DATE value with the number of months away from a date.
+     * If  date_expression is the last day of the month, the resulting date is always the last day of the month e.g., adding 1 month to 29-FEB-2016 will result in 31-MAR-2016, not 29-MAR-2016.
+     * In case the resulting date whose month has fewer days than the day component of date_expression, the resulting date is the last day of the month. For example, adding 1 month to 31-JAN-2016 will result in 29-FEB-2016.
+     * Otherwise, the function returns a date whose day is the same as the day component of the date_expression.
+     *
+     */
     static class FunctionAddMonthsCommand extends AbstractFormulaCommand {
         private static final long serialVersionUID = 1L;
 
@@ -87,8 +109,15 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
             } else {
                 Calendar c = FormulaI18nUtils.getLocalizer().getCalendar(BaseLocalizer.GMT);
                 c.setTime(d);
-                c.add(Calendar.DAY_OF_YEAR, 1);  // 
+                boolean isLastDay = c.get(Calendar.DATE) == c.getActualMaximum(Calendar.DATE);
+
+                // Fix W-5603209
+                if (isLastDay) {
+                    c.add(Calendar.DAY_OF_YEAR, 1);
+                }
+
                 c.add(Calendar.MONTH, months.intValue());
+
                 /*
     			// Uncomment this out if you want to support fractions in addmonths
                 BigDecimal fractionalPart = months.remainder(BigDecimal.ONE).multiply(MONTH_FRACTION);
@@ -97,7 +126,12 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
                     c.add(Calendar.DAY_OF_YEAR, fractionalDays);
                 }
                 */
-                c.add(Calendar.DAY_OF_YEAR, -1);
+
+                // Fix W-5603209
+                if (isLastDay) {
+                    c.add(Calendar.DAY_OF_YEAR, -1);
+                }
+
                 result = input instanceof FormulaDateTime ? new FormulaDateTime(c.getTime()) : c.getTime();
             }
             stack.push(result);
