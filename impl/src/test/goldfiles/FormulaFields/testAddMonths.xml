@@ -10,19 +10,19 @@
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT'))!=null)?($F.addmonths(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT')),$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber())):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT'))!=null)?($F.addmonths(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT')),context.record.customnumber1__c.toNumber())):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT'))!=null&amp;&amp;context.record.customnumber1__c!=null)?($F.addmonths(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT')),context.record.customnumber1__c.toNumber())):null</JsOutput>
     <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT'))!=null)?($F.addmonths(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT')),$F.nvl(context.record.customnumber1__c,0))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT'))!=null)?($F.addmonths(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT')),context.record.customnumber1__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT'))!=null&amp;&amp;context.record.customnumber1__c!=null)?($F.addmonths(($F.anl([context.record.customdate1__c])?null:new Date(context.record.customdate1__c + ' GMT')),context.record.customnumber1__c)):null</JsOutput>
       <result>
       <inputvalues>[2004:12:31:11:32:00, NULL]</inputvalues>
          <formula>Fri Dec 31 11:32:00 GMT 2004</formula>
          <sql>2004-12-31 11:32:00.0</sql>
          <javascript>Fri Dec 31 11:32:00 GMT 2004</javascript>
          <javascriptLp>Fri Dec 31 11:32:00 GMT 2004</javascriptLp>
-         <formulaNullAsNull>Fri Dec 31 11:32:00 GMT 2004</formulaNullAsNull>
+         <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: TypeError: Cannot read property 'toNumber' of null</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Fri Dec 31 11:32:00 GMT 2004</javascriptLpNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:11:32:00, -12.00]</inputvalues>
@@ -413,12 +413,12 @@
       <inputvalues>[2004:03:30:07:34:00:GMT, -1.00]</inputvalues>
          <formula>Sun Feb 29 07:34:00 GMT 2004</formula>
          <sql>2004-02-29 07:34:00.0</sql>
-         <javascript>Mon Mar 01 07:34:00 GMT 2004</javascript>
-         <javascriptLp>Mon Mar 01 07:34:00 GMT 2004</javascriptLp>
+         <javascript>Sun Feb 29 07:34:00 GMT 2004</javascript>
+         <javascriptLp>Sun Feb 29 07:34:00 GMT 2004</javascriptLp>
          <formulaNullAsNull>Sun Feb 29 07:34:00 GMT 2004</formulaNullAsNull>
          <sqlNullAsNull>2004-02-29 07:34:00.0</sqlNullAsNull>
-         <javascriptNullAsNull>Mon Mar 01 07:34:00 GMT 2004</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Mon Mar 01 07:34:00 GMT 2004</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Sun Feb 29 07:34:00 GMT 2004</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Sun Feb 29 07:34:00 GMT 2004</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:03:30:07:34:00:GMT, 1.00]</inputvalues>

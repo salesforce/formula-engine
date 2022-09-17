@@ -649,6 +649,15 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
         return null;
     }
     
+    
+    /**
+     * @return whether java & javascript should treat null months in ADDMONTHS() as zero, 
+     * and return the passed in date if true.  Defaults to false, which returns null.
+     */
+    default boolean functionHook_addNullMonthsAsZero() {
+        return false;
+    }
+    
     /**
      * Encode the given string as a URL for use in embedding in a template.  If you do not want to do URL encoding, 
      * override to just return string.

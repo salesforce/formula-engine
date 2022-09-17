@@ -401,14 +401,9 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <!-- AddMonths doesn't work right around leap years with dateonlys in Javascript... 
-            // TODO: AddMonths in Oracle has different behavior from Postgres for leap days.
-            // @see https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions004.htm
-            // "If date is the last day of the month or if the resulting month has fewer days than the 
-            //      day component of date, then the result is the last day of the resulting month. " -->
      <testcase name="testAddMonths" devName="testAddMonths" labels="extended"
          labelName="testAddMonths" dataType="DateTime" dataFile="addMonths" 
-         whyIgnoreSql="oracle:Leap day support,mysql:leap day,mariadb:leap day,mssql: leap day"
+         whyIgnoreSql="mysql:leap day,mariadb:leap day,mssql: leap day"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateTime"/>
@@ -417,7 +412,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddMonthsDate" devName="testAddMonthsDate" labels="extended"
          labelName="testAddMonthsDate" dataType="DateOnly" dataFile="addMonths" 
-         whyIgnoreSql="oracle:Leap day support,mysql:leap day,mariadb:leap day,mssql: leap day"
+         whyIgnoreSql="mysql:leap day,mariadb:leap day,mssql: leap day"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateOnly"/>
@@ -486,7 +481,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testAddMonthsDateTime" devName="testAddMonthsDateTime"
          labelName="testAddMonthsDateTime" dataType="DateTime" dataFile="addDateTime"
          scale="2" precision="12"  
-         whyIgnoreSql="postgres:TODO psql fractional day support differs from java,mysql:leap day,mariad:leap day,mssql:leap day"
+         whyIgnoreSql="mysql:leap day,mariad:leap day,mssql:leap day"
          code="ADDMONTHS(customdatetime1__c,customnumber1__c)">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime"/>
