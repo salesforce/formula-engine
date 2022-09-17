@@ -688,31 +688,8 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
 
     public static void visit(FormulaAST node, FormulaASTVisitor visitor, FormulaProperties properties)
             throws FormulaException {
-        /* FormulaAST firstSibling = (FormulaAST)node.getNextSibling();
-
-        try {
-            FormulaAST firstChild = (FormulaAST)node.getFirstChild();
-            if (firstChild != null) {
-                visit(firstChild, visitor, properties);
-            }
-
-            visitor.visit(node);
-        }
-        catch (FormulaException x) {
-            handleVisitExceptions(x, node, visitor, properties);
-        }
-
-        try {
-            if (firstSibling != null) {
-                visit(firstSibling, visitor, properties);
-            }
-        }
-        catch (FormulaException x) {
-            handleVisitExceptions(x, node, visitor, properties);
-        }*/
-
         /**
-         * As the above recursive inorder traversal was resulting in StackOverFlow error when the tree is skewed or
+         * As the recursive inorder traversal was resulting in StackOverFlow error when the tree is skewed or
          * deeply nested, using iterative implementation to do the same work
          */
 
@@ -721,7 +698,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
 
     // Iterative function to perform inorder traversal on the tree
     private static void visitInorderIterative(FormulaAST node, FormulaASTVisitor visitor, FormulaProperties properties) throws FormulaException{
-        Stack<FormulaAST> stack = new Stack<>();
+        Deque<FormulaAST> stack = new ArrayDeque<>();
         FormulaAST curr = node;
         while (curr != null || !stack.isEmpty()) {
             while (curr != null) {
