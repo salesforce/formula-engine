@@ -13,7 +13,7 @@
       <inputvalues>[2004:12:31:11:32:00, NULL]</inputvalues>
          <formula>Fri Dec 31 11:32:00 GMT 2004</formula>
          <sql>2004-12-31 11:32:00.0</sql>
-         <formulaNullAsNull>Fri Dec 31 11:32:00 GMT 2004</formulaNullAsNull>
+         <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>

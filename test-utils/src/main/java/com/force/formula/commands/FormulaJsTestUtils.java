@@ -165,11 +165,15 @@ public class FormulaJsTestUtils {
                         + "return String(value);};")
                 
                 
-                // Note, these add months does what java does, but may not do what oracle/postgres does
+                // Note, Javascript setMonths has strange behavior since it'll make January 30th + 1 month may be March.  And last day needs to remain last day to match oracle.
+                // So if it's the last day of the month, we add one to the day and add the month, then remove the day.  Otherwise we use the "set Date to 0 to be last day of previous month" javascript behavior 
+                // so Jan 30 + 1 month will be Feb 28 in a non-leap year 
+                .append("$F.addmonths=function(a,b) {if (a==null||b==null) return null;if (!b) return a;var lastDay=a.getUTCDay()==(new Date(Date.UTC(a.getUTCFullYear(),a.getUTCMonth()+1,0))).getUTCDay();"
+                        +"var d=new Date(a.getTime()+(lastDay?86400000:0));d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));"
+                        +"if (lastDay) return new Date(d.getTime()-86400000); if (d.getUTCDate()!=a.getUTCDate()){d.setUTCDate(0)};return d;};")
                 
-                .append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));return new Date(d.getTime()-86400000);};\n")
                 // Use this if you want to support fractional dates
-        		//.append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));d.setUTCDate(d.getUTCDate()+Math.trunc((b%1)*365.24/12));return new Date(d.getTime()-86400000);};");
+        		//.append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));d.setUTCDate(d.getUTCDate()+Math.trunc((b%1)*365.24/12));return new Date(d.getTime()-86400000);};")
 
                 // ISO week/day functions
         		.append("$F.isoweek=function(a) {if (!a) return a;"
