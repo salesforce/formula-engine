@@ -686,30 +686,32 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
         return commandInfo.getJavascript(ast, context, args);
     }
 
-
     public static void visit(FormulaAST node, FormulaASTVisitor visitor, FormulaProperties properties)
-        throws FormulaException {
-        FormulaAST firstSibling = (FormulaAST)node.getNextSibling();
+            throws FormulaException {
+        /**
+         * As the recursive inorder traversal was resulting in StackOverFlow error when the tree is skewed or
+         * deeply nested, using iterative implementation to do the same work
+         */
 
-        try {
-            FormulaAST firstChild = (FormulaAST)node.getFirstChild();
-            if (firstChild != null) {
-                visit(firstChild, visitor, properties);
+        visitInorderIterative(node, visitor, properties);
+    }
+
+    // Iterative function to perform inorder traversal on the tree
+    private static void visitInorderIterative(FormulaAST node, FormulaASTVisitor visitor, FormulaProperties properties) throws FormulaException{
+        Deque<FormulaAST> stack = new ArrayDeque<>();
+        FormulaAST curr = node;
+        while (curr != null || !stack.isEmpty()) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = (FormulaAST)curr.getFirstChild();
             }
-
-            visitor.visit(node);
-        }
-        catch (FormulaException x) {
-            handleVisitExceptions(x, node, visitor, properties);
-        }
-
-        try {
-            if (firstSibling != null) {
-                visit(firstSibling, visitor, properties);
+            curr = stack.pop();
+            try{
+                visitor.visit(curr);
+            }catch (FormulaException x){
+                handleVisitExceptions(x, node, visitor, properties);
             }
-        }
-        catch (FormulaException x) {
-            handleVisitExceptions(x, node, visitor, properties);
+            curr = (FormulaAST)curr.getNextSibling();
         }
     }
 
