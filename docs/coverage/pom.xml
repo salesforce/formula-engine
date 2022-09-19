@@ -13,7 +13,7 @@
   <parent>
     <groupId>com.salesforce.formula</groupId>
     <artifactId>formula-engine</artifactId>
-    <version>0.2.17-SNAPSHOT</version>
+    <version>0.2.17</version>
     <relativePath>../..</relativePath>
   </parent>
 
