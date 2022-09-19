@@ -18,6 +18,7 @@ import com.force.formula.FormulaException;
 import com.force.formula.FormulaProperties;
 import com.force.formula.FormulaRuntimeContext;
 import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaValidationHooks;
 import com.force.formula.impl.IllegalArgumentTypeException;
 import com.force.formula.impl.JsValue;
 import com.force.formula.impl.TableAliasRegistry;
@@ -73,7 +74,7 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         String js =  "$F.addmonths(" + args[0] + "," + jsToNum(context, args[1].js) + ")";
-        return JsValue.generate(js, args, true, args[0]);
+        return JsValue.generate(js, args, true, args);
     }
 
     /**
@@ -105,7 +106,7 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
             if (d == null) {
             	result = null;  // No NPEs if null
             } else if (months == null) {
-            	result = input; // Assume null = 0 months?
+            	result = FormulaValidationHooks.get().functionHook_addNullMonthsAsZero() ? d : null; // match behavior of sql.
             } else {
                 Calendar c = FormulaI18nUtils.getLocalizer().getCalendar(BaseLocalizer.GMT);
                 c.setTime(d);
