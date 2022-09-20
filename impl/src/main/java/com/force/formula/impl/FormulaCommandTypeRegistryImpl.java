@@ -33,6 +33,7 @@ import com.force.formula.commands.FunctionFloor;
 import com.force.formula.commands.FunctionGeolocation;
 import com.force.formula.commands.FunctionHour;
 import com.force.formula.commands.FunctionIf;
+import com.force.formula.commands.FunctionIfs;
 import com.force.formula.commands.FunctionIsBlank;
 import com.force.formula.commands.FunctionIsClone;
 import com.force.formula.commands.FunctionIsNew;
@@ -227,6 +228,7 @@ public class FormulaCommandTypeRegistryImpl implements FormulaCommandTypeRegistr
         types.add(new FunctionDatetimeValue());
         types.add(new FunctionIsNew());
         types.add(new FunctionIsClone());
+        types.add(new FunctionIfs());
 
         DEFAULT_COMMANDS = ImmutableList.copyOf(types);
     }

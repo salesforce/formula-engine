@@ -43,7 +43,6 @@ import com.force.formula.commands.FunctionFormatCurrency;
 import com.force.formula.commands.FunctionFormatDuration;
 import com.force.formula.commands.FunctionFromUnixTime;
 import com.force.formula.commands.FunctionIfError;
-import com.force.formula.commands.FunctionIfs;
 import com.force.formula.commands.FunctionInitCap;
 import com.force.formula.commands.FunctionIsChanged;
 import com.force.formula.commands.FunctionIsPickVal;
@@ -169,7 +168,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new FieldReferenceCommandInfo());
         types.add(new DynamicReference());
         types.add(new FunctionIfError());
-        types.add(new FunctionIfs());
+        //types.add(new FunctionIfs());
         types.add(new FunctionDistance());
         types.add(new FunctionIsChanged());
         types.add(new FunctionIsPickVal());
