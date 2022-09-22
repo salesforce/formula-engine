@@ -152,14 +152,23 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
     }
     
     /**
+     * @see specification in FunctionAddMonths.java
      * @return the format to use for adding months.
      */
 	@Override
     default String sqlAddMonths(String dateArg, String numMonths) {
-		return String.format("(%s+'1 day'::interval+('1 month'::interval*TRUNC(%s)))-'1 day'::interval", dateArg, numMonths);
+	    StringBuffer sb = new StringBuffer();
+	    sb.append(" (CASE");
+	    sb.append(" WHEN extract(day FROM (date_trunc('month', %s) + interval '1 month -1 day')::timestamp(0))::numeric = ");
+	    sb.append("      extract(day FROM (date_trunc('day', %s)))::numeric ");
+	    sb.append(" THEN '1 day'");
+	    sb.append(" ELSE '0 day'");
+	    sb.append(" END )::interval ");
+
+        String dayAddition = String.format(sb.toString(), dateArg, dateArg);
+        return String.format("(%s + " + dayAddition + " + ('1 month'::interval*TRUNC(%s))) - " + dayAddition, dateArg, numMonths);
     }
-    
-    
+
     /**
      * @return the format for converting to a datetime value
      */

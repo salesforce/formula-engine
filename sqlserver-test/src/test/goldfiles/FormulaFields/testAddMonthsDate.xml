@@ -13,7 +13,7 @@
       <inputvalues>[2004:12:31:11:32:00, NULL]</inputvalues>
          <formula>Fri Dec 31 00:00:00 GMT 2004</formula>
          <sql>2004-12-31 00:00:00.0</sql>
-         <formulaNullAsNull>Fri Dec 31 00:00:00 GMT 2004</formulaNullAsNull>
+         <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
@@ -186,9 +186,9 @@
       </result>
       <result>
       <inputvalues>[2004:03:29:07:34:00:GMT, -1.00]</inputvalues>
-         <formula>Sat Feb 28 00:00:00 GMT 2004</formula>
+         <formula>Sun Feb 29 00:00:00 GMT 2004</formula>
          <sql>2004-02-29 00:00:00.0</sql>
-         <formulaNullAsNull>Sat Feb 28 00:00:00 GMT 2004</formulaNullAsNull>
+         <formulaNullAsNull>Sun Feb 29 00:00:00 GMT 2004</formulaNullAsNull>
          <sqlNullAsNull>2004-02-29 00:00:00.0</sqlNullAsNull>
       </result>
       <result>
@@ -263,16 +263,16 @@
       </result>
       <result>
       <inputvalues>[2004:03:30:07:34:00:GMT, -1.00]</inputvalues>
-         <formula>Sat Feb 28 00:00:00 GMT 2004</formula>
+         <formula>Sun Feb 29 00:00:00 GMT 2004</formula>
          <sql>2004-02-29 00:00:00.0</sql>
-         <formulaNullAsNull>Sat Feb 28 00:00:00 GMT 2004</formulaNullAsNull>
+         <formulaNullAsNull>Sun Feb 29 00:00:00 GMT 2004</formulaNullAsNull>
          <sqlNullAsNull>2004-02-29 00:00:00.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:03:30:07:34:00:GMT, 1.00]</inputvalues>
-         <formula>Thu Apr 29 00:00:00 GMT 2004</formula>
+         <formula>Fri Apr 30 00:00:00 GMT 2004</formula>
          <sql>2004-04-30 00:00:00.0</sql>
-         <formulaNullAsNull>Thu Apr 29 00:00:00 GMT 2004</formulaNullAsNull>
+         <formulaNullAsNull>Fri Apr 30 00:00:00 GMT 2004</formulaNullAsNull>
          <sqlNullAsNull>2004-04-30 00:00:00.0</sqlNullAsNull>
       </result>
       <result>
@@ -298,9 +298,9 @@
       </result>
       <result>
       <inputvalues>[2004:03:30:07:34:00:GMT, 3.00]</inputvalues>
-         <formula>Tue Jun 29 00:00:00 GMT 2004</formula>
+         <formula>Wed Jun 30 00:00:00 GMT 2004</formula>
          <sql>2004-06-30 00:00:00.0</sql>
-         <formulaNullAsNull>Tue Jun 29 00:00:00 GMT 2004</formulaNullAsNull>
+         <formulaNullAsNull>Wed Jun 30 00:00:00 GMT 2004</formulaNullAsNull>
          <sqlNullAsNull>2004-06-30 00:00:00.0</sqlNullAsNull>
       </result>
       <result>

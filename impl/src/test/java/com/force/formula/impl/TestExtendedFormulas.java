@@ -48,10 +48,6 @@ public class TestExtendedFormulas extends FormulaPostgreSQLTests {
 			// TODO: Implement distance functions in Javascript
 			return true;
 		}
-		if ("testAddMonthsDate".equals(testName)) {
-			// TODO: AddMonths in javascript doesn't handle leap year + daylight savings + last day of month.
-			return true;
-		}
 		if ("testFormatCurrency".equals(testName)) {
 			// TODO: The negative sign shows up in front of the code in javascript.  
 			// "-USD 100.00" instead of "USD -100.00"

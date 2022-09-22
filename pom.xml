@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.salesforce.formula</groupId>
   <artifactId>formula-engine</artifactId>
-  <version>0.2.16-SNAPSHOT</version>
+  <version>0.2.18-SNAPSHOT</version>
   <name>Formula Engine</name>
   <description>
     Implementation of a formula engine in the "salesforce" style, which
@@ -12,7 +12,7 @@
   </description>
   <url>https://github.com/salesforce/formula-engine</url>
   <properties>
-    <guava.version>30.0-jre</guava.version>
+    <guava.version>31.1-jre</guava.version>
     <graalvm.version>22.1.0</graalvm.version>
     <embedded-postgres.version>2.0.0</embedded-postgres.version>
     <testcontainers.version>1.17.3</testcontainers.version>
