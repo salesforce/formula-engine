@@ -709,7 +709,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
             try{
                 visitor.visit(curr);
             }catch (FormulaException x){
-                handleVisitExceptions(x, node, visitor, properties);
+                handleVisitExceptions(x, curr, visitor, properties);
             }
             curr = (FormulaAST)curr.getNextSibling();
         }
