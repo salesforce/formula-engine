@@ -6,16 +6,50 @@ package com.force.formula.impl;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Date;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 
-import com.force.formula.*;
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.Formula;
+import com.force.formula.FormulaCommand;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaFieldInfo;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaProvider;
+import com.force.formula.FormulaReturnType;
+import com.force.formula.FormulaRuntimeContext;
 import com.force.formula.FormulaRuntimeContext.InaccessibleFieldStrategy;
-import com.force.formula.commands.*;
+import com.force.formula.FormulaSchema;
+import com.force.formula.FormulaTime;
+import com.force.formula.FormulaTooLongException;
+import com.force.formula.FormulaTypeWithDomain;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.JSTooBigException;
+import com.force.formula.RuntimeFormulaInfo;
+import com.force.formula.commands.ConstantNull;
+import com.force.formula.commands.FormulaCommandEnricher;
+import com.force.formula.commands.FormulaCommandInfo;
+import com.force.formula.commands.FormulaCommandInfoRegistry;
+import com.force.formula.commands.FormulaCommandOptimizer;
+import com.force.formula.commands.RuntimeType;
 import com.force.formula.impl.FormulaCommandVisitorImpl.FormatCurrencyVisitor;
 import com.force.formula.parser.gen.FormulaTokenTypes;
-import com.force.formula.sql.*;
+import com.force.formula.sql.FormulaWithSql;
+import com.force.formula.sql.InvalidFormula;
+import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.formula.util.FormulaTextUtil;
 import com.google.common.base.Joiner;
@@ -685,7 +719,7 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
         FormulaCommandInfo commandInfo = FormulaCommandInfoRegistry.get(ast);
         return commandInfo.getJavascript(ast, context, args);
     }
-
+    
     public static void visit(FormulaAST node, FormulaASTVisitor visitor, FormulaProperties properties)
             throws FormulaException {
         /**
@@ -717,10 +751,8 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
 
     private static void handleVisitExceptions(FormulaException x, FormulaAST node, FormulaASTVisitor visitor,
         FormulaProperties properties) throws FormulaException {
-        // Let the exception propogate if we are configured to throw exceptions on embedded formula exceptions or we're not the top of the AST tree
-        boolean isTopLevelInTemplate = FormulaAST.isTopOfTemplateExpression(node);
-        if (!properties.getParseAsTemplate() || properties.getFailOnEmbeddedFormulaExceptions()
-            || !isTopLevelInTemplate) {
+        // Let the exception propogate if we are configured to throw exceptions on embedded formula exceptions 
+        if (!properties.getParseAsTemplate() || properties.getFailOnEmbeddedFormulaExceptions()) {
             if (x instanceof InvalidFieldReferenceException) {
                 InvalidFieldReferenceException ifre = (InvalidFieldReferenceException) x;
                 if (ifre.getLocation() < 0) {
