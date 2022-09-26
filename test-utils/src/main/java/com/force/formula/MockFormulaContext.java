@@ -46,6 +46,12 @@ public class MockFormulaContext extends NullFormulaContext {
     public String getName() {
         throw new UnsupportedOperationException();
     }
+    
+    @Override
+    public ContextualFormulaFieldInfo lookup(String fieldName, boolean isDynamicRefBase)
+            throws InvalidFieldReferenceException, UnsupportedTypeException {
+        throw new InvalidFieldReferenceException(fieldName, "UNSUPPORTED");
+    }
 
     @Override
     public FormulaReturnType getFormulaReturnType() {
