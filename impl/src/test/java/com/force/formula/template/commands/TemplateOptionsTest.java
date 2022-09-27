@@ -92,5 +92,9 @@ public class TemplateOptionsTest extends BaseCustomizableParserTest {
         fi = FormulaInfoFactory.create(context, "{!1 % 1}", properties);
         assertEquals("null", fi.getFormula().evaluate(context));
         
+        // Make sure the "top level" is nulled, not the inner value for exceptions.
+        fi = FormulaInfoFactory.create(context, "{!len(x)}", properties);
+        assertEquals("null", fi.getFormula().evaluate(context));
+        
     }
 }

@@ -722,18 +722,21 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
     
     public static void visit(FormulaAST node, FormulaASTVisitor visitor, FormulaProperties properties)
             throws FormulaException {
+        
         /**
          * As the recursive inorder traversal was resulting in StackOverFlow error when the tree is skewed or
          * deeply nested, using iterative implementation to do the same work
          */
 
+        
+
         visitInorderIterative(node, visitor, properties);
     }
 
     // Iterative function to perform inorder traversal on the tree
-    private static void visitInorderIterative(FormulaAST node, FormulaASTVisitor visitor, FormulaProperties properties) throws FormulaException{
+    private static void visitInorderIterative(FormulaAST root, FormulaASTVisitor visitor, FormulaProperties properties) throws FormulaException{
         Deque<FormulaAST> stack = new ArrayDeque<>();
-        FormulaAST curr = node;
+        FormulaAST curr = root;
         while (curr != null || !stack.isEmpty()) {
             while (curr != null) {
                 stack.push(curr);
@@ -743,31 +746,29 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
             try{
                 visitor.visit(curr);
             }catch (FormulaException x){
-                handleVisitExceptions(x, curr, visitor, properties);
+                // Let the exception propagate if we are configured to throw exceptions on embedded formula exceptions
+                if (!properties.getParseAsTemplate() || properties.getFailOnEmbeddedFormulaExceptions()) {
+                    if (x instanceof InvalidFieldReferenceException) {
+                        InvalidFieldReferenceException ifre = (InvalidFieldReferenceException) x;
+                        if (ifre.getLocation() < 0) {
+                            ifre.setLocation(curr.getToken().getColumn());
+                        }
+                    }
+                    throw x;
+                }
+                
+                // Go to the top of the template expression so we replace that with a string literal
+                while (!FormulaAST.isTopOfTemplateExpression(curr)) {
+                    curr = stack.pop();
+                }
+                // Turn the entire template expression into an empty string at the top level and visit it.
+                curr.removeChildren();
+                curr.setType(FormulaTokenTypes.STRING_LITERAL);
+                curr.setText("\"\"");
+                visitor.visit(curr);                
             }
             curr = (FormulaAST)curr.getNextSibling();
         }
-    }
-
-    private static void handleVisitExceptions(FormulaException x, FormulaAST node, FormulaASTVisitor visitor,
-        FormulaProperties properties) throws FormulaException {
-        // Let the exception propogate if we are configured to throw exceptions on embedded formula exceptions 
-        if (!properties.getParseAsTemplate() || properties.getFailOnEmbeddedFormulaExceptions()) {
-            if (x instanceof InvalidFieldReferenceException) {
-                InvalidFieldReferenceException ifre = (InvalidFieldReferenceException) x;
-                if (ifre.getLocation() < 0) {
-                    ifre.setLocation(node.getToken().getColumn());
-                }
-            }
-            throw x;
-        }
-
-        // Turn the entire expression into an empty string
-        node.removeChildren();
-        node.setType(FormulaTokenTypes.STRING_LITERAL);
-        node.setText("\"\"");
-
-        visitor.visit(node);
     }
 
     static String autoStripCurlyBangs(String source, FormulaProperties properties) {
