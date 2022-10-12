@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testReverse">
+   <testInstance formula="REVERSE(customtext1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>REVERSE($!s0s!$.customtext1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>REVERSE($!s0s!$.customtext1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(context.record.customtext1__c.split(&quot;&quot;).reverse().join(&quot;&quot;)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(context.record.customtext1__c.split(&quot;&quot;).reverse().join(&quot;&quot;)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(context.record.customtext1__c.split(&quot;&quot;).reverse().join(&quot;&quot;)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(context.record.customtext1__c.split(&quot;&quot;).reverse().join(&quot;&quot;)):null</JsOutput>
+      <result>
+      <inputvalues>[This is too good to be true]</inputvalues>
+         <formula>eurt eb ot doog oot si sihT</formula>
+         <sql>eurt eb ot doog oot si sihT</sql>
+         <javascript>eurt eb ot doog oot si sihT</javascript>
+         <javascriptLp>eurt eb ot doog oot si sihT</javascriptLp>
+         <formulaNullAsNull>eurt eb ot doog oot si sihT</formulaNullAsNull>
+         <sqlNullAsNull>eurt eb ot doog oot si sihT</sqlNullAsNull>
+         <javascriptNullAsNull>eurt eb ot doog oot si sihT</javascriptNullAsNull>
+         <javascriptLpNullAsNull>eurt eb ot doog oot si sihT</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[making a way]</inputvalues>
+         <formula>yaw a gnikam</formula>
+         <sql>yaw a gnikam</sql>
+         <javascript>yaw a gnikam</javascript>
+         <javascriptLp>yaw a gnikam</javascriptLp>
+         <formulaNullAsNull>yaw a gnikam</formulaNullAsNull>
+         <sqlNullAsNull>yaw a gnikam</sqlNullAsNull>
+         <javascriptNullAsNull>yaw a gnikam</javascriptNullAsNull>
+         <javascriptLpNullAsNull>yaw a gnikam</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blunder]</inputvalues>
+         <formula>rednulb</formula>
+         <sql>rednulb</sql>
+         <javascript>rednulb</javascript>
+         <javascriptLp>rednulb</javascriptLp>
+         <formulaNullAsNull>rednulb</formulaNullAsNull>
+         <sqlNullAsNull>rednulb</sqlNullAsNull>
+         <javascriptNullAsNull>rednulb</javascriptNullAsNull>
+         <javascriptLpNullAsNull>rednulb</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[makesense]</inputvalues>
+         <formula>esnesekam</formula>
+         <sql>esnesekam</sql>
+         <javascript>esnesekam</javascript>
+         <javascriptLp>esnesekam</javascriptLp>
+         <formulaNullAsNull>esnesekam</formulaNullAsNull>
+         <sqlNullAsNull>esnesekam</sqlNullAsNull>
+         <javascriptNullAsNull>esnesekam</javascriptNullAsNull>
+         <javascriptLpNullAsNull>esnesekam</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[does not make sense]</inputvalues>
+         <formula>esnes ekam ton seod</formula>
+         <sql>esnes ekam ton seod</sql>
+         <javascript>esnes ekam ton seod</javascript>
+         <javascriptLp>esnes ekam ton seod</javascriptLp>
+         <formulaNullAsNull>esnes ekam ton seod</formulaNullAsNull>
+         <sqlNullAsNull>esnes ekam ton seod</sqlNullAsNull>
+         <javascriptNullAsNull>esnes ekam ton seod</javascriptNullAsNull>
+         <javascriptLpNullAsNull>esnes ekam ton seod</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[working my way]</inputvalues>
+         <formula>yaw ym gnikrow</formula>
+         <sql>yaw ym gnikrow</sql>
+         <javascript>yaw ym gnikrow</javascript>
+         <javascriptLp>yaw ym gnikrow</javascriptLp>
+         <formulaNullAsNull>yaw ym gnikrow</formulaNullAsNull>
+         <sqlNullAsNull>yaw ym gnikrow</sqlNullAsNull>
+         <javascriptNullAsNull>yaw ym gnikrow</javascriptNullAsNull>
+         <javascriptLpNullAsNull>yaw ym gnikrow</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[e]</inputvalues>
+         <formula>e</formula>
+         <sql>e</sql>
+         <javascript>e</javascript>
+         <javascriptLp>e</javascriptLp>
+         <formulaNullAsNull>e</formulaNullAsNull>
+         <sqlNullAsNull>e</sqlNullAsNull>
+         <javascriptNullAsNull>e</javascriptNullAsNull>
+         <javascriptLpNullAsNull>e</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
+         <formula>gahsoghawtwua9gthsihgkjasifowt9awhtashjovhaot9wtwaiognasohsouwtwthasjighjsofiowutwhjgishjkfatwhthsjghshgwhgthwtooghlsjgklaslghsgoswhuowstasghsjgasngsgsotwtsgksngnshgshtgsgh</formula>
+         <sql>gahsoghawtwua9gthsihgkjasifowt9awhtashjovhaot9wtwaiognasohsouwtwthasjighjsofiowutwhjgishjkfatwhthsjghshgwhgthwtooghlsjgklaslghsgoswhuowstasghsjgasngsgsotwtsgksngnshgshtgsgh</sql>
+         <javascript>gahsoghawtwua9gthsihgkjasifowt9awhtashjovhaot9wtwaiognasohsouwtwthasjighjsofiowutwhjgishjkfatwhthsjghshgwhgthwtooghlsjgklaslghsgoswhuowstasghsjgasngsgsotwtsgksngnshgshtgsgh</javascript>
+         <javascriptLp>gahsoghawtwua9gthsihgkjasifowt9awhtashjovhaot9wtwaiognasohsouwtwthasjighjsofiowutwhjgishjkfatwhthsjghshgwhgthwtooghlsjgklaslghsgoswhuowstasghsjgasngsgsotwtsgksngnshgshtgsgh</javascriptLp>
+         <formulaNullAsNull>gahsoghawtwua9gthsihgkjasifowt9awhtashjovhaot9wtwaiognasohsouwtwthasjighjsofiowutwhjgishjkfatwhthsjghshgwhgthwtooghlsjgklaslghsgoswhuowstasghsjgasngsgsotwtsgksngnshgshtgsgh</formulaNullAsNull>
+         <sqlNullAsNull>gahsoghawtwua9gthsihgkjasifowt9awhtashjovhaot9wtwaiognasohsouwtwthasjighjsofiowutwhjgishjkfatwhthsjghshgwhgthwtooghlsjgklaslghsgoswhuowstasghsjgasngsgsotwtsgksngnshgshtgsgh</sqlNullAsNull>
+         <javascriptNullAsNull>gahsoghawtwua9gthsihgkjasifowt9awhtashjovhaot9wtwaiognasohsouwtwthasjighjsofiowutwhjgishjkfatwhthsjghshgwhgthwtooghlsjgklaslghsgoswhuowstasghsjgasngsgsotwtsgksngnshgshtgsgh</javascriptNullAsNull>
+         <javascriptLpNullAsNull>gahsoghawtwua9gthsihgkjasifowt9awhtashjovhaot9wtwaiognasohsouwtwthasjighjsofiowutwhjgishjkfatwhthsjghshgwhgthwtooghlsjgklaslghsgoswhuowstasghsjgasngsgsotwtsgksngnshgshtgsgh</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
+         <formula>_(_%!)%^&amp;)%*_)!%)%&amp;%%!_^*)%^$_!)%)^)^)%@)#)041805052</formula>
+         <sql>_(_%!)%^&amp;)%*_)!%)%&amp;%%!_^*)%^$_!)%)^)^)%@)#)041805052</sql>
+         <javascript>_(_%!)%^&amp;)%*_)!%)%&amp;%%!_^*)%^$_!)%)^)^)%@)#)041805052</javascript>
+         <javascriptLp>_(_%!)%^&amp;)%*_)!%)%&amp;%%!_^*)%^$_!)%)^)^)%@)#)041805052</javascriptLp>
+         <formulaNullAsNull>_(_%!)%^&amp;)%*_)!%)%&amp;%%!_^*)%^$_!)%)^)^)%@)#)041805052</formulaNullAsNull>
+         <sqlNullAsNull>_(_%!)%^&amp;)%*_)!%)%&amp;%%!_^*)%^$_!)%)^)^)%@)#)041805052</sqlNullAsNull>
+         <javascriptNullAsNull>_(_%!)%^&amp;)%*_)!%)%&amp;%%!_^*)%^$_!)%)^)^)%@)#)041805052</javascriptNullAsNull>
+         <javascriptLpNullAsNull>_(_%!)%^&amp;)%*_)!%)%&amp;%%!_^*)%^$_!)%)^)^)%@)#)041805052</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
+         <formula>r\q\t\n\gslglsgls wioglslgdcws   sgfldsld   jskdjsl hjalb</formula>
+         <sql>r\q\t\n\gslglsgls wioglslgdcws   sgfldsld   jskdjsl hjalb</sql>
+         <javascript>r\q\t\n\gslglsgls wioglslgdcws   sgfldsld   jskdjsl hjalb</javascript>
+         <javascriptLp>r\q\t\n\gslglsgls wioglslgdcws   sgfldsld   jskdjsl hjalb</javascriptLp>
+         <formulaNullAsNull>r\q\t\n\gslglsgls wioglslgdcws   sgfldsld   jskdjsl hjalb</formulaNullAsNull>
+         <sqlNullAsNull>r\q\t\n\gslglsgls wioglslgdcws   sgfldsld   jskdjsl hjalb</sqlNullAsNull>
+         <javascriptNullAsNull>r\q\t\n\gslglsgls wioglslgdcws   sgfldsld   jskdjsl hjalb</javascriptNullAsNull>
+         <javascriptLpNullAsNull>r\q\t\n\gslglsgls wioglslgdcws   sgfldsld   jskdjsl hjalb</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

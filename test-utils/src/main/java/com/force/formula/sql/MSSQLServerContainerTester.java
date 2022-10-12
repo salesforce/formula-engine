@@ -4,11 +4,15 @@
 package com.force.formula.sql;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
 
 import org.testcontainers.containers.MSSQLServerContainer;
 
-import com.force.formula.*;
+import com.force.formula.DisplayField;
+import com.force.formula.FormulaEngine;
+import com.force.formula.MockFormulaDataType;
 import com.force.formula.util.FormulaTextUtil;
 import com.google.common.base.CharMatcher;
 
@@ -26,7 +30,7 @@ public class MSSQLServerContainerTester extends DbContainerTester<MSSQLServerCon
 
 	@Override
 	protected MSSQLServerContainer<?> constructDb() throws IOException {
-		MSSQLServerContainer<?> result = new MSSQLServerContainer<>("mcr.microsoft.com/mssql/server");
+		MSSQLServerContainer<?> result = new MSSQLServerContainer<>("mcr.microsoft.com/mssql/server:2017-latest");
 		result.acceptLicense();		
 		return result;
 	}

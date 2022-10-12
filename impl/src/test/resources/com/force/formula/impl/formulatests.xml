@@ -3682,4 +3682,13 @@ author: Srikanth Yendluri/Doug Chasman
         <referencefield devName="customtext" labelName="customtext"
                 dataType="Text" length="255"/>
     </testcase>
+    
+    <testcase name="testReverse" devName="testReverse" labels="math"
+         labelName="testReverse" dataType="Text"
+         dataFile="singleTextFieldData" length="255"
+         code="REVERSE(customtext1__c)">
+         <referencefield devName="customtext1" labelName="customtext1"
+             dataType="Text" length="255"/>
+     </testcase>
+    
 </formula-test>

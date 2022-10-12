@@ -576,6 +576,16 @@ public class BuiltinFunctionsTest extends ParserTestBase {
         assertEquals("\u0131dempotent", evaluateString("LOWER(\"IDEMPOTENT\",\"tr_TR\")"));  // Dotless lower i i
         Assert.assertNotEquals("Didn't handle turkish correctly", "idempotent", evaluateString("LOWER(\"IDEMPOTENT\",\"tr_TR\")"));  // Dotless lower i i
     }
+    
+    public void testREVERSE() throws Exception {
+        assertEquals(null, evaluateString("REVERSE(null)"));
+        assertEquals(null, evaluateString("REVERSE(\"\")"));
+        assertEquals("gnirts", evaluateString("REVERSE(\"string\")"));
+        assertEquals("GNIRTS", evaluateString("REVERSE(\"STRING\")"));
+        assertEquals(" gNiRtS", evaluateString("REVERSE(\"StRiNg \")"));
+        assertEquals("e\u00DForg", evaluateString("REVERSE(\"gro\u00DFe\")"));
+    }
+
 
     // Time & Date Functions
     public void testNOW() throws Exception {
