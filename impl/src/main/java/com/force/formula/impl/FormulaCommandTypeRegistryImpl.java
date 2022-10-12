@@ -55,6 +55,7 @@ import com.force.formula.commands.FunctionNaturalLog;
 import com.force.formula.commands.FunctionNow;
 import com.force.formula.commands.FunctionNullValue;
 import com.force.formula.commands.FunctionOr;
+import com.force.formula.commands.FunctionReverse;
 import com.force.formula.commands.FunctionRight;
 import com.force.formula.commands.FunctionRound;
 import com.force.formula.commands.FunctionRpad;
@@ -195,6 +196,7 @@ public class FormulaCommandTypeRegistryImpl implements FormulaCommandTypeRegistr
         types.add(new FunctionTrim());
         types.add(new FunctionHtmlEncode());
         types.add(new FunctionJSEncode());
+        types.add(new FunctionReverse());
 
         types.add(new FunctionIf());
         types.add(new FunctionCase());

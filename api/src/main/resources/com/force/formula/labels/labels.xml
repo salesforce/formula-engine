@@ -244,6 +244,8 @@
         <param name="MID_DESCR">Returns character from the middle of a text string, given a starting position and length</param>
         <param name="FIND">FIND(search_text, text [, start_num])</param>
         <param name="FIND_DESCR">Returns the position of the search_text string in text</param>
+        <param name="REVERSE">REVERSE(text)</param>
+        <param name="REVERSE_DESCR">Returns the text string in reverse order</param>
         <param name="PLVALUE">PLVALUE(field, text)</param>
         <param name="PLVALUE_DESCR">Converts a text string to a picklist value</param>
         <param name="RIGHT">RIGHT(text, num_chars)</param>
