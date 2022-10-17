@@ -2,11 +2,11 @@
 <testCase name="testUnixTimestampWithDateTime">
    <testInstance formula="UnixTimestamp(DATETIMEVALUE(dateString__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TO_UNIXTIME(date_parse($!s0s!$.dateString__c, '%Y-%m-%d %H:%i:%s'))</Sql>
+       <Sql>TO_UNIXTIME(date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s'))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TO_UNIXTIME(date_parse($!s0s!$.dateString__c, '%Y-%m-%d %H:%i:%s'))</Sql>
+       <Sql>TO_UNIXTIME(date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s'))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
       <result>

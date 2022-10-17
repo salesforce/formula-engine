@@ -89,7 +89,7 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
      */
     @Override
     default String sqlToDateIso() {
-        return "date_parse(%s, '%%Y-%%m-%%d')";
+        return "date_parse(trim(%s), '%%Y-%%m-%%d')";
     }
     
     /**
@@ -97,7 +97,7 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
      */
     @Override
     default String sqlToTimestampIso() {
-        return "date_parse(%s, '%%Y-%%m-%%d %%H:%%i:%%s')";
+        return "date_parse(trim(%s), '%%Y-%%m-%%d %%H:%%i:%%s')";
     }
     
     /**
@@ -188,14 +188,14 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
             }
         } else if (lhsDataType==FormulaDateTime.class) {
             if (!isAddition) {
-                return String.format("DATE_ADD('second', -CAST(%s*86400 AS BIGINT), %s)", rhsValue, lhsValue);
+                return String.format("DATE_ADD('second', -CAST(ROUND(86400.0*%s) AS BIGINT), %s)", rhsValue, lhsValue);
             } else {
-                return String.format("DATE_ADD('second', CAST(%s*86400 AS BIGINT), %s)", rhsValue, lhsValue);
+                return String.format("DATE_ADD('second', CAST(ROUND(86400.0*%s) AS BIGINT), %s)", rhsValue, lhsValue);
             }
         } else if (rhsDataType == Date.class) {
             return String.format("DATE_ADD('day', CAST(%s AS BIGINT), %s)", lhsValue, rhsValue);
         } else {
-            return String.format("DATE_ADD('second', CAST(%s*86400 AS BIGINT), %s)", lhsValue, rhsValue);
+            return String.format("DATE_ADD('second', CAST(ROUND(86400.0*%s) AS BIGINT), %s)", lhsValue, rhsValue);
         }
      }
     
@@ -220,6 +220,11 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
     @Override
     default String sqlGetEpoch() {
         return "TO_UNIXTIME(%s)";
+    }
+    
+    @Override
+    default String sqlToCharTime() {
+        return "SUBSTR(CAST(%s AS VARCHAR),1,12)"; 
     }
     
     /**
@@ -309,7 +314,7 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
 
     @Override
     default String sqlConvertPercent(String argument) {
-        return "(" + argument + " / (DECIMAL '100.00000000'))";  // Presto needs more decimal places.
+        return "(" + argument + " / (DECIMAL '100.'))";  // Presto needs more decimal places.
     }
 
 }

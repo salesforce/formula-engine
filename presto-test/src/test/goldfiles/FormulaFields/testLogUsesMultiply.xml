@@ -2,12 +2,12 @@
 <testCase name="testLogUsesMultiply">
    <testInstance formula="Log((custompercent1__c*customnumber1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CAST(CAST(LOG10((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0) * COALESCE($!s0s!$.customnumber1__c, 0))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
-       <Guard>(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0) * COALESCE($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
+       <Sql>CAST(CAST(LOG10((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0) * COALESCE($!s0s!$.customnumber1__c, 0))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0) * COALESCE($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CAST(CAST(LOG10((($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')) * $!s0s!$.customnumber1__c)) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
-       <Guard>(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')) * $!s0s!$.customnumber1__c)&lt;=0</Guard>
+       <Sql>CAST(CAST(LOG10((($!s0s!$.custompercent1__c / (DECIMAL '100.')) * $!s0s!$.customnumber1__c)) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>(($!s0s!$.custompercent1__c / (DECIMAL '100.')) * $!s0s!$.customnumber1__c)&lt;=0</Guard>
     </SqlOutput>
       <result>
       <inputvalues>[, 24]</inputvalues>
@@ -61,9 +61,9 @@
       <result>
       <inputvalues>[1.1111, 1.1111]</inputvalues>
          <formula>-1.9084937048117172</formula>
-         <sql>-1.9084937048117177</sql>
+         <sql>-1.9089238736192014</sql>
          <formulaNullAsNull>-1.9084937048117172</formulaNullAsNull>
-         <sqlNullAsNull>-1.9084937048117177</sqlNullAsNull>
+         <sqlNullAsNull>-1.9089238736192014</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.11114, 0.00000]</inputvalues>
@@ -82,9 +82,9 @@
       <result>
       <inputvalues>[1.111112, 0.000043]</inputvalues>
          <formula>-6.320773706424291</formula>
-         <sql>-6.3207737064242915</sql>
+         <sql>-6.320778396826272</sql>
          <formulaNullAsNull>-6.320773706424291</formulaNullAsNull>
-         <sqlNullAsNull>-6.3207737064242915</sqlNullAsNull>
+         <sqlNullAsNull>-6.320778396826272</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789, 123456789]</inputvalues>
@@ -131,9 +131,9 @@
       <result>
       <inputvalues>[1.2345,  1.2345]</inputvalues>
          <formula>-1.8170178114640978</formula>
-         <sql>-1.8170178114640978</sql>
+         <sql>-1.818603794292651</sql>
          <formulaNullAsNull>-1.8170178114640978</formulaNullAsNull>
-         <sqlNullAsNull>-1.8170178114640978</sqlNullAsNull>
+         <sqlNullAsNull>-1.818603794292651</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.245,  0]</inputvalues>
@@ -166,9 +166,9 @@
       <result>
       <inputvalues>[1.00596, 240]</inputvalues>
          <formula>0.3827919539179473</formula>
-         <sql>0.38279195391794735</sql>
+         <sql>0.3828092224315146</sql>
          <formulaNullAsNull>0.3827919539179473</formulaNullAsNull>
-         <sqlNullAsNull>0.38279195391794735</sqlNullAsNull>
+         <sqlNullAsNull>0.3828092224315146</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 240]</inputvalues>

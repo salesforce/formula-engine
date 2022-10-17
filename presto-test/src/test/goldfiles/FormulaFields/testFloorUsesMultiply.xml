@@ -3,11 +3,11 @@
    <testInstance formula="FLOOR(customformula0__c)" returntype="Double" precision="12" scale="2">
    <customformula0 dataType="ColumnType.DOUBLE" formula="(custompercent1__c*customcurrency1__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0)&gt;=0 THEN FLOOR(ROUND(COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0),33)) ELSE CEIL(ROUND(COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0),33)) END</Sql>
+       <Sql>CASE WHEN COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0)&gt;=0 THEN FLOOR(ROUND(COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0),33)) ELSE CEIL(ROUND(COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')) * $!s0s!$.customcurrency1__c)&gt;=0 THEN FLOOR(ROUND((($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')) * $!s0s!$.customcurrency1__c),33)) ELSE CEIL(ROUND((($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')) * $!s0s!$.customcurrency1__c),33)) END</Sql>
+       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / (DECIMAL '100.')) * $!s0s!$.customcurrency1__c)&gt;=0 THEN FLOOR(ROUND((($!s0s!$.custompercent1__c / (DECIMAL '100.')) * $!s0s!$.customcurrency1__c),33)) ELSE CEIL(ROUND((($!s0s!$.custompercent1__c / (DECIMAL '100.')) * $!s0s!$.customcurrency1__c),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

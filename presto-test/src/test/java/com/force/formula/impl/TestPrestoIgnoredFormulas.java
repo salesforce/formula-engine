@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.junit.runners.AllTests;
 import org.xml.sax.SAXException;
@@ -22,7 +23,7 @@ import junit.framework.TestSuite;
  * @since 0.3
  */
 @RunWith(AllTests.class)
-//@Ignore
+@Ignore
 public class TestPrestoIgnoredFormulas extends FormulaPrestoTests {
 
 	

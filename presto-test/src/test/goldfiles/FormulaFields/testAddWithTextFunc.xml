@@ -5,11 +5,11 @@
    <customformula1 dataType="ColumnType.DOUBLE" formula="LEN(customtext2__c)"/>
    <customformula2 dataType="ColumnType.DOUBLE" formula="(custompercent1__c*customcurrency1__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>((((COALESCE($!s0s!$.customnumber1__c, 0)+COALESCE(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)), 0))+COALESCE($!s0s!$.customnumber2__c, 0))+COALESCE(CAST(COALESCE(LENGTH($!s0s!$.customtext2__c),0) AS DECIMAL(38,18)), 0))+COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0))</Sql>
+       <Sql>((((COALESCE($!s0s!$.customnumber1__c, 0)+COALESCE(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)), 0))+COALESCE($!s0s!$.customnumber2__c, 0))+COALESCE(CAST(COALESCE(LENGTH($!s0s!$.customtext2__c),0) AS DECIMAL(38,18)), 0))+COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0))</Sql>
        <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(((($!s0s!$.customnumber1__c+CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)))+$!s0s!$.customnumber2__c)+CAST(COALESCE(LENGTH($!s0s!$.customtext2__c),0) AS DECIMAL(38,18)))+(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')) * $!s0s!$.customcurrency1__c))</Sql>
+       <Sql>(((($!s0s!$.customnumber1__c+CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)))+$!s0s!$.customnumber2__c)+CAST(COALESCE(LENGTH($!s0s!$.customtext2__c),0) AS DECIMAL(38,18)))+(($!s0s!$.custompercent1__c / (DECIMAL '100.')) * $!s0s!$.customcurrency1__c))</Sql>
        <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')</Guard>
     </SqlOutput>
       <result>

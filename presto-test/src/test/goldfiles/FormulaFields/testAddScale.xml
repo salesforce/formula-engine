@@ -2,11 +2,11 @@
 <testCase name="testAddScale">
    <testInstance formula="(customnumber1__c+custompercent1__c)" returntype="Double" precision="14" scale="4">
     <SqlOutput nullAsNull="true">
-       <Sql>(COALESCE($!s0s!$.customnumber1__c, 0)+COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0))</Sql>
+       <Sql>(COALESCE($!s0s!$.customnumber1__c, 0)+COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>($!s0s!$.customnumber1__c+($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')))</Sql>
+       <Sql>($!s0s!$.customnumber1__c+($!s0s!$.custompercent1__c / (DECIMAL '100.')))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -61,9 +61,9 @@
       <result>
       <inputvalues>[1.1111, 1.1111]</inputvalues>
          <formula>1.122211</formula>
-         <sql>1.122211</sql>
+         <sql>1.1222</sql>
          <formulaNullAsNull>1.122211</formulaNullAsNull>
-         <sqlNullAsNull>1.122211</sqlNullAsNull>
+         <sqlNullAsNull>1.1222</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.11114, 0.00000]</inputvalues>
@@ -82,9 +82,9 @@
       <result>
       <inputvalues>[1.111112, 0.000043]</inputvalues>
          <formula>1.11111243</formula>
-         <sql>1.11111243</sql>
+         <sql>1.111112</sql>
          <formulaNullAsNull>1.11111243</formulaNullAsNull>
-         <sqlNullAsNull>1.11111243</sqlNullAsNull>
+         <sqlNullAsNull>1.111112</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789, 123456789]</inputvalues>
@@ -131,9 +131,9 @@
       <result>
       <inputvalues>[1.2345,  1.2345]</inputvalues>
          <formula>1.246845</formula>
-         <sql>1.246845</sql>
+         <sql>1.2468</sql>
          <formulaNullAsNull>1.246845</formulaNullAsNull>
-         <sqlNullAsNull>1.246845</sqlNullAsNull>
+         <sqlNullAsNull>1.2468</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.245,  0]</inputvalues>
@@ -194,11 +194,11 @@
    </testInstance>
    <testInstance formula="(custompercent1__c+customnumber1__c)" returntype="Double" precision="14" scale="4">
     <SqlOutput nullAsNull="true">
-       <Sql>(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0)+COALESCE($!s0s!$.customnumber1__c, 0))</Sql>
+       <Sql>(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0)+COALESCE($!s0s!$.customnumber1__c, 0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000'))+$!s0s!$.customnumber1__c)</Sql>
+       <Sql>(($!s0s!$.custompercent1__c / (DECIMAL '100.'))+$!s0s!$.customnumber1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -253,9 +253,9 @@
       <result>
       <inputvalues>[1.1111, 1.1111]</inputvalues>
          <formula>1.122211</formula>
-         <sql>1.122211</sql>
+         <sql>1.1222</sql>
          <formulaNullAsNull>1.122211</formulaNullAsNull>
-         <sqlNullAsNull>1.122211</sqlNullAsNull>
+         <sqlNullAsNull>1.1222</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.00000, 1.11114]</inputvalues>
@@ -274,9 +274,9 @@
       <result>
       <inputvalues>[0.000043, 1.111112]</inputvalues>
          <formula>1.11111243</formula>
-         <sql>1.11111243</sql>
+         <sql>1.111112</sql>
          <formulaNullAsNull>1.11111243</formulaNullAsNull>
-         <sqlNullAsNull>1.11111243</sqlNullAsNull>
+         <sqlNullAsNull>1.111112</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789, 123456789]</inputvalues>
@@ -323,9 +323,9 @@
       <result>
       <inputvalues>[ 1.2345, 1.2345]</inputvalues>
          <formula>1.246845</formula>
-         <sql>1.246845</sql>
+         <sql>1.2468</sql>
          <formulaNullAsNull>1.246845</formulaNullAsNull>
-         <sqlNullAsNull>1.246845</sqlNullAsNull>
+         <sqlNullAsNull>1.2468</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[ 0, 1.245]</inputvalues>

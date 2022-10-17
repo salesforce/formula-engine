@@ -243,6 +243,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testFunctionRight" devName="testFunctionRight"
          labelName="testFunctionRight" dataType="Text"
          dataFile="functionright" length="255"
+         whyIgnoreSql="trino:not implemented"
          code="RIGHT(customtext__c, customnumber__c)">
          <referencefield devName="customtext" labelName="customtext"
                  dataType="Text" length="255"/>
@@ -491,6 +492,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testAddDateTimeMinutes" devName="testAddDateTimeMinutes"
          labelName="testAddDateTimeMinutes" dataType="DateTime" dataFile="addDateTimeMinutes"
          swap="false" scale="2" precision="12"
+         whyIgnoreSql="trino:Unknown issue with math and date_add"
          code="customdatetime1__c+(customnumber1__c/(24*60))">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime"/>
@@ -1629,6 +1631,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testRoundUsesRoundMinus" devName="testRoundUsesRoundMinus" labels="math"
          labelName="testRoundUsesRoundMinus" dataType="Double" accuracyIssue="needHp"
          dataFile="fourNumericData" scale="2" precision="12"
+         whyIgnoreSql="trino:precision limits with percent"
          code="ROUND(ROUND(custompercent1__c,customnumber1__c),customformula1__c)">
          <referencefield devName="custompercent1" labelName="custompercent1"
              dataType="Percent" scale="2" precision="12"/>
@@ -1715,6 +1718,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testTruncUsesExp" devName="testTruncUsesExp" labels="math"
          labelName="testTruncUsesExp" dataType="Double" dataFile="roundUsesExp"
+         whyIgnoreSql="trino:precision limits"
          scale="2" precision="12"
          code="TRUNC(EXP(customnumber1__c),CEILING(customnumber2__c))">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2043,7 +2047,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
      </testcase>
      <testcase name="testFloorRound" devName="testFloorRound" labels="math" 
-         whyIgnoreSql="postgres:precision differences,mssql:precision differences"
+         whyIgnoreSql="postgres:precision differences,mssql:precision differences,trino:precision differences"
          labelName="testFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="FLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2052,7 +2056,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
      </testcase>
      <testcase name="testMFloorRound" devName="testMFloorRound"
-         whyIgnoreSql="postgres:precision differences,mssql:precision differences"
+         whyIgnoreSql="postgres:precision differences,mssql:precision differences,trino:precision differences"
          labelName="testMFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MFLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2170,6 +2174,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testFloorUsesMinus" devName="testFloorUsesMinus" labels="extended"
          labelName="testFloorUsesMinus" dataType="Double" accuracyIssue="needHp"
          dataFile="twoNumericFields" scale="2" precision="12"
+         whyIgnoreSql="trino:precision differences with percent"
          code="FLOOR((custompercent1__c-customnumber1__c))">
          <referencefield devName="custompercent1" labelName="custompercent1"
              dataType="Percent" scale="2" precision="12"/>
@@ -2190,7 +2195,8 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testCeilRound" devName="testCeilRound" labels="math" whyIgnoreSql="postgres:precision differences"
+     <testcase name="testCeilRound" devName="testCeilRound" labels="math"
+         whyIgnoreSql="postgres:precision differences,trino:precision differences"
          labelName="testCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="CEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2198,7 +2204,8 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testMCeilRound" devName="testMCeilRound" labels="math" whyIgnoreSql="postgres:precision differences"
+     <testcase name="testMCeilRound" devName="testMCeilRound" labels="math" 
+         whyIgnoreSql="postgres:precision differences,trino:precision differences"
          labelName="testMCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MCEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2317,6 +2324,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testCeilUsesMultiply" devName="testCeilUsesMultiply"
          labelName="testCeilUsesMultiply" dataType="Double"
          dataFile="twoNumericFields" scale="2" precision="12"
+         whyIgnoreSql="trino:precision limits with percent"
          code="CEILING((custompercent1__c*customcurrency1__c))">
          <referencefield devName="custompercent1" labelName="custompercent1"
              dataType="Percent" scale="2" precision="12"/>
@@ -2327,6 +2335,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testCeilUsesPlus" devName="testCeilUsesPlus" labels="math"
          labelName="testCeilUsesPlus" dataType="Double" accuracyIssue="needHp"
          dataFile="twoNumericFields" scale="2" precision="12"
+         whyIgnoreSql="trino:precision limits with percent"
          code="CEILING((custompercent1__c+customnumber1__c))">
          <referencefield devName="custompercent1" labelName="custompercent1"
              dataType="Percent" scale="2" precision="12"/>
@@ -2574,6 +2583,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testLogUsesMinus" devName="testLogUsesMinus" labels="extended"
          labelName="testLogUsesMinus" dataType="Double"
          dataFile="twoNumericFields" scale="2" precision="12"
+         whyIgnoreSql="trino:precision differences with percent"
          code="Log((custompercent1__c-customcurrency1__c))">
          <referencefield devName="custompercent1" labelName="custompercent1"
              dataType="Percent" scale="2" precision="12"/>
@@ -2694,6 +2704,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testLNUsesPlus" devName="testLNUsesPlus" labels="extended"
          labelName="testLNUsesPlus" dataType="Double"
          dataFile="twoNumericFields" scale="2" precision="12" compareTemplate="formula"
+         whyIgnoreSql="trino:precision differences with percent"
          code="LN((custompercent1__c+customcurrency1__c))">
          <referencefield devName="custompercent1" labelName="custompercent1"
              dataType="Percent" scale="2" precision="12"/>

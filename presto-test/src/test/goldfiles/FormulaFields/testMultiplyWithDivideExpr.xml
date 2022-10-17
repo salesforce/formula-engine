@@ -3,11 +3,11 @@
    <testInstance formula="(customformula0__c*customnumber1__c)" returntype="Currency" precision="12" scale="2">
    <customformula0 dataType="ColumnType.DOUBLE" formula="(custompercent1__c/customcurrency1__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>(COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0)/COALESCE($!s0s!$.customcurrency1__c, 0)), 0) * COALESCE($!s0s!$.customnumber1__c, 0))</Sql>
+       <Sql>(COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0)/COALESCE($!s0s!$.customcurrency1__c, 0)), 0) * COALESCE($!s0s!$.customnumber1__c, 0))</Sql>
        <Guard>COALESCE($!s0s!$.customcurrency1__c, 0)=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>((($!s0s!$.custompercent1__c / (DECIMAL '100.00000000'))/$!s0s!$.customcurrency1__c) * $!s0s!$.customnumber1__c)</Sql>
+       <Sql>((($!s0s!$.custompercent1__c / (DECIMAL '100.'))/$!s0s!$.customcurrency1__c) * $!s0s!$.customnumber1__c)</Sql>
        <Guard>$!s0s!$.customcurrency1__c=0</Guard>
     </SqlOutput>
       <result>

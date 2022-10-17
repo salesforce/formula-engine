@@ -2,11 +2,11 @@
 <testCase name="testExpUsesMinus">
    <testInstance formula="EXP((custompercent1__c-customcurrency1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>EXP((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0)-COALESCE($!s0s!$.customcurrency1__c, 0)))</Sql>
+       <Sql>EXP((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0)-COALESCE($!s0s!$.customcurrency1__c, 0)))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>EXP((($!s0s!$.custompercent1__c / (DECIMAL '100.00000000'))-$!s0s!$.customcurrency1__c))</Sql>
+       <Sql>EXP((($!s0s!$.custompercent1__c / (DECIMAL '100.'))-$!s0s!$.customcurrency1__c))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

@@ -2,11 +2,11 @@
 <testCase name="testDATEVALUEWithString">
    <testInstance formula="datevalue(customtext1__c)" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>date_parse($!s0s!$.customtext1__c, '%Y-%m-%d')</Sql>
+       <Sql>date_parse(trim($!s0s!$.customtext1__c), '%Y-%m-%d')</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>date_parse($!s0s!$.customtext1__c, '%Y-%m-%d')</Sql>
+       <Sql>date_parse(trim($!s0s!$.customtext1__c), '%Y-%m-%d')</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
       <result>

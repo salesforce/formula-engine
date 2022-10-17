@@ -2,11 +2,11 @@
 <testCase name="testIfErrorDateTimeValueWithValidInValid">
    <testInstance formula="IFERROR(DATETIMEVALUE(dateString__c),DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;))" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN 1=0 THEN date_parse('2005-11-15 17:00:00 ', '%Y-%m-%d %H:%i:%s') ELSE date_parse($!s0s!$.dateString__c, '%Y-%m-%d %H:%i:%s') END</Sql>
+       <Sql>CASE WHEN 1=0 THEN date_parse(trim('2005-11-15 17:00:00 '), '%Y-%m-%d %H:%i:%s') ELSE date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s') END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN 1=0 THEN date_parse('2005-11-15 17:00:00 ', '%Y-%m-%d %H:%i:%s') ELSE date_parse($!s0s!$.dateString__c, '%Y-%m-%d %H:%i:%s') END</Sql>
+       <Sql>CASE WHEN 1=0 THEN date_parse(trim('2005-11-15 17:00:00 '), '%Y-%m-%d %H:%i:%s') ELSE date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s') END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

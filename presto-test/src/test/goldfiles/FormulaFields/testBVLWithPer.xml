@@ -2,11 +2,11 @@
 <testCase name="testBVLWithPer">
    <testInstance formula="BLANKVALUE(custompercent1__c,customnumber1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0)</Sql>
+       <Sql>COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), $!s0s!$.customnumber1__c)</Sql>
+       <Sql>COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), $!s0s!$.customnumber1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -40,9 +40,9 @@
       <result>
       <inputvalues>[0.0000009, 10]</inputvalues>
          <formula>0.000000009</formula>
-         <sql>0.00000001</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0.000000009</formulaNullAsNull>
-         <sqlNullAsNull>0.00000001</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, 10]</inputvalues>
@@ -103,9 +103,9 @@
       <result>
       <inputvalues>[10.1234, 1]</inputvalues>
          <formula>0.101234</formula>
-         <sql>0.101234</sql>
+         <sql>0.1012</sql>
          <formulaNullAsNull>0.101234</formulaNullAsNull>
-         <sqlNullAsNull>0.101234</sqlNullAsNull>
+         <sqlNullAsNull>0.1012</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

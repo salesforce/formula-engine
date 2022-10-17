@@ -2,11 +2,11 @@
 <testCase name="testIsoWeekWithDateTime">
    <testInstance formula="ISOWEEK(DATETIMEVALUE(dateString__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CAST(DATE_FORMAT(date_parse($!s0s!$.dateString__c, '%Y-%m-%d %H:%i:%s'),'%v') AS DECIMAL(38,18))</Sql>
+       <Sql>CAST(DATE_FORMAT(date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s'),'%v') AS DECIMAL(38,18))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CAST(DATE_FORMAT(date_parse($!s0s!$.dateString__c, '%Y-%m-%d %H:%i:%s'),'%v') AS DECIMAL(38,18))</Sql>
+       <Sql>CAST(DATE_FORMAT(date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s'),'%v') AS DECIMAL(38,18))</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
       <result>

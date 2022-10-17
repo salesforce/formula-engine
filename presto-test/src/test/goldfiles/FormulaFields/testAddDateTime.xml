@@ -2,11 +2,11 @@
 <testCase name="testAddDateTime">
    <testInstance formula="(customdatetime1__c+customnumber1__c)" returntype="DateTime">
     <SqlOutput nullAsNull="true">
-       <Sql>DATE_ADD('second', CAST(COALESCE($!s0s!$.customnumber1__c, 0)*86400 AS BIGINT), $!s0s!$.customdatetime1__c)</Sql>
+       <Sql>DATE_ADD('second', CAST(ROUND(86400.0*COALESCE($!s0s!$.customnumber1__c, 0)) AS BIGINT), $!s0s!$.customdatetime1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATE_ADD('second', CAST($!s0s!$.customnumber1__c*86400 AS BIGINT), $!s0s!$.customdatetime1__c)</Sql>
+       <Sql>DATE_ADD('second', CAST(ROUND(86400.0*$!s0s!$.customnumber1__c) AS BIGINT), $!s0s!$.customdatetime1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -180,11 +180,11 @@
    </testInstance>
    <testInstance formula="(customnumber1__c+customdatetime1__c)" returntype="DateTime">
     <SqlOutput nullAsNull="true">
-       <Sql>DATE_ADD('second', CAST(COALESCE($!s0s!$.customnumber1__c, 0)*86400 AS BIGINT), $!s0s!$.customdatetime1__c)</Sql>
+       <Sql>DATE_ADD('second', CAST(ROUND(86400.0*COALESCE($!s0s!$.customnumber1__c, 0)) AS BIGINT), $!s0s!$.customdatetime1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATE_ADD('second', CAST($!s0s!$.customnumber1__c*86400 AS BIGINT), $!s0s!$.customdatetime1__c)</Sql>
+       <Sql>DATE_ADD('second', CAST(ROUND(86400.0*$!s0s!$.customnumber1__c) AS BIGINT), $!s0s!$.customdatetime1__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
