@@ -522,6 +522,15 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     	return argument;
     }
     
+    
+    /**
+     * @param argument the SQL argument that has a percent value stored in the DB (i.e. 100.0 is 100% and should be treated at 1)
+     * @return a sql expression that will convert the arguemnt from a percent to a decimal fractions
+     */
+    default String sqlConvertPercent(String argument) {
+        return "(" + argument + " / 100.0)";
+    }
+    
     /**
      * @param argument the value to truncate
      * @return how to call truncate to drop all decimal places

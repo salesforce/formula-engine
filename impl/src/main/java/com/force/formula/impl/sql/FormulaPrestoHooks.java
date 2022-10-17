@@ -38,7 +38,7 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
      */
 	@Override
     default String sqlTrunc(String argument) {
-        return "TRUNCATE(" + argument + ")";
+        return "CAST(TRUNCATE(" + argument + ") AS DECIMAL(38,18))";
     }
     
     
@@ -49,7 +49,7 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
      */
     @Override
     default String sqlTrunc(String argument, String scale) {
-        return "TRUNCATE(CAST(" + argument + " AS DECIMAL(38,18)), " + scale + ")";
+        return "CAST(TRUNCATE(CAST(" + argument + " AS DECIMAL(38,18)), " + scale + ") AS DECIMAL(38,18))";
     }
     
     @Override
@@ -266,23 +266,24 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
     
     @Override
     default StringBuilder getCurrencyMask(int scale) {
-        return new StringBuilder(3).append(' ').append(Integer.toString(scale)).append(' ');
+        return new StringBuilder(6).append("'%,.").append(Integer.toString(scale)).append("f'");
     }
 
     @Override
     default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
-        sql.append("CONCAT_WS('',").append(isoCodeArg).append(",' ',FORMAT(").append(amountArg).append(',').append(maskStr).append("))");
+        sql.append("CONCAT_WS('',").append(isoCodeArg).append(",' ',FORMAT(").append(maskStr).append(',').append(amountArg).append("))");
     }
 
+    // Presto doesn't have any interval or time formatting functions.
     @Override
     default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
         String result;
         if (daysIsParam != null) {
-            result = "(CASE WHEN "+daysIsParam+" THEN CONCAT(TRUNCATE(("+arg+")/86400,0),':',DATE_FORMAT(("+arg+"%86400)*interval '1' second,'%H:%i:%s')) ELSE DATE_FORMAT(("+arg+"%86400) * interval '1' second,'%H:%i:%s') END)";
+            result = "(CASE WHEN "+daysIsParam+" THEN CONCAT(FORMAT('%.0f',TRUNCATE("+arg+"/86400)),':',DATE_FORMAT(from_unixtime("+arg+"%86400),'%H:%i:%s')) ELSE CONCAT(FORMAT('%02.0f',TRUNCATE("+arg+"/3600)),':',DATE_FORMAT(from_unixtime("+arg+"),'%i:%s')) END)";
         } else if (includeDays) {
-            result = "CONCAT(TRUNCATE(("+arg+")/86400,0),':',DATE_FORMAT(("+arg+"%86400) * interval '1' second,'%H:%i:%s'))";
+            result = "CONCAT(FORMAT('%.0f',TRUNCATE("+arg+"/86400)),':',DATE_FORMAT(from_unixtime("+arg+"%86400),'%H:%i:%s'))";
         } else {
-            result = "DATE_FORMAT("+arg+",'%H:%i:%s')";
+            result = "CONCAT(FORMAT('%02.0f',TRUNCATE("+arg+"/3600)),':',DATE_FORMAT(from_unixtime("+arg+"),'%i:%s'))";
         }
         return result;
     }
@@ -292,11 +293,23 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
         return inSeconds ? "CAST(-DATE_DIFF('SECOND',%s,%s) AS DECIMAL(38,10))" 
                 : "(CAST(-DATE_DIFF('SECOND',%s,%s) AS DECIMAL(38,10))/86400)";  
     } 
+    
+    @Override
+    default String sqlSubtractTwoTimes() {
+        return "CAST(DATE_DIFF('second',%s,%s) AS DECIMAL(38,10))";
+    } 
 
+    /**
+     * Intervals in presto aren't helpful for formatting, so don't use them.
+     */
     @Override
     default String sqlIntervalFromSeconds() {
-        return "(INTERVAL '1' second * ABS(%s))";
+        return "TRUNCATE(ABS(%s),0)";
     }
 
-    
+    @Override
+    default String sqlConvertPercent(String argument) {
+        return "(" + argument + " / (DECIMAL '100.00000000'))";  // Presto needs more decimal places.
+    }
+
 }

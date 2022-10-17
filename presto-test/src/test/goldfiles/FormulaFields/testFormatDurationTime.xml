@@ -2,106 +2,96 @@
 <testCase name="testFormatDurationTime">
    <testInstance formula="FORMATDURATION(TimeValue(timeString2__c),TimeValue(timeString1__c))" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>DATE_FORMAT((INTERVAL '1' second * ABS(((CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME))-(CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)))/1000)),'%H:%i:%s')</Sql>
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNCATE(TRUNCATE(ABS(CAST(DATE_DIFF('second',CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME),CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)) AS DECIMAL(38,10))),0)/3600)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS(CAST(DATE_DIFF('second',CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME),CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)) AS DECIMAL(38,10))),0)),'%i:%s'))</Sql>
        <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATE_FORMAT((INTERVAL '1' second * ABS(((CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME))-(CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)))/1000)),'%H:%i:%s')</Sql>
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNCATE(TRUNCATE(ABS(CAST(DATE_DIFF('second',CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME),CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)) AS DECIMAL(38,10))),0)/3600)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS(CAST(DATE_DIFF('second',CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME),CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)) AS DECIMAL(38,10))),0)),'%i:%s'))</Sql>
        <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[10:34:55.666, 23:59:59.999]</inputvalues>
          <formula>13:25:04</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>13:25:04</sql>
          <formulaNullAsNull>13:25:04</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>13:25:04</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[23:59:59.999, 10:34:55.666]</inputvalues>
          <formula>13:25:04</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>13:25:04</sql>
          <formulaNullAsNull>13:25:04</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>13:25:04</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[23:56:45.898, 01:00:00.000]</inputvalues>
          <formula>22:56:45</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>22:56:45</sql>
          <formulaNullAsNull>22:56:45</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>22:56:45</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[01:00:00.000, 23:56:45.898]</inputvalues>
          <formula>22:56:45</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>22:56:45</sql>
          <formulaNullAsNull>22:56:45</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>22:56:45</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[00:00:29.345, 00:00:29.245]</inputvalues>
          <formula>00:00:00</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>00:00:00</sql>
          <formulaNullAsNull>00:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[00:00:29.245, 00:00:29.345]</inputvalues>
          <formula>00:00:00</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>00:00:00</sql>
          <formulaNullAsNull>00:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[00:00:00.000, 01:00:00.000]</inputvalues>
          <formula>01:00:00</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>01:00:00</sql>
          <formulaNullAsNull>01:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>01:00:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[01:00:00.000, 00:00:00.000]</inputvalues>
          <formula>01:00:00</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>01:00:00</sql>
          <formulaNullAsNull>01:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>01:00:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[01:00:00.000, ]</inputvalues>
          <formula>null</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>null</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[, 01:00:00.000]</inputvalues>
          <formula>null</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>null</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[01:00:00.000, 01:66:29.345]</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>Error: Cannot parse &quot;01:66:29.345&quot;: Value 66 for minuteOfHour must be in the range [0,59]</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>Error: Cannot parse &quot;01:66:29.345&quot;: Value 66 for minuteOfHour must be in the range [0,59]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[01:66:29.345, 01:00:00.000]</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
-         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
+         <sql>Error: Cannot parse &quot;01:66:29.345&quot;: Value 66 for minuteOfHour must be in the range [0,59]</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
+         <sqlNullAsNull>Error: Cannot parse &quot;01:66:29.345&quot;: Value 66 for minuteOfHour must be in the range [0,59]</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

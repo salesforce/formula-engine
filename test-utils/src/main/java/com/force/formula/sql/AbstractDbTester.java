@@ -376,7 +376,7 @@ public abstract class AbstractDbTester implements DbTester {
     			return d.toString();
 		    } catch (IllegalArgumentException ex) {
 		        // If it isn't a timestamp, see if it works as a date...
-		        java.sql.Date d = rset.getDate(1);
+		        Date d = rset.getDate(1);
                 if (d == null)
                     return null;
                 return new Timestamp(d.getTime()).toString();

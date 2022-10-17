@@ -242,7 +242,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     
 
     /**
-     * Intervals in oracle aren't helpful, so don't use them.
+     * Intervals in sqlserver aren't helpful, so don't use them.
      */
     @Override
     default String sqlIntervalFromSeconds() {

@@ -2,68 +2,61 @@
 <testCase name="testFormatDurationSeconds">
    <testInstance formula="FORMATDURATION(customNumber1__c)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>DATE_FORMAT((INTERVAL '1' second * ABS(COALESCE($!s0s!$.customNumber1__c, 0))),'%H:%i:%s')</Sql>
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNCATE(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)/3600)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)),'%i:%s'))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATE_FORMAT((INTERVAL '1' second * ABS($!s0s!$.customNumber1__c)),'%H:%i:%s')</Sql>
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNCATE(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)/3600)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)),'%i:%s'))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x)) -->
       <inputvalues>[, ]</inputvalues>
          <formula>00:00:00</formula>
-         <sql>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sql>
+         <sql>00:00:00</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x)) -->
       <inputvalues>[0.0]</inputvalues>
          <formula>00:00:00</formula>
-         <sql>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sql>
+         <sql>00:00:00</sql>
          <formulaNullAsNull>00:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sqlNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x)) -->
       <inputvalues>[24]</inputvalues>
          <formula>00:00:24</formula>
-         <sql>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sql>
+         <sql>00:00:24</sql>
          <formulaNullAsNull>00:00:24</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sqlNullAsNull>
+         <sqlNullAsNull>00:00:24</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x)) -->
       <inputvalues>[.99]</inputvalues>
          <formula>00:00:00</formula>
-         <sql>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sql>
+         <sql>00:00:00</sql>
          <formulaNullAsNull>00:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sqlNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x)) -->
       <inputvalues>[86400]</inputvalues>
          <formula>24:00:00</formula>
-         <sql>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sql>
+         <sql>24:00:00</sql>
          <formulaNullAsNull>24:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sqlNullAsNull>
+         <sqlNullAsNull>24:00:00</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x)) -->
       <inputvalues>[1000000]</inputvalues>
          <formula>277:46:40</formula>
-         <sql>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sql>
+         <sql>277:46:40</sql>
          <formulaNullAsNull>277:46:40</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sqlNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x)) -->
       <inputvalues>[-1000000]</inputvalues>
          <formula>277:46:40</formula>
-         <sql>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sql>
+         <sql>277:46:40</sql>
          <formulaNullAsNull>277:46:40</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:15: Unexpected parameters (interval day to second, varchar(8)) for function date_format. Expected: date_format(timestamp(p), varchar(x)), date_format(timestamp(p) with time zone, varchar(x))</sqlNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

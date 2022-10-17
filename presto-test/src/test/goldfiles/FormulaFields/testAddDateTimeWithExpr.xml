@@ -4,11 +4,11 @@
    <customformula0 dataType="ColumnType.DATETIME" formula="(customdatetime1__c+custompercent1__c)"/>
    <customformula1 dataType="ColumnType.DOUBLE" formula="(customdatetime2__c-customdatetime3__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>DATE_ADD('second', CAST(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))*86400 AS BIGINT), DATE_ADD('second', CAST(COALESCE((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400), 0)*86400 AS BIGINT), DATE_ADD('second', CAST(COALESCE(($!s0s!$.custompercent2__c / (DECIMAL '100.00000')), 0)*86400 AS BIGINT), DATE_ADD('second', CAST(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0)*86400 AS BIGINT), $!s0s!$.customdatetime1__c))))</Sql>
+       <Sql>DATE_ADD('second', CAST(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))*86400 AS BIGINT), DATE_ADD('second', CAST(COALESCE((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400), 0)*86400 AS BIGINT), DATE_ADD('second', CAST(COALESCE(($!s0s!$.custompercent2__c / (DECIMAL '100.00000000')), 0)*86400 AS BIGINT), DATE_ADD('second', CAST(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0)*86400 AS BIGINT), $!s0s!$.customdatetime1__c))))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATE_ADD('second', CAST(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))*86400 AS BIGINT), DATE_ADD('second', CAST((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400)*86400 AS BIGINT), DATE_ADD('second', CAST(($!s0s!$.custompercent2__c / (DECIMAL '100.00000'))*86400 AS BIGINT), DATE_ADD('second', CAST(($!s0s!$.custompercent1__c / (DECIMAL '100.00000'))*86400 AS BIGINT), $!s0s!$.customdatetime1__c))))</Sql>
+       <Sql>DATE_ADD('second', CAST(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))*86400 AS BIGINT), DATE_ADD('second', CAST((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400)*86400 AS BIGINT), DATE_ADD('second', CAST(($!s0s!$.custompercent2__c / (DECIMAL '100.00000000'))*86400 AS BIGINT), DATE_ADD('second', CAST(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000'))*86400 AS BIGINT), $!s0s!$.customdatetime1__c))))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

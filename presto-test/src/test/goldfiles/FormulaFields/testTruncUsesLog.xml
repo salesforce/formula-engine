@@ -2,11 +2,11 @@
 <testCase name="testTruncUsesLog">
    <testInstance formula="TRUNC(LOG(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TRUNCATE(CAST(CAST(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18)) AS DECIMAL(38,18)), try_cast(COALESCE($!s0s!$.customnumber2__c, 0) as integer))</Sql>
+       <Sql>CAST(TRUNCATE(CAST(CAST(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18)) AS DECIMAL(38,18)), try_cast(COALESCE($!s0s!$.customnumber2__c, 0) as integer)) AS DECIMAL(38,18))</Sql>
        <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TRUNCATE(CAST(CAST(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18)) AS DECIMAL(38,18)), try_cast($!s0s!$.customnumber2__c as integer))</Sql>
+       <Sql>CAST(TRUNCATE(CAST(CAST(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18)) AS DECIMAL(38,18)), try_cast($!s0s!$.customnumber2__c as integer)) AS DECIMAL(38,18))</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
       <result>

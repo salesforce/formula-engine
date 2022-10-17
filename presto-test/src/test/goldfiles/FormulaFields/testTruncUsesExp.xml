@@ -2,11 +2,11 @@
 <testCase name="testTruncUsesExp">
    <testInstance formula="TRUNC(EXP(customnumber1__c),CEILING(customnumber2__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TRUNCATE(CAST(EXP(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)), try_cast(CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE($!s0s!$.customnumber2__c, 0),33)) ELSE FLOOR(ROUND(COALESCE($!s0s!$.customnumber2__c, 0),33)) END as integer))</Sql>
+       <Sql>CAST(TRUNCATE(CAST(EXP(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)), try_cast(CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE($!s0s!$.customnumber2__c, 0),33)) ELSE FLOOR(ROUND(COALESCE($!s0s!$.customnumber2__c, 0),33)) END as integer)) AS DECIMAL(38,18))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TRUNCATE(CAST(EXP($!s0s!$.customnumber1__c) AS DECIMAL(38,18)), try_cast(CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber2__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber2__c,33)) END as integer))</Sql>
+       <Sql>CAST(TRUNCATE(CAST(EXP($!s0s!$.customnumber1__c) AS DECIMAL(38,18)), try_cast(CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber2__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber2__c,33)) END as integer)) AS DECIMAL(38,18))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

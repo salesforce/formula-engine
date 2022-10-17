@@ -2,11 +2,11 @@
 <testCase name="testISBLANKWithPer">
    <testInstance formula="if(isblank(custompercent1__c), 0,customnumber1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN (COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0) IS NULL) THEN 0 ELSE COALESCE($!s0s!$.customnumber1__c, 0) END</Sql>
+       <Sql>CASE WHEN (COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0) IS NULL) THEN 0 ELSE COALESCE($!s0s!$.customnumber1__c, 0) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / (DECIMAL '100.00000')) IS NULL) THEN 0 ELSE $!s0s!$.customnumber1__c END</Sql>
+       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')) IS NULL) THEN 0 ELSE $!s0s!$.customnumber1__c END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

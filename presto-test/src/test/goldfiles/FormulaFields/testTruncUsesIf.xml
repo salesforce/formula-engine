@@ -2,11 +2,11 @@
 <testCase name="testTruncUsesIf">
    <testInstance formula="TRUNC(IF(customcheckbox1__c,customnumber1__c,customnumber2__c),customnumber3__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TRUNCATE(CAST(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE($!s0s!$.customnumber2__c, 0) END AS DECIMAL(38,18)), try_cast(COALESCE($!s0s!$.customnumber3__c, 0) as integer))</Sql>
+       <Sql>CAST(TRUNCATE(CAST(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE($!s0s!$.customnumber2__c, 0) END AS DECIMAL(38,18)), try_cast(COALESCE($!s0s!$.customnumber3__c, 0) as integer)) AS DECIMAL(38,18))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TRUNCATE(CAST(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customnumber2__c END AS DECIMAL(38,18)), try_cast($!s0s!$.customnumber3__c as integer))</Sql>
+       <Sql>CAST(TRUNCATE(CAST(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customnumber2__c END AS DECIMAL(38,18)), try_cast($!s0s!$.customnumber3__c as integer)) AS DECIMAL(38,18))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

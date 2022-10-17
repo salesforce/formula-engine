@@ -2,11 +2,11 @@
 <testCase name="testCeilUsesMultiply">
    <testInstance formula="CEILING((custompercent1__c*customcurrency1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN (COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0))&gt;=0 THEN CEIL(ROUND((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)),33)) ELSE FLOOR(ROUND((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)),33)) END</Sql>
+       <Sql>CASE WHEN (COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0))&gt;=0 THEN CEIL(ROUND((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)),33)) ELSE FLOOR(ROUND((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / (DECIMAL '100.00000')) * $!s0s!$.customcurrency1__c)&gt;=0 THEN CEIL(ROUND((($!s0s!$.custompercent1__c / (DECIMAL '100.00000')) * $!s0s!$.customcurrency1__c),33)) ELSE FLOOR(ROUND((($!s0s!$.custompercent1__c / (DECIMAL '100.00000')) * $!s0s!$.customcurrency1__c),33)) END</Sql>
+       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')) * $!s0s!$.customcurrency1__c)&gt;=0 THEN CEIL(ROUND((($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')) * $!s0s!$.customcurrency1__c),33)) ELSE FLOOR(ROUND((($!s0s!$.custompercent1__c / (DECIMAL '100.00000000')) * $!s0s!$.customcurrency1__c),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

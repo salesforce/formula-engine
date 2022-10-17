@@ -254,11 +254,7 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
             sql = formulaFieldInfo.getDbColumn(aliases.mainAlias, aliases.cfAlias);
             if (formulaFieldInfo.getDataType().isPercent()) {
                 // The actual value of the field is in formatted fashion
-                if (sqlHooks.isPrestoStyle()) {
-                    sql = "(" + sql + " / (DECIMAL '100.00000'))";  // Presto needs more decimal places.
-                } else {
-                    sql = "(" + sql + " / 100.0)";
-                }
+                sql = sqlHooks.sqlConvertPercent(sql);
             } else if (formulaFieldInfo.getDataType().canBeEmptyKeyForNullInDb()) {
             	// Hard code internals for salesforce IDs
                 sql = "CASE WHEN " + sql + " = '000000000000000' THEN NULL ELSE " + sql + " END";

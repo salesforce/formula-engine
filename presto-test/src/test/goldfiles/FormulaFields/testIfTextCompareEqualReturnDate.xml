@@ -3,11 +3,11 @@
    <testInstance formula="IF((customtext1__c=customemail1__c),customdate1__c,customformula1__c)" returntype="DateOnly">
    <customformula1 dataType="ColumnType.DATEONLY" formula="(customdate2__c+customnumber1__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, COALESCE($!s0s!$.customemail1__c,'')||COALESCE('x',''))=COALESCE($!s0s!$.customemail1__c, COALESCE($!s0s!$.customtext1__c,'')||COALESCE('x',''))) THEN COALESCE($!s0s!$.customdate1__c,CAST(NULL AS DATE)) ELSE COALESCE(DATE_ADD('day', CAST(TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0)) AS BIGINT), $!s0s!$.customdate2__c),CAST(NULL AS DATE)) END</Sql>
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, COALESCE($!s0s!$.customemail1__c,'')||COALESCE('x',''))=COALESCE($!s0s!$.customemail1__c, COALESCE($!s0s!$.customtext1__c,'')||COALESCE('x',''))) THEN COALESCE($!s0s!$.customdate1__c,CAST(NULL AS DATE)) ELSE COALESCE(DATE_ADD('day', CAST(CAST(TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS BIGINT), $!s0s!$.customdate2__c),CAST(NULL AS DATE)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, COALESCE($!s0s!$.customemail1__c,'')||COALESCE('x',''))=COALESCE($!s0s!$.customemail1__c, COALESCE($!s0s!$.customtext1__c,'')||COALESCE('x',''))) THEN COALESCE($!s0s!$.customdate1__c,CAST(NULL AS DATE)) ELSE COALESCE(DATE_ADD('day', CAST(TRUNCATE($!s0s!$.customnumber1__c) AS BIGINT), $!s0s!$.customdate2__c),CAST(NULL AS DATE)) END</Sql>
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, COALESCE($!s0s!$.customemail1__c,'')||COALESCE('x',''))=COALESCE($!s0s!$.customemail1__c, COALESCE($!s0s!$.customtext1__c,'')||COALESCE('x',''))) THEN COALESCE($!s0s!$.customdate1__c,CAST(NULL AS DATE)) ELSE COALESCE(DATE_ADD('day', CAST(CAST(TRUNCATE($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS BIGINT), $!s0s!$.customdate2__c),CAST(NULL AS DATE)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
