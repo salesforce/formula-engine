@@ -24,6 +24,7 @@ import com.force.formula.impl.IllegalArgumentTypeException;
 import com.force.formula.impl.JsValue;
 import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.impl.WrongNumberOfArgumentsException;
+import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaDateUtil;
 import com.force.i18n.BaseLocalizer;
@@ -53,6 +54,8 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             TableAliasRegistry registry) {
         Type inputDataType = ((FormulaAST)node.getFirstChild()).getDataType();
 
+        FormulaSqlStyle style = context.getSqlStyle();
+        
         String sql;
         String guard;
         if (inputDataType == FormulaTime.class) {
@@ -60,9 +63,9 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             guard = SQLPair.generateGuard(guards, null);
         }
         else if (inputDataType == FormulaDateTime.class) {
-        	if (context.getSqlStyle().isMysqlStyle()) {
+        	if (style.isMysqlStyle()) {
         		sql =  String.format("TIME(%s)", args[0]);
-        	} else if (context.getSqlStyle().isTransactSqlStyle()) {
+        	} else if (style.isTransactSqlStyle() || style.isPrestoStyle()) {
         		sql =  String.format("CAST(%s as TIME)", args[0]);
         	} else {
         		sql =  String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(%s, '"+getSqlHooks(context).sqlSecsInDay()+"')", args[0])) + " * 1000"; // date does not have millisec info        		
@@ -70,10 +73,12 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             guard = SQLPair.generateGuard(guards, null);
         } 
         else {
-        	if (context.getSqlStyle().isMysqlStyle()) {
+        	if (style.isMysqlStyle()) {
         		sql =  String.format("TIME(%s)", args[0]);
-        	} else if (context.getSqlStyle().isTransactSqlStyle()) {
+        	} else if (style.isTransactSqlStyle()) {
         		sql =  String.format("CAST(%s as TIME)", args[0]);
+        	} else if (style.isPrestoStyle()) {
+        	    sql =  String.format("CAST(date_parse(%s, '%%H:%%i:%%s.%%f') as TIME)", args[0]);
         	} else {
         		sql=  String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(TO_TIMESTAMP(%s, '"+getSqlHooks(context).sqlHMSAndMsecs()+"'),'"+getSqlHooks(context).sqlSecsAndMsecs()+"')", args[0])) + " * 1000" ;
         	}

@@ -943,10 +943,21 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 */
 		String evaluateSql(String name, FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource, boolean nullAsNull) throws IOException, SQLException, FormulaException;
 
+		/**
+		 * Some JDBC drivers include a UUID in all exceptions, so this allows you to "remove" that.
+		 * @param e the exception thrown during evaluation
+		 * @return the message to use in GoldFiles for the exception.
+		 */
+		default String getSqlExceptionMessage(Throwable e) {
+		    return e.getMessage();
+		}
+		
 		// Support close, if necessary.
 		@Override
 		default void close() throws Exception {
 		}
+		
+		
 	}
 
 }

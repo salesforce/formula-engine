@@ -84,5 +84,17 @@
             <version>${testcontainers.version}</version>
             <optional>true</optional>
         </dependency>        
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>presto</artifactId>
+            <version>${testcontainers.version}</version>
+            <optional>true</optional>
+        </dependency>        
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>trino</artifactId>
+            <version>${testcontainers.version}</version>
+            <optional>true</optional>
+        </dependency>        
   </dependencies>
 </project>

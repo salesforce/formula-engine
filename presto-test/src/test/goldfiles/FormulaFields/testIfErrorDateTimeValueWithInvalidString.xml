@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorDateTimeValueWithInvalidString">
+   <testInstance formula="IFERROR(DATETIMEVALUE(&quot;sample &quot;),DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;))" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 0=0 THEN date_parse('2005-11-15 17:00:00 ', '%Y-%m-%d %H:%i:%s') ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 0=0 THEN date_parse('2005-11-15 17:00:00 ', '%Y-%m-%d %H:%i:%s') ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: Invalid format: "2005-11-15 17:00:00 " is malformed at " " -->
+      <inputvalues>No data</inputvalues>
+         <formula>Tue Nov 15 17:00:00 GMT 2005</formula>
+         <sql>Error: Invalid format: &quot;2005-11-15 17:00:00 &quot; is malformed at &quot; &quot;</sql>
+         <formulaNullAsNull>Tue Nov 15 17:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>Error: Invalid format: &quot;2005-11-15 17:00:00 &quot; is malformed at &quot; &quot;</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

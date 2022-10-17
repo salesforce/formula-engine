@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationWithFalse">
+   <testInstance formula="FORMATDURATION(customNumber1__c,FALSE)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_CHAR((INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))), 'HH24:MI:SS')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_CHAR((INTERVAL '1 second' * ABS($!s0s!$.customNumber1__c)), 'HH24:MI:SS')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL -->
+      <inputvalues>[, ]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL -->
+      <inputvalues>[0.0]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL -->
+      <inputvalues>[24]</inputvalues>
+         <formula>00:00:24</formula>
+         <sql>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sql>
+         <formulaNullAsNull>00:00:24</formulaNullAsNull>
+         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL -->
+      <inputvalues>[.99]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL -->
+      <inputvalues>[86400]</inputvalues>
+         <formula>24:00:00</formula>
+         <sql>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sql>
+         <formulaNullAsNull>24:00:00</formulaNullAsNull>
+         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL -->
+      <inputvalues>[1000000]</inputvalues>
+         <formula>277:46:40</formula>
+         <sql>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sql>
+         <formulaNullAsNull>277:46:40</formulaNullAsNull>
+         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL -->
+      <inputvalues>[-1000000]</inputvalues>
+         <formula>277:46:40</formula>
+         <sql>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sql>
+         <formulaNullAsNull>277:46:40</formulaNullAsNull>
+         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:24: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextTimeValueWithValidInValid">
+   <testInstance formula="Text(TimeValue(dateString__c))" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_CHAR(TO_TIMESTAMP(TO_CHAR(CAST(date_parse($!s0s!$.dateString__c, '%H:%i:%s.%f') as TIME)/1000, 'FM99990D999'), 'SSSS.MS'), 'HH24:mi:ss.MS')</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_CHAR(TO_TIMESTAMP(TO_CHAR(CAST(date_parse($!s0s!$.dateString__c, '%H:%i:%s.%f') as TIME)/1000, 'FM99990D999'), 'SSSS.MS'), 'HH24:mi:ss.MS')</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:136: Cannot apply operator: time(3) / integer -->
+      <inputvalues>[10:34:55.666]</inputvalues>
+         <formula>10:34:55.666</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>10:34:55.666</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:136: Cannot apply operator: time(3) / integer -->
+      <inputvalues>[23:56:45.898]</inputvalues>
+         <formula>23:56:45.898</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>23:56:45.898</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:136: Cannot apply operator: time(3) / integer -->
+      <inputvalues>[01:14:23.345]</inputvalues>
+         <formula>01:14:23.345</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>01:14:23.345</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:66:29.345]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:136: Cannot apply operator: time(3) / integer -->
+      <inputvalues>[00:00:29.345]</inputvalues>
+         <formula>00:00:29.345</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>00:00:29.345</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:136: Cannot apply operator: time(3) / integer -->
+      <inputvalues>[00:00:00.789]</inputvalues>
+         <formula>00:00:00.789</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>00:00:00.789</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:136: Cannot apply operator: time(3) / integer -->
+      <inputvalues>[00:00:00.000]</inputvalues>
+         <formula>00:00:00.000</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>00:00:00.000</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24:12:56.123]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:62:56.123]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:52:65.123]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:14:23.3456]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:136: Cannot apply operator: time(3) / integer -->
+      <inputvalues>[00:00:01.000]</inputvalues>
+         <formula>00:00:01.000</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>00:00:01.000</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:136: Cannot apply operator: time(3) / integer -->
+      <inputvalues>[23:59:59.999]</inputvalues>
+         <formula>23:59:59.999</formula>
+         <sql>Error: line 1:136: Cannot apply operator: time(3) / integer</sql>
+         <formulaNullAsNull>23:59:59.999</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:136: Cannot apply operator: time(3) / integer</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

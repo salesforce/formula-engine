@@ -230,16 +230,6 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
     default String sqlAscii() {
     	return "ASCII(%s)::integer";
     }
-    
-    /**
-     * @return the format for converting to a datetime value
-     * @param withSpaces whether spaces should be used around the "||" for compatibility
-     */
-	@Override
-    default String sqlConcat(boolean withSpaces) {
-		// Formula engine generally allows || with nulls, as it's less confusing
-		return "CONCAT(%s, %s)";
-    }
 
     /**
      * @return the formula for finding a substring in a string and returning the "position" 1-indexed.

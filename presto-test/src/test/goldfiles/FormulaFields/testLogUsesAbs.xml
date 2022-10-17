@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesAbs">
+   <testInstance formula="Log(ABS(customnumber1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(LOG10(ABS(COALESCE($!s0s!$.customnumber1__c, 0))) AS DECIMAL(38,18))</Sql>
+       <Guard>ABS(COALESCE($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(LOG10(ABS($!s0s!$.customnumber1__c)) AS DECIMAL(38,18))</Sql>
+       <Guard>ABS($!s0s!$.customnumber1__c)&lt;=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20]</inputvalues>
+         <formula>1.301029995663981</formula>
+         <sql>1.3010299956639813</sql>
+         <formulaNullAsNull>1.301029995663981</formulaNullAsNull>
+         <sqlNullAsNull>1.3010299956639813</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20.12345]</inputvalues>
+         <formula>1.3037024389842002</formula>
+         <sql>1.3037024389842005</sql>
+         <formulaNullAsNull>1.3037024389842002</formulaNullAsNull>
+         <sqlNullAsNull>1.3037024389842005</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-123456789.123456789]</inputvalues>
+         <formula>8.091514977603564</formula>
+         <sql>8.091514977603564</sql>
+         <formulaNullAsNull>8.091514977603564</formulaNullAsNull>
+         <sqlNullAsNull>8.091514977603564</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789]</inputvalues>
+         <formula>8.091514977603564</formula>
+         <sql>8.091514977603564</sql>
+         <formulaNullAsNull>8.091514977603564</formulaNullAsNull>
+         <sqlNullAsNull>8.091514977603564</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[46]</inputvalues>
+         <formula>1.6627578316815739</formula>
+         <sql>1.662757831681574</sql>
+         <formulaNullAsNull>1.6627578316815739</formulaNullAsNull>
+         <sqlNullAsNull>1.662757831681574</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0.00034]</inputvalues>
+         <formula>-3.4685210829577446</formula>
+         <sql>-3.4685210829577446</sql>
+         <formulaNullAsNull>-3.4685210829577446</formulaNullAsNull>
+         <sqlNullAsNull>-3.4685210829577446</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.244]</inputvalues>
+         <formula>-0.6126101736612705</formula>
+         <sql>-0.6126101736612706</sql>
+         <formulaNullAsNull>-0.6126101736612705</formulaNullAsNull>
+         <sqlNullAsNull>-0.6126101736612706</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0.244]</inputvalues>
+         <formula>-0.6126101736612705</formula>
+         <sql>-0.6126101736612706</sql>
+         <formulaNullAsNull>-0.6126101736612705</formulaNullAsNull>
+         <sqlNullAsNull>-0.6126101736612706</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0.245]</inputvalues>
+         <formula>-0.6108339156354675</formula>
+         <sql>-0.6108339156354675</sql>
+         <formulaNullAsNull>-0.6108339156354675</formulaNullAsNull>
+         <sqlNullAsNull>-0.6108339156354675</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.24456]</inputvalues>
+         <formula>-0.6116145742819675</formula>
+         <sql>-0.6116145742819676</sql>
+         <formulaNullAsNull>-0.6116145742819675</formulaNullAsNull>
+         <sqlNullAsNull>-0.6116145742819676</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.24456]</inputvalues>
+         <formula>-0.6116145742819675</formula>
+         <sql>-0.6116145742819676</sql>
+         <formulaNullAsNull>-0.6116145742819675</formulaNullAsNull>
+         <sqlNullAsNull>-0.6116145742819676</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[16]</inputvalues>
+         <formula>1.2041199826559246</formula>
+         <sql>1.2041199826559248</sql>
+         <formulaNullAsNull>1.2041199826559246</formulaNullAsNull>
+         <sqlNullAsNull>1.2041199826559248</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[256]</inputvalues>
+         <formula>2.408239965311849</formula>
+         <sql>2.4082399653118496</sql>
+         <formulaNullAsNull>2.408239965311849</formulaNullAsNull>
+         <sqlNullAsNull>2.4082399653118496</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-256]</inputvalues>
+         <formula>2.408239965311849</formula>
+         <sql>2.4082399653118496</sql>
+         <formulaNullAsNull>2.408239965311849</formulaNullAsNull>
+         <sqlNullAsNull>2.4082399653118496</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

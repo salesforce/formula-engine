@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesValue">
+   <testInstance formula="Log(VALUE(customtext1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(LOG10(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))) AS DECIMAL(38,18))</Sql>
+       <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$') OR CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(LOG10(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))) AS DECIMAL(38,18))</Sql>
+       <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$') OR CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))&lt;=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2]</inputvalues>
+         <formula>0.30102999566398114</formula>
+         <sql>0.3010299956639812</sql>
+         <formulaNullAsNull>0.30102999566398114</formulaNullAsNull>
+         <sqlNullAsNull>0.3010299956639812</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-10]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-100]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[56]</inputvalues>
+         <formula>1.7481880270062005</formula>
+         <sql>1.7481880270062005</sql>
+         <formulaNullAsNull>1.7481880270062005</formulaNullAsNull>
+         <sqlNullAsNull>1.7481880270062005</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[110]</inputvalues>
+         <formula>2.041392685158225</formula>
+         <sql>2.041392685158225</sql>
+         <formulaNullAsNull>2.041392685158225</formulaNullAsNull>
+         <sqlNullAsNull>2.041392685158225</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20]</inputvalues>
+         <formula>1.301029995663981</formula>
+         <sql>1.3010299956639813</sql>
+         <formulaNullAsNull>1.301029995663981</formulaNullAsNull>
+         <sqlNullAsNull>1.3010299956639813</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

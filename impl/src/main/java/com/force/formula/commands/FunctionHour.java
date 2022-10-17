@@ -4,10 +4,17 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaTime;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaDateUtil;
 import com.force.formula.util.FormulaI18nUtils;
@@ -37,9 +44,10 @@ public class FunctionHour extends FormulaCommandInfoImpl {
     }
     
     public static String getHourExpr(String arg, FormulaContext context)  {
-    	if (context.getSqlStyle().isMysqlStyle()) {
-    		return "HOUR(" + arg + ")";
-    	} else if (context.getSqlStyle().isTransactSqlStyle()) {
+        FormulaSqlStyle style = context.getSqlStyle();
+        if (style.isMysqlStyle() || style.isPrestoStyle()) {
+     		return "HOUR(" + arg + ")";
+    	} else if (style.isTransactSqlStyle()) {
     		return "DATEPART(hour,"+arg+")";
     	}
         return "TRUNC(" + arg + "/" + FormulaDateUtil.HOUR_IN_MILLIS + ")";

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAbsUsesLen">
+   <testInstance formula="ABS(LEN(customtext1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>ABS(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ABS(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[This is too good to be true]</inputvalues>
+         <formula>27</formula>
+         <sql>27</sql>
+         <formulaNullAsNull>27</formulaNullAsNull>
+         <sqlNullAsNull>27</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[making a way]</inputvalues>
+         <formula>12</formula>
+         <sql>12</sql>
+         <formulaNullAsNull>12</formulaNullAsNull>
+         <sqlNullAsNull>12</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blunder]</inputvalues>
+         <formula>7</formula>
+         <sql>7</sql>
+         <formulaNullAsNull>7</formulaNullAsNull>
+         <sqlNullAsNull>7</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[makesense]</inputvalues>
+         <formula>9</formula>
+         <sql>9</sql>
+         <formulaNullAsNull>9</formulaNullAsNull>
+         <sqlNullAsNull>9</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[does not make sense]</inputvalues>
+         <formula>19</formula>
+         <sql>19</sql>
+         <formulaNullAsNull>19</formulaNullAsNull>
+         <sqlNullAsNull>19</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[working my way]</inputvalues>
+         <formula>14</formula>
+         <sql>14</sql>
+         <formulaNullAsNull>14</formulaNullAsNull>
+         <sqlNullAsNull>14</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[e]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
+         <formula>172</formula>
+         <sql>172</sql>
+         <formulaNullAsNull>172</formulaNullAsNull>
+         <sqlNullAsNull>172</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
+         <formula>52</formula>
+         <sql>52</sql>
+         <formulaNullAsNull>52</formulaNullAsNull>
+         <sqlNullAsNull>52</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
+         <formula>57</formula>
+         <sql>57</sql>
+         <formulaNullAsNull>57</formulaNullAsNull>
+         <sqlNullAsNull>57</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateWithExpr">
+   <testInstance formula="(customformula0__c+customnumber1__c+customformula1__c+customcurrency1__c)" returntype="DateOnly">
+   <customformula0 dataType="ColumnType.DATEONLY" formula="(customdate1__c+custompercent1__c)"/>
+   <customformula1 dataType="ColumnType.DOUBLE" formula="(customdate2__c-customdate3__c)"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE_ADD('day', CAST(TRUNCATE(COALESCE($!s0s!$.customcurrency1__c, 0)) AS BIGINT), DATE_ADD('day', CAST(TRUNCATE(COALESCE(($!s0s!$.customdate2__c-$!s0s!$.customdate3__c), 0)) AS BIGINT), DATE_ADD('day', CAST(TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0)) AS BIGINT), DATE_ADD('day', CAST(TRUNCATE(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)) AS BIGINT), $!s0s!$.customdate1__c))))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE_ADD('day', CAST(TRUNCATE($!s0s!$.customcurrency1__c) AS BIGINT), DATE_ADD('day', CAST(TRUNCATE(($!s0s!$.customdate2__c-$!s0s!$.customdate3__c)) AS BIGINT), DATE_ADD('day', CAST(TRUNCATE($!s0s!$.customnumber1__c) AS BIGINT), DATE_ADD('day', CAST(TRUNCATE(($!s0s!$.custompercent1__c / 100.0)) AS BIGINT), $!s0s!$.customdate1__c))))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[3998:01:31, 200, 10, 3999:12:31, 3999:12:01, 0]</inputvalues>
+         <formula>Sat Mar 14 00:00:00 GMT 3998</formula>
+         <sql>Error: line 1:163: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <formulaNullAsNull>Sat Mar 14 00:00:00 GMT 3998</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:93: Unexpected parameters (interval day to second) for function truncate. Expected: truncate(real), truncate(double), truncate(decimal(p,s)), truncate(decimal(p,s), integer)</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1900:01:01, .004, 1, 2004:12:31, 2004:12:31, 0]</inputvalues>
+         <formula>Tue Jan 02 00:00:00 GMT 1900</formula>
+         <sql>Error: line 1:163: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <formulaNullAsNull>Tue Jan 02 00:00:00 GMT 1900</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:93: Unexpected parameters (interval day to second) for function truncate. Expected: truncate(real), truncate(double), truncate(decimal(p,s)), truncate(decimal(p,s), integer)</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 100, , 2004:11:31, 2004:12:31, 0]</inputvalues>
+         <formula>null</formula>
+         <sql>Error: line 1:163: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:93: Unexpected parameters (interval day to second) for function truncate. Expected: truncate(real), truncate(double), truncate(decimal(p,s)), truncate(decimal(p,s), integer)</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 100, , , 2004:12:31, 0]</inputvalues>
+         <formula>null</formula>
+         <sql>Error: line 1:163: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:93: Unexpected parameters (interval day to second) for function truncate. Expected: truncate(real), truncate(double), truncate(decimal(p,s)), truncate(decimal(p,s), integer)</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31, , , 2004:11:31, 2004:12:31, 0]</inputvalues>
+         <formula>Wed Dec 01 00:00:00 GMT 2004</formula>
+         <sql>Error: line 1:163: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:93: Unexpected parameters (interval day to second) for function truncate. Expected: truncate(real), truncate(double), truncate(decimal(p,s)), truncate(decimal(p,s), integer)</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 100, , 2004:11:31, , 0]</inputvalues>
+         <formula>null</formula>
+         <sql>Error: line 1:163: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: line 1:93: Unexpected parameters (interval day to second) for function truncate. Expected: truncate(real), truncate(double), truncate(decimal(p,s)), truncate(decimal(p,s), integer)</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

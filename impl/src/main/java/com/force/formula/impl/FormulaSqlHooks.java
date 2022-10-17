@@ -368,7 +368,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 
     
     /**
-     * @return the format for converting to a datetime value
+     * @return the format for concatenating strings
      * @param withSpaces whether spaces should be used around the "||" for compatibility
      */
     default String sqlConcat(boolean withSpaces) {

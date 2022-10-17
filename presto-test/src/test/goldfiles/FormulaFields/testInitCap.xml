@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testInitCap">
+   <testInstance formula="INITCAP(customtext1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>(array_join((transform((split(lower($!s0s!$.customtext1__c),' ')), x -&gt; concat(upper(substr(x,1,1)),substr(x,2,length(x))))),' ',''))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(array_join((transform((split(lower($!s0s!$.customtext1__c),' ')), x -&gt; concat(upper(substr(x,1,1)),substr(x,2,length(x))))),' ',''))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[﻿]</inputvalues>
+         <formula>﻿</formula>
+         <sql>﻿</sql>
+         <formulaNullAsNull>﻿</formulaNullAsNull>
+         <sqlNullAsNull>﻿</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CASES]</inputvalues>
+         <formula>Cases</formula>
+         <sql>Cases</sql>
+         <formulaNullAsNull>Cases</formulaNullAsNull>
+         <sqlNullAsNull>Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[cases]</inputvalues>
+         <formula>Cases</formula>
+         <sql>Cases</sql>
+         <formulaNullAsNull>Cases</formulaNullAsNull>
+         <sqlNullAsNull>Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[CaSeS]</inputvalues>
+         <formula>Cases</formula>
+         <sql>Cases</sql>
+         <formulaNullAsNull>Cases</formulaNullAsNull>
+         <sqlNullAsNull>Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[große]</inputvalues>
+         <formula>Große</formula>
+         <sql>Große</sql>
+         <formulaNullAsNull>Große</formulaNullAsNull>
+         <sqlNullAsNull>Große</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ångstrom]</inputvalues>
+         <formula>Ångstrom</formula>
+         <sql>Ångstrom</sql>
+         <formulaNullAsNull>Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>Ångstrom</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ÅNGSTROM]</inputvalues>
+         <formula>Ångstrom</formula>
+         <sql>Ångstrom</sql>
+         <formulaNullAsNull>Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>Ångstrom</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[idempotent]</inputvalues>
+         <formula>Idempotent</formula>
+         <sql>Idempotent</sql>
+         <formulaNullAsNull>Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ıdempotent]</inputvalues>
+         <formula>Idempotent</formula>
+         <sql>Idempotent</sql>
+         <formulaNullAsNull>Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[IDEMPOTENT]</inputvalues>
+         <formula>Idempotent</formula>
+         <sql>Idempotent</sql>
+         <formulaNullAsNull>Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula İdempotent does not equal viaSql Idempotent -->
+      <inputvalues>[İDEMPOTENT]</inputvalues>
+         <formula>İdempotent</formula>
+         <sql>Idempotent</sql>
+         <formulaNullAsNull>İdempotent</formulaNullAsNull>
+         <sqlNullAsNull>Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Mr. CASES]</inputvalues>
+         <formula>Mr. Cases</formula>
+         <sql>Mr. Cases</sql>
+         <formulaNullAsNull>Mr. Cases</formulaNullAsNull>
+         <sqlNullAsNull>Mr. Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[MR. cases]</inputvalues>
+         <formula>Mr. Cases</formula>
+         <sql>Mr. Cases</sql>
+         <formulaNullAsNull>Mr. Cases</formulaNullAsNull>
+         <sqlNullAsNull>Mr. Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Herr.  CaSeS]</inputvalues>
+         <formula>Herr.  Cases</formula>
+         <sql>Herr.  Cases</sql>
+         <formulaNullAsNull>Herr.  Cases</formulaNullAsNull>
+         <sqlNullAsNull>Herr.  Cases</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[129 große]</inputvalues>
+         <formula>129 Große</formula>
+         <sql>129 Große</sql>
+         <formulaNullAsNull>129 Große</formulaNullAsNull>
+         <sqlNullAsNull>129 Große</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[mr. 123smith]</inputvalues>
+         <formula>Mr. 123smith</formula>
+         <sql>Mr. 123smith</sql>
+         <formulaNullAsNull>Mr. 123smith</formulaNullAsNull>
+         <sqlNullAsNull>Mr. 123smith</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula Mr. _Smith does not equal viaSql Mr. _smith -->
+      <inputvalues>[mr. _smith]</inputvalues>
+         <formula>Mr. _Smith</formula>
+         <sql>Mr. _smith</sql>
+         <formulaNullAsNull>Mr. _Smith</formulaNullAsNull>
+         <sqlNullAsNull>Mr. _smith</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[LOWER ångstrom]</inputvalues>
+         <formula>Lower Ångstrom</formula>
+         <sql>Lower Ångstrom</sql>
+         <formulaNullAsNull>Lower Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>Lower Ångstrom</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[[] ÅNGSTROM]</inputvalues>
+         <formula>[] Ångstrom</formula>
+         <sql>[] Ångstrom</sql>
+         <formulaNullAsNull>[] Ångstrom</formulaNullAsNull>
+         <sqlNullAsNull>[] Ångstrom</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[foo idempotent]</inputvalues>
+         <formula>Foo Idempotent</formula>
+         <sql>Foo Idempotent</sql>
+         <formulaNullAsNull>Foo Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Foo Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[bar ıdempotent]</inputvalues>
+         <formula>Bar Idempotent</formula>
+         <sql>Bar Idempotent</sql>
+         <formulaNullAsNull>Bar Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Bar Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[top IDEMPOTENT]</inputvalues>
+         <formula>Top Idempotent</formula>
+         <sql>Top Idempotent</sql>
+         <formulaNullAsNull>Top Idempotent</formulaNullAsNull>
+         <sqlNullAsNull>Top Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: viaFormula Bottom İdempotent does not equal viaSql Bottom Idempotent -->
+      <inputvalues>[bottom İDEMPOTENT]</inputvalues>
+         <formula>Bottom İdempotent</formula>
+         <sql>Bottom Idempotent</sql>
+         <formulaNullAsNull>Bottom İdempotent</formulaNullAsNull>
+         <sqlNullAsNull>Bottom Idempotent</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ijsland]</inputvalues>
+         <formula>Ijsland</formula>
+         <sql>Ijsland</sql>
+         <formulaNullAsNull>Ijsland</formulaNullAsNull>
+         <sqlNullAsNull>Ijsland</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

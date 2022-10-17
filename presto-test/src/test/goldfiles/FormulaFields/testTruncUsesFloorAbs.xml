@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTruncUsesFloorAbs">
+   <testInstance formula="TRUNC(FLOOR(customnumber1__c),ABS(customnumber2__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>TRUNCATE(CAST(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE CEIL(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END AS DECIMAL(38,18)), try_cast(ABS(COALESCE($!s0s!$.customnumber2__c, 0)) as integer))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TRUNCATE(CAST(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber1__c,33)) END AS DECIMAL(38,18)), try_cast(ABS($!s0s!$.customnumber2__c) as integer))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[0, 0]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20, -1]</inputvalues>
+         <formula>20</formula>
+         <sql>20</sql>
+         <formulaNullAsNull>20</formulaNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20.12345,  2]</inputvalues>
+         <formula>20</formula>
+         <sql>20</sql>
+         <formulaNullAsNull>20</formulaNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20.123444, 4]</inputvalues>
+         <formula>20</formula>
+         <sql>20</sql>
+         <formulaNullAsNull>20</formulaNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20.123445, 4]</inputvalues>
+         <formula>20</formula>
+         <sql>20</sql>
+         <formulaNullAsNull>20</formulaNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20.12345, 4]</inputvalues>
+         <formula>20</formula>
+         <sql>20</sql>
+         <formulaNullAsNull>20</formulaNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[20.12, 4]</inputvalues>
+         <formula>20</formula>
+         <sql>20</sql>
+         <formulaNullAsNull>20</formulaNullAsNull>
+         <sqlNullAsNull>20</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, 2]</inputvalues>
+         <formula>-1</formula>
+         <sql>-1</sql>
+         <formulaNullAsNull>-1</formulaNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, 0]</inputvalues>
+         <formula>-1</formula>
+         <sql>-1</sql>
+         <formulaNullAsNull>-1</formulaNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-123456789.123456789,  2]</inputvalues>
+         <formula>-123456789</formula>
+         <sql>-123456789</sql>
+         <formulaNullAsNull>-123456789</formulaNullAsNull>
+         <sqlNullAsNull>-123456789</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, 2]</inputvalues>
+         <formula>123456789</formula>
+         <sql>123456789</sql>
+         <formulaNullAsNull>123456789</formulaNullAsNull>
+         <sqlNullAsNull>123456789</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[46,  0]</inputvalues>
+         <formula>46</formula>
+         <sql>46</sql>
+         <formulaNullAsNull>46</formulaNullAsNull>
+         <sqlNullAsNull>46</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0, 2]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0.00034, 3]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.244, 2]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0.244, 2]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-0.245, 0]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.24456, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.24456, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 16]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-256, ]</inputvalues>
+         <formula>-256</formula>
+         <sql>-256</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

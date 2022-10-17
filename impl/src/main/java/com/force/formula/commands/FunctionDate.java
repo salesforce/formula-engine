@@ -1,12 +1,21 @@
 package com.force.formula.commands;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaEvaluationException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
@@ -48,8 +57,10 @@ public class FunctionDate extends FormulaCommandInfoImpl {
         String date;
         if (hooks.isMysqlStyle()) {
         	date = "DATE(CONCAT(" + year + ",'-'," + month + ",'-'," + day + "))";
+        } else if (hooks.isPrestoStyle()) {
+            date = "CAST(from_iso8601_date(CONCAT(CAST(" + year + " AS VARCHAR),'-',CAST(" + month + " AS VARCHAR),'-',CAST(" + day + " AS VARCHAR))) AS TIMESTAMP)";
         } else if (hooks.isTransactSqlStyle()) {
-        	date = "DATEFROMPARTS(" + year + "," + month + "," + day + ")";
+        	date = "DATEFROMPARTS(" + year + "," + month + "," + day + ")";        	
         } else {
         	date = "TO_DATE(" + year + " || '-' || " + month + " || '-' || " + day + ", 'YYYY-MM-DD')";
         }
@@ -181,6 +192,12 @@ public class FunctionDate extends FormulaCommandInfoImpl {
                         + ",'-',"
                 + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue)
                         + ",'-01'))";
+    	} else if (hooks.isPrestoStyle()) {
+                toDateSQL =   "DATE(CONCAT(CAST("
+                + (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue)
+                            + " AS VARCHAR),'-',CAST("
+                    + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue)
+                            + " AS VARCHAR),'-01'))";
     	} else if (hooks.isTransactSqlStyle()) {
     		toDateSQL = "DATEFROMPARTS(" + (yearValue == BAD_VALUE ? "FLOOR(" + args[0] + ")" : yearValue) 
     				+ "," + (monthValue == BAD_VALUE ? "FLOOR(" + args[1] + ")" : monthValue) + ",1)";

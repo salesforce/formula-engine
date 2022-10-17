@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testPi">
+   <testInstance formula="ROUND(PI(),12)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>ROUND(PI(), try_cast(12 as integer))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ROUND(PI(), try_cast(12 as integer))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>3.141592653590</formula>
+         <sql>3.14159265359</sql>
+         <formulaNullAsNull>3.141592653590</formulaNullAsNull>
+         <sqlNullAsNull>3.14159265359</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
