@@ -2,11 +2,11 @@
 <testCase name="testLNUsesIf">
    <testInstance formula="LN(IF(false,customnumber1__c,customnumber2__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>LN(COALESCE($!s0s!$.customnumber2__c, 0))</Sql>
+       <Sql>CAST(CAST(LN(COALESCE($!s0s!$.customnumber2__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
        <Guard>COALESCE($!s0s!$.customnumber2__c, 0)&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>LN($!s0s!$.customnumber2__c)</Sql>
+       <Sql>CAST(CAST(LN($!s0s!$.customnumber2__c) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
        <Guard>$!s0s!$.customnumber2__c&lt;=0</Guard>
     </SqlOutput>
       <result>
@@ -61,9 +61,9 @@
       <result>
       <inputvalues>[1.1111, 1.1111]</inputvalues>
          <formula>0.10535051560782595</formula>
-         <sql>0.10535051560782596</sql>
+         <sql>0.10535051560782595</sql>
          <formulaNullAsNull>0.10535051560782595</formulaNullAsNull>
-         <sqlNullAsNull>0.10535051560782596</sqlNullAsNull>
+         <sqlNullAsNull>0.10535051560782595</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.11114, 0.00000]</inputvalues>

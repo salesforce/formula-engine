@@ -2,11 +2,11 @@
 <testCase name="testLNUsesLen">
    <testInstance formula="LN(LEN(customtext1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>LN(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18)))</Sql>
+       <Sql>CAST(CAST(LN(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
        <Guard>CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>LN(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18)))</Sql>
+       <Sql>CAST(CAST(LN(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
        <Guard>CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))&lt;=0</Guard>
     </SqlOutput>
       <result>
@@ -75,9 +75,9 @@
       <result>
       <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
          <formula>3.9512437185814275</formula>
-         <sql>3.951243718581427</sql>
+         <sql>3.9512437185814275</sql>
          <formulaNullAsNull>3.9512437185814275</formulaNullAsNull>
-         <sqlNullAsNull>3.951243718581427</sqlNullAsNull>
+         <sqlNullAsNull>3.9512437185814275</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>

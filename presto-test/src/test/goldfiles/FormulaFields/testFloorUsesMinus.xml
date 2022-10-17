@@ -2,11 +2,11 @@
 <testCase name="testFloorUsesMinus">
    <testInstance formula="FLOOR((custompercent1__c-customnumber1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN (COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)-COALESCE($!s0s!$.customnumber1__c, 0))&gt;=0 THEN FLOOR(ROUND((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)-COALESCE($!s0s!$.customnumber1__c, 0)),33)) ELSE CEIL(ROUND((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)-COALESCE($!s0s!$.customnumber1__c, 0)),33)) END</Sql>
+       <Sql>CASE WHEN (COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0)-COALESCE($!s0s!$.customnumber1__c, 0))&gt;=0 THEN FLOOR(ROUND((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0)-COALESCE($!s0s!$.customnumber1__c, 0)),33)) ELSE CEIL(ROUND((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0)-COALESCE($!s0s!$.customnumber1__c, 0)),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / 100.0)-$!s0s!$.customnumber1__c)&gt;=0 THEN FLOOR(ROUND((($!s0s!$.custompercent1__c / 100.0)-$!s0s!$.customnumber1__c),33)) ELSE CEIL(ROUND((($!s0s!$.custompercent1__c / 100.0)-$!s0s!$.customnumber1__c),33)) END</Sql>
+       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / (DECIMAL '100.00000'))-$!s0s!$.customnumber1__c)&gt;=0 THEN FLOOR(ROUND((($!s0s!$.custompercent1__c / (DECIMAL '100.00000'))-$!s0s!$.customnumber1__c),33)) ELSE CEIL(ROUND((($!s0s!$.custompercent1__c / (DECIMAL '100.00000'))-$!s0s!$.customnumber1__c),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

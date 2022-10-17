@@ -2,11 +2,11 @@
 <testCase name="testTruncUsesLn">
    <testInstance formula="TRUNC(LN(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TRUNCATE(CAST(LN(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)), try_cast(COALESCE($!s0s!$.customnumber2__c, 0) as integer))</Sql>
+       <Sql>TRUNCATE(CAST(CAST(CAST(LN(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18)) AS DECIMAL(38,18)), try_cast(COALESCE($!s0s!$.customnumber2__c, 0) as integer))</Sql>
        <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TRUNCATE(CAST(LN($!s0s!$.customnumber1__c) AS DECIMAL(38,18)), try_cast($!s0s!$.customnumber2__c as integer))</Sql>
+       <Sql>TRUNCATE(CAST(CAST(CAST(LN($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18)) AS DECIMAL(38,18)), try_cast($!s0s!$.customnumber2__c as integer))</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
       <result>

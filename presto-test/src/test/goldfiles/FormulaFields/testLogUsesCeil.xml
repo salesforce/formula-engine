@@ -2,11 +2,11 @@
 <testCase name="testLogUsesCeil">
    <testInstance formula="Log(CEILING(customnumber1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CAST(LOG10(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END) AS DECIMAL(38,18))</Sql>
+       <Sql>CAST(CAST(LOG10(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
        <Guard>CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CAST(LOG10(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber1__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber1__c,33)) END) AS DECIMAL(38,18))</Sql>
+       <Sql>CAST(CAST(LOG10(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber1__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber1__c,33)) END) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
        <Guard>CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber1__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber1__c,33)) END&lt;=0</Guard>
     </SqlOutput>
       <result>

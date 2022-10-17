@@ -2,12 +2,12 @@
 <testCase name="testLogUsesMultiply">
    <testInstance formula="Log((custompercent1__c*customnumber1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CAST(LOG10((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) * COALESCE($!s0s!$.customnumber1__c, 0))) AS DECIMAL(38,18))</Sql>
-       <Guard>(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) * COALESCE($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
+       <Sql>CAST(CAST(LOG10((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0) * COALESCE($!s0s!$.customnumber1__c, 0))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0) * COALESCE($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CAST(LOG10((($!s0s!$.custompercent1__c / 100.0) * $!s0s!$.customnumber1__c)) AS DECIMAL(38,18))</Sql>
-       <Guard>(($!s0s!$.custompercent1__c / 100.0) * $!s0s!$.customnumber1__c)&lt;=0</Guard>
+       <Sql>CAST(CAST(LOG10((($!s0s!$.custompercent1__c / (DECIMAL '100.00000')) * $!s0s!$.customnumber1__c)) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')) * $!s0s!$.customnumber1__c)&lt;=0</Guard>
     </SqlOutput>
       <result>
       <inputvalues>[, 24]</inputvalues>
@@ -61,9 +61,9 @@
       <result>
       <inputvalues>[1.1111, 1.1111]</inputvalues>
          <formula>-1.9084937048117172</formula>
-         <sql>-1.9089238736192014</sql>
+         <sql>-1.9085327934649912</sql>
          <formulaNullAsNull>-1.9084937048117172</formulaNullAsNull>
-         <sqlNullAsNull>-1.9089238736192014</sqlNullAsNull>
+         <sqlNullAsNull>-1.9085327934649912</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.11114, 0.00000]</inputvalues>
@@ -131,9 +131,9 @@
       <result>
       <inputvalues>[1.2345,  1.2345]</inputvalues>
          <formula>-1.8170178114640978</formula>
-         <sql>-1.818603794292651</sql>
+         <sql>-1.8168419481363645</sql>
          <formulaNullAsNull>-1.8170178114640978</formulaNullAsNull>
-         <sqlNullAsNull>-1.818603794292651</sqlNullAsNull>
+         <sqlNullAsNull>-1.8168419481363645</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.245,  0]</inputvalues>
@@ -178,7 +178,6 @@
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula -11.999999999999998 viaSql null -->
       <inputvalues>[.0000000000001, 1000]</inputvalues>
          <formula>-11.999999999999998</formula>
          <sql>null</sql>

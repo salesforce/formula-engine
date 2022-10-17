@@ -2,11 +2,11 @@
 <testCase name="testAbsUsesLn">
    <testInstance formula="ABS(LN(customnumber1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>ABS(LN(COALESCE($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Sql>ABS(CAST(CAST(LN(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18)))</Sql>
        <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>ABS(LN($!s0s!$.customnumber1__c))</Sql>
+       <Sql>ABS(CAST(CAST(LN($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18)))</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
       <result>
@@ -75,9 +75,9 @@
       <result>
       <inputvalues>[2.56]</inputvalues>
          <formula>0.9400072584914712</formula>
-         <sql>0.9400072584914713</sql>
+         <sql>0.9400072584914712</sql>
          <formulaNullAsNull>0.9400072584914712</formulaNullAsNull>
-         <sqlNullAsNull>0.9400072584914713</sqlNullAsNull>
+         <sqlNullAsNull>0.9400072584914712</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789]</inputvalues>

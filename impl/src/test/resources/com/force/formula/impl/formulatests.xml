@@ -652,6 +652,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testMultiplyWithExpr"
          devName="testMultiplyWithExpr" labelName="testMultiplyWithExpr"
          dataType="Currency" dataFile="multiplyWithExpr" scale="2" labels="math"
+         whyIgnoreSql="trino:precision limits"
          precision="12" code="(customformula0__c*customnumber1__c)">
          <referencefield devName="customformula0" labelName="customformula0"
              dataType="Double" scale="2" precision="12"
@@ -1908,7 +1909,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testChr" devName="testChr" labels="extended"
          labelName="testChr" dataType="Text"
          dataFile="unicodePoints" 
-         whyIgnoreSql="trino:rounding half up, not even"
+         whyIgnoreSql="trino:rounding halfup not halfeven"
          code="CHR(customnumber__c)">
          <referencefield devName="customnumber" labelName="customnumber"
              dataType="Double" scale="2" precision="12"/>
@@ -2582,6 +2583,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testLogUsesMultiply" devName="testLogUsesMultiply" labels="extended"
          labelName="testLogUsesMultiply" dataType="Double"
          dataFile="twoNumericFields" scale="2" precision="12"
+         whyIgnoreSql="trino:precision limits"
          code="Log((custompercent1__c*customnumber1__c))">
          <referencefield devName="custompercent1" labelName="custompercent1"
              dataType="Percent" scale="2" precision="12"/>
@@ -2701,6 +2703,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testLNUsesMultiply" devName="testLNUsesMultiply" labels="extended"
          labelName="testLNUsesMultiply" dataType="Double"
          dataFile="twoNumericFields" scale="2" precision="12"
+         whyIgnoreSql="trino:precision limits"
          code="LN((custompercent1__c*customnumber1__c))">
          <referencefield devName="custompercent1" labelName="custompercent1"
              dataType="Percent" scale="2" precision="12"/>

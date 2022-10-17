@@ -2,11 +2,11 @@
 <testCase name="testAbsUsesMinus">
    <testInstance formula="ABS((custompercent1__c-customcurrency1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>ABS((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)-COALESCE($!s0s!$.customcurrency1__c, 0)))</Sql>
+       <Sql>ABS((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0)-COALESCE($!s0s!$.customcurrency1__c, 0)))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>ABS((($!s0s!$.custompercent1__c / 100.0)-$!s0s!$.customcurrency1__c))</Sql>
+       <Sql>ABS((($!s0s!$.custompercent1__c / (DECIMAL '100.00000'))-$!s0s!$.customcurrency1__c))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -61,9 +61,9 @@
       <result>
       <inputvalues>[1.1111, 1.1111]</inputvalues>
          <formula>1.099989</formula>
-         <sql>1.1</sql>
+         <sql>1.09999</sql>
          <formulaNullAsNull>1.099989</formulaNullAsNull>
-         <sqlNullAsNull>1.1</sqlNullAsNull>
+         <sqlNullAsNull>1.09999</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.11114, 0.00000]</inputvalues>
@@ -131,16 +131,16 @@
       <result>
       <inputvalues>[1.2345,  1.2345]</inputvalues>
          <formula>1.222155</formula>
-         <sql>1.2222</sql>
+         <sql>1.22215</sql>
          <formulaNullAsNull>1.222155</formulaNullAsNull>
-         <sqlNullAsNull>1.2222</sqlNullAsNull>
+         <sqlNullAsNull>1.22215</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.245,  0]</inputvalues>
          <formula>0.01245</formula>
-         <sql>0.012</sql>
+         <sql>0.01245</sql>
          <formulaNullAsNull>0.01245</formulaNullAsNull>
-         <sqlNullAsNull>0.012</sqlNullAsNull>
+         <sqlNullAsNull>0.01245</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>

@@ -2,12 +2,12 @@
 <testCase name="testLNUsesLog">
    <testInstance formula="LN(LOG(customnumber1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>LN(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)))</Sql>
-       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0 OR CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18))&lt;=0</Guard>
+       <Sql>CAST(CAST(LN(CAST(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0 OR CAST(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18))&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>LN(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)))</Sql>
-       <Guard>$!s0s!$.customnumber1__c&lt;=0 OR CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18))&lt;=0</Guard>
+       <Sql>CAST(CAST(LN(CAST(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0 OR CAST(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18))&lt;=0</Guard>
     </SqlOutput>
       <result>
       <inputvalues>[1]</inputvalues>

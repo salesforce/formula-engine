@@ -2,10 +2,12 @@ package com.force.formula.commands;
 
 import java.math.BigDecimal;
 
-import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.JsValue;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -37,6 +39,8 @@ public class FunctionNaturalLog extends UnaryMathCommandBehavior {
     	FormulaSqlHooks hooks = (FormulaSqlHooks) context.getSqlStyle();
         if (hooks.isTransactSqlStyle()) {
         	sql = String.format(hooks.sqlToNumber(),"LOG(" + args[0] + ")");
+        } else if (hooks.isPrestoStyle()) {
+            sql = String.format(hooks.sqlToNumber(),"CAST(LN(" + args[0] + ") AS DECIMAL(38,18))");
         } else {
         	sql = "LN(" + args[0] + ")";
         }

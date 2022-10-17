@@ -2,11 +2,11 @@
 <testCase name="testRoundUsesLog">
    <testInstance formula="ROUND(LOG(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>ROUND(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)), try_cast(COALESCE($!s0s!$.customnumber2__c, 0) as integer))</Sql>
+       <Sql>ROUND(CAST(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18)), try_cast(COALESCE($!s0s!$.customnumber2__c, 0) as integer))</Sql>
        <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>ROUND(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)), try_cast($!s0s!$.customnumber2__c as integer))</Sql>
+       <Sql>ROUND(CAST(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18)), try_cast($!s0s!$.customnumber2__c as integer))</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
       <result>

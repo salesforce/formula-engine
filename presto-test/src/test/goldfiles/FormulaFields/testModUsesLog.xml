@@ -2,11 +2,11 @@
 <testCase name="testModUsesLog">
    <testInstance formula="MOD(LOG(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>MOD(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)), COALESCE($!s0s!$.customnumber2__c, 0))</Sql>
+       <Sql>MOD(CAST(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18)), COALESCE($!s0s!$.customnumber2__c, 0))</Sql>
        <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>MOD(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)), $!s0s!$.customnumber2__c)</Sql>
+       <Sql>MOD(CAST(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18)), $!s0s!$.customnumber2__c)</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
       <result>

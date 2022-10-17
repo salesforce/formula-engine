@@ -2,11 +2,11 @@
 <testCase name="testExpUsesLn">
    <testInstance formula="ROUND(EXP(LN(customnumber1__c)), 0)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>ROUND(EXP(LN(COALESCE($!s0s!$.customnumber1__c, 0))), try_cast(0 as integer))</Sql>
+       <Sql>ROUND(EXP(CAST(CAST(LN(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18))), try_cast(0 as integer))</Sql>
        <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>ROUND(EXP(LN($!s0s!$.customnumber1__c)), try_cast(0 as integer))</Sql>
+       <Sql>ROUND(EXP(CAST(CAST(LN($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18))), try_cast(0 as integer))</Sql>
        <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
     </SqlOutput>
       <result>

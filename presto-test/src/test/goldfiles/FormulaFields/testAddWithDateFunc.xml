@@ -5,11 +5,11 @@
    <customformula1 dataType="ColumnType.DOUBLE" formula="YEAR(customdate2__c)"/>
    <customformula2 dataType="ColumnType.DOUBLE" formula="MONTH(customdate3__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>((((COALESCE(EXTRACT(DAY FROM $!s0s!$.customdate1__c), 0)+COALESCE(EXTRACT(YEAR FROM $!s0s!$.customdate2__c), 0))+COALESCE($!s0s!$.customnumber1__c, 0))+COALESCE(EXTRACT(MONTH FROM $!s0s!$.customdate3__c), 0))+COALESCE(($!s0s!$.custompercent1__c / 100.0), 0))</Sql>
+       <Sql>((((COALESCE(EXTRACT(DAY FROM $!s0s!$.customdate1__c), 0)+COALESCE(EXTRACT(YEAR FROM $!s0s!$.customdate2__c), 0))+COALESCE($!s0s!$.customnumber1__c, 0))+COALESCE(EXTRACT(MONTH FROM $!s0s!$.customdate3__c), 0))+COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>((((EXTRACT(DAY FROM $!s0s!$.customdate1__c)+EXTRACT(YEAR FROM $!s0s!$.customdate2__c))+$!s0s!$.customnumber1__c)+EXTRACT(MONTH FROM $!s0s!$.customdate3__c))+($!s0s!$.custompercent1__c / 100.0))</Sql>
+       <Sql>((((EXTRACT(DAY FROM $!s0s!$.customdate1__c)+EXTRACT(YEAR FROM $!s0s!$.customdate2__c))+$!s0s!$.customnumber1__c)+EXTRACT(MONTH FROM $!s0s!$.customdate3__c))+($!s0s!$.custompercent1__c / (DECIMAL '100.00000')))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

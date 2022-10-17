@@ -3,33 +3,36 @@
    <testInstance formula="ROUND(ROUND(custompercent1__c,customnumber1__c),customformula1__c)" returntype="Double" precision="12" scale="2">
    <customformula1 dataType="ColumnType.DOUBLE" formula="(customcurrency1__c-customcurrency2__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>ROUND(ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0), try_cast(COALESCE($!s0s!$.customnumber1__c, 0) as integer)), try_cast(COALESCE((COALESCE($!s0s!$.customcurrency1__c, 0)-COALESCE($!s0s!$.customcurrency2__c, 0)), 0) as integer))</Sql>
+       <Sql>ROUND(ROUND(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0), try_cast(COALESCE($!s0s!$.customnumber1__c, 0) as integer)), try_cast(COALESCE((COALESCE($!s0s!$.customcurrency1__c, 0)-COALESCE($!s0s!$.customcurrency2__c, 0)), 0) as integer))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>ROUND(ROUND(($!s0s!$.custompercent1__c / 100.0), try_cast($!s0s!$.customnumber1__c as integer)), try_cast(($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c) as integer))</Sql>
+       <Sql>ROUND(ROUND(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), try_cast($!s0s!$.customnumber1__c as integer)), try_cast(($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c) as integer))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: decimal overflow: 123456789000 -->
       <inputvalues>[123456789, 123456789, 200, 300]</inputvalues>
          <formula>0</formula>
-         <sql>0</sql>
+         <sql>Error: decimal overflow: 123456789000</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0</sqlNullAsNull>
+         <sqlNullAsNull>Error: decimal overflow: 123456789000</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: decimal overflow: 12345678000 -->
       <inputvalues>[12345678, 123456789, 200, 300]</inputvalues>
          <formula>0</formula>
-         <sql>0</sql>
+         <sql>Error: decimal overflow: 12345678000</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0</sqlNullAsNull>
+         <sqlNullAsNull>Error: decimal overflow: 12345678000</sqlNullAsNull>
       </result>
       <result>
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: decimal overflow: 12345678000 -->
       <inputvalues>[12345678, 1234567, 200, 300]</inputvalues>
          <formula>0</formula>
-         <sql>0</sql>
+         <sql>Error: decimal overflow: 12345678000</sql>
          <formulaNullAsNull>0</formulaNullAsNull>
-         <sqlNullAsNull>0</sqlNullAsNull>
+         <sqlNullAsNull>Error: decimal overflow: 12345678000</sqlNullAsNull>
       </result>
       <result>
       <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: decimal overflow: 0 -->

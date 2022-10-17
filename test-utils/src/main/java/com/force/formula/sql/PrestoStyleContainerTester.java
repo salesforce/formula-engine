@@ -4,6 +4,7 @@
 package com.force.formula.sql;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import java.sql.Time;
 
 import org.testcontainers.containers.JdbcDatabaseContainer;
 
+import com.force.formula.DisplayField;
 import com.force.formula.FormulaEngine;
 
 /**
@@ -28,6 +30,7 @@ public abstract class PrestoStyleContainerTester<DB extends JdbcDatabaseContaine
     @Override
     protected boolean useBinds() {
         return false;   // Trino/Presto have a bug in setBigDecimal which calls toString instead of toPlainString
+        // and the DB does not parse scientific notation in decimal literals
     }
     
     @Override
@@ -80,4 +83,17 @@ public abstract class PrestoStyleContainerTester<DB extends JdbcDatabaseContaine
         return FormulaEngine.getHooks().constructTime(time.getTime()).toString();
     }
 
+    @Override
+    protected String getBigDecimalLiteral(BigDecimal bd, DisplayField df) {
+        // Use explicit DECIMALs because we can't bind correctly below.
+        return "DECIMAL '" + bd.toPlainString() + "'";
+    }
+    
+    /*
+    @Override
+    protected void bindBigDecimal(PreparedStatement pstmt, DisplayField df, BigDecimal bd, int position) throws SQLException {
+        // The Trino driver uses BigDecimal.toString(), but doesn't accept exponent notation.  So we have to bump up the scale.
+        super.bindBigDecimal(pstmt, df, bd, position);
+    }
+    */
 }

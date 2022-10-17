@@ -2,11 +2,11 @@
 <testCase name="testLNUsesMOD">
    <testInstance formula="LN(MOD(customnumber1__c,customnumber2__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>LN(MOD(COALESCE($!s0s!$.customnumber1__c, 0), COALESCE($!s0s!$.customnumber2__c, 0)))</Sql>
+       <Sql>CAST(CAST(LN(MOD(COALESCE($!s0s!$.customnumber1__c, 0), COALESCE($!s0s!$.customnumber2__c, 0))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
        <Guard>MOD(COALESCE($!s0s!$.customnumber1__c, 0), COALESCE($!s0s!$.customnumber2__c, 0))&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>LN(MOD($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c))</Sql>
+       <Sql>CAST(CAST(LN(MOD($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c)) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
        <Guard>MOD($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c)&lt;=0</Guard>
     </SqlOutput>
       <result>

@@ -5,15 +5,46 @@ package com.force.formula.commands;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import com.force.formula.*;
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.Formula;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaFieldInfo;
+import com.force.formula.FormulaFieldReference;
+import com.force.formula.FormulaFieldReferenceInfo;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaProvider;
+import com.force.formula.FormulaSchema;
 import com.force.formula.FormulaSchema.FieldOrColumn;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaTime;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.RuntimeFormulaInfo;
+import com.force.formula.UnsupportedTypeException;
+import com.force.formula.impl.FieldReferenceCycleDetectedException;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaInfoFactory;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.NestedFormulaException;
+import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.parser.gen.FormulaTokenTypes;
-import com.force.formula.sql.*;
+import com.force.formula.sql.FormulaSQLProvider;
+import com.force.formula.sql.FormulaWithSql;
+import com.force.formula.sql.ITableAliasRegistry;
+import com.force.formula.sql.SQLPair;
+import com.force.formula.sql.TableSet;
 import com.force.formula.util.BaseCompositeFormulaContext;
 import com.force.formula.util.FormulaFieldReferenceImpl;
 import com.google.common.base.Splitter;
@@ -212,6 +243,8 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
 
         List<FormulaFieldReferenceInfo> fieldPath = getFieldPath(formulaFieldInfo);
 
+        FormulaSqlHooks sqlHooks = getSqlHooks(context);
+        
         // Get SQL
         String sql;
         String guard;
@@ -221,7 +254,11 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
             sql = formulaFieldInfo.getDbColumn(aliases.mainAlias, aliases.cfAlias);
             if (formulaFieldInfo.getDataType().isPercent()) {
                 // The actual value of the field is in formatted fashion
-                sql = "(" + sql + " / 100.0)";
+                if (sqlHooks.isPrestoStyle()) {
+                    sql = "(" + sql + " / (DECIMAL '100.00000'))";  // Presto needs more decimal places.
+                } else {
+                    sql = "(" + sql + " / 100.0)";
+                }
             } else if (formulaFieldInfo.getDataType().canBeEmptyKeyForNullInDb()) {
             	// Hard code internals for salesforce IDs
                 sql = "CASE WHEN " + sql + " = '000000000000000' THEN NULL ELSE " + sql + " END";
@@ -244,9 +281,9 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
         if (formulaFieldInfo.getDataType().isBoolean()) {
             // Only bother with this if we are a database field; a formula's already a boolean so NVL would be a syntax error
             if (formulaFieldInfo.getFieldOrColumnInfo() != null && formulaFieldInfo.getFieldOrColumnInfo().getFieldInfo().isCalculated()) {
-                sql = "("+getSqlHooks(context).sqlNvl()+"(CASE WHEN " + sql + " THEN '1' ELSE '0' END, '0') = '1')";
+                sql = "("+sqlHooks.sqlNvl()+"(CASE WHEN " + sql + " THEN '1' ELSE '0' END, '0') = '1')";
             } else {
-                sql = "("+getSqlHooks(context).sqlNvl()+"(" + sql + ", '0') = '1')";
+                sql = "("+sqlHooks.sqlNvl()+"(" + sql + ", '0') = '1')";
             }
         }
 

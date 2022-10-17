@@ -2,11 +2,11 @@
 <testCase name="testModUsesRoundPlus">
    <testInstance formula="MOD(ROUND(custompercent1__c,customnumber1__c),(customcurrency1__c+customcurrency2__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>MOD(ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0), try_cast(COALESCE($!s0s!$.customnumber1__c, 0) as integer)), (COALESCE($!s0s!$.customcurrency1__c, 0)+COALESCE($!s0s!$.customcurrency2__c, 0)))</Sql>
+       <Sql>MOD(ROUND(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0), try_cast(COALESCE($!s0s!$.customnumber1__c, 0) as integer)), (COALESCE($!s0s!$.customcurrency1__c, 0)+COALESCE($!s0s!$.customcurrency2__c, 0)))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>MOD(ROUND(($!s0s!$.custompercent1__c / 100.0), try_cast($!s0s!$.customnumber1__c as integer)), ($!s0s!$.customcurrency1__c+$!s0s!$.customcurrency2__c))</Sql>
+       <Sql>MOD(ROUND(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), try_cast($!s0s!$.customnumber1__c as integer)), ($!s0s!$.customcurrency1__c+$!s0s!$.customcurrency2__c))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -138,9 +138,9 @@
       <result>
       <inputvalues>[-200.434, 200.434,  200,  300]</inputvalues>
          <formula>-2.00434</formula>
-         <sql>-2.004</sql>
+         <sql>-2.00434</sql>
          <formulaNullAsNull>-2.00434</formulaNullAsNull>
-         <sqlNullAsNull>-2.004</sqlNullAsNull>
+         <sqlNullAsNull>-2.00434</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[200,  -200.434,  200, 300]</inputvalues>

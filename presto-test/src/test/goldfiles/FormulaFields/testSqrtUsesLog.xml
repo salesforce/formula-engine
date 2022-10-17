@@ -2,12 +2,12 @@
 <testCase name="testSqrtUsesLog">
    <testInstance formula="ROUND(SQRT(LOG(customnumber1__c)),15)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>ROUND(SQRT(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18))), try_cast(15 as integer))</Sql>
-       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0 OR CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18))&lt;0</Guard>
+       <Sql>ROUND(SQRT(CAST(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18))), try_cast(15 as integer))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0 OR CAST(CAST(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS DECIMAL(38,18))&lt;0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>ROUND(SQRT(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18))), try_cast(15 as integer))</Sql>
-       <Guard>$!s0s!$.customnumber1__c&lt;=0 OR CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18))&lt;0</Guard>
+       <Sql>ROUND(SQRT(CAST(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18))), try_cast(15 as integer))</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0 OR CAST(CAST(LOG10($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS DECIMAL(38,18))&lt;0</Guard>
     </SqlOutput>
       <result>
       <inputvalues>[1]</inputvalues>

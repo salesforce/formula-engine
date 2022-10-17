@@ -2,12 +2,12 @@
 <testCase name="testLNUsesPlus">
    <testInstance formula="LN((custompercent1__c+customcurrency1__c))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>LN((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)+COALESCE($!s0s!$.customcurrency1__c, 0)))</Sql>
-       <Guard>(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)+COALESCE($!s0s!$.customcurrency1__c, 0))&lt;=0</Guard>
+       <Sql>CAST(CAST(LN((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0)+COALESCE($!s0s!$.customcurrency1__c, 0))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0)+COALESCE($!s0s!$.customcurrency1__c, 0))&lt;=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>LN((($!s0s!$.custompercent1__c / 100.0)+$!s0s!$.customcurrency1__c))</Sql>
-       <Guard>(($!s0s!$.custompercent1__c / 100.0)+$!s0s!$.customcurrency1__c)&lt;=0</Guard>
+       <Sql>CAST(CAST(LN((($!s0s!$.custompercent1__c / (DECIMAL '100.00000'))+$!s0s!$.customcurrency1__c)) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>(($!s0s!$.custompercent1__c / (DECIMAL '100.00000'))+$!s0s!$.customcurrency1__c)&lt;=0</Guard>
     </SqlOutput>
       <result>
       <inputvalues>[, 24]</inputvalues>
@@ -61,9 +61,9 @@
       <result>
       <inputvalues>[1.1111, 1.1111]</inputvalues>
          <formula>0.11530084646099412</formula>
-         <sql>0.11529104433473465</sql>
+         <sql>0.11529995536257708</sql>
          <formulaNullAsNull>0.11530084646099412</formulaNullAsNull>
-         <sqlNullAsNull>0.11529104433473465</sqlNullAsNull>
+         <sqlNullAsNull>0.11529995536257708</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.11114, 0.00000]</inputvalues>
@@ -117,9 +117,9 @@
       <result>
       <inputvalues>[600,  0.000600]</inputvalues>
          <formula>1.7918594642283883</formula>
-         <sql>1.7918594642283885</sql>
+         <sql>1.7918594642283883</sql>
          <formulaNullAsNull>1.7918594642283883</formulaNullAsNull>
-         <sqlNullAsNull>1.7918594642283885</sqlNullAsNull>
+         <sqlNullAsNull>1.7918594642283883</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[600,  -600]</inputvalues>
@@ -131,17 +131,16 @@
       <result>
       <inputvalues>[1.2345,  1.2345]</inputvalues>
          <formula>0.22061636065626522</formula>
-         <sql>0.22058026891104487</sql>
+         <sql>0.2206203707697715</sql>
          <formulaNullAsNull>0.22061636065626522</formulaNullAsNull>
-         <sqlNullAsNull>0.22058026891104487</sqlNullAsNull>
+         <sqlNullAsNull>0.2206203707697715</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula -4.39 does not equal viaSql -4.42 -->
       <inputvalues>[1.245,  0]</inputvalues>
          <formula>-4.386034656071421</formula>
-         <sql>-4.422848629194137</sql>
+         <sql>-4.386034656071421</sql>
          <formulaNullAsNull>-4.386034656071421</formulaNullAsNull>
-         <sqlNullAsNull>-4.422848629194137</sqlNullAsNull>
+         <sqlNullAsNull>-4.386034656071421</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>

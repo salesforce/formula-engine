@@ -3,11 +3,11 @@
    <testInstance formula="EXP(customformula0__c)" returntype="Double" precision="12" scale="2">
    <customformula0 dataType="ColumnType.DOUBLE" formula="(custompercent1__c+customnumber1__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>EXP(COALESCE((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)+COALESCE($!s0s!$.customnumber1__c, 0)), 0))</Sql>
+       <Sql>EXP(COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.00000')), 0)+COALESCE($!s0s!$.customnumber1__c, 0)), 0))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>EXP((($!s0s!$.custompercent1__c / 100.0)+$!s0s!$.customnumber1__c))</Sql>
+       <Sql>EXP((($!s0s!$.custompercent1__c / (DECIMAL '100.00000'))+$!s0s!$.customnumber1__c))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

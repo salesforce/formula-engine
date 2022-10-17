@@ -147,7 +147,7 @@ public abstract class AbstractDbTester implements DbTester {
 			if (newScale > bd.scale()) {
 				bd = bd.setScale(newScale, RoundingMode.HALF_DOWN);
 			}
-			return bd.toPlainString();
+			return getBigDecimalLiteral(bd, df);
 		case TEXT:
 			// Replace singlequote
 			return "'" + FormulaTextUtil.replaceSimple(String.valueOf(value), "'", "''") + "'";
@@ -299,7 +299,7 @@ public abstract class AbstractDbTester implements DbTester {
 			if (newScale > bd.scale()) {
 				bd = bd.setScale(newScale, RoundingMode.HALF_DOWN);
 			}
-			pstmt.setBigDecimal(position, bd);
+			bindBigDecimal(pstmt, df, bd, position);
 			break;
 		case BOOLEAN:
 			pstmt.setString(position, Boolean.TRUE.equals(value) ? "1" : "0");
@@ -307,6 +307,27 @@ public abstract class AbstractDbTester implements DbTester {
 		default:
 			pstmt.setString(position, String.valueOf(value));
 		}
+	}
+
+	/**
+     * Return the literal to use in the statement for a big decimal.
+     * Sometimes needs to override the scale/precision, or handle bugs
+     * @param df the field being bound
+     * @param bd the BigDecimal with its scale set
+     */
+    protected String getBigDecimalLiteral(BigDecimal bd, DisplayField df) {
+        return bd.toPlainString();
+    }
+	
+	/**
+	 * Binding a big decimal sometimes needs to override the scale/precision, or handle bugs
+	 * @param pstmt the statement to bind
+	 * @param df the field being bound
+	 * @param bd the BigDecimal with its scale set
+	 * @param position the position in the statement.
+	 */
+	protected void bindBigDecimal(PreparedStatement pstmt, DisplayField df, BigDecimal bd, int position) throws SQLException {
+        pstmt.setBigDecimal(position, bd);
 	}
 	
 	/**
