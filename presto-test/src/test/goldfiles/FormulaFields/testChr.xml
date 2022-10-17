@@ -59,7 +59,6 @@
          <sqlNullAsNull>€</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula @ does not equal viaSql A -->
       <inputvalues>[64.5]</inputvalues>
          <formula>@</formula>
          <sql>A</sql>

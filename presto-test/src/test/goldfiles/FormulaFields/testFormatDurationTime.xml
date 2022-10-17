@@ -2,106 +2,106 @@
 <testCase name="testFormatDurationTime">
    <testInstance formula="FORMATDURATION(TimeValue(timeString2__c),TimeValue(timeString1__c))" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>TO_CHAR((INTERVAL '1 second' * ABS(((CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME))-(CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)))/1000)), 'HH24:MI:SS')</Sql>
+       <Sql>DATE_FORMAT((INTERVAL '1' second * ABS(((CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME))-(CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)))/1000)),'%H:%i:%s')</Sql>
        <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TO_CHAR((INTERVAL '1 second' * ABS(((CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME))-(CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)))/1000)), 'HH24:MI:SS')</Sql>
+       <Sql>DATE_FORMAT((INTERVAL '1' second * ABS(((CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME))-(CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)))/1000)),'%H:%i:%s')</Sql>
        <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL -->
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[10:34:55.666, 23:59:59.999]</inputvalues>
          <formula>13:25:04</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>13:25:04</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL -->
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[23:59:59.999, 10:34:55.666]</inputvalues>
          <formula>13:25:04</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>13:25:04</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL -->
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[23:56:45.898, 01:00:00.000]</inputvalues>
          <formula>22:56:45</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>22:56:45</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL -->
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[01:00:00.000, 23:56:45.898]</inputvalues>
          <formula>22:56:45</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>22:56:45</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL -->
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[00:00:29.345, 00:00:29.245]</inputvalues>
          <formula>00:00:00</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>00:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL -->
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[00:00:29.245, 00:00:29.345]</inputvalues>
          <formula>00:00:00</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>00:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL -->
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[00:00:00.000, 01:00:00.000]</inputvalues>
          <formula>01:00:00</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>01:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL -->
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[01:00:00.000, 00:00:00.000]</inputvalues>
          <formula>01:00:00</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>01:00:00</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL -->
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[01:00:00.000, ]</inputvalues>
          <formula>null</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL -->
+      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s)) -->
       <inputvalues>[, 01:00:00.000]</inputvalues>
          <formula>null</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[01:00:00.000, 01:66:29.345]</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[01:66:29.345, 01:00:00.000]</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
-         <sql>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sql>
+         <sql>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
-         <sqlNullAsNull>Error: io.trino.spi.TrinoException: line 1:71: Unknown resolvedType: INTERVAL</sqlNullAsNull>
+         <sqlNullAsNull>Error: line 1:98: Unexpected parameters (interval day to second) for function abs. Expected: abs(bigint), abs(double), abs(tinyint), abs(smallint), abs(integer), abs(real), abs(decimal(p,s))</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

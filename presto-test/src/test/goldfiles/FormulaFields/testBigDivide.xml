@@ -10,7 +10,6 @@
        <Guard>$!s0s!$.customnumber2__c=0</Guard>
     </SqlOutput>
       <result>
-      <!-- Test Case results don't match: viaFormula 1.00 does not equal viaSql 0.00 -->
       <inputvalues>[1, 1000000000, 1000000000]</inputvalues>
          <formula>1.000000000</formula>
          <sql>0</sql>
@@ -18,7 +17,6 @@
          <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula 1.00 does not equal viaSql 0.00 -->
       <inputvalues>[1, 123456789123456.24, 123456789123456.24]</inputvalues>
          <formula>1.00000000000000000000000000000000</formula>
          <sql>0</sql>

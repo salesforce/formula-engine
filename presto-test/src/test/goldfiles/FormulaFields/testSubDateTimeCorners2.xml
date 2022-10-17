@@ -2,118 +2,106 @@
 <testCase name="testSubDateTimeCorners2">
    <testInstance formula="(ceiling((customdatetime1__c-customdatetime2__c)*1440*60))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN ((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) ELSE FLOOR(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) END</Sql>
+       <Sql>CASE WHEN (((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) ELSE FLOOR(ROUND((((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN ((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) ELSE FLOOR(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) END</Sql>
+       <Sql>CASE WHEN (((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) ELSE FLOOR(ROUND((((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:31:11:01:00, 2004:12:31:11:00:00]</inputvalues>
          <formula>60</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>60</sql>
          <formulaNullAsNull>60</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>60</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:31:11:01:00, 2004:12:31:09:00:00]</inputvalues>
          <formula>7260</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>7261</sql>
          <formulaNullAsNull>7260</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>7261</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:31:11:01:00, 2004:12:30:11:00:00]</inputvalues>
          <formula>86460</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>86460</sql>
          <formulaNullAsNull>86460</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>86460</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:31:11:01:00, 2004:12:20:11:00:00]</inputvalues>
          <formula>950460</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>950460</sql>
          <formulaNullAsNull>950460</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>950460</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:31:12:00:00, 2004:12:30:11:00:00]</inputvalues>
          <formula>90000</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>90001</sql>
          <formulaNullAsNull>90000</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>90001</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:31:12:00:01, 2004:12:30:12:00:00]</inputvalues>
          <formula>86401</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>86402</sql>
          <formulaNullAsNull>86401</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>86402</sqlNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="(ceiling((customdatetime2__c-customdatetime1__c)*1440*60))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>CASE WHEN ((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60),33)) ELSE FLOOR(ROUND(((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60),33)) END</Sql>
+       <Sql>CASE WHEN (((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) ELSE FLOOR(ROUND((((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CASE WHEN ((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60),33)) ELSE FLOOR(ROUND(((($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime1__c) * 1440) * 60),33)) END</Sql>
+       <Sql>CASE WHEN (((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60)&gt;=0 THEN CEIL(ROUND((((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) ELSE FLOOR(ROUND((((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime1__c) AS DECIMAL(38,10))/86400) * 1440) * 60),33)) END</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:31:11:00:00, 2004:12:31:11:01:00]</inputvalues>
          <formula>-60</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>-60</sql>
          <formulaNullAsNull>-60</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>-60</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:31:09:00:00, 2004:12:31:11:01:00]</inputvalues>
          <formula>-7260</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>-7261</sql>
          <formulaNullAsNull>-7260</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>-7261</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:30:11:00:00, 2004:12:31:11:01:00]</inputvalues>
          <formula>-86460</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>-86460</sql>
          <formulaNullAsNull>-86460</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>-86460</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:20:11:00:00, 2004:12:31:11:01:00]</inputvalues>
          <formula>-950460</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>-950460</sql>
          <formulaNullAsNull>-950460</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>-950460</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:30:11:00:00, 2004:12:31:12:00:00]</inputvalues>
          <formula>-90000</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>-90001</sql>
          <formulaNullAsNull>-90000</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>-90001</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:88: Cannot apply operator: interval day to second <= integer -->
       <inputvalues>[2004:12:30:12:00:00, 2004:12:31:12:00:01]</inputvalues>
          <formula>-86401</formula>
-         <sql>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sql>
+         <sql>-86402</sql>
          <formulaNullAsNull>-86401</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:88: Cannot apply operator: interval day to second &lt;= integer</sqlNullAsNull>
+         <sqlNullAsNull>-86402</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

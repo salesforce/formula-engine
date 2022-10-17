@@ -2,166 +2,148 @@
 <testCase name="testSubDate">
    <testInstance formula="(customdate1__c-customdate2__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>($!s0s!$.customdate1__c-$!s0s!$.customdate2__c)</Sql>
+       <Sql>(CAST(-DATE_DIFF('SECOND',$!s0s!$.customdate1__c,$!s0s!$.customdate2__c) AS DECIMAL(38,10))/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>($!s0s!$.customdate1__c-$!s0s!$.customdate2__c)</Sql>
+       <Sql>(CAST(-DATE_DIFF('SECOND',$!s0s!$.customdate1__c,$!s0s!$.customdate2__c) AS DECIMAL(38,10))/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2004:12:31, 2004:12:01]</inputvalues>
          <formula>30</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>30</sql>
          <formulaNullAsNull>30</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>30</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2004:02:28, 2003:12:21]</inputvalues>
          <formula>69</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>69</sql>
          <formulaNullAsNull>69</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>69</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2004:02:27, 2003:02:27]</inputvalues>
          <formula>365</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>365</sql>
          <formulaNullAsNull>365</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>365</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2004:02:28, 2005:02:28]</inputvalues>
          <formula>-366</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>-366</sql>
          <formulaNullAsNull>-366</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>-366</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2004:02:27, 2004:03:27]</inputvalues>
          <formula>-29</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>-29</sql>
          <formulaNullAsNull>-29</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>-29</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[1900:02:27, 1901:02:27]</inputvalues>
          <formula>-365</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>-365</sql>
          <formulaNullAsNull>-365</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>-365</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[3998:02:27, 2997:02:27]</inputvalues>
          <formula>365607</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>365607</sql>
          <formulaNullAsNull>365607</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>365607</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[1999:12:31, 2000:01:01]</inputvalues>
          <formula>-1</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>-1</sql>
          <formulaNullAsNull>-1</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[1999:12:31, 2000:01:01]</inputvalues>
          <formula>-1</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>-1</sql>
          <formulaNullAsNull>-1</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="(customdate2__c-customdate1__c)" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>($!s0s!$.customdate2__c-$!s0s!$.customdate1__c)</Sql>
+       <Sql>(CAST(-DATE_DIFF('SECOND',$!s0s!$.customdate2__c,$!s0s!$.customdate1__c) AS DECIMAL(38,10))/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>($!s0s!$.customdate2__c-$!s0s!$.customdate1__c)</Sql>
+       <Sql>(CAST(-DATE_DIFF('SECOND',$!s0s!$.customdate2__c,$!s0s!$.customdate1__c) AS DECIMAL(38,10))/86400)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2004:12:01, 2004:12:31]</inputvalues>
          <formula>-30</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>-30</sql>
          <formulaNullAsNull>-30</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>-30</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2003:12:21, 2004:02:28]</inputvalues>
          <formula>-69</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>-69</sql>
          <formulaNullAsNull>-69</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>-69</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2003:02:27, 2004:02:27]</inputvalues>
          <formula>-365</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>-365</sql>
          <formulaNullAsNull>-365</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>-365</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2005:02:28, 2004:02:28]</inputvalues>
          <formula>366</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>366</sql>
          <formulaNullAsNull>366</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>366</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2004:03:27, 2004:02:27]</inputvalues>
          <formula>29</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>29</sql>
          <formulaNullAsNull>29</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>29</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[1901:02:27, 1900:02:27]</inputvalues>
          <formula>365</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>365</sql>
          <formulaNullAsNull>365</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>365</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2997:02:27, 3998:02:27]</inputvalues>
          <formula>-365607</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>-365607</sql>
          <formulaNullAsNull>-365607</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>-365607</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2000:01:01, 1999:12:31]</inputvalues>
          <formula>1</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer) -->
       <inputvalues>[2000:01:01, 1999:12:31]</inputvalues>
          <formula>1</formula>
-         <sql>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:8: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

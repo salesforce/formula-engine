@@ -80,7 +80,6 @@
          <sqlNullAsNull>Idempotent</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula İdempotent does not equal viaSql Idempotent -->
       <inputvalues>[İDEMPOTENT]</inputvalues>
          <formula>İdempotent</formula>
          <sql>Idempotent</sql>
@@ -123,7 +122,6 @@
          <sqlNullAsNull>Mr. 123smith</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula Mr. _Smith does not equal viaSql Mr. _smith -->
       <inputvalues>[mr. _smith]</inputvalues>
          <formula>Mr. _Smith</formula>
          <sql>Mr. _smith</sql>
@@ -166,7 +164,6 @@
          <sqlNullAsNull>Top Idempotent</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: viaFormula Bottom İdempotent does not equal viaSql Bottom Idempotent -->
       <inputvalues>[bottom İDEMPOTENT]</inputvalues>
          <formula>Bottom İdempotent</formula>
          <sql>Bottom Idempotent</sql>

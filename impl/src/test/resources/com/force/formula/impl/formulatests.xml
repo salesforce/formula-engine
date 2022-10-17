@@ -1899,7 +1899,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testInitCap" devName="testInitCap" labels="extended"
          labelName="testInitCap" dataType="Text"
          dataFile="initCap" 
-         whyIgnoreSql="mssql:not implemented,mysql:not implemented"
+         whyIgnoreSql="mssql:not implemented,mysql:not implemented,trino:dotted i"
          code="INITCAP(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
@@ -1908,6 +1908,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testChr" devName="testChr" labels="extended"
          labelName="testChr" dataType="Text"
          dataFile="unicodePoints" 
+         whyIgnoreSql="trino:rounding half up, not even"
          code="CHR(customnumber__c)">
          <referencefield devName="customnumber" labelName="customnumber"
              dataType="Double" scale="2" precision="12"/>
@@ -2710,7 +2711,7 @@ author: Srikanth Yendluri/Doug Chasman
      <!-- Tests for BUG:  -->
      <testcase name="testBigDivide" devName="testBigDivide" labels="math"
          labelName="testBigDivide" dataType="Double" dataFile="BigDivide"
-         scale="2" precision="15" whyIgnoreSql="mssql:precision limits"
+         scale="2" precision="15" whyIgnoreSql="mssql:precision limits,trino:precision limits"
          code="((customnumber1__c/customnumber2__c)*customnumber3__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="18"/>

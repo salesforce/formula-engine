@@ -6,15 +6,35 @@ package com.force.formula.sql;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.List;
 import java.util.Map;
 
-import com.force.formula.*;
+import com.force.formula.DisplayField;
+import com.force.formula.Formula;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaFieldReferenceInfo;
+import com.force.formula.FormulaRuntimeContext;
 import com.force.formula.FormulaSchema.Entity;
+import com.force.formula.FormulaTime;
+import com.force.formula.FormulaTypeSpec;
+import com.force.formula.MockFormulaDataType;
+import com.force.formula.MockFormulaType;
+import com.force.formula.RuntimeFormulaInfo;
 import com.force.formula.impl.BaseFormulaGenericTests.DbTester;
 import com.force.formula.impl.MapFormulaContext;
-import com.force.formula.util.*;
+import com.force.formula.util.FormulaDateUtil;
+import com.force.formula.util.FormulaI18nUtils;
+import com.force.formula.util.FormulaTextUtil;
 
 /**
  * A default implementation of DbTester of formulas that simplifies some stuff around
@@ -328,10 +348,18 @@ public abstract class AbstractDbTester implements DbTester {
 		switch (returnType) {
 		case DATEONLY:
 		case DATETIME:
-			Timestamp d = rset.getTimestamp(1);
-			if (d == null)
-				return null;
-			return d.toString();
+		    try {
+    			Timestamp d = rset.getTimestamp(1);
+    			if (d == null)
+    				return null;
+    			return d.toString();
+		    } catch (IllegalArgumentException ex) {
+		        // If it isn't a timestamp, see if it works as a date...
+		        java.sql.Date d = rset.getDate(1);
+                if (d == null)
+                    return null;
+                return new Timestamp(d.getTime()).toString();
+		    }
 		case CURRENCY:
 		case PERCENT:
 			BigDecimal bigDecimal = rset.getBigDecimal(1);

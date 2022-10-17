@@ -60,6 +60,8 @@ public class SystemFormulaContext extends NullFormulaContext {
         		return originDateTime_MYSQL;
         	} else if (style != null && style.isTransactSqlStyle()) {
         		return originDateTime_TSQL;
+            } else if (style != null && style.isPrestoStyle()) {
+                return originDateTime_PRESTO;
         	}
             return originDateTime;
         } else {
@@ -121,6 +123,8 @@ public class SystemFormulaContext extends NullFormulaContext {
         FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("TO_DATE('01-01-1900', 'DD-MM-YYYY')", null));
     private static final SystemFormulaFieldInfo originDateTime_MYSQL = new SystemFormulaFieldInfo(ORIGIN_DATE_TIME,
             FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("DATE('1900-01-01')", null));
+    private static final SystemFormulaFieldInfo originDateTime_PRESTO = new SystemFormulaFieldInfo(ORIGIN_DATE_TIME,
+            FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("DATE '1900-01-01'", null));
     private static final SystemFormulaFieldInfo originDateTime_TSQL = new SystemFormulaFieldInfo(ORIGIN_DATE_TIME,
             FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("DATEFROMPARTS(1900,1,1)", null));
     private static DisplayField[] displayFields = new DisplayField[] { new DisplayField(SYSTEM_NAMESPACE, SYSTEM_NAMESPACE, originDateTime) };

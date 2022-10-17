@@ -4,54 +4,54 @@
    <customformula0 dataType="ColumnType.DATETIME" formula="(customdatetime1__c+custompercent1__c)"/>
    <customformula1 dataType="ColumnType.DOUBLE" formula="(customdatetime2__c-customdatetime3__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>DATE_ADD('second', CAST(ROUND(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))*86400,0) AS BIGINT), DATE_ADD('second', CAST(ROUND(COALESCE(($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime3__c), 0)*86400,0) AS BIGINT), DATE_ADD('second', CAST(ROUND(COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400,0) AS BIGINT), DATE_ADD('second', CAST(ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400,0) AS BIGINT), $!s0s!$.customdatetime1__c))))</Sql>
+       <Sql>DATE_ADD('second', CAST(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))*86400 AS BIGINT), DATE_ADD('second', CAST(COALESCE((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400), 0)*86400 AS BIGINT), DATE_ADD('second', CAST(COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400 AS BIGINT), DATE_ADD('second', CAST(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400 AS BIGINT), $!s0s!$.customdatetime1__c))))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATE_ADD('second', CAST(ROUND(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))*86400,0) AS BIGINT), DATE_ADD('second', CAST(ROUND(($!s0s!$.customdatetime2__c-$!s0s!$.customdatetime3__c)*86400,0) AS BIGINT), DATE_ADD('second', CAST(ROUND(($!s0s!$.custompercent2__c / 100.0)*86400,0) AS BIGINT), DATE_ADD('second', CAST(ROUND(($!s0s!$.custompercent1__c / 100.0)*86400,0) AS BIGINT), $!s0s!$.customdatetime1__c))))</Sql>
+       <Sql>DATE_ADD('second', CAST(CAST(COALESCE(LENGTH($!s0s!$.customtext1__c),0) AS DECIMAL(38,18))*86400 AS BIGINT), DATE_ADD('second', CAST((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400)*86400 AS BIGINT), DATE_ADD('second', CAST(($!s0s!$.custompercent2__c / 100.0)*86400 AS BIGINT), DATE_ADD('second', CAST(($!s0s!$.custompercent1__c / 100.0)*86400 AS BIGINT), $!s0s!$.customdatetime1__c))))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
       <inputvalues>[3998:01:31:23:00:00, 200, 10, 3999:12:31:00:00:00, 3999:12:01:00:00:00, thisistext]</inputvalues>
          <formula>Sun Mar 15 01:24:00 GMT 3998</formula>
-         <sql>Error: line 1:214: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <sql>3998-03-15 01:24:00.0</sql>
          <formulaNullAsNull>Sun Mar 15 01:24:00 GMT 3998</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:151: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>3998-03-15 01:24:00.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1900:01:01:12:00:00, .004, 1, 2004:12:31:12:00:00, 2004:12:31:12:00:00, thisisnottext]</inputvalues>
          <formula>Sun Jan 14 12:14:27 GMT 1900</formula>
-         <sql>Error: line 1:214: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <sql>1900-01-14 12:14:27.0</sql>
          <formulaNullAsNull>Sun Jan 14 12:14:27 GMT 1900</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:151: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>1900-01-14 12:14:27.0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 100, , 2004:11:31:13:00:00, 2004:12:31:13:00:00, works]</inputvalues>
          <formula>null</formula>
-         <sql>Error: line 1:214: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <sql>null</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:151: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 100, , , 2004:12:31:14:00:00, doesnotwork]</inputvalues>
          <formula>null</formula>
-         <sql>Error: line 1:214: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <sql>null</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:151: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:31:23:00:00, , , 2004:11:31:24:00:00, 2004:12:31:14:00:00, flipping]</inputvalues>
          <formula>Fri Dec 10 09:00:00 GMT 2004</formula>
-         <sql>Error: line 1:214: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <sql>2004-12-10 09:00:00.0</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:151: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 100, , 2004:11:31:00:00:00, , not flipping]</inputvalues>
          <formula>null</formula>
-         <sql>Error: line 1:214: All COALESCE operands must be the same type or coercible to a common type. Cannot find common type between interval day to second and integer, all types (without duplicates): [interval day to second, integer]</sql>
+         <sql>null</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: line 1:151: Unexpected parameters (interval day to second, integer) for function round. Expected: round(bigint, integer), round(double), round(double, integer), round(bigint), round(real, integer), round(real), round(tinyint), round(tinyint, integer), round(smallint, integer), round(smallint), round(integer), round(integer, integer), round(decimal(p,s)), round(decimal(p,s), integer)</sqlNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

@@ -10,6 +10,7 @@ import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaTime;
 import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaDateUtil;
 
 /**
  * Implementation of FormulaSqlHooks for Presto style databases (Amazon Athena, Trino, etc).
@@ -187,26 +188,26 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
             }
         } else if (lhsDataType==FormulaDateTime.class) {
             if (!isAddition) {
-                return String.format("DATE_ADD('second', -CAST(ROUND(%s*86400,0) AS BIGINT), %s)", rhsValue, lhsValue);
+                return String.format("DATE_ADD('second', -CAST(%s*86400 AS BIGINT), %s)", rhsValue, lhsValue);
             } else {
-                return String.format("DATE_ADD('second', CAST(ROUND(%s*86400,0) AS BIGINT), %s)", rhsValue, lhsValue);
+                return String.format("DATE_ADD('second', CAST(%s*86400 AS BIGINT), %s)", rhsValue, lhsValue);
             }
         } else if (rhsDataType == Date.class) {
             return String.format("DATE_ADD('day', CAST(%s AS BIGINT), %s)", lhsValue, rhsValue);
         } else {
-            return String.format("DATE_ADD('second', CAST(ROUND(%s*86400,0) AS BIGINT), %s)", lhsValue, rhsValue);
+            return String.format("DATE_ADD('second', CAST(%s*86400 AS BIGINT), %s)", lhsValue, rhsValue);
         }
      }
     
     @Override
     default String sqlAddMillisecondsToTime(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
         if (rhsDataType == FormulaTime.class) {
-            return "(UNIX_TIMESTAMP(SUBTIME(" + lhsValue + ", " + rhsValue + "))%86400)*1000";
+            return "(DATE_DIFF('millisecond'," + rhsValue + "," + lhsValue + ")+"+FormulaDateUtil.MILLISECONDSPERDAY+")%"+FormulaDateUtil.MILLISECONDSPERDAY;
         } else {            
             if (!isAddition) {
-                return "TIME(DATE_SUB(" + lhsValue + ",INTERVAL MOD(" + rhsValue + "/1000,86400) SECOND))";
+                return "CAST(DATE_ADD('millisecond',-CAST(" + rhsValue + " AS BIGINT),"+lhsValue+") AS TIME)";
             } else {
-                return "TIME(DATE_ADD(" + lhsValue + ",INTERVAL MOD(" + rhsValue + "/1000,86400) SECOND))";
+                return "CAST(DATE_ADD('millisecond',CAST(" + rhsValue + " AS BIGINT),"+lhsValue+") AS TIME)";
             }
         }
     }
@@ -270,7 +271,32 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
 
     @Override
     default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
-        sql.append("CONCAT_WS(\"\",").append(isoCodeArg).append(",' ',FORMAT(").append(amountArg).append(',').append(maskStr).append("))");
+        sql.append("CONCAT_WS('',").append(isoCodeArg).append(",' ',FORMAT(").append(amountArg).append(',').append(maskStr).append("))");
     }
 
+    @Override
+    default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
+        String result;
+        if (daysIsParam != null) {
+            result = "(CASE WHEN "+daysIsParam+" THEN CONCAT(TRUNCATE(("+arg+")/86400,0),':',DATE_FORMAT(("+arg+"%86400)*interval '1' second,'%H:%i:%s')) ELSE DATE_FORMAT(("+arg+"%86400) * interval '1' second,'%H:%i:%s') END)";
+        } else if (includeDays) {
+            result = "CONCAT(TRUNCATE(("+arg+")/86400,0),':',DATE_FORMAT(("+arg+"%86400) * interval '1' second,'%H:%i:%s'))";
+        } else {
+            result = "DATE_FORMAT("+arg+",'%H:%i:%s')";
+        }
+        return result;
+    }
+    
+    @Override
+    default String sqlSubtractTwoTimestamps(boolean inSeconds) {
+        return inSeconds ? "CAST(-DATE_DIFF('SECOND',%s,%s) AS DECIMAL(38,10))" 
+                : "(CAST(-DATE_DIFF('SECOND',%s,%s) AS DECIMAL(38,10))/86400)";  
+    } 
+
+    @Override
+    default String sqlIntervalFromSeconds() {
+        return "(INTERVAL '1' second * ABS(%s))";
+    }
+
+    
 }
