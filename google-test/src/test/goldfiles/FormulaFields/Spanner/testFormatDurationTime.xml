@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationTime">
+   <testInstance formula="FORMATDURATION(TimeValue(timeString2__c),TimeValue(timeString1__c))" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNC(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)/3600)),':',FORMAT_TIMESTAMP('%M:%S', timestamp_seconds(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)), 'UTC'))</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNC(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)/3600)),':',FORMAT_TIMESTAMP('%M:%S', timestamp_seconds(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)), 'UTC'))</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[10:34:55.666, 23:59:59.999]</inputvalues>
+         <formula>13:25:04</formula>
+         <sql>13:25:04</sql>
+         <formulaNullAsNull>13:25:04</formulaNullAsNull>
+         <sqlNullAsNull>13:25:04</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:59:59.999, 10:34:55.666]</inputvalues>
+         <formula>13:25:04</formula>
+         <sql>13:25:04</sql>
+         <formulaNullAsNull>13:25:04</formulaNullAsNull>
+         <sqlNullAsNull>13:25:04</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[23:56:45.898, 01:00:00.000]</inputvalues>
+         <formula>22:56:45</formula>
+         <sql>22:56:45</sql>
+         <formulaNullAsNull>22:56:45</formulaNullAsNull>
+         <sqlNullAsNull>22:56:45</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 23:56:45.898]</inputvalues>
+         <formula>22:56:45</formula>
+         <sql>22:56:45</sql>
+         <formulaNullAsNull>22:56:45</formulaNullAsNull>
+         <sqlNullAsNull>22:56:45</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.345, 00:00:29.245]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.245, 00:00:29.345]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:00.000, 01:00:00.000]</inputvalues>
+         <formula>01:00:00</formula>
+         <sql>01:00:00</sql>
+         <formulaNullAsNull>01:00:00</formulaNullAsNull>
+         <sqlNullAsNull>01:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:00.000]</inputvalues>
+         <formula>01:00:00</formula>
+         <sql>01:00:00</sql>
+         <formulaNullAsNull>01:00:00</formulaNullAsNull>
+         <sqlNullAsNull>01:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 01:00:00.000]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 01:66:29.345]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;01:66:29.345&quot; - Statement: 'SELECT CASE WHEN 1=0 OR 1=0 THEN NULL ELSE SUBSTR(CONCAT(FORMAT('%02.0f',TRUNC(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)/3600)),':',FORMAT_TIMESTAMP('%M:%S', timestamp_seconds(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)), 'UTC')), 1, 1300) END FROM (SELECT 1 as fake, @p1 as timeString2__c, @p2 as timeString1__c) c'</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;01:66:29.345&quot; - Statement: 'SELECT CASE WHEN 1=0 OR 1=0 THEN NULL ELSE SUBSTR(CONCAT(FORMAT('%02.0f',TRUNC(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)/3600)),':',FORMAT_TIMESTAMP('%M:%S', timestamp_seconds(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)), 'UTC')), 1, 1300) END FROM (SELECT 1 as fake, @p1 as timeString2__c, @p2 as timeString1__c) c'</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:66:29.345, 01:00:00.000]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;01:66:29.345&quot; - Statement: 'SELECT CASE WHEN 1=0 OR 1=0 THEN NULL ELSE SUBSTR(CONCAT(FORMAT('%02.0f',TRUNC(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)/3600)),':',FORMAT_TIMESTAMP('%M:%S', timestamp_seconds(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)), 'UTC')), 1, 1300) END FROM (SELECT 1 as fake, @p1 as timeString2__c, @p2 as timeString1__c) c'</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;01:66:29.345&quot; - Statement: 'SELECT CASE WHEN 1=0 OR 1=0 THEN NULL ELSE SUBSTR(CONCAT(FORMAT('%02.0f',TRUNC(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)/3600)),':',FORMAT_TIMESTAMP('%M:%S', timestamp_seconds(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)), 'UTC')), 1, 1300) END FROM (SELECT 1 as fake, @p1 as timeString2__c, @p2 as timeString1__c) c'</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

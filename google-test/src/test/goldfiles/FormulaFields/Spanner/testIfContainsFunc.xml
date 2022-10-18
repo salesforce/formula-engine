@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfContainsFunc">
+   <testInstance formula="IF(CONTAINS(customtext1__c,customtext2__c),ABS(customnumber1__c),FLOOR(customnumber2__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.customtext2__c IS NULL) OR (STRPOS($!s0s!$.customtext1__c, $!s0s!$.customtext2__c) &gt;= 1)) THEN ABS(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN FLOOR(ROUND(COALESCE($!s0s!$.customnumber2__c, 0),33)) ELSE CEIL(ROUND(COALESCE($!s0s!$.customnumber2__c, 0),33)) END END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.customtext2__c IS NULL) OR (STRPOS($!s0s!$.customtext1__c, $!s0s!$.customtext2__c) &gt;= 1)) THEN COALESCE(ABS($!s0s!$.customnumber1__c),CAST(NULL AS NUMERIC)) ELSE COALESCE(CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber2__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber2__c,33)) END,CAST(NULL AS NUMERIC)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[123456789, 123456789, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[12345678, 123456789, 200, 300]</inputvalues>
+         <formula>300</formula>
+         <sql>300</sql>
+         <formulaNullAsNull>300</formulaNullAsNull>
+         <sqlNullAsNull>300</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[12345678, 1234567, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 10.24, 200, 300]</inputvalues>
+         <formula>300</formula>
+         <sql>300</sql>
+         <formulaNullAsNull>300</formulaNullAsNull>
+         <sqlNullAsNull>300</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10.24, , 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 123.123456789, 200, 300]</inputvalues>
+         <formula>300</formula>
+         <sql>300</sql>
+         <formulaNullAsNull>300</formulaNullAsNull>
+         <sqlNullAsNull>300</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456780, 123.123456789, 200, 300]</inputvalues>
+         <formula>300</formula>
+         <sql>300</sql>
+         <formulaNullAsNull>300</formulaNullAsNull>
+         <sqlNullAsNull>300</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123.23456789, 123.123456780, 200, 300]</inputvalues>
+         <formula>300</formula>
+         <sql>300</sql>
+         <formulaNullAsNull>300</formulaNullAsNull>
+         <sqlNullAsNull>300</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-200.434, 200.434,  200,  300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200,  -200.434,  200, 300]</inputvalues>
+         <formula>300</formula>
+         <sql>300</sql>
+         <formulaNullAsNull>300</formulaNullAsNull>
+         <sqlNullAsNull>300</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 0, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200, 200, 0.123456789, 0.123456789]</inputvalues>
+         <formula>0.123456789</formula>
+         <sql>0.123456789</sql>
+         <formulaNullAsNull>0.123456789</formulaNullAsNull>
+         <sqlNullAsNull>0.123456789</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[201, 200, 0.123456789, 0.123456789]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200, 201, 0.123456789, 0.123456789]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

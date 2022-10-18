@@ -47,6 +47,14 @@ public interface FormulaSqlStyle {
 	}	
 	
 	/**
+     * @return whether or not to default to Google Standard SQL (bigtable/spanner) style of sql.
+     */
+    default boolean isGoogleStyle() {
+        return false;
+    }   
+    
+	
+	/**
 	 * @return the function name for taking a substring.
 	 */
 	default String getSubstringFunction() {

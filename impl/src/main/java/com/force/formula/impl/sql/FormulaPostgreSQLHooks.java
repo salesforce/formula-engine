@@ -10,9 +10,9 @@ import com.force.formula.FormulaDateTime;
 import com.force.formula.impl.FormulaSqlHooks;
 
 /**
- * Implementation of FormulaSqlHooks for PostgreSQL-style DBs
+ * Implementation of FormulaSqlHooks for Google Standard SQL DBs (BigTable/Spanner)
  * @author stamm
- * @since 0.2
+ * @since 0.3
  */
 public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
 	@Override
@@ -65,7 +65,7 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
      * @return the string to use for String.format to convert something to date generically, without a specified
      */
 	@Override
-    default String sqlToDate() {
+    default String sqlToDate(Type dateType) {
 		return "CAST(%s AS DATE)";
     }
 
@@ -116,7 +116,7 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      */
 	@Override
-    default String sqlSubtractTwoTimestamps(boolean inSeconds) {
+    default String sqlSubtractTwoTimestamps(boolean inSeconds, Type dateType) {
         return inSeconds ? "(EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))::numeric"
                 : "((EXTRACT(EPOCH FROM %s)-EXTRACT(EPOCH FROM %s))::numeric/86400)";
     } 
@@ -156,7 +156,7 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
      * @return the format to use for adding months.
      */
 	@Override
-    default String sqlAddMonths(String dateArg, String numMonths) {
+    default String sqlAddMonths(String dateArg, Type dateArgType, String numMonths) {
 	    StringBuffer sb = new StringBuffer();
 	    sb.append(" (CASE");
 	    sb.append(" WHEN extract(day FROM (date_trunc('month', %s) + interval '1 month -1 day')::timestamp(0))::numeric = ");
@@ -189,7 +189,7 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
      * @return how to get the unix epoch from a given date for String.format
      */
 	@Override
-    default String sqlGetEpoch() {
+    default String sqlGetEpoch(Type dateType) {
     	return "EXTRACT(EPOCH FROM %s)::numeric";
     }
     
@@ -201,6 +201,11 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
     	return "TO_TIMESTAMP(%s)";
     }
 
+    @Override
+    default String sqlGetWeekday() {
+        return "1+EXTRACT (DOW FROM %s)::numeric";
+    }
+    
     @Override
     default String sqlGetIsoWeek() {
 		return "CAST(TO_CHAR(%s, 'IW') AS NUMERIC)";

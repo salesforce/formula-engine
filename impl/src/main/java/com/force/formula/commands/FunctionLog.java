@@ -2,10 +2,12 @@ package com.force.formula.commands;
 
 import java.math.BigDecimal;
 
-import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.JsValue;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -37,7 +39,7 @@ public class FunctionLog extends UnaryMathCommandBehavior {
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
         String sql;
     	FormulaSqlHooks hooks = (FormulaSqlHooks) context.getSqlStyle();
-        if (hooks.isTransactSqlStyle()) {
+        if (hooks.isTransactSqlStyle() || hooks.isGoogleStyle()) {
         	sql = String.format(hooks.sqlToNumber(),"LOG10(" + args[0] + ")");
         } else {
         	sql = "LOG(10, " + args[0] + ")";

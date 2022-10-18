@@ -41,7 +41,7 @@ public class FormulaTestCaseInfo {
 
     public FormulaTestCaseInfo(FormulaTestUtils utils, String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
                                List<FieldDefinitionInfo> referenceFields, String owner, String compareType, String evalContexts,  String compareTemplate,
-                               String whyIgnoreSql, String whyIgnoreJs,
+                               Map<String,WhyIgnoreSql> whyIgnoreSql, String whyIgnoreJs,
                                boolean multipleResultTypes) {
         this.testUtils = utils;
         this.testCaseName = tcName;
@@ -68,7 +68,7 @@ public class FormulaTestCaseInfo {
             } else
                 this.compare = CompareType.Text;
         }
-        this.whyIgnoreSql = parseWhyIgnoreSql(whyIgnoreSql);
+        this.whyIgnoreSql = whyIgnoreSql;
         this.whyIgnoreJs = whyIgnoreJs.length() > 0 ? whyIgnoreJs : null;
         this.evalContexts = parseContext(evalContexts);
         this.compareContexts = parseContext(compareTemplate);
@@ -93,13 +93,6 @@ public class FormulaTestCaseInfo {
         return ctx;
     }
     
-    protected Map<String,String> parseWhyIgnoreSql(String str) {
-    	if (str == null || str.length() == 0) {
-    		return Collections.emptyMap();
-    	}
-    	return Splitter.on(',').withKeyValueSeparator(':').split(str);
-    }
-
     public String getDataFileName() {
         return "".equals(this.dataFileName) ? null : this.dataFileName;
     }
@@ -145,19 +138,20 @@ public class FormulaTestCaseInfo {
         return this.swapTypes;
     }
     
-    public String whyIgnoreSql(String dbTypeName) {
-    	String forAll = this.whyIgnoreSql.get("all");
-    	if (forAll != null) {
-    		return forAll;
-    	}
-    	return this.whyIgnoreSql.get(dbTypeName);
+    public WhyIgnoreSql whyIgnoreSql(String dbTypeName) {
+        WhyIgnoreSql why = this.whyIgnoreSql.get(dbTypeName);
+        if (why != null) {
+            return why;
+        }
+        // Get the "all" version
+        return this.whyIgnoreSql.get("all");
     }
     
     public String getWhyIgnoreJs() {
     	return this.whyIgnoreJs;
     }
     
-    public Map<String,String> getWhyIgnoreSql() {
+    public Map<String,WhyIgnoreSql> getWhyIgnoreSql() {
     	return this.whyIgnoreSql;
     }
     
@@ -404,7 +398,33 @@ public class FormulaTestCaseInfo {
             return this == NeedHighPrecision || this == FloorCeiling;
         }
     }
-
+    
+    public static final class WhyIgnoreSql {
+        private final String db;
+        private final String reason;   // reason for the failure
+        private final int numFailures;  // if 0, don't bother  
+        private final boolean unimplemented;
+        
+        public WhyIgnoreSql(String db, String reason, int numFailures, boolean unimplemented) {
+            super();
+            this.db = db;
+            this.reason = reason;
+            this.numFailures = numFailures;
+            this.unimplemented = unimplemented;
+        }
+        public String getDb() {
+            return db;
+        }
+        public String getReason() {
+            return reason;
+        }
+        public int getNumFailures() {
+            return numFailures;
+        }
+        public boolean isUnimplemented() {
+            return unimplemented;
+        }
+    }
     
     FormulaTestUtils testUtils;
     private final Collection<String> testLabels;
@@ -416,7 +436,7 @@ public class FormulaTestCaseInfo {
     private boolean swapTypes = false;
     private boolean swapArgs = false;
     private boolean isNegative = false;
-    private Map<String,String> whyIgnoreSql;
+    private Map<String,WhyIgnoreSql> whyIgnoreSql;
     private String whyIgnoreJs;
     private String errorCode = null;
     private String errorMsg = null;

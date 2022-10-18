@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationSeconds">
+   <testInstance formula="FORMATDURATION(customNumber1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNC(CAST(TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0) AS INT64)/3600)),':',FORMAT_TIMESTAMP('%M:%S', timestamp_seconds(CAST(TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0) AS INT64)), 'UTC'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNC(CAST(TRUNC(ABS($!s0s!$.customNumber1__c),0) AS INT64)/3600)),':',FORMAT_TIMESTAMP('%M:%S', timestamp_seconds(CAST(TRUNC(ABS($!s0s!$.customNumber1__c),0) AS INT64)), 'UTC'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24]</inputvalues>
+         <formula>00:00:24</formula>
+         <sql>00:00:24</sql>
+         <formulaNullAsNull>00:00:24</formulaNullAsNull>
+         <sqlNullAsNull>00:00:24</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.99]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[86400]</inputvalues>
+         <formula>24:00:00</formula>
+         <sql>24:00:00</sql>
+         <formulaNullAsNull>24:00:00</formulaNullAsNull>
+         <sqlNullAsNull>24:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1000000]</inputvalues>
+         <formula>277:46:40</formula>
+         <sql>277:46:40</sql>
+         <formulaNullAsNull>277:46:40</formulaNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1000000]</inputvalues>
+         <formula>277:46:40</formula>
+         <sql>277:46:40</sql>
+         <formulaNullAsNull>277:46:40</formulaNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -6,8 +6,20 @@ package com.force.formula.util;
 
 import java.util.Calendar;
 
-import com.force.formula.*;
-import com.force.formula.sql.*;
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.DisplayField;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaReturnType;
+import com.force.formula.FormulaSchema;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.UnsupportedTypeException;
+import com.force.formula.sql.FormulaSQLProvider;
+import com.force.formula.sql.FormulaSqlStyle;
+import com.force.formula.sql.ITableAliasRegistry;
+import com.force.formula.sql.SQLPair;
 import com.force.i18n.BaseLocalizer;
 
 /**
@@ -60,6 +72,8 @@ public class SystemFormulaContext extends NullFormulaContext {
         		return originDateTime_MYSQL;
         	} else if (style != null && style.isTransactSqlStyle()) {
         		return originDateTime_TSQL;
+            } else if (style != null && style.isGoogleStyle()) {
+                return originDateTime_GOOGLE;
         	}
             return originDateTime;
         } else {
@@ -123,6 +137,8 @@ public class SystemFormulaContext extends NullFormulaContext {
             FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("DATE('1900-01-01')", null));
     private static final SystemFormulaFieldInfo originDateTime_TSQL = new SystemFormulaFieldInfo(ORIGIN_DATE_TIME,
             FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("DATEFROMPARTS(1900,1,1)", null));
+    private static final SystemFormulaFieldInfo originDateTime_GOOGLE = new SystemFormulaFieldInfo(ORIGIN_DATE_TIME,
+            FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("DATE(1900,1,1)", null));
     private static DisplayField[] displayFields = new DisplayField[] { new DisplayField(SYSTEM_NAMESPACE, SYSTEM_NAMESPACE, originDateTime) };
 
     static {

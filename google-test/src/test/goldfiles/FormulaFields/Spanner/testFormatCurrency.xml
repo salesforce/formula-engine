@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatCurrency">
+   <testInstance formula="FORMATCURRENCY(isocode__c, customNumber1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>CONCAT(COALESCE($!s0s!$.isocode__c,''),' ',FORMAT(CASE WHEN $!s0s!$.isocode__c IN('JPY')THEN&quot;%'.0f&quot;WHEN $!s0s!$.isocode__c IN('KWD')THEN&quot;%'.3f&quot;ELSE&quot;%'.2f&quot;END,COALESCE($!s0s!$.customNumber1__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customNumber1__c IS NULL THEN NULL ELSE CONCAT(COALESCE($!s0s!$.isocode__c,''),' ',FORMAT(CASE WHEN $!s0s!$.isocode__c IN('JPY')THEN&quot;%'.0f&quot;WHEN $!s0s!$.isocode__c IN('KWD')THEN&quot;%'.3f&quot;ELSE&quot;%'.2f&quot;END,$!s0s!$.customNumber1__c))END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[USD, 1000]</inputvalues>
+         <formula>USD 1,000.00</formula>
+         <sql>USD 1,000.00</sql>
+         <formulaNullAsNull>USD 1,000.00</formulaNullAsNull>
+         <sqlNullAsNull>USD 1,000.00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[USD, 1000.495]</inputvalues>
+         <formula>USD 1,000.50</formula>
+         <sql>USD 1,000.50</sql>
+         <formulaNullAsNull>USD 1,000.50</formulaNullAsNull>
+         <sqlNullAsNull>USD 1,000.50</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[USD, -1000]</inputvalues>
+         <formula>USD -1,000.00</formula>
+         <sql>USD -1,000.00</sql>
+         <formulaNullAsNull>USD -1,000.00</formulaNullAsNull>
+         <sqlNullAsNull>USD -1,000.00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[USD, -1000.495]</inputvalues>
+         <formula>USD -1,000.50</formula>
+         <sql>USD -1,000.50</sql>
+         <formulaNullAsNull>USD -1,000.50</formulaNullAsNull>
+         <sqlNullAsNull>USD -1,000.50</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[JPY, 500]</inputvalues>
+         <formula>JPY 500</formula>
+         <sql>JPY 500</sql>
+         <formulaNullAsNull>JPY 500</formulaNullAsNull>
+         <sqlNullAsNull>JPY 500</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[JPY, 999999999]</inputvalues>
+         <formula>JPY 999,999,999</formula>
+         <sql>JPY 999,999,999</sql>
+         <formulaNullAsNull>JPY 999,999,999</formulaNullAsNull>
+         <sqlNullAsNull>JPY 999,999,999</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[INR, 999999999]</inputvalues>
+         <formula>INR 999,999,999.00</formula>
+         <sql>INR 999,999,999.00</sql>
+         <formulaNullAsNull>INR 999,999,999.00</formulaNullAsNull>
+         <sqlNullAsNull>INR 999,999,999.00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[KWD, 15.10]</inputvalues>
+         <formula>KWD 15.100</formula>
+         <sql>KWD 15.100</sql>
+         <formulaNullAsNull>KWD 15.100</formulaNullAsNull>
+         <sqlNullAsNull>KWD 15.100</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 1000]</inputvalues>
+         <formula> 1,000.00</formula>
+         <sql> 1,000.00</sql>
+         <formulaNullAsNull> 1,000.00</formulaNullAsNull>
+         <sqlNullAsNull> 1,000.00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, -1000]</inputvalues>
+         <formula> -1,000.00</formula>
+         <sql> -1,000.00</sql>
+         <formulaNullAsNull> -1,000.00</formulaNullAsNull>
+         <sqlNullAsNull> -1,000.00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[JPY, -999999999]</inputvalues>
+         <formula>JPY -999,999,999</formula>
+         <sql>JPY -999,999,999</sql>
+         <formulaNullAsNull>JPY -999,999,999</formulaNullAsNull>
+         <sqlNullAsNull>JPY -999,999,999</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[INR, -999999999]</inputvalues>
+         <formula>INR -999,999,999.00</formula>
+         <sql>INR -999,999,999.00</sql>
+         <formulaNullAsNull>INR -999,999,999.00</formulaNullAsNull>
+         <sqlNullAsNull>INR -999,999,999.00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[KWD, -15.10]</inputvalues>
+         <formula>KWD -15.100</formula>
+         <sql>KWD -15.100</sql>
+         <formulaNullAsNull>KWD -15.100</formulaNullAsNull>
+         <sqlNullAsNull>KWD -15.100</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -62,10 +62,20 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
-     * @return the string to use for String.format to convert something to date generically, without a specified
+     * @return the string to use for String.format to convert something to date generically, without a specified type
+     * @deprecated use the version with a type, for those DBs that distinguish Date and Timestamp 
      */
+    @Deprecated(forRemoval=true, since="0.3")
     default String sqlToDate() {
 		return "CAST(%s AS DATE)";
+    }
+        
+    /**
+     * @return the string to use for String.format to convert something to date, with a specified type
+     * @param type the type (whether FormulaDateTime.class or Date.class)
+     */
+    default String sqlToDate(Type type) {
+        return sqlToDate();
     }
 
     /**
@@ -96,7 +106,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 		return "HH24:mi:ss.MS";
     }
     
-    
     /**
      * @return the string to use for TO_TIMESTAMP to get seconds.  It's a subtle difference
      */
@@ -104,13 +113,41 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 		return "SSSS";
     }
     
+    
+    /**
+     * @return extract the TIME value from a date time.  For those DBs with a useful time type this
+     * could be easy, for others that pass around milliseconds, this converts to a number
+     */
+    default String sqlExtractTimeFromDateTime(String dateTimeExpr) {
+        return String.format(sqlToNumber(), String.format("TO_CHAR(%s, '"+sqlSecsInDay()+"')", dateTimeExpr)) + " * 1000"; // date does not have millisec info
+    }
+
+    /**
+     * @return the TIME value for the given string of the format "HH:MM:SS.UUU".
+     * @param stringExpr the string containing the expression
+     */
+    default String sqlParseTime(String stringExpr) {
+        return String.format(sqlToNumber(), String.format("TO_CHAR(TO_TIMESTAMP(%s, '"+sqlHMSAndMsecs()+"'),'"+sqlSecsAndMsecs()+"')", stringExpr)) + " * 1000" ;
+    }
+    
     /**
      * @return the function to use for conversion to Date generically.
+     * @deprecated use the version with a type, for those DBs that distinguish Date and Timestamp 
      */
+    @Deprecated(forRemoval=true, since="0.3")
     default String sqlNullToDate() {
     	return String.format(sqlToDate(), "NULL");
     }
 
+    
+    /**
+     * @return the function to use for conversion to Date specifically.
+     * @param type the specific date time to use.
+     */
+    default String sqlNullToDate(Type type) {
+        return String.format(sqlToDate(type), "NULL");
+    }
+    
     /**
      * @return the function to use for conversion to Date generically.
      */
@@ -169,12 +206,25 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * 
      * @param inSeconds, should difference be returned in seconds or in days.  This will allow precision errors to be
      * handled better.
+     * @deprecated use the version that passes in the DateType to support DBs that distinguish Date and Timestamp
      */
+    @Deprecated(forRemoval=true, since="0.3")
     default String sqlSubtractTwoTimestamps(boolean inSeconds) {
         return inSeconds ? "(%s-%s)*86400" : "(%s-%s)";
     } 
-
     
+    /**
+     * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
+     * missing from psql, but available in oracle.  This allows you to try and fix that.
+     * 
+     * @param inSeconds, should difference be returned in seconds or in days.  This will allow precision errors to be
+     * handled better.
+     * @param dateType the type of date being subtracted
+     */
+    default String sqlSubtractTwoTimestamps(boolean inSeconds, Type dateType) {
+        return sqlSubtractTwoTimestamps(inSeconds);
+    } 
+
     /**
      * @return the function that allows subtraction of two time values to get the second/day difference.
      * Return the difference in the two times *in seconds*
@@ -213,9 +263,19 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 
     /**
      * @return how to get the unix epoch from a given date for String.format
+     * @deprecated use the version that takes the date type
      */
+    @Deprecated(forRemoval=true, since="0.3")
     default String sqlGetEpoch() {
     	return "ROUND((%s - DATE '1970-01-01') * 86400)";
+    }
+
+    /**
+     * @return how to get the unix epoch from a given date for String.format
+     * @param dateType the type of the date from which to retrieve the epoch
+     */
+    default String sqlGetEpoch(Type dateType) {
+        return sqlGetEpoch();
     }
     
     /**
@@ -233,12 +293,19 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
+     * @return how to get the day of the week (1-7, with Sunday being 1) from the date provided, suitable for String.format
+     */
+    default String sqlGetWeekday() {
+        return "TO_NUMBER(TO_CHAR(%s,'d'))";
+    }
+    
+    /**
      * @return how to get the ISO 8601 week number from a date or datetime, suitable for String.format
      */
     default String sqlGetIsoWeek() {
         return "TO_NUMBER(TO_CHAR(%s, 'IW'))";
     }
-    
+        
     /**
      * @return how to get the ISO 8601 year number from a date or datetime, suitable for String.format
      */
@@ -253,6 +320,16 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         return "TO_NUMBER(TO_CHAR(%s, 'DDD'))";
     }
     
+
+    /**
+     * @return how to construct a date from the given expressions for year, month and day
+     * @param yearSql a sql expression returning the year, possibly as a string
+     * @param monthSql a sql expression returning the month, possibly as a string
+     * @param daySql a sql expression returning the year, possibly as a string
+     */
+    default String sqlConstructDate(String yearSql, String monthSql, String daySql) {
+        return "TO_DATE(" + yearSql + " || '-' || " + monthSql + " || '-' || " + daySql + ", 'YYYY-MM-DD')";
+    }
     
     /**
      * Function right can be... complicated, especially in Oracle
@@ -289,11 +366,22 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     
     /**
      * @return the expression to use for adding a number of months to a date
+     * @deprecated use the version that take the date type
      */
+    @Deprecated(forRemoval=true, since="0.3")
     default String sqlAddMonths(String dateArg, String numMonths) {
     	throw new UnsupportedOperationException();
-     }
+    }
     
+    /**
+     * @return the expression to use for adding a number of months to a date
+     * @param dateArg the argument of the date or datetime
+     * @param dateArgType the type of argument for the date
+     * @param numMonths the expression with the number of months to add
+     */
+    default String sqlAddMonths(String dateArg, Type dateArgType, String numMonths) {
+        return sqlAddMonths(dateArg, numMonths);
+    }    
     
     /**
      * @return the format for converting to a datetime value
@@ -365,7 +453,16 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlLastDayOfMonth() {
     	throw new UnsupportedOperationException();
     }
-
+    
+    /**
+     * Use in the guard for FunctionDate, this returns a date in the given month and year.
+     * @param yearValue a number or string representing the year
+     * @param monthValue a number of string representing the month
+     * @return how to convert from a year and month to a day.
+     */
+    default String sqlDateFromYearAndMonth(String yearValue, String monthValue) {
+        return "TO_DATE(" + yearValue + " || '-' || " + monthValue + ",'YYYY-MM')";
+    }
     
     /**
      * @return the format for converting to a datetime value
