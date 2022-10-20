@@ -36,7 +36,7 @@ public class FunctionPi extends FormulaCommandInfoImpl {
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         FormulaSqlHooks hooks = getSqlHooks(context);
         String function = "PI()";
-        if (hooks.isOracleStyle()) {
+        if (hooks.isOracleStyle() || hooks.isGoogleStyle()) {
             function = "3.14159265358979323846"; // Use a constant
         }
         return new SQLPair(hooks.sqlTrigConvert(function), null);

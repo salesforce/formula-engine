@@ -81,11 +81,6 @@ public abstract class FormulaMySQLTests extends FormulaGenericTests {
 		}
 
 		@Override
-		protected boolean shouldCompareSql() {
-			return super.shouldCompareSql();
-		}
-
-		@Override
 		protected String getDirectory() {
 			return "src/test/goldfiles/FormulaFields/MySQL";
 		}

@@ -78,7 +78,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
                 } else {
                     // we know it's false
                     guard = SQLPair.generateGuard(guards, "0=0");
-                    sql = String.format(getSqlHooks(context).sqlToDate(), "NULL");
+                    sql = String.format(getSqlHooks(context).sqlToDate(Date.class), "NULL");
                 }
             } else {
                 // Guard protects against malformed dates as strings. It assumes all months have 31 days. Validates invalid months. Accepts years from 0000-9999.

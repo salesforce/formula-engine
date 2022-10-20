@@ -29,7 +29,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
      * @return the string to use for String.format to convert something to date generically, without a specified
      */
     @Override
-    default String sqlToDate() {
+    default String sqlToDate(Type dateType) {
 		return "CONVERT(DATETIME,%s)";
     }
     
@@ -48,6 +48,11 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     @Override
     default String sqlToDateIso() {
 		return "CONVERT(DATE, %s)";
+    }
+    
+    @Override
+    default String sqlConstructDate(String yearSql, String monthSql, String daySql) {
+        return "DATEFROMPARTS(" + yearSql + "," + monthSql + "," + daySql + ")";
     }
   
     /**
@@ -113,7 +118,11 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 	default String sqlLastDayOfMonth() {
 		return "DAY(EOMONTH(%s))";
 	}
-	
+    
+    @Override
+    default String sqlDateFromYearAndMonth(String yearValue, String monthValue) {
+        return "DATEFROMPARTS(" + yearValue + "," + monthValue + ",1)";
+    }
     
 	// See https://docs.microsoft.com/en-us/sql/t-sql/functions/cast-and-convert-transact-sql?view=sql-server-ver15
     @Override
@@ -141,7 +150,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
      * missing from mysql, but available in oracle.  This allows you to try and fix that.
      */
     @Override
-    default String sqlSubtractTwoTimestamps(boolean inSeconds) {
+    default String sqlSubtractTwoTimestamps(boolean inSeconds, Type dateType) {
     	// If you are older than sqlserver 16, you'll need to use DATEDIFF and deal with the errors
     	return inSeconds ? "CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))" 
     	        : "(CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))/86400)";  
@@ -180,7 +189,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 	@Override
     default String sqlAddMillisecondsToTime(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
 		if (rhsDataType == FormulaTime.class) {
-			// Diff needs to be positvbe
+			// Diff needs to be positive
         	return "(DATEDIFF(millisecond," + rhsValue + "," + lhsValue + ")+"+FormulaDateUtil.MILLISECONDSPERDAY+")%"+FormulaDateUtil.MILLISECONDSPERDAY;
 		} else {        	
             if (!isAddition) {
@@ -196,7 +205,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
      * @return the format to use for adding months.
      */
 	@Override
-    default String sqlAddMonths(String dateArg, String numMonths) {
+    default String sqlAddMonths(String dateArg, Type dateArgType, String numMonths) {
     	return String.format("DATEADD(MONTH, %s, %s)", numMonths, dateArg);
     }
 	
@@ -205,7 +214,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
      * @return how to get the unix epoch from a given date for String.format
      */
 	@Override
-    default String sqlGetEpoch() {
+    default String sqlGetEpoch(Type dateType) {
     	return "DATEDIFF_BIG(second, '1970-01-01', %s)";
     }
     
@@ -226,6 +235,11 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     }
 	
     @Override
+    default String sqlGetWeekday() {
+        return "DATEPART(weekday,%s)";
+    }
+    
+    @Override
     default String sqlGetIsoWeek() {
 		return "DATEPART(isoww, %s)";
     }
@@ -238,6 +252,16 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     @Override
     default String sqlGetDayOfYear() {
 		return "DATEPART(dayofyear, %s)";
+    }
+    
+    @Override
+    default String sqlExtractTimeFromDateTime(String dateTimeExpr) {
+        return String.format("CAST(%s as TIME)", dateTimeExpr);
+    }
+    
+    @Override
+    default String sqlParseTime(String stringExpr) {
+        return String.format("CAST(%s as TIME)", stringExpr);
     }
     
 

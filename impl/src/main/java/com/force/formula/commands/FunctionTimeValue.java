@@ -63,25 +63,11 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             guard = SQLPair.generateGuard(guards, null);
         }
         else if (inputDataType == FormulaDateTime.class) {
-        	if (style.isMysqlStyle()) {
-        		sql =  String.format("TIME(%s)", args[0]);
-        	} else if (style.isTransactSqlStyle() || style.isPrestoStyle()) {
-        		sql =  String.format("CAST(%s as TIME)", args[0]);
-        	} else {
-        		sql =  String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(%s, '"+getSqlHooks(context).sqlSecsInDay()+"')", args[0])) + " * 1000"; // date does not have millisec info        		
-        	}
+            sql = getSqlHooks(context).sqlExtractTimeFromDateTime(args[0]);
             guard = SQLPair.generateGuard(guards, null);
         } 
         else {
-        	if (style.isMysqlStyle()) {
-        		sql =  String.format("TIME(%s)", args[0]);
-        	} else if (style.isTransactSqlStyle()) {
-        		sql =  String.format("CAST(%s as TIME)", args[0]);
-        	} else if (style.isPrestoStyle()) {
-        	    sql =  String.format("CAST(date_parse(%s, '%%H:%%i:%%s.%%f') as TIME)", args[0]);
-        	} else {
-        		sql=  String.format(getSqlHooks(context).sqlToNumber(), String.format("TO_CHAR(TO_TIMESTAMP(%s, '"+getSqlHooks(context).sqlHMSAndMsecs()+"'),'"+getSqlHooks(context).sqlSecsAndMsecs()+"')", args[0])) + " * 1000" ;
-        	}
+            sql = getSqlHooks(context).sqlParseTime(args[0]);
 
             FormulaAST child = (FormulaAST)node.getFirstChild();
             if (child != null && child.isLiteral() && child.getDataType() == String.class) {

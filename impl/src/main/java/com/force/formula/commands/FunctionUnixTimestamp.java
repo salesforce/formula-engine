@@ -48,7 +48,7 @@ public class FunctionUnixTimestamp extends FormulaCommandInfoImpl implements For
     	if (type == FormulaTime.class) {
             return new SQLPair(String.format(getSqlHooks(context).sqlGetTimeInSeconds(), args[0]), guards[0]);
     	}
-        return new SQLPair(String.format(getSqlHooks(context).sqlGetEpoch(), args[0]), guards[0]);
+        return new SQLPair(String.format(getSqlHooks(context).sqlGetEpoch(type), args[0]), guards[0]);
     }
   
     @Override

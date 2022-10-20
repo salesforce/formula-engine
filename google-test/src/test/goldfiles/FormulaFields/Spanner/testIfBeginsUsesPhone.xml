@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfBeginsUsesPhone">
+   <testInstance formula="IF(BEGINS(customphone1__c,customtext1__c),customnumber1__c,custompercent1__c)" returntype="Currency" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (STRPOS($!s0s!$.customphone1__c, $!s0s!$.customtext1__c) = 1)) THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (STRPOS($!s0s!$.customphone1__c, $!s0s!$.customtext1__c) = 1)) THEN $!s0s!$.customnumber1__c ELSE ($!s0s!$.custompercent1__c / 100.0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[Golden File, File, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Golden File, n F, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Golden File, gold, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[This is a very long text and works very well with this type of test and works better with more department wise contract and @ this # this $ this % this ^ this &amp; this * this ( this ) this) this, This is a very long text and works very well with this type of test and works better with more department wise contract and @ this #, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[This is a very long text and works very well with this type of test and works better with more department wise contract and @ this # this $ this % this ^ this &amp; this * this ( this ) this) this, Nonexistant, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[!Hello World, !, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Hello World!, !, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[\\ Works Great and \&quot; and Works Greate Twoo, \\, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Works Great and \\ \&quot; and Works Greate Twoo, \\, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[510 797 4647, 510 797 4647, 200, 300]</inputvalues>
+         <formula>200</formula>
+         <sql>200</sql>
+         <formulaNullAsNull>200</formulaNullAsNull>
+         <sqlNullAsNull>200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[510-797-4647, 510 797 4647, 200, 300]</inputvalues>
+         <formula>3</formula>
+         <sql>3</sql>
+         <formulaNullAsNull>3</formulaNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

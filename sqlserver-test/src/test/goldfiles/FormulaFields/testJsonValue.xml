@@ -2,11 +2,11 @@
 <testCase name="testJsonValue">
    <testInstance formula="JSONVALUE(customjson__c, 'Temperature')" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>json_value($!s0s!$.customjson__c,'$.'+'Temperature')</Sql>
+       <Sql>json_value($!s0s!$.customjson__c,CONCAT('$.', 'Temperature'))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>json_value($!s0s!$.customjson__c,'$.'+'Temperature')</Sql>
+       <Sql>json_value($!s0s!$.customjson__c,CONCAT('$.', 'Temperature'))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>

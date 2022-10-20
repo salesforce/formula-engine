@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNullNotEqualEmptyString">
+   <testInstance formula="customText1__c != ''" returntype="Boolean">
+    <SqlOutput nullAsNull="true">
+       <Sql>(COALESCE($!s0s!$.customText1__c, COALESCE('','')||COALESCE('x',''))&lt;&gt;COALESCE($!s0s!$.customText1__c,'')||COALESCE('x',''))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(COALESCE($!s0s!$.customText1__c, COALESCE('','')||COALESCE('x',''))&lt;&gt;COALESCE($!s0s!$.customText1__c,'')||COALESCE('x',''))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[Text]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Hello]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ConText]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Context]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[&quot;&quot;]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>['']</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[%]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

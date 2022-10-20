@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNVLWithTextArea">
+   <testInstance formula="NULLVALUE(customtextarea1__c,customtext1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customtextarea1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customtextarea1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[Has it,  Not Null]</inputvalues>
+         <formula>Has it</formula>
+         <sql>Has it</sql>
+         <formulaNullAsNull>Has it</formulaNullAsNull>
+         <sqlNullAsNull>Has it</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[,  Is Null]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Has It, ]</inputvalues>
+         <formula>Has It</formula>
+         <sql>Has It</sql>
+         <formulaNullAsNull>Has It</formulaNullAsNull>
+         <sqlNullAsNull>Has It</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[I, Not Null]</inputvalues>
+         <formula>I</formula>
+         <sql>I</sql>
+         <formulaNullAsNull>I</formulaNullAsNull>
+         <sqlNullAsNull>I</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

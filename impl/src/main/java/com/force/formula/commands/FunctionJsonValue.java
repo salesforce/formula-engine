@@ -116,7 +116,7 @@ public class FunctionJsonValue extends FormulaCommandInfoImpl implements Formula
             String sql = "CAST(json_extract(" + args[0] + "," + path + ") AS VARCHAR)";
             return new SQLPair(sql, guard);
         } else {
-            String sql = "json_value("+args[0] + ",'$.'+" + args[1] + ")";
+            String sql = "json_value("+args[0] + ","+String.format(hooks.sqlConcat(false),"'$.'", args[1]) + ")";
             return new SQLPair(sql, guard);
         }
     }
