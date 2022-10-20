@@ -2,11 +2,11 @@
 <testCase name="testTimeValueWithValidInValid">
    <testInstance formula="TimeValue(DATETIMEVALUE(dateString__c))" returntype="TimeOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>CAST(date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s') as TIME)</Sql>
+       <Sql>CAST(date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s') AS TIME)</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>CAST(date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s') as TIME)</Sql>
+       <Sql>CAST(date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s') AS TIME)</Sql>
        <Guard>1=0</Guard>
     </SqlOutput>
       <result>

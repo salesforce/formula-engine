@@ -63,6 +63,7 @@ author: Srikanth Yendluri/Doug Chasman
          </referencefield>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="trino" numFailures="2">decimal overflow</whyIgnoreSql>
      </testcase> 
      <testcase name="testIfNumCompareGreater" labels="math"
          devName="testIfNumCompareGreater" labelName="testIfNumCompareGreater"
@@ -244,6 +245,7 @@ author: Srikanth Yendluri/Doug Chasman
                  labelName="customcurrency2" dataType="Currency" scale="9"
                  precision="18"/>
          </referencefield>
+         <whyIgnoreSql db="trino" numFailures="14">decimal overflow</whyIgnoreSql>
      </testcase>
      <!-- Huge negative rounding is an error without HP -->
      <testcase name="testRoundUsesIf" devName="testRoundUsesIf" labels="math"
@@ -288,6 +290,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="trino" numFailures="6">decimal overflow</whyIgnoreSql>
      </testcase>
      <testcase name="testTruncUsesFloorAbs" devName="testTruncUsesFloorAbs" labels="math"
          labelName="testTruncUsesFloorAbs" dataType="Double"
@@ -464,6 +467,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="28">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="28">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testMFloorRound" devName="testMFloorRound"
          whyIgnoreSql="postgres:precision differences,mssql:precision differences"
@@ -474,6 +478,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="28">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="28">precision differences</whyIgnoreSql>
      </testcase>        
      <testcase name="testFloorUsesAbs" devName="testFloorUsesAbs"
          labelName="testFloorUsesAbs" dataType="Double" dataFile="absData"
@@ -593,6 +598,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="2">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="2">precision differences</whyIgnoreSql>
      </testcase>
 
      <!-- NOTES: TESTCASES FOR CEIL() FUNCTION -->
@@ -616,6 +622,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="26">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="26">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testMCeilRound" devName="testMCeilRound" labels="math" whyIgnoreSql="postgres:precision differences"
          labelName="testMCeilRound" dataType="Double" dataFile="floorCeilRoundData"
@@ -625,6 +632,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="26">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="26">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testCeilUsesAbs" devName="testCeilUsesAbs" labels="math"
          labelName="testCeilUsesAbs" dataType="Double" dataFile="absData"
@@ -744,6 +752,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customcurrency1" labelName="customcurrency1"
              dataType="Currency" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="4">Max Scale of 9 with binds</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="4">Max Scale of 9 with binds</whyIgnoreSql>
      </testcase>
      <!-- Need high precision for this one due to .0000000001 -->
      <testcase name="testCeilUsesPlus" devName="testCeilUsesPlus" labels="math"
@@ -755,6 +764,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="2">JDBC maximum scale of 9</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="2">JDBC maximum scale of 9</whyIgnoreSql>
      </testcase>
 
      <!-- NOTES: TESTCASES FOR MOD() FUNCTION -->
@@ -1002,6 +1012,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Percent" scale="2" precision="12"/>
          <referencefield devName="customcurrency1" labelName="customcurrency1"
              dataType="Currency" scale="2" precision="12"/>
+         <whyIgnoreSql db="trino" numFailures="2">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testLogUsesMultiply" devName="testLogUsesMultiply" labels="extended"
          labelName="testLogUsesMultiply" dataType="Double"
@@ -1012,6 +1023,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="2">Max Scale of 9 with binds</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="2">precision differences</whyIgnoreSql>
      </testcase>
 
      <!-- NOTES: TESTCASES FOR LN() FUNCTION -->
@@ -1122,6 +1134,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Percent" scale="2" precision="12"/>
          <referencefield devName="customcurrency1" labelName="customcurrency1"
              dataType="Currency" scale="2" precision="12"/>
+         <whyIgnoreSql db="trino" numFailures="2">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testLNUsesMultiply" devName="testLNUsesMultiply" labels="extended"
          labelName="testLNUsesMultiply" dataType="Double"
@@ -1132,6 +1145,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="2">Max Scale of 9 with binds</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="6">precision differences</whyIgnoreSql>
      </testcase>
 
      <!-- Tests for BUG:  -->
@@ -1146,6 +1160,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="18"/>
          <whyIgnoreSql db="spanner" numFailures="2">Precision limits</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="4">Precision limits</whyIgnoreSql>
      </testcase>
      <testcase name="testBigDivideWithFunc" labels="math"
          devName="testBigDivideWithFunc" labelName="testBigDivideWithFunc"

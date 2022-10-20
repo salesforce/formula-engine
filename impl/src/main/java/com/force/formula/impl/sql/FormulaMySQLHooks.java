@@ -130,17 +130,17 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 		}
     }
 	
-	@Override
+    @Override
     default String sqlExtractTimeFromDateTime(String dateTimeExpr) {
         return String.format("TIME(%s)", dateTimeExpr);
     }
     
-	@Override
+    @Override
     default String sqlParseTime(String stringExpr) {
         return String.format("TIME(%s)", stringExpr);
     }
 	
-	@Override
+    @Override
     default String sqlConstructDate(String yearSql, String monthSql, String daySql) {
         return "DATE(CONCAT(" + yearSql + ",'-'," + monthSql + ",'-'," + daySql + "))";
     }

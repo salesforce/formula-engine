@@ -24,7 +24,6 @@ import com.force.formula.impl.IllegalArgumentTypeException;
 import com.force.formula.impl.JsValue;
 import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.impl.WrongNumberOfArgumentsException;
-import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaDateUtil;
 import com.force.i18n.BaseLocalizer;
@@ -54,8 +53,6 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             TableAliasRegistry registry) {
         Type inputDataType = ((FormulaAST)node.getFirstChild()).getDataType();
 
-        FormulaSqlStyle style = context.getSqlStyle();
-        
         String sql;
         String guard;
         if (inputDataType == FormulaTime.class) {

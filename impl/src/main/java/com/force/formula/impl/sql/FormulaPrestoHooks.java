@@ -178,6 +178,29 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
     }
 
     @Override
+    default String sqlExtractTimeFromDateTime(String dateTimeExpr) {
+        return String.format("CAST(%s AS TIME)", dateTimeExpr);
+    }
+    
+    @Override
+    default String sqlParseTime(String stringExpr) {
+        return String.format("CAST(date_parse(%s, '%%H:%%i:%%s.%%f') as TIME)", stringExpr);
+    }
+	
+    
+    @Override
+    default String sqlConstructDate(String yearSql, String monthSql, String daySql) {
+         return "CAST(from_iso8601_date(CONCAT(CAST(" + yearSql + " AS VARCHAR),'-',CAST(" + monthSql + " AS VARCHAR),'-',CAST(" + daySql + " AS VARCHAR))) AS TIMESTAMP)";
+    }
+
+    @Override
+    default String sqlDateFromYearAndMonth(String yearValue, String monthValue) {
+        return "DATE(CONCAT(CAST(" + yearValue + " AS VARCHAR),'-',CAST(" + monthValue + " AS VARCHAR),'-01'))";
+    }
+     
+
+    
+    @Override
     default String sqlAddDaysToDate(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType, boolean isAddition) {
         if (lhsDataType == Date.class ) {
             // <date|timestamp> <+|-> <number>
@@ -239,6 +262,12 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
     default String sqlGetDayOfYear() {
         return "DAY_OF_YEAR(%s)";
     }
+
+    @Override
+    default String sqlGetWeekday() {
+        return "1+DAY_OF_WEEK(%s)";
+    }
+    
     
     @Override
     default String sqlGetIsoWeek() {
