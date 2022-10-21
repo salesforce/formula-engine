@@ -9,6 +9,26 @@ build dynamic ftests using specific data templates.
 author: Srikanth Yendluri/Doug Chasman
 -->
 <formula-test>
+
+     <!-- TESTCASES for VALUE() -->
+     <!--  TODO SLT: Decimal fails on '+1' -->
+     <testcase name="testVALUE" devName="testVALUE"
+         labelName="testVALUE" dataType="Double" scale="2" dataFile="valueFunctionData"
+         code="value(customtext1__c)">
+         <referencefield devName="customtext1" labelName="customtext1"
+             dataType="Text" length="255"/>
+         <whyIgnoreSql db="mssql" numFailures="14">no exponent support</whyIgnoreSql>
+     </testcase>
+
+     <!-- TESTCASES for ISNUMBER() -->
+     <!-- TODO SLT: Ignore because isNan('&dash;&dash;1234') is wrong in Nashorn.. Note the double dash is two - -->
+     <testcase name="testISNUMBER" devName="testISNUMBER"
+         labelName="testISNUMBER" dataType="Double" scale="2" dataFile="valueFunctionData"
+         code="if(ISNUMBER(customtext1__c),1,0)">
+         <referencefield devName="customtext1" labelName="customtext1"
+             dataType="Text" length="255"/>
+         <whyIgnoreSql db="mssql" numFailures="6">isnumeric allows minus sign</whyIgnoreSql>
+     </testcase>
      
      <!-- Found BUG ID: 63109 - http://bugforce.eng.salesforce.com/bug/bugDetail.jsp?id=100000000000HfK -->
      <!-- Found BUG ID: 64302 - http://bugforce.eng.salesforce.com/bug/bugDetail.jsp?id=100000000000I04  -->
@@ -161,6 +181,119 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
+     
+     
+
+     <!-- NOTES: TESTCASES FOR ABS() FUNCTION -->
+     <testcase  name="testAbsCurr" devName="testAbsCurr" labels="extended"
+         labelName="testAbsCurr" dataType="Currency" dataFile="absData"
+         scale="2" precision="12" code="ABS(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testAbsSwapTypes" devName="testAbsSwapTypes" labels="extended"
+         labelName="testAbsSwapTypes" dataType="Double" dataFile="absData"
+         swapTypes="true" scale="2" precision="12" code="ABS(customnumber1__c)">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+
+     <testcase name="testAbsUsesIf" devName="testAbsUsesIf" labels="extended"
+         labelName="testAbsUsesIf" dataType="Double"
+         dataFile="twoNumericFields" scale="2" precision="12"
+         code="ABS(IF(true,customnumber1__c,customnumber2__c))">
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testAbsUsesCase" devName="testAbsUsesCase" labels="extended"
+         labelName="testAbsUsesCase" dataType="Double"
+         dataFile="caseCompareDateReturnNum" scale="2" precision="12"
+         code="ABS(CASE(customdate1__c,customdate2__c,customnumber1__c,customdate3__c,customnumber2__c,customnumber3__c))">
+         <referencefield devName="customdate1" labelName="customdate1"
+             dataType="DateOnly"/>
+         <referencefield devName="customdate2" labelName="customdate2"
+             dataType="DateOnly"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customdate3" labelName="customdate3"
+             dataType="DateOnly"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber3" labelName="customnumber3"
+             dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mariadb" numFailures="2">date comparison differences</whyIgnoreSql>
+     </testcase>
+     <testcase name="testAbsUsesLen" devName="testAbsUsesLen" labels="extended"
+         labelName="testAbsUsesLen" dataType="Double"
+         dataFile="singleTextFieldData" scale="2" precision="12"
+         code="ABS(LEN(customtext1__c))">
+         <referencefield devName="customtext1" labelName="customtext1"
+             dataType="Text" length="255"/>
+     </testcase>
+     <testcase name="testAbsUsesValue" devName="testAbsUsesValue" labels="extended"
+         labelName="testAbsUsesValue" dataType="Double" dataFile="absData"
+         scale="2" precision="12" code="ABS(VALUE(customtext1__c))">
+         <referencefield devName="customtext1" labelName="customtext1"
+             dataType="Text" length="255"/>
+     </testcase>
+     <testcase name="testAbsUsesMinus" devName="testAbsUsesMinus" labels="extended"
+         labelName="testAbsUsesMinus" dataType="Double"
+         dataFile="twoNumericFields" scale="2" precision="12"
+         code="ABS((custompercent1__c-customcurrency1__c))">
+         <referencefield devName="custompercent1" labelName="custompercent1"
+             dataType="Percent" scale="2" precision="12"/>
+         <referencefield devName="customcurrency1" labelName="customcurrency1"
+             dataType="Currency" scale="2" precision="12"/>
+     </testcase>
+     <testcase name="testAbsUsesPlus" devName="testAbsUsesPlus" labels="extended"
+         labelName="testAbsUsesPlus" dataType="Double"
+         dataFile="twoNumericFields" scale="2" precision="12"
+         code="ABS((custompercent1__c+customnumber1__c))">
+         <referencefield devName="custompercent1" labelName="custompercent1"
+             dataType="Percent" scale="2" precision="12"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+     </testcase>
+
+
+     <testcase name="testRoundUsesCase" devName="testRoundUsesCase"
+         labelName="testRoundUsesCase" dataType="Double"
+         dataFile="caseUsesCase" scale="2" precision="12"
+         code="ROUND(CASE(customdate1__c,customdate2__c,customnumber1__c,customdate3__c,customnumber2__c,customnumber3__c),customformula1__c)">
+         <referencefield devName="customdate1" labelName="customdate1"
+             dataType="DateOnly"/>
+         <referencefield devName="customdate2" labelName="customdate2"
+             dataType="DateOnly"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customdate3" labelName="customdate3"
+             dataType="DateOnly"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customnumber3" labelName="customnumber3"
+             dataType="Double" scale="2" precision="12"/>
+         <referencefield devName="customformula1" labelName="customformula1"
+             dataType="Double" scale="2" precision="12"
+             code="CASE(customdatetime1__c,customdatetime2__c,customnumber4__c,customdatetime3__c,customnumber5__c,customnumber6__c)">
+             <referencefield devName="customdatetime1"
+                 labelName="customdatetime1" dataType="DateTime"/>
+             <referencefield devName="customdatetime2"
+                 labelName="customdatetime2" dataType="DateTime"/>
+             <referencefield devName="customnumber4" labelName="customnumber4"
+                 dataType="Double" scale="9" precision="18"/>
+             <referencefield devName="customdatetime3"
+                 labelName="customdatetime3" dataType="DateTime"/>
+             <referencefield devName="customnumber5" labelName="customnumber5"
+                 dataType="Double" scale="9" precision="18"/>
+             <referencefield devName="customnumber6" labelName="customnumber6"
+                 dataType="Double" scale="9" precision="18"/>
+         </referencefield>
+         <whyIgnoreSql db="mariadb" numFailures="2">date comparison differences</whyIgnoreSql>
+     </testcase>
+
+     
      <!-- NOTES: TESTCASES FOR ROUND() FUNCTION -->
      <!-- simple testcases with pos and neg versions of same things....-->
      <testcase name="testRoundSimple"
@@ -440,6 +573,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mariadb" numFailures="2">date comparison differences</whyIgnoreSql>
      </testcase>
 
      <!-- NOTES: TESTCASES FOR FLOOR() FUNCTION -->
@@ -456,24 +590,24 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
      </testcase>
      <testcase name="testFloorRound" devName="testFloorRound" labels="math" 
-         whyIgnoreSql="postgres:precision differences,mssql:precision differences"
          labelName="testFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="FLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="spanner" numFailures="28">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,spanner" numFailures="28">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="mssql,mariadb" numFailures="54">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testMFloorRound" devName="testMFloorRound"
-         whyIgnoreSql="postgres:precision differences,mssql:precision differences"
          labelName="testMFloorRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MFLOOR((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="spanner" numFailures="28">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,spanner" numFailures="28">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="mssql,mariadb" numFailures="54">precision differences</whyIgnoreSql>
      </testcase>        
      <testcase name="testFloorUsesAbs" devName="testFloorUsesAbs"
          labelName="testFloorUsesAbs" dataType="Double" dataFile="absData"
@@ -519,6 +653,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mariadb">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testFloorUsesMOD" devName="testFloorUsesMOD" labels="extended"
          labelName="testFloorUsesMOD" dataType="Double" dataFile="modData"
@@ -555,6 +690,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mariadb" numFailures="2">date comparison differences</whyIgnoreSql>
      </testcase>
      <testcase name="testFloorUsesLen" devName="testFloorUsesLen" labels="extended"
          labelName="testFloorUsesLen" dataType="Double"
@@ -608,23 +744,23 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
      </testcase>
-     <testcase name="testCeilRound" devName="testCeilRound" labels="math" whyIgnoreSql="postgres:precision differences"
+     <testcase name="testCeilRound" devName="testCeilRound" labels="math"
          labelName="testCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="CEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="spanner" numFailures="26">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,spanner" numFailures="26">precision differences</whyIgnoreSql>
      </testcase>
-     <testcase name="testMCeilRound" devName="testMCeilRound" labels="math" whyIgnoreSql="postgres:precision differences"
+     <testcase name="testMCeilRound" devName="testMCeilRound" labels="math"
          labelName="testMCeilRound" dataType="Double" dataFile="floorCeilRoundData"
          scale="2" precision="12" code="MCEILING((customnumber1__c/customnumber2__c)*customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="spanner" numFailures="26">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,spanner" numFailures="26">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testCeilUsesAbs" devName="testCeilUsesAbs" labels="math"
          labelName="testCeilUsesAbs" dataType="Double" dataFile="absData"
@@ -721,6 +857,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mariadb" numFailures="2">date comparison differences</whyIgnoreSql>
      </testcase>
      <testcase name="testCeilUsesLen" devName="testCeilUsesLen" labels="extended"
          labelName="testCeilUsesLen" dataType="Double"
@@ -980,6 +1117,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mariadb" numFailures="2">date comparison differences</whyIgnoreSql>
      </testcase>
      <testcase name="testLogUsesLen" devName="testLogUsesLen" labels="extended"
          labelName="testLogUsesLen" dataType="Double"
@@ -1100,6 +1238,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mariadb" numFailures="2">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testLNUsesLen" devName="testLNUsesLen" labels="math"
          labelName="testLNUsesLen" dataType="Double"
@@ -1137,7 +1276,7 @@ author: Srikanth Yendluri/Doug Chasman
      <!-- Tests for BUG:  -->
      <testcase name="testBigDivide" devName="testBigDivide" labels="math"
          labelName="testBigDivide" dataType="Double" dataFile="BigDivide"
-         scale="2" precision="15" whyIgnoreSql="mssql:precision limits"
+         scale="2" precision="15"
          code="((customnumber1__c/customnumber2__c)*customnumber3__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="18"/>
@@ -1150,7 +1289,7 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testBigDivideWithFunc" labels="math"
          devName="testBigDivideWithFunc" labelName="testBigDivideWithFunc"
          dataType="Double" dataFile="threeNumericFields" scale="2"
-         precision="12" whyIgnoreSql="mssql:precision limits"
+         precision="12"
          code="( ( (customnumber1__c * customnumber2__c )/(value(text(customnumber2__c )) ^ customnumber2__c ) )*(customnumber3__c ^ customnumber3__c ))">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="18"/>
@@ -1182,33 +1321,37 @@ author: Srikanth Yendluri/Doug Chasman
 
      <testcase name="testMax" devName="testMax"
         labelName="testMax" dataType="Double" scale="2" precision="12" dataFile="twoNumericFields" labels="math"
-        whyIgnoreSql="postgres:ignores null,mssql:no greatest"
         code="MAX(customNumber1__c,customNumber2__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+         <whyIgnoreSql db="postgres" numFailures="3">ignores null</whyIgnoreSql>
+         <whyIgnoreSql db="mssql" unimplemented="true">no greatest</whyIgnoreSql>
     </testcase>
     <testcase name="testMin" devName="testMin"
         labelName="testMin" dataType="Double" scale="2" precision="12" dataFile="twoNumericFields" labels="math"
-        whyIgnoreSql="postgres:ignores null,mssql:no least"
         code="MIN(customNumber1__c,customNumber2__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+         <whyIgnoreSql db="postgres" numFailures="3">ignores null</whyIgnoreSql>
+         <whyIgnoreSql db="mssql" unimplemented="true">no least</whyIgnoreSql>
     </testcase>
     <testcase name="testMax3" devName="testMax"
         labelName="testMax3" dataType="Double" scale="2" precision="12" dataFile="threeNumericFields" labels="math"
-        whyIgnoreSql="postgres:ignores null,mssql:no greatest"
         code="MAX(customNumber1__c,customNumber2__c,customNumber3__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber3" labelName="customNumber3" dataType="Double" scale="2" precision="12" />
+         <whyIgnoreSql db="postgres" numFailures="6">ignores null</whyIgnoreSql>
+         <whyIgnoreSql db="mssql" unimplemented="true">no greatest</whyIgnoreSql>
     </testcase>
     <testcase name="testMin3" devName="testMin"
         labelName="testMin" dataType="Double" scale="2" precision="12" dataFile="threeNumericFields" labels="math"
-        whyIgnoreSql="postgres:ignores null,mssql:no least"
         code="MIN(customNumber1__c,customNumber2__c,customNumber3__c)">
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber2" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
          <referencefield devName="customNumber3" labelName="customNumber3" dataType="Double" scale="2" precision="12" />
+         <whyIgnoreSql db="postgres" numFailures="6">ignores null</whyIgnoreSql>
+         <whyIgnoreSql db="mssql" unimplemented="true">no least</whyIgnoreSql>
     </testcase>
 
 
@@ -1262,12 +1405,12 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testArcTan2" devName="testArcTan2"
          labelName="testArcTan2" dataType="Double"
          dataFile="twoNumericFields" scale="2" labels="math"
-         whyIgnoreSql="oracle:Divide by zero yields null not 0,mssql:Divide by zero yields null not 0"
          precision="12" code="ATAN2(customnumber1__c,customnumber2__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="oracle,mssql" numFailures="14">Divide by zero yields null not 0</whyIgnoreSql>
      </testcase>
      
 </formula-test>

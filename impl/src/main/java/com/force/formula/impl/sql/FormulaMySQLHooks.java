@@ -137,6 +137,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     
 	@Override
     default String sqlParseTime(String stringExpr) {
+	    // Note, this doesn't work for MariaDB... 
         return String.format("TIME(%s)", stringExpr);
     }
 	
@@ -401,4 +402,39 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     default Object sqlMakeStringComparable(Object str, boolean forCompare) {
 		return "binary " + str;
     }
+	
+	
+	public interface MariaDBHooks extends FormulaMySQLHooks {
+	    @Override
+	    default String sqlParseTime(String stringExpr) {
+	        // TIME() doesn't parse times in MariaDB, unlike Mysql.  So use str_to_date to parse fractional
+	        return String.format("TIME(STR_TO_DATE(%s,'%%T.%%f'))", stringExpr);
+	    }
+	    
+	    /**
+	     * Unix timestamp is fractional in MariaDB
+	     * See https://mariadb.com/kb/en/unix_timestamp/
+	     */
+	    @Override
+	    default String sqlGetEpoch(Type dateType) {
+	        return "FLOOR(UNIX_TIMESTAMP(%s))";
+	    }
+	    
+	    @Override
+	    default String sqlGetTimeInSeconds() {
+	        return "FLOOR(TIME_TO_SEC(%s))";
+	    }
+
+	    @Override
+	    default String sqlAddMillisecondsToTime(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
+	        if (rhsDataType == FormulaTime.class) {
+	            // Use TIMEDIFF.  SUBTIME is better in Mysql since it handles negatives correctly.
+	            return "FLOOR(TIME_TO_SEC(TIMEDIFF(" + lhsValue + ", " + rhsValue + "))*1000)";
+	        } else {
+	            return FormulaMySQLHooks.super.sqlAddMillisecondsToTime(lhsValue, lhsDataType, rhsValue, rhsDataType, isAddition);
+	        }
+	    }
+	    
+	}
+	
 }

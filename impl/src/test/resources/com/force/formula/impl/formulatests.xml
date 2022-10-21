@@ -45,6 +45,7 @@ author: Srikanth Yendluri/Doug Chasman
          labelName="testHourWithValidString" dataType="Double" eval="formula,template"
          scale="2" precision="12"
          code="Hour(TIMEVALUE(&quot;10:40:55.666&quot;))">
+         <whyIgnoreSql db="mariadb">date comparison</whyIgnoreSql>
      </testcase>
      
      <testcase name="testMinuteWithValidString" devName="testMinuteWithValidString"
@@ -167,10 +168,10 @@ author: Srikanth Yendluri/Doug Chasman
       <testcase name="testFromUnixTime" devName="testFromUnixTime" labels="extended"
          labelName="testFromUnixTime" dataType="DateTime" eval="formula,template" dataFile="unixtimestamp"
          scale="3" precision="15" 
-         whyIgnoreSql="mysql:no negative timestamp support"
          code="FromUnixTime(customnumber1__c)">
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mysql,mariadb" numFailures="4">no negative timestamp support</whyIgnoreSql>
       </testcase>
       <testcase name="testUnixTimestampWithTime" devName="testUnixTimestampWithTime" labels="extended"
          labelName="testUnixTimestampWithTime" dataType="Double" eval="formula,template" dataFile="functiontimevalue-dateandtime"
@@ -387,22 +388,22 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testAddMonths" devName="testAddMonths" labels="extended"
          labelName="testAddMonths" dataType="DateTime" dataFile="addMonths" 
-         whyIgnoreSql="mysql:leap day,mariadb:leap day,mssql: leap day"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateTime"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="8">Leap Day Issues</whyIgnoreSql>         
+         <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="12">leap day</whyIgnoreSql>
      </testcase>
      <testcase name="testAddMonthsDate" devName="testAddMonthsDate" labels="extended"
          labelName="testAddMonthsDate" dataType="DateOnly" dataFile="addMonths" 
-         whyIgnoreSql="mysql:leap day,mariadb:leap day,mssql: leap day"
          scale="2" precision="12" code="ADDMONTHS(customdate1__c,customnumber1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateOnly"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="12">leap day</whyIgnoreSql>
      </testcase>
      <testcase name="testWeekday" devName="testWeekday"
          labelName="testWeekday" dataType="Double" dataFile="addDate"
@@ -422,12 +423,12 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <testcase name="testUnixTimestampWithDate" devName="testUnixTimestampWithDate"
          labelName="testUnixTimestampWithDate" dataType="Double" dataFile="addDate"
-         whyIgnoreSql="mysql:no negative timestamp support"
          scale="2" precision="12" code="UNIXTIMESTAMP(customdate1__c)">
          <referencefield devName="customdate1" labelName="customdate1"
              dataType="DateOnly"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mysql,mariadb" numFailures="6">no negative timestamp support</whyIgnoreSql>
      </testcase>     
      <testcase name="testAddDateWithExpr" devName="testAddDateWithExpr"
          labelName="testAddDateWithExpr" dataType="DateOnly"
@@ -467,12 +468,12 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testAddMonthsDateTime" devName="testAddMonthsDateTime"
          labelName="testAddMonthsDateTime" dataType="DateTime" dataFile="addDateTime"
          scale="2" precision="12"  
-         whyIgnoreSql="mysql:leap day,mariad:leap day,mssql:leap day"
          code="ADDMONTHS(customdatetime1__c,customnumber1__c)">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="4">leap day</whyIgnoreSql>
      </testcase>
      <testcase name="testAddDateTimeMinutes" devName="testAddDateTimeMinutes"
          labelName="testAddDateTimeMinutes" dataType="DateTime" dataFile="addDateTimeMinutes"
@@ -786,13 +787,14 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
      <!-- really dumb case... -->
      <testcase name="testIfNullNullIf" devName="testIfNullNullIf" labels="extended"
-         labelName="testIfNullNullIf" dataType="Text" scale="2" whyIgnoreSql="postgres:incorrectly converts null to text for number comparison"
+         labelName="testIfNullNullIf" dataType="Text" scale="2"
          dataFile="ifTextCompareReturnText" precision="12"
          code="if( if (customtext1__c=customtext2__c, null, null) = 0,  &quot;true&quot;, &quot;false&quot;)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
          <referencefield devName="customtext2" labelName="customtext2"
              dataType="Text" length="255"/>
+         <whyIgnoreSql db="postgres" numFailures="14">incorrectly converts null to text for number comparison</whyIgnoreSql>             
      </testcase>
      <testcase name="testIfNotNull" devName="testIfNotNull" labels="extended"
          labelName="testIfNotNull" dataType="Text" scale="2" precision="12"
@@ -1353,114 +1355,6 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
 
-     <!-- NOTES: TESTCASES FOR ABS() FUNCTION -->
-     <testcase  name="testAbsCurr" devName="testAbsCurr" labels="extended"
-         labelName="testAbsCurr" dataType="Currency" dataFile="absData"
-         scale="2" precision="12" code="ABS(customnumber1__c)">
-         <referencefield devName="customnumber1" labelName="customnumber1"
-             dataType="Double" scale="2" precision="12"/>
-     </testcase>
-     <testcase name="testAbsSwapTypes" devName="testAbsSwapTypes" labels="extended"
-         labelName="testAbsSwapTypes" dataType="Double" dataFile="absData"
-         swapTypes="true" scale="2" precision="12" code="ABS(customnumber1__c)">
-         <referencefield devName="customnumber1" labelName="customnumber1"
-             dataType="Double" scale="2" precision="12"/>
-     </testcase>
-
-     <testcase name="testAbsUsesIf" devName="testAbsUsesIf" labels="extended"
-         labelName="testAbsUsesIf" dataType="Double"
-         dataFile="twoNumericFields" scale="2" precision="12"
-         code="ABS(IF(true,customnumber1__c,customnumber2__c))">
-         <referencefield devName="customnumber1" labelName="customnumber1"
-             dataType="Double" scale="2" precision="12"/>
-         <referencefield devName="customnumber2" labelName="customnumber2"
-             dataType="Double" scale="2" precision="12"/>
-     </testcase>
-     <testcase name="testAbsUsesCase" devName="testAbsUsesCase" labels="extended"
-         labelName="testAbsUsesCase" dataType="Double"
-         dataFile="caseCompareDateReturnNum" scale="2" precision="12"
-         code="ABS(CASE(customdate1__c,customdate2__c,customnumber1__c,customdate3__c,customnumber2__c,customnumber3__c))">
-         <referencefield devName="customdate1" labelName="customdate1"
-             dataType="DateOnly"/>
-         <referencefield devName="customdate2" labelName="customdate2"
-             dataType="DateOnly"/>
-         <referencefield devName="customnumber1" labelName="customnumber1"
-             dataType="Double" scale="2" precision="12"/>
-         <referencefield devName="customdate3" labelName="customdate3"
-             dataType="DateOnly"/>
-         <referencefield devName="customnumber2" labelName="customnumber2"
-             dataType="Double" scale="2" precision="12"/>
-         <referencefield devName="customnumber3" labelName="customnumber3"
-             dataType="Double" scale="2" precision="12"/>
-     </testcase>
-     <testcase name="testAbsUsesLen" devName="testAbsUsesLen" labels="extended"
-         labelName="testAbsUsesLen" dataType="Double"
-         dataFile="singleTextFieldData" scale="2" precision="12"
-         code="ABS(LEN(customtext1__c))">
-         <referencefield devName="customtext1" labelName="customtext1"
-             dataType="Text" length="255"/>
-     </testcase>
-     <testcase name="testAbsUsesValue" devName="testAbsUsesValue" labels="extended"
-         labelName="testAbsUsesValue" dataType="Double" dataFile="absData"
-         scale="2" precision="12" code="ABS(VALUE(customtext1__c))">
-         <referencefield devName="customtext1" labelName="customtext1"
-             dataType="Text" length="255"/>
-     </testcase>
-     <testcase name="testAbsUsesMinus" devName="testAbsUsesMinus" labels="extended"
-         labelName="testAbsUsesMinus" dataType="Double"
-         dataFile="twoNumericFields" scale="2" precision="12"
-         code="ABS((custompercent1__c-customcurrency1__c))">
-         <referencefield devName="custompercent1" labelName="custompercent1"
-             dataType="Percent" scale="2" precision="12"/>
-         <referencefield devName="customcurrency1" labelName="customcurrency1"
-             dataType="Currency" scale="2" precision="12"/>
-     </testcase>
-     <testcase name="testAbsUsesPlus" devName="testAbsUsesPlus" labels="extended"
-         labelName="testAbsUsesPlus" dataType="Double"
-         dataFile="twoNumericFields" scale="2" precision="12"
-         code="ABS((custompercent1__c+customnumber1__c))">
-         <referencefield devName="custompercent1" labelName="custompercent1"
-             dataType="Percent" scale="2" precision="12"/>
-         <referencefield devName="customnumber1" labelName="customnumber1"
-             dataType="Double" scale="2" precision="12"/>
-     </testcase>
-
-
-     <testcase name="testRoundUsesCase" devName="testRoundUsesCase"
-         labelName="testRoundUsesCase" dataType="Double"
-         dataFile="caseUsesCase" scale="2" precision="12"
-         code="ROUND(CASE(customdate1__c,customdate2__c,customnumber1__c,customdate3__c,customnumber2__c,customnumber3__c),customformula1__c)">
-         <referencefield devName="customdate1" labelName="customdate1"
-             dataType="DateOnly"/>
-         <referencefield devName="customdate2" labelName="customdate2"
-             dataType="DateOnly"/>
-         <referencefield devName="customnumber1" labelName="customnumber1"
-             dataType="Double" scale="2" precision="12"/>
-         <referencefield devName="customdate3" labelName="customdate3"
-             dataType="DateOnly"/>
-         <referencefield devName="customnumber2" labelName="customnumber2"
-             dataType="Double" scale="2" precision="12"/>
-         <referencefield devName="customnumber3" labelName="customnumber3"
-             dataType="Double" scale="2" precision="12"/>
-         <referencefield devName="customformula1" labelName="customformula1"
-             dataType="Double" scale="2" precision="12"
-             code="CASE(customdatetime1__c,customdatetime2__c,customnumber4__c,customdatetime3__c,customnumber5__c,customnumber6__c)">
-             <referencefield devName="customdatetime1"
-                 labelName="customdatetime1" dataType="DateTime"/>
-             <referencefield devName="customdatetime2"
-                 labelName="customdatetime2" dataType="DateTime"/>
-             <referencefield devName="customnumber4" labelName="customnumber4"
-                 dataType="Double" scale="9" precision="18"/>
-             <referencefield devName="customdatetime3"
-                 labelName="customdatetime3" dataType="DateTime"/>
-             <referencefield devName="customnumber5" labelName="customnumber5"
-                 dataType="Double" scale="9" precision="18"/>
-             <referencefield devName="customnumber6" labelName="customnumber6"
-                 dataType="Double" scale="9" precision="18"/>
-         </referencefield>
-     </testcase>
-
-
      <!-- NOTES: TESTCASES FOR LEN() FUNCTION -->
      <testcase name="testLenSimple" devName="testLenSimple"
          labelName="testLenSimple" dataType="Double"
@@ -1487,11 +1381,10 @@ author: Srikanth Yendluri/Doug Chasman
      <testcase name="testInitCap" devName="testInitCap" labels="extended"
          labelName="testInitCap" dataType="Text"
          dataFile="initCap" 
-         whyIgnoreSql="mssql:not implemented,mysql:not implemented"
          code="INITCAP(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
-         <whyIgnoreSql db="spanner" unimplemented="true"/>
+         <whyIgnoreSql db="spanner,mysql,mariadb,mssql" unimplemented="true"/>
      </testcase>
 
      <testcase name="testChr" devName="testChr" labels="extended"
@@ -2172,26 +2065,6 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Text" length="255"/>
      </testcase>
 
-     <!-- TESTCASES for VALUE() -->
-     <!--  TODO SLT: Decimal fails on '+1' -->
-     <testcase name="testVALUE" devName="testVALUE"
-         labelName="testVALUE" dataType="Double" scale="2" dataFile="valueFunctionData"
-         whyIgnoreSql="mssql:no exponent support"
-         code="value(customtext1__c)">
-         <referencefield devName="customtext1" labelName="customtext1"
-             dataType="Text" length="255"/>
-     </testcase>
-
-     <!-- TESTCASES for ISNUMBER() -->
-     <!-- TODO SLT: Ignore because isNan('&dash;&dash;1234') is wrong in Nashorn.. Note the double dash is two - -->
-     <testcase name="testISNUMBER" devName="testISNUMBER"
-         labelName="testISNUMBER" dataType="Double" scale="2" dataFile="valueFunctionData"
-         whyIgnoreSql="mssql:isnumeric allows minus sign"
-         code="if(ISNUMBER(customtext1__c),1,0)">
-         <referencefield devName="customtext1" labelName="customtext1"
-             dataType="Text" length="255"/>
-     </testcase>
-
      <!-- TESTCASE for Bug 85686: IF(blah, NULL, NULL) with return datatype of Date or DateTime -->
      <testcase name="testIfReturningNullForDateType"
          devName="testIfReturningNullForDateType"
@@ -2255,29 +2128,32 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
      </testcase>
      <testcase name="testUpper" labels="basic" devName="testUpper" labelName="testUpper" 
-     whyIgnoreSql="postgres:ICU support,mysql:DoubleS,mariadb:DoubleS,mssql:DoubleS"
             dataType="Text" code="upper(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
+         <whyIgnoreSql db="postgres" numFailures="2">ICU Support</whyIgnoreSql>
+         <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="2">Double S</whyIgnoreSql>
      </testcase>
-     <!-- Nashorn doesn't do toLocaleLowerCase/toLocaleUpperCase correctly.  It also creates a combining dotted mark for İ -->
      <testcase name="testLower" labels="basic" devName="testLower" labelName="testLower" 
-     whyIgnoreSql="postgres:ICU support,mysql:DoubleS,mariadb:DoubleS,mssql:DoubleS"
             dataType="Text" code="lower(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
+         <whyIgnoreSql db="postgres" numFailures="2">ICU Support</whyIgnoreSql>
+         <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="2">Double S</whyIgnoreSql>
      </testcase>
      <testcase name="testUpperLocale" devName="testUpperLocale" labelName="testUpperLocale" 
-            whyIgnoreSql="postgres: ICU support,oracle: turkish java diff,mysql:no collate,mariadb:no collate,mssql:no collate"
             dataType="Text" code="upper(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <whyIgnoreSql db="spanner" numFailures="4">No collate supported</whyIgnoreSql>
+         <whyIgnoreSql db="postgres" numFailures="12">ICU Support</whyIgnoreSql>
+         <whyIgnoreSql db="oracle" numFailures="4">turkish java diff</whyIgnoreSql>
+         <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="12">No collate supported</whyIgnoreSql>
      </testcase>
      <testcase name="testLowerLocale" devName="testLowerLocale" labelName="testLowerLocale" 
-            whyIgnoreSql="postgres:ICU support,oracle: turkish java diff,mysql:no collate,mariadb:no collate,mssql:no collate"
             dataType="Text" code="lower(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
-         <whyIgnoreSql db="spanner" numFailures="8">No collate supported</whyIgnoreSql>
+         <whyIgnoreSql db="mysql,mariadb,mssql,spanner" numFailures="8">No collate supported</whyIgnoreSql>
+         <whyIgnoreSql db="postgres" numFailures="8">ICU Support</whyIgnoreSql>
      </testcase>
 
      <testcase name="testFindOnText" devName="testFindOnText"
@@ -2316,6 +2192,7 @@ author: Srikanth Yendluri/Doug Chasman
         code="TimeValue(timeString2__c) - TimeValue(timeString1__c)">
         <referencefield devName="timeString1" labelName="timeString1" dataType="Text" length="50"/>
         <referencefield devName="timeString2" labelName="timeString2" dataType="Text" length="50"/>
+        <whyIgnoreSql db="mariadb" numFailures="8">Timediff is ABS, and subtime doesn't work in mariadb on time fields</whyIgnoreSql>
     </testcase>
 
     <testcase name="testDistance" devName="testDistance"
@@ -2373,12 +2250,12 @@ author: Srikanth Yendluri/Doug Chasman
     </testcase>
     <testcase name="testFormatDurationDateTime" devName="testFormatDurationDateTime" labels="extended"
         labelName="testFormatDurationDateTime" dataType="Text" eval="formula,template" dataFile="TwoDateFields"
-         whyIgnoreSql="oracle:fractional difference"
         code="FORMATDURATION(customdatetime2__c,customdatetime1__c)">
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime" length="255"/>
          <referencefield devName="customdatetime2" labelName="customdatetime2"
              dataType="DateTime" length="255"/>
+         <whyIgnoreSql db="oracle" numFailures="2">fractional difference</whyIgnoreSql>
     </testcase>
     <testcase name="testFormatDurationSecondsBool" devName="testFormatDurationSecondsBool" labels="extended"
         labelName="testFormatDurationSecondsBool" dataType="Text" eval="formula,template" dataFile="formatDurationNumberBool"
@@ -2439,7 +2316,7 @@ author: Srikanth Yendluri/Doug Chasman
 
      <testcase name="testIfErrorBigDivide" devName="testIfErrorBigDivide" labels="math"
          labelName="testIfErrorBigDivide" dataType="Double" dataFile="BigDivide"
-         scale="2" precision="15" whyIgnoreSql="mssql:precision limits"
+         scale="2" precision="15"
          whyIgnoreJs="nullAsNull returns 0 for NaN"
          code="IFERROR(((customnumber1__c/customnumber2__c)*customnumber3__c),0)">
          <referencefield devName="customnumber1" labelName="customnumber1"
@@ -2448,6 +2325,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="18"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="18"/>
+         <whyIgnoreSql db="mssql">precision limits</whyIgnoreSql>
      </testcase>
 
 
