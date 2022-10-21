@@ -343,7 +343,9 @@ public class FormulaTestUtils {
         if (CURRENCY_TYPE.contains(dataTypeName)) return MockFormulaDataType.CURRENCY;
         if (PERCENT_TYPE.contains(dataTypeName)) return MockFormulaDataType.PERCENT;
         FormulaDataType dataType = MockFormulaDataType.fromCamelCaseName(dataTypeName);
-        if (dataType == null) throw new IllegalArgumentException("Couldn't figure out type " + dataTypeName);
+        if (dataType == null) {
+            throw new IllegalArgumentException("Couldn't figure out type " + dataTypeName);
+        }
         return dataType;
     }
         
@@ -415,7 +417,7 @@ public class FormulaTestUtils {
                 Node tempNode = fieldList.item(nField);
                 if (!(tempNode instanceof Element) || !"whyIgnoreSql".equalsIgnoreCase(tempNode.getNodeName())) continue;
                 Element field = (Element)tempNode;
-                String db = field.getAttribute("db");
+                String dbStr = field.getAttribute("db");
                 String reason = field.getAttribute("reason");
                 String failures = field.getAttribute("numFailures");
                 String unimplementedStr = field.getAttribute("unimplemented");
@@ -427,7 +429,9 @@ public class FormulaTestUtils {
                 if (builder == null) {
                     builder = ImmutableMap.builder();
                 }
-                builder.put(db, new WhyIgnoreSql(db, reason, numFailures, unimplemented));
+                for (String db : Splitter.on(',').split(dbStr)) {
+                    builder.put(db, new WhyIgnoreSql(db, reason, numFailures, unimplemented));
+                }
             }
         }
         // Parse the attribute string
