@@ -404,7 +404,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     }
 	
 	
-	public interface MariaDBHooks extends FormulaMySQLHooks {
+	interface MariaDBHooks extends FormulaMySQLHooks {
 	    @Override
 	    default String sqlParseTime(String stringExpr) {
 	        // TIME() doesn't parse times in MariaDB, unlike Mysql.  So use str_to_date to parse fractional
