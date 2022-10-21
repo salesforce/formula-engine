@@ -89,12 +89,24 @@
             <artifactId>gcloud</artifactId>
             <version>${testcontainers.version}</version>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-spanner</artifactId>
+            <version>6.31.2</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>presto</artifactId>
+            <version>${testcontainers.version}</version>
+            <optional>true</optional>
         </dependency>        
         <dependency>
-          <groupId>com.google.cloud</groupId>
-          <artifactId>google-cloud-spanner</artifactId>
-          <version>6.31.2</version>
-          <optional>true</optional>
-        </dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>trino</artifactId>
+            <version>${testcontainers.version}</version>
+            <optional>true</optional>
+        </dependency>        
   </dependencies>
 </project>

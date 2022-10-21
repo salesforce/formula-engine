@@ -242,6 +242,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber" labelName="customnumber"
              dataType="Double" scale="4" precision="14"/>
          <whyIgnoreSql db="spanner" unimplemented="true">RIGHT() isn't in google, and the SUBSTR version has very different semantics</whyIgnoreSql>
+         <whyIgnoreSql db="trino" unimplemented="true">RIGHT() isn't in google, and the SUBSTR version has very different semantics</whyIgnoreSql>
      </testcase>
      <testcase name="testFunctionLeft" devName="testFunctionLeft"
          labelName="testFunctionLeft" dataType="Text"
@@ -484,6 +485,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner">Max Scale of 9 with binds</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="26">Unknown issue with math and date_add</whyIgnoreSql>
      </testcase>
      <!-- this one should be invalid but is currently accepted-->
      <testcase name="testAddDateTimeGivingDate"  labels="extended"
@@ -1354,7 +1356,6 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="0" precision="15"/>
      </testcase>
 
-
      <!-- NOTES: TESTCASES FOR LEN() FUNCTION -->
      <testcase name="testLenSimple" devName="testLenSimple"
          labelName="testLenSimple" dataType="Double"
@@ -1385,6 +1386,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
          <whyIgnoreSql db="spanner,mysql,mariadb,mssql" unimplemented="true"/>
+         <whyIgnoreSql db="trino" numFailures="6">dotted i</whyIgnoreSql>
      </testcase>
 
      <testcase name="testChr" devName="testChr" labels="extended"
@@ -1392,7 +1394,9 @@ author: Srikanth Yendluri/Doug Chasman
          dataFile="unicodePoints" 
          code="CHR(customnumber__c)">
          <referencefield devName="customnumber" labelName="customnumber"
-             dataType="Double" scale="2" precision="12"/>     </testcase>
+             dataType="Double" scale="2" precision="12"/>     
+         <whyIgnoreSql db="trino" numFailures="2">rounding halfup not halfeven</whyIgnoreSql>
+     </testcase>
 
      <testcase name="testAscii" devName="testAscii" labels="extended"
          labelName="testAscii" dataType="Double"
@@ -1513,6 +1517,7 @@ author: Srikanth Yendluri/Doug Chasman
                  dataType="Double" scale="9" precision="18"/>
          </referencefield>
      </testcase>
+
 
      <!-- Test Cases for NULLVALUE() FUNCTION -->
      <testcase name="testNVLWithNum" devName="testNVLWithNum"
@@ -2131,20 +2136,20 @@ author: Srikanth Yendluri/Doug Chasman
             dataType="Text" code="upper(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <whyIgnoreSql db="postgres" numFailures="2">ICU Support</whyIgnoreSql>
-         <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="2">Double S</whyIgnoreSql>
+         <whyIgnoreSql db="mysql,mariadb,mssql,trino" numFailures="2">Double S</whyIgnoreSql>
      </testcase>
      <testcase name="testLower" labels="basic" devName="testLower" labelName="testLower" 
             dataType="Text" code="lower(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <whyIgnoreSql db="postgres" numFailures="2">ICU Support</whyIgnoreSql>
-         <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="2">Double S</whyIgnoreSql>
+         <whyIgnoreSql db="mysql,mariadb,mssql,trino" numFailures="2">Double S</whyIgnoreSql>
      </testcase>
-     <testcase name="testUpperLocale" devName="testUpperLocale" labelName="testUpperLocale" 
+     <testcase name="testUpperLocale" devName="testUpperLocale" labelName="testUpperLocale"
             dataType="Text" code="upper(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <whyIgnoreSql db="spanner" numFailures="4">No collate supported</whyIgnoreSql>
-         <whyIgnoreSql db="postgres" numFailures="12">ICU Support</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,trino" numFailures="12">ICU Support</whyIgnoreSql>
          <whyIgnoreSql db="oracle" numFailures="4">turkish java diff</whyIgnoreSql>
          <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="12">No collate supported</whyIgnoreSql>
      </testcase>
@@ -2153,7 +2158,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <whyIgnoreSql db="mysql,mariadb,mssql,spanner" numFailures="8">No collate supported</whyIgnoreSql>
-         <whyIgnoreSql db="postgres" numFailures="8">ICU Support</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,trino" numFailures="8">ICU Support</whyIgnoreSql>
      </testcase>
 
      <testcase name="testFindOnText" devName="testFindOnText"

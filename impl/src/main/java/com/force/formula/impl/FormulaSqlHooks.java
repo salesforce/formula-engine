@@ -465,7 +465,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
-     * @return the format for converting to a datetime value
+     * @return the format for concatenating strings
      * @param withSpaces whether spaces should be used around the "||" for compatibility
      */
     default String sqlConcat(boolean withSpaces) {
@@ -617,6 +617,15 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     default String sqlMakeDecimal(String argument) {
     	return argument;
+    }
+    
+    
+    /**
+     * @param argument the SQL argument that has a percent value stored in the DB (i.e. 100.0 is 100% and should be treated at 1)
+     * @return a sql expression that will convert the arguemnt from a percent to a decimal fractions
+     */
+    default String sqlConvertPercent(String argument) {
+        return "(" + argument + " / 100.0)";
     }
     
     /**

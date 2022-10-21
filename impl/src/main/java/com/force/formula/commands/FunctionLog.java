@@ -41,6 +41,8 @@ public class FunctionLog extends UnaryMathCommandBehavior {
     	FormulaSqlHooks hooks = (FormulaSqlHooks) context.getSqlStyle();
         if (hooks.isTransactSqlStyle() || hooks.isGoogleStyle()) {
         	sql = String.format(hooks.sqlToNumber(),"LOG10(" + args[0] + ")");
+        } else if (hooks.isPrestoStyle()) {
+            sql = String.format(hooks.sqlToNumber(),"CAST(LOG10(" + args[0] + ") AS DECIMAL(38,18))");
         } else {
         	sql = "LOG(10, " + args[0] + ")";
         }

@@ -114,6 +114,9 @@ public class FunctionJsonPathValue extends FormulaCommandInfoImpl implements For
         } else if (hooks.isMysqlStyle()) {
             String sql = "json_unquote(json_extract(" + args[0] + "," + args[1] + "))";
             return new SQLPair(sql, guard);
+        } else if (hooks.isPrestoStyle()) {
+            String sql = "CAST(json_extract(" + args[0] + "," + args[1] + ") AS VARCHAR)";
+            return new SQLPair(sql, guard);
         } else { // oracle and transactsql
             // json_value(`JSONSTRING`, `JSONPATH`)
             String sql = "json_value("+args[0] + "," + args[1] + ")";

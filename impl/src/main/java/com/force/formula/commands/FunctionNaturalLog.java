@@ -39,6 +39,8 @@ public class FunctionNaturalLog extends UnaryMathCommandBehavior {
     	FormulaSqlHooks hooks = (FormulaSqlHooks) context.getSqlStyle();
         if (hooks.isTransactSqlStyle()) {
         	sql = String.format(hooks.sqlToNumber(),"LOG(" + args[0] + ")");
+        } else if (hooks.isPrestoStyle()) {
+            sql = String.format(hooks.sqlToNumber(),"CAST(LN(" + args[0] + ") AS DECIMAL(38,18))");
         } else {
         	sql = "LN(" + args[0] + ")";
         }

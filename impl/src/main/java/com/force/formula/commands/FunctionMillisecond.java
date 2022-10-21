@@ -4,10 +4,17 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaTime;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
@@ -40,6 +47,8 @@ public class FunctionMillisecond extends FormulaCommandInfoImpl {
     	FormulaSqlHooks hooks = getSqlHooks(context);
     	if (hooks.isTransactSqlStyle()) {
     		return "DATEPART(MILLISECOND,"+arg+")";
+        } else if (context.getSqlStyle().isPrestoStyle()) {
+            return "MILLISECOND("+arg+")";            
     	} else if (context.getSqlStyle().isMysqlStyle()) {
     		return "1000*MICROSECOND("+arg+")";
     	}
