@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
 import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
-import com.force.formula.sql.MariaDBContainerTester;
+import com.force.formula.sql.mysql.MariaDBContainerTester;
 
 /**
  * Abstract class for testing formulas with MariaDB
