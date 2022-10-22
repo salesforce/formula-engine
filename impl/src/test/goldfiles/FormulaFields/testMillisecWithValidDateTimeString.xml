@@ -2,11 +2,11 @@
 <testCase name="testMillisecWithValidDateTimeString">
    <testInstance formula="MilliSecond(TIMEVALUE(&quot;2015-03-17 17:00:00&quot;))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TRUNC((NULL -TRUNC(NULL/1000) * 1000))</Sql>
+       <Sql>TRUNC(NULL -TRUNC(NULL/1000) * 1000)</Sql>
        <Guard>0=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TRUNC((NULL -TRUNC(NULL/1000) * 1000))</Sql>
+       <Sql>TRUNC(NULL -TRUNC(NULL/1000) * 1000)</Sql>
        <Guard>0=0</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">new Date(new Date(&quot;2015-03-17 17:00:00&quot;).setUTCFullYear(1970,0,1)).getMilliseconds()</JsOutput>

@@ -4,6 +4,7 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -233,6 +234,28 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     default String getDateFromUnixTime() {
     	return "DATEADD(second, %s, '1970-01-01')";
     }
+    
+    @Override
+    default String sqlChronoUnit(ChronoUnit field, Type dateType) {
+        switch (field) {
+        case YEARS: 
+            return "YEAR(%s)";
+        case MONTHS:
+            return "MONTH(%s)";
+        case DAYS:
+            return "DAY(%s)";
+        case HOURS:
+            return "DATEPART(hour,%s)";
+        case MINUTES:
+            return "DATEPART(minute,%s)";
+        case SECONDS:
+            return "DATEPART(second,%s)";
+        case MILLIS:            
+            return "DATEPART(MILLISECOND,%s)";
+        default:
+        }
+        return FormulaSqlHooks.super.sqlChronoUnit(field, dateType);
+    }
 	
     @Override
     default String sqlGetWeekday() {
@@ -316,6 +339,21 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
         // the query processing machinery dominates, so go for max precision
 		return "CAST(EXP(" + argument + ") AS DECIMAL(38,10))";
 	}
+	
+	@Override
+    default String sqlLogBaseE(String argument) {
+        return String.format(sqlToNumber(),"LOG(" + argument + ")");
+    }
+	   
+    @Override
+    default String sqlLogBase10(String argument) {
+        return String.format(sqlToNumber(),"LOG10(" + argument + ")");
+    }
+    
+    @Override
+    default String sqlMod(String number, String modulus) {
+        return "(" + number + " % " + modulus + ")";
+    }
     
 	@Override
     default SQLPair getPowerSql( String[] args, String[] guards) {

@@ -5,6 +5,7 @@ package com.force.formula.impl;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
@@ -48,7 +49,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
-     * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a date Value
+     * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a number Value
      */
     default String sqlIsNumber() {
     	throw new UnsupportedOperationException();
@@ -318,6 +319,42 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     default String sqlGetDayOfYear() {
         return "TO_NUMBER(TO_CHAR(%s, 'DDD'))";
+    }
+    
+    /**
+     * @return the sql expression used to extract the chrono unit from the given datetime field
+     * @param field the ChronoField to use.  Will be in the set of
+     * MICROSECONDS, SECONDS, MINUTES, HOURS, DAYS, MONTHS, YEARS
+     * @param dateType the type of date (Date, FormulaDateTime or FormulaType)
+     */
+    default String sqlChronoUnit(ChronoUnit field, Type dateType) {
+        switch (field) {
+        case YEARS: 
+            return "EXTRACT(YEAR FROM %s)";
+        case MONTHS:
+            return "EXTRACT(MONTH FROM %s)";
+        case DAYS:
+            return "EXTRACT(DAY FROM %s)";
+        case HOURS:
+            return "TRUNC(%s/" + FormulaDateUtil.HOUR_IN_MILLIS + ")";
+            //return "EXTRACT(HOUR FROM %s)";
+        case MINUTES:
+            // This is for backward compatibility.  It should be removed soon
+            // convert muillisecs since midnight to minutes portion of time  trunc((args[0] -trunc(args[0]/3600000) * 3600000)/60000)
+            return "TRUNC((%s-TRUNC(%<s/" + FormulaDateUtil.HOUR_IN_MILLIS+ ") * " + FormulaDateUtil.HOUR_IN_MILLIS + ")/" + FormulaDateUtil.MINUTE_IN_MILLIS + ")";
+            //return "EXTRACT(MINUTE FROM %s)";
+        case SECONDS:
+            // This is for backward compatibility.  It should be removed soon
+            // convert muillisecs since midnight to minutes portion of time  trunc((args[0] -trunc(args[0]/60000) * 60000)/1000)
+            return "TRUNC((%s-TRUNC(%<s/" + FormulaDateUtil.MINUTE_IN_MILLIS+ ") * " + FormulaDateUtil.MINUTE_IN_MILLIS + ")/1000)";
+            // return "EXTRACT(SECOND FROM %s)";
+        case MILLIS:            
+            // convert muillisecs since midnight to millseconds portion of time  trunc((args[0] -trunc(args[0]/1000) * 1000))
+            return "TRUNC(%s -TRUNC(%<s/1000) * 1000)";
+        default:
+            // Others are unsupported
+        }
+        throw new UnsupportedOperationException();
     }
     
 
@@ -656,6 +693,31 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
+     * @param argument the value to get the natural log.
+     * @return how to call exponent on the function.  (i.e. log base e)
+     */
+    default String sqlLogBaseE(String argument) {
+        return "LN(" + argument + ")";
+    }
+    
+    /**
+     * @param argument the value to get the natural log.
+     * @return how to call exponent on the function.  (i.e. log base e)
+     */
+    default String sqlLogBase10(String argument) {
+        return "LOG(10, " + argument + ")";
+    }
+    
+    /**
+     * @param number the number to get the remainer 
+     * @param modulus the modulus 
+     * @return how to do modulo operation
+     */
+    default String sqlMod(String number, String modulus) {
+        return "MOD(" + number + ", " + modulus + ")";
+    }
+    
+    /**
      * @param argument the value that is a function call to a trig function.
      * @return how to call a trigonometric on the function and return the right numeric value (cast to decimal)
      */
@@ -679,7 +741,6 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlGreatest(String arg1, String arg2) {
     	return "GREATEST(" + arg1 + "," + arg2 + ")";
     }
-    
     
     /**
      * Get the sql guard and value for executing A^B.

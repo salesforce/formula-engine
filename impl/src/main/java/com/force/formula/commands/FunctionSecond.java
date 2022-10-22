@@ -1,6 +1,7 @@
 package com.force.formula.commands;
 
 import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Deque;
 
@@ -39,9 +40,7 @@ public class FunctionSecond extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        // convert muillisecs since midnight to minutes portion of time  trunc((args[0] -trunc(args[0]/60000) * 60000)/1000)
-        String sql = getSecondExpr(args[0], context);
-        return new SQLPair(sql, guards[0]);
+        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.SECONDS, FormulaTime.class), args[0]), guards[0]);
     }
     
     public static String getSecondExpr(String arg, FormulaContext context)  {

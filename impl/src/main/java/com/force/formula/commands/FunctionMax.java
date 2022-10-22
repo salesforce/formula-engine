@@ -4,10 +4,17 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
+import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
 import com.google.common.base.Joiner;
 
@@ -45,7 +52,12 @@ public class FunctionMax extends FormulaCommandInfoImpl {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         StringBuilder sql = new StringBuilder(64);
-        sql.append("GREATEST(").append(args[0]);
+        String func = "GREATEST";
+        FormulaSqlStyle style = context.getSqlStyle();
+        if (style.isSqliteStyle()) {
+            func = "MAX";  // Sqlite max takes multiple arguments.  Transact SQL doesn't.
+        }
+        sql.append(func).append("(").append(args[0]);
         for (int i = 1; i < args.length; i++)
             sql.append(", ").append(args[i]);
         sql.append(")");

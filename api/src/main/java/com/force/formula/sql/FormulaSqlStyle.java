@@ -59,7 +59,13 @@ public interface FormulaSqlStyle {
     default boolean isGoogleStyle() {
         return false;
     }   
-    
+
+    /**
+     * @return whether or not to default to Sqlite style.
+     */
+    default boolean isSqliteStyle() {
+        return false;
+    }    
 	
 	/**
 	 * @return the function name for taking a substring.

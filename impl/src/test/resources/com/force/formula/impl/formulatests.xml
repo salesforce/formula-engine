@@ -2137,12 +2137,14 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <whyIgnoreSql db="postgres" numFailures="2">ICU Support</whyIgnoreSql>
          <whyIgnoreSql db="mysql,mariadb,mssql,trino" numFailures="2">Double S</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" numFailures="6">No unicode support</whyIgnoreSql>
      </testcase>
      <testcase name="testLower" labels="basic" devName="testLower" labelName="testLower" 
             dataType="Text" code="lower(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <whyIgnoreSql db="postgres" numFailures="2">ICU Support</whyIgnoreSql>
          <whyIgnoreSql db="mysql,mariadb,mssql,trino" numFailures="2">Double S</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" numFailures="4">No unicode support</whyIgnoreSql>
      </testcase>
      <testcase name="testUpperLocale" devName="testUpperLocale" labelName="testUpperLocale"
             dataType="Text" code="upper(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
@@ -2152,6 +2154,7 @@ author: Srikanth Yendluri/Doug Chasman
          <whyIgnoreSql db="postgres,trino" numFailures="12">ICU Support</whyIgnoreSql>
          <whyIgnoreSql db="oracle" numFailures="4">turkish java diff</whyIgnoreSql>
          <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="12">No collate supported</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" numFailures="28">No unicode support</whyIgnoreSql>
      </testcase>
      <testcase name="testLowerLocale" devName="testLowerLocale" labelName="testLowerLocale" 
             dataType="Text" code="lower(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
@@ -2159,6 +2162,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <whyIgnoreSql db="mysql,mariadb,mssql,spanner" numFailures="8">No collate supported</whyIgnoreSql>
          <whyIgnoreSql db="postgres,trino" numFailures="8">ICU Support</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" numFailures="20">No unicode support</whyIgnoreSql>
      </testcase>
 
      <testcase name="testFindOnText" devName="testFindOnText"

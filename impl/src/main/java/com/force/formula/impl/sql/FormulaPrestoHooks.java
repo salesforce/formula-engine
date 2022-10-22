@@ -4,6 +4,7 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
@@ -82,6 +83,17 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
     @Override
     default String sqlMakeDecimal(String argument) {
         return "CAST("+argument+" AS DECIMAL(38,18))";   // Override to specify your own default precision.
+    }
+    
+    @Override
+    default String sqlLogBaseE(String argument) {
+        return String.format(sqlToNumber(),"CAST(LN(" + argument + ") AS DECIMAL(38,18))");
+    }
+    
+    
+    @Override
+    default String sqlLogBase10(String argument) {
+        return String.format(sqlToNumber(), "CAST(LOG10(" + argument + ") AS DECIMAL(38,18))");
     }
     
     /**
@@ -268,6 +280,22 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
         return "1+DAY_OF_WEEK(%s)";
     }
     
+
+    @Override
+    default String sqlChronoUnit(ChronoUnit field, Type dateType) {
+        switch (field) {
+        case HOURS:
+            return "HOUR(%s)";
+        case MINUTES:
+            return "MINUTE(%s)";
+        case SECONDS:
+            return "SECOND(%s)";
+        case MILLIS:            
+            return "MILLISECOND(%s)";
+        default:
+        }
+        return FormulaSqlHooks.super.sqlChronoUnit(field, dateType);
+    }
     
     @Override
     default String sqlGetIsoWeek() {
