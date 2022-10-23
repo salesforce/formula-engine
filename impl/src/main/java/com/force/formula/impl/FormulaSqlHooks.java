@@ -14,6 +14,7 @@ import java.util.TreeSet;
 
 import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.BigDecimalHelper;
 import com.force.formula.util.FormulaDateUtil;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
@@ -25,7 +26,16 @@ import com.google.common.collect.Multimaps;
  * @since 0.1.0
  */
 public interface FormulaSqlHooks extends FormulaSqlStyle {
-	
+    /**
+     * Precision to use rounding for ceil/floor to prevent issues with inexact to exact transitions
+     * like 1/3 or 1/11.  Return -1 if you don't want any rounding.
+     * @return 33 by default
+     * @see BigDecimalHelper#NUMBER_PRECISION_EXTERNAL
+     */
+    default int getExternalPrecision() {
+        return BigDecimalHelper.NUMBER_PRECISION_EXTERNAL;
+    }
+    	
     // Handle plsql regexp differences (where oracle needs regexp_like and postgres wants ~ or similar to)
     /**
      * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for DateTime Value
@@ -682,6 +692,16 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlTrunc(String argument, String scale) {
     	return "TRUNC(" + argument + ", " + scale + ")";
     }
+
+    /**
+     * Parameterized for those DBs that don't handle negative rounding
+     * @param argument the value to round
+     * @param scale the scale to truncate to
+     * @return how to call round to drop to the given number of decimal places
+     */
+    default String sqlRound(String argument, String scale) {
+        return "ROUND(" + argument + ", " + scale + ")";
+    }
     
     
     /**
@@ -781,4 +801,5 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         	return "RPAD(" + str + ", " + amount + ")";
         }
     }
+    
 }

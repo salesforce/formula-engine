@@ -45,7 +45,6 @@ author: Srikanth Yendluri/Doug Chasman
          labelName="testHourWithValidString" dataType="Double" eval="formula,template"
          scale="2" precision="12"
          code="Hour(TIMEVALUE(&quot;10:40:55.666&quot;))">
-         <whyIgnoreSql db="mariadb">date comparison</whyIgnoreSql>
      </testcase>
      
      <testcase name="testMinuteWithValidString" devName="testMinuteWithValidString"
@@ -455,7 +454,6 @@ author: Srikanth Yendluri/Doug Chasman
          </referencefield>
          <referencefield devName="customcurrency1" labelName="customcurrency1"
              dataType="Currency" scale="2" precision="12"/>
-         <whyIgnoreSql db="all">Date Overflow</whyIgnoreSql>
      </testcase>
      <testcase name="testAddDateTime" devName="testAddDateTime"
          labelName="testAddDateTime" dataType="DateTime" dataFile="addDateTime"
@@ -484,7 +482,6 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="DateTime"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="spanner">Max Scale of 9 with binds</whyIgnoreSql>
          <whyIgnoreSql db="trino" numFailures="26">Unknown issue with math and date_add</whyIgnoreSql>
      </testcase>
      <!-- this one should be invalid but is currently accepted-->
@@ -533,7 +530,6 @@ author: Srikanth Yendluri/Doug Chasman
          </referencefield>
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
-         <whyIgnoreSql db="all">Date Overflow</whyIgnoreSql>
      </testcase>
 
      <testcase name="testSubDate" devName="testSubDate"
@@ -2334,7 +2330,6 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="18"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="18"/>
-         <whyIgnoreSql db="mssql">precision limits</whyIgnoreSql>
      </testcase>
 
 

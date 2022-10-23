@@ -6,7 +6,9 @@ import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.FormulaContext;
-import com.force.formula.impl.*;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.JsValue;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.BigDecimalHelper;
 
@@ -37,7 +39,7 @@ public class FunctionRound extends BinaryMathCommandBehavior {
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
     	FormulaSqlHooks hooks = (FormulaSqlHooks) context.getSqlStyle();
-        String sql = "ROUND(" + args[0] + ", " + hooks.sqlRoundScaleArg(args[1]) + ")";
+        String sql = hooks.sqlRound(args[0], hooks.sqlRoundScaleArg(args[1]));
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

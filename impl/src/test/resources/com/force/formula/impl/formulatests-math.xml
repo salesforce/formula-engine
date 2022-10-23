@@ -601,7 +601,6 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="postgres,spanner,trino" numFailures="28">precision differences</whyIgnoreSql>
          <whyIgnoreSql db="mssql,mariadb" numFailures="54">precision differences</whyIgnoreSql>
-         <whyIgnoreSql db="sqlite3" numFailures="6">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testMFloorRound" devName="testMFloorRound" labels="math"
          labelName="testMFloorRound" dataType="Double" dataFile="floorCeilRoundData"
@@ -612,7 +611,6 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="postgres,spanner,trino" numFailures="28">precision differences</whyIgnoreSql>
          <whyIgnoreSql db="mssql,mariadb" numFailures="54">precision differences</whyIgnoreSql>
-         <whyIgnoreSql db="sqlite3" numFailures="6">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testFloorUsesAbs" devName="testFloorUsesAbs"
          labelName="testFloorUsesAbs" dataType="Double" dataFile="absData"
@@ -658,8 +656,6 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="mariadb">precision differences</whyIgnoreSql>
-         <whyIgnoreSql db="sqlite3" numFailures="6">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testFloorUsesMOD" devName="testFloorUsesMOD" labels="extended"
          labelName="testFloorUsesMOD" dataType="Double" dataFile="modData"
@@ -669,8 +665,6 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="spanner">precision differences</whyIgnoreSql>
-         <whyIgnoreSql db="sqlite3" numFailures="6">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testFloorUsesIf" devName="testFloorUsesIf" labels="extended"
          labelName="testFloorUsesIf" dataType="Double"

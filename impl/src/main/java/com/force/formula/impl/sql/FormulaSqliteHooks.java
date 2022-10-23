@@ -4,12 +4,15 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
 import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.sql.SQLPair;
+import com.force.formula.util.FormulaDateUtil;
 
 /**
  * Implementation of FormulaSqlHooks for Sqlite3
@@ -18,41 +21,30 @@ import com.force.formula.sql.SQLPair;
  */
 public interface FormulaSqliteHooks extends FormulaSqlHooks {
 	@Override
+    default int getExternalPrecision() {
+	    return -1;  // Don't do any rounding for ceil/floor because reals.
+    }
+
+    @Override
 	default boolean isSqliteStyle() {
 		return true;
 	}	
-    
-    // Sqlite in JDBC doesn't include math functions, but instead uses a custom extension
-    // in the JDBC driver that doesn't have ln().  If your sqlite3 includes SQLITE_ENABLE_MATH_FUNCTIONS,
-    // and SQLITE_HAVE_C99_MATH_FUNCS, then replace this hook to return LN() directly
-	@Override
-    default String sqlTrunc(String argument) {
-        return "ROUND(" + argument + ")";
-    }
 	
     @Override
-    default String sqlMod(String number, String modulus) {
-        return "(" + number + " % " + modulus + ")";
+    default String sqlDatetimeValueGuard() {
+        return "1=0"; // mysql returns null on error
     }
-	
+
     @Override
-    default String sqlLogBaseE(String argument) {
-        // Sqlite in JDBC doesn't include math functions, but instead uses a custom extension
-        // in the JDBC driver that doesn't have ln().  If your sqlite3 includes SQLITE_ENABLE_MATH_FUNCTIONS,
-        // then replace this hook to return LN() directly
-        return "LOG10(" + argument + ")*2.30258509299";
+    default String sqlDateValueGuard() {
+        return "1=0"; // mysql returns null on error
     }
-	
-    
+
     @Override
-    default String sqlLogBase10(String argument) {
-        // Sqlite in JDBC doesn't include math functions, but instead uses a custom extension
-        // in the JDBC driver that doesn't have two argument log().  If your sqlite3 includes
-        // SQLITE_ENABLE_MATH_FUNCTIONS, then replace this hook with LOG(EXP(1),argument)
-        return "LOG10(" + argument + ")";
+    default String sqlTimeValueGuard() {
+        return "1=0"; // mysql returns null on error
     }
-        
-        
+
      /**
       * @return the function to use for NVL.  In postgres, it's usually coalesce, but in oracle, you want NVL.
       */
@@ -66,9 +58,7 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
      */
     @Override
     default String sqlIsNumber() {
-        // REGEXP isn't supported in all sqlites.
-        return "ABS(%s) > 0 || %<s = 0";
-        //return "(%s REGEXP '^[+-]?([0-9]+|[0-9]+\\.|\\.[0-9]+|[0-9]+\\.[0-9]+)([Ee][+-]?[0-9]+)?$')";
+         return "(%s REGEXP '^[+-]?([0-9]+|[0-9]+\\.|\\.[0-9]+|[0-9]+\\.[0-9]+)([Ee][+-]?[0-9]+)?$')";
     }
     
     @Override
@@ -104,11 +94,7 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
      */
 	@Override
     default String sqlToDate(Type type) {
-	    if (type == Date.class) {
-	        return "DATE(%s)";
-	    } else {
-            return "DATETIME(%s)";
-	    }    
+	    return "%s";
     }
 
     /**
@@ -126,27 +112,41 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     default String sqlToChar() {
 		return "CAST(%s AS TEXT)";
     }
-   
-    
+	
+    // Scale isn't supported for truncation...
+    @Override
+    default String sqlTrunc(String argument, String scale) {
+        return "TRUNC("+argument+"*POWER(10,"+scale+"))"+"/POWER(10,"+scale+") END";
+    }
+
+    // Negative scale isn't supported for rounding...
+    @Override
+    default String sqlRound(String argument, String scale) {
+        return "CASE WHEN "+scale+" >= 0 THEN ROUND(" + argument + ", " + scale + ") ELSE "
+                + " ROUND("+argument+"*POWER(10,"+scale+"))"+"/POWER(10,"+scale+") END";
+    }
+
+	
     @Override
     default String sqlConstructDate(String yearSql, String monthSql, String daySql) {
-        return "(" + yearSql + " || '-' || " + monthSql + " || '-' || " + daySql + ")";
+        return "printf('%04d-%02d-%02d', " + yearSql + "," + monthSql + "," + daySql + ")";
     }
   
     @Override
     default String sqlExtractTimeFromDateTime(String dateTimeExpr) {
-        return String.format("DATETIME(%s,'unixepoch')", dateTimeExpr);
+        // Strip off 'YYYY-MM-DD '
+        return String.format("substr(DATETIME(%s),12)", dateTimeExpr);
     }
     
     @Override
     default String sqlParseTime(String stringExpr) {
-        return String.format("MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%%H:%%M:%%E3S', %s, 'UTC')),86400000)", stringExpr);
+        return stringExpr;
     }
 	
 	@Override
     default String sqlToCharTime() {
         // time values are represented by millisecs since midnight.  
-        return "FORMAT_TIMESTAMP('%%H:%%M:%%E3S',timestamp_millis(%s),'UTC')";
+        return "strftime('%%H:%%M:%%f',%s)";
     }
     
     @Override
@@ -179,15 +179,21 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
      */
 	@Override
     default String sqlRight(String stringArg, String countArg) {
-	    return "SUBSTR(" + stringArg + ", -CAST(" + countArg+ " AS INT64))";
+	    return "SUBSTR(" + stringArg + ", -(" + countArg+ " ))";
     }
     /**
      * @return the the current milliseconds of the day suitable.  
      */
 	@Override
     default String sqlTimeNow() {
-        return "MOD(UNIX_MILLIS(CURRENT_TIMESTAMP()),86400000)";
+        return "date('now')";
     }
+	
+	@Override
+    default String sqlSubtractTwoTimestamps(boolean inSeconds, Type dateType) {
+        return inSeconds ? "(unixepoch(%s)-unixepoch(%s))" : "(julianday(%s)-julianday(%s))";
+    } 
+
     
     /**
      * @see specification in FunctionAddMonths.java
@@ -198,28 +204,21 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
      */
 	@Override
     default String sqlAddMonths(String dateArg, Type dateArgType, String numMonths) {
-	            
 	    StringBuffer sb = new StringBuffer();
 	    sb.append(" (CASE");
-	    if (dateArgType == Date.class) {
-	        sb.append(" WHEN extract(day FROM (date_sub(date_add(date_trunc("+dateArg+", month),interval 1 month), interval 1 day))) =");
-	        sb.append(" extract(day FROM (date_trunc("+ dateArg+", day)))");
-	    } else {
-            sb.append(" WHEN extract(day FROM (date_sub(date_add(DATE("+dateArg+",'UTC'),interval 1 month), interval 1 day))) =");
-            sb.append(" extract(day FROM (timestamp_trunc("+dateArg+", day, 'UTC')))");
-	    }
-	    sb.append(" THEN 1 ELSE 0 END)");
+        sb.append(" WHEN strftime('%%s', " + dateArg + ", '+1 month', '-1 day') =");
+        sb.append(" strftime('%%s', " + dateArg + ")");
+	    sb.append(" THEN '1' ELSE '0' END)");
         String dayAddition = sb.toString();
 
+        // Note: this should be trunc of the months, but it doesn't work right anyway
         if (dateArgType == Date.class) {
-            return String.format("date_sub(date_add(date_add(%s, interval " + dayAddition + " day),interval CAST(TRUNC(%s) AS INT64) month), interval " + dayAddition + " day)", dateArg, numMonths);
+            return String.format("date(%s, '+' || " + dayAddition + " || ' day', %s || ' month', '-' || " + dayAddition + " || ' day')", dateArg, numMonths);
         } else {
             // We can't add a month interval to a timestamp, so we have to do something... fun.
             // Which is do all the date math and then add the millisecond part back at the end...
-            return String.format("timestamp_add(timestamp(date_sub(date_add(date_add(DATE("+dateArg+",'UTC'), interval " + dayAddition + " day),interval CAST(TRUNC(%s) AS INT64) month),interval " + dayAddition + " day),'UTC'), INTERVAL MOD(UNIX_MILLIS(%s),86400000) MILLISECOND)", numMonths, dateArg);
+            return String.format("datetime(%s, '+' || " + dayAddition + " || ' day', %s || ' month', '-' || " + dayAddition + " || ' day')", dateArg, numMonths);
         }
-        
-        
     }
 
     @Override
@@ -267,10 +266,15 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
      */
 	@Override
     default String sqlGetEpoch(Type type) {
-	    if (type == FormulaDateTime.class) {
-	        return "DATETIME(%s,'unixepoch')";
-	    }
-    	return "DATE(%s,'unixepoch')";
+	    return "unixepoch(%s)";
+    }
+
+	/**
+     * @return how to get the number of seconds in a day from a time value for String.format
+     */
+	@Override
+    default String sqlGetTimeInSeconds() {
+        return "ROUND(unixepoch(%s)%%86400)";
     }
     
     /**
@@ -278,12 +282,12 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
      */
     @Override
     default String getDateFromUnixTime() {
-    	return "TIMESTAMP_SECONDS(CAST(%s AS INT64))";
+    	return "DATETIME(%s, 'unixepoch')";
     }
 
     @Override
     default String sqlGetWeekday() {
-        return "strftime('%%u',%s)";
+        return "1+strftime('%%w',%s)";
     }
     
     @Override
@@ -349,7 +353,7 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
 
 	@Override
 	default String sqlConvertDateTimeToDate(String dateTime, String userTimezone, String userTzOffset) {
-		return "DATE("+dateTime+",'"+userTimezone+"')";
+		return dateTime;
 	}
 
 	@Override
@@ -374,6 +378,14 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     }
     
     @Override
+    default String sqlLogBase10(String argument) {
+        // Sqlite in JDBC doesn't include math functions, but instead uses a custom extension
+        // in the JDBC driver that doesn't have two argument log().  If your sqlite3 includes
+        // SQLITE_ENABLE_MATH_FUNCTIONS, then replace this hook with LOG(EXP(1),argument)
+        return "LOG10(" + argument + ")";
+    }
+    
+    @Override
     default String sqlIntervalFromSeconds() {
         return "ROUND(ABS(%s),0,1)";
     }
@@ -392,6 +404,19 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     }
     
     @Override
+    default String sqlAddMillisecondsToTime(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
+        if (rhsDataType == BigDecimal.class) {
+            rhsValue = rhsDataType == BigDecimal.class ? "(" + rhsValue + "/1000)" : "unixepoch("+rhsValue+")";
+            // to prevent negative values when subtracting, always add FormulaDateUtil.MILLISECONDSPERDAY, and take the mod
+            return "strftime('%H:%M:%f'," + lhsValue + ",("+(isAddition ? "" : "-") +"(" + rhsValue + ")/1000)|| ' seconds')";
+        } else {
+            return "ROUND((1+julianday("+lhsValue+")-julianday("+rhsValue+"))*"+FormulaDateUtil.MILLISECONDSPERDAY+")%"+FormulaDateUtil.MILLISECONDSPERDAY;
+                        
+//            return "((" + FormulaDateUtil.MILLISECONDSPERDAY + "+((julianday("+rhsValue+")-julianday("+lhsValue+"))*"+FormulaDateUtil.MILLISECONDSPERDAY+"))";
+        }
+    }
+    
+    @Override
     default StringBuilder getCurrencyMask(int scale) {
         return new StringBuilder(6).append("\"%'.").append(Integer.toString(scale)).append("f\"");
     }
@@ -400,6 +425,55 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
         sql.append("CONCAT(COALESCE(").append(isoCodeArg).append(",''),' ',FORMAT(").append(maskStr).append(',').append(amountArg).append("))");
     }
+    
+    @Override
+    default String getDateLiteralFromCalendar(Calendar c) {
+        // Date literals are always strings in sqlite
+        return "'" + FormulaDateUtil.formatDatetimeToSqlLiteral(c.getTime()) + "'";
+    }
 
+    /**
+     * The Sqlite versions as of 2022 don't use the new Sqlite3 math functions, but instead custom ones
+     * that break compatibility with old versions of sqlite.
+     * https://github.com/xerial/sqlite-jdbc/pull/763
+     */
+    interface SqliteJdbcCompatHooks extends FormulaSqliteHooks {
+        @Override
+        default String sqlLogBaseE(String argument) {
+            // Sqlite in JDBC doesn't include math functions, but instead uses a custom extension
+            // in the JDBC driver that doesn't have ln().  If your sqlite3 includes SQLITE_ENABLE_MATH_FUNCTIONS,
+            // then replace this hook to return LN() directly
+            return "(LOG10(" + argument + ")*2.30258509299)";
+        }
+        
+        @Override
+        default String sqlTrunc(String argument) {
+            return "CASE WHEN (" + argument + ") > 0 THEN FLOOR(" + argument + ") ELSE CEIL(" + argument + ") END";
+        }
+
+        /**
+         * @param argument the value to truncate
+         * @param scale the scale to truncate to
+         * @return how to call truncate to drop to the given number of decimal places
+         */
+        @Override
+        default String sqlTrunc(String argument, String scale) {
+            return "CASE WHEN (" + argument + ") > 0 THEN FLOOR("+argument+"/POWER(10,-("+scale+")))*POWER(10,-("+scale+")) ELSE CEIL("+argument+"*POWER(10,"+scale+"))/POWER(10,"+scale+") END";
+        }
+        
+        @Override
+        default String sqlIsNumber() {
+            // REGEXP isn't supported in all sqlites.
+            return "ABS(%s) > 0 || %<s = 0";
+        }
+
+        // Only supports integer modulus without the math functions.  So we have to bust out
+        // this complexity...
+        @Override
+        default String sqlMod(String number, String modulus) {
+            return "CASE WHEN SIGN(" + modulus + ") = SIGN("+ number+ ") THEN (" + number + "  - (FLOOR(" + number + "/" + modulus + ") * " + modulus + ")) ELSE " +
+                    "(" + number + "  - (CEIL(" + number + "/" + modulus + ") * " + modulus + ")) END ";
+        }
+    }
     
 }

@@ -2,12 +2,15 @@ package com.force.formula.commands;
 
 import static com.force.formula.commands.FormulaCommandInfoImpl.jsMathPkg;
 
-import java.math.*;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
-import com.force.formula.*;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
+import com.force.formula.FormulaContext;
 import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.impl.JsValue;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.BigDecimalHelper;
@@ -40,7 +43,14 @@ public class FunctionMFloor extends UnaryMathCommandBehavior {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
-        String sql = "FLOOR(ROUND(" + args[0] + ","+BigDecimalHelper.NUMBER_PRECISION_EXTERNAL+"))";
+        FormulaSqlHooks hooks = (FormulaSqlHooks)context.getSqlStyle();
+        int precision = hooks.getExternalPrecision();
+        String sql;
+        if (precision >= 0) { // If external precision is -1 don't reound before Ceil/Floor
+            sql = "FLOOR(ROUND(" + args[0] + ","+precision+"))";
+        } else {
+            sql = "FLOOR(" + args[0] + ")";
+        }
         return new SQLPair(sql, guards[0]);
     }
     

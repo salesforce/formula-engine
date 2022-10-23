@@ -14,7 +14,7 @@ import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
-import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
+import com.force.formula.impl.sql.FormulaSqliteHooks;
 import com.force.formula.sql.EmbeddedSqliteTester;
 
 /**
@@ -81,7 +81,8 @@ public abstract class FormulaSqliteTests extends FormulaGenericTests {
     protected static class SqliteFormulaValidationHooks extends FieldTestFormulaValidationHooks {
         @Override
 		public FormulaSqlHooks getSqlStyle() {
-        	return FormulaDefaultSqlStyle.SQLITE;
+            // See this class for why we use these hooks instead of ones the standard ones
+        	return new FormulaSqliteHooks.SqliteJdbcCompatHooks() {};
 		}
     }
     

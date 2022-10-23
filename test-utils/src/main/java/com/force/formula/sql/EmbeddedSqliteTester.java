@@ -6,7 +6,18 @@ package com.force.formula.sql;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.force.formula.DisplayField;
+import com.force.formula.Formula;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.MockFormulaDataType;
+import com.force.formula.util.FormulaDateUtil;
 
 /**
  * a DbTester of formulas that uses embedded sqlite for validation.  
@@ -29,12 +40,18 @@ public class EmbeddedSqliteTester extends AbstractDbTester {
 
 	@Override
     protected boolean useBinds() {
-        return true;
+	    // Don't use binds because by default, Dates are bound using numbers
+	    // which seems to confuse things.  You can change the binding in the
+	    // SqlConnection 
+	    // TODO: Support either numbers of strings for dates
+        return false;
     }
 	
 	@Override
 	protected Connection getConnection() throws SQLException, IOException {
-        return DriverManager.getConnection("jdbc:sqlite:target/sample.db");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:target/sample.db");
+        //((SQLiteConnection)conn).getConnectionConfig().setDateClass("TEXT");
+        return conn;
 	}
 	
 	@Override
@@ -58,7 +75,7 @@ public class EmbeddedSqliteTester extends AbstractDbTester {
      */
     @Override
     protected String stringToDateTime(String arg) {
-        return "CAST("+arg+" AS TIMESTAMP)";
+        return arg;
     }
     
     /**
@@ -67,12 +84,78 @@ public class EmbeddedSqliteTester extends AbstractDbTester {
      */
     @Override
     protected String stringToDate(String arg) {
-        return "CAST("+arg+" AS DATE)";
+        return arg;
     }
 
 	@Override
 	public void close() throws Exception {
 		// It autocloses.
 	}
+	
+	// Date and DateTimes are suggestions in sqlite.
+	@Override
+    protected String formatDbResult(ResultSet rset, FormulaRuntimeContext formulaContext, Formula formula) throws SQLException {
+        MockFormulaDataType returnType = (MockFormulaDataType) formula.getDataType();
+        switch (returnType) {
+        case DATEONLY:
+            // Note Date's can be numbers or strings in sqlite.  We're assuming strings
+            try {
+                Date d = rset.getDate(1);
+                if (d == null)
+                    return null;
+                return new Timestamp(d.getTime()).toString();
+            } catch (SQLException ex) {
+                if (ex.getMessage().equals("Error parsing date")) {
+                    String str = rset.getString(1);
+                    try {
+                        Date d = DATE_FORMATTER.get().parse(str);
+                        return new Timestamp(d.getTime()).toString();
+                    } catch (ParseException e) {
+                        throw ex;
+                    }
+                    
+                }
+            }
+        case DATETIME:
+            try {
+                Timestamp ts = rset.getTimestamp(1);
+                if (ts == null)
+                    return null;
+                return ts.toString();
+            } catch (SQLException ex) {
+                if (ex.getMessage().equals("Error parsing time stamp")) {
+                    Date d = rset.getDate(1);
+                    return new Timestamp(d.getTime()).toString();
+                }
+                throw ex;
+            }
 
+        default:
+        }
+        
+        return super.formatDbResult(rset, formulaContext, formula);
+    }
+
+	// In Sqlite, time is an illusion.
+    @Override
+    protected String formatDbTimeResult(ResultSet rset) throws SQLException {
+        String str = rset.getString(1);
+        return str;
+    }
+
+    private static final ThreadLocal<SimpleDateFormat> DATE_FORMATTER = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd"));
+
+    // Pass in literal values as YYYY-MM-DD, not what oracle wants.
+    @Override
+    protected String getSqlLiteralValue(DisplayField df, Object value) {
+        switch ((MockFormulaDataType) df.getFormulaFieldInfo().getDataType()) {
+        case DATEONLY:
+            return stringToDate("'" + DATE_FORMATTER.get().format((java.util.Date) value) + "'");
+        case DATETIME:
+            return stringToDate("'" + FormulaDateUtil.formatDatetimeToSqlLiteral((java.util.Date) value) + "'");
+        default:
+            
+        }
+        return super.getSqlLiteralValue(df, value);
+    }
 }

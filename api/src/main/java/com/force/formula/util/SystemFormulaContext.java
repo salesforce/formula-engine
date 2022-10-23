@@ -76,6 +76,8 @@ public class SystemFormulaContext extends NullFormulaContext {
                 return originDateTime_PRESTO;
             } else if (style != null && style.isGoogleStyle()) {
                 return originDateTime_GOOGLE;
+            } else if (style != null && style.isSqliteStyle()) {
+                return originDateTime_SQLITE;
             }
             return originDateTime;
         } else {
@@ -143,6 +145,8 @@ public class SystemFormulaContext extends NullFormulaContext {
             FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("DATEFROMPARTS(1900,1,1)", null));
     private static final SystemFormulaFieldInfo originDateTime_GOOGLE = new SystemFormulaFieldInfo(ORIGIN_DATE_TIME,
             FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("DATE(1900,1,1)", null));
+    private static final SystemFormulaFieldInfo originDateTime_SQLITE = new SystemFormulaFieldInfo(ORIGIN_DATE_TIME,
+            FormulaEngine.getHooks().getDataTypeByName("DateTime"), new SQLPair("'1900-01-01 00:00:00'", null));
     private static DisplayField[] displayFields = new DisplayField[] { new DisplayField(SYSTEM_NAMESPACE, SYSTEM_NAMESPACE, originDateTime) };
 
     static {
