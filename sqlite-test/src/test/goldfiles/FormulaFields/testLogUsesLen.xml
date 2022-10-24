@@ -33,16 +33,16 @@
       <result>
       <inputvalues>[blunder]</inputvalues>
          <formula>0.8450980400142567</formula>
-         <sql>0.8450980400142568</sql>
+         <sql>0.845098040014257</sql>
          <formulaNullAsNull>0.8450980400142567</formulaNullAsNull>
-         <sqlNullAsNull>0.8450980400142568</sqlNullAsNull>
+         <sqlNullAsNull>0.845098040014257</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[makesense]</inputvalues>
          <formula>0.9542425094393249</formula>
-         <sql>0.9542425094393248</sql>
+         <sql>0.954242509439325</sql>
          <formulaNullAsNull>0.9542425094393249</formulaNullAsNull>
-         <sqlNullAsNull>0.9542425094393248</sqlNullAsNull>
+         <sqlNullAsNull>0.954242509439325</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[does not make sense]</inputvalues>

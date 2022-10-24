@@ -19,9 +19,9 @@
       <result>
       <inputvalues>[1, 123456789123456.24, 123456789123456.24]</inputvalues>
          <formula>1.00000000000000000000000000000000</formula>
-         <sql>0.9999999999999998</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1.00000000000000000000000000000000</formulaNullAsNull>
-         <sqlNullAsNull>0.9999999999999998</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1, 0, 0]</inputvalues>

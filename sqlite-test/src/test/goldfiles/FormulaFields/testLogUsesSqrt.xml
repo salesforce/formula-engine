@@ -26,44 +26,44 @@
       <result>
       <inputvalues>[2]</inputvalues>
          <formula>0.1505149978319906</formula>
-         <sql>0.1505149978319906</sql>
+         <sql>0.150514997831991</sql>
          <formulaNullAsNull>0.1505149978319906</formulaNullAsNull>
-         <sqlNullAsNull>0.1505149978319906</sqlNullAsNull>
+         <sqlNullAsNull>0.150514997831991</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[3]</inputvalues>
          <formula>0.23856062735983116</formula>
-         <sql>0.2385606273598311</sql>
+         <sql>0.238560627359831</sql>
          <formulaNullAsNull>0.23856062735983116</formulaNullAsNull>
-         <sqlNullAsNull>0.2385606273598311</sqlNullAsNull>
+         <sqlNullAsNull>0.238560627359831</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[4]</inputvalues>
          <formula>0.30102999566398114</formula>
-         <sql>0.3010299956639811</sql>
+         <sql>0.301029995663981</sql>
          <formulaNullAsNull>0.30102999566398114</formulaNullAsNull>
-         <sqlNullAsNull>0.3010299956639811</sqlNullAsNull>
+         <sqlNullAsNull>0.301029995663981</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[7]</inputvalues>
          <formula>0.4225490200071284</formula>
-         <sql>0.4225490200071284</sql>
+         <sql>0.422549020007128</sql>
          <formulaNullAsNull>0.4225490200071284</formulaNullAsNull>
-         <sqlNullAsNull>0.4225490200071284</sqlNullAsNull>
+         <sqlNullAsNull>0.422549020007128</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[12]</inputvalues>
          <formula>0.5395906230238123</formula>
-         <sql>0.5395906230238124</sql>
+         <sql>0.539590623023812</sql>
          <formulaNullAsNull>0.5395906230238123</formulaNullAsNull>
-         <sqlNullAsNull>0.5395906230238124</sqlNullAsNull>
+         <sqlNullAsNull>0.539590623023812</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[16]</inputvalues>
          <formula>0.6020599913279623</formula>
-         <sql>0.6020599913279623</sql>
+         <sql>0.602059991327962</sql>
          <formulaNullAsNull>0.6020599913279623</formulaNullAsNull>
-         <sqlNullAsNull>0.6020599913279623</sqlNullAsNull>
+         <sqlNullAsNull>0.602059991327962</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[256]</inputvalues>

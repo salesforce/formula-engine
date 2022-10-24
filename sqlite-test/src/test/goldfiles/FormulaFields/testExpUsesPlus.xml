@@ -41,9 +41,9 @@
       <result>
       <inputvalues>[-1, -12]</inputvalues>
          <formula>0.00000608307641893218</formula>
-         <sql>0.00000608307641893218</sql>
+         <sql>0.000006083076419</sql>
          <formulaNullAsNull>0.00000608307641893218</formulaNullAsNull>
-         <sqlNullAsNull>0.00000608307641893218</sqlNullAsNull>
+         <sqlNullAsNull>0.000006083076419</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-10, 2]</inputvalues>
@@ -55,9 +55,9 @@
       <result>
       <inputvalues>[-100, -1]</inputvalues>
          <formula>0.1353352832366127</formula>
-         <sql>0.1353352832366127</sql>
+         <sql>0.135335283236613</sql>
          <formulaNullAsNull>0.1353352832366127</formulaNullAsNull>
-         <sqlNullAsNull>0.1353352832366127</sqlNullAsNull>
+         <sqlNullAsNull>0.135335283236613</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[56, 5]</inputvalues>

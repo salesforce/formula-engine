@@ -19,23 +19,23 @@
       <result>
       <inputvalues>[2]</inputvalues>
          <formula>0.548662004939271</formula>
-         <sql>0.5486620049392719</sql>
+         <sql>0.548662004939272</sql>
          <formulaNullAsNull>0.548662004939271</formulaNullAsNull>
-         <sqlNullAsNull>0.5486620049392719</sqlNullAsNull>
+         <sqlNullAsNull>0.548662004939272</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[3]</inputvalues>
          <formula>0.690739643222873</formula>
-         <sql>0.6907396432228728</sql>
+         <sql>0.690739643222873</sql>
          <formulaNullAsNull>0.690739643222873</formulaNullAsNull>
-         <sqlNullAsNull>0.6907396432228728</sqlNullAsNull>
+         <sqlNullAsNull>0.690739643222873</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[4]</inputvalues>
          <formula>0.775925248543932</formula>
-         <sql>0.7759252485439319</sql>
+         <sql>0.775925248543932</sql>
          <formulaNullAsNull>0.775925248543932</formulaNullAsNull>
-         <sqlNullAsNull>0.7759252485439319</sqlNullAsNull>
+         <sqlNullAsNull>0.775925248543932</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[5]</inputvalues>

@@ -36,9 +36,9 @@
       <result>
       <inputvalues>[-1, -1, -1, -1, -1, -1]</inputvalues>
          <formula>-0.99</formula>
-         <sql>-0.9899999999999999</sql>
+         <sql>-0.99</sql>
          <formulaNullAsNull>-0.99</formulaNullAsNull>
-         <sqlNullAsNull>-0.9899999999999999</sqlNullAsNull>
+         <sqlNullAsNull>-0.99</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 0, 0, 0, 0, 0]</inputvalues>

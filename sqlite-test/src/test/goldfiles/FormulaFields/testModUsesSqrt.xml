@@ -19,16 +19,16 @@
       <result>
       <inputvalues>[20, -1]</inputvalues>
          <formula>0.47213595499958</formula>
-         <sql>0.4721359549995796</sql>
+         <sql>0.47213595499958</sql>
          <formulaNullAsNull>0.47213595499958</formulaNullAsNull>
-         <sqlNullAsNull>0.4721359549995796</sqlNullAsNull>
+         <sqlNullAsNull>0.47213595499958</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.12345,  2]</inputvalues>
          <formula>0.485916851659201</formula>
-         <sql>0.4859168516592013</sql>
+         <sql>0.485916851659201</sql>
          <formulaNullAsNull>0.485916851659201</formulaNullAsNull>
-         <sqlNullAsNull>0.4859168516592013</sqlNullAsNull>
+         <sqlNullAsNull>0.485916851659201</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.123444, 13]</inputvalues>
@@ -54,9 +54,9 @@
       <result>
       <inputvalues>[20.12, 1]</inputvalues>
          <formula>0.485532298401161</formula>
-         <sql>0.4855322984011607</sql>
+         <sql>0.485532298401161</sql>
          <formulaNullAsNull>0.485532298401161</formulaNullAsNull>
-         <sqlNullAsNull>0.4855322984011607</sqlNullAsNull>
+         <sqlNullAsNull>0.485532298401161</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, 2]</inputvalues>
@@ -131,16 +131,16 @@
       <result>
       <inputvalues>[.24456, 123456789]</inputvalues>
          <formula>0.4945300799749192</formula>
-         <sql>0.4945300799749192</sql>
+         <sql>0.494530079974919</sql>
          <formulaNullAsNull>0.4945300799749192</formulaNullAsNull>
-         <sqlNullAsNull>0.4945300799749192</sqlNullAsNull>
+         <sqlNullAsNull>0.494530079974919</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.24456, 0.000045]</inputvalues>
          <formula>0.0000250799749192</formula>
-         <sql>0.00002507997491918434</sql>
+         <sql>0.000025079974919</sql>
          <formulaNullAsNull>0.0000250799749192</formulaNullAsNull>
-         <sqlNullAsNull>0.00002507997491918434</sqlNullAsNull>
+         <sqlNullAsNull>0.000025079974919</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 16]</inputvalues>

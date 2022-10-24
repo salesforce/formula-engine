@@ -12,7 +12,7 @@
       <result>
       <inputvalues>[, 24]</inputvalues>
          <formula>0.24</formula>
-         <sql>0.2399999999999999</sql>
+         <sql>0.24</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
@@ -204,7 +204,7 @@
       <result>
       <inputvalues>[24, ]</inputvalues>
          <formula>0.24</formula>
-         <sql>0.2399999999999999</sql>
+         <sql>0.24</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>

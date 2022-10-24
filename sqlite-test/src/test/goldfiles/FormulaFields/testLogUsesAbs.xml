@@ -75,37 +75,37 @@
       <result>
       <inputvalues>[-.244]</inputvalues>
          <formula>-0.6126101736612705</formula>
-         <sql>-0.6126101736612705</sql>
+         <sql>-0.61261017366127</sql>
          <formulaNullAsNull>-0.6126101736612705</formulaNullAsNull>
-         <sqlNullAsNull>-0.6126101736612705</sqlNullAsNull>
+         <sqlNullAsNull>-0.61261017366127</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0.244]</inputvalues>
          <formula>-0.6126101736612705</formula>
-         <sql>-0.6126101736612705</sql>
+         <sql>-0.61261017366127</sql>
          <formulaNullAsNull>-0.6126101736612705</formulaNullAsNull>
-         <sqlNullAsNull>-0.6126101736612705</sqlNullAsNull>
+         <sqlNullAsNull>-0.61261017366127</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0.245]</inputvalues>
          <formula>-0.6108339156354675</formula>
-         <sql>-0.6108339156354675</sql>
+         <sql>-0.610833915635468</sql>
          <formulaNullAsNull>-0.6108339156354675</formulaNullAsNull>
-         <sqlNullAsNull>-0.6108339156354675</sqlNullAsNull>
+         <sqlNullAsNull>-0.610833915635468</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[.24456]</inputvalues>
          <formula>-0.6116145742819675</formula>
-         <sql>-0.6116145742819676</sql>
+         <sql>-0.611614574281968</sql>
          <formulaNullAsNull>-0.6116145742819675</formulaNullAsNull>
-         <sqlNullAsNull>-0.6116145742819676</sqlNullAsNull>
+         <sqlNullAsNull>-0.611614574281968</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.24456]</inputvalues>
          <formula>-0.6116145742819675</formula>
-         <sql>-0.6116145742819676</sql>
+         <sql>-0.611614574281968</sql>
          <formulaNullAsNull>-0.6116145742819675</formulaNullAsNull>
-         <sqlNullAsNull>-0.6116145742819676</sqlNullAsNull>
+         <sqlNullAsNull>-0.611614574281968</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[16]</inputvalues>

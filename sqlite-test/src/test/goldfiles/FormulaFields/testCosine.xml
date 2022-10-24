@@ -26,16 +26,16 @@
       <result>
       <inputvalues>[1, ]</inputvalues>
          <formula>0.5403023058681398</formula>
-         <sql>0.5403023058681397</sql>
+         <sql>0.54030230586814</sql>
          <formulaNullAsNull>0.5403023058681398</formulaNullAsNull>
-         <sqlNullAsNull>0.5403023058681397</sqlNullAsNull>
+         <sqlNullAsNull>0.54030230586814</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, ]</inputvalues>
          <formula>0.5403023058681398</formula>
-         <sql>0.5403023058681397</sql>
+         <sql>0.54030230586814</sql>
          <formulaNullAsNull>0.5403023058681398</formulaNullAsNull>
-         <sqlNullAsNull>0.5403023058681397</sqlNullAsNull>
+         <sqlNullAsNull>0.54030230586814</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[3.141592653589793]</inputvalues>

@@ -4,6 +4,8 @@
 package com.force.formula.sql;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -129,6 +131,16 @@ public class EmbeddedSqliteTester extends AbstractDbTester {
                 }
                 throw ex;
             }
+        case INTEGER:
+        case DOUBLE:
+            BigDecimal number = rset.getBigDecimal(1);
+            if (number == null)
+                return null;
+            // Mac and Linux have different scales...  Sigh..
+            if (number.scale() > 15) {
+                number = number.setScale(15, RoundingMode.HALF_EVEN);
+            }
+            return number.stripTrailingZeros().toPlainString(); // Strip trailing zeros because that's driver specific.
 
         default:
         }

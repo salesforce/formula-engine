@@ -96,23 +96,23 @@
       <result>
       <inputvalues>[200, 200, 0.123456789, 0.123456789]</inputvalues>
          <formula>0.123456789</formula>
-         <sql>0.1234567889999999</sql>
+         <sql>0.123456789</sql>
          <formulaNullAsNull>0.123456789</formulaNullAsNull>
-         <sqlNullAsNull>0.1234567889999999</sqlNullAsNull>
+         <sqlNullAsNull>0.123456789</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[201, 200, 0.123456789, 0.123456789]</inputvalues>
          <formula>0.123456789</formula>
-         <sql>0.1234567889999999</sql>
+         <sql>0.123456789</sql>
          <formulaNullAsNull>0.123456789</formulaNullAsNull>
-         <sqlNullAsNull>0.1234567889999999</sqlNullAsNull>
+         <sqlNullAsNull>0.123456789</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[200, 201, 0.123456789, 0.123456789]</inputvalues>
          <formula>0.123456789</formula>
-         <sql>0.1234567889999999</sql>
+         <sql>0.123456789</sql>
          <formulaNullAsNull>0.123456789</formulaNullAsNull>
-         <sqlNullAsNull>0.1234567889999999</sqlNullAsNull>
+         <sqlNullAsNull>0.123456789</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

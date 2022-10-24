@@ -110,16 +110,16 @@
       <result>
       <inputvalues>[-.244, 2]</inputvalues>
          <formula>-0.24</formula>
-         <sql>-0.2399999999999999</sql>
+         <sql>-0.24</sql>
          <formulaNullAsNull>-0.24</formulaNullAsNull>
-         <sqlNullAsNull>-0.2399999999999999</sqlNullAsNull>
+         <sqlNullAsNull>-0.24</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0.244, 2]</inputvalues>
          <formula>-0.24</formula>
-         <sql>-0.2399999999999999</sql>
+         <sql>-0.24</sql>
          <formulaNullAsNull>-0.24</formulaNullAsNull>
-         <sqlNullAsNull>-0.2399999999999999</sqlNullAsNull>
+         <sqlNullAsNull>-0.24</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0.245, 0]</inputvalues>

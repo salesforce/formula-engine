@@ -166,9 +166,9 @@
       <result>
       <inputvalues>[1.00596, 240]</inputvalues>
          <formula>0.8814110468095292</formula>
-         <sql>0.8814110468079805</sql>
+         <sql>0.88141104680798</sql>
          <formulaNullAsNull>0.8814110468095292</formulaNullAsNull>
-         <sqlNullAsNull>0.8814110468079805</sqlNullAsNull>
+         <sqlNullAsNull>0.88141104680798</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 240]</inputvalues>

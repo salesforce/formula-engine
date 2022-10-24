@@ -82,9 +82,9 @@
       <result>
       <inputvalues>[123456789.123456789, 2]</inputvalues>
          <formula>0.11641035084441129</formula>
-         <sql>0.1164103526629518</sql>
+         <sql>0.116410352662952</sql>
          <formulaNullAsNull>0.11641035084441129</formulaNullAsNull>
-         <sqlNullAsNull>0.1164103526629518</sqlNullAsNull>
+         <sqlNullAsNull>0.116410352662952</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[46, -456]</inputvalues>

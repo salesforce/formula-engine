@@ -47,9 +47,9 @@
       <result>
       <inputvalues>[99,  -1]</inputvalues>
          <formula>0.0101010101010101010</formula>
-         <sql>0.0101010101010101</sql>
+         <sql>0.01010101010101</sql>
          <formulaNullAsNull>0.0101010101010101010</formulaNullAsNull>
-         <sqlNullAsNull>0.0101010101010101</sqlNullAsNull>
+         <sqlNullAsNull>0.01010101010101</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-20, -40]</inputvalues>

@@ -75,9 +75,9 @@
       <result>
       <inputvalues>[2.56, 19]</inputvalues>
          <formula>0.9400072584914712</formula>
-         <sql>-0.9223372036854774</sql>
+         <sql>-0.922337203685477</sql>
          <formulaNullAsNull>0.9400072584914712</formulaNullAsNull>
-         <sqlNullAsNull>-0.9223372036854774</sqlNullAsNull>
+         <sqlNullAsNull>-0.922337203685477</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789, 12]</inputvalues>

@@ -40,16 +40,16 @@
       <result>
       <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:00:00]</inputvalues>
          <formula>0.02083333333333333333333333333333</formula>
-         <sql>0.02083333302289247</sql>
+         <sql>0.020833333022892</sql>
          <formulaNullAsNull>0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>0.02083333302289247</sqlNullAsNull>
+         <sqlNullAsNull>0.020833333022892</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:23:30:00, 2004:02:28:24:00:00]</inputvalues>
          <formula>-0.02083333333333333333333333333333</formula>
-         <sql>-0.02083333348855376</sql>
+         <sql>-0.020833333488554</sql>
          <formulaNullAsNull>-0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>-0.02083333348855376</sqlNullAsNull>
+         <sqlNullAsNull>-0.020833333488554</sqlNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="(customdatetime2__c-customdatetime1__c)" returntype="Double" precision="12" scale="2">
@@ -92,16 +92,16 @@
       <result>
       <inputvalues>[2004:12:31:11:00:00, 2004:12:31:11:30:00]</inputvalues>
          <formula>-0.02083333333333333333333333333333</formula>
-         <sql>-0.02083333302289247</sql>
+         <sql>-0.020833333022892</sql>
          <formulaNullAsNull>-0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>-0.02083333302289247</sqlNullAsNull>
+         <sqlNullAsNull>-0.020833333022892</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:02:28:24:00:00, 2004:02:28:23:30:00]</inputvalues>
          <formula>0.02083333333333333333333333333333</formula>
-         <sql>0.02083333348855376</sql>
+         <sql>0.020833333488554</sql>
          <formulaNullAsNull>0.02083333333333333333333333333333</formulaNullAsNull>
-         <sqlNullAsNull>0.02083333348855376</sqlNullAsNull>
+         <sqlNullAsNull>0.020833333488554</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

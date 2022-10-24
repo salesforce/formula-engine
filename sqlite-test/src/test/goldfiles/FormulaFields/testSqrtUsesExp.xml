@@ -33,23 +33,23 @@
       <result>
       <inputvalues>[-1]</inputvalues>
          <formula>0.6065306597126334</formula>
-         <sql>0.6065306597126334</sql>
+         <sql>0.606530659712633</sql>
          <formulaNullAsNull>0.6065306597126334</formulaNullAsNull>
-         <sqlNullAsNull>0.6065306597126334</sqlNullAsNull>
+         <sqlNullAsNull>0.606530659712633</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-10]</inputvalues>
          <formula>0.006737946999085467</formula>
-         <sql>0.006737946999085467</sql>
+         <sql>0.006737946999085</sql>
          <formulaNullAsNull>0.006737946999085467</formulaNullAsNull>
-         <sqlNullAsNull>0.006737946999085467</sqlNullAsNull>
+         <sqlNullAsNull>0.006737946999085</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-100]</inputvalues>
          <formula>0.00000000000000000000019287498480</formula>
-         <sql>0.000000000000000000000192874985</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0.00000000000000000000019287498480</formulaNullAsNull>
-         <sqlNullAsNull>0.000000000000000000000192874985</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[56]</inputvalues>

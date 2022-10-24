@@ -151,8 +151,18 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		 * @return whether for a give test, the values from the SQL engine should be compared
 		 */
 		protected boolean shouldCompareSql() {
-			return shouldTestSql() && null == getTestCaseInfo().whyIgnoreSql(((FormulaGenericTests)getSuite()).getDbTypeName());
+			return shouldTestSql() && null == getWhyIgnoreSql();
 		}
+
+		/**
+		 * @return the structure explaining why the sql results will be different, if they will be.
+		 * This allows overriding in child classes if you want to use a different dbTypeName without changing
+		 * the XML files.
+		 */
+		@Override
+        protected WhyIgnoreSql getWhyIgnoreSql() {
+            return getTestCaseInfo().whyIgnoreSql(((FormulaGenericTests)getSuite()).getDbTypeName());
+        }
 		
 		@Override
 		protected boolean ignoreJavascriptValueMismatchInAutobuilds() {
@@ -319,10 +329,11 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			return mismatchMessage;
 		}
 
+		
 	    @Override
         protected String validateTestCaseStats(FormulaTestRunnable instance, TestCaseStats stats, PrintStream xmlOut) {
             if (shouldTestSql()) {
-                WhyIgnoreSql why = getTestCaseInfo().whyIgnoreSql(((FormulaGenericTests)getSuite()).getDbTypeName());
+                WhyIgnoreSql why = getWhyIgnoreSql();
                 if (why != null&& !why.isUnimplemented() && why.getNumFailures() >= 0 && why.getNumFailures() != stats.numberSqlDifferences) {
                     return "Should have received " + why.getNumFailures() + " differences but instead had " + stats.numberSqlDifferences;
                 }
