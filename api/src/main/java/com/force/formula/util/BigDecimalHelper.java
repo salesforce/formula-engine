@@ -6,8 +6,12 @@
 
 package com.force.formula.util;
 
-import java.math.*;
-import java.sql.*;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * BigDecimal helper class
@@ -31,6 +35,12 @@ public class BigDecimalHelper {
     public static final int NUMBER_PRECISION_EXTERNAL = 33;
     public static final MathContext MC_PRECISION_EXTERNAL = new MathContext(NUMBER_PRECISION_EXTERNAL, RoundingMode.HALF_UP);
 
+    /**
+     * For low-precision DBs, use this constant to prevent ROUND(,33) from causing Round/Ceil to get confused with
+     * integers 
+     */
+    public static final int DOUBLE_PRECISION = 16;
+    
     public static final BigDecimal getNonNullFromRs(ResultSet rs, String colName) throws SQLException {
         BigDecimal bd = rs.getBigDecimal(colName);
         return bd == null ? BigDecimal.ZERO : bd;

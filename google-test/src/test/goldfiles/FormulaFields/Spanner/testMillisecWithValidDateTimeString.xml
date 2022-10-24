@@ -2,19 +2,19 @@
 <testCase name="testMillisecWithValidDateTimeString">
    <testInstance formula="MilliSecond(TIMEVALUE(&quot;2015-03-17 17:00:00&quot;))" returntype="Double" precision="12" scale="2">
     <SqlOutput nullAsNull="true">
-       <Sql>TRUNC((NULL -TRUNC(NULL/1000) * 1000))</Sql>
+       <Sql>TRUNC(NULL -TRUNC(NULL/1000) * 1000)</Sql>
        <Guard>0=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>TRUNC((NULL -TRUNC(NULL/1000) * 1000))</Sql>
+       <Sql>TRUNC(NULL -TRUNC(NULL/1000) * 1000)</Sql>
        <Guard>0=0</Guard>
     </SqlOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
-         <sql>Error: INVALID_ARGUMENT: io.grpc.StatusRuntimeException: INVALID_ARGUMENT: Operands of / cannot be literal NULL [at 1:62] ...WHEN 0=0 THEN NULL ELSE ROUND(TRUNC((NULL -TRUNC(NULL/1000) * 1000)), 32) ...                                                     ^ - Statement: 'SELECT CASE WHEN 0=0 THEN NULL ELSE ROUND(TRUNC((NULL -TRUNC(NULL/1000) * 1000)), 32) END FROM (SELECT 1 as fake) c'</sql>
+         <sql>Error: INVALID_ARGUMENT: io.grpc.StatusRuntimeException: INVALID_ARGUMENT: Operands of / cannot be literal NULL [at 1:61] ...WHEN 0=0 THEN NULL ELSE ROUND(TRUNC(NULL -TRUNC(NULL/1000) * 1000), 32) EN...                                                    ^ - Statement: 'SELECT CASE WHEN 0=0 THEN NULL ELSE ROUND(TRUNC(NULL -TRUNC(NULL/1000) * 1000), 32) END FROM (SELECT 1 as fake) c'</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
-         <sqlNullAsNull>Error: INVALID_ARGUMENT: io.grpc.StatusRuntimeException: INVALID_ARGUMENT: Operands of / cannot be literal NULL [at 1:62] ...WHEN 0=0 THEN NULL ELSE ROUND(TRUNC((NULL -TRUNC(NULL/1000) * 1000)), 32) ...                                                     ^ - Statement: 'SELECT CASE WHEN 0=0 THEN NULL ELSE ROUND(TRUNC((NULL -TRUNC(NULL/1000) * 1000)), 32) END FROM (SELECT 1 as fake) c'</sqlNullAsNull>
+         <sqlNullAsNull>Error: INVALID_ARGUMENT: io.grpc.StatusRuntimeException: INVALID_ARGUMENT: Operands of / cannot be literal NULL [at 1:61] ...WHEN 0=0 THEN NULL ELSE ROUND(TRUNC(NULL -TRUNC(NULL/1000) * 1000), 32) EN...                                                    ^ - Statement: 'SELECT CASE WHEN 0=0 THEN NULL ELSE ROUND(TRUNC(NULL -TRUNC(NULL/1000) * 1000), 32) END FROM (SELECT 1 as fake) c'</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

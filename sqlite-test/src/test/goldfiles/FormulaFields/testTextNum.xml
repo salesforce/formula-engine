@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextNum">
+   <testInstance formula="Text(customnumber1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>(CAST(COALESCE($!s0s!$.customnumber1__c, 0) AS TEXT))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(CAST($!s0s!$.customnumber1__c AS TEXT))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[1234567890.0]</inputvalues>
+         <formula>1234567890</formula>
+         <sql>1234567890.0</sql>
+         <formulaNullAsNull>1234567890</formulaNullAsNull>
+         <sqlNullAsNull>1234567890.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1234567891.0]</inputvalues>
+         <formula>1234567891</formula>
+         <sql>1234567891.0</sql>
+         <formulaNullAsNull>1234567891</formulaNullAsNull>
+         <sqlNullAsNull>1234567891.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1234567890]</inputvalues>
+         <formula>1234567890</formula>
+         <sql>1234567890.0</sql>
+         <formulaNullAsNull>1234567890</formulaNullAsNull>
+         <sqlNullAsNull>1234567890.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1234567891]</inputvalues>
+         <formula>1234567891</formula>
+         <sql>1234567891.0</sql>
+         <formulaNullAsNull>1234567891</formulaNullAsNull>
+         <sqlNullAsNull>1234567891.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

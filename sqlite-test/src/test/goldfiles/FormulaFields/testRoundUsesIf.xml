@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRoundUsesIf">
+   <testInstance formula="ROUND(IF(customcheckbox1__c,customnumber1__c,customnumber2__c),customnumber3__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN COALESCE($!s0s!$.customnumber3__c, 0) &gt;= 0 THEN ROUND(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE($!s0s!$.customnumber2__c, 0) END, COALESCE($!s0s!$.customnumber3__c, 0)) ELSE  ROUND(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE($!s0s!$.customnumber2__c, 0) END*POWER(10,COALESCE($!s0s!$.customnumber3__c, 0)))/POWER(10,COALESCE($!s0s!$.customnumber3__c, 0)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customnumber3__c &gt;= 0 THEN ROUND(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customnumber2__c END, $!s0s!$.customnumber3__c) ELSE  ROUND(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customnumber2__c END*POWER(10,$!s0s!$.customnumber3__c))/POWER(10,$!s0s!$.customnumber3__c) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[true, 100, 200, 400]</inputvalues>
+         <formula>100</formula>
+         <sql>100</sql>
+         <formulaNullAsNull>100</formulaNullAsNull>
+         <sqlNullAsNull>100</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[false, 123456789, 123456789, 123456789]</inputvalues>
+         <formula>123456789</formula>
+         <sql>123456789</sql>
+         <formulaNullAsNull>123456789</formulaNullAsNull>
+         <sqlNullAsNull>123456789</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[true, 45.4356, 45, 900]</inputvalues>
+         <formula>45.4356</formula>
+         <sql>45.4356</sql>
+         <formulaNullAsNull>45.4356</formulaNullAsNull>
+         <sqlNullAsNull>45.4356</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[true, 0.00000984, 0.9, 0.4560001]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[false, -200, -0.000000008, -0.0000012]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

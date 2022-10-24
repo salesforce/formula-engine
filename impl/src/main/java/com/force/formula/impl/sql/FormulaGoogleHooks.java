@@ -341,6 +341,11 @@ public interface FormulaGoogleHooks extends FormulaSqlHooks {
         // the query processing machinery dominates, so go for max precision
 		return "EXP(" + argument + ")";
 	}
+
+    @Override
+    default String sqlLogBase10(String argument) {
+        return String.format(sqlToNumber(), "LOG10(" + argument + ")");
+    }
     
     @Override
     default String sqlTrigConvert(String argument) {

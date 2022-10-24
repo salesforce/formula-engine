@@ -4,6 +4,7 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
@@ -219,6 +220,18 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
     @Override
     default String sqlGetDayOfYear() {
 		return "CAST(TO_CHAR(%s, 'DDD') AS NUMERIC)";
+    }
+    
+    @Override
+    default String sqlChronoUnit(ChronoUnit field, Type dateType) {
+        switch (field) {
+        case YEARS:
+        case MONTHS:
+        case DAYS:
+            return FormulaSqlHooks.super.sqlChronoUnit(field, dateType) + "::numeric";
+        default:
+        }
+        return FormulaSqlHooks.super.sqlChronoUnit(field, dateType);
     }
     
     @Override

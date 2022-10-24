@@ -1,6 +1,7 @@
 package com.force.formula.commands;
 
 import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Deque;
 
@@ -14,9 +15,7 @@ import com.force.formula.FormulaTime;
 import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.JsValue;
 import com.force.formula.impl.TableAliasRegistry;
-import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
-import com.force.formula.util.FormulaDateUtil;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
 
@@ -39,19 +38,7 @@ public class FunctionMinute extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        // convert muillisecs since midnight to minutes portion of time  trunc((args[0] -trunc(args[0]/3600000) * 3600000)/60000)
-        String sql = getMinuteExpr(args[0], context);
-        return new SQLPair(sql, guards[0]);
-    }
-    
-    public static String getMinuteExpr(String arg, FormulaContext context)  {
-        FormulaSqlStyle style = context.getSqlStyle();
-        if (style.isMysqlStyle() || style.isPrestoStyle()) {
-     		return "MINUTE(" + arg + ")";
-    	} else if (style.isTransactSqlStyle()) {
-    		return "DATEPART(minute,"+arg+")";
-    	}
-        return "TRUNC((" + arg + "-TRUNC(" + arg + "/" + FormulaDateUtil.HOUR_IN_MILLIS+ ") * " + FormulaDateUtil.HOUR_IN_MILLIS + ")/" + FormulaDateUtil.MINUTE_IN_MILLIS + ")";
+        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.MINUTES, FormulaTime.class), args[0]), guards[0]);
     }
 
     @Override

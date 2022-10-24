@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.function.Supplier;
 
 import com.force.i18n.BaseLocalizer;
@@ -29,6 +31,7 @@ public final class FormulaDateUtil {
 
 
     private static final ThreadLocal<SimpleDateFormat> ISO8601_FORMATTER = ThreadLocal.withInitial(sdfWithGMT("yyyy-MM-dd'T'HH:mm:ss'Z'"));
+    private static final ThreadLocal<SimpleDateFormat> SQL_TIMESTAMP_FORMATTER = ThreadLocal.withInitial(sdfWithGMT("yyyy-MM-dd HH:mm:ss"));
     private static final ThreadLocal<SimpleDateFormat> ISO8601_MILLISECOND_FORMATTER = ThreadLocal.withInitial(sdfWithGMT("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
 
     private static final ThreadLocal<SimpleDateFormat> SQL_FORMATTER = ThreadLocal.withInitial(() -> new SimpleDateFormat("dd-MM-yyyy"));
@@ -204,6 +207,15 @@ public final class FormulaDateUtil {
         return ISO8601_FORMATTER.get().format(date);
     }
 
+    /**
+     * Returns a string in SQL Literal format, with both date and time
+     * e.g. 2011-01-31 22:59:48
+     * @param date the date to format
+     * @return the value of the date formatted with ISO8601 format.
+     */
+    public static String formatDatetimeToSqlLiteral(Date date) {
+        return SQL_TIMESTAMP_FORMATTER.get().format(date);
+    }
     
     public static Calendar translateCal(Calendar from, Calendar to, Date date, boolean toMidnight) {
         from.setTime(date);

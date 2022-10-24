@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMultiplyWithExpr">
+   <testInstance formula="(customformula0__c*customnumber1__c)" returntype="Currency" precision="12" scale="2">
+   <customformula0 dataType="ColumnType.DOUBLE" formula="(custompercent1__c*customcurrency1__c)"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>(COALESCE((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0) * COALESCE($!s0s!$.customnumber1__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>((($!s0s!$.custompercent1__c / 100.0) * $!s0s!$.customcurrency1__c) * $!s0s!$.customnumber1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[100, 200, 100]</inputvalues>
+         <formula>20000</formula>
+         <sql>20000.0</sql>
+         <formulaNullAsNull>20000</formulaNullAsNull>
+         <sqlNullAsNull>20000.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 0, 0]</inputvalues>
+         <formula>0</formula>
+         <sql>0.0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, -1, -1]</inputvalues>
+         <formula>-0.01</formula>
+         <sql>-0.01</sql>
+         <formulaNullAsNull>-0.01</formulaNullAsNull>
+         <sqlNullAsNull>-0.01</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789, 123456789, 12345678]</inputvalues>
+         <formula>1881676234614946109182.38</formula>
+         <sql>1881676234614946000000</sql>
+         <formulaNullAsNull>1881676234614946109182.38</formulaNullAsNull>
+         <sqlNullAsNull>1881676234614946000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 22, 0]</inputvalues>
+         <formula>0</formula>
+         <sql>0.0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , 10]</inputvalues>
+         <formula>0</formula>
+         <sql>0.0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

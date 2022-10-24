@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testChr">
+   <testInstance formula="CHR(customnumber__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>CHAR(COALESCE($!s0s!$.customnumber__c, 0))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber__c, 0)&lt;1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CHAR($!s0s!$.customnumber__c)</Sql>
+       <Guard>$!s0s!$.customnumber__c&lt;1</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[, ﻿]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[9]</inputvalues>
+         <formula> </formula>
+         <sql> </sql>
+         <formulaNullAsNull> </formulaNullAsNull>
+         <sqlNullAsNull> </sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[13]</inputvalues>
+         <formula> </formula>
+         <sql> </sql>
+         <formulaNullAsNull> </formulaNullAsNull>
+         <sqlNullAsNull> </sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[32]</inputvalues>
+         <formula> </formula>
+         <sql> </sql>
+         <formulaNullAsNull> </formulaNullAsNull>
+         <sqlNullAsNull> </sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[95]</inputvalues>
+         <formula>_</formula>
+         <sql>_</sql>
+         <formulaNullAsNull>_</formulaNullAsNull>
+         <sqlNullAsNull>_</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[8364]</inputvalues>
+         <formula>€</formula>
+         <sql>€</sql>
+         <formulaNullAsNull>€</formulaNullAsNull>
+         <sqlNullAsNull>€</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[64.5]</inputvalues>
+         <formula>@</formula>
+         <sql>@</sql>
+         <formulaNullAsNull>@</formulaNullAsNull>
+         <sqlNullAsNull>@</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[11822]</inputvalues>
+         <formula>⸮</formula>
+         <sql>⸮</sql>
+         <formulaNullAsNull>⸮</formulaNullAsNull>
+         <sqlNullAsNull>⸮</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-32]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

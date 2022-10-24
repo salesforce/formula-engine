@@ -4,6 +4,7 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -237,6 +238,24 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     @Override
     default String sqlDateFromYearAndMonth(String yearValue, String monthValue) {
         return "DATE(CONCAT(" + yearValue + ",'-'," + monthValue + ",'-01'))";
+    }
+    
+    
+    
+    @Override
+    default String sqlChronoUnit(ChronoUnit field, Type dateType) {
+        switch (field) {
+        case HOURS:
+            return "HOUR(%s)";
+        case MINUTES:
+            return "MINUTE(%s)";
+        case SECONDS:
+            return "SECOND(%s)";
+        case MILLIS:            
+            return "1000*MICROSECOND(%s)";
+        default:
+        }
+        return FormulaSqlHooks.super.sqlChronoUnit(field, dateType);
     }
     
     @Override

@@ -108,12 +108,16 @@ public class FunctionJsonValue extends FormulaCommandInfoImpl implements Formula
             }
             return new SQLPair(sql, guard);
         } else if (hooks.isMysqlStyle()) {
-            String path = "'$." + args[1].substring(1);  // must be literal in oracle
+            String path = "'$." + args[1].substring(1); 
             String sql = "json_unquote(json_extract(" + args[0] + "," + path + "))";
             return new SQLPair(sql, guard);
         } else if (hooks.isPrestoStyle()) {
-            String path = "'$." + args[1].substring(1);  // must be literal in oracle
+            String path = "'$." + args[1].substring(1);  
             String sql = "CAST(json_extract(" + args[0] + "," + path + ") AS VARCHAR)";
+            return new SQLPair(sql, guard);
+        } else if (hooks.isSqliteStyle()) {
+            String path = "'$." + args[1].substring(1);  
+            String sql = "json_extract(" + args[0] + "," + path + ")";
             return new SQLPair(sql, guard);
         } else {
             String sql = "json_value("+args[0] + ","+String.format(hooks.sqlConcat(false),"'$.'", args[1]) + ")";

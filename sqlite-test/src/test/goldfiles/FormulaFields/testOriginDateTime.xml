@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testOriginDateTime">
+   <testInstance formula="$System.originDateTime" returntype="DateTime">
+    <SqlOutput nullAsNull="true">
+       <Sql>'1900-01-01 00:00:00'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>'1900-01-01 00:00:00'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>Mon Jan 01 00:00:00 GMT 1900</formula>
+         <sql>1900-01-01 00:00:00.0</sql>
+         <formulaNullAsNull>Mon Jan 01 00:00:00 GMT 1900</formulaNullAsNull>
+         <sqlNullAsNull>1900-01-01 00:00:00.0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
