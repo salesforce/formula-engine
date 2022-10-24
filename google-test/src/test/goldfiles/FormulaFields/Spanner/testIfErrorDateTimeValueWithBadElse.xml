@@ -12,9 +12,9 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
-         <sql>Error: INVALID_ARGUMENT: Invalid column type to get as timestamp: INT64</sql>
+         <sql>Error: INVALID_ARGUMENT: Invalid column type to get as date: INT64</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
-         <sqlNullAsNull>Error: INVALID_ARGUMENT: Invalid column type to get as timestamp: INT64</sqlNullAsNull>
+         <sqlNullAsNull>Error: INVALID_ARGUMENT: Invalid column type to get as date: INT64</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

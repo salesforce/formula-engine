@@ -77,6 +77,11 @@
           <artifactId>formula-engine-google-test</artifactId>
           <version>${project.version}</version>
         </dependency>
+        <dependency>
+          <groupId>com.salesforce.formula</groupId>
+          <artifactId>formula-engine-sqlite-test</artifactId>
+          <version>${project.version}</version>
+        </dependency>
       </dependencies>
     </profile>
   </profiles>  
