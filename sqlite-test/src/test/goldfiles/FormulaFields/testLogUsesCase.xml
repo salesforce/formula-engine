@@ -12,58 +12,58 @@
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>2.301029995663981</formula>
-         <sql>2.301029995663981</sql>
+         <sql>2.301029995664</sql>
          <formulaNullAsNull>2.301029995663981</formulaNullAsNull>
-         <sqlNullAsNull>2.301029995663981</sqlNullAsNull>
+         <sqlNullAsNull>2.301029995664</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:03, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>2.477121254719662</formula>
-         <sql>2.477121254719662</sql>
+         <sql>2.47712125472</sql>
          <formulaNullAsNull>2.477121254719662</formulaNullAsNull>
-         <sqlNullAsNull>2.477121254719662</sqlNullAsNull>
+         <sqlNullAsNull>2.47712125472</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, 2004:12:03, 300, 400]</inputvalues>
          <formula>2.301029995663981</formula>
-         <sql>2.301029995663981</sql>
+         <sql>2.301029995664</sql>
          <formulaNullAsNull>2.301029995663981</formulaNullAsNull>
-         <sqlNullAsNull>2.301029995663981</sqlNullAsNull>
+         <sqlNullAsNull>2.301029995664</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:05, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>2.602059991327962</formula>
-         <sql>2.602059991327962</sql>
+         <sql>2.602059991328</sql>
          <formulaNullAsNull>2.602059991327962</formulaNullAsNull>
-         <sqlNullAsNull>2.602059991327962</sqlNullAsNull>
+         <sqlNullAsNull>2.602059991328</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>2.602059991327962</formula>
-         <sql>2.602059991327962</sql>
+         <sql>2.602059991328</sql>
          <formulaNullAsNull>2.602059991327962</formulaNullAsNull>
-         <sqlNullAsNull>2.602059991327962</sqlNullAsNull>
+         <sqlNullAsNull>2.602059991328</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>2.602059991327962</formula>
-         <sql>2.602059991327962</sql>
+         <sql>2.602059991328</sql>
          <formulaNullAsNull>2.602059991327962</formulaNullAsNull>
-         <sqlNullAsNull>2.602059991327962</sqlNullAsNull>
+         <sqlNullAsNull>2.602059991328</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, 200, , 300, 400]</inputvalues>
          <formula>2.301029995663981</formula>
-         <sql>2.301029995663981</sql>
+         <sql>2.301029995664</sql>
          <formulaNullAsNull>2.301029995663981</formulaNullAsNull>
-         <sqlNullAsNull>2.301029995663981</sqlNullAsNull>
+         <sqlNullAsNull>2.301029995664</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, , 200, 2004:12:04, 300, 400]</inputvalues>
          <formula>2.477121254719662</formula>
-         <sql>2.477121254719662</sql>
+         <sql>2.47712125472</sql>
          <formulaNullAsNull>2.477121254719662</formulaNullAsNull>
-         <sqlNullAsNull>2.477121254719662</sqlNullAsNull>
+         <sqlNullAsNull>2.47712125472</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2004:12:04, 2004:12:04, , 2004:12:04, 300, 400]</inputvalues>

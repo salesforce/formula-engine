@@ -61,9 +61,9 @@
       <result>
       <inputvalues>[1.1111, 1.1111]</inputvalues>
          <formula>2.2222</formula>
-         <sql>2.222199999999999</sql>
+         <sql>2.2222</sql>
          <formulaNullAsNull>2.2222</formulaNullAsNull>
-         <sqlNullAsNull>2.222199999999999</sqlNullAsNull>
+         <sqlNullAsNull>2.2222</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.11114, 0.00000]</inputvalues>
@@ -117,9 +117,9 @@
       <result>
       <inputvalues>[600,  0.000600]</inputvalues>
          <formula>600.000600</formula>
-         <sql>600.0005999999998</sql>
+         <sql>600.0006</sql>
          <formulaNullAsNull>600.000600</formulaNullAsNull>
-         <sqlNullAsNull>600.0005999999998</sqlNullAsNull>
+         <sqlNullAsNull>600.0006</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[600,  -600]</inputvalues>
@@ -131,9 +131,9 @@
       <result>
       <inputvalues>[1.2345,  1.2345]</inputvalues>
          <formula>2.4690</formula>
-         <sql>2.468999999999999</sql>
+         <sql>2.469</sql>
          <formulaNullAsNull>2.4690</formulaNullAsNull>
-         <sqlNullAsNull>2.468999999999999</sqlNullAsNull>
+         <sqlNullAsNull>2.469</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.245,  0]</inputvalues>
@@ -166,9 +166,9 @@
       <result>
       <inputvalues>[1.00596, 240]</inputvalues>
          <formula>241.00596</formula>
-         <sql>241.0059599999999</sql>
+         <sql>241.00596</sql>
          <formulaNullAsNull>241.00596</formulaNullAsNull>
-         <sqlNullAsNull>241.0059599999999</sqlNullAsNull>
+         <sqlNullAsNull>241.00596</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 240]</inputvalues>
@@ -187,9 +187,9 @@
       <result>
       <inputvalues>[.0000000000001, -1000]</inputvalues>
          <formula>-999.9999999999999</formula>
-         <sql>-999.9999999999998</sql>
+         <sql>-1000</sql>
          <formulaNullAsNull>-999.9999999999999</formulaNullAsNull>
-         <sqlNullAsNull>-999.9999999999998</sqlNullAsNull>
+         <sqlNullAsNull>-1000</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

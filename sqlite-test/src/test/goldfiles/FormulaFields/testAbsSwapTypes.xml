@@ -26,9 +26,9 @@
       <result>
       <inputvalues>[20.12345]</inputvalues>
          <formula>20.12345</formula>
-         <sql>20.12344999999999</sql>
+         <sql>20.12345</sql>
          <formulaNullAsNull>20.12345</formulaNullAsNull>
-         <sqlNullAsNull>20.12344999999999</sqlNullAsNull>
+         <sqlNullAsNull>20.12345</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1]</inputvalues>
@@ -54,9 +54,9 @@
       <result>
       <inputvalues>[46]</inputvalues>
          <formula>46</formula>
-         <sql>45.99999999999999</sql>
+         <sql>46</sql>
          <formulaNullAsNull>46</formulaNullAsNull>
-         <sqlNullAsNull>45.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>46</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0]</inputvalues>
@@ -117,16 +117,16 @@
       <result>
       <inputvalues>[256]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-256]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="ABS(customnumber1__c)" returntype="Double" precision="12" scale="2">
@@ -155,9 +155,9 @@
       <result>
       <inputvalues>[20.12345]</inputvalues>
          <formula>20.12345</formula>
-         <sql>20.12344999999999</sql>
+         <sql>20.12345</sql>
          <formulaNullAsNull>20.12345</formulaNullAsNull>
-         <sqlNullAsNull>20.12344999999999</sqlNullAsNull>
+         <sqlNullAsNull>20.12345</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1]</inputvalues>
@@ -183,9 +183,9 @@
       <result>
       <inputvalues>[46]</inputvalues>
          <formula>46</formula>
-         <sql>45.99999999999999</sql>
+         <sql>46</sql>
          <formulaNullAsNull>46</formulaNullAsNull>
-         <sqlNullAsNull>45.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>46</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0]</inputvalues>
@@ -246,16 +246,16 @@
       <result>
       <inputvalues>[256]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-256]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="ABS(customnumber1__c)" returntype="Currency" precision="12" scale="2">
@@ -671,9 +671,9 @@
       <result>
       <inputvalues>[20.12345]</inputvalues>
          <formula>20.12345</formula>
-         <sql>20.12344999999999</sql>
+         <sql>20.12345</sql>
          <formulaNullAsNull>20.12345</formulaNullAsNull>
-         <sqlNullAsNull>20.12344999999999</sqlNullAsNull>
+         <sqlNullAsNull>20.12345</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1]</inputvalues>
@@ -699,9 +699,9 @@
       <result>
       <inputvalues>[46]</inputvalues>
          <formula>46</formula>
-         <sql>45.99999999999999</sql>
+         <sql>46</sql>
          <formulaNullAsNull>46</formulaNullAsNull>
-         <sqlNullAsNull>45.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>46</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0]</inputvalues>
@@ -762,16 +762,16 @@
       <result>
       <inputvalues>[256]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-256]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="ABS(customnumber1__c)" returntype="Percent" precision="12" scale="2">
@@ -929,9 +929,9 @@
       <result>
       <inputvalues>[20.12345]</inputvalues>
          <formula>20.12345</formula>
-         <sql>20.12344999999999</sql>
+         <sql>20.12345</sql>
          <formulaNullAsNull>20.12345</formulaNullAsNull>
-         <sqlNullAsNull>20.12344999999999</sqlNullAsNull>
+         <sqlNullAsNull>20.12345</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1]</inputvalues>
@@ -957,9 +957,9 @@
       <result>
       <inputvalues>[46]</inputvalues>
          <formula>46</formula>
-         <sql>45.99999999999999</sql>
+         <sql>46</sql>
          <formulaNullAsNull>46</formulaNullAsNull>
-         <sqlNullAsNull>45.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>46</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0]</inputvalues>
@@ -1020,16 +1020,16 @@
       <result>
       <inputvalues>[256]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-256]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="ABS(customnumber1__c)" returntype="Percent" precision="12" scale="2">

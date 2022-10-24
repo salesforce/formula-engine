@@ -12,23 +12,23 @@
       <result>
       <inputvalues>[123456789, 123456789, 200, 300]</inputvalues>
          <formula>67.89</formula>
-         <sql>67.88999999896623</sql>
+         <sql>67.889999998966</sql>
          <formulaNullAsNull>67.89</formulaNullAsNull>
-         <sqlNullAsNull>67.88999999896623</sqlNullAsNull>
+         <sqlNullAsNull>67.889999998966</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[12345678, 123456789, 200, 300]</inputvalues>
          <formula>456.78</formula>
-         <sql>456.7799999998969</sql>
+         <sql>456.779999999897</sql>
          <formulaNullAsNull>456.78</formulaNullAsNull>
-         <sqlNullAsNull>456.7799999998969</sqlNullAsNull>
+         <sqlNullAsNull>456.779999999897</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[12345678, 1234567, 200, 300]</inputvalues>
          <formula>456.78</formula>
-         <sql>456.7799999998969</sql>
+         <sql>456.779999999897</sql>
          <formulaNullAsNull>456.78</formulaNullAsNull>
-         <sqlNullAsNull>456.7799999998969</sqlNullAsNull>
+         <sqlNullAsNull>456.779999999897</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 10.24, 200, 300]</inputvalues>
@@ -61,30 +61,30 @@
       <result>
       <inputvalues>[123.23456789, 1, 200, 300]</inputvalues>
          <formula>1.2</formula>
-         <sql>1.199999999999999</sql>
+         <sql>1.2</sql>
          <formulaNullAsNull>1.2</formulaNullAsNull>
-         <sqlNullAsNull>1.199999999999999</sqlNullAsNull>
+         <sqlNullAsNull>1.2</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 2, 200, 300]</inputvalues>
          <formula>1.23</formula>
-         <sql>1.229999999999999</sql>
+         <sql>1.23</sql>
          <formulaNullAsNull>1.23</formulaNullAsNull>
-         <sqlNullAsNull>1.229999999999999</sqlNullAsNull>
+         <sqlNullAsNull>1.23</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 3, 200, 300]</inputvalues>
          <formula>1.232</formula>
-         <sql>1.231999999999999</sql>
+         <sql>1.232</sql>
          <formulaNullAsNull>1.232</formulaNullAsNull>
-         <sqlNullAsNull>1.231999999999999</sqlNullAsNull>
+         <sqlNullAsNull>1.232</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 4, 200, 300]</inputvalues>
          <formula>1.2323</formula>
-         <sql>1.232299999999999</sql>
+         <sql>1.2323</sql>
          <formulaNullAsNull>1.2323</formulaNullAsNull>
-         <sqlNullAsNull>1.232299999999999</sqlNullAsNull>
+         <sqlNullAsNull>1.2323</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 5, 200, 300]</inputvalues>
@@ -96,16 +96,16 @@
       <result>
       <inputvalues>[123.23456789, 6, 200, 300]</inputvalues>
          <formula>1.232346</formula>
-         <sql>1.232345999999999</sql>
+         <sql>1.232346</sql>
          <formulaNullAsNull>1.232346</formulaNullAsNull>
-         <sqlNullAsNull>1.232345999999999</sqlNullAsNull>
+         <sqlNullAsNull>1.232346</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 7, 200, 300]</inputvalues>
          <formula>1.2323457</formula>
-         <sql>1.232345699999999</sql>
+         <sql>1.2323457</sql>
          <formulaNullAsNull>1.2323457</formulaNullAsNull>
-         <sqlNullAsNull>1.232345699999999</sqlNullAsNull>
+         <sqlNullAsNull>1.2323457</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 8, 200, 300]</inputvalues>
@@ -124,9 +124,9 @@
       <result>
       <inputvalues>[123.23456780, 123.123456789, 200, 300]</inputvalues>
          <formula>1.232345678</formula>
-         <sql>1.232345677999999</sql>
+         <sql>1.232345678</sql>
          <formulaNullAsNull>1.232345678</formulaNullAsNull>
-         <sqlNullAsNull>1.232345677999999</sqlNullAsNull>
+         <sqlNullAsNull>1.232345678</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 123.123456780, 200, 300]</inputvalues>

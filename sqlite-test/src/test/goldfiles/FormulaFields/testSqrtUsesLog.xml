@@ -19,37 +19,37 @@
       <result>
       <inputvalues>[2]</inputvalues>
          <formula>0.548662004939271</formula>
-         <sql>0.548662004939272</sql>
+         <sql>0.548662004939</sql>
          <formulaNullAsNull>0.548662004939271</formulaNullAsNull>
-         <sqlNullAsNull>0.548662004939272</sqlNullAsNull>
+         <sqlNullAsNull>0.548662004939</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[3]</inputvalues>
          <formula>0.690739643222873</formula>
-         <sql>0.690739643222873</sql>
+         <sql>0.690739643223</sql>
          <formulaNullAsNull>0.690739643222873</formulaNullAsNull>
-         <sqlNullAsNull>0.690739643222873</sqlNullAsNull>
+         <sqlNullAsNull>0.690739643223</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[4]</inputvalues>
          <formula>0.775925248543932</formula>
-         <sql>0.775925248543932</sql>
+         <sql>0.775925248544</sql>
          <formulaNullAsNull>0.775925248543932</formulaNullAsNull>
-         <sqlNullAsNull>0.775925248543932</sqlNullAsNull>
+         <sqlNullAsNull>0.775925248544</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[5]</inputvalues>
          <formula>0.836044259794910</formula>
-         <sql>0.83604425979491</sql>
+         <sql>0.836044259795</sql>
          <formulaNullAsNull>0.836044259794910</formulaNullAsNull>
-         <sqlNullAsNull>0.83604425979491</sqlNullAsNull>
+         <sqlNullAsNull>0.836044259795</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[6]</inputvalues>
          <formula>0.882128817341120</formula>
-         <sql>0.88212881734112</sql>
+         <sql>0.882128817341</sql>
          <formulaNullAsNull>0.882128817341120</formulaNullAsNull>
-         <sqlNullAsNull>0.88212881734112</sqlNullAsNull>
+         <sqlNullAsNull>0.882128817341</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[10000]</inputvalues>
@@ -68,23 +68,23 @@
       <result>
       <inputvalues>[16]</inputvalues>
          <formula>1.097324009878543</formula>
-         <sql>1.097324009878543</sql>
+         <sql>1.097324009879</sql>
          <formulaNullAsNull>1.097324009878543</formulaNullAsNull>
-         <sqlNullAsNull>1.097324009878543</sqlNullAsNull>
+         <sqlNullAsNull>1.097324009879</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2.56]</inputvalues>
          <formula>0.638936589429538</formula>
-         <sql>0.638936589429538</sql>
+         <sql>0.63893658943</sql>
          <formulaNullAsNull>0.638936589429538</formulaNullAsNull>
-         <sqlNullAsNull>0.638936589429538</sqlNullAsNull>
+         <sqlNullAsNull>0.63893658943</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789]</inputvalues>
          <formula>2.844558837078882</formula>
-         <sql>2.844558837078881</sql>
+         <sql>2.844558837079</sql>
          <formulaNullAsNull>2.844558837078882</formulaNullAsNull>
-         <sqlNullAsNull>2.844558837078881</sqlNullAsNull>
+         <sqlNullAsNull>2.844558837079</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

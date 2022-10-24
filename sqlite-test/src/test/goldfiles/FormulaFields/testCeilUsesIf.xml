@@ -47,9 +47,9 @@
       <result>
       <inputvalues>[99,  -1]</inputvalues>
          <formula>99</formula>
-         <sql>98.99999999999999</sql>
+         <sql>99</sql>
          <formulaNullAsNull>99</formulaNullAsNull>
-         <sqlNullAsNull>98.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>99</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-20, -40]</inputvalues>

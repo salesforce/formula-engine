@@ -96,9 +96,9 @@
       <result>
       <inputvalues>[2012-01-01 23:59:59]</inputvalues>
          <formula>23</formula>
-         <sql>22.99999999999999</sql>
+         <sql>23</sql>
          <formulaNullAsNull>23</formulaNullAsNull>
-         <sqlNullAsNull>22.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>23</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-10-34 00:00:00]</inputvalues>

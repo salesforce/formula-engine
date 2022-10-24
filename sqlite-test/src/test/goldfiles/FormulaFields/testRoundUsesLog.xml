@@ -68,16 +68,16 @@
       <result>
       <inputvalues>[16, 16]</inputvalues>
          <formula>1.2041199826559246</formula>
-         <sql>1.204119982655923</sql>
+         <sql>1.204119982656</sql>
          <formulaNullAsNull>1.2041199826559246</formulaNullAsNull>
-         <sqlNullAsNull>1.204119982655923</sqlNullAsNull>
+         <sqlNullAsNull>1.204119982656</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2.56, 19]</inputvalues>
          <formula>0.40823996531184953</formula>
-         <sql>0.408239965311849</sql>
+         <sql>0.408239965312</sql>
          <formulaNullAsNull>0.40823996531184953</formulaNullAsNull>
-         <sqlNullAsNull>0.408239965311849</sqlNullAsNull>
+         <sqlNullAsNull>0.408239965312</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789, 12]</inputvalues>

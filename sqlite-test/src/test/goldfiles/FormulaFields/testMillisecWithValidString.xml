@@ -12,9 +12,9 @@
       <result>
       <inputvalues>No data</inputvalues>
          <formula>666</formula>
-         <sql>665.9999999999999</sql>
+         <sql>666</sql>
          <formulaNullAsNull>666</formulaNullAsNull>
-         <sqlNullAsNull>665.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>666</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

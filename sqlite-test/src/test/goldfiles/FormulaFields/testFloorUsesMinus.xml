@@ -40,9 +40,9 @@
       <result>
       <inputvalues>[-1.0, 99.0]</inputvalues>
          <formula>-99</formula>
-         <sql>-98.99999999999999</sql>
+         <sql>-99</sql>
          <formulaNullAsNull>-99</formulaNullAsNull>
-         <sqlNullAsNull>-98.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>-99</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[99,  -1]</inputvalues>
@@ -124,9 +124,9 @@
       <result>
       <inputvalues>[600,  -600]</inputvalues>
          <formula>606</formula>
-         <sql>605.9999999999999</sql>
+         <sql>606</sql>
          <formulaNullAsNull>606</formulaNullAsNull>
-         <sqlNullAsNull>605.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>606</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.2345,  1.2345]</inputvalues>

@@ -61,9 +61,9 @@
       <result>
       <inputvalues>[37.7899, -122.3969]</inputvalues>
          <formula>305.57560898133903</formula>
-         <sql>305.5756089813389</sql>
+         <sql>305.575608981339</sql>
          <formulaNullAsNull>305.57560898133903</formulaNullAsNull>
-         <sqlNullAsNull>305.5756089813389</sqlNullAsNull>
+         <sqlNullAsNull>305.575608981339</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

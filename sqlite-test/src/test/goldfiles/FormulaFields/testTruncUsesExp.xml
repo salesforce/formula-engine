@@ -26,9 +26,9 @@
       <result>
       <inputvalues>[1, 2]</inputvalues>
          <formula>2.71</formula>
-         <sql>2.709999999999999</sql>
+         <sql>2.71</sql>
          <formulaNullAsNull>2.71</formulaNullAsNull>
-         <sqlNullAsNull>2.709999999999999</sqlNullAsNull>
+         <sqlNullAsNull>2.71</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2, 4]</inputvalues>

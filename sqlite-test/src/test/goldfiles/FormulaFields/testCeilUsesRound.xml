@@ -26,37 +26,37 @@
       <result>
       <inputvalues>[20.12345,  2]</inputvalues>
          <formula>21</formula>
-         <sql>20.99999999999999</sql>
+         <sql>21</sql>
          <formulaNullAsNull>21</formulaNullAsNull>
-         <sqlNullAsNull>20.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>21</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.123444, 4]</inputvalues>
          <formula>21</formula>
-         <sql>20.99999999999999</sql>
+         <sql>21</sql>
          <formulaNullAsNull>21</formulaNullAsNull>
-         <sqlNullAsNull>20.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>21</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.123445, 4]</inputvalues>
          <formula>21</formula>
-         <sql>20.99999999999999</sql>
+         <sql>21</sql>
          <formulaNullAsNull>21</formulaNullAsNull>
-         <sqlNullAsNull>20.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>21</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.12345, 4]</inputvalues>
          <formula>21</formula>
-         <sql>20.99999999999999</sql>
+         <sql>21</sql>
          <formulaNullAsNull>21</formulaNullAsNull>
-         <sqlNullAsNull>20.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>21</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.12, 4]</inputvalues>
          <formula>21</formula>
-         <sql>20.99999999999999</sql>
+         <sql>21</sql>
          <formulaNullAsNull>21</formulaNullAsNull>
-         <sqlNullAsNull>20.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>21</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, 2]</inputvalues>
@@ -89,9 +89,9 @@
       <result>
       <inputvalues>[46,  0]</inputvalues>
          <formula>46</formula>
-         <sql>45.99999999999999</sql>
+         <sql>46</sql>
          <formulaNullAsNull>46</formulaNullAsNull>
-         <sqlNullAsNull>45.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>46</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0, 2]</inputvalues>
@@ -159,7 +159,7 @@
       <result>
       <inputvalues>[-256, ]</inputvalues>
          <formula>-256</formula>
-         <sql>-255.9999999999999</sql>
+         <sql>-256</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>

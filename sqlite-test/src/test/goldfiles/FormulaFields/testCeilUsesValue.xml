@@ -54,9 +54,9 @@
       <result>
       <inputvalues>[56]</inputvalues>
          <formula>56</formula>
-         <sql>55.99999999999999</sql>
+         <sql>56</sql>
          <formulaNullAsNull>56</formulaNullAsNull>
-         <sqlNullAsNull>55.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>56</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[110]</inputvalues>

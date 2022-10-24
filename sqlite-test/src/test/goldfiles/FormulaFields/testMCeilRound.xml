@@ -159,16 +159,16 @@
       <result>
       <inputvalues>[13, 9]</inputvalues>
          <formula>13</formula>
-         <sql>12.99999999999999</sql>
+         <sql>13</sql>
          <formulaNullAsNull>13</formulaNullAsNull>
-         <sqlNullAsNull>12.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>13</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[14, 9]</inputvalues>
          <formula>14</formula>
-         <sql>13.99999999999999</sql>
+         <sql>14</sql>
          <formulaNullAsNull>14</formulaNullAsNull>
-         <sqlNullAsNull>13.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>14</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[15, 9]</inputvalues>
@@ -194,9 +194,9 @@
       <result>
       <inputvalues>[18, 9]</inputvalues>
          <formula>18</formula>
-         <sql>17.99999999999999</sql>
+         <sql>18</sql>
          <formulaNullAsNull>18</formulaNullAsNull>
-         <sqlNullAsNull>17.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>18</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[19, 9]</inputvalues>

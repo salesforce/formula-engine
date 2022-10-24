@@ -137,8 +137,8 @@ public class EmbeddedSqliteTester extends AbstractDbTester {
             if (number == null)
                 return null;
             // Mac and Linux have different scales...  Sigh..
-            if (number.scale() > 15) {
-                number = number.setScale(15, RoundingMode.HALF_EVEN);
+            if (number.scale() > 12) {
+                number = number.setScale(12, RoundingMode.HALF_DOWN);
             }
             return number.stripTrailingZeros().toPlainString(); // Strip trailing zeros because that's driver specific.
 

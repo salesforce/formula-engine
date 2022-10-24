@@ -61,9 +61,9 @@
       <result>
       <inputvalues>[0.00000009,  0.000000009]</inputvalues>
          <formula>0.00000000000000081</formula>
-         <sql>0.000000000000001</sql>
+         <sql>0</sql>
          <formulaNullAsNull>0.00000000000000081</formulaNullAsNull>
-         <sqlNullAsNull>0.000000000000001</sqlNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1,  -1]</inputvalues>

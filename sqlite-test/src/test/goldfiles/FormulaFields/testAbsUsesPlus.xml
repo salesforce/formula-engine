@@ -131,9 +131,9 @@
       <result>
       <inputvalues>[1.2345,  1.2345]</inputvalues>
          <formula>1.246845</formula>
-         <sql>1.246844999999999</sql>
+         <sql>1.246845</sql>
          <formulaNullAsNull>1.246845</formulaNullAsNull>
-         <sqlNullAsNull>1.246844999999999</sqlNullAsNull>
+         <sqlNullAsNull>1.246845</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.245,  0]</inputvalues>

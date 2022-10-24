@@ -14,9 +14,9 @@
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>504</formula>
-         <sql>503.9999999999999</sql>
+         <sql>504</sql>
          <formulaNullAsNull>504</formulaNullAsNull>
-         <sqlNullAsNull>503.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>504</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[Reseller, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
@@ -28,58 +28,58 @@
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>504</formula>
-         <sql>503.9999999999999</sql>
+         <sql>504</sql>
          <formulaNullAsNull>504</formulaNullAsNull>
-         <sqlNullAsNull>503.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>504</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>602</formula>
-         <sql>601.9999999999999</sql>
+         <sql>602</sql>
          <formulaNullAsNull>602</formulaNullAsNull>
-         <sqlNullAsNull>601.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>602</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, , 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>602</formula>
-         <sql>601.9999999999999</sql>
+         <sql>602</sql>
          <formulaNullAsNull>602</formulaNullAsNull>
-         <sqlNullAsNull>601.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>602</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[Var, Partner, 200, Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>602</formula>
-         <sql>601.9999999999999</sql>
+         <sql>602</sql>
          <formulaNullAsNull>602</formulaNullAsNull>
-         <sqlNullAsNull>601.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>602</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, , Reseller, 400, 100, 400, 200, 100]</inputvalues>
          <formula>502</formula>
-         <sql>501.9999999999999</sql>
+         <sql>502</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, 200, 100]</inputvalues>
          <formula>504</formula>
-         <sql>503.9999999999999</sql>
+         <sql>504</sql>
          <formulaNullAsNull>504</formulaNullAsNull>
-         <sqlNullAsNull>503.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>504</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, , 100]</inputvalues>
          <formula>502</formula>
-         <sql>501.9999999999999</sql>
+         <sql>502</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[Partner, Partner, 200, Reseller, 400, , 400, 200, 100]</inputvalues>
          <formula>504</formula>
-         <sql>503.9999999999999</sql>
+         <sql>504</sql>
          <formulaNullAsNull>504</formulaNullAsNull>
-         <sqlNullAsNull>503.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>504</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

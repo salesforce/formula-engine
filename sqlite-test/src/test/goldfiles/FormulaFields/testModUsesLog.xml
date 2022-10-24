@@ -19,44 +19,44 @@
       <result>
       <inputvalues>[20, -1]</inputvalues>
          <formula>0.301029995663981</formula>
-         <sql>0.301029995663981</sql>
+         <sql>0.301029995664</sql>
          <formulaNullAsNull>0.301029995663981</formulaNullAsNull>
-         <sqlNullAsNull>0.301029995663981</sqlNullAsNull>
+         <sqlNullAsNull>0.301029995664</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.12345,  2]</inputvalues>
          <formula>1.3037024389842002</formula>
-         <sql>1.3037024389842</sql>
+         <sql>1.303702438984</sql>
          <formulaNullAsNull>1.3037024389842002</formulaNullAsNull>
-         <sqlNullAsNull>1.3037024389842</sqlNullAsNull>
+         <sqlNullAsNull>1.303702438984</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.123444, 13]</inputvalues>
          <formula>1.3037023094951077</formula>
-         <sql>1.303702309495107</sql>
+         <sql>1.303702309495</sql>
          <formulaNullAsNull>1.3037023094951077</formulaNullAsNull>
-         <sqlNullAsNull>1.303702309495107</sqlNullAsNull>
+         <sqlNullAsNull>1.303702309495</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.123445, 7]</inputvalues>
          <formula>1.3037023310766258</formula>
-         <sql>1.303702331076626</sql>
+         <sql>1.303702331077</sql>
          <formulaNullAsNull>1.3037023310766258</formulaNullAsNull>
-         <sqlNullAsNull>1.303702331076626</sqlNullAsNull>
+         <sqlNullAsNull>1.303702331077</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.12345, 23]</inputvalues>
          <formula>1.3037024389842002</formula>
-         <sql>1.3037024389842</sql>
+         <sql>1.303702438984</sql>
          <formulaNullAsNull>1.3037024389842002</formulaNullAsNull>
-         <sqlNullAsNull>1.3037024389842</sqlNullAsNull>
+         <sqlNullAsNull>1.303702438984</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.12, 1]</inputvalues>
          <formula>0.3036279763838898</formula>
-         <sql>0.30362797638389</sql>
+         <sql>0.303627976384</sql>
          <formulaNullAsNull>0.3036279763838898</formulaNullAsNull>
-         <sqlNullAsNull>0.30362797638389</sqlNullAsNull>
+         <sqlNullAsNull>0.303627976384</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, 2]</inputvalues>
@@ -82,16 +82,16 @@
       <result>
       <inputvalues>[123456789.123456789, 2]</inputvalues>
          <formula>0.091514977603564</formula>
-         <sql>0.091514977603564</sql>
+         <sql>0.091514977604</sql>
          <formulaNullAsNull>0.091514977603564</formulaNullAsNull>
-         <sqlNullAsNull>0.091514977603564</sqlNullAsNull>
+         <sqlNullAsNull>0.091514977604</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[46, -456]</inputvalues>
          <formula>1.6627578316815739</formula>
-         <sql>1.662757831681574</sql>
+         <sql>1.662757831682</sql>
          <formulaNullAsNull>1.6627578316815739</formulaNullAsNull>
-         <sqlNullAsNull>1.662757831681574</sqlNullAsNull>
+         <sqlNullAsNull>1.662757831682</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-0, -1]</inputvalues>
@@ -131,16 +131,16 @@
       <result>
       <inputvalues>[.24456, 123456789]</inputvalues>
          <formula>-0.6116145742819675</formula>
-         <sql>-0.611614574281968</sql>
+         <sql>-0.611614574282</sql>
          <formulaNullAsNull>-0.6116145742819675</formulaNullAsNull>
-         <sqlNullAsNull>-0.611614574281968</sqlNullAsNull>
+         <sqlNullAsNull>-0.611614574282</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.24456, 0.000045]</inputvalues>
          <formula>-0.0000195742819675</formula>
-         <sql>-0.000019574281968</sql>
+         <sql>-0.000019574282</sql>
          <formulaNullAsNull>-0.0000195742819675</formulaNullAsNull>
-         <sqlNullAsNull>-0.000019574281968</sqlNullAsNull>
+         <sqlNullAsNull>-0.000019574282</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 16]</inputvalues>

@@ -29,7 +29,7 @@
       <result>
       <inputvalues>[0.144, 0.0023456, 200, , , 20]</inputvalues>
          <formula>200.1463456</formula>
-         <sql>200.1463455999999</sql>
+         <sql>200.1463456</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
