@@ -99,7 +99,6 @@ public class FunctionJsonPathValue extends FormulaCommandInfoImpl implements For
         FormulaSqlHooks hooks = getSqlHooks(context);
 
         // TODO: move these to FormulaSqlHooks when it's more stable
-         
         if (hooks.isPostgresStyle()) {
             // JSON support in postgres is very version dependent
 
@@ -116,6 +115,9 @@ public class FunctionJsonPathValue extends FormulaCommandInfoImpl implements For
             return new SQLPair(sql, guard);
         } else if (hooks.isPrestoStyle()) {
             String sql = "CAST(json_extract(" + args[0] + "," + args[1] + ") AS VARCHAR)";
+            return new SQLPair(sql, guard);
+        } else if (hooks.isSqliteStyle()) {
+            String sql = "json_extract(" + args[0] + "," + args[1] + ")";
             return new SQLPair(sql, guard);
         } else { // oracle and transactsql
             // json_value(`JSONSTRING`, `JSONPATH`)

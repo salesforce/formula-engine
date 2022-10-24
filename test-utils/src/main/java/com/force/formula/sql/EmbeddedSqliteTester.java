@@ -49,7 +49,7 @@ public class EmbeddedSqliteTester extends AbstractDbTester {
 	
 	@Override
 	protected Connection getConnection() throws SQLException, IOException {
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:target/sample.db");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite::memory:");
         //((SQLiteConnection)conn).getConnectionConfig().setDateClass("TEXT");
         return conn;
 	}
@@ -105,7 +105,7 @@ public class EmbeddedSqliteTester extends AbstractDbTester {
                     return null;
                 return new Timestamp(d.getTime()).toString();
             } catch (SQLException ex) {
-                if (ex.getMessage().equals("Error parsing date")) {
+                if ("Error parsing date".equals(ex.getMessage())) {
                     String str = rset.getString(1);
                     try {
                         Date d = DATE_FORMATTER.get().parse(str);
@@ -123,7 +123,7 @@ public class EmbeddedSqliteTester extends AbstractDbTester {
                     return null;
                 return ts.toString();
             } catch (SQLException ex) {
-                if (ex.getMessage().equals("Error parsing time stamp")) {
+                if ("Error parsing time stamp".equals(ex.getMessage())) {
                     Date d = rset.getDate(1);
                     return new Timestamp(d.getTime()).toString();
                 }
@@ -150,9 +150,9 @@ public class EmbeddedSqliteTester extends AbstractDbTester {
     protected String getSqlLiteralValue(DisplayField df, Object value) {
         switch ((MockFormulaDataType) df.getFormulaFieldInfo().getDataType()) {
         case DATEONLY:
-            return stringToDate("'" + DATE_FORMATTER.get().format((java.util.Date) value) + "'");
+            return stringToDate("'" + DATE_FORMATTER.get().format((Date) value) + "'");
         case DATETIME:
-            return stringToDate("'" + FormulaDateUtil.formatDatetimeToSqlLiteral((java.util.Date) value) + "'");
+            return stringToDate("'" + FormulaDateUtil.formatDatetimeToSqlLiteral((Date) value) + "'");
         default:
             
         }

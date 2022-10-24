@@ -28,6 +28,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
          <whyIgnoreSql db="mssql" numFailures="6">isnumeric allows minus sign</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" numFailures="20">Sqlite3 treats numbers very very leniently</whyIgnoreSql>
      </testcase>
      
      <!-- Found BUG ID: 63109 - http://bugforce.eng.salesforce.com/bug/bugDetail.jsp?id=100000000000HfK -->
@@ -424,6 +425,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="trino" numFailures="6">decimal overflow</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" numFailures="6">Trunc unimplemented, and has overflow issues</whyIgnoreSql>
      </testcase>
      <testcase name="testTruncUsesFloorAbs" devName="testTruncUsesFloorAbs" labels="math"
          labelName="testTruncUsesFloorAbs" dataType="Double"
@@ -451,6 +453,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="sqlite3" numFailures="2">Trunc unimplemented, and has overflow issues</whyIgnoreSql>
      </testcase>
      <testcase name="testTruncUsesSqrt" devName="testTruncUsesSqrt" labels="math"
          labelName="testTruncUsesSqrt" dataType="Double" dataFile="roundData"
@@ -479,6 +482,7 @@ author: Srikanth Yendluri/Doug Chasman
                  labelName="customcurrency2" dataType="Currency" scale="9"
                  precision="18"/>
          </referencefield>
+         <whyIgnoreSql db="sqlite3" numFailures="6">Trunc unimplemented, and has overflow issues</whyIgnoreSql>
      </testcase>
      <!-- Huge negative truncing is an error without HP -->
      <testcase name="testTruncUsesIf" devName="testTruncUsesIf" labels="math"
@@ -493,6 +497,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="sqlite3" numFailures="6">Trunc unimplemented, and has overflow issues</whyIgnoreSql>
      </testcase>
 
 
@@ -729,8 +734,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Percent" scale="2" precision="12"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="spanner" numFailures="2">precision differences</whyIgnoreSql>
-         <whyIgnoreSql db="trino" numFailures="2">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="spanner,trino,sqlite3" numFailures="2">precision differences</whyIgnoreSql>
      </testcase>
 
      <!-- NOTES: TESTCASES FOR CEIL() FUNCTION -->
@@ -894,8 +898,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Percent" scale="2" precision="12"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="spanner" numFailures="2">JDBC maximum scale of 9</whyIgnoreSql>
-         <whyIgnoreSql db="trino" numFailures="2">JDBC maximum scale of 9</whyIgnoreSql>
+         <whyIgnoreSql db="spanner,trino,sqlite3" numFailures="2">JDBC maximum scale of 9</whyIgnoreSql>
      </testcase>
 
      <!-- NOTES: TESTCASES FOR MOD() FUNCTION -->

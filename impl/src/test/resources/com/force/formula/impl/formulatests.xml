@@ -77,6 +77,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="TimeValue(DATETIMEVALUE(dateString__c))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="sqlite3" numFailures="16">datetimevalue is strict in sqlite</whyIgnoreSql>             
       </testcase>
      
      <testcase name="testHourWithAddOperator" devName="testHourWithAddOperator"
@@ -91,6 +92,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="TimeValue(dateString__c) + 7200000">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="sqlite3" numFailures="4">datetimevalue is strict in sqlite</whyIgnoreSql>             
       </testcase>
       
       <testcase name="testAddBigTimeValueWithValidInValid" devName="testAddBigTimeValueWithValidInValid"
@@ -99,6 +101,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="TimeValue(dateString__c) + 93600000">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="sqlite3" numFailures="4">datetimevalue is strict in sqlite</whyIgnoreSql>             
       </testcase>
       
       <testcase name="testSubtractTimeValueWithValidInValid" devName="testSubtractTimeValueWithValidInValid"
@@ -131,6 +134,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="Second(TimeValue(DATETIMEVALUE(dateString__c)))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="sqlite3" numFailures="16">datetimevalue is strict in sqlite</whyIgnoreSql>             
       </testcase>
       
      <testcase name="testMillisecondValueWithValidInValid" devName="testMilliecondValueWithValidInValid"
@@ -139,6 +143,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="MilliSecond(TimeValue(DATETIMEVALUE(dateString__c)))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="sqlite3" numFailures="20">datetimevalue is strict in sqlite</whyIgnoreSql>             
       </testcase>
       
       <testcase name="testMinuteValueWithValidInValid" devName="testMinuteValueWithValidInValid"
@@ -147,6 +152,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="Minute(TimeValue(DATETIMEVALUE(dateString__c)))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="sqlite3" numFailures="16">datetimevalue is strict in sqlite</whyIgnoreSql>             
       </testcase>
       
       <testcase name="testHourValueWithValidInValid" devName="testHourValueWithValidInValid"
@@ -155,6 +161,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="Hour(TimeValue(DATETIMEVALUE(dateString__c)))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="sqlite3" numFailures="16">datetimevalue is strict in sqlite</whyIgnoreSql>             
       </testcase>
       
       <testcase name="testUnixTimestampWithDateTime" devName="testUnixTimestampWithDateTime" labels="extended"
@@ -163,6 +170,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="UnixTimestamp(DATETIMEVALUE(dateString__c))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="sqlite3" numFailures="16">datetimevalue is strict in sqlite</whyIgnoreSql>             
       </testcase>
       <testcase name="testFromUnixTime" devName="testFromUnixTime" labels="extended"
          labelName="testFromUnixTime" dataType="DateTime" eval="formula,template" dataFile="unixtimestamp"
@@ -186,6 +194,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="ISOWEEK(DATETIMEVALUE(dateString__c))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="sqlite3" unimplemented="true"/>             
       </testcase>        
       <testcase name="testIsoWeekWithDate" devName="testIsoWeekWithDate" labels="extended"
          labelName="testIsoWeekWithDate" dataType="Double" dataFile="addDate"
@@ -194,6 +203,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="DateOnly"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="sqlite3" unimplemented="true"/>             
      </testcase>     
       <testcase name="testIsoYearWithDateTime" devName="testIsoYearWithDateTime" labels="extended"
          labelName="testIsoYearWithDateTime" dataType="Double" eval="formula,template" dataFile="functiondatevalue-dateandtime"
@@ -201,6 +211,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="ISOYEAR(DATETIMEVALUE(dateString__c))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="sqlite3" unimplemented="true"/>             
       </testcase>        
       <testcase name="testIsoYearWithDate" devName="testIsoYearWithDate" labels="extended"
          labelName="testIsoYearWithDate" dataType="Double" dataFile="addDate"
@@ -209,6 +220,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="DateOnly"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="sqlite3" unimplemented="true"/>             
      </testcase>                   
       <!--  
       <testcase name="testUrlEncodingInWebLinks" devName="testUrlEncodingInWebLinks"
@@ -240,8 +252,7 @@ author: Srikanth Yendluri/Doug Chasman
                  dataType="Text" length="255"/>
          <referencefield devName="customnumber" labelName="customnumber"
              dataType="Double" scale="4" precision="14"/>
-         <whyIgnoreSql db="spanner" unimplemented="true">RIGHT() isn't in google, and the SUBSTR version has very different semantics</whyIgnoreSql>
-         <whyIgnoreSql db="trino" unimplemented="true">RIGHT() isn't in google, and the SUBSTR version has very different semantics</whyIgnoreSql>
+         <whyIgnoreSql db="spanner,trino,sqlite3" unimplemented="true">RIGHT() isn't in these dbs, and the SUBSTR version has very different semantics</whyIgnoreSql>
      </testcase>
      <testcase name="testFunctionLeft" devName="testFunctionLeft"
          labelName="testFunctionLeft" dataType="Text"
@@ -395,6 +406,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="8">Leap Day Issues</whyIgnoreSql>         
          <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="12">leap day</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" numFailures="2">Leap Day Issues</whyIgnoreSql>         
      </testcase>
      <testcase name="testAddMonthsDate" devName="testAddMonthsDate" labels="extended"
          labelName="testAddMonthsDate" dataType="DateOnly" dataFile="addMonths" 
@@ -404,6 +416,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="12">leap day</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" numFailures="2">Leap Day Issues</whyIgnoreSql>         
      </testcase>
      <testcase name="testWeekday" devName="testWeekday"
          labelName="testWeekday" dataType="Double" dataFile="addDate"
@@ -1381,7 +1394,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="INITCAP(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
-         <whyIgnoreSql db="spanner,mysql,mariadb,mssql" unimplemented="true"/>
+         <whyIgnoreSql db="spanner,mysql,mariadb,mssql,sqlite3" unimplemented="true"/>
          <whyIgnoreSql db="trino" numFailures="6">dotted i</whyIgnoreSql>
      </testcase>
 
@@ -2212,6 +2225,7 @@ author: Srikanth Yendluri/Doug Chasman
         code="FORMATCURRENCY(isocode__c, customNumber1__c)">
         <referencefield devName="isocode" labelName="timeString" dataType="Text" length="50"/>
         <referencefield devName="customNumber1" labelName="customNumber2" dataType="Double" scale="2" precision="12" />
+         <whyIgnoreSql db="sqlite3" numFailures="20">Sqlite3 doesn't support group separators in decimals</whyIgnoreSql>             
       </testcase>
       
      <testcase name="testIfTextCompareLessThan" labels="extended"

@@ -20,16 +20,16 @@ import com.force.formula.util.FormulaDateUtil;
  * @since 0.3
  */
 public interface FormulaSqliteHooks extends FormulaSqlHooks {
-	@Override
-    default int getExternalPrecision() {
-	    return -1;  // Don't do any rounding for ceil/floor because reals.
-    }
-
     @Override
 	default boolean isSqliteStyle() {
 		return true;
 	}	
 	
+    @Override
+    default int getExternalPrecision() {
+        return -1;  // Don't do any rounding for ceil/floor because reals.
+    }
+
     @Override
     default String sqlDatetimeValueGuard() {
         return "1=0"; // mysql returns null on error
@@ -154,20 +154,20 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
         if (lhsDataType == Date.class ) {
             // <date|timestamp> <+|-> <number>
             if (!isAddition) {
-                return String.format("DATE(%s, '-'||ROUND(%s)||' day')", lhsValue, rhsValue);
+                return String.format("DATE(%s, ROUND(-(%s))||' day')", lhsValue, rhsValue);
             } else {
-                return String.format("DATE(%s, '+'||ROUND(%s)||' day')", lhsValue, rhsValue);
+                return String.format("DATE(%s, ROUND(%s)||' day')", lhsValue, rhsValue);
             }
         } else if (lhsDataType==FormulaDateTime.class) {
             if (!isAddition) {
-                return String.format("DATETIME(%s, '-'||ROUND(%s*86400)||' second')", lhsValue, rhsValue);
+                return String.format("DATETIME(%s, ROUND(-(%s*86400))||' second')", lhsValue, rhsValue);
             } else {
-                return String.format("DATETIME(%s, '+'||ROUND(%s*86400)||' second')", lhsValue, rhsValue);
+                return String.format("DATETIME(%s, ROUND(%s*86400)||' second')", lhsValue, rhsValue);
             }
         } else if (rhsDataType == Date.class){
-            return String.format("DATE(%s, '+'||ROUND(%s)||' day')", rhsValue, lhsValue);
+            return String.format("DATE(%s, ROUND(%s)||' day')", rhsValue, lhsValue);
         } else {
-            return String.format("DATETIME(%s, '+'||ROUND(%s*86400)||' second')", rhsValue, lhsValue);
+            return String.format("DATETIME(%s, ROUND(%s*86400)||' second')", rhsValue, lhsValue);
         }
     }
 
@@ -194,6 +194,11 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
         return inSeconds ? "(unixepoch(%s)-unixepoch(%s))" : "(julianday(%s)-julianday(%s))";
     } 
 
+    @Override
+    default String sqlSubtractTwoTimes() {
+        return "(unixepoch(%s)-unixepoch(%s))";
+    } 
+	
     
     /**
      * @see specification in FunctionAddMonths.java
@@ -206,18 +211,19 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     default String sqlAddMonths(String dateArg, Type dateArgType, String numMonths) {
 	    StringBuffer sb = new StringBuffer();
 	    sb.append(" (CASE");
-        sb.append(" WHEN strftime('%%s', " + dateArg + ", '+1 month', '-1 day') =");
-        sb.append(" strftime('%%s', " + dateArg + ")");
+        sb.append(" WHEN strftime('%%d', " + dateArg + ", 'start of month', '+1 month', '-1 day') =");
+        sb.append(" strftime('%%d', " + dateArg + ")");
 	    sb.append(" THEN '1' ELSE '0' END)");
         String dayAddition = sb.toString();
 
         // Note: this should be trunc of the months, but it doesn't work right anyway
         if (dateArgType == Date.class) {
-            return String.format("date(%s, '+' || " + dayAddition + " || ' day', %s || ' month', '-' || " + dayAddition + " || ' day')", dateArg, numMonths);
+            // The %% 1 is a way to do trunc
+            return String.format("date(%s, " + dayAddition + " || ' day', %s || ' month', '-' || " + dayAddition + " || ' day')", dateArg, sqlTrunc(numMonths));
         } else {
             // We can't add a month interval to a timestamp, so we have to do something... fun.
             // Which is do all the date math and then add the millisecond part back at the end...
-            return String.format("datetime(%s, '+' || " + dayAddition + " || ' day', %s || ' month', '-' || " + dayAddition + " || ' day')", dateArg, numMonths);
+            return String.format("datetime(%s, " + dayAddition + " || ' day', %s || ' month', '-' || " + dayAddition + " || ' day')", dateArg, sqlTrunc(numMonths));
         }
     }
 
@@ -292,11 +298,13 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     
     @Override
     default String sqlGetIsoWeek() {
+        // Not correct.
         return "strftime('%%U',%s)";
     }
     
     @Override
     default String sqlGetIsoYear() {
+        // Not correct.
         return "strftime('%%Y',%s)";
     }
     
@@ -339,6 +347,25 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     default String sqlInstr3(String strArg, String substrArg, String startLocation) {
         return String.format("CASE WHEN COALESCE(INSTR(SUBSTR(%s,%s),%s),0) > 0 THEN INSTR(SUBSTR(%s,%s),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     }
+	
+    @Override
+    default String sqlLpad(String str, String amount, String pad) {
+        // No lpad/rpad in sqlite, so use the zeroblob/replace/hex trick to create the
+        // repeating string and use substr to get the right amount
+        // lpad need to remove the length of the string to make sure it's aligned correclty.
+        return "substr(substr(replace(hex(zeroblob("+amount+")),'00',"+
+        (pad != null ? pad : "' '")
+        + "),1," + amount + "-length(" + str + "))||"+str+",1," + amount + ")";
+    }
+
+    @Override
+    default String sqlRpad(String str, String amount, String pad) {
+        // rpad doesn't need to check the length since it's appended to the end
+        return "substr(" + str + "||substr(replace(hex(zeroblob("+amount+")),'00',"+
+        (pad != null ? pad : "' '")
+        + "),1," + amount + "),1," + amount+ ")";
+    }
+	
 
     /**
      * Formulas are usually numeric, but some functions, like round or trunc, return an integer that may
@@ -387,18 +414,18 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     
     @Override
     default String sqlIntervalFromSeconds() {
-        return "ROUND(ABS(%s),0,1)";
+        return "FLOOR(ABS(%s))";
     }
 
     @Override
     default String sqlIntervalToDurationString(String arg, boolean includeDays, String daysIsParam) {
         String result;
         if (daysIsParam != null) {
-            result = "(CASE WHEN "+daysIsParam+" THEN CONCAT(FORMAT('%.0f',TRUNC("+arg+"/86400)),':',FORMAT_TIMESTAMP('%H:%M:%S', timestamp_seconds(MOD("+arg+",86400)),'UTC')) ELSE CONCAT(FORMAT('%02.0f',TRUNC("+arg+"/3600)),':',FORMAT_TIMESTAMP('%M:%S',timestamp_seconds("+arg+"))) END)";
+            result = "(CASE WHEN "+daysIsParam+" THEN FORMAT('%.0f',FLOOR("+arg+"/86400))||':'||TIME("+arg+", 'unixepoch') ELSE FORMAT('%02.0f',FLOOR("+arg+"/3600))||':'||strftime('%M:%S', "+arg+", 'unixepoch') END)";
         } else if (includeDays) {
-            result = "CONCAT(FORMAT('%.0f',TRUNC("+arg+"/86400)),':',FORMAT_TIMESTAMP('%H:%M:%S', timestamp_seconds(MOD("+arg+",86400)),'UTC'))";
+            result = "FORMAT('%.0f',FLOOR("+arg+"/86400))||':'||TIME("+arg+",'unixepoch')";
         } else {
-            result = "CONCAT(FORMAT('%02.0f',TRUNC("+arg+"/3600)),':',FORMAT_TIMESTAMP('%M:%S', timestamp_seconds("+arg+"), 'UTC'))";
+            result = "FORMAT('%02.0f',FLOOR("+arg+"/3600))||':'||strftime('%M:%S', "+arg+", 'unixepoch')";
         }
         return result;
     }
@@ -406,9 +433,9 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     @Override
     default String sqlAddMillisecondsToTime(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
         if (rhsDataType == BigDecimal.class) {
-            rhsValue = rhsDataType == BigDecimal.class ? "(" + rhsValue + "/1000)" : "unixepoch("+rhsValue+")";
+            rhsValue = rhsDataType == BigDecimal.class ? rhsValue + "/1000" : "unixepoch("+rhsValue+")";
             // to prevent negative values when subtracting, always add FormulaDateUtil.MILLISECONDSPERDAY, and take the mod
-            return "strftime('%H:%M:%f'," + lhsValue + ",("+(isAddition ? "" : "-") +"(" + rhsValue + ")/1000)|| ' seconds')";
+            return "strftime('%H:%M:%f'," + lhsValue + ",("+(isAddition ? "" : "-") +"(" + rhsValue + "))|| ' seconds')";
         } else {
             return "ROUND((1+julianday("+lhsValue+")-julianday("+rhsValue+"))*"+FormulaDateUtil.MILLISECONDSPERDAY+")%"+FormulaDateUtil.MILLISECONDSPERDAY;
                         
@@ -418,12 +445,13 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     
     @Override
     default StringBuilder getCurrencyMask(int scale) {
-        return new StringBuilder(6).append("\"%'.").append(Integer.toString(scale)).append("f\"");
+        // Note: sqlite doesn't support group separators, so this will be off.
+        return new StringBuilder(6).append("\"%,.").append(Integer.toString(scale)).append("f\"");
     }
 
     @Override
     default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
-        sql.append("CONCAT(COALESCE(").append(isoCodeArg).append(",''),' ',FORMAT(").append(maskStr).append(',').append(amountArg).append("))");
+        sql.append("COALESCE(").append(isoCodeArg).append(",'')||' '||FORMAT(").append(maskStr).append(',').append(amountArg).append(")");
     }
     
     @Override
