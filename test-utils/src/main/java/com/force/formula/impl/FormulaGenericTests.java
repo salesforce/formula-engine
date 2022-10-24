@@ -250,7 +250,14 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				return dbTester.evaluateSql(getName(), formulaContext, entityObject, formulaSource, nullAsNull);
 			} catch (Throwable e) {
 				logger.log(Level.FINER, "Error in sql", e);
-				return "Error: " + (dbTester != null ? dbTester.getSqlExceptionMessage(e) : e.getMessage());
+				try {
+    				String message = (dbTester != null ? dbTester.getSqlExceptionMessage(e) : e.getMessage());
+    				return "Error: " + message;
+				} catch (ArithmeticException ex) {
+				    // If getSqlExceptionMessage() throws an ArithmeticException, there may a difference in results
+				    // based on architecture, so treat them as a null
+				    return null;
+				}
 			}
 		}
 		

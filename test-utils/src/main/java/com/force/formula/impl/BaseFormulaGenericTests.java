@@ -984,6 +984,8 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * Some JDBC drivers include a UUID in all exceptions, so this allows you to "remove" that.
 		 * @param e the exception thrown during evaluation
 		 * @return the message to use in GoldFiles for the exception.
+		 * @throws ArithmeticException if you want to treat this exception as a NULL instead of an error.  Suitable
+		 * if there is an architectural difference when running on different platforms (Linux vs Mac)
 		 */
 		default String getSqlExceptionMessage(Throwable e) {
 		    return e.getMessage();
