@@ -75,30 +75,30 @@
       <result>
       <inputvalues>[65536.00]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[65536.16]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[65536.64]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[65536.4816]</inputvalues>
          <formula>256</formula>
-         <sql>255.9999999999999</sql>
+         <sql>256</sql>
          <formulaNullAsNull>256</formulaNullAsNull>
-         <sqlNullAsNull>255.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>256</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

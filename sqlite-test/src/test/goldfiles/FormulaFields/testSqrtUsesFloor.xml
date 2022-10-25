@@ -12,9 +12,9 @@
       <result>
       <inputvalues>[20.842345]</inputvalues>
          <formula>4.47213595499958</formula>
-         <sql>4.472135954999579</sql>
+         <sql>4.472135955</sql>
          <formulaNullAsNull>4.47213595499958</formulaNullAsNull>
-         <sqlNullAsNull>4.472135954999579</sqlNullAsNull>
+         <sqlNullAsNull>4.472135955</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.54321]</inputvalues>

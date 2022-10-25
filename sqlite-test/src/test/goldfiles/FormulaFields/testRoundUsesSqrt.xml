@@ -33,23 +33,23 @@
       <result>
       <inputvalues>[20.123444, 4]</inputvalues>
          <formula>4.4859</formula>
-         <sql>4.485899999999999</sql>
+         <sql>4.4859</sql>
          <formulaNullAsNull>4.4859</formulaNullAsNull>
-         <sqlNullAsNull>4.485899999999999</sqlNullAsNull>
+         <sqlNullAsNull>4.4859</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.123445, 4]</inputvalues>
          <formula>4.4859</formula>
-         <sql>4.485899999999999</sql>
+         <sql>4.4859</sql>
          <formulaNullAsNull>4.4859</formulaNullAsNull>
-         <sqlNullAsNull>4.485899999999999</sqlNullAsNull>
+         <sqlNullAsNull>4.4859</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.12345, 4]</inputvalues>
          <formula>4.4859</formula>
-         <sql>4.485899999999999</sql>
+         <sql>4.4859</sql>
          <formulaNullAsNull>4.4859</formulaNullAsNull>
-         <sqlNullAsNull>4.485899999999999</sqlNullAsNull>
+         <sqlNullAsNull>4.4859</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[20.12, 4]</inputvalues>

@@ -12,16 +12,16 @@
       <result>
       <inputvalues>[This is too good to be true]</inputvalues>
          <formula>1.4313637641589871</formula>
-         <sql>1.431363764158987</sql>
+         <sql>1.431363764159</sql>
          <formulaNullAsNull>1.4313637641589871</formulaNullAsNull>
-         <sqlNullAsNull>1.431363764158987</sqlNullAsNull>
+         <sqlNullAsNull>1.431363764159</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[making a way]</inputvalues>
          <formula>1.0791812460476247</formula>
-         <sql>1.079181246047624</sql>
+         <sql>1.079181246048</sql>
          <formulaNullAsNull>1.0791812460476247</formulaNullAsNull>
-         <sqlNullAsNull>1.079181246047624</sqlNullAsNull>
+         <sqlNullAsNull>1.079181246048</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
@@ -33,30 +33,30 @@
       <result>
       <inputvalues>[blunder]</inputvalues>
          <formula>0.8450980400142567</formula>
-         <sql>0.8450980400142568</sql>
+         <sql>0.845098040014</sql>
          <formulaNullAsNull>0.8450980400142567</formulaNullAsNull>
-         <sqlNullAsNull>0.8450980400142568</sqlNullAsNull>
+         <sqlNullAsNull>0.845098040014</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[makesense]</inputvalues>
          <formula>0.9542425094393249</formula>
-         <sql>0.9542425094393248</sql>
+         <sql>0.954242509439</sql>
          <formulaNullAsNull>0.9542425094393249</formulaNullAsNull>
-         <sqlNullAsNull>0.9542425094393248</sqlNullAsNull>
+         <sqlNullAsNull>0.954242509439</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[does not make sense]</inputvalues>
          <formula>1.2787536009528289</formula>
-         <sql>1.278753600952828</sql>
+         <sql>1.278753600953</sql>
          <formulaNullAsNull>1.2787536009528289</formulaNullAsNull>
-         <sqlNullAsNull>1.278753600952828</sqlNullAsNull>
+         <sqlNullAsNull>1.278753600953</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[working my way]</inputvalues>
          <formula>1.1461280356782377</formula>
-         <sql>1.146128035678237</sql>
+         <sql>1.146128035678</sql>
          <formulaNullAsNull>1.1461280356782377</formulaNullAsNull>
-         <sqlNullAsNull>1.146128035678237</sqlNullAsNull>
+         <sqlNullAsNull>1.146128035678</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[e]</inputvalues>
@@ -68,23 +68,23 @@
       <result>
       <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
          <formula>2.2355284469075487</formula>
-         <sql>2.235528446907548</sql>
+         <sql>2.235528446908</sql>
          <formulaNullAsNull>2.2355284469075487</formulaNullAsNull>
-         <sqlNullAsNull>2.235528446907548</sqlNullAsNull>
+         <sqlNullAsNull>2.235528446908</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
          <formula>1.716003343634799</formula>
-         <sql>1.716003343634799</sql>
+         <sql>1.716003343635</sql>
          <formulaNullAsNull>1.716003343634799</formulaNullAsNull>
-         <sqlNullAsNull>1.716003343634799</sqlNullAsNull>
+         <sqlNullAsNull>1.716003343635</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
          <formula>1.7558748556724912</formula>
-         <sql>1.755874855672491</sql>
+         <sql>1.755874855672</sql>
          <formulaNullAsNull>1.7558748556724912</formulaNullAsNull>
-         <sqlNullAsNull>1.755874855672491</sqlNullAsNull>
+         <sqlNullAsNull>1.755874855672</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

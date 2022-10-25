@@ -40,9 +40,9 @@
       <result>
       <inputvalues>[-24]</inputvalues>
          <formula>-66</formula>
-         <sql>-65.99999999999999</sql>
+         <sql>-66</sql>
          <formulaNullAsNull>-66</formulaNullAsNull>
-         <sqlNullAsNull>-65.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>-66</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

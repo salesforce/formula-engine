@@ -48,6 +48,7 @@ import com.force.formula.FormulaTypeSpec;
 import com.force.formula.MockFormulaType;
 import com.force.formula.RuntimeFormulaInfo;
 import com.force.formula.impl.FormulaTestCaseInfo.CompareType;
+import com.force.formula.impl.FormulaTestCaseInfo.WhyIgnoreSql;
 import com.force.formula.impl.MapFormulaContext.MapEntity;
 import com.force.formula.impl.MapFormulaContext.MapFieldInfo;
 import com.force.formula.sql.FormulaWithSql;
@@ -679,6 +680,10 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		// Does the actual evaluations via all required methods, and returns them in supplied map, where key is a name describing the method
 		abstract protected void getResultsViaMultiplePaths(Map<String, String> results, FieldDefinitionInfo fieldInfo, String entityRecId) throws Exception;
 
+		// Should we ignore SQL differences for this change
+		abstract protected WhyIgnoreSql getWhyIgnoreSql();
+
+		
 		/**
 		 * Do verifications as defined by the compareContexts attribute.
 		 * @return  null if verification passed, otherwise a String explaining the failure.
@@ -979,6 +984,8 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * Some JDBC drivers include a UUID in all exceptions, so this allows you to "remove" that.
 		 * @param e the exception thrown during evaluation
 		 * @return the message to use in GoldFiles for the exception.
+		 * @throws ArithmeticException if you want to treat this exception as a NULL instead of an error.  Suitable
+		 * if there is an architectural difference when running on different platforms (Linux vs Mac)
 		 */
 		default String getSqlExceptionMessage(Throwable e) {
 		    return e.getMessage();

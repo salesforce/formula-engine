@@ -40,6 +40,15 @@ public class TestSqliteMathFormulas extends FormulaSqliteTests {
 
     @Override
     protected boolean filterTests(FormulaTestCaseInfo testCase) {
+        // These differs between Mac (returns 0 or null) and Linux (Number out of range exception), so ignore them
+        String name = testCase.getName();
+        switch (name) {
+        case "testExponentiationOperator":
+        case "testTruncUsesIf":
+        case "testTruncUsesTruncMinus":
+            return false;
+        default:
+        }
         if (testCase.getTestLabels().contains("ignore")) return false;
         return testCase.getTestLabels().contains("math");
     }    

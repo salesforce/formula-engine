@@ -180,9 +180,9 @@
       <result>
       <inputvalues>[.0000000000001, 1000]</inputvalues>
          <formula>-999.9999999999999</formula>
-         <sql>-999.9999999999998</sql>
+         <sql>-1000</sql>
          <formulaNullAsNull>-999.9999999999999</formulaNullAsNull>
-         <sqlNullAsNull>-999.9999999999998</sqlNullAsNull>
+         <sqlNullAsNull>-1000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[.0000000000001, -1000]</inputvalues>

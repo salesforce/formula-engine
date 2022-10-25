@@ -54,9 +54,9 @@
       <result>
       <inputvalues>[working my way]</inputvalues>
          <formula>14</formula>
-         <sql>13.99999999999999</sql>
+         <sql>14</sql>
          <formulaNullAsNull>14</formulaNullAsNull>
-         <sqlNullAsNull>13.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>14</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[e]</inputvalues>
@@ -75,16 +75,16 @@
       <result>
       <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
          <formula>52</formula>
-         <sql>51.99999999999999</sql>
+         <sql>52</sql>
          <formulaNullAsNull>52</formulaNullAsNull>
-         <sqlNullAsNull>51.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>52</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
          <formula>57</formula>
-         <sql>56.99999999999999</sql>
+         <sql>57</sql>
          <formulaNullAsNull>57</formulaNullAsNull>
-         <sqlNullAsNull>56.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>57</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

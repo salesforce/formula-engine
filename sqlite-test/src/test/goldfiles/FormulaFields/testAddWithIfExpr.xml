@@ -14,9 +14,9 @@
       <result>
       <inputvalues>[200, 20, 300, 40, 20]</inputvalues>
          <formula>560</formula>
-         <sql>559.9999999999999</sql>
+         <sql>560</sql>
          <formulaNullAsNull>560</formulaNullAsNull>
-         <sqlNullAsNull>559.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>560</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, .04, 40, , 10, 10]</inputvalues>
@@ -28,9 +28,9 @@
       <result>
       <inputvalues>[32, 10, 50, 24, 12]</inputvalues>
          <formula>118</formula>
-         <sql>117.9999999999999</sql>
+         <sql>118</sql>
          <formulaNullAsNull>118</formulaNullAsNull>
-         <sqlNullAsNull>117.9999999999999</sqlNullAsNull>
+         <sqlNullAsNull>118</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 0, 0, 0, 0]</inputvalues>

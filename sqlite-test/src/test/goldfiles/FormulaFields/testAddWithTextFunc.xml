@@ -29,16 +29,16 @@
       <result>
       <inputvalues>[0.144, 0.0023456, 200, , , 20]</inputvalues>
          <formula>200.1463456</formula>
-         <sql>200.1463455999999</sql>
+         <sql>200.1463456</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-1, -1, -1, -1, -1, -1]</inputvalues>
          <formula>-0.99</formula>
-         <sql>-0.9899999999999999</sql>
+         <sql>-0.99</sql>
          <formulaNullAsNull>-0.99</formulaNullAsNull>
-         <sqlNullAsNull>-0.9899999999999999</sqlNullAsNull>
+         <sqlNullAsNull>-0.99</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 0, 0, 0, 0, 0]</inputvalues>

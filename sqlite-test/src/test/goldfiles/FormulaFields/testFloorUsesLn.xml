@@ -82,9 +82,9 @@
       <result>
       <inputvalues>[123456789.123456789]</inputvalues>
          <formula>18</formula>
-         <sql>17.99999999999999</sql>
+         <sql>18</sql>
          <formulaNullAsNull>18</formulaNullAsNull>
-         <sqlNullAsNull>17.99999999999999</sqlNullAsNull>
+         <sqlNullAsNull>18</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

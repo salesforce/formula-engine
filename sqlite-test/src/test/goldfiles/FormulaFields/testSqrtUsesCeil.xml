@@ -12,9 +12,9 @@
       <result>
       <inputvalues>[20.842345]</inputvalues>
          <formula>4.58257569495584</formula>
-         <sql>4.582575694955839</sql>
+         <sql>4.582575694956</sql>
          <formulaNullAsNull>4.58257569495584</formulaNullAsNull>
-         <sqlNullAsNull>4.582575694955839</sqlNullAsNull>
+         <sqlNullAsNull>4.582575694956</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.54321]</inputvalues>
@@ -33,9 +33,9 @@
       <result>
       <inputvalues>[49.55]</inputvalues>
          <formula>7.0710678118654755</formula>
-         <sql>7.071067811865475</sql>
+         <sql>7.071067811865</sql>
          <formulaNullAsNull>7.0710678118654755</formulaNullAsNull>
-         <sqlNullAsNull>7.071067811865475</sqlNullAsNull>
+         <sqlNullAsNull>7.071067811865</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.00034]</inputvalues>
@@ -54,16 +54,16 @@
       <result>
       <inputvalues>[25.7456]</inputvalues>
          <formula>5.0990195135927845</formula>
-         <sql>5.099019513592784</sql>
+         <sql>5.099019513593</sql>
          <formulaNullAsNull>5.0990195135927845</formulaNullAsNull>
-         <sqlNullAsNull>5.099019513592784</sqlNullAsNull>
+         <sqlNullAsNull>5.099019513593</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[64.456]</inputvalues>
          <formula>8.06225774829855</formula>
-         <sql>8.06225774829855</sql>
+         <sql>8.062257748299</sql>
          <formulaNullAsNull>8.06225774829855</formulaNullAsNull>
-         <sqlNullAsNull>8.06225774829855</sqlNullAsNull>
+         <sqlNullAsNull>8.062257748299</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-.4]</inputvalues>

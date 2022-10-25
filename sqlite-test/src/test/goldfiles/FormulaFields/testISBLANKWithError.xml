@@ -89,9 +89,9 @@
       <result>
       <inputvalues>[1, 49, 1.49, 1.49]</inputvalues>
          <formula>1.49</formula>
-         <sql>1.489999999999999</sql>
+         <sql>1.49</sql>
          <formulaNullAsNull>1.49</formulaNullAsNull>
-         <sqlNullAsNull>1.489999999999999</sqlNullAsNull>
+         <sqlNullAsNull>1.49</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1.5, 1.5, 1.5]</inputvalues>
@@ -103,9 +103,9 @@
       <result>
       <inputvalues>[1, 99, 1.99, 1.99]</inputvalues>
          <formula>1.99</formula>
-         <sql>1.989999999999999</sql>
+         <sql>1.99</sql>
          <formulaNullAsNull>1.99</formulaNullAsNull>
-         <sqlNullAsNull>1.989999999999999</sqlNullAsNull>
+         <sqlNullAsNull>1.99</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0.01, 0.01, 0.01]</inputvalues>

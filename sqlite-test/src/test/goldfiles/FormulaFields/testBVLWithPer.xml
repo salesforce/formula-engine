@@ -56,7 +56,7 @@
          <formula>0</formula>
          <sql>0</sql>
          <formulaNullAsNull>0.0009</formulaNullAsNull>
-         <sqlNullAsNull>0.0008999999999999999</sqlNullAsNull>
+         <sqlNullAsNull>0.0009</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 10]</inputvalues>
