@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesLen">
+   <testInstance formula="EXP(LEN(customtext1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>EXP(COALESCE(LENGTH($!s0s!$.customtext1__c),0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>EXP(COALESCE(LENGTH($!s0s!$.customtext1__c),0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[This is too good to be true]</inputvalues>
+         <formula>532048240601.79865</formula>
+         <sql>532048240601.7986</sql>
+         <formulaNullAsNull>532048240601.79865</formulaNullAsNull>
+         <sqlNullAsNull>532048240601.7986</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[making a way]</inputvalues>
+         <formula>162754.79141900392</formula>
+         <sql>162754.7914190039</sql>
+         <formulaNullAsNull>162754.79141900392</formulaNullAsNull>
+         <sqlNullAsNull>162754.7914190039</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1.0</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blunder]</inputvalues>
+         <formula>1096.6331584284585</formula>
+         <sql>1096.633158428458</sql>
+         <formulaNullAsNull>1096.6331584284585</formulaNullAsNull>
+         <sqlNullAsNull>1096.633158428458</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[makesense]</inputvalues>
+         <formula>8103.083927575384</formula>
+         <sql>8103.083927575384</sql>
+         <formulaNullAsNull>8103.083927575384</formulaNullAsNull>
+         <sqlNullAsNull>8103.083927575384</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[does not make sense]</inputvalues>
+         <formula>178482300.96318725</formula>
+         <sql>178482300.9631872</sql>
+         <formulaNullAsNull>178482300.96318725</formulaNullAsNull>
+         <sqlNullAsNull>178482300.9631872</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[working my way]</inputvalues>
+         <formula>1202604.2841647768</formula>
+         <sql>1202604.284164776</sql>
+         <formulaNullAsNull>1202604.2841647768</formulaNullAsNull>
+         <sqlNullAsNull>1202604.284164776</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[e]</inputvalues>
+         <formula>2.718281828459045</formula>
+         <sql>2.718281828459</sql>
+         <formulaNullAsNull>2.718281828459045</formulaNullAsNull>
+         <sqlNullAsNull>2.718281828459</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
+         <formula>499632737950757800000000000000000000000000000000000000000000000000000000000</formula>
+         <sql>499632737950757800000000000000000000000000000000000000000000000000000000000</sql>
+         <formulaNullAsNull>499632737950757800000000000000000000000000000000000000000000000000000000000</formulaNullAsNull>
+         <sqlNullAsNull>499632737950757800000000000000000000000000000000000000000000000000000000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
+         <formula>38310080007165770000000</formula>
+         <sql>38310080007165770000000</sql>
+         <formulaNullAsNull>38310080007165770000000</formulaNullAsNull>
+         <sqlNullAsNull>38310080007165770000000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
+         <formula>5685719999335932000000000</formula>
+         <sql>5685719999335932000000000</sql>
+         <formulaNullAsNull>5685719999335932000000000</formulaNullAsNull>
+         <sqlNullAsNull>5685719999335932000000000</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

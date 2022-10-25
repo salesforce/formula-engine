@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesPlus">
+   <testInstance formula="EXP(customformula0__c)" returntype="Double" precision="12" scale="2">
+   <customformula0 dataType="ColumnType.DOUBLE" formula="(custompercent1__c+customnumber1__c)"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>EXP(COALESCE((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)+COALESCE($!s0s!$.customnumber1__c, 0)), 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>EXP((($!s0s!$.custompercent1__c / 100.0)+$!s0s!$.customnumber1__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[0, 0]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1.0</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 1]</inputvalues>
+         <formula>2.718281828459045</formula>
+         <sql>2.718281828</sql>
+         <formulaNullAsNull>2.718281828459045</formulaNullAsNull>
+         <sqlNullAsNull>2.718281828</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 2]</inputvalues>
+         <formula>7.463317347319193</formula>
+         <sql>7.463317347</sql>
+         <formulaNullAsNull>7.463317347319193</formulaNullAsNull>
+         <sqlNullAsNull>7.463317347</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2, 4]</inputvalues>
+         <formula>55.70110582679559</formula>
+         <sql>55.701105827</sql>
+         <formulaNullAsNull>55.70110582679559</formulaNullAsNull>
+         <sqlNullAsNull>55.701105827</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, -12]</inputvalues>
+         <formula>0.00000608307641893218</formula>
+         <sql>0.000006083</sql>
+         <formulaNullAsNull>0.00000608307641893218</formulaNullAsNull>
+         <sqlNullAsNull>0.000006083</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-10, 2]</inputvalues>
+         <formula>6.6858944422792685</formula>
+         <sql>6.685894442</sql>
+         <formulaNullAsNull>6.6858944422792685</formulaNullAsNull>
+         <sqlNullAsNull>6.685894442</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-100, -1]</inputvalues>
+         <formula>0.1353352832366127</formula>
+         <sql>0.135335283</sql>
+         <formulaNullAsNull>0.1353352832366127</formulaNullAsNull>
+         <sqlNullAsNull>0.135335283</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[56, 5]</inputvalues>
+         <formula>259.8228363229507</formula>
+         <sql>259.822836323</sql>
+         <formulaNullAsNull>259.8228363229507</formulaNullAsNull>
+         <sqlNullAsNull>259.822836323</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[56, 0]</inputvalues>
+         <formula>1.7506725002961012</formula>
+         <sql>1.7506725</sql>
+         <formulaNullAsNull>1.7506725002961012</formulaNullAsNull>
+         <sqlNullAsNull>1.7506725</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[56, 12]</inputvalues>
+         <formula>284930.3376286781</formula>
+         <sql>284930.337628678</sql>
+         <formulaNullAsNull>284930.3376286781</formulaNullAsNull>
+         <sqlNullAsNull>284930.337628678</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>1.0</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2]</inputvalues>
+         <formula>7.38905609893065</formula>
+         <sql>7.389056099</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithTextFunc">
+   <testInstance formula="(customnumber1__c+customformula0__c+customnumber2__c+customformula1__c+customformula2__c)" returntype="Double" precision="12" scale="2">
+   <customformula0 dataType="ColumnType.DOUBLE" formula="VALUE(customtext1__c)"/>
+   <customformula1 dataType="ColumnType.DOUBLE" formula="LEN(customtext2__c)"/>
+   <customformula2 dataType="ColumnType.DOUBLE" formula="(custompercent1__c*customcurrency1__c)"/>
+    <SqlOutput nullAsNull="true">
+       <Sql>((((COALESCE($!s0s!$.customnumber1__c, 0)+COALESCE(CAST($!s0s!$.customtext1__c AS NUMERIC), 0))+COALESCE($!s0s!$.customnumber2__c, 0))+COALESCE(COALESCE(LENGTH($!s0s!$.customtext2__c),0), 0))+COALESCE((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0))</Sql>
+       <Guard>NOT ABS($!s0s!$.customtext1__c) &gt; 0 || $!s0s!$.customtext1__c = 0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(((($!s0s!$.customnumber1__c+CAST($!s0s!$.customtext1__c AS NUMERIC))+$!s0s!$.customnumber2__c)+COALESCE(LENGTH($!s0s!$.customtext2__c),0))+(($!s0s!$.custompercent1__c / 100.0) * $!s0s!$.customcurrency1__c))</Sql>
+       <Guard>NOT ABS($!s0s!$.customtext1__c) &gt; 0 || $!s0s!$.customtext1__c = 0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[100.1234, 400, .2212, lengthisten, .01, 500]</inputvalues>
+         <formula>511.3946</formula>
+         <sql>511.3946</sql>
+         <formulaNullAsNull>511.3946</formulaNullAsNull>
+         <sqlNullAsNull>511.3946</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 200.134, 100, text, , -200, 100]</inputvalues>
+         <formula>304.134</formula>
+         <sql>304.134</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.144, 0.0023456, 200, , , 20]</inputvalues>
+         <formula>200.1463456</formula>
+         <sql>200.1463456</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, -1, -1, -1, -1, -1]</inputvalues>
+         <formula>-0.99</formula>
+         <sql>-0.99</sql>
+         <formulaNullAsNull>-0.99</formulaNullAsNull>
+         <sqlNullAsNull>-0.99</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 0, 0, 0, 0, 0]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

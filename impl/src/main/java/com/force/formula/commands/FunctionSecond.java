@@ -1,13 +1,21 @@
 package com.force.formula.commands;
 
 import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.FormulaTime;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaDateUtil;
 import com.force.formula.util.FormulaI18nUtils;
@@ -32,15 +40,14 @@ public class FunctionSecond extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        // convert muillisecs since midnight to minutes portion of time  trunc((args[0] -trunc(args[0]/60000) * 60000)/1000)
-        String sql = getSecondExpr(args[0], context);
-        return new SQLPair(sql, guards[0]);
+        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.SECONDS, FormulaTime.class), args[0]), guards[0]);
     }
     
     public static String getSecondExpr(String arg, FormulaContext context)  {
-    	if (context.getSqlStyle().isMysqlStyle()) {
+        FormulaSqlStyle style = context.getSqlStyle();
+    	if (style.isMysqlStyle() || style.isPrestoStyle()) {
     		return "SECOND(" + arg + ")";
-    	} else if (context.getSqlStyle().isTransactSqlStyle()) {
+    	} else if (style.isTransactSqlStyle()) {
     		return "DATEPART(second,"+arg+")";
     	}
         return "TRUNC((" + arg + "-TRUNC(" + arg + "/" + FormulaDateUtil.MINUTE_IN_MILLIS+ ") * " + FormulaDateUtil.MINUTE_IN_MILLIS + ")/1000)";

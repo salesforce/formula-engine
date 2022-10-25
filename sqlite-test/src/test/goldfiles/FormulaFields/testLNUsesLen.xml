@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesLen">
+   <testInstance formula="LN(LEN(customtext1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>(LOG10(COALESCE(LENGTH($!s0s!$.customtext1__c),0))*2.30258509299)</Sql>
+       <Guard>COALESCE(LENGTH($!s0s!$.customtext1__c),0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(LOG10(COALESCE(LENGTH($!s0s!$.customtext1__c),0))*2.30258509299)</Sql>
+       <Guard>COALESCE(LENGTH($!s0s!$.customtext1__c),0)&lt;=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[This is too good to be true]</inputvalues>
+         <formula>3.295836866004329</formula>
+         <sql>3.295836865999</sql>
+         <formulaNullAsNull>3.295836866004329</formulaNullAsNull>
+         <sqlNullAsNull>3.295836865999</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[making a way]</inputvalues>
+         <formula>2.4849066497880004</formula>
+         <sql>2.484906649784</sql>
+         <formulaNullAsNull>2.4849066497880004</formulaNullAsNull>
+         <sqlNullAsNull>2.484906649784</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blunder]</inputvalues>
+         <formula>1.9459101490553132</formula>
+         <sql>1.945910149052</sql>
+         <formulaNullAsNull>1.9459101490553132</formulaNullAsNull>
+         <sqlNullAsNull>1.945910149052</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[makesense]</inputvalues>
+         <formula>2.1972245773362196</formula>
+         <sql>2.197224577332</sql>
+         <formulaNullAsNull>2.1972245773362196</formulaNullAsNull>
+         <sqlNullAsNull>2.197224577332</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[does not make sense]</inputvalues>
+         <formula>2.9444389791664403</formula>
+         <sql>2.944438979161</sql>
+         <formulaNullAsNull>2.9444389791664403</formulaNullAsNull>
+         <sqlNullAsNull>2.944438979161</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[working my way]</inputvalues>
+         <formula>2.6390573296152584</formula>
+         <sql>2.639057329611</sql>
+         <formulaNullAsNull>2.6390573296152584</formulaNullAsNull>
+         <sqlNullAsNull>2.639057329611</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[e]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
+         <formula>5.147494476813453</formula>
+         <sql>5.147494476804</sql>
+         <formulaNullAsNull>5.147494476813453</formulaNullAsNull>
+         <sqlNullAsNull>5.147494476804</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
+         <formula>3.9512437185814275</formula>
+         <sql>3.951243718574</sql>
+         <formulaNullAsNull>3.9512437185814275</formulaNullAsNull>
+         <sqlNullAsNull>3.951243718574</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
+         <formula>4.04305126783455</formula>
+         <sql>4.043051267827</sql>
+         <formulaNullAsNull>4.04305126783455</formulaNullAsNull>
+         <sqlNullAsNull>4.043051267827</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

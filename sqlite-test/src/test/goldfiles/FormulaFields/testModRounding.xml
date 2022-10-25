@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testModRounding">
+   <testInstance formula="MOD(customnumber1__c * 10000, 2)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN SIGN(2) = SIGN((COALESCE($!s0s!$.customnumber1__c, 0) * 10000)) THEN ((COALESCE($!s0s!$.customnumber1__c, 0) * 10000)  - (FLOOR((COALESCE($!s0s!$.customnumber1__c, 0) * 10000)/2) * 2)) ELSE ((COALESCE($!s0s!$.customnumber1__c, 0) * 10000)  - (CEIL((COALESCE($!s0s!$.customnumber1__c, 0) * 10000)/2) * 2)) END </Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN SIGN(2) = SIGN(($!s0s!$.customnumber1__c * 10000)) THEN (($!s0s!$.customnumber1__c * 10000)  - (FLOOR(($!s0s!$.customnumber1__c * 10000)/2) * 2)) ELSE (($!s0s!$.customnumber1__c * 10000)  - (CEIL(($!s0s!$.customnumber1__c * 10000)/2) * 2)) END </Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[56.925559]</inputvalues>
+         <formula>1.590000</formula>
+         <sql>1.589999999967</sql>
+         <formulaNullAsNull>1.590000</formulaNullAsNull>
+         <sqlNullAsNull>1.589999999967</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.111123]</inputvalues>
+         <formula>1.230000</formula>
+         <sql>1.230000000001</sql>
+         <formulaNullAsNull>1.230000</formulaNullAsNull>
+         <sqlNullAsNull>1.230000000001</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.111145]</inputvalues>
+         <formula>1.450000</formula>
+         <sql>1.450000000001</sql>
+         <formulaNullAsNull>1.450000</formulaNullAsNull>
+         <sqlNullAsNull>1.450000000001</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.111155]</inputvalues>
+         <formula>1.550000</formula>
+         <sql>1.549999999999</sql>
+         <formulaNullAsNull>1.550000</formulaNullAsNull>
+         <sqlNullAsNull>1.549999999999</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.111160]</inputvalues>
+         <formula>1.600000</formula>
+         <sql>1.599999999999</sql>
+         <formulaNullAsNull>1.600000</formulaNullAsNull>
+         <sqlNullAsNull>1.599999999999</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

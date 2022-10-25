@@ -4,12 +4,28 @@ import java.math.BigDecimal;
 import java.util.Deque;
 import java.util.List;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaEvaluationException;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongArgumentException;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
+import com.force.formula.sql.FormulaSqlStyle;
 import com.force.formula.sql.SQLPair;
-import com.force.formula.util.*;
+import com.force.formula.util.DistanceUnit;
+import com.force.formula.util.FormulaGeolocationService;
+import com.force.formula.util.FormulaTextUtil;
 import com.force.i18n.commons.text.TextUtil;
 
 /**
@@ -64,6 +80,7 @@ public class FunctionDistance extends FormulaCommandInfoImpl implements FormulaC
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
+        FormulaSqlStyle sqlStyle = context.getSqlStyle();
         List<String> firstCoordinates = TextUtil.splitSimple(FormulaGeolocationService.LOCATION_DELIMITER, args[0]);
         List<String> secondCoordinates = TextUtil.splitSimple(FormulaGeolocationService.LOCATION_DELIMITER, args[1]);
         String unit = args[2];
@@ -73,10 +90,18 @@ public class FunctionDistance extends FormulaCommandInfoImpl implements FormulaC
         }
         String[] arg1 = getDistanceArguments(firstCoordinates, treatNullAsZero);
         String[] arg2 = getDistanceArguments(secondCoordinates, treatNullAsZero);
+        if (sqlStyle != null && sqlStyle.isPrestoStyle()) {
+            for (int i = 0; i < arg2.length; i++) {
+                // Remove unary "+" that can confuse some DBs
+                if (arg2[i].startsWith("+")) {
+                    arg2[i] = arg2[i].substring(1);
+                }
+            }
+        }
         String sql = getGeolocationService().generateDistanceSqlExpression(arg1[0], arg1[1], arg1[2], arg2[0], arg2[1], arg2[2], String.format(DIAMETER_EXPRESSION, unit));
 
         // Needed because ASIN is double/double only.
-        if (context.getSqlStyle() != null && context.getSqlStyle().isPostgresStyle()) {
+        if (sqlStyle != null && sqlStyle.isPostgresStyle()) {
             sql = sql + "::numeric";
         }
         

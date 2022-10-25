@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesCase">
+   <testInstance formula="Log(CASE(customdate1__c,customdate2__c,customnumber1__c,customdate3__c,customnumber2__c,customnumber3__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>LOG10(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN COALESCE($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN COALESCE($!s0s!$.customnumber2__c, 0) ELSE COALESCE($!s0s!$.customnumber3__c, 0) END)</Sql>
+       <Guard>CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN COALESCE($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN COALESCE($!s0s!$.customnumber2__c, 0) ELSE COALESCE($!s0s!$.customnumber3__c, 0) END&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LOG10(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END)</Sql>
+       <Guard>CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END&lt;=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2004:12:04, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
+         <formula>2.301029995663981</formula>
+         <sql>2.301029995664</sql>
+         <formulaNullAsNull>2.301029995663981</formulaNullAsNull>
+         <sqlNullAsNull>2.301029995664</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:04, 2004:12:03, 200, 2004:12:04, 300, 400]</inputvalues>
+         <formula>2.477121254719662</formula>
+         <sql>2.47712125472</sql>
+         <formulaNullAsNull>2.477121254719662</formulaNullAsNull>
+         <sqlNullAsNull>2.47712125472</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:04, 2004:12:04, 200, 2004:12:03, 300, 400]</inputvalues>
+         <formula>2.301029995663981</formula>
+         <sql>2.301029995664</sql>
+         <formulaNullAsNull>2.301029995663981</formulaNullAsNull>
+         <sqlNullAsNull>2.301029995664</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:05, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
+         <formula>2.602059991327962</formula>
+         <sql>2.602059991328</sql>
+         <formulaNullAsNull>2.602059991327962</formulaNullAsNull>
+         <sqlNullAsNull>2.602059991328</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2004:12:04, 200, 2004:12:04, 300, 400]</inputvalues>
+         <formula>2.602059991327962</formula>
+         <sql>2.602059991328</sql>
+         <formulaNullAsNull>2.602059991327962</formulaNullAsNull>
+         <sqlNullAsNull>2.602059991328</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , 200, 2004:12:04, 300, 400]</inputvalues>
+         <formula>2.602059991327962</formula>
+         <sql>2.602059991328</sql>
+         <formulaNullAsNull>2.602059991327962</formulaNullAsNull>
+         <sqlNullAsNull>2.602059991328</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:04, 2004:12:04, 200, , 300, 400]</inputvalues>
+         <formula>2.301029995663981</formula>
+         <sql>2.301029995664</sql>
+         <formulaNullAsNull>2.301029995663981</formulaNullAsNull>
+         <sqlNullAsNull>2.301029995664</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:04, , 200, 2004:12:04, 300, 400]</inputvalues>
+         <formula>2.477121254719662</formula>
+         <sql>2.47712125472</sql>
+         <formulaNullAsNull>2.477121254719662</formulaNullAsNull>
+         <sqlNullAsNull>2.47712125472</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:04, 2004:12:04, , 2004:12:04, 300, 400]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:04, 2004:12:05, 200, 2004:12:04, , 400]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:04, 2004:12:05, 200, 2004:12:06, , ]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:06, 2004:12:04, 200, 2004:12:04, 300, ]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , , , , ]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

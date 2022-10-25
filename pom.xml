@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.salesforce.formula</groupId>
   <artifactId>formula-engine</artifactId>
-  <version>0.2.21-SNAPSHOT</version>
+  <version>0.3.0-SNAPSHOT</version>
   <name>Formula Engine</name>
   <description>
     Implementation of a formula engine in the "salesforce" style, which
@@ -407,19 +407,19 @@
         <dependency>
           <groupId>org.graalvm.sdk</groupId>
           <artifactId>graal-sdk</artifactId>
-          <version>${graalvm.version}</version>
+          <version>${graalvm.version}</version><!--$NO-MVN-MAN-VER$-->
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.graalvm.js</groupId>
           <artifactId>js</artifactId>
-          <version>${graalvm.version}</version>
+          <version>${graalvm.version}</version><!--$NO-MVN-MAN-VER$-->
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.graalvm.regex</groupId>
           <artifactId>regex</artifactId>
-          <version>${graalvm.version}</version>
+          <version>${graalvm.version}</version><!--$NO-MVN-MAN-VER$-->
           <scope>compile</scope>
         </dependency>
         <dependency>
@@ -508,6 +508,10 @@
         <module>oracle-test</module>
         <module>mysql-test</module>
         <module>sqlserver-test</module>
+        <module>google-test</module>
+        <module>sqlite-test</module>
+        <!-- Running Presto is really slow, so comment it out for now -->
+        <!-- <module>presto-test</module> -->
         <module>docs/coverage</module>
       </modules>
     </profile>

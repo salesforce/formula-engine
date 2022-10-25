@@ -48,6 +48,7 @@ import com.force.formula.FormulaTypeSpec;
 import com.force.formula.MockFormulaType;
 import com.force.formula.RuntimeFormulaInfo;
 import com.force.formula.impl.FormulaTestCaseInfo.CompareType;
+import com.force.formula.impl.FormulaTestCaseInfo.WhyIgnoreSql;
 import com.force.formula.impl.MapFormulaContext.MapEntity;
 import com.force.formula.impl.MapFormulaContext.MapFieldInfo;
 import com.force.formula.sql.FormulaWithSql;
@@ -178,6 +179,23 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 	 * @param test the test to override
 	 */
 	abstract protected void setUpTest(BaseFormulaGenericTest test);
+	
+	/**
+	 * Keep track of failures in SQL so changed in behavior can be managed and not just ignored
+	 * @author stamm
+	 * @since 0.3
+	 */
+    protected static class TestCaseStats {
+        protected int numberExecuted = 0;
+        /**
+         * The number of differences seen between Javascript and Java
+         */
+        protected int numberJsDifferences = 0;
+        /**
+         * The number of differences seen between SQL and Java
+         */
+        protected int numberSqlDifferences = 0;
+    }
 	
 	abstract protected static class BaseFormulaGenericTest extends FormulaTestBase {
 		MapEntity mapEntity;
@@ -499,6 +517,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 			String firstTestFailMessage = null;
 			FieldDefinitionInfo fieldInfo = instance.getTcFieldInfo();
+			TestCaseStats stats = new TestCaseStats();
 			try {
 				createTestFormulas(fieldInfo, entityRecId);
 
@@ -512,7 +531,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 						}
 
 						setDataForRec(fieldList, testDataRow, entityRecId, jestDataModel);
-						String failMessage = getTestCaseResults(testDataRow, fieldInfo, entityRecId, xmlOut, jestDataModel);
+						String failMessage = getTestCaseResults(testDataRow, fieldInfo, entityRecId, xmlOut, jestDataModel, stats);
 						if (failMessage != null && firstTestFailMessage == null) {
 							firstTestFailMessage = failMessage;
 						}
@@ -522,28 +541,42 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 						}
 					}
 				} else {
-					firstTestFailMessage = getTestCaseResults(null, fieldInfo, entityRecId, xmlOut, jestDataModel);
+					firstTestFailMessage = getTestCaseResults(null, fieldInfo, entityRecId, xmlOut, jestDataModel, stats);
 				}
 
 			} finally {
 				cleanupTest();
 			}
-
+			if (firstTestFailMessage == null) {
+			    firstTestFailMessage = validateTestCaseStats(instance, stats, xmlOut);
+			}
+			
 			return firstTestFailMessage;
 		}
 
+		/**
+		 * Allow validation of testCaseStats after running all of the requests (like how many failures in JS/SQL there should be
+		 * @param instance
+		 * @param stats
+		 * @param xmlOut
+		 */
+		protected String validateTestCaseStats(FormulaTestRunnable instance, TestCaseStats stats, PrintStream xmlOut) {
+		    return null;
+		}
+        
+		
 		/**
 		 * Run all the versions of the test for one data row, verify results, and write to printstream.
 		 * @return  null if the results match, otherwise an error message explaining the failure.
 		 */
 		private String getTestCaseResults(
-				List<String> testDataRow, FieldDefinitionInfo fieldInfo, String entityRecId, PrintStream out, JestDataModel jestDataModel)
+				List<String> testDataRow, FieldDefinitionInfo fieldInfo, String entityRecId, PrintStream out, JestDataModel jestDataModel, TestCaseStats stats)
 						throws Exception {
 
 			Map<String, String> results = new HashMap<>();
 			getResultsViaMultiplePaths(results, fieldInfo, entityRecId);
 			String mismatchMessage = (getTestCaseInfo().getCompareType() == CompareType.None) ?
-					null : verifyResults(fieldInfo, results);
+					null : verifyResults(fieldInfo, results, stats);
 
 			out.println("      <result>");
 			if (mismatchMessage != null) {
@@ -576,7 +609,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 							(mismatchMessage.contains("If one is null, they all should be null")))) {
 				return null;
 			}
-
+			
 			return mismatchMessage;
 		}
 
@@ -647,11 +680,15 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		// Does the actual evaluations via all required methods, and returns them in supplied map, where key is a name describing the method
 		abstract protected void getResultsViaMultiplePaths(Map<String, String> results, FieldDefinitionInfo fieldInfo, String entityRecId) throws Exception;
 
+		// Should we ignore SQL differences for this change
+		abstract protected WhyIgnoreSql getWhyIgnoreSql();
+
+		
 		/**
 		 * Do verifications as defined by the compareContexts attribute.
 		 * @return  null if verification passed, otherwise a String explaining the failure.
 		 */
-		abstract String verifyResults(FieldDefinitionInfo fieldInfo, Map<String, String> results) throws Exception;
+		abstract String verifyResults(FieldDefinitionInfo fieldInfo, Map<String, String> results, TestCaseStats stats) throws Exception;
 
 		// Returns the keys in the results map in the order to put them in the gold file
 		abstract protected String[] getKeyNames();
@@ -943,10 +980,23 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 */
 		String evaluateSql(String name, FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource, boolean nullAsNull) throws IOException, SQLException, FormulaException;
 
+		/**
+		 * Some JDBC drivers include a UUID in all exceptions, so this allows you to "remove" that.
+		 * @param e the exception thrown during evaluation
+		 * @return the message to use in GoldFiles for the exception.
+		 * @throws ArithmeticException if you want to treat this exception as a NULL instead of an error.  Suitable
+		 * if there is an architectural difference when running on different platforms (Linux vs Mac)
+		 */
+		default String getSqlExceptionMessage(Throwable e) {
+		    return e.getMessage();
+		}
+		
 		// Support close, if necessary.
 		@Override
 		default void close() throws Exception {
 		}
+		
+		
 	}
 
 }

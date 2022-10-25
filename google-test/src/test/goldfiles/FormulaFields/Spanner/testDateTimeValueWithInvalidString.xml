@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateTimeValueWithInvalidString">
+   <testInstance formula="DATETIMEVALUE(&quot;sample &quot;)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>NULL</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>NULL</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>Error: INVALID_ARGUMENT: Invalid column type to get as date: INT64</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>Error: INVALID_ARGUMENT: Invalid column type to get as date: INT64</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorSqrt">
+   <testInstance formula="IFERROR(SQRT(customnumber1__c),-1)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&lt;0 THEN (-1) ELSE SQRT(COALESCE($!s0s!$.customnumber1__c, 0)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customnumber1__c&lt;0 THEN (-1) ELSE SQRT($!s0s!$.customnumber1__c) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24]</inputvalues>
+         <formula>4.898979485566356</formula>
+         <sql>4.898979485566</sql>
+         <formulaNullAsNull>4.898979485566356</formulaNullAsNull>
+         <sqlNullAsNull>4.898979485566</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.99]</inputvalues>
+         <formula>0.99498743710662</formula>
+         <sql>0.994987437107</sql>
+         <formulaNullAsNull>0.99498743710662</formulaNullAsNull>
+         <sqlNullAsNull>0.994987437107</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-24]</inputvalues>
+         <formula>-1</formula>
+         <sql>-1</sql>
+         <formulaNullAsNull>-1</formulaNullAsNull>
+         <sqlNullAsNull>-1</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

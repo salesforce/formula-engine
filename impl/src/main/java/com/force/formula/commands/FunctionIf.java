@@ -2,12 +2,27 @@ package com.force.formula.commands;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Date;
+import java.util.Deque;
+import java.util.StringJoiner;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaTypeUtils;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.Thunk;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
@@ -106,7 +121,7 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
         Type argType = node.getDataType();
         if (argType == ConstantNull.class) {
             if ((resultDataType == FormulaDateTime.class) || (resultDataType == Date.class)) {
-                return getSqlHooks(context).sqlNullToDate();
+                return getSqlHooks(context).sqlNullToDate(resultDataType);
             } else if (resultDataType == BigDecimal.class) {
                 return getSqlHooks(context).sqlNullToNumber();
             } else if (resultDataType == Boolean.class) {
@@ -121,7 +136,7 @@ public class FunctionIf extends FormulaCommandInfoImpl implements FormulaCommand
 
         int nodeType = node.getType();
         if ((argType == FormulaDateTime.class) || (argType == Date.class) && node.canBeNull()) {
-            return String.format(getSqlHooks(context).sqlNvl() + "(%s,"+getSqlHooks(context).sqlNullToDate()+")", expression);
+            return String.format(getSqlHooks(context).sqlNvl() + "(%s,"+getSqlHooks(context).sqlNullToDate(argType)+")", expression);
         } else if (argType == BigDecimal.class && node.canBeNull() && node.getType() != FormulaTokenTypes.IDENT) {
             return String.format(getSqlHooks(context).sqlNvl() + "(%s,"+getSqlHooks(context).sqlNullToNumber()+")", expression);
         } else if (argType == Boolean.class) {

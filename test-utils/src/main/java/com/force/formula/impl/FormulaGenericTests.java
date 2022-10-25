@@ -8,6 +8,7 @@ package com.force.formula.impl;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -35,6 +36,7 @@ import com.force.formula.RuntimeFormulaInfo;
 import com.force.formula.commands.FormulaJsTestUtils;
 import com.force.formula.impl.FormulaTestCaseInfo.CompareType;
 import com.force.formula.impl.FormulaTestCaseInfo.DefaultEvaluationContext;
+import com.force.formula.impl.FormulaTestCaseInfo.WhyIgnoreSql;
 import com.force.formula.util.FormulaDateUtil;
 import com.force.formula.util.FormulaI18nUtils;
 
@@ -146,11 +148,21 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		}
 		
 		/**
-		 * @return whether for a give test, the values from the SL engine should be compared
+		 * @return whether for a give test, the values from the SQL engine should be compared
 		 */
 		protected boolean shouldCompareSql() {
-			return shouldTestSql() && null == getTestCaseInfo().whyIgnoreSql(((FormulaGenericTests)getSuite()).getDbTypeName());
+			return shouldTestSql() && null == getWhyIgnoreSql();
 		}
+
+		/**
+		 * @return the structure explaining why the sql results will be different, if they will be.
+		 * This allows overriding in child classes if you want to use a different dbTypeName without changing
+		 * the XML files.
+		 */
+		@Override
+        protected WhyIgnoreSql getWhyIgnoreSql() {
+            return getTestCaseInfo().whyIgnoreSql(((FormulaGenericTests)getSuite()).getDbTypeName());
+        }
 		
 		@Override
 		protected boolean ignoreJavascriptValueMismatchInAutobuilds() {
@@ -232,11 +244,14 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		 * @return the result of evaluating the 
 		 */
 		private String evaluateSql(FormulaRuntimeContext formulaContext, Map<String, Object> entityObject, String formulaSource, boolean nullAsNull) {
+		    DbTester dbTester = null;
 			try {
-				return ((FormulaGenericTests)getSuite()).getDbTester().evaluateSql(getName(), formulaContext, entityObject, formulaSource, nullAsNull);
+			    dbTester = ((FormulaGenericTests)getSuite()).getDbTester();
+				return dbTester.evaluateSql(getName(), formulaContext, entityObject, formulaSource, nullAsNull);
 			} catch (Throwable e) {
 				logger.log(Level.FINER, "Error in sql", e);
-				return "Error: " + e.getMessage();
+				String message = (dbTester != null ? dbTester.getSqlExceptionMessage(e) : e.getMessage());
+				return "Error: " + message;
 			}
 		}
 		
@@ -278,7 +293,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				}
 				
 				if (shouldTestSql()) {
-					valueViaSql = evaluateSql(formulaContext, entityObject, fieldInfo.getFormula(), nullAsNull);
+			        valueViaSql = evaluateSql(formulaContext, entityObject, fieldInfo.getFormula(), nullAsNull);
 				}
 			}
 
@@ -305,16 +320,28 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 
 
 		@Override
-		String verifyResults(FieldDefinitionInfo fieldInfo, Map<String, String> results) {
+		String verifyResults(FieldDefinitionInfo fieldInfo, Map<String, String> results, TestCaseStats stats) {
 			String mismatchMessage = verifyMultiplePath(fieldInfo,
-					results.get("formula"), results.get("sql"), results.get("javascript"), results.get("javascriptLp"), false);
+					results.get("formula"), results.get("sql"), results.get("javascript"), results.get("javascriptLp"), stats, false);
 			if (mismatchMessage != null) {
 				return mismatchMessage;
 			}
-			mismatchMessage = verifyMultiplePath(fieldInfo, results.get("formulaNullAsNull"), results.get("sqlNullAsNull"), results.get("javascriptNullAsNull"), results.get("javascriptLpNullAsNull"), true);
+			mismatchMessage = verifyMultiplePath(fieldInfo, results.get("formulaNullAsNull"), results.get("sqlNullAsNull"), results.get("javascriptNullAsNull"), results.get("javascriptLpNullAsNull"), stats, true);
 			return mismatchMessage;
 		}
 
+		
+	    @Override
+        protected String validateTestCaseStats(FormulaTestRunnable instance, TestCaseStats stats, PrintStream xmlOut) {
+            if (shouldTestSql()) {
+                WhyIgnoreSql why = getWhyIgnoreSql();
+                if (why != null&& !why.isUnimplemented() && why.getNumFailures() >= 0 && why.getNumFailures() != stats.numberSqlDifferences) {
+                    return "Should have received " + why.getNumFailures() + " differences but instead had " + stats.numberSqlDifferences;
+                }
+            }
+            return null;
+        }
+		
 		Calendar getFromDateString(String str) throws ParseException {
 			SimpleDateFormat javaDf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 			Date viaFormulaDate = javaDf.parse(str);
@@ -336,13 +363,15 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 		//  Determine if all paths resulted in same value (modulo various expected differences!)
 		//  returning null means success.
 		private String verifyMultiplePath(
-				FieldDefinitionInfo fieldInfo, String viaFormula, String viaSql, String viaJavascript, String viaJavascriptLp, boolean nullIsNull) {
+				FieldDefinitionInfo fieldInfo, String viaFormula, String viaSql, String viaJavascript, String viaJavascriptLp, TestCaseStats stats, boolean nullIsNull) {
 			// If any of them generated a result with an error message, don't compare.
 
+		    stats.numberExecuted++;
 			if (hasErrorMessage(viaFormula)) {
 				return null;
 			}
             if (hasErrorMessage(viaSql)) {
+                stats.numberSqlDifferences++;
             	if (shouldCompareSql()) {
             		return getSqlErrorMessageResult(viaSql, viaFormula); 
             	} else {
@@ -355,6 +384,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 					if (!getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {
 						StringBuilder errorMsg = new StringBuilder(128).append("Javascript had an error when no other did: should be ").append(viaFormula)
 								.append(" but was ").append(viaJavascript);
+		                stats.numberJsDifferences++;
 						return errorMsg.toString();
 					}
 				}
@@ -363,17 +393,21 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 					if (!getTestCaseInfo().getAccuracyIssue().ignoreLowPrecision()) {
 						StringBuilder errorMsg = new StringBuilder(128).append("JavascriptLp had an error when no other did: should be ").append(viaFormula)
 								.append(" but was ").append(viaJavascript);
+                        stats.numberJsDifferences++;
 						return errorMsg.toString();
 					}
 				}
             }
 
 			// If one is null, they all should be (except template should be "")
-			if (viaFormula == null || (shouldCompareSql() && viaSql == null)) {
+			if (viaFormula == null || (shouldTestSql() && viaSql == null)) {
                 String badNullMessage = "If one is null, they all should be null. viaFormula " + viaFormula + " viaSql " + viaSql;
                 
-                if (shouldCompareSql() && (viaFormula != null || viaSql != null)) {
-                    return badNullMessage;
+                if (shouldTestSql() && (viaFormula != null || viaSql != null)) {
+                    stats.numberSqlDifferences++;
+                    if (shouldCompareSql()) {
+                        return badNullMessage;
+                    }
                 }
                 
                 // Since we didn't check javascript earlier, we need to make sure it is also null.
@@ -408,18 +442,26 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 					MathContext mc = new MathContext(fieldInfo.getPrecision(), RoundingMode.HALF_UP);
 					// NOTE: Core's tests don't do RoundingMode HALF_UP because it ends up being filtered through saving to the DB.
 					BigDecimal viaFormulaDec = new BigDecimal(entityValue, mc).setScale(scale, RoundingMode.HALF_UP);
-					BigDecimal viaSqlDec = shouldCompareSql() ? new BigDecimal(viaSql, mc).setScale(scale, RoundingMode.HALF_UP) : null; 
+					BigDecimal viaSqlDec = shouldTestSql() ? new BigDecimal(viaSql, mc).setScale(scale, RoundingMode.HALF_UP) : null; 
 					boolean compareOK = true;  // In case ignoreSql and ignoreJavascript is on
 					String mismatchMessage = null;
 					if (!getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {  // If there's an accuracy issue with decimal, don't bother
 						BigDecimal viaJavascriptDec = viaJavascript != null ? new BigDecimal(viaJavascript, mc).setScale(scale, RoundingMode.HALF_UP) : BigDecimal.ZERO; // We can get here through nullAsNull
 						if (compareType == CompareType.Approximate) {
 							BigDecimal delta = BigDecimal.ONE.movePointLeft(scale);
+							boolean sqlOK = shouldTestSql() ? viaFormulaDec.subtract(viaSqlDec).abs().compareTo(delta) <= 0 : true;
+							boolean jsOK = shouldTestJavascript() ? viaFormulaDec.subtract(viaJavascriptDec).abs().compareTo(delta) <= 0 : true;
+							if (!sqlOK) {
+							    stats.numberSqlDifferences++;
+							}
+							if (!jsOK) {
+							    stats.numberJsDifferences++;
+							}
 			                if (shouldCompareSql()) {
-								compareOK = viaFormulaDec.subtract(viaSqlDec).abs().compareTo(delta) <= 0
-										&& (!shouldTestJavascript() || viaFormulaDec.subtract(viaJavascriptDec).abs().compareTo(delta) <= 0);
-			                } else if (shouldTestJavascript()) {
-			                	compareOK = viaFormulaDec.subtract(viaJavascriptDec).abs().compareTo(delta) <= 0;
+			                    compareOK &= sqlOK;
+			                }
+			                if (shouldTestJavascript()) {
+			                	compareOK &= jsOK;
 			                }
 							if (! compareOK) {
 								if (shouldCompareSql() && viaFormulaDec.subtract(viaSqlDec).abs().compareTo(delta) > 0) {
@@ -438,8 +480,14 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 							if (shouldTestJavascript()) {
 								compareOK &= viaFormulaDec.equals(viaJavascriptDec);
 							}
-							if (shouldCompareSql()) {
-								compareOK &= viaFormulaDec.equals(viaSqlDec);
+							if (shouldTestSql()) {
+							    boolean sqlOK = viaFormulaDec.equals(viaSqlDec);
+	                            if (!sqlOK) {
+	                                stats.numberSqlDifferences++;
+	                            }
+	                            if (shouldCompareSql()) {
+	                                compareOK &= sqlOK;
+	                            }
 							}
 							if (! compareOK) {
 								if (shouldCompareSql() && ! viaFormulaDec.equals(viaSqlDec)) {
@@ -475,7 +523,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 			} else if (compareType  == CompareType.Date) {
 				// API version has format yyyy-mm-dd or 2005-01-03T23:32:00.000Z.  Others are Mon Jan 03 00:00:00 GMT 2005.
 				try {
-					if (shouldCompareSql()) {
+					if (shouldTestSql()) {
 	                    SimpleDateFormat sqlDf = new SimpleDateFormat("yyyy-MM-dd");
 	                    Date viaSqlDate = sqlDf.parse(viaSql);
 	                    // Unfortunately date arithmetic in pointwise versions tracks a time also, so it
@@ -486,9 +534,12 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 	                    FormulaDateUtil.toMidnight(c);
 	                    Date viaFormulaDate = c.getTime();
 	                    boolean compareOK =  viaSqlDate.equals(viaFormulaDate);
-	                    if (! compareOK) {
-	                        return "viaFormula " + viaFormulaDate + " (" + viaFormula +
-	                                          ") does not equal viaSql " + viaSqlDate + "(" + viaSql + ")";
+	                    if (! compareOK ) {
+                            stats.numberSqlDifferences++;
+	                        if (shouldCompareSql()) {
+    	                        return "viaFormula " + viaFormulaDate + " (" + viaFormula +
+    	                                          ") does not equal viaSql " + viaSqlDate + "(" + viaSql + ")";
+	                        }
 	                    }
 					}
 				} catch (ParseException e) {
@@ -515,7 +566,7 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				return null;
 
 			} else if (compareType == CompareType.DateTime) {
-				if (shouldCompareSql()) {
+				if (shouldTestSql()) {
 					try {
 	                    SimpleDateFormat sqlDf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	                    Date viaSqlDate = sqlDf.parse(viaSql);
@@ -524,8 +575,11 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 	                    String mismatchMessage = null;
 	                    boolean compareOK = viaSqlDate.getTime() == viaFormulaDate.getTime();
 	                    if (! compareOK) {
-	                        mismatchMessage = "viaFormula " + viaFormulaDate.getTime() + " (" + viaFormula +
-	                                          ") does not equal viaApi " + viaSqlDate.getTime() + "(" + viaSql + ")";
+                            stats.numberSqlDifferences++;
+                            if (shouldCompareSql()) {
+    	                        mismatchMessage = "viaFormula " + viaFormulaDate.getTime() + " (" + viaFormula +
+    	                                          ") does not equal viaApi " + viaSqlDate.getTime() + "(" + viaSql + ")";
+                            }
 	                    }
 	                    return mismatchMessage;
 					} catch (ParseException e) {
@@ -557,8 +611,11 @@ public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
 				return null;
 			} else {
 				// Default comparison gauntlet
-				if (shouldCompareSql() && !viaFormula.equals(viaSql)) {
-					return "viaFormula " + viaFormula + " does not equal viaSql " + viaSql;
+				if (shouldTestSql() && !viaFormula.equals(viaSql)) {
+                    stats.numberSqlDifferences++;
+                    if (shouldCompareSql()) {
+                        return "viaFormula " + viaFormula + " does not equal viaSql " + viaSql;
+                    } 
 				}
 				if (shouldTestJavascript()) {
 					if (! viaFormula.equals(viaJavascript) && !getTestCaseInfo().getAccuracyIssue().ignoreHighPrecision()) {

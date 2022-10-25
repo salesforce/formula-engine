@@ -1,12 +1,20 @@
 package com.force.formula.commands;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
@@ -30,14 +38,7 @@ public class FunctionDay extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-    	if (context.getSqlStyle().isTransactSqlStyle()) {
-    		return new SQLPair("DAY(" + args[0] + ")", guards[0]);
-    	}
-        String sql = "EXTRACT(DAY FROM " + args[0] + ")";
-        if (context.getSqlStyle().isPostgresStyle()) {
-            sql = sql + "::numeric";
-        }
-        return new SQLPair(sql, guards[0]);
+        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.DAYS, Date.class), args[0]), guards[0]);
     }
     
     @Override

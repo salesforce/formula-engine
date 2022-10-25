@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -25,6 +27,9 @@ import org.xml.sax.SAXException;
 
 import com.force.formula.FormulaDataType;
 import com.force.formula.MockFormulaDataType;
+import com.force.formula.impl.FormulaTestCaseInfo.WhyIgnoreSql;
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
 /**
@@ -54,7 +59,7 @@ public class FormulaTestUtils {
     
     protected FormulaTestCaseInfo constructFormulaTestCaseInfo(String tcName, String testLabels, String accuracyIssue, FieldDefinitionInfo tcFormulaFieldInfo,
             List<FieldDefinitionInfo> referenceFields, String owner, String compareType, String evalContexts,  String compareTemplate,
-            String whyIgnoreSql, String whyIgnoreJs, boolean multipleResultTypes, Element testCaseElement) {
+            Map<String,FormulaTestCaseInfo.WhyIgnoreSql> whyIgnoreSql, String whyIgnoreJs, boolean multipleResultTypes, Element testCaseElement) {
         return new FormulaTestCaseInfo(this, tcName, testLabels, accuracyIssue, tcFormulaFieldInfo, referenceFields, owner, compareType, 
                 evalContexts, compareTemplate, whyIgnoreSql, whyIgnoreJs, multipleResultTypes);
     }
@@ -68,12 +73,33 @@ public class FormulaTestUtils {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document tcDoc = builder.parse(new InputSource(FormulaTestUtils.class.getResourceAsStream(xmlFileName)));
+        
+        return processTestCases(tcDoc, xmlFileName, filter, owner, testLabelsAttribute, swapResultTypes);
+    }
+
+    public List<FormulaTestCaseInfo> processTestCases(Document tcDoc, String xmlFileName, Predicate<FormulaTestCaseInfo> filter, String owner,
+            String testLabelsAttribute, boolean swapResultTypes) throws IOException, ParserConfigurationException, SAXException {
         List<FormulaTestCaseInfo> tcResult = new LinkedList<FormulaTestCaseInfo>();
 
-        NodeList tcList = tcDoc.getElementsByTagName("testcase");
-
+        // Get any included files 
+        NodeList tcList = tcDoc.getElementsByTagName("include");
+        for (int tcCount = 0; tcCount < tcList.getLength(); tcCount++) {
+            Node tempNode = tcList.item(tcCount);
+            if (!(tempNode instanceof Element))
+                continue;
+            Element testCase = (Element)tempNode;
+            String href = testCase.getAttribute("href");
+            // When using JAR files, you can't do "/../", so you have to replace the file.
+            if (!href.startsWith("/")) {
+                href = xmlFileName.substring(0,xmlFileName.lastIndexOf('/')) + "/" + href;
+            }
+            List<FormulaTestCaseInfo> testCases = getTestCases( href, filter, owner, testLabelsAttribute, swapResultTypes);
+            if (testCases != null) {
+                tcResult.addAll(testCases);
+            }
+        }
         
-
+        tcList = tcDoc.getElementsByTagName("testcase");
         // create a field def info for each test case
         for (int tcCount = 0; tcCount < tcList.getLength(); tcCount++) {
             Node tempNode = tcList.item(tcCount);
@@ -105,7 +131,7 @@ public class FormulaTestUtils {
             String eval = testCase.getAttribute("eval");
             String compareTemplate = testCase.getAttribute("compareTemplate");
             String domain = testCase.getAttribute("domain");
-            String whyIgnoreSql = testCase.getAttribute("whyIgnoreSql");
+            String whyIgnoreSqlStr = testCase.getAttribute("whyIgnoreSql");
             String whyIgnoreJs = testCase.getAttribute("whyIgnoreJs");
 
             String scale = testCase.getAttribute("scale");
@@ -122,11 +148,18 @@ public class FormulaTestUtils {
             FieldDefinitionInfo tcFormulaFieldInfo = new FieldDefinitionInfo(null, tcDataType, tcDevName,
                 tcLabelName, tcPrecision, tcScale, 0, domain, code);
             List<FieldDefinitionInfo> referenceFields = null;
+            Map<String,WhyIgnoreSql> whyIgnoreSql;
+            // Get whyIgnoreSql which could be an element, or an attribute for compatibility reasons
+ 
+            
             // create an array list of reference fields and qa test cases
             if (testCase.hasChildNodes()) {
                 NodeList children = testCase.getChildNodes();
 
                 referenceFields = new ArrayList<FieldDefinitionInfo>(extractFieldsDefintions(children, null));
+                whyIgnoreSql = extractWhyIgnoreSql(children, whyIgnoreSqlStr);
+            } else {
+                whyIgnoreSql = extractWhyIgnoreSql(null, whyIgnoreSqlStr);
             }
 
             FormulaTestCaseInfo tcInfo = constructFormulaTestCaseInfo(tcName, testLabels, accuracyIssue, tcFormulaFieldInfo,
@@ -310,7 +343,9 @@ public class FormulaTestUtils {
         if (CURRENCY_TYPE.contains(dataTypeName)) return MockFormulaDataType.CURRENCY;
         if (PERCENT_TYPE.contains(dataTypeName)) return MockFormulaDataType.PERCENT;
         FormulaDataType dataType = MockFormulaDataType.fromCamelCaseName(dataTypeName);
-        if (dataType == null) throw new IllegalArgumentException("Couldn't figure out type " + dataTypeName);
+        if (dataType == null) {
+            throw new IllegalArgumentException("Couldn't figure out type " + dataTypeName);
+        }
         return dataType;
     }
         
@@ -371,9 +406,48 @@ public class FormulaTestUtils {
         }
         return fieldDefinitions;
     }
-    
-    
 
+    // WhyIgnoreSql as an element was added in 0.3 because a single string for all the DBs was unwieldy. 
+    private Map<String, WhyIgnoreSql> extractWhyIgnoreSql(NodeList fieldList, String str) {
+        ImmutableMap.Builder<String, WhyIgnoreSql> builder = null;
+        // Parse the child node list if available
+        if (fieldList != null) {
+            for (int nField = 0; nField < fieldList.getLength(); nField++) {
+    
+                Node tempNode = fieldList.item(nField);
+                if (!(tempNode instanceof Element) || !"whyIgnoreSql".equalsIgnoreCase(tempNode.getNodeName())) continue;
+                Element field = (Element)tempNode;
+                String dbStr = field.getAttribute("db");
+                String reason = field.getAttribute("reason");
+                String failures = field.getAttribute("numFailures");
+                String unimplementedStr = field.getAttribute("unimplemented");
+                if (reason == null || reason.length() == 0) {
+                    reason = field.getTextContent();
+                }
+                int numFailures = failures != null && failures.length() > 0 ? Integer.parseInt(failures) : 0;
+                boolean unimplemented = "true".equals(unimplementedStr);
+                if (builder == null) {
+                    builder = ImmutableMap.builder();
+                }
+                for (String db : Splitter.on(',').split(dbStr)) {
+                    builder.put(db, new WhyIgnoreSql(db, reason, numFailures, unimplemented));
+                }
+            }
+        }
+        // Parse the attribute string
+        if (str != null && str.length() > 0) {
+            if (builder == null) {
+                builder = ImmutableMap.builder();
+            }
+            final ImmutableMap.Builder<String, WhyIgnoreSql> b = builder;  // Appease lambda
+            Splitter.on(',').withKeyValueSeparator(':').split(str).forEach((k,v)->b.put(k, new WhyIgnoreSql(k,v,-1,false)));
+        }
+        return builder != null ? builder.build() : Collections.emptyMap();
+    }
+
+
+
+    
     /**
      * Splits the given string str using the given delimiter and returns the result as a string list. Double-quotes and
      * escaped characters using backslash as the escape character are honored. If str is null, then null is returned.<br>

@@ -4,6 +4,7 @@
 package com.force.formula.impl.sql;
 
 import java.lang.reflect.Type;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -57,7 +58,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      * @return the string to use for String.format to convert something to date generically, without a specified
      */
     @Override
-    default String sqlToDate() {
+    default String sqlToDate(Type dateType) {
 		return "CAST(%s AS DATE)";
     }
 
@@ -97,7 +98,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      * missing from mysql, but available in oracle.  This allows you to try and fix that.
      */
     @Override
-    default String sqlSubtractTwoTimestamps(boolean inSeconds) {
+    default String sqlSubtractTwoTimestamps(boolean inSeconds, Type dateType) {
     	return inSeconds ? "-TIMESTAMPDIFF(SECOND,%s,%s)": "(-TIMESTAMPDIFF(SECOND,%s,%s)/86400)";
     	//return "((UNIX_TIMESTAMP(%s)-UNIX_TIMESTAMP(%s))/86400)";
     } 
@@ -129,7 +130,23 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
             }
 		}
     }
+	
+    @Override
+    default String sqlExtractTimeFromDateTime(String dateTimeExpr) {
+        return String.format("TIME(%s)", dateTimeExpr);
+    }
     
+    @Override
+    default String sqlParseTime(String stringExpr) {
+	    // Note, this doesn't work for MariaDB... 
+        return String.format("TIME(%s)", stringExpr);
+    }
+	
+    @Override
+    default String sqlConstructDate(String yearSql, String monthSql, String daySql) {
+        return "DATE(CONCAT(" + yearSql + ",'-'," + monthSql + ",'-'," + daySql + "))";
+    }
+	
     /**
      * Function right can be... complicated, especially in Oracle
      * @param stringArg the sql for the string value
@@ -164,7 +181,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      * @return the format to use for adding months.
      */
     @Override
-    default String sqlAddMonths(String dateArg, String numMonths) {
+    default String sqlAddMonths(String dateArg, Type dateArgType, String numMonths) {
 		return String.format("DATE_ADD(%s, INTERVAL TRUNCATE(%s,0) MONTH)", dateArg, numMonths);
     }
     
@@ -173,7 +190,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      * @return how to get the unix epoch from a given date for String.format
      */
 	@Override
-    default String sqlGetEpoch() {
+    default String sqlGetEpoch(Type dateType) {
     	return "UNIX_TIMESTAMP(%s)";
     }
     
@@ -216,6 +233,34 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     @Override
     default String sqlLastDayOfMonth() {
 		return "LAST_DAY(%s)";
+    }
+    
+    @Override
+    default String sqlDateFromYearAndMonth(String yearValue, String monthValue) {
+        return "DATE(CONCAT(" + yearValue + ",'-'," + monthValue + ",'-01'))";
+    }
+    
+    
+    
+    @Override
+    default String sqlChronoUnit(ChronoUnit field, Type dateType) {
+        switch (field) {
+        case HOURS:
+            return "HOUR(%s)";
+        case MINUTES:
+            return "MINUTE(%s)";
+        case SECONDS:
+            return "SECOND(%s)";
+        case MILLIS:            
+            return "1000*MICROSECOND(%s)";
+        default:
+        }
+        return FormulaSqlHooks.super.sqlChronoUnit(field, dateType);
+    }
+    
+    @Override
+    default String sqlGetWeekday() {
+        return "DAYOFWEEK(%s)";
     }
     
     @Override
@@ -376,4 +421,39 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
     default Object sqlMakeStringComparable(Object str, boolean forCompare) {
 		return "binary " + str;
     }
+	
+	
+	interface MariaDBHooks extends FormulaMySQLHooks {
+	    @Override
+	    default String sqlParseTime(String stringExpr) {
+	        // TIME() doesn't parse times in MariaDB, unlike Mysql.  So use str_to_date to parse fractional
+	        return String.format("TIME(STR_TO_DATE(%s,'%%T.%%f'))", stringExpr);
+	    }
+	    
+	    /**
+	     * Unix timestamp is fractional in MariaDB
+	     * See https://mariadb.com/kb/en/unix_timestamp/
+	     */
+	    @Override
+	    default String sqlGetEpoch(Type dateType) {
+	        return "FLOOR(UNIX_TIMESTAMP(%s))";
+	    }
+	    
+	    @Override
+	    default String sqlGetTimeInSeconds() {
+	        return "FLOOR(TIME_TO_SEC(%s))";
+	    }
+
+	    @Override
+	    default String sqlAddMillisecondsToTime(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
+	        if (rhsDataType == FormulaTime.class) {
+	            // Use TIMEDIFF.  SUBTIME is better in Mysql since it handles negatives correctly.
+	            return "FLOOR(TIME_TO_SEC(TIMEDIFF(" + lhsValue + ", " + rhsValue + "))*1000)";
+	        } else {
+	            return FormulaMySQLHooks.super.sqlAddMillisecondsToTime(lhsValue, lhsDataType, rhsValue, rhsDataType, isAddition);
+	        }
+	    }
+	    
+	}
+	
 }

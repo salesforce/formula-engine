@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
 import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
-import com.force.formula.sql.MySQLContainerTester;
+import com.force.formula.sql.mysql.MySQLContainerTester;
 
 /**
  * Abstract class for testing formulas with Mysql
@@ -78,11 +78,6 @@ public abstract class FormulaMySQLTests extends FormulaGenericTests {
 		public MysqlFormulaTest(FormulaTestCaseInfo testCase, String name, boolean positive,
 				FormulaGenericTests suite) {
 			super(testCase, name, positive, suite);
-		}
-
-		@Override
-		protected boolean shouldCompareSql() {
-			return super.shouldCompareSql();
 		}
 
 		@Override

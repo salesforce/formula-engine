@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTruncUsesLn">
+   <testInstance formula="TRUNC(LN(customnumber1__c),customnumber2__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ((LOG10(COALESCE($!s0s!$.customnumber1__c, 0))*2.30258509299)) &gt; 0 THEN FLOOR((LOG10(COALESCE($!s0s!$.customnumber1__c, 0))*2.30258509299)/POWER(10,-(COALESCE($!s0s!$.customnumber2__c, 0))))*POWER(10,-(COALESCE($!s0s!$.customnumber2__c, 0))) ELSE CEIL((LOG10(COALESCE($!s0s!$.customnumber1__c, 0))*2.30258509299)*POWER(10,COALESCE($!s0s!$.customnumber2__c, 0)))/POWER(10,COALESCE($!s0s!$.customnumber2__c, 0)) END</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ((LOG10($!s0s!$.customnumber1__c)*2.30258509299)) &gt; 0 THEN FLOOR((LOG10($!s0s!$.customnumber1__c)*2.30258509299)/POWER(10,-($!s0s!$.customnumber2__c)))*POWER(10,-($!s0s!$.customnumber2__c)) ELSE CEIL((LOG10($!s0s!$.customnumber1__c)*2.30258509299)*POWER(10,$!s0s!$.customnumber2__c))/POWER(10,$!s0s!$.customnumber2__c) END</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[1, 0]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2, 1]</inputvalues>
+         <formula>0.6</formula>
+         <sql>0.6</sql>
+         <formulaNullAsNull>0.6</formulaNullAsNull>
+         <sqlNullAsNull>0.6</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3, 2]</inputvalues>
+         <formula>1.09</formula>
+         <sql>1.09</sql>
+         <formulaNullAsNull>1.09</formulaNullAsNull>
+         <sqlNullAsNull>1.09</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[4.1234, 2]</inputvalues>
+         <formula>1.41</formula>
+         <sql>1.41</sql>
+         <formulaNullAsNull>1.41</formulaNullAsNull>
+         <sqlNullAsNull>1.41</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[5.000000008, 8]</inputvalues>
+         <formula>1.60943791</formula>
+         <sql>1.60943791</sql>
+         <formulaNullAsNull>1.60943791</formulaNullAsNull>
+         <sqlNullAsNull>1.60943791</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-200, 2]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10000, -2]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, 10]</inputvalues>
+         <formula>2.3025850929</formula>
+         <sql>2.3025850929</sql>
+         <formulaNullAsNull>2.3025850929</formulaNullAsNull>
+         <sqlNullAsNull>2.3025850929</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[16, 16]</inputvalues>
+         <formula>2.772588722239781</formula>
+         <sql>2.772588722235</sql>
+         <formulaNullAsNull>2.772588722239781</formulaNullAsNull>
+         <sqlNullAsNull>2.772588722235</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2.56, 19]</inputvalues>
+         <formula>0.9400072584914712</formula>
+         <sql>-0.922337203685</sql>
+         <formulaNullAsNull>0.9400072584914712</formulaNullAsNull>
+         <sqlNullAsNull>-0.922337203685</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, 12]</inputvalues>
+         <formula>18.631401767168</formula>
+         <sql>18.631401767135</sql>
+         <formulaNullAsNull>18.631401767168</formulaNullAsNull>
+         <sqlNullAsNull>18.631401767135</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

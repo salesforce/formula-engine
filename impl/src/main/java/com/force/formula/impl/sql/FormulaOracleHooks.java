@@ -3,6 +3,7 @@
  */
 package com.force.formula.impl.sql;
 
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Collection;
@@ -73,7 +74,7 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
      * @return the string to use for String.format to convert something to date generically, without a specified
      */
 	@Override
-    default String sqlToDate() {
+    default String sqlToDate(Type dateType) {
         return "TO_DATE(%s)";
     }
 
@@ -184,7 +185,7 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
      * @return the format to use for adding months.
      */
 	@Override
-    default String sqlAddMonths(String dateArg, String numMonths) {
+    default String sqlAddMonths(String dateArg, Type dateArgType, String numMonths) {
 		return String.format("ADD_MONTHS(%s, %s)", dateArg, numMonths);
     }
     

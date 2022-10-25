@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testUnixTimestampWithDateTime">
+   <testInstance formula="UnixTimestamp(DATETIMEVALUE(dateString__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>unixepoch($!s0s!$.dateString__c)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>unixepoch($!s0s!$.dateString__c)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2011-01-29 00:00:09]</inputvalues>
+         <formula>1296259209</formula>
+         <sql>1296259209</sql>
+         <formulaNullAsNull>1296259209</formulaNullAsNull>
+         <sqlNullAsNull>1296259209</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-01-9 00:00:09]</inputvalues>
+         <formula>1294531209</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1294531209</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-1-29 00:00:00]</inputvalues>
+         <formula>1296259200</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1296259200</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-1-1 00:00:00]</inputvalues>
+         <formula>1293840000</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1293840000</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-01-1 1:00:00]</inputvalues>
+         <formula>1293843600</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1293843600</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-1-23 2:22:59]</inputvalues>
+         <formula>1295749379</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1295749379</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-2-7 5:22:33]</inputvalues>
+         <formula>1328592153</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1328592153</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2011-13-29 00:00:09]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012:02:02]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 24:00:00]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>1325462400</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>1325462400</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 23:60:00]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 23:00:60]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-01-01 23:59:59]</inputvalues>
+         <formula>1325462399</formula>
+         <sql>1325462398.999999</sql>
+         <formulaNullAsNull>1325462399</formulaNullAsNull>
+         <sqlNullAsNull>1325462398.999999</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-10-34 00:00:00]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-02-07 5:2:33]</inputvalues>
+         <formula>1328590953</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1328590953</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2012-02-07 5:22:3]</inputvalues>
+         <formula>1328592123</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>1328592123</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

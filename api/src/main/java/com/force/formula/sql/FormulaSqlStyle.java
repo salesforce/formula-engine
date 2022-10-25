@@ -45,6 +45,27 @@ public interface FormulaSqlStyle {
 	default boolean isTransactSqlStyle() {
 		return false;
 	}	
+
+    /**
+     * @return whether or not to default to Presto (Amazon Athena, Trino) style of sql.
+     */
+    default boolean isPrestoStyle() {
+        return false;
+    }   
+     
+	/**
+     * @return whether or not to default to Google Standard SQL (bigtable/spanner) style of sql.
+     */
+    default boolean isGoogleStyle() {
+        return false;
+    }   
+
+    /**
+     * @return whether or not to default to Sqlite style.
+     */
+    default boolean isSqliteStyle() {
+        return false;
+    }    
 	
 	/**
 	 * @return the function name for taking a substring.

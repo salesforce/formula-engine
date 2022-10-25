@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesMCeil">
+   <testInstance formula="Log(MCEILING(customnumber1__c))" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>LOG10(CEIL(COALESCE($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Guard>CEIL(COALESCE($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LOG10(CEIL($!s0s!$.customnumber1__c))</Sql>
+       <Guard>CEIL($!s0s!$.customnumber1__c)&lt;=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[20.842345]</inputvalues>
+         <formula>1.322219294733919</formula>
+         <sql>1.322219294734</sql>
+         <formulaNullAsNull>1.322219294733919</formulaNullAsNull>
+         <sqlNullAsNull>1.322219294734</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.54321]</inputvalues>
+         <formula>8.091514980687055</formula>
+         <sql>8.091514980687</sql>
+         <formulaNullAsNull>8.091514980687055</formulaNullAsNull>
+         <sqlNullAsNull>8.091514980687</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789]</inputvalues>
+         <formula>8.091514980687055</formula>
+         <sql>8.091514980687</sql>
+         <formulaNullAsNull>8.091514980687055</formulaNullAsNull>
+         <sqlNullAsNull>8.091514980687</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[49.55]</inputvalues>
+         <formula>1.6989700043360185</formula>
+         <sql>1.698970004336</sql>
+         <formulaNullAsNull>1.6989700043360185</formulaNullAsNull>
+         <sqlNullAsNull>1.698970004336</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.00034]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.244]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0.0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[25.7456]</inputvalues>
+         <formula>1.414973347970818</formula>
+         <sql>1.414973347971</sql>
+         <formulaNullAsNull>1.414973347970818</formulaNullAsNull>
+         <sqlNullAsNull>1.414973347971</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[64.456]</inputvalues>
+         <formula>1.8129133566428552</formula>
+         <sql>1.812913356643</sql>
+         <formulaNullAsNull>1.8129133566428552</formulaNullAsNull>
+         <sqlNullAsNull>1.812913356643</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.4]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-.7]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.4]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.7]</inputvalues>
+         <formula>Error: java.lang.NumberFormatException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: java.lang.NumberFormatException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

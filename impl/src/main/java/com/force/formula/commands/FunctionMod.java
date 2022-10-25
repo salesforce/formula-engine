@@ -11,6 +11,7 @@ import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
 import com.force.formula.FormulaContext;
 import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.impl.JsValue;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.BigDecimalHelper;
@@ -38,12 +39,7 @@ public class FunctionMod extends BinaryMathCommandBehavior {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
-        String sql;
-        if (context.getSqlStyle().isTransactSqlStyle()) {
-        	sql = "(" + args[0] + " % " + args[1] + ")";
-        } else {
-        	sql = "MOD(" + args[0] + ", " + args[1] + ")";
-        }
+        String sql = ((FormulaSqlHooks)context.getSqlStyle()).sqlMod(args[0], args[1]);
         String guard = SQLPair.generateGuard(guards, null);
         return new SQLPair(sql, guard);
     }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfReturningNullForDateType">
+   <testInstance formula="if(true, if(false, null, null), TODAY())" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>NULL</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>NULL</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>null</formula>
+         <sql>Error: INVALID_ARGUMENT: Invalid column type to get as date: INT64</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>Error: INVALID_ARGUMENT: Invalid column type to get as date: INT64</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
