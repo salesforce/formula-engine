@@ -170,15 +170,5 @@ public class EmbeddedSqliteTester extends AbstractDbTester {
         }
         return super.getSqlLiteralValue(df, value);
     }
-    
-    @Override
-    public String getSqlExceptionMessage(Throwable e) {
-        // Strip off the UUID after Query failed.
-        String message = super.getSqlExceptionMessage(e);
-        if (message.contains("Numerical result out of range")) {
-            // Arithmetic Exception means it should return null.
-            throw new ArithmeticException(message);
-        }
-        return message;
-    }
+
 }
