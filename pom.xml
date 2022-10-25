@@ -407,19 +407,19 @@
         <dependency>
           <groupId>org.graalvm.sdk</groupId>
           <artifactId>graal-sdk</artifactId>
-          <version>${graalvm.version}</version>
+          <version>${graalvm.version}</version><!--$NO-MVN-MAN-VER$-->
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.graalvm.js</groupId>
           <artifactId>js</artifactId>
-          <version>${graalvm.version}</version>
+          <version>${graalvm.version}</version><!--$NO-MVN-MAN-VER$-->
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>org.graalvm.regex</groupId>
           <artifactId>regex</artifactId>
-          <version>${graalvm.version}</version>
+          <version>${graalvm.version}</version><!--$NO-MVN-MAN-VER$-->
           <scope>compile</scope>
         </dependency>
         <dependency>
