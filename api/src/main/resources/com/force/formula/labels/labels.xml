@@ -242,6 +242,8 @@
         <param name="LEN_DESCR">Returns the number of characters in a text string</param>
         <param name="MID">MID(text, start_num, num_chars)</param>
         <param name="MID_DESCR">Returns character from the middle of a text string, given a starting position and length</param>
+        <param name="SUBSTR">SUBSTR(text, start_num[, num_chars])</param>
+        <param name="SUBSTR_DESCR">Returns a substring from a text string, given a starting position and optional length.  If length omitted, returns remainder of text.  Use negative start_num to count backwards from the end of the text.</param>
         <param name="FIND">FIND(search_text, text [, start_num])</param>
         <param name="FIND_DESCR">Returns the position of the search_text string in text</param>
         <param name="REVERSE">REVERSE(text)</param>

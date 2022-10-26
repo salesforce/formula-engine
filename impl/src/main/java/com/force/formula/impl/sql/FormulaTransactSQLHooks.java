@@ -96,6 +96,22 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 		return String.format("CHARINDEX(%s COLLATE Latin1_General_CS_AS, %s, %s )", substrArg, strArg, startLocation);
     }
 	
+	
+    // TransactQL doesn't allow negative length for startPos, so this simulates it. 
+	// Use NullIf to have extra negative length return null.  
+	// Use 1000000 for length since it's required
+    @Override
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg) {
+        return getSubstringFunction() + "(" + strArg + ", " + "CASE WHEN " + startPosArg + " >= 0 THEN " + sqlGreatest(sqlRoundScaleArg(startPosArg),"1")  
+        + " ELSE NULLIF("+sqlGreatest("LEN(" + strArg + ") + 1 + " + sqlRoundScaleArg(startPosArg),"0")+",0) END, 1000000)";
+    }
+    
+    @Override
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg, String lengthArg) {
+        return getSubstringFunction() + "(" + strArg + ", " + "CASE WHEN " + startPosArg + " >= 0 THEN " + sqlGreatest(sqlRoundScaleArg(startPosArg),"1") 
+        + " ELSE NULLIF("+sqlGreatest("LEN(" + strArg + ") + 1 + " + sqlRoundScaleArg(startPosArg),"0")+",0) END, " + sqlEnsurePositive(sqlRoundScaleArg(lengthArg)) + ")";
+    }
+    
 	@Override
     default String sqlIsNumber() {
 		// This function is not very good, as it does a simple character test and 
@@ -366,6 +382,10 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
 	// MSSqlServer doesn't support greatest or least until 2022.  So we do (a+b+ABS(a-b))/2
 	@Override
 	default String sqlGreatest(String arg1, String arg2) {
+	    if ("0".equals(arg2)) {
+	        // Simplify "ensure positive"
+	        return "(" + arg1 +"+ABS(" + arg1 +  "))/2";
+	    }
 		return "(" + arg1 + "+" + arg2 + "+ABS(" + arg1 + "-" + arg2 + "))/2";
 	}
 

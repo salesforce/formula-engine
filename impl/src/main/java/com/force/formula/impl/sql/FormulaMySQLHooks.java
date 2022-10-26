@@ -327,6 +327,18 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 		// Use binary comparison to be case sensitive
 		return String.format("CASE WHEN COALESCE(INSTR(binary SUBSTR(%s,%s),%s),0) > 0 THEN INSTR(binary SUBSTR(%s,%s),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     }
+    
+    // Turn 0 into 1 to match oracle/postgres semantics
+    @Override
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg) {
+        return getSubstringFunction() + "(" + strArg + ", CASE WHEN " + startPosArg + " = 0 THEN 1 ELSE " + startPosArg + " END)";
+    }
+    
+    @Override
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg, String lengthArg) {
+        return getSubstringFunction() + "(" + strArg + ", CASE WHEN " + startPosArg + " = 0 THEN 1 ELSE " + startPosArg  + " END, " + sqlEnsurePositive(sqlRoundScaleArg(lengthArg)) + ")";
+    }
+    
 
 	@Override
 	default String sqlConvertDateTimeToDate(String dateTime, String userTimezone, String userTzOffset) {

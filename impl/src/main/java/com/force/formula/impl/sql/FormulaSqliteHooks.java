@@ -349,6 +349,16 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     }
 	
     @Override
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg) {
+        return getSubstringFunction() + "(" + strArg + ", CASE WHEN " + startPosArg + " = 0 THEN 1 ELSE " + startPosArg + " END)";
+    }
+    
+    @Override
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg, String lengthArg) {
+        return getSubstringFunction() + "(" + strArg + ", CASE WHEN " + startPosArg + " = 0 THEN 1 ELSE " + startPosArg  + " END, " + sqlEnsurePositive(sqlRoundScaleArg(lengthArg)) + ")";
+    }
+	
+    @Override
     default String sqlLpad(String str, String amount, String pad) {
         // No lpad/rpad in sqlite, so use the zeroblob/replace/hex trick to create the
         // repeating string and use substr to get the right amount

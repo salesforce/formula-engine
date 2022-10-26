@@ -31,7 +31,6 @@
          <sqlNullAsNull>01:14:23.345</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string "01:66:29.345" - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c' -->
       <inputvalues>[01:66:29.345]</inputvalues>
          <formula>null</formula>
          <sql>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;01:66:29.345&quot; - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c'</sql>
@@ -60,7 +59,6 @@
          <sqlNullAsNull>00:00:00.000</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string "24:12:56.123" - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c' -->
       <inputvalues>[24:12:56.123]</inputvalues>
          <formula>null</formula>
          <sql>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;24:12:56.123&quot; - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c'</sql>
@@ -68,7 +66,6 @@
          <sqlNullAsNull>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;24:12:56.123&quot; - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c'</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string "23:62:56.123" - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c' -->
       <inputvalues>[23:62:56.123]</inputvalues>
          <formula>null</formula>
          <sql>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;23:62:56.123&quot; - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c'</sql>
@@ -76,7 +73,6 @@
          <sqlNullAsNull>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;23:62:56.123&quot; - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c'</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string "23:52:65.123" - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c' -->
       <inputvalues>[23:52:65.123]</inputvalues>
          <formula>null</formula>
          <sql>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;23:52:65.123&quot; - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c'</sql>
@@ -84,7 +80,6 @@
          <sqlNullAsNull>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;23:52:65.123&quot; - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c'</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: SQL had an error that didn't affect Java: Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string "01:14:23.3456" - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c' -->
       <inputvalues>[01:14:23.3456]</inputvalues>
          <formula>null</formula>
          <sql>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;01:14:23.3456&quot; - Statement: 'SELECT SUBSTR(CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.dateString__c, 'UTC')),86400000)),'UTC') END, 1, 1300) FROM (SELECT 1 as fake, @p1 as dateString__c) c'</sql>

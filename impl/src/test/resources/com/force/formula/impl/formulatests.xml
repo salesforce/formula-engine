@@ -2315,6 +2315,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="IFERROR(DATETIMEVALUE(dateString__c),DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
+         <whyIgnoreSql db="mssql,mysql,mariadb,spanner,sqlite3" unimplemented="true">IfError not implemented correctly for Dates</whyIgnoreSql>
       </testcase>
      <testcase name="testIfErrorSqrt" devName="testIfErrorSqrt" labels="math"
          labelName="testIfErrorSqrt" dataType="Double" dataFile="oneNumericField"
@@ -2331,7 +2332,8 @@ author: Srikanth Yendluri/Doug Chasman
          code="IFERROR(Text(TimeValue(dateString__c)),NULL)">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
-      </testcase>                       
+         <whyIgnoreSql db="mssql,mysql,mariadb,spanner,sqlite3" unimplemented="true">IfError not implemented correctly for Dates </whyIgnoreSql>
+     </testcase>                       
 
      <testcase name="testIfErrorBigDivide" devName="testIfErrorBigDivide" labels="math"
          labelName="testIfErrorBigDivide" dataType="Double" dataFile="BigDivide"
@@ -2344,6 +2346,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="18"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="18"/>
+         <whyIgnoreSql db="spanner" unimplemented="true">IfError not implemented correctly for Google</whyIgnoreSql>
      </testcase>
 
 
@@ -2374,5 +2377,43 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
      </testcase>
+     <testcase name="testMid" devName="testMid"
+         labelName="testMid" dataType="Text"
+         dataFile="functionSubstr3" length="255"
+         code="MID(customtext__c, customnumber1__c, customnumber2__c)">
+         <referencefield devName="customtext" labelName="customtext"
+                 dataType="Text" length="255"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="4" precision="14"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="4" precision="14"/>
+         <whyIgnoreSql db="postgres" numFailures="2">Null start treated as zero with GREATEST.</whyIgnoreSql>
+     </testcase>     
+     <testcase name="testSubstr2" devName="testSubstr2"
+         labelName="testSubstr2" dataType="Text"
+         dataFile="functionSubstr2" length="255"
+         whyIgnoreJs="negative start greater than length works in js"
+         code="SUBSTR(customtext__c, customnumber1__c)">
+         <referencefield devName="customtext" labelName="customtext"
+                 dataType="Text" length="255"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="4" precision="14"/>
+         <whyIgnoreSql db="spanner,sqlite3" numFailures="8">negative start greater than length works.</whyIgnoreSql>
+     </testcase>     
+     <testcase name="testSubstr3" devName="testSubstr3"
+         labelName="testSubstr3" dataType="Text"
+         dataFile="functionSubstr3" length="255"
+         whyIgnoreJs="negative start greater than length works in js"
+         code="SUBSTR(customtext__c, customnumber1__c, customnumber2__c)">
+         <referencefield devName="customtext" labelName="customtext"
+                 dataType="Text" length="255"/>
+         <referencefield devName="customnumber1" labelName="customnumber1"
+             dataType="Double" scale="4" precision="14"/>
+         <referencefield devName="customnumber2" labelName="customnumber2"
+             dataType="Double" scale="4" precision="14"/>
+         <whyIgnoreSql db="spanner" numFailures="4">negative start greater than length works.</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" numFailures="2">negative start greater than length works.</whyIgnoreSql>
+     </testcase>     
+     
     
 </formula-test>
