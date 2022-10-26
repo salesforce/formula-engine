@@ -527,6 +527,32 @@ public class BuiltinFunctionsTest extends ParserTestBase {
     	assertEquals(null, evaluateString("mid(\"123456\", null, 2)"));
     }
 
+    public void testSubstr2() throws Exception {
+        parseTest("substr(\"123456\", 3)", " ( substr \"123456\" 3 )");
+        assertEquals("456", evaluateString("substr(\"123456\", 4)"));
+        assertEquals("3456", evaluateString("substr(\"123456\", -4)"));
+        assertEquals("123456", evaluateString("substr(\"123456\", 0)"));
+        assertEquals("23456", evaluateString("substr(\"123456\", 2)"));
+        assertEquals("123456", evaluateString("substr(\"123456\", 1)"));
+        assertEquals(null, evaluateString("substr(\"\", 4)"));
+        assertEquals(null, evaluateString("substr(\"\", -4)"));
+        assertEquals(null, evaluateString("substr(\"123456\", null)"));
+    }
+
+    public void testSubstr3() throws Exception {
+        parseTest("substr(\"123456\", 3, 2)", " ( substr \"123456\" 3 2 )");
+        assertEquals("45", evaluateString("substr(\"123456\", 4, 2)"));
+        assertEquals("456", evaluateString("substr(\"123456\", 4, 37)"));
+        assertEquals("34", evaluateString("substr(\"123456\", -4, 2)"));
+        assertEquals("12", evaluateString("substr(\"123456\", 0, 2)"));
+        assertEquals(null, evaluateString("substr(\"123456\", 2, -2)"));
+        assertEquals(null, evaluateString("substr(\"123456\", 2, 0)"));
+        assertEquals(null, evaluateString("substr(\"\", 4, 2)"));
+        assertEquals(null, evaluateString("substr(\"123456\", 4, null)"));
+        assertEquals(null, evaluateString("substr(\"123456\", 37, 2)"));
+        assertEquals(null, evaluateString("substr(\"123456\", null, 2)"));
+    }
+
     public void testRIGHT() throws Exception {
         parseTest("right(\"123456\", 3)", " ( right \"123456\" 3 )");
         assertEquals("456", evaluateString("right(\"123456\", 3)"));

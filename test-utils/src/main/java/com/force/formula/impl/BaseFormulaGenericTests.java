@@ -603,9 +603,11 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 			// Write out all test case failures to the gold file, but skip Javascript failures if
 			// it's registered to be ignored
-			if (ignoreJavascriptValueMismatchInAutobuilds() && mismatchMessage != null &&
+			if (getSuite().shouldTestJavascript() && ignoreJavascriptValueMismatchInAutobuilds() && mismatchMessage != null &&
 					(mismatchMessage.contains("Javascript had an error when no other did:") ||
-							(!mismatchMessage.contains("viaEntity") && !mismatchMessage.contains("viaApi") && !mismatchMessage.contains("viaTemplate")) ||
+							(!mismatchMessage.contains("viaEntity") && !mismatchMessage.contains("viaApi") && !mismatchMessage.contains("viaTemplate")
+							        && !mismatchMessage.contains("viaSql")
+							        && !mismatchMessage.contains("SQL had an error")) ||
 							(mismatchMessage.contains("If one is null, they all should be null")))) {
 				return null;
 			}

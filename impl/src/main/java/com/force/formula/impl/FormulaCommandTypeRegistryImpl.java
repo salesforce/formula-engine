@@ -62,6 +62,7 @@ import com.force.formula.commands.FunctionRpad;
 import com.force.formula.commands.FunctionSecond;
 import com.force.formula.commands.FunctionSquareRoot;
 import com.force.formula.commands.FunctionSubstitute;
+import com.force.formula.commands.FunctionSubstring;
 import com.force.formula.commands.FunctionText;
 import com.force.formula.commands.FunctionTimeNow;
 import com.force.formula.commands.FunctionTimeValue;
@@ -196,6 +197,7 @@ public class FormulaCommandTypeRegistryImpl implements FormulaCommandTypeRegistr
         types.add(new FunctionTrim());
         types.add(new FunctionHtmlEncode());
         types.add(new FunctionJSEncode());
+        types.add(new FunctionSubstring());
         types.add(new FunctionReverse());
 
         types.add(new FunctionIf());

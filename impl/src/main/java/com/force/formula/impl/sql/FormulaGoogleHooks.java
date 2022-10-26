@@ -303,6 +303,17 @@ public interface FormulaGoogleHooks extends FormulaSqlHooks {
     default String sqlInstr3(String strArg, String substrArg, String startLocation) {
         return String.format("CASE WHEN COALESCE(STRPOS(SUBSTR(%s,CAST(%s AS INT64)),%s),0) > 0 THEN STRPOS(SUBSTR(%s,CAST(%s AS INT64)),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     }
+	
+    // Turn 0 into 1 to match oracle/postgres semantics
+    @Override
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg) {
+        return getSubstringFunction() + "(" + strArg + ", CASE WHEN " + startPosArg + " = 0 THEN 1 ELSE CAST(" + startPosArg + " AS INT64) END)";
+    }
+    
+    @Override
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg, String lengthArg) {
+        return getSubstringFunction() + "(" + strArg + ", CASE WHEN " + startPosArg + " = 0 THEN 1 ELSE CAST(" + startPosArg  + " AS INT64) END, " + sqlEnsurePositive(sqlRoundScaleArg(lengthArg)) + ")";
+    }
     
 	@Override
     default Object sqlMakeStringComparable(Object str, boolean forCompare) {

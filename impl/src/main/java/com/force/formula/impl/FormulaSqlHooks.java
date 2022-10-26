@@ -543,6 +543,28 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
+     * @return the formula for returning a substring from the given strarg to the right of 
+     * the startPosArg, where startPosArg can be negative, with zero startPosArg treated like 1.
+     * @param strArg the value of the string to substring
+     * @param startPosArg the number of the start position
+     */
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg) {
+        return getSubstringFunction() + "(" + strArg + ", " + sqlRoundScaleArg(startPosArg) + ")";
+    }
+    
+    /**
+     * @return the formula for returning a substring from the given strarg to the right of 
+     * the startPosArg, where startPosArg can be negative, with zero startPosArg treated like 1,
+     * and lengthArgs treated as positive
+     * @param strArg the value of the string to substring
+     * @param startPosArg the number of the start position
+     * @param length the number of characters to return, with negative numbers treated as zero
+     */
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg, String lengthArg) {
+        return getSubstringFunction() + "(" + strArg + ", " + sqlRoundScaleArg(startPosArg) + ", " + sqlEnsurePositive(sqlRoundScaleArg(lengthArg)) + ")";
+    }
+    
+    /**
      * @return a sql expression to convert the date time to a date in the user's timezone
      * (__TZ_ID__)
      * @param dateTime the expression for the date time value.

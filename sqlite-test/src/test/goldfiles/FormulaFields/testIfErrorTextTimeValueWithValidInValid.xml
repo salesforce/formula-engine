@@ -59,7 +59,6 @@
          <sqlNullAsNull>00:00:00.000</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula null viaSql 24:12:56.123 -->
       <inputvalues>[24:12:56.123]</inputvalues>
          <formula>null</formula>
          <sql>24:12:56.123</sql>
@@ -81,7 +80,6 @@
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
-      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula null viaSql 01:14:23.346 -->
       <inputvalues>[01:14:23.3456]</inputvalues>
          <formula>null</formula>
          <sql>01:14:23.346</sql>

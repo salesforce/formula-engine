@@ -274,6 +274,19 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
 		// If your postgresql has a better version of this, please use it instead.
 		return String.format("CASE WHEN COALESCE(STRPOS(SUBSTR(%s,%s::integer),%s),0) > 0 THEN STRPOS(SUBSTR(%s,%s::integer),%s) + %s - 1 ELSE 0 END", strArg, startLocation, substrArg, strArg, startLocation, substrArg, startLocation);
     }
+	
+    // Postgres doesn't allow negative length for startPos, so this simulates it.  Use NullIf to have extra negative length return null.
+	@Override
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg) {
+        return getSubstringFunction() + "(" + strArg + ", " + "CASE WHEN " + startPosArg + " >= 0 THEN " + sqlGreatest(sqlRoundScaleArg(startPosArg),"1")  
+        + " ELSE NULLIF("+sqlGreatest("LENGTH(" + strArg + ") + 1 + " + sqlRoundScaleArg(startPosArg), "0") + ",0) END)";
+    }
+    
+	@Override
+    default String sqlSubstrWithNegStart(String strArg, String startPosArg, String lengthArg) {
+        return getSubstringFunction() + "(" + strArg + ", " + "CASE WHEN " + startPosArg + " >= 0 THEN " + sqlGreatest(sqlRoundScaleArg(startPosArg),"1") 
+        + " ELSE NULLIF("+sqlGreatest("LENGTH(" + strArg + ") + 1 + " + sqlRoundScaleArg(startPosArg), "0") + ",0) END, " + sqlEnsurePositive(sqlRoundScaleArg(lengthArg)) + ")";
+    }
     
 	@Override
     default Object sqlMakeStringComparable(Object str, boolean forCompare) {
