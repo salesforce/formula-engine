@@ -8,6 +8,10 @@ package com.force.formula;
 @FunctionalInterface
 public interface FunctionFilter {
 
+    /**
+     * @param command the command type 
+     * @return whether or not this command is supported in this environment.
+     */
     boolean isSupported(FormulaCommandType command);
 
 }

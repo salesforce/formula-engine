@@ -16,7 +16,7 @@ import com.force.formula.sql.SQLPair;
  * @author aballard
  * @since 168
  */
-@AllowedContext(section=SelectorSection.ADVANCED,isJavascript=false)
+@AllowedContext(section=SelectorSection.ADVANCED,isSql = false, isJavascript=false)
 public class DynamicFieldSelector extends FormulaCommandInfoImpl {
 
     public final static String DYNAMIC_REF_IDENT = FormulaCommandInfoRegistry.DYNAMIC_REF_IDENT; 

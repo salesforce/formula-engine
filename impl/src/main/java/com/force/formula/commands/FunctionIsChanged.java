@@ -17,7 +17,7 @@ import com.force.formula.util.FormulaTextUtil;
  * @since 144
  */
 
-@AllowedContext(section=SelectorSection.ADVANCED, changeOnly=true, nonFlowOnly=true,isJavascript=false)
+@AllowedContext(section=SelectorSection.ADVANCED, isSql = false, changeOnly=true, nonFlowOnly=true,isJavascript=false)
 public class FunctionIsChanged extends FormulaCommandInfoImpl implements FormulaCommandValidator {
     public FunctionIsChanged() {
         super("ISCHANGED");

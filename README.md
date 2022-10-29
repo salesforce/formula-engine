@@ -40,4 +40,7 @@ In order to implement this formula engine in your application, you need to
   DI frameworks like spring a problem.  
 * MySQL support assumes the database uses case insensitive collation (utf8_bin) to match other DBs.  If you're
   DB is case sensitive, there will be discrepancies between the DB and the Java/Javascript evalution.
+* Array and Map support doesn't translate to DB queries for DBs that support it
+* Not all functions are supported in all DBs.  Use a FunctionFilter, as level of support differs from throwing 
+  `UnsupportedOperationException` to minor differences in corner cases.
 

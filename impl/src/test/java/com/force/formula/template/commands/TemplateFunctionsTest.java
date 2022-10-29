@@ -36,6 +36,7 @@ import com.force.formula.impl.FormulaValidationHooks;
 import com.force.formula.impl.FormulaValidationHooks.ParseOption;
 import com.force.formula.impl.InvalidFunctionReferenceException;
 import com.force.formula.impl.JvmMetrics;
+import com.force.formula.impl.RegexTooComplicatedException;
 import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
@@ -204,9 +205,29 @@ public class TemplateFunctionsTest extends ParserTestBase {
         } catch (PatternSyntaxException ex) {
             assertTrue(true);
         }
-
     }
     
+
+    /**
+     * Verify that REGEX() validations are bounded.
+     */
+    public void testBoundedRegex() throws Exception {
+        
+        int oldLimit = FunctionRegex.FORMULA_LIMIT;
+        try {
+            assertFalse(evaluateBoolean("REGEX(\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaac\",\"(a*)+b\")"));
+            FunctionRegex.FORMULA_LIMIT = 100;  // Allow 100 characters
+            try {
+                evaluateBoolean("REGEX(\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaac\",\"(a*)+b\")");
+                fail("Should fail with too complicated");
+            } catch (RegexTooComplicatedException ex) {
+                assert ex.getMessage().contains("(a*)+b");
+            }
+        } finally {
+            FunctionRegex.FORMULA_LIMIT = oldLimit;
+        }
+        
+    }
     
 
     

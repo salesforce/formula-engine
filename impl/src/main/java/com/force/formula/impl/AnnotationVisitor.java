@@ -7,9 +7,17 @@ import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.force.formula.*;
-import com.force.formula.commands.*;
-
+import com.force.formula.ContextualFormulaFieldInfo;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FunctionNotAllowedException;
+import com.force.formula.commands.FormulaCommandEnricher;
+import com.force.formula.commands.FormulaCommandInfo;
+import com.force.formula.commands.FormulaCommandInfoRegistry;
+import com.force.formula.commands.FormulaCommandPrefetcher;
+import com.force.formula.commands.FormulaCommandValidator;
+import com.force.formula.commands.RuntimeType;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 
 /**
@@ -58,6 +66,10 @@ public class AnnotationVisitor implements FormulaASTVisitor {
         
         if (properties.getGenerateJavascript()
                 && !context.isFunctionSupportedOffline(commandInfo, node.getNumberOfChildren())) {
+            throw new FunctionNotAllowedException(commandInfo);
+        }
+        
+        if (properties.getGenerateSQL() && !commandInfo.getAllowedContext().isSql()) {
             throw new FunctionNotAllowedException(commandInfo);
         }
 

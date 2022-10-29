@@ -30,7 +30,7 @@ import com.force.i18n.grammar.LanguageDictionary;
  * @since 0.2.0
  * @see FunctionFormat
  */
-@AllowedContext(section=SelectorSection.TEXT,displayOnly=true)
+@AllowedContext(section=SelectorSection.TEXT,isSql=false,displayOnly=true)
 public class FunctionRenameable extends FormulaCommandInfoImpl {
     public FunctionRenameable() {
         super("RENAMEABLE", Renameable.class, new Class[] { String.class });

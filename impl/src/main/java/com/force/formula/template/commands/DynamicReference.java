@@ -25,7 +25,7 @@ import antlr.collections.AST;
  * @author aballard
  * @since 168
  */
-@AllowedContext(section=SelectorSection.ADVANCED,isJavascript=false)
+@AllowedContext(section=SelectorSection.ADVANCED,isSql = false, isJavascript=false)
 public class DynamicReference extends FormulaCommandInfoImpl implements FormulaCommandValidator {
 
     public final static String DYNAMIC_REF = FormulaCommandInfoRegistry.DYNAMIC_REF;

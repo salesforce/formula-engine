@@ -452,5 +452,9 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
         sql.append("CONCAT(").append(isoCodeArg).append(",' ',FORMAT(").append(amountArg).append(',').append(maskStr).append("))");
 	}
         
+    @Override
+    default String sqlRegexpLike(String text, String regexp) {
+        throw new UnsupportedOperationException("Regex Not Supported");
+    }
 
 }

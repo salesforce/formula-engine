@@ -13,7 +13,6 @@ author: Srikanth Yendluri/Doug Chasman
     <!--  Include math tests from the separate file -->
      <include href="formulatests-math.xml"/>
 
-
      <testcase name="testDateTimeValueWithInvalidString" devName="testDateTimeValueWithInvalidString"
          labelName="testDateTimeValueWithInvalidString" dataType="DateOnly" eval="formula,template"
          scale="2" precision="12"
@@ -2414,6 +2413,20 @@ author: Srikanth Yendluri/Doug Chasman
          <whyIgnoreSql db="spanner" numFailures="4">negative start greater than length works.</whyIgnoreSql>
          <whyIgnoreSql db="sqlite3" numFailures="2">negative start greater than length works.</whyIgnoreSql>
      </testcase>     
-     
+  
+     <testcase name="testRegex" devName="testRegex" labels="extended"
+         labelName="testRegex" dataType="Text"
+         dataFile="functionRegex" length="255"
+         whyIgnoreJs="negative start greater than length works in js"
+         code="if(REGEX(customtext__c, customexpr__c),'TRUE','FALSE')">
+         <referencefield devName="customtext" labelName="customtext"
+                 dataType="Text" length="255"/>
+         <referencefield devName="customexpr" labelName="customexpr"
+                 dataType="Text" length="255"/>
+         <whyIgnoreSql db="mssql" unimplemented="true">Sqlserver doesn't allow regexp in SQL</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" unimplemented="true">Not all sqlites support regexp</whyIgnoreSql>
+         <whyIgnoreSql db="oracle" numFailures="4">Oracle treats empty string like null, so regexp_like doesn't match ".*"</whyIgnoreSql>
+     </testcase>     
+
     
 </formula-test>
