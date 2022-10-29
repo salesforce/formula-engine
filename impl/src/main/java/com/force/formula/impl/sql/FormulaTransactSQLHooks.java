@@ -454,7 +454,8 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
         
     @Override
     default String sqlRegexpLike(String text, String regexp) {
-        throw new UnsupportedOperationException("Regex Not Supported");
+        // Less intrusive than unsupported operation exception in java...
+        return "1=0";
     }
 
 }
