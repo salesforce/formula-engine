@@ -401,5 +401,10 @@ public interface FormulaGoogleHooks extends FormulaSqlHooks {
         sql.append("CONCAT(COALESCE(").append(isoCodeArg).append(",''),' ',FORMAT(").append(maskStr).append(',').append(amountArg).append("))");
     }
 
+    @Override
+    default String sqlRegexpLike(String text, String regexp) {
+        return "REGEXP_CONTAINS(COALESCE(" + text + ",'')," + regexp + ")";
+    }
+
     
 }

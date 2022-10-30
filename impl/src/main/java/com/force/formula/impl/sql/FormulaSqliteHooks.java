@@ -470,6 +470,12 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
         return "'" + FormulaDateUtil.formatDatetimeToSqlLiteral(c.getTime()) + "'";
     }
 
+    @Override
+    default String sqlRegexpLike(String text, String regexp) {
+        return text + " REGEXP " + regexp ;
+    }
+
+    
     /**
      * The Sqlite versions as of 2022 don't use the new Sqlite3 math functions, but instead custom ones
      * that break compatibility with old versions of sqlite.

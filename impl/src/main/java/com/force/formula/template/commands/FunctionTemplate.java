@@ -5,11 +5,25 @@ import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.commands.*;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.GenericFormulaException;
+import com.force.formula.commands.AbstractFormulaCommand;
+import com.force.formula.commands.FormulaCommandInfo;
+import com.force.formula.commands.FormulaCommandInfoImpl;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaExceptionListener;
+import com.force.formula.impl.FormulaStack;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.TemplateStaticMarkupString;
+import com.force.formula.impl.Thunk;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaI18nUtils;
 import com.force.i18n.BaseLocalizer;
@@ -18,7 +32,7 @@ import com.force.i18n.BaseLocalizer;
  * @author dchasman
  * @since 144
  */
-@AllowedContext(section=SelectorSection.ADVANCED, displayOnly=true,isJavascript=false)
+@AllowedContext(section=SelectorSection.ADVANCED, isSql=false,displayOnly=true,isJavascript=false)
 public class FunctionTemplate extends FormulaCommandInfoImpl {
 
     public FunctionTemplate() {

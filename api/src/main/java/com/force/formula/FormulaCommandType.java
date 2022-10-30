@@ -3,7 +3,10 @@
  */
 package com.force.formula;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Represents a Formula Command (i.e. an operator or formula function)
@@ -38,6 +41,8 @@ public interface FormulaCommandType {
         boolean isJavascript() default true;
 	    /** @return Is this function available in the offline context?  This means it has *the same behavior* as java and SQL.  Higher bar<br>Default: false **/
 	    boolean isOffline() default false;
+	    /** @return Is this function implemented in SQL */
+	    boolean isSql() default true;
 	    
 	    /** @return A customer defined access check variable to control access to formulas that aren't "public".  */
 	    String access() default "";

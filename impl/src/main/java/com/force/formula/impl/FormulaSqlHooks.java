@@ -521,6 +521,15 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
 
     /**
+     * @return how to perform a regular expression check where the text matches java pattern matching... 
+     * @param text the argument to validate
+     * @param regexp the argument that comprises the regular expression
+     */
+    default String sqlRegexpLike(String text, String regexp) {
+        return "REGEXP_LIKE(" + sqlNvl() + "(" + text + ",'')," + regexp + ")";
+    }
+    
+    /**
      * @return the formula for finding a substring in a string and returning the "position" 1-indexed.
      * In oracle and mysql, it's INSTR.
      * @param strArg the value of the string to search in

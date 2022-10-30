@@ -17,7 +17,7 @@ import com.force.formula.sql.SQLPair;
  * @since 144
  */
 
-@AllowedContext(section=SelectorSection.LOGICAL,changeOnly=true,nonFlowOnly=true,isJavascript=false)
+@AllowedContext(section=SelectorSection.LOGICAL,isSql = false, changeOnly=true,nonFlowOnly=true,isJavascript=false)
 public class FunctionPriorValue extends FormulaCommandInfoImpl implements FormulaCommandValidator {
     public static final String OBJECT_TYPE_PREFIX = "$ObjectType";
     public static final String OBJECT_TYPE_PREFIX_UPPER = OBJECT_TYPE_PREFIX.toUpperCase(); // optimization to avoid repeated calls of toUpperCase()

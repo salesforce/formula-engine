@@ -34,7 +34,7 @@ import com.google.common.base.Joiner;
  * @since 0.2.0
  * @see FunctionFormat
  */
-@AllowedContext(section=SelectorSection.TEXT,displayOnly=true)
+@AllowedContext(section=SelectorSection.TEXT,isSql=false,displayOnly=true)
 public class FunctionLabel extends FormulaCommandInfoImpl implements FormulaCommandValidator {
     public FunctionLabel() {
         // label constructor Section, Key.... plus optional arguments that will autorender with MessageFormat.

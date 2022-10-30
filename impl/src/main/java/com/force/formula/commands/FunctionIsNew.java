@@ -14,7 +14,7 @@ import com.force.formula.sql.SQLPair;
  * @author dchasman
  * @since 144
  */
-@AllowedContext(section=SelectorSection.LOGICAL,changeOnly=true,nonFlowOnly=true,isJavascript=false)
+@AllowedContext(section=SelectorSection.LOGICAL,isSql = false, changeOnly=true,nonFlowOnly=true,isJavascript=false)
 public class FunctionIsNew extends FormulaCommandInfoImpl {
     public FunctionIsNew() {
         super("ISNEW", Boolean.class, new Class[] {});

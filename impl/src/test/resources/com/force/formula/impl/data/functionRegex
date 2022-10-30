@@ -1,0 +1,14 @@
+F.o,F\.o
+Foo,F\\.o
+Text,(a*)b
+Text,Text
+Text,ext
+Text,Te
+Text,^Text$
+Text,[T][e][x][t]
+Hello,((
+Hello,
+,(a*)?
+,a+
+aaaaaaaaaaaac,(a*)+b
+,

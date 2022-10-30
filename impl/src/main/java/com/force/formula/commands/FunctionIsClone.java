@@ -19,7 +19,7 @@ import com.force.formula.sql.SQLPair;
  * @author stamm
  * @since 198
  */
-@AllowedContext(section=SelectorSection.LOGICAL,changeOnly=true,nonFlowOnly=true,isJavascript=false)
+@AllowedContext(section=SelectorSection.LOGICAL,isSql = false, changeOnly=true,nonFlowOnly=true,isJavascript=false)
 public class FunctionIsClone extends FormulaCommandInfoImpl {
     public FunctionIsClone() {
         super("ISCLONE", Boolean.class, new Class[] {});

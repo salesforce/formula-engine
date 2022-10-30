@@ -55,7 +55,7 @@ import com.force.i18n.Renameable;
  * @author stamm
  * @since 150
  */
-@AllowedContext(section=SelectorSection.DATE_TIME, access="beta",displayOnly=true, isJavascript=false)
+@AllowedContext(section=SelectorSection.DATE_TIME, access="beta",isSql=false,displayOnly=true, isJavascript=false)
 public class FunctionFormat extends FormulaCommandInfoImpl implements FormulaCommandValidator {
 
     public static final String LOCAL_TIME_CORRECT = "time_correct";

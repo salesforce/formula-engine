@@ -334,5 +334,9 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
         return argument+"::numeric(40,20)";   // Override to specify your own default precision.
     }
 
+    @Override
+    default String sqlRegexpLike(String text, String regexp) {
+        return "COALESCE(" + text + ",'') ~ " + regexp;
+    }
     
 }
