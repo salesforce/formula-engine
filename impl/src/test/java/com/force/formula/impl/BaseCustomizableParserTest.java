@@ -59,6 +59,7 @@ import com.force.formula.commands.TrigCommandInfo;
 import com.force.formula.impl.BeanFormulaContext.BeanFormulaType;
 import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.template.commands.DynamicReference;
+import com.force.formula.template.commands.FunctionLike;
 import com.force.formula.template.commands.FunctionTemplate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -184,6 +185,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new FunctionInitCap());
         types.add(new FunctionChr());
         types.add(new FunctionAscii());
+        types.add(new FunctionLike());
         types.add(new BinaryMathCommandInfo("TRUNC", new FunctionTrunc()));
         types.add(new FunctionFormatDuration());
         types.add(new TrigCommandInfo(FormulaTrigFunction.SIN));

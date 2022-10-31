@@ -434,6 +434,10 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
 		return "binary " + str;
     }
 	
+	@Override
+    default String sqlLike(String str, String like) {
+        return str + " LIKE BINARY " + like;
+    }
 	
 	interface MariaDBHooks extends FormulaMySQLHooks {
 	    @Override

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLike">
+   <testInstance formula="if(LIKE(customtext__c, customexpr__c),'TRUE','FALSE')" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customtext__c LIKE $!s0s!$.customexpr__c ESCAPE '\' THEN 'TRUE' ELSE 'FALSE' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customtext__c LIKE $!s0s!$.customexpr__c ESCAPE '\' THEN 'TRUE' ELSE 'FALSE' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c.replaceAll(/\\%/g,'\t').replaceAll(/\\_/g,'\f').replaceAll(/([*?+^$(){}\[])/g,'\\$1').replaceAll(/_/g,'.').replaceAll(/%/g,'.*').replaceAll(/\f/g,'_').replaceAll(/\t/g,'%')+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c.replaceAll(/\\%/g,'\t').replaceAll(/\\_/g,'\f').replaceAll(/([*?+^$(){}\[])/g,'\\$1').replaceAll(/_/g,'.').replaceAll(/%/g,'.*').replaceAll(/\f/g,'_').replaceAll(/\t/g,'%')+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c.replaceAll(/\\%/g,'\t').replaceAll(/\\_/g,'\f').replaceAll(/([*?+^$(){}\[])/g,'\\$1').replaceAll(/_/g,'.').replaceAll(/%/g,'.*').replaceAll(/\f/g,'_').replaceAll(/\t/g,'%')+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c.replaceAll(/\\%/g,'\t').replaceAll(/\\_/g,'\f').replaceAll(/([*?+^$(){}\[])/g,'\\$1').replaceAll(/_/g,'.').replaceAll(/%/g,'.*').replaceAll(/\f/g,'_').replaceAll(/\t/g,'%')+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+      <result>
+      <inputvalues>[abcd, abc[def]]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <javascript>FALSE</javascript>
+         <javascriptLp>FALSE</javascriptLp>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+         <javascriptNullAsNull>FALSE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>FALSE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Howdy, %dy]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Howdy, Ho_dy]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Howdy, ho%dy]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <javascript>FALSE</javascript>
+         <javascriptLp>FALSE</javascriptLp>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+         <javascriptNullAsNull>FALSE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>FALSE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Cändy, CäNDY]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <javascript>FALSE</javascript>
+         <javascriptLp>FALSE</javascriptLp>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+         <javascriptNullAsNull>FALSE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>FALSE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Cändy, CÄndy]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <javascript>FALSE</javascript>
+         <javascriptLp>FALSE</javascriptLp>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+         <javascriptNullAsNull>FALSE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>FALSE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Cändy, C_NDY]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <javascript>FALSE</javascript>
+         <javascriptLp>FALSE</javascriptLp>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+         <javascriptNullAsNull>FALSE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>FALSE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[[, []</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[], ]]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[a, [acdf]]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <javascript>FALSE</javascript>
+         <javascriptLp>FALSE</javascriptLp>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+         <javascriptNullAsNull>FALSE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>FALSE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[_n, [_n]]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <javascript>FALSE</javascript>
+         <javascriptLp>FALSE</javascriptLp>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+         <javascriptNullAsNull>FALSE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>FALSE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[%, %%]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Hi%Hi, Hi%%Hi]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[\, \\]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[%, \%]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[H, \s]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <javascript>FALSE</javascript>
+         <javascriptLp>FALSE</javascriptLp>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+         <javascriptNullAsNull>FALSE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>FALSE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[H, *]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <javascript>FALSE</javascript>
+         <javascriptLp>FALSE</javascriptLp>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+         <javascriptNullAsNull>FALSE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>FALSE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[*, *]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[?, ?]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[^$^$, ^$^$]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <javascript>TRUE</javascript>
+         <javascriptLp>TRUE</javascriptLp>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+         <javascriptNullAsNull>TRUE</javascriptNullAsNull>
+         <javascriptLpNullAsNull>TRUE</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

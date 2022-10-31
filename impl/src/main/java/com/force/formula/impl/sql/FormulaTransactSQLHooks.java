@@ -458,4 +458,9 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
         return "1=0";
     }
 
+    @Override
+    default String sqlLike(String str, String like) {
+        // SQLServer supports character sets, so we have to escape '[' to match other SQL behavior
+        return sqlMakeStringComparable(str, true) + " LIKE REPLACE(" + like + ",'[','\\[') ESCAPE '\\'";
+    }
 }
