@@ -2314,7 +2314,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="IFERROR(DATETIMEVALUE(dateString__c),DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;))">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
-         <whyIgnoreSql db="mssql,mysql,mariadb,spanner,sqlite3" unimplemented="true">IfError not implemented correctly for Dates</whyIgnoreSql>
+         <whyIgnoreSql db="mssql,mysql,mariadb,spanner,sqlite3,trino" unimplemented="true">IfError not implemented correctly for Dates</whyIgnoreSql>
       </testcase>
      <testcase name="testIfErrorSqrt" devName="testIfErrorSqrt" labels="math"
          labelName="testIfErrorSqrt" dataType="Double" dataFile="oneNumericField"
@@ -2331,7 +2331,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="IFERROR(Text(TimeValue(dateString__c)),NULL)">
          <referencefield devName="dateString" labelName="dateString"
              dataType="Text"  length="50"/>
-         <whyIgnoreSql db="mssql,mysql,mariadb,spanner,sqlite3" unimplemented="true">IfError not implemented correctly for Dates </whyIgnoreSql>
+         <whyIgnoreSql db="mssql,mysql,mariadb,spanner,sqlite3,trino" unimplemented="true">IfError not implemented correctly for Dates </whyIgnoreSql>
      </testcase>                       
 
      <testcase name="testIfErrorBigDivide" devName="testIfErrorBigDivide" labels="math"
@@ -2346,6 +2346,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="18"/>
          <whyIgnoreSql db="spanner" unimplemented="true">IfError not implemented correctly for Google</whyIgnoreSql>
+         <whyIgnoreSql db="trino" numFailures="4">Precision Differences</whyIgnoreSql>
      </testcase>
 
 
@@ -2437,7 +2438,7 @@ author: Srikanth Yendluri/Doug Chasman
                  dataType="Text" length="255"/>
          <referencefield devName="customexpr" labelName="customexpr"
                  dataType="Text" length="255"/>
-         <whyIgnoreSql db="oracle" numFailures="2">Invalid escape character with \s, difficult to validate</whyIgnoreSql>
+         <whyIgnoreSql db="oracle,trino" numFailures="2">Invalid escape character with \s, difficult to validate</whyIgnoreSql>
          <whyIgnoreSql db="sqlite3" numFailures="6">Sqlite is case sensitive without a global pragma</whyIgnoreSql>
      </testcase>     
     

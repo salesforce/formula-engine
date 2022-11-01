@@ -515,6 +515,12 @@
         <module>docs/coverage</module>
       </modules>
     </profile>
+    <profile>
+      <id>presto</id>
+      <modules>
+        <module>presto-test</module>
+      </modules>
+    </profile>
   </profiles>
 
   <reporting>
