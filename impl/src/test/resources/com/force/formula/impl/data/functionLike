@@ -1,0 +1,21 @@
+abcd,abc[def]
+Howdy,%dy
+Howdy,Ho_dy
+Howdy,ho%dy
+# Try unicode characters with case insensitivity.
+Cändy,CäNDY
+Cändy,CÄndy
+Cändy,C_NDY
+[,[
+],]
+a,[acdf]
+_n,[_n]
+%,%%
+Hi%Hi,Hi%%Hi
+\,\\
+%,\%
+H,\s
+H,*
+*,*
+?,?
+^$^$,^$^$

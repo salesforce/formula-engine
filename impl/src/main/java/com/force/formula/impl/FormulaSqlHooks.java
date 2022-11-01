@@ -832,5 +832,13 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         	return "RPAD(" + str + ", " + amount + ")";
         }
     }
-    
+
+    /**
+     * @return How to generate a "LIKE" comparison with an escape of a backslash character
+     * @param str the string to compare
+     * @param like the LIKE style string
+     */
+    default String sqlLike(String str, String like) {
+        return str + " LIKE " + like + " ESCAPE '\\'";
+    }
 }

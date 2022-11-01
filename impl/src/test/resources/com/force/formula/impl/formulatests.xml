@@ -2429,4 +2429,17 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>     
 
     
+     <testcase name="testLike" devName="testRegex" labels="extended"
+         labelName="testLike" dataType="Text"
+         dataFile="functionLike" length="255"
+         code="if(LIKE(customtext__c, customexpr__c),'TRUE','FALSE')">
+         <referencefield devName="customtext" labelName="customtext"
+                 dataType="Text" length="255"/>
+         <referencefield devName="customexpr" labelName="customexpr"
+                 dataType="Text" length="255"/>
+         <whyIgnoreSql db="oracle" numFailures="2">Invalid escape character with \s, difficult to validate</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3" numFailures="6">Sqlite is case sensitive without a global pragma</whyIgnoreSql>
+     </testcase>     
+    
+    
 </formula-test>

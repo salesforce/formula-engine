@@ -378,5 +378,6 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
         }
         return sql.toString();
     }
-    
+
+	
 }

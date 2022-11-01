@@ -315,11 +315,6 @@ public interface FormulaGoogleHooks extends FormulaSqlHooks {
         return getSubstringFunction() + "(" + strArg + ", CASE WHEN " + startPosArg + " = 0 THEN 1 ELSE CAST(" + startPosArg  + " AS INT64) END, " + sqlEnsurePositive(sqlRoundScaleArg(lengthArg)) + ")";
     }
     
-	@Override
-    default Object sqlMakeStringComparable(Object str, boolean forCompare) {
-    	return str;
-    }
-    
     /**
      * Formulas are usually numeric, but some functions, like round or trunc, require a cast to ::int in postgres
      * @param argument scale argument
@@ -406,5 +401,9 @@ public interface FormulaGoogleHooks extends FormulaSqlHooks {
         return "REGEXP_CONTAINS(COALESCE(" + text + ",'')," + regexp + ")";
     }
 
+    @Override
+    default String sqlLike(String str, String like) {
+        return str + " LIKE " + like;
+    }
     
 }
