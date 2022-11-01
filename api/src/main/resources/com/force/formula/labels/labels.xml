@@ -349,7 +349,7 @@
 
         <param name="CHR">CHR(number)</param>
         <param name="CHR_DESCR">Return a string with the first character's code point as the given number.</param>
-        <param name="ASCII">CHR(text)</param>
+        <param name="ASCII">ASCII(text)</param>
         <param name="ASCII_DESCR">Return the first character's code point from the given string as a number.</param>
 
         <param name="FORMATCURRENCY">FORMATCURRENCY(currencyisocode, number)</param>
