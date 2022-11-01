@@ -192,6 +192,8 @@
         <param name="AND_DESCR">Checks whether all arguments are true and returns TRUE if all arguments are true</param>
         <param name="CASE">CASE(expression, value1, result1, value2, result2,...,else_result)</param>
         <param name="CASE_DESCR">Checks an expression against a series of values.  If the expression compares equal to any value, the corresponding result is returned. If it is not equal to any of the values, the else-result is returned</param>
+        <param name="IN">IN(expression, value1, ...)</param>
+        <param name="IN_DESCR">Checks an expression against a series of values.  If the expression is not null and compares equal to any value, returns TRUE, otherwise FALSE.</param>
         <param name="IF">IF(logical_test, value_if_true, value_if_false)</param>
         <param name="IF_DESCR">Checks whether a condition is true, and returns one value if TRUE and another value if FALSE.</param>
         <param name="NOT">NOT(logical)</param>

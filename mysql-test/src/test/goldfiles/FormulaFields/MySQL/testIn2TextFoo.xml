@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2TextFoo">
+   <testInstance formula="IN(customtext__c, customin1__c, 'Foo')" returntype="Boolean">
+    <SqlOutput nullAsNull="true">
+       <Sql>binary $!s0s!$.customtext__c IN ($!s0s!$.customin1__c,'Foo')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>binary $!s0s!$.customtext__c IN ($!s0s!$.customin1__c,'Foo')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[foo, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, foo]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[foo, foo]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[FOO, foo]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[foo, FOO]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Foo, Bar]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Left, Right]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Left,  Left]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 2]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ß, ss]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

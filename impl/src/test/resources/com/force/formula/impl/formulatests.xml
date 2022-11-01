@@ -2442,5 +2442,109 @@ author: Srikanth Yendluri/Doug Chasman
          <whyIgnoreSql db="sqlite3" numFailures="6">Sqlite is case sensitive without a global pragma</whyIgnoreSql>
      </testcase>     
     
+     <!--  Test IN(...) -->
+     <testcase name="testIn2Text" devName="testIn2Text" labels="extended"
+         labelName="testIn2Text" dataType="Boolean"
+         dataFile="twoTextFields" 
+         code="IN(customtext__c, customin1__c)">
+         <referencefield devName="customtext" labelName="customtext"
+                 dataType="Text" length="255"/>
+         <referencefield devName="customin1" labelName="customin1"
+                 dataType="Text" length="255"/>
+         <whyIgnoreSql db="mssql" numFailures="2">ss vs ß compares the same with standard TransactSQL Hook</whyIgnoreSql>
+     </testcase>     
+     <testcase name="testIn2TextNull" devName="testIn2TextNull" labels="extended"
+         labelName="testIn2TextNull" dataType="Boolean"
+         dataFile="twoTextFields" 
+         code="IN(customtext__c, customin1__c, NULL)">
+         <referencefield devName="customtext" labelName="customtext"
+                 dataType="Text" length="255"/>
+         <referencefield devName="customin1" labelName="customin1"
+                 dataType="Text" length="255"/>
+         <whyIgnoreSql db="mssql" numFailures="2">ss vs ß compares the same with standard TransactSQL Hook</whyIgnoreSql>
+     </testcase>     
+     <testcase name="testIn2TextFoo" devName="testIn2TextFoo" labels="extended"
+         labelName="testIn2TextFoo" dataType="Boolean"
+         dataFile="twoTextFields" 
+         code="IN(customtext__c, customin1__c, 'Foo')">
+         <referencefield devName="customtext" labelName="customtext"
+                 dataType="Text" length="255"/>
+         <referencefield devName="customin1" labelName="customin1"
+                 dataType="Text" length="255"/>
+         <whyIgnoreSql db="mssql" numFailures="2">ss vs ß compares the same with standard TransactSQL Hook</whyIgnoreSql>
+     </testcase>                   
     
+     <testcase name="testIn2Num" devName="testIn2Num" labels="extended"
+         labelName="testIn2Num" dataType="Boolean"
+         dataFile="twoNumericFields" 
+         code="IN(customnum__c, customin1__c)">
+         <referencefield devName="customnum" labelName="customnum"
+             dataType="Double" scale="4" precision="14"/>
+         <referencefield devName="customin1" labelName="customin1"
+             dataType="Double" scale="4" precision="14"/>
+     </testcase>     
+     <testcase name="testIn2NumNull" devName="testIn2NumNull" labels="extended"
+         labelName="testIn2NumNull" dataType="Boolean"
+         dataFile="twoNumericFields" 
+         code="IN(customnum__c, customin1__c, NULL)">
+         <referencefield devName="customnum" labelName="customnum"
+             dataType="Double" scale="4" precision="14"/>
+         <referencefield devName="customin1" labelName="customin1"
+             dataType="Double" scale="4" precision="14"/>
+     </testcase>     
+     <testcase name="testIn2Date" devName="testIn2Date" labels="extended"
+         labelName="testIn2Date" dataType="Boolean"
+         dataFile="TwoDateFields" 
+         code="IN(customdate__c, customin1__c)">
+         <referencefield devName="customdate" labelName="customdate"
+             dataType="DateOnly"/>
+         <referencefield devName="customin1" labelName="customin1"
+             dataType="DateOnly"/>
+     </testcase>     
+     <testcase name="testIn2DateNull" devName="testIn2DateNull" labels="extended"
+         labelName="testIn2DateNull" dataType="Boolean"
+         dataFile="TwoDateFields" 
+         code="IN(customdate__c, customin1__c, NULL)">
+         <referencefield devName="customdate" labelName="customdate"
+             dataType="DateOnly"/>
+         <referencefield devName="customin1" labelName="customin1"
+             dataType="DateOnly"/>
+     </testcase>     
+     <testcase name="testIn2DateNullConst" devName="testIn2DateNull" labels="extended"
+         labelName="testIn2DateNull" dataType="Boolean"
+         dataFile="TwoDateFields" 
+         code="IN(customdate__c, customin1__c, DATE(2004,2,28))">
+         <referencefield devName="customdate" labelName="customdate"
+             dataType="DateOnly"/>
+         <referencefield devName="customin1" labelName="customin1"
+             dataType="DateOnly"/>
+     </testcase>     
+     <testcase name="testIn2DateTime" devName="testIn2DateTime" labels="extended"
+         labelName="testIn2DateTime" dataType="Boolean"
+         dataFile="twoDateTimeFields" 
+         code="IN(customdate__c, customin1__c)">
+         <referencefield devName="customdate" labelName="customdate"
+             dataType="DateTime"/>
+         <referencefield devName="customin1" labelName="customin1"
+             dataType="DateTime"/>
+     </testcase>     
+     <testcase name="testIn2DateTimeNull" devName="testIn2DateTimeNull" labels="extended"
+         labelName="testIn2DateTimeNull" dataType="Boolean"
+         dataFile="twoDateTimeFields" 
+         code="IN(customdate__c, customin1__c, NULL)">
+         <referencefield devName="customdate" labelName="customdate"
+             dataType="DateTime"/>
+         <referencefield devName="customin1" labelName="customin1"
+             dataType="DateTime"/>
+     </testcase>     
+     <testcase name="testIn2DateTimeConst" devName="testIn2DateTimeConst" labels="extended"
+         labelName="testIn2DateTimeConst" dataType="Boolean"
+         dataFile="twoDateTimeFields" 
+         code="IN(customdate__c, customin1__c, DATETIMEVALUE('2004-02-28 11:00:00'))">
+         <referencefield devName="customdate" labelName="customdate"
+             dataType="DateTime"/>
+         <referencefield devName="customin1" labelName="customin1"
+             dataType="DateTime"/>
+     </testcase>          
+
 </formula-test>
