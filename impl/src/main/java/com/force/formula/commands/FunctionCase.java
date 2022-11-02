@@ -105,7 +105,7 @@ public class FunctionCase extends FormulaCommandInfoImpl implements FormulaComma
         return new SQLPair(sql.toString(), guard);
     }
 
-    private String wrap(String expression, FormulaAST valueNode, Type resultDataType, FormulaContext context) {
+    static String wrap(String expression, FormulaAST valueNode, Type resultDataType, FormulaContext context) {
         // get the args type of the value node of the passed whenNode (for ELSE pass the previous node)
         Type argType = valueNode.getDataType();
         if (argType == ConstantNull.class && resultDataType != ConstantNull.class) {
@@ -250,11 +250,11 @@ public class FunctionCase extends FormulaCommandInfoImpl implements FormulaComma
         return JsValue.generate(js.toString(), args, couldBeNull); 
     }
   
-    private boolean treatAsString(FormulaAST node) {
+    static boolean treatAsString(FormulaAST node) {
         return FormulaTypeUtils.isTypeText(((FormulaAST)node.getFirstChild()).getDataType());
     }
 
-    public boolean isPicklistCase(FormulaAST node) {
+    public static boolean isPicklistCase(FormulaAST node) {
         FormulaDataType columnType = node.getColumnType();
         return (columnType != null) && columnType.isPickval();
     }

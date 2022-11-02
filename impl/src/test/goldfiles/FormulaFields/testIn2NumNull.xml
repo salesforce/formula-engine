@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2NumNull">
+   <testInstance formula="IN(customnum__c, customin1__c, NULL)" returntype="Boolean">
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE($!s0s!$.customnum__c, 0) IN (COALESCE($!s0s!$.customin1__c, 0),NULL)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customnum__c IN ($!s0s!$.customin1__c,NULL)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">([($F.nvl(context.record.customin1__c,new $F.Decimal('0')).toNumber()),(null)].filter(e=&gt;e!=null).indexOf(($F.nvl(context.record.customnum__c,new $F.Decimal('0')).toNumber()))&gt;=0)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">([($F.anl([context.record.customin1__c])?null:context.record.customin1__c.toNumber()),(null)].filter(e=&gt;e!=null).indexOf(($F.anl([context.record.customnum__c])?null:context.record.customnum__c.toNumber()))&gt;=0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">([$F.nvl(context.record.customin1__c,0),null].filter(e=&gt;e!=null).indexOf($F.nvl(context.record.customnum__c,0))&gt;=0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">([context.record.customin1__c,null].filter(e=&gt;e!=null).indexOf(context.record.customnum__c)&gt;=0)</JsOutput>
+      <result>
+      <inputvalues>[, 24]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, 0.0]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.00, 0.00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.000, 0.000]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1.0, 99.0]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[99,  -1]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-20, -40]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.1111, 1.1111]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.11114, 0.00000]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.11115, 0.00000]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.111112, 0.000043]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789, 123456789]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, 123456789.123456789]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[123456789.123456789, -123456789.123456789]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-123456789.123456789, -123456789.123456789]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[600,  0.000600]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[600,  -600]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.2345,  1.2345]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.245,  0]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 12.123456789]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.00596, 240]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 240]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.0000000000001, 1000]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.0000000000001, -1000]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <javascript>false</javascript>
+         <javascriptLp>false</javascriptLp>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+         <javascriptNullAsNull>false</javascriptNullAsNull>
+         <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

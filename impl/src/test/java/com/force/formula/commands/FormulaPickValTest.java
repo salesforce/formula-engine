@@ -9,11 +9,26 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.force.formula.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaFieldInfo;
 import com.force.formula.FormulaSchema.Entity;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.MockFormulaContext;
+import com.force.formula.MockFormulaDataType;
+import com.force.formula.MockFormulaPicklistInfo;
 import com.force.formula.MockFormulaPicklistInfo.Item;
-import com.force.formula.impl.*;
+import com.force.formula.MockFormulaType;
+import com.force.formula.MockPicklistData;
+import com.force.formula.UnsupportedTypeException;
+import com.force.formula.impl.BaseCustomizableParserTest;
+import com.force.formula.impl.BeanFormulaContext;
 import com.force.formula.impl.BeanFormulaContext.BeanFormulaType;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongArgumentTypeException;
 import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.sql.SQLPair;
 import com.google.common.collect.ImmutableMap;
@@ -43,6 +58,15 @@ public class FormulaPickValTest extends BaseCustomizableParserTest {
         assertEquals("Other", evaluateString("CASE(status, \"Open\", \"Green\", \"Closed\", \"Red\", \"Other\")"));
     }
 
+    @Test
+    public void testPickvalIn() throws Exception {
+        assertTrue(evaluateBoolean("IN(type, \"Apple\",  \"Banana\")"));
+        assertFalse(evaluateBoolean("IN(type, \"Banana\")"));
+        assertTrue(evaluateBoolean("IN(type, \"Apple\", \"Carrot\")"));
+        assertFalse(evaluateBoolean("IN(status, \"Open\", \"Closed\")"));  // status is null
+    }
+    
+    
     @Test
     public void testText() throws Exception {
     	// There's some optimization to convert text to ispickval

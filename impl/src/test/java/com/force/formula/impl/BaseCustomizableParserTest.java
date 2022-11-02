@@ -44,6 +44,7 @@ import com.force.formula.commands.FunctionFormatDuration;
 import com.force.formula.commands.FunctionFromUnixTime;
 import com.force.formula.commands.FunctionIfError;
 import com.force.formula.commands.FunctionIfs;
+import com.force.formula.commands.FunctionIn;
 import com.force.formula.commands.FunctionInitCap;
 import com.force.formula.commands.FunctionIsChanged;
 import com.force.formula.commands.FunctionIsPickVal;
@@ -186,6 +187,7 @@ public abstract class BaseCustomizableParserTest extends ParserTestBase {
         types.add(new FunctionChr());
         types.add(new FunctionAscii());
         types.add(new FunctionLike());
+        types.add(new FunctionIn());
         types.add(new BinaryMathCommandInfo("TRUNC", new FunctionTrunc()));
         types.add(new FunctionFormatDuration());
         types.add(new TrigCommandInfo(FormulaTrigFunction.SIN));
