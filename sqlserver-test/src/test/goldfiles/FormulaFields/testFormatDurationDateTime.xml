@@ -65,5 +65,26 @@
          <formulaNullAsNull>810473:00:00:00</formulaNullAsNull>
          <sqlNullAsNull>810473:00:00:00</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>0:00:30:00</formula>
+         <sql>0:00:30:00</sql>
+         <formulaNullAsNull>0:00:30:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:30:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:15:00]</inputvalues>
+         <formula>0:00:15:00</formula>
+         <sql>0:00:15:00</sql>
+         <formulaNullAsNull>0:00:15:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:15:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:29:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>0:00:29:00</formula>
+         <sql>0:00:29:00</sql>
+         <formulaNullAsNull>0:00:29:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:29:00</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>

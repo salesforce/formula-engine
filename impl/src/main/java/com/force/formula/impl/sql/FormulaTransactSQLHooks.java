@@ -308,7 +308,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
      * Intervals in sqlserver aren't helpful, so don't use them.
      */
     @Override
-    default String sqlIntervalFromSeconds() {
+    default String sqlIntervalFromSeconds(Type dateType) {
         return "ROUND(ABS(%s),0,1)";
         // return "DATEADD(second, ROUND(ABS(%s),0,1), '1970-01-01')";   // intervals aren't available in sqlserver
     }

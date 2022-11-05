@@ -121,5 +121,61 @@
          <formulaNullAsNull>277:46:40</formulaNullAsNull>
          <sqlNullAsNull>277:46:40</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[15, TRUE]</inputvalues>
+         <formula>0:00:15</formula>
+         <sql>0:00:15</sql>
+         <formulaNullAsNull>0:00:15</formulaNullAsNull>
+         <sqlNullAsNull>0:00:15</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[15, FALSE]</inputvalues>
+         <formula>0:00:15</formula>
+         <sql>0:00:15</sql>
+         <formulaNullAsNull>0:00:15</formulaNullAsNull>
+         <sqlNullAsNull>0:00:15</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[30, TRUE]</inputvalues>
+         <formula>0:30:00</formula>
+         <sql>0:30:00</sql>
+         <formulaNullAsNull>0:30:00</formulaNullAsNull>
+         <sqlNullAsNull>0:30:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[30, FALSE]</inputvalues>
+         <formula>0:30:00</formula>
+         <sql>0:30:00</sql>
+         <formulaNullAsNull>0:30:00</formulaNullAsNull>
+         <sqlNullAsNull>0:30:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29.59, FALSE]</inputvalues>
+         <formula>0:29:00</formula>
+         <sql>0:29:00</sql>
+         <formulaNullAsNull>0:29:00</formulaNullAsNull>
+         <sqlNullAsNull>0:29:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29.59, TRUE]</inputvalues>
+         <formula>0:29:00</formula>
+         <sql>0:29:00</sql>
+         <formulaNullAsNull>0:29:00</formulaNullAsNull>
+         <sqlNullAsNull>0:29:00</sqlNullAsNull>
+      </result>
+       <result>
+      <inputvalues>[29.99, FALSE]</inputvalues>
+         <formula>0:29:00</formula>
+         <sql>0:29:00</sql>
+         <formulaNullAsNull>0:29:00</formulaNullAsNull>
+         <sqlNullAsNull>0:29:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29.99, TRUE]</inputvalues>
+         <formula>0:29:00</formula>
+         <sql>0:29:00</sql>
+         <formulaNullAsNull>0:29:00</formulaNullAsNull>
+         <sqlNullAsNull>0:29:00</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>

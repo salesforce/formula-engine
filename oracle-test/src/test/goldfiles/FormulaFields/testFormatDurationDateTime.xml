@@ -2,11 +2,11 @@
 <testCase name="testFormatDurationDateTime">
    <testInstance formula="FORMATDURATION(customdatetime2__c,customdatetime1__c)" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>NVL2(TRUNC(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)),TO_CHAR(TRUNC((TRUNC(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/86400))||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/3600),24),'FM09')||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(TRUNC(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400))),60),'FM09'),NULL)</Sql>
+       <Sql>NVL2(ROUND(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)),TO_CHAR(TRUNC((ROUND(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/86400))||':'||TO_CHAR(MOD(TRUNC((ROUND(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/3600),24),'FM09')||':'||TO_CHAR(MOD(TRUNC((ROUND(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(ROUND(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400))),60),'FM09'),NULL)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>NVL2(TRUNC(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)),TO_CHAR(TRUNC((TRUNC(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/86400))||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/3600),24),'FM09')||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(TRUNC(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400))),60),'FM09'),NULL)</Sql>
+       <Sql>NVL2(ROUND(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)),TO_CHAR(TRUNC((ROUND(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/86400))||':'||TO_CHAR(MOD(TRUNC((ROUND(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/3600),24),'FM09')||':'||TO_CHAR(MOD(TRUNC((ROUND(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400)))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(ROUND(ABS(($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c)*86400))),60),'FM09'),NULL)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
@@ -33,9 +33,9 @@
       <result>
       <inputvalues>[2004:02:28:10:34:00, 2004:03:01:00:00:00]</inputvalues>
          <formula>1:13:26:00</formula>
-         <sql>1:13:25:59</sql>
+         <sql>1:13:26:00</sql>
          <formulaNullAsNull>1:13:26:00</formulaNullAsNull>
-         <sqlNullAsNull>1:13:25:59</sqlNullAsNull>
+         <sqlNullAsNull>1:13:26:00</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 2004:12:31:11:32:00]</inputvalues>
@@ -64,6 +64,29 @@
          <sql>810473:00:00:00</sql>
          <formulaNullAsNull>810473:00:00:00</formulaNullAsNull>
          <sqlNullAsNull>810473:00:00:00</sqlNullAsNull>
+      </result>
+      
+      <!-- Add new test cases because of the ticket W-11630110 -->
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>0:00:30:00</formula>
+         <sql>0:00:30:00</sql>
+         <formulaNullAsNull>0:00:30:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:30:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:15:00]</inputvalues>
+         <formula>0:00:15:00</formula>
+         <sql>0:00:15:00</sql>
+         <formulaNullAsNull>0:00:15:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:15:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:29:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>0:00:29:00</formula>
+         <sql>0:00:29:00</sql>
+         <formulaNullAsNull>0:00:29:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:29:00</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

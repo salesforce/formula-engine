@@ -58,5 +58,40 @@
          <formulaNullAsNull>277:46:40</formulaNullAsNull>
          <sqlNullAsNull>277:46:40</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[15]</inputvalues>
+         <formula>0:00:15</formula>
+         <sql>0:00:15</sql>
+         <formulaNullAsNull>0:00:15</formulaNullAsNull>
+         <sqlNullAsNull>0:00:15</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[30]</inputvalues>
+         <formula>0:00:30</formula>
+         <sql>0:00:30</sql>
+         <formulaNullAsNull>0:00:30</formulaNullAsNull>
+         <sqlNullAsNull>0:00:30</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29]</inputvalues>
+         <formula>0:00:29</formula>
+         <sql>0:00:29</sql>
+         <formulaNullAsNull>0:00:29</formulaNullAsNull>
+         <sqlNullAsNull>0:00:29</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[59]</inputvalues>
+         <formula>0:00:59</formula>
+         <sql>0:00:59</sql>
+         <formulaNullAsNull>0:00:59</formulaNullAsNull>
+         <sqlNullAsNull>0:00:59</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[69]</inputvalues>
+         <formula>0:01:09</formula>
+         <sql>0:01:09</sql>
+         <formulaNullAsNull>0:01:09</formulaNullAsNull>
+         <sqlNullAsNull>0:01:09</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>
