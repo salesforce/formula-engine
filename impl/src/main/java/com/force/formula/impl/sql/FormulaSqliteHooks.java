@@ -423,7 +423,7 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
     }
     
     @Override
-    default String sqlIntervalFromSeconds() {
+    default String sqlIntervalFromSeconds(Type dateType) {
         return "FLOOR(ABS(%s))";
     }
 

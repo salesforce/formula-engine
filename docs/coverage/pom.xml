@@ -84,5 +84,15 @@
         </dependency>
       </dependencies>
     </profile>
+    <profile>
+      <id>presto</id>
+      <dependencies>
+        <dependency>
+          <groupId>com.salesforce.formula</groupId>
+          <artifactId>formula-engine-presto-test</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
   </profiles>  
 </project>

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
 
+import com.force.formula.FormulaDateTime;
 import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.impl.FormulaValidationHooks;
 import com.force.formula.util.FormulaI18nUtils;
@@ -222,8 +223,12 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
      * Intervals in oracle aren't helpful, so don't use them.
      */
     @Override
-    default String sqlIntervalFromSeconds() {
-        return "TRUNC(ABS(%s))";
+    default String sqlIntervalFromSeconds(Type dateType) {
+        if(dateType == FormulaDateTime.class) {
+            return "ROUND(ABS(%s))";
+        }else {
+            return "TRUNC(ABS(%s))";
+        }
     }
    
 	// Use expensive overcalculating date math.   Sorry, but oracle doesn't support formatting a duration

@@ -101,5 +101,38 @@
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:15:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:29:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <javascript>true</javascript>
+         <javascriptLp>true</javascriptLp>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+         <javascriptNullAsNull>true</javascriptNullAsNull>
+         <javascriptLpNullAsNull>true</javascriptLpNullAsNull>
+      </result>
    </testInstance>
 </testCase>

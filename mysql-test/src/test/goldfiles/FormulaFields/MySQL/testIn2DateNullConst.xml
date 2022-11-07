@@ -65,5 +65,26 @@
          <formulaNullAsNull>false</formulaNullAsNull>
          <sqlNullAsNull>false</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:15:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:29:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>

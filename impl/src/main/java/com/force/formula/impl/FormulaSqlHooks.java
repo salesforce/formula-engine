@@ -462,7 +462,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     /**
      * @return the format for String.format for converting a number to an interval suitable for to {@link #sqlIntervalToDurationString(String, boolean, String)}
      */
-    default String sqlIntervalFromSeconds() {
+    default String sqlIntervalFromSeconds(Type dateType) {
         return "(INTERVAL '1 second' * ABS(%s))";
     }
     

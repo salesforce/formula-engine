@@ -369,7 +369,7 @@ public interface FormulaGoogleHooks extends FormulaSqlHooks {
     
     // Google Standard SQL doesn't have any interval or time formatting functions, so we just use timestamps for everything
     @Override
-    default String sqlIntervalFromSeconds() {
+    default String sqlIntervalFromSeconds(Type dateType) {
         return "CAST(TRUNC(ABS(%s),0) AS INT64)";
     }
 

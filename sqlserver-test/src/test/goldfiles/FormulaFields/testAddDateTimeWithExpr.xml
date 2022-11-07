@@ -4,11 +4,11 @@
    <customformula0 dataType="ColumnType.DATETIME" formula="(customdatetime1__c+custompercent1__c)"/>
    <customformula1 dataType="ColumnType.DOUBLE" formula="(customdatetime2__c-customdatetime3__c)"/>
     <SqlOutput nullAsNull="true">
-       <Sql>DATEADD(second,ROUND(COALESCE(LEN($!s0s!$.customtext1__c),0)*86400,0),DATEADD(second,ROUND(COALESCE((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400), 0)*86400,0),DATEADD(second,ROUND(COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400,0),DATEADD(second,ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400,0),$!s0s!$.customdatetime1__c))))</Sql>
+       <Sql>DATEADD(second,ROUND(COALESCE(LEN($!s0s!$.customtext1__c),0)*86400,0),DATEADD(second,ROUND(COALESCE((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400000), 0)*86400,0),DATEADD(second,ROUND(COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400,0),DATEADD(second,ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400,0),$!s0s!$.customdatetime1__c))))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>DATEADD(second,ROUND(COALESCE(LEN($!s0s!$.customtext1__c),0)*86400,0),DATEADD(second,ROUND((CAST(-DATEDIFF_BIG(SECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400)*86400,0),DATEADD(second,ROUND(($!s0s!$.custompercent2__c / 100.0)*86400,0),DATEADD(second,ROUND(($!s0s!$.custompercent1__c / 100.0)*86400,0),$!s0s!$.customdatetime1__c))))</Sql>
+       <Sql>DATEADD(second,ROUND(COALESCE(LEN($!s0s!$.customtext1__c),0)*86400,0),DATEADD(second,ROUND((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400000)*86400,0),DATEADD(second,ROUND(($!s0s!$.custompercent2__c / 100.0)*86400,0),DATEADD(second,ROUND(($!s0s!$.custompercent1__c / 100.0)*86400,0),$!s0s!$.customdatetime1__c))))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
       <result>
