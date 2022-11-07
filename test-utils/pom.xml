@@ -10,14 +10,14 @@
     <parent>
         <groupId>com.salesforce.formula</groupId>
         <artifactId>formula-engine</artifactId>
-        <version>0.3.4-SNAPSHOT</version>
+        <version>0.3.4</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.salesforce.formula</groupId>
             <artifactId>formula-engine-api</artifactId>
-            <version>0.3.4-SNAPSHOT</version>
+            <version>0.3.4</version>
         </dependency>
 		<dependency>
 		  <groupId>com.google.guava</groupId>
