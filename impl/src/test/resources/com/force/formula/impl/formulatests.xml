@@ -2265,6 +2265,7 @@ author: Srikanth Yendluri/Doug Chasman
         code="FORMATDURATION(TimeValue(timeString2__c),TimeValue(timeString1__c))">
         <referencefield devName="timeString1" labelName="timeString1" dataType="Text" length="50"/>
         <referencefield devName="timeString2" labelName="timeString2" dataType="Text" length="50"/>
+        <whyIgnoreSql db="sqlite3" numFailures="2">Millisecond differences ignored in diff</whyIgnoreSql>
     </testcase>
     <testcase name="testFormatDurationDateTime" devName="testFormatDurationDateTime" labels="extended"
         labelName="testFormatDurationDateTime" dataType="Text" eval="formula,template" dataFile="TwoDateFields"
@@ -2273,7 +2274,6 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="DateTime" length="255"/>
          <referencefield devName="customdatetime2" labelName="customdatetime2"
              dataType="DateTime" length="255"/>
-         <whyIgnoreSql db="oracle" numFailures="2">fractional difference</whyIgnoreSql>
     </testcase>
     <testcase name="testFormatDurationSecondsBool" devName="testFormatDurationSecondsBool" labels="extended"
         labelName="testFormatDurationSecondsBool" dataType="Text" eval="formula,template" dataFile="formatDurationNumberBool"

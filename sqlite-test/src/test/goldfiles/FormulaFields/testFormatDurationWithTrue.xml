@@ -58,5 +58,26 @@
          <formulaNullAsNull>11:13:46:40</formulaNullAsNull>
          <sqlNullAsNull>11:13:46:40</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[15]</inputvalues>
+         <formula>0:00:00:15</formula>
+         <sql>0:00:00:15</sql>
+         <formulaNullAsNull>0:00:00:15</formulaNullAsNull>
+         <sqlNullAsNull>0:00:00:15</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[30]</inputvalues>
+         <formula>0:00:00:30</formula>
+         <sql>0:00:00:30</sql>
+         <formulaNullAsNull>0:00:00:30</formulaNullAsNull>
+         <sqlNullAsNull>0:00:00:30</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29.59]</inputvalues>
+         <formula>0:00:00:29</formula>
+         <sql>0:00:00:29</sql>
+         <formulaNullAsNull>0:00:00:29</formulaNullAsNull>
+         <sqlNullAsNull>0:00:00:29</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>

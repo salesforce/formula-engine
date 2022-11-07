@@ -93,5 +93,33 @@
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>Error: OUT_OF_RANGE: io.grpc.StatusRuntimeException: OUT_OF_RANGE: Failed to parse input string &quot;01:66:29.345&quot; - Statement: 'SELECT CASE WHEN 1=0 OR 1=0 THEN NULL ELSE SUBSTR(CONCAT(FORMAT('%02.0f',TRUNC(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)/3600)),':',FORMAT_TIMESTAMP('%M:%S', timestamp_seconds(CAST(TRUNC(ABS(((MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString1__c, 'UTC')),86400000))-(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', c.timeString2__c, 'UTC')),86400000)))/1000),0) AS INT64)), 'UTC')), 1, 1300) END FROM (SELECT 1 as fake, @p1 as timeString2__c, @p2 as timeString1__c) c'</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:29.590]</inputvalues>
+         <formula>00:59:30</formula>
+         <sql>00:59:30</sql>
+         <formulaNullAsNull>00:59:30</formulaNullAsNull>
+         <sqlNullAsNull>00:59:30</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:30.000]</inputvalues>
+         <formula>00:59:30</formula>
+         <sql>00:59:30</sql>
+         <formulaNullAsNull>00:59:30</formulaNullAsNull>
+         <sqlNullAsNull>00:59:30</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.590, 00:00:00.000]</inputvalues>
+         <formula>00:00:29</formula>
+         <sql>00:00:29</sql>
+         <formulaNullAsNull>00:00:29</formulaNullAsNull>
+         <sqlNullAsNull>00:00:29</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:30.000, 00:00:00.000]</inputvalues>
+         <formula>00:00:30</formula>
+         <sql>00:00:30</sql>
+         <formulaNullAsNull>00:00:30</formulaNullAsNull>
+         <sqlNullAsNull>00:00:30</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>

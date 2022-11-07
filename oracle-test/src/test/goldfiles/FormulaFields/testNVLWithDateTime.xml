@@ -65,5 +65,26 @@
          <formulaNullAsNull>Sun Feb 28 10:34:00 GMT 3999</formulaNullAsNull>
          <sqlNullAsNull>3999-02-28 10:34:00.0</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>Sun Aug 21 08:30:00 GMT 2022</formula>
+         <sql>2022-08-21 08:30:00.0</sql>
+         <formulaNullAsNull>Sun Aug 21 08:30:00 GMT 2022</formulaNullAsNull>
+         <sqlNullAsNull>2022-08-21 08:30:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:15:00]</inputvalues>
+         <formula>Sun Aug 21 08:30:00 GMT 2022</formula>
+         <sql>2022-08-21 08:30:00.0</sql>
+         <formulaNullAsNull>Sun Aug 21 08:30:00 GMT 2022</formulaNullAsNull>
+         <sqlNullAsNull>2022-08-21 08:30:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:29:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>Sun Aug 21 08:29:00 GMT 2022</formula>
+         <sql>2022-08-21 08:29:00.0</sql>
+         <formulaNullAsNull>Sun Aug 21 08:29:00 GMT 2022</formulaNullAsNull>
+         <sqlNullAsNull>2022-08-21 08:29:00.0</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>

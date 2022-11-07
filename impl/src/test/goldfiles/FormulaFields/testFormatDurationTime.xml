@@ -145,5 +145,49 @@
          <javascriptNullAsNull>01:00:00</javascriptNullAsNull>
          <javascriptLpNullAsNull>01:00:00</javascriptLpNullAsNull>
       </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:29.590]</inputvalues>
+         <formula>00:59:30</formula>
+         <sql>00:59:30</sql>
+         <javascript>00:59:30</javascript>
+         <javascriptLp>00:59:30</javascriptLp>
+         <formulaNullAsNull>00:59:30</formulaNullAsNull>
+         <sqlNullAsNull>00:59:30</sqlNullAsNull>
+         <javascriptNullAsNull>00:59:30</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:59:30</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:30.000]</inputvalues>
+         <formula>00:59:30</formula>
+         <sql>00:59:30</sql>
+         <javascript>00:59:30</javascript>
+         <javascriptLp>00:59:30</javascriptLp>
+         <formulaNullAsNull>00:59:30</formulaNullAsNull>
+         <sqlNullAsNull>00:59:30</sqlNullAsNull>
+         <javascriptNullAsNull>00:59:30</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:59:30</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.590, 00:00:00.000]</inputvalues>
+         <formula>00:00:29</formula>
+         <sql>00:00:29</sql>
+         <javascript>00:00:29</javascript>
+         <javascriptLp>00:00:29</javascriptLp>
+         <formulaNullAsNull>00:00:29</formulaNullAsNull>
+         <sqlNullAsNull>00:00:29</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:29</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:29</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:30.000, 00:00:00.000]</inputvalues>
+         <formula>00:00:30</formula>
+         <sql>00:00:30</sql>
+         <javascript>00:00:30</javascript>
+         <javascriptLp>00:00:30</javascriptLp>
+         <formulaNullAsNull>00:00:30</formulaNullAsNull>
+         <sqlNullAsNull>00:00:30</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:30</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:30</javascriptLpNullAsNull>
+      </result>
    </testInstance>
 </testCase>

@@ -93,5 +93,33 @@
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:29.590]</inputvalues>
+         <formula>82829590</formula>
+         <sql>82829589.99999999</sql>
+         <formulaNullAsNull>82829590</formulaNullAsNull>
+         <sqlNullAsNull>82829589.99999999</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:30.000]</inputvalues>
+         <formula>82830000</formula>
+         <sql>82829999.99999999</sql>
+         <formulaNullAsNull>82830000</formulaNullAsNull>
+         <sqlNullAsNull>82829999.99999999</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.590, 00:00:00.000]</inputvalues>
+         <formula>86370410</formula>
+         <sql>86370409.99999999</sql>
+         <formulaNullAsNull>86370410</formulaNullAsNull>
+         <sqlNullAsNull>86370409.99999999</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:30.000, 00:00:00.000]</inputvalues>
+         <formula>86370000</formula>
+         <sql>86370000</sql>
+         <formulaNullAsNull>86370000</formulaNullAsNull>
+         <sqlNullAsNull>86370000</sqlNullAsNull>
+      </result>
    </testInstance>
 </testCase>

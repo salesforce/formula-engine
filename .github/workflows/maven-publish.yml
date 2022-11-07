@@ -45,7 +45,7 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-maven-
     - name: Release to Apache Maven Central
-      run: mvn deploy -B -P sign-artifacts,db-tests -s $GITHUB_WORKSPACE/settings.xml
+      run: mvn deploy -B -P sign-artifacts,db-tests,presto,skip-presto-tests -s $GITHUB_WORKSPACE/settings.xml
       env:
         SONATYPE_USERNAME:    ${{ secrets.MAVEN_CENTRAL_USER   }}
         SONATYPE_PASSWORD:    ${{ secrets.MAVEN_CENTRAL_TOKEN  }}
