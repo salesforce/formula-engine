@@ -101,5 +101,38 @@
          <javascriptNullAsNull>Sun Feb 28 00:00:00 GMT 3999</javascriptNullAsNull>
          <javascriptLpNullAsNull>Sun Feb 28 00:00:00 GMT 3999</javascriptLpNullAsNull>
       </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>Sun Aug 21 00:00:00 GMT 2022</formula>
+         <sql>2022-08-21 00:00:00.0</sql>
+         <javascript>Sun Aug 21 00:00:00 GMT 2022</javascript>
+         <javascriptLp>Sun Aug 21 00:00:00 GMT 2022</javascriptLp>
+         <formulaNullAsNull>Sun Aug 21 00:00:00 GMT 2022</formulaNullAsNull>
+         <sqlNullAsNull>2022-08-21 00:00:00.0</sqlNullAsNull>
+         <javascriptNullAsNull>Sun Aug 21 00:00:00 GMT 2022</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Sun Aug 21 00:00:00 GMT 2022</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:15:00]</inputvalues>
+         <formula>Sun Aug 21 00:00:00 GMT 2022</formula>
+         <sql>2022-08-21 00:00:00.0</sql>
+         <javascript>Sun Aug 21 00:00:00 GMT 2022</javascript>
+         <javascriptLp>Sun Aug 21 00:00:00 GMT 2022</javascriptLp>
+         <formulaNullAsNull>Sun Aug 21 00:00:00 GMT 2022</formulaNullAsNull>
+         <sqlNullAsNull>2022-08-21 00:00:00.0</sqlNullAsNull>
+         <javascriptNullAsNull>Sun Aug 21 00:00:00 GMT 2022</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Sun Aug 21 00:00:00 GMT 2022</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:29:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>Sun Aug 21 00:00:00 GMT 2022</formula>
+         <sql>2022-08-21 00:00:00.0</sql>
+         <javascript>Sun Aug 21 00:00:00 GMT 2022</javascript>
+         <javascriptLp>Sun Aug 21 00:00:00 GMT 2022</javascriptLp>
+         <formulaNullAsNull>Sun Aug 21 00:00:00 GMT 2022</formulaNullAsNull>
+         <sqlNullAsNull>2022-08-21 00:00:00.0</sqlNullAsNull>
+         <javascriptNullAsNull>Sun Aug 21 00:00:00 GMT 2022</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Sun Aug 21 00:00:00 GMT 2022</javascriptLpNullAsNull>
+      </result>
    </testInstance>
 </testCase>

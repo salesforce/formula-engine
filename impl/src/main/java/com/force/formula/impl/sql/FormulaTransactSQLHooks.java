@@ -143,14 +143,14 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
     @Override
     default String sqlSubtractTwoTimestamps(boolean inSeconds) {
     	// If you are older than sqlserver 16, you'll need to use DATEDIFF and deal with the errors
-    	return inSeconds ? "CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))" 
-    	        : "(CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))/86400)";  
+    	return inSeconds ? "(CAST(-DATEDIFF_BIG(MILLISECOND,%s,%s) AS DECIMAL(38,10))/1000)" 
+    	        : "(CAST(-DATEDIFF_BIG(MILLISECOND,%s,%s) AS DECIMAL(38,10))/86400000)";  
     } 
     
 
     @Override
     default String sqlSubtractTwoTimes() {
-        return "CAST(-DATEDIFF_BIG(SECOND,%s,%s) AS DECIMAL(38,10))";
+        return "(CAST(-DATEDIFF_BIG(MILLISECOND,%s,%s) AS DECIMAL(38,10))/1000)";
     } 
 	
 	@Override
@@ -245,7 +245,7 @@ public interface FormulaTransactSQLHooks extends FormulaSqlHooks {
      * Intervals in oracle aren't helpful, so don't use them.
      */
     @Override
-    default String sqlIntervalFromSeconds() {
+    default String sqlIntervalFromSeconds(Type dateType) {
         return "ROUND(ABS(%s),0,1)";
         // return "DATEADD(second, ROUND(ABS(%s),0,1), '1970-01-01')";   // intervals aren't available in sqlserver
     }

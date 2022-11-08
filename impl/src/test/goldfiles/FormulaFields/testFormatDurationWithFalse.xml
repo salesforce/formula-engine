@@ -90,5 +90,38 @@
          <javascriptNullAsNull>277:46:40</javascriptNullAsNull>
          <javascriptLpNullAsNull>277:46:40</javascriptLpNullAsNull>
       </result>
+      <result>
+      <inputvalues>[15]</inputvalues>
+         <formula>00:00:15</formula>
+         <sql>00:00:15</sql>
+         <javascript>00:00:15</javascript>
+         <javascriptLp>00:00:15</javascriptLp>
+         <formulaNullAsNull>00:00:15</formulaNullAsNull>
+         <sqlNullAsNull>00:00:15</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:15</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:15</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[30]</inputvalues>
+         <formula>00:00:30</formula>
+         <sql>00:00:30</sql>
+         <javascript>00:00:30</javascript>
+         <javascriptLp>00:00:30</javascriptLp>
+         <formulaNullAsNull>00:00:30</formulaNullAsNull>
+         <sqlNullAsNull>00:00:30</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:30</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:30</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29.59]</inputvalues>
+         <formula>00:00:29</formula>
+         <sql>00:00:29</sql>
+         <javascript>00:00:29</javascript>
+         <javascriptLp>00:00:29</javascriptLp>
+         <formulaNullAsNull>00:00:29</formulaNullAsNull>
+         <sqlNullAsNull>00:00:29</sqlNullAsNull>
+         <javascriptNullAsNull>00:00:29</javascriptNullAsNull>
+         <javascriptLpNullAsNull>00:00:29</javascriptLpNullAsNull>
+      </result>
    </testInstance>
 </testCase>

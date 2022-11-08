@@ -2,11 +2,11 @@
 <testCase name="testFormatDurationTime">
    <testInstance formula="FORMATDURATION(TimeValue(timeString2__c),TimeValue(timeString1__c))" returntype="Text">
     <SqlOutput nullAsNull="true">
-       <Sql>IIF(ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1) IS NULL, NULL, CONCAT(FORMAT(CONVERT(int,ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1)/3600),'########00'),':',FORMAT(CONVERT(int,((ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1))%60),'00')))</Sql>
+       <Sql>IIF(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1) IS NULL, NULL, CONCAT(FORMAT(CONVERT(int,ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1)/3600),'########00'),':',FORMAT(CONVERT(int,((ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1))%60),'00')))</Sql>
        <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>IIF(ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1) IS NULL, NULL, CONCAT(FORMAT(CONVERT(int,ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1)/3600),'########00'),':',FORMAT(CONVERT(int,((ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS(CAST(-DATEDIFF_BIG(SECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))),0,1))%60),'00')))</Sql>
+       <Sql>IIF(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1) IS NULL, NULL, CONCAT(FORMAT(CONVERT(int,ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1)/3600),'########00'),':',FORMAT(CONVERT(int,((ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1))%60),'00')))</Sql>
        <Guard>1=0 OR 1=0</Guard>
     </SqlOutput>
       <result>
@@ -92,6 +92,34 @@
          <sql>Error: Conversion failed when converting date and/or time from character string.</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>Error: Conversion failed when converting date and/or time from character string.</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:29.590]</inputvalues>
+         <formula>00:59:30</formula>
+         <sql>00:59:30</sql>
+         <formulaNullAsNull>00:59:30</formulaNullAsNull>
+         <sqlNullAsNull>00:59:30</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:30.000]</inputvalues>
+         <formula>00:59:30</formula>
+         <sql>00:59:30</sql>
+         <formulaNullAsNull>00:59:30</formulaNullAsNull>
+         <sqlNullAsNull>00:59:30</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.590, 00:00:00.000]</inputvalues>
+         <formula>00:00:29</formula>
+         <sql>00:00:29</sql>
+         <formulaNullAsNull>00:00:29</formulaNullAsNull>
+         <sqlNullAsNull>00:00:29</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:30.000, 00:00:00.000]</inputvalues>
+         <formula>00:00:30</formula>
+         <sql>00:00:30</sql>
+         <formulaNullAsNull>00:00:30</formulaNullAsNull>
+         <sqlNullAsNull>00:00:30</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

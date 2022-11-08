@@ -16,77 +16,77 @@
       <result>
       <inputvalues>[aaaa, aaaa]</inputvalues>
          <formula>false</formula>
-         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sql>
+         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, bbbb]</inputvalues>
          <formula>false</formula>
-         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sql>
+         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, ]</inputvalues>
          <formula>false</formula>
-         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sql>
+         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, bbbb]</inputvalues>
          <formula>false</formula>
-         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sql>
+         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>false</formula>
-         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sql>
+         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, aaaa]</inputvalues>
          <formula>false</formula>
-         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sql>
+         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[aaaa, aaaa]</inputvalues>
          <formula>false</formula>
-         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sql>
+         <sql>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sql>
          <javascript>false</javascript>
          <javascriptLp>false</javascriptLp>
          <formulaNullAsNull>false</formulaNullAsNull>
-         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
+         <sqlNullAsNull>Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177</sqlNullAsNull>
          <javascriptNullAsNull>false</javascriptNullAsNull>
          <javascriptLpNullAsNull>false</javascriptLpNullAsNull>
       </result>

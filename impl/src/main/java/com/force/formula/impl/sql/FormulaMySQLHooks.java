@@ -301,7 +301,7 @@ public interface FormulaMySQLHooks extends FormulaSqlHooks {
      * Intervals in mysql aren't helpful for formatting, so don't use them.
      */
     @Override
-    default String sqlIntervalFromSeconds() {
+    default String sqlIntervalFromSeconds(Type dateType) {
         return "TRUNCATE(ABS(%s),0)";
     }
 

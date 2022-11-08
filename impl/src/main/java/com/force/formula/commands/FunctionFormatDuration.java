@@ -103,17 +103,19 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         String guard = SQLPair.generateGuard(guards, null);
         FormulaSqlHooks hooks = getSqlHooks(context);
-        if (node.getNumberOfChildren() == 1) {
-            String interval = String.format(hooks.sqlIntervalFromSeconds(), args[0]);
-            return new SQLPair(hooks.sqlIntervalToDurationString(interval, false, null), guard);
-        }
+
         FormulaAST lhs = (FormulaAST)node.getFirstChild();
         Type lhsDataType = lhs.getDataType();
+
+        if (node.getNumberOfChildren() == 1) {
+            String interval = String.format(hooks.sqlIntervalFromSeconds(lhsDataType), args[0]);
+            return new SQLPair(hooks.sqlIntervalToDurationString(interval, false, null), guard);
+        }
 
         String sql;
         if (lhsDataType == BigDecimal.class) {
             // The second parameter is the boolean to include date or not.  Simplify the logic if it's a constant
-            String interval = String.format(hooks.sqlIntervalFromSeconds(), args[0]);
+            String interval = String.format(hooks.sqlIntervalFromSeconds(lhsDataType), args[0]);
             if ("(1=1)".equals(args[1]) || "TRUE".equalsIgnoreCase(args[1])) {
                 sql = hooks.sqlIntervalToDurationString(interval, true, null);  // Include days
             } else if ("(0=1)".equals(args[1]) || "FALSE".equalsIgnoreCase(args[1])) {
@@ -123,11 +125,11 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
             }
         } else if (lhsDataType == FormulaTime.class) {
             String diff = String.format(hooks.sqlSubtractTwoTimes(), args[1], args[0]);
-            String interval = String.format(hooks.sqlIntervalFromSeconds(), diff);
+            String interval = String.format(hooks.sqlIntervalFromSeconds(lhsDataType), diff);
             sql = hooks.sqlIntervalToDurationString(interval, false, null);
         } else if (lhsDataType == FormulaDateTime.class) {
             String diff = String.format(hooks.sqlSubtractTwoTimestamps(true), args[1], args[0]);
-            String interval = String.format(hooks.sqlIntervalFromSeconds(), diff);
+            String interval = String.format(hooks.sqlIntervalFromSeconds(lhsDataType), diff);
             sql = hooks.sqlIntervalToDurationString(interval, true, null);
         } else {
             throw new UnsupportedOperationException();
@@ -183,7 +185,7 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
                 } else if (lhs instanceof FormulaTime) {
                     FormulaTime lhsTime = (FormulaTime)lhs;
                     FormulaTime rhsTime = (FormulaTime)rhs;
-                    numSeconds = rhsTime != null ? (rhsTime.getTimeInSeconds() - lhsTime.getTimeInSeconds()) : null;
+                    numSeconds = rhsTime != null ? (rhsTime.getTimeInMillis() - lhsTime.getTimeInMillis()) / 1000 : null;
                 } else if (lhs instanceof FormulaDateTime) {
                     FormulaDateTime lhsDate = checkDateTimeType(lhs);
                     FormulaDateTime rhsDate = checkDateTimeType(rhs);

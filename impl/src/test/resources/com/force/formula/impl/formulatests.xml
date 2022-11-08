@@ -3530,6 +3530,7 @@ author: Srikanth Yendluri/Doug Chasman
         code="FORMATDURATION(TimeValue(timeString2__c),TimeValue(timeString1__c))">
         <referencefield devName="timeString1" labelName="timeString1" dataType="Text" length="50"/>
         <referencefield devName="timeString2" labelName="timeString2" dataType="Text" length="50"/>
+        <whyIgnoreSql db="sqlite3" numFailures="2">Millisecond differences ignored in diff</whyIgnoreSql>
     </testcase>
     <testcase name="testFormatDurationDateTime" devName="testFormatDurationDateTime" labels="extended"
         labelName="testFormatDurationDateTime" dataType="Text" eval="formula,template" dataFile="TwoDateFields"

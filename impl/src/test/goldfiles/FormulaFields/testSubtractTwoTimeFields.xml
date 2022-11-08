@@ -145,5 +145,49 @@
          <javascriptNullAsNull>3600000</javascriptNullAsNull>
          <javascriptLpNullAsNull>3600000</javascriptLpNullAsNull>
       </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:29.590]</inputvalues>
+         <formula>82829590</formula>
+         <sql>82829590</sql>
+         <javascript>82829590</javascript>
+         <javascriptLp>82829590</javascriptLp>
+         <formulaNullAsNull>82829590</formulaNullAsNull>
+         <sqlNullAsNull>82829590</sqlNullAsNull>
+         <javascriptNullAsNull>82829590</javascriptNullAsNull>
+         <javascriptLpNullAsNull>82829590</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[01:00:00.000, 00:00:30.000]</inputvalues>
+         <formula>82830000</formula>
+         <sql>82830000</sql>
+         <javascript>82830000</javascript>
+         <javascriptLp>82830000</javascriptLp>
+         <formulaNullAsNull>82830000</formulaNullAsNull>
+         <sqlNullAsNull>82830000</sqlNullAsNull>
+         <javascriptNullAsNull>82830000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>82830000</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:29.590, 00:00:00.000]</inputvalues>
+         <formula>86370410</formula>
+         <sql>86370410</sql>
+         <javascript>86370410</javascript>
+         <javascriptLp>86370410</javascriptLp>
+         <formulaNullAsNull>86370410</formulaNullAsNull>
+         <sqlNullAsNull>86370410</sqlNullAsNull>
+         <javascriptNullAsNull>86370410</javascriptNullAsNull>
+         <javascriptLpNullAsNull>86370410</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[00:00:30.000, 00:00:00.000]</inputvalues>
+         <formula>86370000</formula>
+         <sql>86370000</sql>
+         <javascript>86370000</javascript>
+         <javascriptLp>86370000</javascriptLp>
+         <formulaNullAsNull>86370000</formulaNullAsNull>
+         <sqlNullAsNull>86370000</sqlNullAsNull>
+         <javascriptNullAsNull>86370000</javascriptNullAsNull>
+         <javascriptLpNullAsNull>86370000</javascriptLpNullAsNull>
+      </result>
    </testInstance>
 </testCase>
