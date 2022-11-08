@@ -26,7 +26,7 @@ public class MSSQLServerContainerTester extends DbContainerTester<MSSQLServerCon
 
 	@Override
 	protected MSSQLServerContainer<?> constructDb() throws IOException {
-		MSSQLServerContainer<?> result = new MSSQLServerContainer<>("mcr.microsoft.com/mssql/server");
+		MSSQLServerContainer<?> result = new MSSQLServerContainer<>("mcr.microsoft.com/mssql/server:2017-latest");
 		result.acceptLicense();		
 		return result;
 	}
