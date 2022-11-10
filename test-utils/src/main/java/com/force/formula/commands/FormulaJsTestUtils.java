@@ -163,7 +163,12 @@ public class FormulaJsTestUtils {
                 .append("$F.tostr=function(value)"
                         + "{if(value===undefined||value===null||value===''){return value;}"
                         + "return String(value);};")
-                
+
+                // Chrome, Node & GraalJS have lenient date parsing for 'YYYY-MM-DD HH:MM:SS'.  Others require ecmascript.  Try both.  
+                .append("$F.parseDateTime=function(value)"
+                        + "{if(value===undefined||value===null||value===''){return null;}"
+                        + "var d = new Date(value.trim().replace(' ','T')+'Z'); return isNaN(d) ? new Date(value.trim() + ' GMT') : d;};")
+
                 
                 // Note, Javascript setMonths has strange behavior since it'll make January 30th + 1 month may be March.  And last day needs to remain last day to match oracle.
                 // So if it's the last day of the month, we add one to the day and add the month, then remove the day.  Otherwise we use the "set Date to 0 to be last day of previous month" javascript behavior 
@@ -349,7 +354,13 @@ public class FormulaJsTestUtils {
                 default:
                 	// New GraalVM
                 	if (val.hasMember("getTime")) {
-                		result = new Date(val.invokeMember("getTime").asLong());
+                	    Value time = val.invokeMember("getTime");
+                	    if (time.fitsInLong()) {
+                	        result = new Date(time.asLong());
+                	    } else {
+                	        // Invalid date has NaN for its getTime.
+                	        throw new IllegalArgumentException("Javascript cannot parse time");
+                	    }
                 	} else if (val.hasMember("toNumber")) {
                         return new BigDecimal(val.invokeMember("toNumber").toString());
                 	} else {

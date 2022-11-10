@@ -9,10 +9,10 @@
        <Sql>TO_TIMESTAMP('2005-11-15 17:00:00 ', 'YYYY-MM-DD HH24:MI:SS')</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new Date(&quot;2005-11-15 17:00:00 &quot; + ' GMT')</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">new Date(&quot;2005-11-15 17:00:00 &quot; + ' GMT')</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">new Date(&quot;2005-11-15 17:00:00 &quot; + ' GMT')</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">new Date(&quot;2005-11-15 17:00:00 &quot; + ' GMT')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.parseDateTime(&quot;2005-11-15 17:00:00 &quot;)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.parseDateTime(&quot;2005-11-15 17:00:00 &quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.parseDateTime(&quot;2005-11-15 17:00:00 &quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.parseDateTime(&quot;2005-11-15 17:00:00 &quot;)</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>Tue Nov 15 17:00:00 GMT 2005</formula>

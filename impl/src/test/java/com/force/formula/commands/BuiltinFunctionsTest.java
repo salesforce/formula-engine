@@ -862,4 +862,10 @@ public class BuiltinFunctionsTest extends ParserTestBase {
         assertNull( evaluateBoolean("null > \"foo\"")); 
     }
         
+    public void testDateTimeParsing() throws Exception {
+        // Validate in Java and JS the parsing of non-conforming dates to test for lenient parsing.
+        assertEquals(parseDT("2016-03-01 13:15:10"), evaluateDateTime("DATETIMEVALUE(\"2016-3-1 13:15:10\")"));
+        assertEquals(parseDT("2016-03-01 13:15:10"), evaluateDateTime("DATETIMEVALUE(\"2016-3-1 13:15:10 \")"));
+    }
+
 }

@@ -405,7 +405,7 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
                     String.format(FunctionTimeValue.JS_FORMAT_TEMPLATE, value), "null");
         } else if (datesAreStrings && dataType.isDateTime()) {
             value = FormulaCommandInfoImpl.jsNvl2(new JsValue(value, null, true),
-                    String.format(FunctionDatetimeValue.JS_FORMAT_TEMPLATE, value), "null");
+                    "$F.parseDateTime(" + value + ")", "null");
         }
 
         return new JsValue(value,  guardJs, true);
