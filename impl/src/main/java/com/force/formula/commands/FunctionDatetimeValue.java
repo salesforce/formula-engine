@@ -35,8 +35,6 @@ import com.force.i18n.BaseLocalizer;
 @AllowedContext(section=SelectorSection.DATE_TIME, isOffline=true)
 public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements FormulaCommandValidator {
 
-    protected static final String JS_FORMAT_TEMPLATE = "new Date(%s + ' GMT')";
-
     public FunctionDatetimeValue() {
         super("DATETIMEVALUE");
     }
@@ -93,7 +91,7 @@ public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements For
         } else if (inputDataType == BigDecimal.class) {
             return JsValue.forNonNullResult("new Date(" + jsToNum(context, args[0].js) + ")",args);
         } else {
-            return JsValue.forNonNullResult(String.format(JS_FORMAT_TEMPLATE, args[0].js), args);
+            return JsValue.forNonNullResult("$F.parseDateTime("+ args[0].js + ")", args);
         }
     }
    

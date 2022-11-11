@@ -9,20 +9,20 @@
        <Sql>NULL</Sql>
        <Guard>0=0</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new Date(&quot;sample &quot; + ' GMT')</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">new Date(&quot;sample &quot; + ' GMT')</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">new Date(&quot;sample &quot; + ' GMT')</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">new Date(&quot;sample &quot; + ' GMT')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="false">$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.parseDateTime(&quot;sample &quot;)</JsOutput>
       <result>
       <inputvalues>No data</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>null</sql>
-         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
-         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <javascript>Error: Javascript cannot parse time</javascript>
+         <javascriptLp>Error: Javascript cannot parse time</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Error: Javascript cannot parse time</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Javascript cannot parse time</javascriptLpNullAsNull>
       </result>
    </testInstance>
 </testCase>

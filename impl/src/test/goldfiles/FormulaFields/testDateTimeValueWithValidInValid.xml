@@ -9,10 +9,10 @@
        <Sql>TO_TIMESTAMP($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS')</Sql>
        <Guard> NOT $!s0s!$.dateString__c ~ '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$' </Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(context.record.dateString__c + ' GMT')):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(context.record.dateString__c + ' GMT')):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?(new Date(context.record.dateString__c + ' GMT')):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?(new Date(context.record.dateString__c + ' GMT')):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.dateString__c!=null)?($F.parseDateTime(context.record.dateString__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.dateString__c!=null)?($F.parseDateTime(context.record.dateString__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.dateString__c!=null)?($F.parseDateTime(context.record.dateString__c)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.dateString__c!=null)?($F.parseDateTime(context.record.dateString__c)):null</JsOutput>
       <result>
       <inputvalues>[2011-01-29 00:00:09]</inputvalues>
          <formula>Sat Jan 29 00:00:09 GMT 2011</formula>
@@ -94,23 +94,23 @@
       <inputvalues>[2011-13-29 00:00:09]</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>null</sql>
-         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
-         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <javascript>Error: Javascript cannot parse time</javascript>
+         <javascriptLp>Error: Javascript cannot parse time</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Error: Javascript cannot parse time</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Javascript cannot parse time</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012:02:02]</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>null</sql>
-         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
-         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <javascript>Error: Javascript cannot parse time</javascript>
+         <javascriptLp>Error: Javascript cannot parse time</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Error: Javascript cannot parse time</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Javascript cannot parse time</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-01-01 24:00:00]</inputvalues>
@@ -127,23 +127,23 @@
       <inputvalues>[2012-01-01 23:60:00]</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>null</sql>
-         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
-         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <javascript>Error: Javascript cannot parse time</javascript>
+         <javascriptLp>Error: Javascript cannot parse time</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Error: Javascript cannot parse time</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Javascript cannot parse time</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-01-01 23:00:60]</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>null</sql>
-         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
-         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <javascript>Error: Javascript cannot parse time</javascript>
+         <javascriptLp>Error: Javascript cannot parse time</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Error: Javascript cannot parse time</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Javascript cannot parse time</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-01-01 23:59:59]</inputvalues>
@@ -160,12 +160,12 @@
       <inputvalues>[2012-10-34 00:00:00]</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
          <sql>null</sql>
-         <javascript>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascript>
-         <javascriptLp>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLp>
+         <javascript>Error: Javascript cannot parse time</javascript>
+         <javascriptLp>Error: Javascript cannot parse time</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptNullAsNull>
-         <javascriptLpNullAsNull>Error: Cannot convert 'NaN'(language: Java, type: java.lang.Double) to Java type 'long' using Value.asLong(): Invalid or lossy primitive coercion. You can ensure that the value can be converted using Value.fitsInLong().</javascriptLpNullAsNull>
+         <javascriptNullAsNull>Error: Javascript cannot parse time</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Error: Javascript cannot parse time</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[2012-02-07 5:2:33]</inputvalues>
