@@ -12,30 +12,30 @@
       <result>
       <inputvalues>[1234567890.0]</inputvalues>
          <formula>1234567890</formula>
-         <sql>1234567890.0</sql>
+         <sql>1234567890.000000000000000000</sql>
          <formulaNullAsNull>1234567890</formulaNullAsNull>
-         <sqlNullAsNull>1234567890.0</sqlNullAsNull>
+         <sqlNullAsNull>1234567890.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1234567891.0]</inputvalues>
          <formula>1234567891</formula>
-         <sql>1234567891.0</sql>
+         <sql>1234567891.000000000000000000</sql>
          <formulaNullAsNull>1234567891</formulaNullAsNull>
-         <sqlNullAsNull>1234567891.0</sqlNullAsNull>
+         <sqlNullAsNull>1234567891.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1234567890]</inputvalues>
          <formula>1234567890</formula>
-         <sql>1234567890</sql>
+         <sql>1234567890.000000000000000000</sql>
          <formulaNullAsNull>1234567890</formulaNullAsNull>
-         <sqlNullAsNull>1234567890</sqlNullAsNull>
+         <sqlNullAsNull>1234567890.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[1234567891]</inputvalues>
          <formula>1234567891</formula>
-         <sql>1234567891</sql>
+         <sql>1234567891.000000000000000000</sql>
          <formulaNullAsNull>1234567891</formulaNullAsNull>
-         <sqlNullAsNull>1234567891</sqlNullAsNull>
+         <sqlNullAsNull>1234567891.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>

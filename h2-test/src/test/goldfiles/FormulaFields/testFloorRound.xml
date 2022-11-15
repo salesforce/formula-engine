@@ -12,30 +12,30 @@
       <result>
       <inputvalues>[1, 9]</inputvalues>
          <formula>1</formula>
-         <sql>0</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>0</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2, 9]</inputvalues>
          <formula>2</formula>
-         <sql>1</sql>
+         <sql>2</sql>
          <formulaNullAsNull>2</formulaNullAsNull>
-         <sqlNullAsNull>1</sqlNullAsNull>
+         <sqlNullAsNull>2</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[3, 9]</inputvalues>
          <formula>3</formula>
-         <sql>2</sql>
+         <sql>3</sql>
          <formulaNullAsNull>3</formulaNullAsNull>
-         <sqlNullAsNull>2</sqlNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[4, 9]</inputvalues>
          <formula>4</formula>
-         <sql>3</sql>
+         <sql>4</sql>
          <formulaNullAsNull>4</formulaNullAsNull>
-         <sqlNullAsNull>3</sqlNullAsNull>
+         <sqlNullAsNull>4</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[5, 9]</inputvalues>
@@ -68,37 +68,37 @@
       <result>
       <inputvalues>[1, 11]</inputvalues>
          <formula>1</formula>
-         <sql>0</sql>
+         <sql>1</sql>
          <formulaNullAsNull>1</formulaNullAsNull>
-         <sqlNullAsNull>0</sqlNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[2, 11]</inputvalues>
          <formula>2</formula>
-         <sql>1</sql>
+         <sql>2</sql>
          <formulaNullAsNull>2</formulaNullAsNull>
-         <sqlNullAsNull>1</sqlNullAsNull>
+         <sqlNullAsNull>2</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[3, 11]</inputvalues>
          <formula>3</formula>
-         <sql>2</sql>
+         <sql>3</sql>
          <formulaNullAsNull>3</formulaNullAsNull>
-         <sqlNullAsNull>2</sqlNullAsNull>
+         <sqlNullAsNull>3</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[4, 11]</inputvalues>
          <formula>4</formula>
-         <sql>3</sql>
+         <sql>4</sql>
          <formulaNullAsNull>4</formulaNullAsNull>
-         <sqlNullAsNull>3</sqlNullAsNull>
+         <sqlNullAsNull>4</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[5, 11]</inputvalues>
          <formula>5</formula>
-         <sql>4</sql>
+         <sql>5</sql>
          <formulaNullAsNull>5</formulaNullAsNull>
-         <sqlNullAsNull>4</sqlNullAsNull>
+         <sqlNullAsNull>5</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[6, 11]</inputvalues>
@@ -138,30 +138,30 @@
       <result>
       <inputvalues>[10, 9]</inputvalues>
          <formula>10</formula>
-         <sql>9</sql>
+         <sql>10</sql>
          <formulaNullAsNull>10</formulaNullAsNull>
-         <sqlNullAsNull>9</sqlNullAsNull>
+         <sqlNullAsNull>10</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[11, 9]</inputvalues>
          <formula>11</formula>
-         <sql>10</sql>
+         <sql>11</sql>
          <formulaNullAsNull>11</formulaNullAsNull>
-         <sqlNullAsNull>10</sqlNullAsNull>
+         <sqlNullAsNull>11</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[12, 9]</inputvalues>
          <formula>12</formula>
-         <sql>11</sql>
+         <sql>12</sql>
          <formulaNullAsNull>12</formulaNullAsNull>
-         <sqlNullAsNull>11</sqlNullAsNull>
+         <sqlNullAsNull>12</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[13, 9]</inputvalues>
          <formula>13</formula>
-         <sql>12</sql>
+         <sql>13</sql>
          <formulaNullAsNull>13</formulaNullAsNull>
-         <sqlNullAsNull>12</sqlNullAsNull>
+         <sqlNullAsNull>13</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[14, 9]</inputvalues>
@@ -201,9 +201,9 @@
       <result>
       <inputvalues>[19, 9]</inputvalues>
          <formula>19</formula>
-         <sql>18</sql>
+         <sql>19</sql>
          <formulaNullAsNull>19</formulaNullAsNull>
-         <sqlNullAsNull>18</sqlNullAsNull>
+         <sqlNullAsNull>19</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

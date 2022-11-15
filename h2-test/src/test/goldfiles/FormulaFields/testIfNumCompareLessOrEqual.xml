@@ -12,107 +12,107 @@
       <result>
       <inputvalues>[123456789, 123456789, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>200.00</sql>
+         <sql>200.000000000000000000</sql>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>200.00</sqlNullAsNull>
+         <sqlNullAsNull>200.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[12345678, 123456789, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>200.00</sql>
+         <sql>200.000000000000000000</sql>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>200.00</sqlNullAsNull>
+         <sqlNullAsNull>200.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[12345678, 1234567, 200, 300]</inputvalues>
          <formula>300</formula>
-         <sql>300.00</sql>
+         <sql>300.000000000000000000</sql>
          <formulaNullAsNull>300</formulaNullAsNull>
-         <sqlNullAsNull>300.00</sqlNullAsNull>
+         <sqlNullAsNull>300.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, 10.24, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>200.00</sql>
+         <sql>200.000000000000000000</sql>
          <formulaNullAsNull>300</formulaNullAsNull>
-         <sqlNullAsNull>300.00</sqlNullAsNull>
+         <sqlNullAsNull>300.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[10.24, , 200, 300]</inputvalues>
          <formula>300</formula>
-         <sql>300.00</sql>
+         <sql>300.000000000000000000</sql>
          <formulaNullAsNull>300</formulaNullAsNull>
-         <sqlNullAsNull>300.00</sqlNullAsNull>
+         <sqlNullAsNull>300.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, , 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>200.00</sql>
+         <sql>200.000000000000000000</sql>
          <formulaNullAsNull>300</formulaNullAsNull>
-         <sqlNullAsNull>300.00</sqlNullAsNull>
+         <sqlNullAsNull>300.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 123.123456789, 200, 300]</inputvalues>
          <formula>300</formula>
-         <sql>300.00</sql>
+         <sql>300.000000000000000000</sql>
          <formulaNullAsNull>300</formulaNullAsNull>
-         <sqlNullAsNull>300.00</sqlNullAsNull>
+         <sqlNullAsNull>300.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456780, 123.123456789, 200, 300]</inputvalues>
          <formula>300</formula>
-         <sql>300.00</sql>
+         <sql>300.000000000000000000</sql>
          <formulaNullAsNull>300</formulaNullAsNull>
-         <sqlNullAsNull>300.00</sqlNullAsNull>
+         <sqlNullAsNull>300.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[123.23456789, 123.123456780, 200, 300]</inputvalues>
          <formula>300</formula>
-         <sql>300.00</sql>
+         <sql>300.000000000000000000</sql>
          <formulaNullAsNull>300</formulaNullAsNull>
-         <sqlNullAsNull>300.00</sqlNullAsNull>
+         <sqlNullAsNull>300.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[-200.434, 200.434,  200,  300]</inputvalues>
          <formula>200</formula>
-         <sql>200.00</sql>
+         <sql>200.000000000000000000</sql>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>200.00</sqlNullAsNull>
+         <sqlNullAsNull>200.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[200,  -200.434,  200, 300]</inputvalues>
          <formula>300</formula>
-         <sql>300.00</sql>
+         <sql>300.000000000000000000</sql>
          <formulaNullAsNull>300</formulaNullAsNull>
-         <sqlNullAsNull>300.00</sqlNullAsNull>
+         <sqlNullAsNull>300.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 0, 200, 300]</inputvalues>
          <formula>200</formula>
-         <sql>200.00</sql>
+         <sql>200.000000000000000000</sql>
          <formulaNullAsNull>200</formulaNullAsNull>
-         <sqlNullAsNull>200.00</sqlNullAsNull>
+         <sqlNullAsNull>200.000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[200, 200, 0.123456789, 0.123456789]</inputvalues>
          <formula>0.123456789</formula>
-         <sql>0.123456789</sql>
+         <sql>0.123456789000000000</sql>
          <formulaNullAsNull>0.123456789</formulaNullAsNull>
-         <sqlNullAsNull>0.123456789</sqlNullAsNull>
+         <sqlNullAsNull>0.123456789000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[201, 200, 0.123456789, 0.123456789]</inputvalues>
          <formula>0.123456789</formula>
-         <sql>0.123456789</sql>
+         <sql>0.123456789000000000</sql>
          <formulaNullAsNull>0.123456789</formulaNullAsNull>
-         <sqlNullAsNull>0.123456789</sqlNullAsNull>
+         <sqlNullAsNull>0.123456789000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[200, 201, 0.123456789, 0.123456789]</inputvalues>
          <formula>0.123456789</formula>
-         <sql>0.123456789</sql>
+         <sql>0.123456789000000000</sql>
          <formulaNullAsNull>0.123456789</formulaNullAsNull>
-         <sqlNullAsNull>0.123456789</sqlNullAsNull>
+         <sqlNullAsNull>0.123456789000000000</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

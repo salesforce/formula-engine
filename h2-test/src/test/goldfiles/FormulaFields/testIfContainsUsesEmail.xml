@@ -12,37 +12,37 @@
       <result>
       <inputvalues>[email@aa.com, aa, 200, 300]</inputvalues>
          <formula>20000</formula>
-         <sql>20000.000000000000000000000</sql>
+         <sql>20000.00000000000000000000000000000000</sql>
          <formulaNullAsNull>20000</formulaNullAsNull>
-         <sqlNullAsNull>20000.000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>20000.00000000000000000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[works@bvv.net, works@, 200, 300]</inputvalues>
          <formula>20000</formula>
-         <sql>20000.000000000000000000000</sql>
+         <sql>20000.00000000000000000000000000000000</sql>
          <formulaNullAsNull>20000</formulaNullAsNull>
-         <sqlNullAsNull>20000.000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>20000.00000000000000000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[testing@test.com, testing@, 200, 300]</inputvalues>
          <formula>20000</formula>
-         <sql>20000.000000000000000000000</sql>
+         <sql>20000.00000000000000000000000000000000</sql>
          <formulaNullAsNull>20000</formulaNullAsNull>
-         <sqlNullAsNull>20000.000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>20000.00000000000000000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[a@salesforce.com, salesforce.com, 200, 300]</inputvalues>
          <formula>20000</formula>
-         <sql>20000.000000000000000000000</sql>
+         <sql>20000.00000000000000000000000000000000</sql>
          <formulaNullAsNull>20000</formulaNullAsNull>
-         <sqlNullAsNull>20000.000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>20000.00000000000000000000000000000000</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[a@salesforce.com, Salesforce.com, 200, 300]</inputvalues>
          <formula>30000</formula>
-         <sql>30000.000000000000000000000</sql>
+         <sql>30000.00000000000000000000000000000000</sql>
          <formulaNullAsNull>30000</formulaNullAsNull>
-         <sqlNullAsNull>30000.000000000000000000000</sqlNullAsNull>
+         <sqlNullAsNull>30000.00000000000000000000000000000000</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

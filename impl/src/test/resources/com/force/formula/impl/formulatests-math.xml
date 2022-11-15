@@ -604,7 +604,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="postgres,spanner,trino,h2" numFailures="28">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,spanner,trino" numFailures="28">precision differences</whyIgnoreSql>
          <whyIgnoreSql db="mssql,mariadb" numFailures="54">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testMFloorRound" devName="testMFloorRound" labels="math"
@@ -614,7 +614,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="postgres,spanner,trino,h2" numFailures="28">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,spanner,trino" numFailures="28">precision differences</whyIgnoreSql>
          <whyIgnoreSql db="mssql,mariadb" numFailures="54">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testFloorUsesAbs" devName="testFloorUsesAbs"
@@ -757,7 +757,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="postgres,spanner,trino,h2" numFailures="26">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,spanner,trino" numFailures="26">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testMCeilRound" devName="testMCeilRound" labels="math"
          labelName="testMCeilRound" dataType="Double" dataFile="floorCeilRoundData"
@@ -766,7 +766,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="2" precision="12"/>
-         <whyIgnoreSql db="postgres,spanner,trino,h2" numFailures="26">precision differences</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,spanner,trino" numFailures="26">precision differences</whyIgnoreSql>
      </testcase>
      <testcase name="testCeilUsesAbs" devName="testCeilUsesAbs" labels="math"
          labelName="testCeilUsesAbs" dataType="Double" dataFile="absData"

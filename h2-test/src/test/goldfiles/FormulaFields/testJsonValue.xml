@@ -12,30 +12,30 @@
       <result>
       <inputvalues>[, Temperature]</inputvalues>
          <formula>null</formula>
-         <sql>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, CAST (NULL AS varchar) as customjson__c, 'Temperature' as customtext__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customjson__c, CAST (? AS varchar) as customtext__c) c [90022-210]</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, CAST (NULL AS varchar) as customjson__c, 'Temperature' as customtext__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customjson__c, CAST (? AS varchar) as customtext__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[{}, Temperature]</inputvalues>
          <formula>null</formula>
-         <sql>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, '{}' as customjson__c, 'Temperature' as customtext__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customjson__c, CAST (? AS varchar) as customtext__c) c [90022-210]</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, '{}' as customjson__c, 'Temperature' as customtext__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customjson__c, CAST (? AS varchar) as customtext__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[{&quot;Temperature&quot;: 50}, Temperature]</inputvalues>
          <formula>50</formula>
-         <sql>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, '{&quot;Temperature&quot;: 50}' as customjson__c, 'Temperature' as customtext__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customjson__c, CAST (? AS varchar) as customtext__c) c [90022-210]</sql>
          <formulaNullAsNull>50</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, '{&quot;Temperature&quot;: 50}' as customjson__c, 'Temperature' as customtext__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customjson__c, CAST (? AS varchar) as customtext__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[{&quot;Temperature&quot;: &quot;a&quot;}, Temperature]</inputvalues>
          <formula>a</formula>
-         <sql>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, '{&quot;Temperature&quot;: &quot;a&quot;}' as customjson__c, 'Temperature' as customtext__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customjson__c, CAST (? AS varchar) as customtext__c) c [90022-210]</sql>
          <formulaNullAsNull>a</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, '{&quot;Temperature&quot;: &quot;a&quot;}' as customjson__c, 'Temperature' as customtext__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;JSON_VALUE&quot; not found; SQL statement: SELECT SUBSTR(json_value(c.customjson__c,CONCAT('$.', 'Temperature')), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customjson__c, CAST (? AS varchar) as customtext__c) c [90022-210]</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

@@ -152,14 +152,14 @@
       <result>
       <inputvalues>[, , , ]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
-         <sql>Error: Division by zero: &quot;0.0000000000000000000000000&quot;; SQL statement: SELECT ROUND(MOD(ROUND(COALESCE((c.custompercent1__c / 100.0), 0), COALESCE(c.customnumber1__c, 0)), (COALESCE(c.customcurrency1__c, 0)+COALESCE(c.customcurrency2__c, 0))), 32) FROM (SELECT 1 as fake, CAST (NULL AS numeric(38,18)) as customnumber1__c, CAST (NULL AS numeric(38,18)) as customcurrency1__c, CAST (NULL AS numeric(38,18)) as customcurrency2__c, CAST (NULL AS numeric(38,18)) as custompercent1__c) c [22012-210]</sql>
+         <sql>Error: Division by zero: &quot;0.0000000000000000000000000&quot;; SQL statement: SELECT ROUND(MOD(ROUND(COALESCE((c.custompercent1__c / 100.0), 0), COALESCE(c.customnumber1__c, 0)), (COALESCE(c.customcurrency1__c, 0)+COALESCE(c.customcurrency2__c, 0))), 32) FROM (SELECT 1 as fake, CAST (? AS numeric(38,18)) as customnumber1__c, CAST (? AS numeric(38,18)) as customcurrency1__c, CAST (? AS numeric(38,18)) as customcurrency2__c, CAST (? AS numeric(38,18)) as custompercent1__c) c [22012-210]</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[200, , , ]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
-         <sql>Error: Division by zero: &quot;2.000000000&quot;; SQL statement: SELECT ROUND(MOD(ROUND(COALESCE((c.custompercent1__c / 100.0), 0), COALESCE(c.customnumber1__c, 0)), (COALESCE(c.customcurrency1__c, 0)+COALESCE(c.customcurrency2__c, 0))), 32) FROM (SELECT 1 as fake, CAST (NULL AS numeric(38,18)) as customnumber1__c, CAST (NULL AS numeric(38,18)) as customcurrency1__c, CAST (NULL AS numeric(38,18)) as customcurrency2__c, 200.00 as custompercent1__c) c [22012-210]</sql>
+         <sql>Error: Division by zero: &quot;2.0000000000000000000000000&quot;; SQL statement: SELECT ROUND(MOD(ROUND(COALESCE((c.custompercent1__c / 100.0), 0), COALESCE(c.customnumber1__c, 0)), (COALESCE(c.customcurrency1__c, 0)+COALESCE(c.customcurrency2__c, 0))), 32) FROM (SELECT 1 as fake, CAST (? AS numeric(38,18)) as customnumber1__c, CAST (? AS numeric(38,18)) as customcurrency1__c, CAST (? AS numeric(38,18)) as customcurrency2__c, CAST (? AS numeric(38,18)) as custompercent1__c) c [22012-210]</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>

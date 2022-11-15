@@ -33,7 +33,7 @@ public class EmbeddedH2Tester extends AbstractDbTester {
 	@Override
     protected boolean useBinds() {
 	    // Naked binds in H2 need to be cast, and they are quite slow, and they don't seem to bind BigDecimals right.
-        return false;
+        return true;
     }
 	
 	@Override

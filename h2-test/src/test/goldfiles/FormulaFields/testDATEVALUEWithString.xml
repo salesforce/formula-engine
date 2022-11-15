@@ -103,9 +103,9 @@
       <result>
       <inputvalues>[0000-12-12]</inputvalues>
          <formula>Error: com.force.formula.FormulaDateException</formula>
-         <sql>Error: Error parsing &quot;0000-12-12&quot;; SQL statement: SELECT CASE WHEN  NOT REGEXP_LIKE (c.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') THEN NULL ELSE PARSEDATETIME(c.customtext1__c, 'yyyy-M-d', 'en', 'UTC') END FROM (SELECT 1 as fake, '0000-12-12' as customtext1__c) c [90014-210]</sql>
+         <sql>Error: Error parsing &quot;0000-12-12&quot;; SQL statement: SELECT CASE WHEN  NOT REGEXP_LIKE (c.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') THEN NULL ELSE PARSEDATETIME(c.customtext1__c, 'yyyy-M-d', 'en', 'UTC') END FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90014-210]</sql>
          <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
-         <sqlNullAsNull>Error: Error parsing &quot;0000-12-12&quot;; SQL statement: SELECT CASE WHEN  NOT REGEXP_LIKE (c.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') THEN NULL ELSE PARSEDATETIME(c.customtext1__c, 'yyyy-M-d', 'en', 'UTC') END FROM (SELECT 1 as fake, '0000-12-12' as customtext1__c) c [90014-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Error parsing &quot;0000-12-12&quot;; SQL statement: SELECT CASE WHEN  NOT REGEXP_LIKE (c.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') THEN NULL ELSE PARSEDATETIME(c.customtext1__c, 'yyyy-M-d', 'en', 'UTC') END FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90014-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0-12-12]</inputvalues>

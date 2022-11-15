@@ -68,9 +68,9 @@
       <result>
       <inputvalues>[Hello, ((]</inputvalues>
          <formula>Error: java.util.regex.PatternSyntaxException</formula>
-         <sql>Error: Error in LIKE ESCAPE: &quot;^(($&quot;; SQL statement: SELECT SUBSTR(CASE WHEN REGEXP_LIKE(COALESCE(c.customtext__c,''),CONCAT(CONCAT('^', c.customexpr__c), '$')) THEN 'TRUE' ELSE 'FALSE' END, 1, 1300) FROM (SELECT 1 as fake, '((' as customexpr__c, 'Hello' as customtext__c) c [22025-210]</sql>
+         <sql>Error: Error in LIKE ESCAPE: &quot;^(($&quot;; SQL statement: SELECT SUBSTR(CASE WHEN REGEXP_LIKE(COALESCE(c.customtext__c,''),CONCAT(CONCAT('^', c.customexpr__c), '$')) THEN 'TRUE' ELSE 'FALSE' END, 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customexpr__c, CAST (? AS varchar) as customtext__c) c [22025-210]</sql>
          <formulaNullAsNull>Error: java.util.regex.PatternSyntaxException</formulaNullAsNull>
-         <sqlNullAsNull>Error: Error in LIKE ESCAPE: &quot;^(($&quot;; SQL statement: SELECT SUBSTR(CASE WHEN REGEXP_LIKE(COALESCE(c.customtext__c,''),CONCAT(CONCAT('^', c.customexpr__c), '$')) THEN 'TRUE' ELSE 'FALSE' END, 1, 1300) FROM (SELECT 1 as fake, '((' as customexpr__c, 'Hello' as customtext__c) c [22025-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Error in LIKE ESCAPE: &quot;^(($&quot;; SQL statement: SELECT SUBSTR(CASE WHEN REGEXP_LIKE(COALESCE(c.customtext__c,''),CONCAT(CONCAT('^', c.customexpr__c), '$')) THEN 'TRUE' ELSE 'FALSE' END, 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customexpr__c, CAST (? AS varchar) as customtext__c) c [22025-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[Hello, ]</inputvalues>

@@ -12,9 +12,9 @@
       <result>
       <inputvalues>[0, 0]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
-         <sql>Error: Division by zero: &quot;CAST(1 AS DECFLOAT)&quot;; SQL statement: SELECT ROUND(MOD(EXP(COALESCE(c.customnumber1__c, 0)), CASE WHEN COALESCE(c.customnumber2__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE(c.customnumber2__c, 0),33)) ELSE FLOOR(ROUND(COALESCE(c.customnumber2__c, 0),33)) END), 32) FROM (SELECT 1 as fake, 0.00 as customnumber1__c, 0.00 as customnumber2__c) c [22012-210]</sql>
+         <sql>Error: Division by zero: &quot;CAST(1 AS DECFLOAT)&quot;; SQL statement: SELECT ROUND(MOD(EXP(COALESCE(c.customnumber1__c, 0)), CASE WHEN COALESCE(c.customnumber2__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE(c.customnumber2__c, 0),33)) ELSE FLOOR(ROUND(COALESCE(c.customnumber2__c, 0),33)) END), 32) FROM (SELECT 1 as fake, CAST (? AS numeric(38,18)) as customnumber1__c, CAST (? AS numeric(38,18)) as customnumber2__c) c [22012-210]</sql>
          <formulaNullAsNull>Error: java.lang.ArithmeticException</formulaNullAsNull>
-         <sqlNullAsNull>Error: Division by zero: &quot;CAST(1 AS DECFLOAT)&quot;; SQL statement: SELECT ROUND(MOD(EXP(c.customnumber1__c), CASE WHEN c.customnumber2__c&gt;=0 THEN CEIL(ROUND(c.customnumber2__c,33)) ELSE FLOOR(ROUND(c.customnumber2__c,33)) END), 32) FROM (SELECT 1 as fake, 0.00 as customnumber1__c, 0.00 as customnumber2__c) c [22012-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Division by zero: &quot;CAST(1 AS DECFLOAT)&quot;; SQL statement: SELECT ROUND(MOD(EXP(c.customnumber1__c), CASE WHEN c.customnumber2__c&gt;=0 THEN CEIL(ROUND(c.customnumber2__c,33)) ELSE FLOOR(ROUND(c.customnumber2__c,33)) END), 32) FROM (SELECT 1 as fake, CAST (? AS numeric(38,18)) as customnumber1__c, CAST (? AS numeric(38,18)) as customnumber2__c) c [22012-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[0, 1]</inputvalues>
@@ -68,9 +68,9 @@
       <result>
       <inputvalues>[30, 0]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
-         <sql>Error: Division by zero: &quot;CAST(10686474581524.463 AS DECFLOAT)&quot;; SQL statement: SELECT ROUND(MOD(EXP(COALESCE(c.customnumber1__c, 0)), CASE WHEN COALESCE(c.customnumber2__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE(c.customnumber2__c, 0),33)) ELSE FLOOR(ROUND(COALESCE(c.customnumber2__c, 0),33)) END), 32) FROM (SELECT 1 as fake, 30.00 as customnumber1__c, 0.00 as customnumber2__c) c [22012-210]</sql>
+         <sql>Error: Division by zero: &quot;CAST(10686474581524.463 AS DECFLOAT)&quot;; SQL statement: SELECT ROUND(MOD(EXP(COALESCE(c.customnumber1__c, 0)), CASE WHEN COALESCE(c.customnumber2__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE(c.customnumber2__c, 0),33)) ELSE FLOOR(ROUND(COALESCE(c.customnumber2__c, 0),33)) END), 32) FROM (SELECT 1 as fake, CAST (? AS numeric(38,18)) as customnumber1__c, CAST (? AS numeric(38,18)) as customnumber2__c) c [22012-210]</sql>
          <formulaNullAsNull>Error: java.lang.ArithmeticException</formulaNullAsNull>
-         <sqlNullAsNull>Error: Division by zero: &quot;CAST(10686474581524.463 AS DECFLOAT)&quot;; SQL statement: SELECT ROUND(MOD(EXP(c.customnumber1__c), CASE WHEN c.customnumber2__c&gt;=0 THEN CEIL(ROUND(c.customnumber2__c,33)) ELSE FLOOR(ROUND(c.customnumber2__c,33)) END), 32) FROM (SELECT 1 as fake, 30.00 as customnumber1__c, 0.00 as customnumber2__c) c [22012-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Division by zero: &quot;CAST(10686474581524.463 AS DECFLOAT)&quot;; SQL statement: SELECT ROUND(MOD(EXP(c.customnumber1__c), CASE WHEN c.customnumber2__c&gt;=0 THEN CEIL(ROUND(c.customnumber2__c,33)) ELSE FLOOR(ROUND(c.customnumber2__c,33)) END), 32) FROM (SELECT 1 as fake, CAST (? AS numeric(38,18)) as customnumber1__c, CAST (? AS numeric(38,18)) as customnumber2__c) c [22012-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[30, 12]</inputvalues>
@@ -82,7 +82,7 @@
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>Error: java.lang.ArithmeticException</formula>
-         <sql>Error: Division by zero: &quot;CAST(1 AS DECFLOAT)&quot;; SQL statement: SELECT ROUND(MOD(EXP(COALESCE(c.customnumber1__c, 0)), CASE WHEN COALESCE(c.customnumber2__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE(c.customnumber2__c, 0),33)) ELSE FLOOR(ROUND(COALESCE(c.customnumber2__c, 0),33)) END), 32) FROM (SELECT 1 as fake, CAST (NULL AS numeric(38,18)) as customnumber1__c, CAST (NULL AS numeric(38,18)) as customnumber2__c) c [22012-210]</sql>
+         <sql>Error: Division by zero: &quot;CAST(1 AS DECFLOAT)&quot;; SQL statement: SELECT ROUND(MOD(EXP(COALESCE(c.customnumber1__c, 0)), CASE WHEN COALESCE(c.customnumber2__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE(c.customnumber2__c, 0),33)) ELSE FLOOR(ROUND(COALESCE(c.customnumber2__c, 0),33)) END), 32) FROM (SELECT 1 as fake, CAST (? AS numeric(38,18)) as customnumber1__c, CAST (? AS numeric(38,18)) as customnumber2__c) c [22012-210]</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>

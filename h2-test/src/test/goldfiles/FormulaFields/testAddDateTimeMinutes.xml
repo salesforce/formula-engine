@@ -117,9 +117,9 @@
       <result>
       <inputvalues>[2009:02:07:10:00:00, 123456789]</inputvalues>
          <formula>Thu Nov 02 07:09:00 GMT 2243</formula>
-         <sql>Error: Invalid value &quot;7407407340&quot; for parameter &quot;DATEADD count&quot;; SQL statement: SELECT (DATEADD(second,ROUND((COALESCE(c.customnumber1__c, 0)/1440)*86400,0),c.customdatetime1__c)) FROM (SELECT 1 as fake, PARSEDATETIME('2009-02-07T10:00:00Z', 'yyyy-MM-dd''T''HH:mm:ss''Z''', 'en', 'UTC') as customdatetime1__c, 123456789.00 as customnumber1__c) c [90008-210]</sql>
+         <sql>Error: Invalid value &quot;7407407340&quot; for parameter &quot;DATEADD count&quot;; SQL statement: SELECT (DATEADD(second,ROUND((COALESCE(c.customnumber1__c, 0)/1440)*86400,0),c.customdatetime1__c)) FROM (SELECT 1 as fake, CAST (? AS timestamp) as customdatetime1__c, CAST (? AS numeric(38,18)) as customnumber1__c) c [90008-210]</sql>
          <formulaNullAsNull>Thu Nov 02 07:09:00 GMT 2243</formulaNullAsNull>
-         <sqlNullAsNull>Error: Invalid value &quot;7407407340&quot; for parameter &quot;DATEADD count&quot;; SQL statement: SELECT (DATEADD(second,ROUND((c.customnumber1__c/1440)*86400,0),c.customdatetime1__c)) FROM (SELECT 1 as fake, PARSEDATETIME('2009-02-07T10:00:00Z', 'yyyy-MM-dd''T''HH:mm:ss''Z''', 'en', 'UTC') as customdatetime1__c, 123456789.00 as customnumber1__c) c [90008-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Invalid value &quot;7407407340&quot; for parameter &quot;DATEADD count&quot;; SQL statement: SELECT (DATEADD(second,ROUND((c.customnumber1__c/1440)*86400,0),c.customdatetime1__c)) FROM (SELECT 1 as fake, CAST (? AS timestamp) as customdatetime1__c, CAST (? AS numeric(38,18)) as customnumber1__c) c [90008-210]</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>

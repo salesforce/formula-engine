@@ -12,79 +12,79 @@
       <result>
       <inputvalues>[This is too good to be true]</inputvalues>
          <formula>eurt eb ot doog oot si sihT</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'This is too good to be true' as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>eurt eb ot doog oot si sihT</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'This is too good to be true' as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[making a way]</inputvalues>
          <formula>yaw a gnikam</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'making a way' as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>yaw a gnikam</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'making a way' as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[, ]</inputvalues>
          <formula>null</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (NULL AS varchar) as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>null</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (NULL AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[blunder]</inputvalues>
          <formula>rednulb</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'blunder' as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>rednulb</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'blunder' as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[makesense]</inputvalues>
          <formula>esnesekam</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'makesense' as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>esnesekam</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'makesense' as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[does not make sense]</inputvalues>
          <formula>esnes ekam ton seod</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'does not make sense' as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>esnes ekam ton seod</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'does not make sense' as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[working my way]</inputvalues>
          <formula>yaw ym gnikrow</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'working my way' as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>yaw ym gnikrow</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'working my way' as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[e]</inputvalues>
          <formula>e</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'e' as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>e</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'e' as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag]</inputvalues>
          <formula>gahsoghawtwua9gthsihgkjasifowt9awhtashjovhaot9wtwaiognasohsouwtwthasjighjsofiowutwhjgishjkfatwhthsjghshgwhgthwtooghlsjgklaslghsgoswhuowstasghsjgasngsgsotwtsgksngnshgshtgsgh</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag' as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>gahsoghawtwua9gthsihgkjasifowt9awhtashjovhaot9wtwaiognasohsouwtwthasjighjsofiowutwhjgishjkfatwhthsjghshgwhgthwtooghlsjgklaslghsgoswhuowstasghsjgasngsgsotwtsgksngnshgshtgsgh</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'hgsgthsghsngnskgstwtosgsgnsagjshgsatswouhwsogshglsalkgjslhgootwhtghwghshgjshthwtafkjhsigjhwtuwoifosjhgijsahtwtwuoshosangoiawtw9toahvojhsathwa9twofisajkghishtg9auwtwahgoshag' as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_]</inputvalues>
          <formula>_(_%!)%^&amp;)%*_)!%)%&amp;%%!_^*)%^$_!)%)^)^)%@)#)041805052</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, '250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_' as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>_(_%!)%^&amp;)%*_)!%)%&amp;%%!_^*)%^$_!)%)^)^)%@)#)041805052</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, '250508140)#)@%)^)^)%)!_$^%)*^_!%%&amp;%)%!)_*%)&amp;^%)!%_(_' as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
       <result>
       <inputvalues>[blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r]</inputvalues>
          <formula>r\q\t\n\gslglsgls wioglslgdcws   sgfldsld   jskdjsl hjalb</formula>
-         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r' as customtext1__c) c [90022-210]</sql>
+         <sql>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sql>
          <formulaNullAsNull>r\q\t\n\gslglsgls wioglslgdcws   sgfldsld   jskdjsl hjalb</formulaNullAsNull>
-         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, 'blajh lsjdksj   dlsdlfgs   swcdglslgoiw slgslglsg\n\t\q\r' as customtext1__c) c [90022-210]</sqlNullAsNull>
+         <sqlNullAsNull>Error: Function &quot;REVERSE&quot; not found; SQL statement: SELECT SUBSTR(REVERSE(c.customtext1__c), 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90022-210]</sqlNullAsNull>
       </result>
    </testInstance>
 </testCase>
