@@ -65,7 +65,16 @@ public interface FormulaSqlStyle {
      */
     default boolean isSqliteStyle() {
         return false;
+    }   
+    
+
+    /**
+     * @return whether or not to default to H2 style.
+     */
+    default boolean isH2Style() {
+        return false;
     }    
+    
 	
 	/**
 	 * @return the function name for taking a substring.

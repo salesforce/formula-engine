@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRpad2">
+   <testInstance formula="rpad(customText1__c,customNumber1__c,customText2__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>RPAD($!s0s!$.customText1__c, GREATEST(COALESCE($!s0s!$.customNumber1__c, 0),0), $!s0s!$.customText2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>RPAD($!s0s!$.customText1__c, GREATEST($!s0s!$.customNumber1__c,0), $!s0s!$.customText2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[string, 0, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0, x]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 0, x]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 1, x]</inputvalues>
+         <formula>s</formula>
+         <sql>s</sql>
+         <formulaNullAsNull>s</formulaNullAsNull>
+         <sqlNullAsNull>s</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 5, x]</inputvalues>
+         <formula>strin</formula>
+         <sql>strin</sql>
+         <formulaNullAsNull>strin</formulaNullAsNull>
+         <sqlNullAsNull>strin</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 6, x]</inputvalues>
+         <formula>string</formula>
+         <sql>string</sql>
+         <formulaNullAsNull>string</formulaNullAsNull>
+         <sqlNullAsNull>string</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 7, x]</inputvalues>
+         <formula>stringx</formula>
+         <sql>stringx</sql>
+         <formulaNullAsNull>stringx</formulaNullAsNull>
+         <sqlNullAsNull>stringx</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 11, x]</inputvalues>
+         <formula>stringxxxxx</formula>
+         <sql>stringxxxxx</sql>
+         <formulaNullAsNull>stringxxxxx</formulaNullAsNull>
+         <sqlNullAsNull>stringxxxxx</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 0, abc]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 1, abc]</inputvalues>
+         <formula>s</formula>
+         <sql>s</sql>
+         <formulaNullAsNull>s</formulaNullAsNull>
+         <sqlNullAsNull>s</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 5, abc]</inputvalues>
+         <formula>strin</formula>
+         <sql>strin</sql>
+         <formulaNullAsNull>strin</formulaNullAsNull>
+         <sqlNullAsNull>strin</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 6, abc]</inputvalues>
+         <formula>string</formula>
+         <sql>string</sql>
+         <formulaNullAsNull>string</formulaNullAsNull>
+         <sqlNullAsNull>string</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 7, abc]</inputvalues>
+         <formula>stringa</formula>
+         <sql>stringa</sql>
+         <formulaNullAsNull>stringa</formulaNullAsNull>
+         <sqlNullAsNull>stringa</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[string, 11, abc]</inputvalues>
+         <formula>stringabcab</formula>
+         <sql>stringaaaaa</sql>
+         <formulaNullAsNull>stringabcab</formulaNullAsNull>
+         <sqlNullAsNull>stringaaaaa</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

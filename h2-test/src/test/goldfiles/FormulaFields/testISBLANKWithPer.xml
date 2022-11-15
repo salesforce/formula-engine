@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISBLANKWithPer">
+   <testInstance formula="if(isblank(custompercent1__c), 0,customnumber1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) IS NULL) THEN 0 ELSE COALESCE($!s0s!$.customnumber1__c, 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / 100.0) IS NULL) THEN 0 ELSE $!s0s!$.customnumber1__c END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[10, 10]</inputvalues>
+         <formula>10</formula>
+         <sql>10</sql>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>10</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 10]</inputvalues>
+         <formula>10</formula>
+         <sql>10</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0000009, 10]</inputvalues>
+         <formula>10</formula>
+         <sql>10</sql>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>10</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1, 10]</inputvalues>
+         <formula>10</formula>
+         <sql>10</sql>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>10</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0.0009]</inputvalues>
+         <formula>0.0009</formula>
+         <sql>0.0009</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0, 10]</inputvalues>
+         <formula>10</formula>
+         <sql>10</sql>
+         <formulaNullAsNull>10</formulaNullAsNull>
+         <sqlNullAsNull>10</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, 4]</inputvalues>
+         <formula>4</formula>
+         <sql>4</sql>
+         <formulaNullAsNull>4</formulaNullAsNull>
+         <sqlNullAsNull>4</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0]</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0.0]</inputvalues>
+         <formula>0.0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 0.0000000]</inputvalues>
+         <formula>0.0000000</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1, 10.1234]</inputvalues>
+         <formula>10.1234</formula>
+         <sql>10.1234</sql>
+         <formulaNullAsNull>10.1234</formulaNullAsNull>
+         <sqlNullAsNull>10.1234</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[10.1234, 1]</inputvalues>
+         <formula>1</formula>
+         <sql>1</sql>
+         <formulaNullAsNull>1</formulaNullAsNull>
+         <sqlNullAsNull>1</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextFunctionWithDate">
+   <testInstance formula="TEXT(DATE(2013,12,31))" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>'2013-12-31'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>'2013-12-31'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>2013-12-31</formula>
+         <sql>2013-12-31</sql>
+         <formulaNullAsNull>2013-12-31</formulaNullAsNull>
+         <sqlNullAsNull>2013-12-31</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

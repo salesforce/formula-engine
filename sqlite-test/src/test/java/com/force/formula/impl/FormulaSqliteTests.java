@@ -18,13 +18,12 @@ import com.force.formula.impl.sql.FormulaSqliteHooks;
 import com.force.formula.sql.EmbeddedSqliteTester;
 
 /**
- * Abstract class for testing formulas with Spanner's emulator
+ * Abstract class for testing formulas with embedded Sqlite
  * @author stamm
  * @since 0.3.0
  */
 public abstract class FormulaSqliteTests extends FormulaGenericTests {
 
-	// use a single DB with a docker container, and not three of them by sharing them.
 	static DbTester SHARED_TESTER;
 	static {
 		try {

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationSecondsBool">
+   <testInstance formula="FORMATDURATION(customNumber1__c, customcheckbox1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>NVL2(TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0))),(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN TO_CHAR(TRUNC((TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0))))/86400))||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0))))/3600),24),'FM09') ELSE TO_CHAR(TRUNC((TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0))))/3600),'FM99999909') END)||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0))))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0)))),60),'FM09'),NULL)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>NVL2(TRUNC(ABS($!s0s!$.customNumber1__c)),(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN TO_CHAR(TRUNC((TRUNC(ABS($!s0s!$.customNumber1__c)))/86400))||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS($!s0s!$.customNumber1__c)))/3600),24),'FM09') ELSE TO_CHAR(TRUNC((TRUNC(ABS($!s0s!$.customNumber1__c)))/3600),'FM99999909') END)||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS($!s0s!$.customNumber1__c)))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(TRUNC(ABS($!s0s!$.customNumber1__c))),60),'FM09'),NULL)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, TRUE]</inputvalues>
+         <formula>0:00:00:00</formula>
+         <sql>0:00:00:00</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, FALSE]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, TRUE]</inputvalues>
+         <formula>0:00:00:00</formula>
+         <sql>0:00:00:00</sql>
+         <formulaNullAsNull>0:00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, FALSE]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.0, ]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24, TRUE]</inputvalues>
+         <formula>0:00:00:24</formula>
+         <sql>0:00:00:24</sql>
+         <formulaNullAsNull>0:00:00:24</formulaNullAsNull>
+         <sqlNullAsNull>0:00:00:24</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[24, FALSE]</inputvalues>
+         <formula>00:00:24</formula>
+         <sql>00:00:24</sql>
+         <formulaNullAsNull>00:00:24</formulaNullAsNull>
+         <sqlNullAsNull>00:00:24</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.99, TRUE]</inputvalues>
+         <formula>0:00:00:00</formula>
+         <sql>0:00:00:00</sql>
+         <formulaNullAsNull>0:00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>0:00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[.99, FALSE]</inputvalues>
+         <formula>00:00:00</formula>
+         <sql>00:00:00</sql>
+         <formulaNullAsNull>00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[86400, TRUE]</inputvalues>
+         <formula>1:00:00:00</formula>
+         <sql>1:00:00:00</sql>
+         <formulaNullAsNull>1:00:00:00</formulaNullAsNull>
+         <sqlNullAsNull>1:00:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[86400, FALSE]</inputvalues>
+         <formula>24:00:00</formula>
+         <sql>24:00:00</sql>
+         <formulaNullAsNull>24:00:00</formulaNullAsNull>
+         <sqlNullAsNull>24:00:00</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1000000, TRUE]</inputvalues>
+         <formula>11:13:46:40</formula>
+         <sql>11:13:46:40</sql>
+         <formulaNullAsNull>11:13:46:40</formulaNullAsNull>
+         <sqlNullAsNull>11:13:46:40</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1000000, FALSE]</inputvalues>
+         <formula>277:46:40</formula>
+         <sql>277:46:40</sql>
+         <formulaNullAsNull>277:46:40</formulaNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1000000, TRUE]</inputvalues>
+         <formula>11:13:46:40</formula>
+         <sql>11:13:46:40</sql>
+         <formulaNullAsNull>11:13:46:40</formulaNullAsNull>
+         <sqlNullAsNull>11:13:46:40</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[-1000000, FALSE]</inputvalues>
+         <formula>277:46:40</formula>
+         <sql>277:46:40</sql>
+         <formulaNullAsNull>277:46:40</formulaNullAsNull>
+         <sqlNullAsNull>277:46:40</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[15, TRUE]</inputvalues>
+         <formula>0:00:00:15</formula>
+         <sql>0:00:00:15</sql>
+         <formulaNullAsNull>0:00:00:15</formulaNullAsNull>
+         <sqlNullAsNull>0:00:00:15</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[15, FALSE]</inputvalues>
+         <formula>00:00:15</formula>
+         <sql>00:00:15</sql>
+         <formulaNullAsNull>00:00:15</formulaNullAsNull>
+         <sqlNullAsNull>00:00:15</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[30, TRUE]</inputvalues>
+         <formula>0:00:00:30</formula>
+         <sql>0:00:00:30</sql>
+         <formulaNullAsNull>0:00:00:30</formulaNullAsNull>
+         <sqlNullAsNull>0:00:00:30</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[30, FALSE]</inputvalues>
+         <formula>00:00:30</formula>
+         <sql>00:00:30</sql>
+         <formulaNullAsNull>00:00:30</formulaNullAsNull>
+         <sqlNullAsNull>00:00:30</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29.59, FALSE]</inputvalues>
+         <formula>00:00:29</formula>
+         <sql>00:00:29</sql>
+         <formulaNullAsNull>00:00:29</formulaNullAsNull>
+         <sqlNullAsNull>00:00:29</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29.59, TRUE]</inputvalues>
+         <formula>0:00:00:29</formula>
+         <sql>0:00:00:29</sql>
+         <formulaNullAsNull>0:00:00:29</formulaNullAsNull>
+         <sqlNullAsNull>0:00:00:29</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29.99, FALSE]</inputvalues>
+         <formula>00:00:29</formula>
+         <sql>00:00:29</sql>
+         <formulaNullAsNull>00:00:29</formulaNullAsNull>
+         <sqlNullAsNull>00:00:29</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29.99, TRUE]</inputvalues>
+         <formula>0:00:00:29</formula>
+         <sql>0:00:00:29</sql>
+         <formulaNullAsNull>0:00:00:29</formulaNullAsNull>
+         <sqlNullAsNull>0:00:00:29</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
