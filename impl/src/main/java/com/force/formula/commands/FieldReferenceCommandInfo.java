@@ -19,6 +19,7 @@ import com.force.formula.FormulaDataType;
 import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaEngine;
 import com.force.formula.FormulaException;
+import com.force.formula.FormulaFactory;
 import com.force.formula.FormulaFieldInfo;
 import com.force.formula.FormulaFieldReference;
 import com.force.formula.FormulaFieldReferenceInfo;

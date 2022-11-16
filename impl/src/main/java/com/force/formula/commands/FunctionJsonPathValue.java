@@ -45,7 +45,7 @@ import com.jayway.jsonpath.spi.mapper.MappingProvider;
  * 
  * Note, this always returns text.
  * 
- * @see  https://goessner.net/articles/JsonPath/
+ * @see <a href="https://goessner.net/articles/JsonPath/">JsonPath</a>
  * @author stamm
  * @since 0.2.15
  */

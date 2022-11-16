@@ -15,6 +15,7 @@ import com.force.formula.sql.DbContainerTester;
  *
  * @author stamm
  * @since 0.3
+ * @param <DB> the MySQL DB container
  */
 public abstract class MySQLStyleContainerTester<DB extends JdbcDatabaseContainer<?>> extends DbContainerTester<DB> {
 

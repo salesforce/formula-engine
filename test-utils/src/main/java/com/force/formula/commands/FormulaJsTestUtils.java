@@ -12,11 +12,23 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.URI;
+import java.nio.channels.FileChannel;
+import java.nio.channels.SeekableByteChannel;
+import java.nio.file.AccessMode;
+import java.nio.file.DirectoryStream;
+import java.nio.file.LinkOption;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.FileAttribute;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +42,7 @@ import javax.script.ScriptException;
 
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Value;
+import org.graalvm.polyglot.io.FileSystem;
 import org.graalvm.polyglot.proxy.ProxyObject;
 
 import com.coveo.nashorn_modules.Require;
@@ -41,6 +54,7 @@ import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaEngine;
 import com.force.formula.util.FormulaDateUtil;
 import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
 
@@ -451,22 +465,11 @@ public class FormulaJsTestUtils {
      * Load the file from the resource and put it on disk, so graalvm can load it normally.
      * @param resourcePath the path relative to this classloader
      * @param tmpName the tmpName to use for the jsfile
-     * @return a file that will be deleted on exit
-     * @throws IOException if the file can't be found.
-     */
-    private File makeJsFileFromResource(String resourcePath, String tmpName) throws IOException {
-        return makeJsFileFromResource(resourcePath, tmpName, ".js");
-    }
-    
-    /**
-     * Load the file from the resource and put it on disk, so graalvm can load it normally.
-     * @param resourcePath the path relative to this classloader
-     * @param tmpName the tmpName to use for the jsfile
      * @param ext the extension to use, like '.js'
      * @return a file that will be deleted on exit
      * @throws IOException if the file can't be found.
      */
-    private File makeJsFileFromResource(String resourcePath, String tmpName, String ext) throws IOException {
+    private static File makeJsFileFromResource(String resourcePath, String tmpName, String ext) throws IOException {
         InputStream decimalUrlStream = FormulaJsTestUtils.class.getClassLoader().getResourceAsStream(resourcePath);
         byte[] buffer = ByteStreams.toByteArray(decimalUrlStream);
         File tmp = File.createTempFile(tmpName, ext);
@@ -479,8 +482,8 @@ public class FormulaJsTestUtils {
         Context context = ROOT_CONTEXT.get();
         if (context == null) {
             Context.Builder builder = Context.newBuilder("js");
+            builder.fileSystem(new JarFS());
             builder.allowIO(true);  // Needed to load modules
-            builder.allowNativeAccess(true);  // Need native access to use the file system to load files.  Easier than polyglot filesystem
             builder.option("js.intl-402", "true"); // Support now ubiquitous Intl object for formatcurrency and the like.
             builder.option("engine.WarnInterpreterOnly", "false");  // Don't warn about being in openjdk with graaljs.
 
@@ -490,33 +493,23 @@ public class FormulaJsTestUtils {
 
             context = builder.build();
 
-            try {
-                // Need native access for this. :-/.  It also requires a file on disk.
-                
-                File tmp = makeJsFileFromResource("com/force/formula/formulaEngine.js", "formulaEngine", ".js");
-                context.eval("js", "load('" + tmp.getAbsolutePath() + "'); var $F = FormulaEngine;");
+            context.eval("js", "load('com/force/formula/formulaEngine.js'); var $F = FormulaEngine;");
 
-                // You can't redefine stuff in modules, and you need the options above, and then it's still questionable
-                //File tmp = makeJsFileFromResource("com/force/formula/formulaEngine.mjs", "formulaEngine", ".mjs");
-                //Value feModule = context.eval(Source.newBuilder("js", "import {FormulaEngine} from '" + tmp.getAbsolutePath() + "'; FormulaEngine;", "test.mjs").build());
-                //context.getBindings("js").putMember("$F", feModule);
-                //context.getBindings("js").putMember("FormulaEngine", feModule);
-                
-                // Allow overrides
-                evalGraalContextGlobals(context);
+            // You can't redefine stuff in modules, and you need the options above, and then it's still questionable
+            //File tmp = makeJsFileFromResource("com/force/formula/formulaEngine.mjs", "formulaEngine", ".mjs");
+            //Value feModule = context.eval(Source.newBuilder("js", "import {FormulaEngine} from '" + tmp.getAbsolutePath() + "'; FormulaEngine;", "test.mjs").build());
+            //context.getBindings("js").putMember("$F", feModule);
+            //context.getBindings("js").putMember("FormulaEngine", feModule);
+            
+            // Allow overrides
+            evalGraalContextGlobals(context);
+            context.eval("js", "load('com/force/formula/decimal.js')");
+            context.eval("js",  "Object.defineProperty($F, 'Decimal', { value : Decimal});");
+            
+            context.eval("js", "load('com/force/formula/jsonpath.js')");
+            context.eval("js",  "Object.defineProperty($F, 'jsonPath', { value : jsonPath});");
 
-                tmp = makeJsFileFromResource("com/force/formula/decimal.js", "decimal");
-                context.eval("js", "load('" + tmp.getAbsolutePath() + "')");
-                context.eval("js",  "Object.defineProperty($F, 'Decimal', { value : Decimal});");
-                
-                tmp = makeJsFileFromResource("com/force/formula/jsonpath.js", "jsonpath");
-                context.eval("js", "load('" + tmp.getAbsolutePath() + "')");
-                context.eval("js",  "Object.defineProperty($F, 'jsonPath', { value : jsonPath});");
-
-                ROOT_CONTEXT.set(context);
-            } catch (IOException x) {
-                throw new RuntimeException(x);
-            }
+            ROOT_CONTEXT.set(context);
         }
         return context;
     }
@@ -711,5 +704,56 @@ public class FormulaJsTestUtils {
             // Ignore it for now
         }
         return obj;
+    }
+    
+    /**
+     * Trivial Truffle Filesystem that calls into {@link #makeJsFileFromResource(String, String, String)}.
+     */
+    protected static class JarFS implements FileSystem {
+        JarFS() {
+        }
+        @Override
+        public Path parsePath(URI uri) {
+            return Paths.get(uri);
+        }
+        @Override
+        public Path parsePath(String path) {
+            return Paths.get(path);
+        }
+        @Override
+        public void checkAccess(Path path, Set<? extends AccessMode> modes, LinkOption... linkOptions) {
+        }
+        @Override
+        public void createDirectory(Path dir, FileAttribute<?>... attrs) {
+            throw new AssertionError();
+        }
+        @Override
+        public void delete(Path path) {
+            throw new AssertionError();
+        }
+        @Override
+        public SeekableByteChannel newByteChannel(Path path, Set<? extends OpenOption> options, FileAttribute<?>... attrs) throws IOException {
+            String resource = path.toString();
+            File f = makeJsFileFromResource(resource, "temp", resource.substring(resource.lastIndexOf('.')));
+            return FileChannel.open(f.toPath(), StandardOpenOption.READ);
+        }
+        @Override
+        public DirectoryStream<Path> newDirectoryStream(Path dir, DirectoryStream.Filter<? super Path> filter) {
+            throw new AssertionError();
+        }
+        @Override
+        public Path toAbsolutePath(Path path) {
+            return path.toAbsolutePath();
+        }
+        @Override
+        public Path toRealPath(Path path, LinkOption... linkOptions) {
+            return path;
+        }
+        @Override
+        public Map<String, Object> readAttributes(Path path, String attributes, LinkOption... options) {
+            // Size isn't really used.
+            return ImmutableMap.of("isRegularFile",  Boolean.TRUE,
+                    "size", 0L);
+        }
     }
 }

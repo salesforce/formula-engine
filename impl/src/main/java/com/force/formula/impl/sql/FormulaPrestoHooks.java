@@ -351,7 +351,7 @@ public interface FormulaPrestoHooks extends FormulaSqlHooks {
     }
     
     @Override
-    default String sqlSubtractTwoTimestamps(boolean inSeconds) {
+    default String sqlSubtractTwoTimestamps(boolean inSeconds, Type dateType) {
         return inSeconds ? "CAST(-DATE_DIFF('SECOND',%s,%s) AS DECIMAL(38,10))" 
                 : "(CAST(-DATE_DIFF('SECOND',%s,%s) AS DECIMAL(38,10))/86400)";  
     } 

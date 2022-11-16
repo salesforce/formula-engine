@@ -75,6 +75,7 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
     /**
      * Helpful function for generating a NVL for use in javascript
      * 
+     * @param context the formulaContext
      * @param value
      *            the value to test, and return if not null
      * @param ifNull
@@ -100,6 +101,7 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
     /**
      * Helpful function for generating a NOE for use in javascript
      * 
+     * @param context the formulaContext
      * @param value
      *            the value to test, and return if (not null nor empty)
      * @param ifNull
@@ -125,6 +127,7 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
     /**
      * Helpful function for generating a NVL2 for use in javascript
      * 
+     * @param context the formulaContext
      * @param test
      *            the value to test
      * @param value
@@ -141,6 +144,7 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
      * Helpful function for generating a NVL2 for use in javascript, where you may want to include the guard as one of
      * the tests to "swallow" it whole. Used to map the fact that LEN() in sql &amp; java returns 0 for nul.
      * 
+     * @param context the formulaContext
      * @param test
      *            the value to test
      * @param value
@@ -187,13 +191,16 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
      * Helper method for high precision javascript
      * 
      * @return whether to use the "Decimal" or "Math" packages for math functions
+     * @param context the formulaContext
      */
     protected static String jsMathPkg(FormulaContext context) {
 		return context.useHighPrecisionJs() ? context.getJsEngMod() + ".Decimal" : "Math";
     }
 
     /**
-     * Convert the value *to* a high precision decimal from a javascript number
+     * @return Convert the value *to* a high precision decimal from a javascript number
+     * @param context the formulaContext
+     * @param val the numeric value to possibly convert
      */
     protected static String jsToDec(FormulaContext context, String val) {
         return context.useHighPrecisionJs() ? "(new " + context.getJsEngMod() + ".Decimal(" + val + "))" : val;
@@ -202,9 +209,9 @@ public abstract class FormulaCommandInfoImpl implements FormulaCommandInfo {
     /**
      * Convert the value to a javascript number from a high precision decimal (for use in things like dates)
      * 
-     * @param context
-     * @param val
-     * @return
+     * @param context the formulaContext
+     * @param val the numeric value to possibly convert
+     * @return the javascript to convert the number to native.
      */
     protected static String jsToNum(FormulaContext context, String val) {
         return context.useHighPrecisionJs() ? val + ".toNumber()" : val;

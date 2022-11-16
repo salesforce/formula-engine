@@ -17,6 +17,7 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
  * underlying databases.
  * 
  * @author stamm
+ * @param <DB> the DB container
  */
 public abstract class DbContainerTester<DB extends JdbcDatabaseContainer<?>> extends DockerContainerTester<DB> {
 

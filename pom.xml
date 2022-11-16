@@ -13,7 +13,7 @@
   <url>https://github.com/salesforce/formula-engine</url>
   <properties>
     <guava.version>31.1-jre</guava.version>
-    <graalvm.version>22.1.0</graalvm.version>
+    <graalvm.version>22.3.0</graalvm.version>
     <embedded-postgres.version>2.0.1</embedded-postgres.version>
     <testcontainers.version>1.17.3</testcontainers.version>
     <javax.annotation.version>1.2</javax.annotation.version>

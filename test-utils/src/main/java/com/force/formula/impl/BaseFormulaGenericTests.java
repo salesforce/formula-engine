@@ -556,9 +556,10 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 
 		/**
 		 * Allow validation of testCaseStats after running all of the requests (like how many failures in JS/SQL there should be
-		 * @param instance
-		 * @param stats
-		 * @param xmlOut
+		 * @param instance the current running test
+		 * @param stats the current stats for the test
+		 * @param xmlOut where to output the erro
+		 * @return the error if the test case stats do not correspond with the expected outcome
 		 */
 		protected String validateTestCaseStats(FormulaTestRunnable instance, TestCaseStats stats, PrintStream xmlOut) {
 		    return null;

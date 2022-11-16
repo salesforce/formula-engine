@@ -22,7 +22,8 @@ public abstract class BaseRootFormulaContext extends BaseCompositeFormulaContext
     private final FormulaReturnType returnType;
 
     /**
-     * @param outerContext
+     * @param topLevelFormulaType the top level formula type
+     * @param returnType the type to return for this formula
      */
     public BaseRootFormulaContext(FormulaTypeSpec topLevelFormulaType, FormulaReturnType returnType) {
         super(null, topLevelFormulaType);

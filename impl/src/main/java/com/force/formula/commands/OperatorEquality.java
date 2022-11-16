@@ -126,6 +126,7 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
 
     /**
      * You can't natively compare dates in javascript; either you do a&gt;=b &amp;&amp; a&lt;=b, or you call getTime().  getTime() seems less awful
+     * @param context the formulaContext
      * @param arg the value for the type to compare 
      * @param argType the argument type
      * @return a javascript value suitable for testing equality
@@ -261,6 +262,7 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
     /**
      * See compareBulk for the reasoning behind this function. Javascript behavior must match 
      * SQL and formula engine.
+     * @param context the formulaContext
      * @param lhs the left hand side of the comparison
      * @param lhsType  the TokenType of the left hand side (TODO: use antlr4)
      * @param rhs the right hand side of the comparison
