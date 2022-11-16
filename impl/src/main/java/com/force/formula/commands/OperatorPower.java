@@ -49,10 +49,10 @@ public class OperatorPower extends BinaryMathCommandBehavior {
             
             // Doing the guard was difficult as well
             //String guard = "(Math.log(Math.abs("+args[0]+"))*"+args[1]+"<39)";
-            //return JsValue.generate("("+guard+"?Decimal.pow("+ args[0] + "," + args[1] + ") : new $F.Decimal(0))", args, false, args);
+            //return JsValue.generate("("+guard+"?Decimal.pow("+ args[0] + "," + args[1] + ") : new " + context.getJsModule() + ".Decimal(0))", args, false, args);
             
             // This reduces the precision of Pow, but is safe and matches java
-            return JsValue.generate("new $F.Decimal(Math.pow("+args[0] + "," + args[1]+ "))", args, false, args);
+            return JsValue.generate("new " + context.getJsEngMod() + ".Decimal(Math.pow("+args[0] + "," + args[1]+ "))", args, false, args);
         }
         return JsValue.generate("Math.pow("+args[0] + "," + args[1]+ ")", args, false, args);
     }

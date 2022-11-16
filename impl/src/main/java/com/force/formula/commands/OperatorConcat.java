@@ -3,10 +3,15 @@ package com.force.formula.commands;
 
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -36,7 +41,7 @@ public class OperatorConcat extends FormulaCommandInfoImpl {
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         // TODO, nulls turn into "".  Maybe very wrong.
-        return JsValue.generate(jsNvl(args[0].js,"''") + "+" + jsNvl(args[1].js,"''"), args, false);
+        return JsValue.generate(jsNvl(context, args[0].js,"''") + "+" + jsNvl(context, args[1].js,"''"), args, false);
     }
 
 

@@ -127,7 +127,7 @@ public class FunctionJsonValue extends FormulaCommandInfoImpl implements Formula
     
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        return JsValue.generate("$F.tostr(JSON.parse("+args[0]+"||'{}')["+args[1]+"])", args, true);
+        return JsValue.generate(context.getJsEngMod() + ".tostr(JSON.parse("+args[0]+"||'{}')["+args[1]+"])", args, true);
     }
 
     static class FunctionJsonValueCommand extends AbstractFormulaCommand {

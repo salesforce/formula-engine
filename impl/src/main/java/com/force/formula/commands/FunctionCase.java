@@ -222,7 +222,7 @@ public class FunctionCase extends FormulaCommandInfoImpl implements FormulaComma
                     boolean hasEmpty = cases.contains("");
                     String arr = cases.stream().map(c->"'"+FormulaTextUtil.escapeForJavascriptString(c)+"'").collect(Collectors.joining(","));
                     // Match the null semantics of SQL here when matching picklists.
-                    js.append("[").append(arr).append("].indexOf(").append(!hasEmpty?args[0]:jsNvl(args[0].js, "\"\"")).append(")>=0?");
+                    js.append("[").append(arr).append("].indexOf(").append(!hasEmpty?args[0]:jsNvl(context, args[0].js, "\"\"")).append(")>=0?");
                     valueNode = (FormulaAST)whenNode.getNextSibling();
                     js.append("(").append(args[i+1].js).append("):");
                     couldBeNull |= args[i+1].couldBeNull;
@@ -238,7 +238,7 @@ public class FunctionCase extends FormulaCommandInfoImpl implements FormulaComma
                 //String condition;
                 whenNode = (FormulaAST)valueNode.getNextSibling();
                 // Make sure null != null by testings args[i]
-                js.append("("+args[i] + "&&("+OperatorEquality.wrapJsForEquality(args[0], expType)+"=="+OperatorEquality.wrapJsForEquality(args[i], expType)+"))?");
+                js.append("("+args[i] + "&&("+OperatorEquality.wrapJsForEquality(context, args[0], expType)+"=="+OperatorEquality.wrapJsForEquality(context, args[i], expType)+"))?");
                 valueNode = (FormulaAST)whenNode.getNextSibling();
                 js.append("(").append(args[i+1].js).append("):");
                 couldBeNull |= args[i+1].couldBeNull;

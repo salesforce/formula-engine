@@ -75,7 +75,7 @@ public class FunctionAddMonths extends FormulaCommandInfoImpl implements Formula
     
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        String js =  "$F.addmonths(" + args[0] + "," + jsToNum(context, args[1].js) + ")";
+        String js =  context.getJsEngMod() + ".addmonths(" + args[0] + "," + jsToNum(context, args[1].js) + ")";
         return JsValue.generate(js, args, true, args);
     }
 

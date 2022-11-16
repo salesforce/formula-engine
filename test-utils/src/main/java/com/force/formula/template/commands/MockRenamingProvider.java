@@ -20,7 +20,7 @@ import com.google.common.collect.ImmutableMap;
  * RenamingProvider curProvider = RenamingProviderFactory.get().getProvider();
  * try {
  *     MockRenamingProvider newProvider = new MockRenamingProvider(makeEnglishNoun("account", NounType.ENTITY,
- *             LanguageStartsWith.CONSONANT, "Client or Person", "Clients & People"));
+ *             LanguageStartsWith.CONSONANT, "Client or Person", "Clients &amp; People"));
  * } finally {
  *     RenamingProviderFactory.get().setProvider(curProvider);
  * }

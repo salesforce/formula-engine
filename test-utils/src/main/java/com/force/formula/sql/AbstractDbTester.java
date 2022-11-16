@@ -275,8 +275,10 @@ public abstract class AbstractDbTester implements DbTester {
 	
 	/**
 	 * @return the value to use as a literal sql value for the display field.
+	 * @param pstmt the prepared statement to bind
 	 * @param df the display field
 	 * @param value the value from the MapEntityObject
+	 * @param position the numeric position to bind
 	 */
 	protected void bindSqlValue(PreparedStatement pstmt, DisplayField df, Object value, int position) throws SQLException {
 		switch ((MockFormulaDataType) df.getFormulaFieldInfo().getDataType()) {
@@ -360,7 +362,7 @@ public abstract class AbstractDbTester implements DbTester {
 	 * for comparing with Java and Javascript evaluation
 	 * @param rset the result set already nexted to the first row, with the result in column 1
 	 * @param formulaContext the formula contex used to evaluate
-	 * @param formula the formula that generated the sql (with the result passed through {@link #fixSqlFormat(String, Formula)}
+	 * @param formula the formula that generated the sql (with the result passed through {@link #fixSqlFormat(FormulaContext, String, Formula)}
 	 * @return a String formatted, or null if the object is null
 	 * @throws SQLException if there was a SQL exception
 	 */

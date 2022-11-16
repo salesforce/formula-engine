@@ -4,10 +4,16 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.stream.Collectors;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.Thunk;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
@@ -126,7 +132,7 @@ public class FunctionOr extends FormulaCommandInfoImpl implements FormulaCommand
 
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        return new JsValue(jsNvl(Arrays.asList(args).stream().map((a) -> a.buildJSWithGuard())
+        return new JsValue(jsNvl(context, Arrays.asList(args).stream().map((a) -> a.buildJSWithGuard())
                 .collect(Collectors.joining(")||(", "(", ")")), "false"), null, false);
     }
 }

@@ -9,6 +9,8 @@ import java.util.TimeZone;
 
 import com.force.formula.FormulaDataType;
 import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.MockFormulaContext;
 import com.force.formula.MockFormulaType;
 
 /**
@@ -50,4 +52,17 @@ public class BuiltinFunctionsJsTest extends BuiltinFunctionsTest {
     @Override
     public void testRPAD() throws Exception {}
 
+    @Override
+    protected FormulaRuntimeContext setupMockContext(FormulaDataType columnType) {
+        return new MockFormulaContext(getFormulaType(), columnType) {
+
+            @Override
+            public String getJsEngMod() {
+                // Use FormulaEngine to make sure it works with the "default".  Use $F in the gold files for brevity
+                return "FormulaEngine";
+            }
+            
+        };
+    }
+    
 }

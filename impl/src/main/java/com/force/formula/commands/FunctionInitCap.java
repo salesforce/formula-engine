@@ -35,7 +35,7 @@ public class FunctionInitCap extends FormulaCommandInfoImpl {
 
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        return JsValue.forNonNullResult("$F.initcap("+args[0] +")",args);
+        return JsValue.forNonNullResult(context.getJsEngMod() + ".initcap("+args[0] +")",args);
     }
     
     static class FunctionInitCapCommand extends AbstractFormulaCommand {

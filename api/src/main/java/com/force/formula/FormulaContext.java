@@ -215,6 +215,14 @@ public interface FormulaContext extends Tokenizer {
     default FormulaSqlStyle getSqlStyle() {
         return FormulaEngine.getHooks().getSqlStyle();
     }
+    
+    /**
+     * @return the javascript module to use for evaluating functions like "anl" and "noe" or "parseDateTime".
+     * Defaults to $F, but can be overridden to another global.
+     */
+    default String getJsEngMod() {
+        return "$F";
+    }
 
     
     /**

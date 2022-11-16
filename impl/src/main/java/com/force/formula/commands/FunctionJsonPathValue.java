@@ -128,8 +128,8 @@ public class FunctionJsonPathValue extends FormulaCommandInfoImpl implements For
     
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        //return JsValue.forNonNullResult("typeof $F==='undefined'?undefined:($F.jsonPath("+args[0]+",((!"+args[1]+"||'').startsWith('$')?'$.':'')+"+args[1]+")||'')", args);
-        return JsValue.forNonNullResult("typeof $F==='undefined'?undefined:(String($F.jsonPath(JSON.parse("+args[0]+"),"+args[1]+")||''))", args);
+        //return JsValue.forNonNullResult("typeof $F==='undefined'?undefined:(" + context.getJsModule() + ".jsonPath("+args[0]+",((!"+args[1]+"||'').startsWith('$')?'$.':'')+"+args[1]+")||'')", args);
+        return JsValue.forNonNullResult("typeof "+context.getJsEngMod()+"==='undefined'?undefined:(String(" + context.getJsEngMod() + ".jsonPath(JSON.parse("+args[0]+"),"+args[1]+")||''))", args);
     }
 
     static class FunctionJsonValueCommand extends AbstractFormulaCommand {

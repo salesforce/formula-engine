@@ -148,69 +148,7 @@ public class FormulaJsTestUtils {
      * @return a string to create a "$F" variable for evaluating FormulaEngine helper functions.
      */
     protected String getFunctionScript() {
-        StringBuilder fContext = new StringBuilder();
-        fContext.append("var $F={};").append("$F.nvl=function(a,b){return a!=null?a:b};")
-                .append("$F.anl=function(a) {for (var i in a) {"
-                        + "if (a[i] == null) { return true; } } return false; };")
-                .append("$F.noe=function noe(value,ifNull)"
-                        + "{if(value===undefined||value===null||value===''){return ifNull;}"
-                        + "if(Array.isArray(value)){return value.length===0?ifNull:value;}"
-                        + "else if(typeof value==='object'&&Object.prototype.toString.call(value)==='[object Object]'){return Object.keys(value).length===0?ifNull:value;}"
-                        + "return value;};")
-                .append("$F.lpad=function(a,b,c) {return !a||!b||b<1?null:(b<=a.length?a.substring(0,b):((Array(256).join(c)+'').substring(0,b-a.length))+a)};")
-
-                // For json
-                .append("$F.tostr=function(value)"
-                        + "{if(value===undefined||value===null||value===''){return value;}"
-                        + "return String(value);};")
-
-                // Chrome, Node & GraalJS have lenient date parsing for 'YYYY-MM-DD HH:MM:SS'.  Others require ecmascript.  Try both.  
-                .append("$F.parseDateTime=function(value)"
-                        + "{if(value===undefined||value===null||value===''){return null;}"
-                        + "var d = new Date(value.trim().replace(' ','T')+'Z'); return isNaN(d) ? new Date(value.trim() + ' GMT') : d;};")
-
-                
-                // Note, Javascript setMonths has strange behavior since it'll make January 30th + 1 month may be March.  And last day needs to remain last day to match oracle.
-                // So if it's the last day of the month, we add one to the day and add the month, then remove the day.  Otherwise we use the "set Date to 0 to be last day of previous month" javascript behavior 
-                // so Jan 30 + 1 month will be Feb 28 in a non-leap year 
-                .append("$F.addmonths=function(a,b) {if (a==null||b==null) return null;if (!b) return a;var lastDay=a.getUTCDay()==(new Date(Date.UTC(a.getUTCFullYear(),a.getUTCMonth()+1,0))).getUTCDay();"
-                        +"var d=new Date(a.getTime()+(lastDay?86400000:0));d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));"
-                        +"if (lastDay) return new Date(d.getTime()-86400000); if (d.getUTCDate()!=a.getUTCDate()){d.setUTCDate(0)};return d;};")
-                
-                // Use this if you want to support fractional dates
-        		//.append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));d.setUTCDate(d.getUTCDate()+Math.trunc((b%1)*365.24/12));return new Date(d.getTime()-86400000);};")
-
-                // ISO week/day functions
-        		.append("$F.isoweek=function(a) {if (!a) return a;"
-        				+ "var d = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));"
-        				+ "var dayNum = d.getUTCDay() || 7;"
-        				+ "d.setUTCDate(d.getUTCDate() + 4 - dayNum);"
-        				+ "var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));"
-        				+ "return Math.ceil((((d - yearStart)/86400000) + 1)/7);}\n")
-        		.append("$F.isoyear=function(a) {if (!a) return a;"
-        				+ "var d = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));"
-        				+ "var dayNum = d.getUTCDay() || 7;"
-        				+ "d.setUTCDate(d.getUTCDate() + 4 - dayNum);"
-        				+ "var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));"
-        				+ "return yearStart.getUTCFullYear();}\n")
-        		// Javascript doesn't have day of year either.
-        		.append("$F.dayofyear=function(a) {if (!a) return a;"
-        				+ "var d = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));"
-        				+ "var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));"
-        				+ "return Math.ceil((1+(d - yearStart))/86400000);}\n")
-        		// Init cap... Normalize and use unicode to match postgres/oracle behavior
-        		.append("$F.initcap=function(a) {if (!a) return a;"
-        				+ "return a.toLowerCase().replace(/(?:^|[^\\p{Ll}\\p{Lm}\\p{Lu}\\p{N}])[\\p{Ll}]/gu, function (m) {return m.toUpperCase();})}\n")
-        		// Format duration is complicated.  Trunc seconds, then 
-        		.append("$F.formatduration=function(s,includeDays) {if (isNaN(s)) return null;"
-                        + "if (includeDays) {"
-        		        + " return Math.trunc(s/86400)+':'+(''+Math.trunc(s/3600)%24).padStart(2,'0')+':'+(''+Math.trunc(s/60)%60).padStart(2,'0')+':'+(''+Math.trunc(s%60)).padStart(2,'0');"
-        		        + "} else {"
-        		        + " return (''+Math.trunc(s/3600)).padStart(2,'0')+':'+(''+Math.trunc(s/60)%60).padStart(2,'0')+':'+(''+Math.trunc(s%60)).padStart(2,'0');"
-        		        + "}}\n")
-        		;
-
-        return fContext.toString();
+        return "$F;";  // Everything should be loaded from formulaEngine.js above
     }
 
     /**
@@ -473,7 +411,7 @@ public class FormulaJsTestUtils {
     protected void makeGraalBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
         Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
         bindScriptEngineGlobals(compEngine, bindings, engineBindings);
-
+        
         // Need native access for this. :-/
         // URL decimalUrl = FormulaJsTestUtils.class.getClassLoader().getResource("com/force/formula/decimal.js");
         // Object decObj = compEngine.eval("load('"+new File(decimalUrl.toURI()).getAbsolutePath()+"')");
@@ -517,9 +455,21 @@ public class FormulaJsTestUtils {
      * @throws IOException if the file can't be found.
      */
     private File makeJsFileFromResource(String resourcePath, String tmpName) throws IOException {
+        return makeJsFileFromResource(resourcePath, tmpName, ".js");
+    }
+    
+    /**
+     * Load the file from the resource and put it on disk, so graalvm can load it normally.
+     * @param resourcePath the path relative to this classloader
+     * @param tmpName the tmpName to use for the jsfile
+     * @param ext the extension to use, like '.js'
+     * @return a file that will be deleted on exit
+     * @throws IOException if the file can't be found.
+     */
+    private File makeJsFileFromResource(String resourcePath, String tmpName, String ext) throws IOException {
         InputStream decimalUrlStream = FormulaJsTestUtils.class.getClassLoader().getResourceAsStream(resourcePath);
         byte[] buffer = ByteStreams.toByteArray(decimalUrlStream);
-        File tmp = File.createTempFile(tmpName, ".js");
+        File tmp = File.createTempFile(tmpName, ext);
         tmp.deleteOnExit();
         Files.write(buffer, tmp);
         return tmp;
@@ -529,20 +479,36 @@ public class FormulaJsTestUtils {
         Context context = ROOT_CONTEXT.get();
         if (context == null) {
             Context.Builder builder = Context.newBuilder("js");
-            builder.allowNativeAccess(true);
-            builder.allowIO(true);
+            builder.allowIO(true);  // Needed to load modules
+            builder.allowNativeAccess(true);  // Need native access to use the file system to load files.  Easier than polyglot filesystem
             builder.option("js.intl-402", "true"); // Support now ubiquitous Intl object for formatcurrency and the like.
             builder.option("engine.WarnInterpreterOnly", "false");  // Don't warn about being in openjdk with graaljs.
+
+            // This is required to try mjs (see below)
+            // builder.allowExperimentalOptions(true);
+            // builder.option("js.esm-eval-returns-exports", "true");
+
             context = builder.build();
 
             try {
+                // Need native access for this. :-/.  It also requires a file on disk.
+                
+                File tmp = makeJsFileFromResource("com/force/formula/formulaEngine.js", "formulaEngine", ".js");
+                context.eval("js", "load('" + tmp.getAbsolutePath() + "'); var $F = FormulaEngine;");
+
+                // You can't redefine stuff in modules, and you need the options above, and then it's still questionable
+                //File tmp = makeJsFileFromResource("com/force/formula/formulaEngine.mjs", "formulaEngine", ".mjs");
+                //Value feModule = context.eval(Source.newBuilder("js", "import {FormulaEngine} from '" + tmp.getAbsolutePath() + "'; FormulaEngine;", "test.mjs").build());
+                //context.getBindings("js").putMember("$F", feModule);
+                //context.getBindings("js").putMember("FormulaEngine", feModule);
+                
+                // Allow overrides
                 evalGraalContextGlobals(context);
 
-                // Need native access for this. :-/.  It also requires a file on disk.
-                File tmp = makeJsFileFromResource("com/force/formula/decimal.js", "decimal");
+                tmp = makeJsFileFromResource("com/force/formula/decimal.js", "decimal");
                 context.eval("js", "load('" + tmp.getAbsolutePath() + "')");
                 context.eval("js",  "Object.defineProperty($F, 'Decimal', { value : Decimal});");
-
+                
                 tmp = makeJsFileFromResource("com/force/formula/jsonpath.js", "jsonpath");
                 context.eval("js", "load('" + tmp.getAbsolutePath() + "')");
                 context.eval("js",  "Object.defineProperty($F, 'jsonPath', { value : jsonPath});");

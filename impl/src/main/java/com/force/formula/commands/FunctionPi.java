@@ -45,8 +45,8 @@ public class FunctionPi extends FormulaCommandInfoImpl {
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         if (context.useHighPrecisionJs()) {
-            // $F.Decimal.PI doesn't work right, but acos does.
-            return JsValue.forNonNullResult("$F.Decimal.acos(-1)",null);
+            // " + context.getJsModule() + ".Decimal.PI doesn't work right, but acos does.
+            return JsValue.forNonNullResult(context.getJsEngMod() + ".Decimal.acos(-1)",null);
         } else {
             return JsValue.forNonNullResult("Math.PI",null);
         }

@@ -299,7 +299,7 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
             if (rhs == FormulaDateTime.class) {
                 // Get the diff between the dates
                 if (context.useHighPrecisionJs()) {
-                    js = "new $F.Decimal((" + args[0] + ".getTime()" + operator + args[1] + ".getTime())/86400000)";
+                    js = "new " + context.getJsEngMod() + ".Decimal((" + args[0] + ".getTime()" + operator + args[1] + ".getTime())/86400000)";
                 } else {
                     js = "(" + args[0] + ".getTime()" + operator + args[1] + ".getTime())/86400000";
                 }
@@ -309,7 +309,7 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
         } else if (lhs == Date.class) {
             if (rhs == Date.class) {
                 if (context.useHighPrecisionJs()) {
-                    js = "new $F.Decimal((" + args[0] + ".getTime()" + operator + args[1] + ".getTime())/86400000)";
+                    js = "new " + context.getJsEngMod() + ".Decimal((" + args[0] + ".getTime()" + operator + args[1] + ".getTime())/86400000)";
                 } else {
                     js = "(" + args[0] + ".getTime()" + operator + args[1] + ".getTime())/86400000";
                 }
@@ -325,7 +325,7 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
             if (rhs == FormulaTime.class) {
                 // Negative mod issues, so add Millis before mod-ing
                 if (context.useHighPrecisionJs()) {
-                    js = "(new $F.Decimal(" + args[0] + ".getTime()" + operator + args[1]+".getTime()+"+FormulaDateUtil.MILLISECONDSPERDAY+").mod("+FormulaDateUtil.MILLISECONDSPERDAY+"))";
+                    js = "(new " + context.getJsEngMod() + ".Decimal(" + args[0] + ".getTime()" + operator + args[1]+".getTime()+"+FormulaDateUtil.MILLISECONDSPERDAY+").mod("+FormulaDateUtil.MILLISECONDSPERDAY+"))";
                 } else {
                     js = "((" + args[0] + ".getTime()" + operator + args[1]+".getTime()+"+FormulaDateUtil.MILLISECONDSPERDAY+")%"+FormulaDateUtil.MILLISECONDSPERDAY+")";
                 }
@@ -336,7 +336,7 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
             js = "new Date(" + args[1] + ".getTime()" + operator + jsToNum(context, args[0].js)+")"  ;          
         } else if (lhs == String.class && rhs == String.class) {
             // TODO: see FunctionConcat
-            return JsValue.generate("(" + FormulaCommandInfoImpl.jsNvl(args[0].js, "''") + operator + FormulaCommandInfoImpl.jsNvl(args[1].js, "''") + ")", args, false);
+            return JsValue.generate("(" + FormulaCommandInfoImpl.jsNvl(context, args[0].js, "''") + operator + FormulaCommandInfoImpl.jsNvl(context, args[1].js, "''") + ")", args, false);
         } else if (lhs == BigDecimal.class && context.useHighPrecisionJs()) {
             js = args[0] + (performAddition ? ".add(" : ".sub(" ) + args[1] + ")";
         } else {

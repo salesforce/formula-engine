@@ -567,7 +567,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * and lengthArgs treated as positive
      * @param strArg the value of the string to substring
      * @param startPosArg the number of the start position
-     * @param length the number of characters to return, with negative numbers treated as zero
+     * @param lengthArg the number of characters to return, with negative numbers treated as zero
      */
     default String sqlSubstrWithNegStart(String strArg, String startPosArg, String lengthArg) {
         return getSubstringFunction() + "(" + strArg + ", " + sqlRoundScaleArg(startPosArg) + ", " + sqlEnsurePositive(sqlRoundScaleArg(lengthArg)) + ")";

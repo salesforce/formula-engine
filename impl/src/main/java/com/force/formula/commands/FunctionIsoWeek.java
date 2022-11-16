@@ -48,7 +48,7 @@ public class FunctionIsoWeek extends FormulaCommandInfoImpl implements FormulaCo
   
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        String js =  jsToDec(context, "$F.isoweek(" + args[0] + ")");
+        String js =  jsToDec(context, context.getJsEngMod() + ".isoweek(" + args[0] + ")");
         return JsValue.generate(js, args, true, args[0]);
     }
     

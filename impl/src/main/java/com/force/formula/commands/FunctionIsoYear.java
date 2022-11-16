@@ -49,7 +49,7 @@ public class FunctionIsoYear extends FormulaCommandInfoImpl implements FormulaCo
   
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        String js =  jsToDec(context, "$F.isoyear(" + args[0] + ")");
+        String js =  jsToDec(context, context.getJsEngMod() + ".isoyear(" + args[0] + ")");
         return JsValue.generate(js, args, true, args[0]);
     }
     

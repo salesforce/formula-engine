@@ -22,7 +22,7 @@ import com.force.formula.UnsupportedTypeException;
 /**
  * Class for implementing a Formula Context with a single value, normally called "Value."
  * This is intended to be used for writing validation formulas of a single value like 
- * <tt>Value > 0</tt> 
+ * <tt>Value &gt; 0</tt> 
  *
  * @author stamm
  * @since 0.2.6

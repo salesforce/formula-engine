@@ -92,7 +92,7 @@ public class FunctionRegex extends FormulaCommandInfoImpl implements FormulaComm
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         // If the regexp is null, it should be empty string test (i.e. '^$').  
-        String js = "new RegExp("+FormulaCommandInfoImpl.jsNvl2(args[1], "'^'+"+args[1].js+"+'$'", "'^$'")+").test("+FormulaCommandInfoImpl.jsNvl(args[0].js, "''")+")";
+        String js = "new RegExp("+FormulaCommandInfoImpl.jsNvl2(context, args[1], "'^'+"+args[1].js+"+'$'", "'^$'")+").test("+FormulaCommandInfoImpl.jsNvl(context, args[0].js, "''")+")";
         return JsValue.generate(js, args, false);
     }
 
