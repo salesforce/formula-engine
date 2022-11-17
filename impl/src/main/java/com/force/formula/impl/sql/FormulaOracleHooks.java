@@ -190,15 +190,6 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
 		return String.format("ADD_MONTHS(%s, %s)", dateArg, numMonths);
     }
     
-    
-    /**
-     * @return the format for converting to a datetime value
-     */
-	@Override
-    default String sqlToTimestampIso() {
-		return "TO_DATE(%s, 'YYYY-MM-DD HH24:MI:SS')";
-    }
-    
     /**
      * @return the function to use for getting the last day of the month of a date.
      */
@@ -206,9 +197,6 @@ public interface FormulaOracleHooks extends FormulaSqlHooks {
     default String sqlLastDayOfMonth() {
 		return "TO_CHAR(LAST_DAY(%s),'DD')";
     }
-
-	   
-
 	
 	@Override
     default String sqlInitCap(boolean hasLocaleOverride) {

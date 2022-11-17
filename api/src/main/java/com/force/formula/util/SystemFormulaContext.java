@@ -72,7 +72,7 @@ public class SystemFormulaContext extends NullFormulaContext {
         		return originDateTime_MYSQL;
         	} else if (style != null && style.isTransactSqlStyle()) {
         		return originDateTime_TSQL;
-            } else if (style != null && style.isPrestoStyle()) {
+            } else if (style != null && (style.isPrestoStyle() || style.isH2Style())) {
                 return originDateTime_PRESTO;
             } else if (style != null && style.isGoogleStyle()) {
                 return originDateTime_GOOGLE;

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateLeapYear2">
+   <testInstance formula="DATE(2012,month__c,29)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>PARSEDATETIME(2012 || '-' || CAST(FLOOR(COALESCE($!s0s!$.month__c, 0)) AS VARCHAR) || '-' || 29, 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard>COALESCE($!s0s!$.month__c, 0) is null  OR FLOOR(COALESCE($!s0s!$.month__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12)</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.month__c IS NULL THEN NULL ELSE PARSEDATETIME(2012 || '-' || CAST(FLOOR($!s0s!$.month__c) AS VARCHAR) || '-' || 29, 'yyyy-M-d', 'en', 'UTC') END</Sql>
+       <Guard>NOT ($!s0s!$.month__c IS NULL ) AND ($!s0s!$.month__c is null  OR FLOOR($!s0s!$.month__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12))</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2]</inputvalues>
+         <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>2012-02-29 00:00:00.0</sql>
+         <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-29 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>Sun Jan 29 00:00:00 GMT 2012</formula>
+         <sql>2012-01-29 00:00:00.0</sql>
+         <formulaNullAsNull>Sun Jan 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-01-29 00:00:00.0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

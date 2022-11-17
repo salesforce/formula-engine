@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2Date">
+   <testInstance formula="IN(customdate__c, customin1__c)" returntype="Boolean">
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customdate__c IN ($!s0s!$.customin1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customdate__c IN ($!s0s!$.customin1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2004:12:31:11:32:00, 2004:12:31:11:30:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, 2008:02:28:10:34:00]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31:11:30:00, 2004:12:31:11:32:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, 2004:03:01:00:00:00]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, 2004:12:31:11:32:00]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:10:34:00, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3999:02:28:10:34:00, 1780:02:28:10:34:00]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:30:00, 2022:08:21:08:15:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2022:08:21:08:29:00, 2022:08:21:08:00:00]</inputvalues>
+         <formula>true</formula>
+         <sql>true</sql>
+         <formulaNullAsNull>true</formulaNullAsNull>
+         <sqlNullAsNull>true</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

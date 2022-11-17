@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfNullNullIf">
+   <testInstance formula="if( if (customtext1__c=customtext2__c, null, null) = 0,  &quot;true&quot;, &quot;false&quot;)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (CASE WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customtext2__c, 'x'))=COALESCE($!s0s!$.customtext2__c, CONCAT($!s0s!$.customtext1__c, 'x'))) THEN NULL ELSE NULL END=0) THEN 'true' ELSE 'false' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (CASE WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customtext2__c, 'x'))=COALESCE($!s0s!$.customtext2__c, CONCAT($!s0s!$.customtext1__c, 'x'))) THEN NULL ELSE NULL END=0) THEN 'true' ELSE 'false' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[aaaa, aaaa]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[aaaa, bbbb]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[aaaa, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, bbbb]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[aaaa, aaaa]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[aaaa, aaaa]</inputvalues>
+         <formula>false</formula>
+         <sql>false</sql>
+         <formulaNullAsNull>false</formulaNullAsNull>
+         <sqlNullAsNull>false</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

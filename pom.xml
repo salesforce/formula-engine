@@ -510,6 +510,7 @@
         <module>sqlserver-test</module>
         <module>google-test</module>
         <module>sqlite-test</module>
+        <module>h2-test</module>
         <!-- Running Presto is really slow, so comment it out for now -->
         <!-- <module>presto-test</module> -->
         <module>docs/coverage</module>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testUnixTimestampWithDate">
+   <testInstance formula="UNIXTIMESTAMP(customdate1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>EXTRACT(EPOCH from $!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>EXTRACT(EPOCH from $!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[, 40]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005:12:31, 4.00]</inputvalues>
+         <formula>1135987200</formula>
+         <sql>1135987200</sql>
+         <formulaNullAsNull>1135987200</formulaNullAsNull>
+         <sqlNullAsNull>1135987200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:12:31, 3.00]</inputvalues>
+         <formula>1104451200</formula>
+         <sql>1104451200</sql>
+         <formulaNullAsNull>1104451200</formulaNullAsNull>
+         <sqlNullAsNull>1104451200</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2004:02:28:00:00:00, 4.00]</inputvalues>
+         <formula>1077926400</formula>
+         <sql>1077926400</sql>
+         <formulaNullAsNull>1077926400</formulaNullAsNull>
+         <sqlNullAsNull>1077926400</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000:02:28, 3.5]</inputvalues>
+         <formula>951696000</formula>
+         <sql>951696000</sql>
+         <formulaNullAsNull>951696000</formulaNullAsNull>
+         <sqlNullAsNull>951696000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000:02:28, 3.4]</inputvalues>
+         <formula>951696000</formula>
+         <sql>951696000</sql>
+         <formulaNullAsNull>951696000</formulaNullAsNull>
+         <sqlNullAsNull>951696000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000:02:28, 3.6]</inputvalues>
+         <formula>951696000</formula>
+         <sql>951696000</sql>
+         <formulaNullAsNull>951696000</formulaNullAsNull>
+         <sqlNullAsNull>951696000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000:02:28, 40000]</inputvalues>
+         <formula>951696000</formula>
+         <sql>951696000</sql>
+         <formulaNullAsNull>951696000</formulaNullAsNull>
+         <sqlNullAsNull>951696000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000:02:28, 365]</inputvalues>
+         <formula>951696000</formula>
+         <sql>951696000</sql>
+         <formulaNullAsNull>951696000</formulaNullAsNull>
+         <sqlNullAsNull>951696000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000:02:28, 364]</inputvalues>
+         <formula>951696000</formula>
+         <sql>951696000</sql>
+         <formulaNullAsNull>951696000</formulaNullAsNull>
+         <sqlNullAsNull>951696000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000:02:28, 30]</inputvalues>
+         <formula>951696000</formula>
+         <sql>951696000</sql>
+         <formulaNullAsNull>951696000</formulaNullAsNull>
+         <sqlNullAsNull>951696000</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1900:01:01, 30]</inputvalues>
+         <formula>-2208988800</formula>
+         <sql>-2208988800</sql>
+         <formulaNullAsNull>-2208988800</formulaNullAsNull>
+         <sqlNullAsNull>-2208988800</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[4000:01:01, 30]</inputvalues>
+         <formula>64060588800</formula>
+         <sql>64060588800</sql>
+         <formulaNullAsNull>64060588800</formulaNullAsNull>
+         <sqlNullAsNull>64060588800</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000:01:01, 30]</inputvalues>
+         <formula>946684800</formula>
+         <sql>946684800</sql>
+         <formulaNullAsNull>946684800</formulaNullAsNull>
+         <sqlNullAsNull>946684800</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[3999:01:01, 0.23456]</inputvalues>
+         <formula>64029052800</formula>
+         <sql>64029052800</sql>
+         <formulaNullAsNull>64029052800</formulaNullAsNull>
+         <sqlNullAsNull>64029052800</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

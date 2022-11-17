@@ -18,4 +18,5 @@ public final class FormulaDefaultSqlStyle {
     public static final FormulaSqlHooks PRESTO = new FormulaPrestoHooks() {};
     public static final FormulaSqlHooks GOOGLE = new FormulaGoogleHooks() {};
     public static final FormulaSqlHooks SQLITE = new FormulaSqliteHooks() {};
+    public static final FormulaSqlHooks H2 = new FormulaH2Hooks() {};
 }

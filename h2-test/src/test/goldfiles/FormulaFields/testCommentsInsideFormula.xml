@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCommentsInsideFormula">
+   <testInstance formula="/* comment */ IF /* comment */(YEAR(TODAY()) = 2009 /* comment */, 0,0) /** comment **/" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (EXTRACT(YEAR FROM __TODAY__)=2009) THEN 0 ELSE 0 END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (EXTRACT(YEAR FROM __TODAY__)=2009) THEN 0 ELSE 0 END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>No data</inputvalues>
+         <formula>0</formula>
+         <sql>0</sql>
+         <formulaNullAsNull>0</formulaNullAsNull>
+         <sqlNullAsNull>0</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

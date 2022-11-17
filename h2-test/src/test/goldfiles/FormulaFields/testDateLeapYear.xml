@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateLeapYear">
+   <testInstance formula="DATE(2012,2,day__c)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>PARSEDATETIME(2012 || '-' || 2 || '-' || CAST(FLOOR(COALESCE($!s0s!$.day__c, 0)) AS VARCHAR), 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard>COALESCE($!s0s!$.day__c, 0) is null OR COALESCE($!s0s!$.day__c, 0)&lt; 1 OR COALESCE($!s0s!$.day__c, 0) &gt;= 32 OR COALESCE($!s0s!$.day__c, 0) &gt;= 30</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE PARSEDATETIME(2012 || '-' || 2 || '-' || CAST(FLOOR($!s0s!$.day__c) AS VARCHAR), 'yyyy-M-d', 'en', 'UTC') END</Sql>
+       <Guard>NOT ($!s0s!$.day__c IS NULL ) AND ($!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR $!s0s!$.day__c &gt;= 30)</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[1]</inputvalues>
+         <formula>Wed Feb 01 00:00:00 GMT 2012</formula>
+         <sql>2012-02-01 00:00:00.0</sql>
+         <formulaNullAsNull>Wed Feb 01 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-01 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[28]</inputvalues>
+         <formula>Tue Feb 28 00:00:00 GMT 2012</formula>
+         <sql>2012-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Tue Feb 28 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[29]</inputvalues>
+         <formula>Wed Feb 29 00:00:00 GMT 2012</formula>
+         <sql>2012-02-29 00:00:00.0</sql>
+         <formulaNullAsNull>Wed Feb 29 00:00:00 GMT 2012</formulaNullAsNull>
+         <sqlNullAsNull>2012-02-29 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[30]</inputvalues>
+         <formula>Error: com.force.formula.FormulaEvaluationException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

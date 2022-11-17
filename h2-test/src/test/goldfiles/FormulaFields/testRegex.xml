@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRegex">
+   <testInstance formula="if(REGEX(customtext__c, customexpr__c),'TRUE','FALSE')" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN REGEXP_LIKE(COALESCE($!s0s!$.customtext__c,''),CONCAT(CONCAT('^', $!s0s!$.customexpr__c), '$')) THEN 'TRUE' ELSE 'FALSE' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN REGEXP_LIKE(COALESCE($!s0s!$.customtext__c,''),CONCAT(CONCAT('^', $!s0s!$.customexpr__c), '$')) THEN 'TRUE' ELSE 'FALSE' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[F.o, F\.o]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Foo, F\\.o]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Text, (a*)b]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Text, Text]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Text, ext]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Text, Te]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Text, ^Text$]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Text, [T][e][x][t]]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Hello, ((]</inputvalues>
+         <formula>Error: java.util.regex.PatternSyntaxException</formula>
+         <sql>Error: Error in LIKE ESCAPE: &quot;^(($&quot;; SQL statement: SELECT SUBSTR(CASE WHEN REGEXP_LIKE(COALESCE(c.customtext__c,''),CONCAT(CONCAT('^', c.customexpr__c), '$')) THEN 'TRUE' ELSE 'FALSE' END, 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customexpr__c, CAST (? AS varchar) as customtext__c) c [22025-210]</sql>
+         <formulaNullAsNull>Error: java.util.regex.PatternSyntaxException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error in LIKE ESCAPE: &quot;^(($&quot;; SQL statement: SELECT SUBSTR(CASE WHEN REGEXP_LIKE(COALESCE(c.customtext__c,''),CONCAT(CONCAT('^', c.customexpr__c), '$')) THEN 'TRUE' ELSE 'FALSE' END, 1, 1300) FROM (SELECT 1 as fake, CAST (? AS varchar) as customexpr__c, CAST (? AS varchar) as customtext__c) c [22025-210]</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Hello, ]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, (a*)?]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, a+]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[aaaaaaaaaaaac, (a*)+b]</inputvalues>
+         <formula>FALSE</formula>
+         <sql>FALSE</sql>
+         <formulaNullAsNull>FALSE</formulaNullAsNull>
+         <sqlNullAsNull>FALSE</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>TRUE</formula>
+         <sql>TRUE</sql>
+         <formulaNullAsNull>TRUE</formulaNullAsNull>
+         <sqlNullAsNull>TRUE</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

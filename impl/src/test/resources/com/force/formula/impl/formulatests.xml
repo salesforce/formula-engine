@@ -495,6 +495,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="trino" numFailures="26">Unknown issue with math and date_add</whyIgnoreSql>
+         <whyIgnoreSql db="h2" numFailures="2">Overflow</whyIgnoreSql>
      </testcase>
      <!-- this one should be invalid but is currently accepted-->
      <testcase name="testAddDateTimeGivingDate"  labels="extended"
@@ -925,6 +926,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="2">Last Day test overflows with 12-01-9999</whyIgnoreSql>
+         <whyIgnoreSql db="h2" numFailures="2">H2 corrects for gregorian calendar for old dates (1000)</whyIgnoreSql>
      </testcase>
      <testcase name="testDateConstVarVar" devName="testDateConstVarVar"
          labelName="testDateConstVarVar" dataType="DateOnly" dataFile="functiondate"
@@ -947,6 +949,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="h2" numFailures="2">H2 corrects for gregorian calendar for old dates (1000)</whyIgnoreSql>
      </testcase>
      <testcase name="testDateVarVarConst" devName="testDateVarVarConst"
          labelName="testDateVarVarConst" dataType="DateOnly" dataFile="functiondate"
@@ -959,6 +962,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
          <whyIgnoreSql db="spanner" numFailures="2">Last Day test overflows with 12-01-9999</whyIgnoreSql>
+         <whyIgnoreSql db="h2" numFailures="2">H2 corrects for gregorian calendar for old dates (1000)</whyIgnoreSql>
      </testcase>
      <testcase name="testDateVarConstConst" devName="testDateVarConstConst"
          labelName="testDateVarConstConst" dataType="DateOnly" dataFile="functiondate"
@@ -970,6 +974,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="2" precision="12"/>
          <referencefield devName="customnumber3" labelName="customnumber3"
              dataType="Double" scale="2" precision="12"/>
+         <whyIgnoreSql db="h2" numFailures="2">H2 corrects for gregorian calendar for old dates (1000)</whyIgnoreSql>
      </testcase>
      <testcase name="testDateConstVarConst" devName="testDateConstVarConst"
          labelName="testDateConstVarConst" dataType="DateOnly" dataFile="functiondate"
@@ -1393,7 +1398,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="INITCAP(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
-         <whyIgnoreSql db="spanner,mysql,mariadb,mssql,sqlite3" unimplemented="true"/>
+         <whyIgnoreSql db="spanner,mysql,mariadb,mssql,sqlite3,h2" unimplemented="true"/>
          <whyIgnoreSql db="trino" numFailures="6">dotted i</whyIgnoreSql>
      </testcase>
 
@@ -2076,6 +2081,7 @@ author: Srikanth Yendluri/Doug Chasman
          code="datevalue(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
+         <whyIgnoreSql db="h2" numFailures="2">H2 corrects for gregorian calendar for old dates (1 CE)</whyIgnoreSql>
      </testcase>
 
      <!-- TESTCASE for Bug 85686: IF(blah, NULL, NULL) with return datatype of Date or DateTime -->
@@ -2133,12 +2139,14 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" precision="13" scale="3"/>
          <referencefield devName="customText2" labelName="customText2" dataType="Text" length="100" scale="3" precision="15" />
+         <whyIgnoreSql db="h2" unimplemented="true">H2 does single char padding only</whyIgnoreSql>
      </testcase>
      <testcase name="testRpad2" devName="testRpad2" labelName="testRpad2"
             dataType="Text" code="rpad(customText1__c,customNumber1__c,customText2__c)" dataFile="padData2" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customNumber1" labelName="customNumber1" dataType="Double" precision="13" scale="3"/>
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
+         <whyIgnoreSql db="h2" unimplemented="true">H2 does single char padding only</whyIgnoreSql>
      </testcase>
      <testcase name="testUpper" labels="basic" devName="testUpper" labelName="testUpper" 
             dataType="Text" code="upper(customText1__c)" dataFile="upperCaseData" length="100" precision="16" scale="2" >
@@ -2158,7 +2166,7 @@ author: Srikanth Yendluri/Doug Chasman
             dataType="Text" code="upper(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
-         <whyIgnoreSql db="spanner" numFailures="4">No collate supported</whyIgnoreSql>
+         <whyIgnoreSql db="spanner,h2" numFailures="4">No collate supported</whyIgnoreSql>
          <whyIgnoreSql db="postgres,trino" numFailures="12">ICU Support</whyIgnoreSql>
          <whyIgnoreSql db="oracle" numFailures="4">turkish java diff</whyIgnoreSql>
          <whyIgnoreSql db="mysql,mariadb,mssql" numFailures="12">No collate supported</whyIgnoreSql>
@@ -2168,7 +2176,7 @@ author: Srikanth Yendluri/Doug Chasman
             dataType="Text" code="lower(customText1__c,customText2__c)" dataFile="upperCaseLocaleData" length="100" precision="16" scale="2" >
          <referencefield devName="customText1" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
          <referencefield devName="customText2" labelName="customText" dataType="Text" length="100" scale="3" precision="15" />
-         <whyIgnoreSql db="mysql,mariadb,mssql,spanner" numFailures="8">No collate supported</whyIgnoreSql>
+         <whyIgnoreSql db="mysql,mariadb,mssql,spanner,h2" numFailures="8">No collate supported</whyIgnoreSql>
          <whyIgnoreSql db="postgres,trino" numFailures="8">ICU Support</whyIgnoreSql>
          <whyIgnoreSql db="sqlite3" numFailures="20">No unicode support</whyIgnoreSql>
      </testcase>
@@ -2359,6 +2367,7 @@ author: Srikanth Yendluri/Doug Chasman
         <referencefield devName="customtext" labelName="customtext"
                 dataType="Text" length="255"/>
          <whyIgnoreSql db="spanner" unimplemented="true">JsonValue requires a literal json path</whyIgnoreSql>
+         <whyIgnoreSql db="h2" unimplemented="true">H2 does not support json queries</whyIgnoreSql>
     </testcase>
     <testcase name="testJsonPathValue" devName="testJsonPathValue" labels="extended"
         labelName="testJsonPathValue" dataType="Text"
@@ -2368,14 +2377,16 @@ author: Srikanth Yendluri/Doug Chasman
                 dataType="Text" length="255"/>
         <referencefield devName="customtext" labelName="customtext"
                 dataType="Text" length="255"/>
+         <whyIgnoreSql db="h2" unimplemented="true">H2 does not support json queries</whyIgnoreSql>
     </testcase>
     
-    <testcase name="testReverse" devName="testReverse" labels="math"
+    <testcase name="testReverse" devName="testReverse"
          labelName="testReverse" dataType="Text"
          dataFile="singleTextFieldData" length="255"
          code="REVERSE(customtext1__c)">
          <referencefield devName="customtext1" labelName="customtext1"
              dataType="Text" length="255"/>
+         <whyIgnoreSql db="h2" unimplemented="true">Reverse not in h2</whyIgnoreSql>
      </testcase>
      <testcase name="testMid" devName="testMid"
          labelName="testMid" dataType="Text"
@@ -2387,7 +2398,7 @@ author: Srikanth Yendluri/Doug Chasman
              dataType="Double" scale="4" precision="14"/>
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="4" precision="14"/>
-         <whyIgnoreSql db="postgres" numFailures="2">Null start treated as zero with GREATEST.</whyIgnoreSql>
+         <whyIgnoreSql db="postgres,h2" numFailures="2">Null start treated as zero with GREATEST.</whyIgnoreSql>
      </testcase>     
      <testcase name="testSubstr2" devName="testSubstr2"
          labelName="testSubstr2" dataType="Text"
@@ -2398,7 +2409,7 @@ author: Srikanth Yendluri/Doug Chasman
                  dataType="Text" length="255"/>
          <referencefield devName="customnumber1" labelName="customnumber1"
              dataType="Double" scale="4" precision="14"/>
-         <whyIgnoreSql db="spanner,sqlite3" numFailures="8">negative start greater than length works.</whyIgnoreSql>
+         <whyIgnoreSql db="spanner,sqlite3,h2" numFailures="8">negative start greater than length works.</whyIgnoreSql>
      </testcase>     
      <testcase name="testSubstr3" devName="testSubstr3"
          labelName="testSubstr3" dataType="Text"
@@ -2412,7 +2423,7 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customnumber2" labelName="customnumber2"
              dataType="Double" scale="4" precision="14"/>
          <whyIgnoreSql db="spanner" numFailures="4">negative start greater than length works.</whyIgnoreSql>
-         <whyIgnoreSql db="sqlite3" numFailures="2">negative start greater than length works.</whyIgnoreSql>
+         <whyIgnoreSql db="sqlite3,h2" numFailures="2">negative start greater than length works.</whyIgnoreSql>
      </testcase>     
   
      <testcase name="testRegex" devName="testRegex" labels="extended"

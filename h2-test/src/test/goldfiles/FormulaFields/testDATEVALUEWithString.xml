@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDATEVALUEWithString">
+   <testInstance formula="datevalue(customtext1__c)" returntype="DateOnly">
+    <SqlOutput nullAsNull="true">
+       <Sql>PARSEDATETIME($!s0s!$.customtext1__c, 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard> NOT REGEXP_LIKE ($!s0s!$.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$')</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>PARSEDATETIME($!s0s!$.customtext1__c, 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard> NOT REGEXP_LIKE ($!s0s!$.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$')</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2005-01-02]</inputvalues>
+         <formula>Sun Jan 02 00:00:00 GMT 2005</formula>
+         <sql>2005-01-02 00:00:00.0</sql>
+         <formulaNullAsNull>Sun Jan 02 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-01-02 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-1-2]</inputvalues>
+         <formula>Sun Jan 02 00:00:00 GMT 2005</formula>
+         <sql>2005-01-02 00:00:00.0</sql>
+         <formulaNullAsNull>Sun Jan 02 00:00:00 GMT 2005</formulaNullAsNull>
+         <sqlNullAsNull>2005-01-02 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[9999-01-15]</inputvalues>
+         <formula>Fri Jan 15 00:00:00 GMT 9999</formula>
+         <sql>9999-01-15 00:00:00.0</sql>
+         <formulaNullAsNull>Fri Jan 15 00:00:00 GMT 9999</formulaNullAsNull>
+         <sqlNullAsNull>9999-01-15 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0001-01-15]</inputvalues>
+         <formula>Sat Jan 15 00:00:00 GMT 1</formula>
+         <sql>0001-01-17 00:00:00.0</sql>
+         <formulaNullAsNull>Sat Jan 15 00:00:00 GMT 1</formulaNullAsNull>
+         <sqlNullAsNull>0001-01-17 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200-01-03]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[200-1-3]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2-1-3]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-13-02]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-02-31]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>2005-02-28 00:00:00.0</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>2005-02-28 00:00:00.0</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2005-03-32]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[crapola]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2000-0-2]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0000-12-12]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>Error: Error parsing &quot;0000-12-12&quot;; SQL statement: SELECT CASE WHEN  NOT REGEXP_LIKE (c.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') THEN NULL ELSE PARSEDATETIME(c.customtext1__c, 'yyyy-M-d', 'en', 'UTC') END FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90014-210]</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>Error: Error parsing &quot;0000-12-12&quot;; SQL statement: SELECT CASE WHEN  NOT REGEXP_LIKE (c.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') THEN NULL ELSE PARSEDATETIME(c.customtext1__c, 'yyyy-M-d', 'en', 'UTC') END FROM (SELECT 1 as fake, CAST (? AS varchar) as customtext1__c) c [90014-210]</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0-12-12]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[2020-11-00]</inputvalues>
+         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <sql>null</sql>
+         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
