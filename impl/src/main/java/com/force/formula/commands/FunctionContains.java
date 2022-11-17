@@ -3,10 +3,15 @@ package com.force.formula.commands;
 
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -37,7 +42,7 @@ public class FunctionContains extends FormulaCommandInfoImpl {
 
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        String text = jsNvl(args[0].js, "''");  // Guard against text being null.  Note that FILTER above.
+        String text = jsNvl(context, args[0].js, "''");  // Guard against text being null.  Note that FILTER above.
         return JsValue.generate("(!"+args[1]+"||(("+text+").indexOf("+args[1]+")>=0))", args, false);
     }
 }

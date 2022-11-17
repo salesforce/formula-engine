@@ -4,10 +4,23 @@ package com.force.formula.commands;
 import java.lang.reflect.Type;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaTypeUtils;
+import com.force.formula.impl.IllegalArgumentTypeException;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
@@ -87,7 +100,7 @@ public class FunctionNullValue extends FormulaCommandInfoImpl implements Formula
         // Get guard from arg[0] and put in inside the value.  Same with the alternative.
         String value = args[0].guard != null ? "(" + args[0].guard + ")?(" + args[0].js + "):null": args[0].js;
         String alternate = args[1].guard != null ? "(" + args[1].guard + ")?(" + args[1].js + "):null": args[1].js;
-        return JsValue.generate(jsNvl(value, alternate), new JsValue[0], args[1].couldBeNull && args[0].couldBeNull);  // Can be null only if both could be
+        return JsValue.generate(jsNvl(context, value, alternate), new JsValue[0], args[1].couldBeNull && args[0].couldBeNull);  // Can be null only if both could be
     }
 
     protected boolean localTreatAsString(FormulaContext context, FormulaAST node) {

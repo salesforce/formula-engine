@@ -19,6 +19,7 @@ import com.force.formula.FormulaDataType;
 import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaEngine;
 import com.force.formula.FormulaException;
+import com.force.formula.FormulaFactory;
 import com.force.formula.FormulaFieldInfo;
 import com.force.formula.FormulaFieldReference;
 import com.force.formula.FormulaFieldReferenceInfo;
@@ -398,14 +399,14 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
                 value = value + "/100.0";
             }
         } else if (datesAreStrings && dataType.isDateOnly()) {
-            value = FormulaCommandInfoImpl.jsNvl2(new JsValue(value, null, true),
+            value = FormulaCommandInfoImpl.jsNvl2(context, new JsValue(value, null, true),
                     String.format(FunctionDateValue.JS_FORMAT_TEMPLATE, value), "null");
         } else if (datesAreStrings && dataType.isTimeOnly()) {
-            value = FormulaCommandInfoImpl.jsNvl2(new JsValue(value, null, true),
+            value = FormulaCommandInfoImpl.jsNvl2(context, new JsValue(value, null, true),
                     String.format(FunctionTimeValue.JS_FORMAT_TEMPLATE, value), "null");
         } else if (datesAreStrings && dataType.isDateTime()) {
-            value = FormulaCommandInfoImpl.jsNvl2(new JsValue(value, null, true),
-                    "$F.parseDateTime(" + value + ")", "null");
+            value = FormulaCommandInfoImpl.jsNvl2(context, new JsValue(value, null, true),
+                    context.getJsEngMod() + ".parseDateTime(" + value + ")", "null");
         }
 
         return new JsValue(value,  guardJs, true);

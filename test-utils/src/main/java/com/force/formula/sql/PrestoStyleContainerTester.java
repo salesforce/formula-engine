@@ -18,6 +18,7 @@ import com.force.formula.FormulaEngine;
 /**
  * Presto-style tester that uses a container (either deprecated presto, or newer trino)
  * @author stamm
+ * @param <DB> the presto DB container
  */
 public abstract class PrestoStyleContainerTester<DB extends JdbcDatabaseContainer<?>> extends DbContainerTester<DB> {
 

@@ -128,6 +128,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     /**
      * @return extract the TIME value from a date time.  For those DBs with a useful time type this
      * could be easy, for others that pass around milliseconds, this converts to a number
+     * @param dateTimeExpr the expression for the datetime value
      */
     default String sqlExtractTimeFromDateTime(String dateTimeExpr) {
         return String.format(sqlToNumber(), String.format("TO_CHAR(%s, '"+sqlSecsInDay()+"')", dateTimeExpr)) + " * 1000"; // date does not have millisec info
@@ -215,7 +216,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      * 
-     * @param inSeconds, should difference be returned in seconds or in days.  This will allow precision errors to be
+     * @param inSeconds should difference be returned in seconds or in days.  This will allow precision errors to be
      * handled better.
      * @deprecated use the version that passes in the DateType to support DBs that distinguish Date and Timestamp
      */
@@ -228,7 +229,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
      * missing from psql, but available in oracle.  This allows you to try and fix that.
      * 
-     * @param inSeconds, should difference be returned in seconds or in days.  This will allow precision errors to be
+     * @param inSeconds should difference be returned in seconds or in days.  This will allow precision errors to be
      * handled better.
      * @param dateType the type of date being subtracted
      */
@@ -413,6 +414,8 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     
     /**
      * @return the expression to use for adding a number of months to a date
+     * @param dateArg the argument of the date or datetime
+     * @param numMonths the expression with the number of months to add
      * @deprecated use the version that take the date type
      */
     @Deprecated(forRemoval=true, since="0.3")
@@ -461,6 +464,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     
     /**
      * @return the format for String.format for converting a number to an interval suitable for to {@link #sqlIntervalToDurationString(String, boolean, String)}
+     * @param dateType the date type for the interval
      */
     default String sqlIntervalFromSeconds(Type dateType) {
         return "(INTERVAL '1 second' * ABS(%s))";
@@ -468,7 +472,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     
     /**
      * @return the sql expression for converting from HH:MM:SS or (DDD:HH:MM:SS) if includeDays is true
-     * @param intervalArg the argument resulting from the call to {@link #sqlIntervalFromSeconds()}
+     * @param intervalArg the argument resulting from the call to {@link #sqlIntervalFromSeconds(Type)}
      * @param includeDays whether days should be included in the strings
      * @param daysIsParam whether the "days" should be the second parameter passed in (if not null)
      */
@@ -567,7 +571,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * and lengthArgs treated as positive
      * @param strArg the value of the string to substring
      * @param startPosArg the number of the start position
-     * @param length the number of characters to return, with negative numbers treated as zero
+     * @param lengthArg the number of characters to return, with negative numbers treated as zero
      */
     default String sqlSubstrWithNegStart(String strArg, String startPosArg, String lengthArg) {
         return getSubstringFunction() + "(" + strArg + ", " + sqlRoundScaleArg(startPosArg) + ", " + sqlEnsurePositive(sqlRoundScaleArg(lengthArg)) + ")";
@@ -794,7 +798,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
-     * Get the sql guard and value for executing A^B.
+     * @return the sql guard and value for executing A^B.
      * @param args the arguments where arg[0] is the operands and arg[1] is the exponent
      * @param guards the guards to prevent errors when evaluating the args
 	 */

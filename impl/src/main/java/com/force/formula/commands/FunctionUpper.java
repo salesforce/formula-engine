@@ -4,10 +4,20 @@ import java.lang.reflect.Type;
 import java.util.Deque;
 import java.util.Locale;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaTypeUtils;
+import com.force.formula.impl.FormulaValidationHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.sql.SQLPair;
 import com.force.i18n.LocaleUtils;
 
@@ -72,14 +82,14 @@ public class FunctionUpper extends FormulaCommandInfoImpl implements FormulaComm
         return resultType;
     }
     
-    static String getLanguageTag(JsValue arg) {
-        return jsNvl2(arg,arg.js+".replace(\"_\",\"-\")","'en'");
+    static String getLanguageTag(FormulaContext context, JsValue arg) {
+        return jsNvl2(context, arg,arg.js+".replace(\"_\",\"-\")","'en'");
     }
 
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         if (node.getNumberOfChildren() == 2) {
-            return JsValue.generate(args[0] + ".toLocaleUpperCase("+getLanguageTag(args[1])+")", args, false, args[0]);    
+            return JsValue.generate(args[0] + ".toLocaleUpperCase("+getLanguageTag(context, args[1])+")", args, false, args[0]);    
         } else {
             return JsValue.forNonNullResult(args[0] + ".toUpperCase()", args); 
         }

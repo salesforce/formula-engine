@@ -35,7 +35,7 @@ public class FunctionDayOfYear extends FormulaCommandInfoImpl {
     
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        String js =  jsToDec(context, "$F.dayofyear(" + args[0] + ")");
+        String js =  jsToDec(context, context.getJsEngMod() + ".dayofyear(" + args[0] + ")");
         return JsValue.generate(js, args, true, args[0]);
     }
 

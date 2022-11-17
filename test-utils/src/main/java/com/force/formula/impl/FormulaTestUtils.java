@@ -460,10 +460,6 @@ public class FormulaTestUtils {
      *            The string to split
      * @param delimiter
      *            The delimiter to split the string using
-     * @param expectedSize
-     *            The expected number of elements in the output list. If you don't know, or if it could be arbitrarily
-     *            large, and if you will only access the returned list sequentially with an iterator, then use 0 to tell
-     *            this method to use a LinkedList
      * @return String list or, if str was null, then null
      */
     public static List<String> splitSimpleWithQuoteAndEsc(String str, char delimiter) {

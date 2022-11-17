@@ -91,7 +91,7 @@ public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements For
         } else if (inputDataType == BigDecimal.class) {
             return JsValue.forNonNullResult("new Date(" + jsToNum(context, args[0].js) + ")",args);
         } else {
-            return JsValue.forNonNullResult("$F.parseDateTime("+ args[0].js + ")", args);
+            return JsValue.forNonNullResult(context.getJsEngMod() + ".parseDateTime("+ args[0].js + ")", args);
         }
     }
    

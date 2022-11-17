@@ -144,15 +144,15 @@ public class FunctionFormatDuration extends FormulaCommandInfoImpl implements Fo
         Type lhsDataType = lhs.getDataType();
         if (lhsDataType == BigDecimal.class) {
             if (args.length == 1) {
-                return JsValue.forNonNullResult("$F.formatduration(Math.abs("+jsToNum(context,args[0].js)+"),false)", args);
+                return JsValue.forNonNullResult(context.getJsEngMod() + ".formatduration(Math.abs("+jsToNum(context,args[0].js)+"),false)", args);
             } else {
                 // Only guard against the value, not the isDays boolean.
-                return JsValue.forNonNullResult("$F.formatduration(Math.abs("+jsToNum(context,args[0].js)+"),"+args[1]+")", new JsValue[] {args[0]});
+                return JsValue.forNonNullResult(context.getJsEngMod() + ".formatduration(Math.abs("+jsToNum(context,args[0].js)+"),"+args[1]+")", new JsValue[] {args[0]});
             }
         } else if (lhsDataType == FormulaTime.class) {
-            return JsValue.forNonNullResult("$F.formatduration(Math.abs(("+args[1]+".getTime()-"+args[0]+".getTime())/1000),false)", args);
+            return JsValue.forNonNullResult(context.getJsEngMod() + ".formatduration(Math.abs(("+args[1]+".getTime()-"+args[0]+".getTime())/1000),false)", args);
         } else if (lhsDataType == FormulaDateTime.class) {
-            return JsValue.forNonNullResult("$F.formatduration(Math.abs(("+args[1]+".getTime()-"+args[0]+".getTime())/1000),true)", args);
+            return JsValue.forNonNullResult(context.getJsEngMod() + ".formatduration(Math.abs(("+args[1]+".getTime()-"+args[0]+".getTime())/1000),true)", args);
         } else {
             throw new UnsupportedOperationException();
         }    

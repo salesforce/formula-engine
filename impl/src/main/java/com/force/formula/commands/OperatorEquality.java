@@ -5,10 +5,25 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FieldSetMemberInfo;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaDateTime;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaGeolocation;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.FormulaTypeUtils;
+import com.force.formula.impl.IllegalArgumentTypeException;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 
@@ -111,21 +126,22 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
 
     /**
      * You can't natively compare dates in javascript; either you do a&gt;=b &amp;&amp; a&lt;=b, or you call getTime().  getTime() seems less awful
+     * @param context the formulaContext
      * @param arg the value for the type to compare 
      * @param argType the argument type
      * @return a javascript value suitable for testing equality
      */
-    public static String wrapJsForEquality(JsValue arg, Type argType) {
+    public static String wrapJsForEquality(FormulaContext context, JsValue arg, Type argType) {
         // convert date to number for comparison so it doesn't try and compare date objects
         if (argType == Date.class || argType == FormulaDateTime.class) {
             if (arg.couldBeNull) {
-                return jsNvl2(arg, arg.js+".getTime()", "null");
+                return jsNvl2(context, arg, arg.js+".getTime()", "null");
             } else {
                 return arg.js + ".getTime()";
             }
         }
         if (argType == String.class && arg.couldBeNull) {
-            return jsNvl2WithGuard(arg, arg.js, "null", true);
+            return jsNvl2WithGuard(context, arg, arg.js, "null", true);
         } else {
             return arg.js;
         }
@@ -246,6 +262,7 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
     /**
      * See compareBulk for the reasoning behind this function. Javascript behavior must match 
      * SQL and formula engine.
+     * @param context the formulaContext
      * @param lhs the left hand side of the comparison
      * @param lhsType  the TokenType of the left hand side (TODO: use antlr4)
      * @param rhs the right hand side of the comparison
@@ -256,20 +273,20 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
      * @param guards the guards to use for the comparison which will be included in the JSValue
      * @return a == or != comparison of the values
      */
-    public static JsValue compareBulkJS(String lhs, int lhsType, String rhs, int rhsType, boolean treatAsString,
+    public static JsValue compareBulkJS(FormulaContext context, String lhs, int lhsType, String rhs, int rhsType, boolean treatAsString,
             boolean negate, boolean highPrec, JsValue... guards) {
 
         if (treatAsString) {
             String saveRhs = rhs;
             if (rhsType != FormulaTokenTypes.STRING_LITERAL)
-                rhs = jsNoe(rhs, jsNvl(lhs, "''") + "+'x'");
+                rhs = jsNoe(context, rhs, jsNvl(context, lhs, "''") + "+'x'");
             else if ("''".equals(rhs) || "\"\"".equals(rhs))
-            	rhs = jsNvl(lhs, "''") + "+'x'";
+            	rhs = jsNvl(context, lhs, "''") + "+'x'";
             
             if (lhsType != FormulaTokenTypes.STRING_LITERAL)
-                lhs = jsNoe(lhs, jsNvl(saveRhs, "''") + "+'x'");
+                lhs = jsNoe(context, lhs, jsNvl(context, saveRhs, "''") + "+'x'");
             else if ("''".equals(lhs) || "\"\"".equals(lhs))
-                lhs = jsNvl(saveRhs, "''") + "+'x'";
+                lhs = jsNvl(context, saveRhs, "''") + "+'x'";
         }
         
         if (highPrec) {
@@ -294,13 +311,13 @@ public class OperatorEquality extends FormulaCommandInfoImpl implements FormulaC
         final FormulaAST lhs = (FormulaAST)node.getFirstChild();
         final FormulaAST rhs = (FormulaAST)lhs.getNextSibling();
         
-        final String lhsString = wrapJsForEquality(args[0], lhs.getDataType());
-        final String rhsString = wrapJsForEquality(args[1], rhs.getDataType());
+        final String lhsString = wrapJsForEquality(context, args[0], lhs.getDataType());
+        final String rhsString = wrapJsForEquality(context, args[1], rhs.getDataType());
         
         // See note above...
         final boolean highPres = lhs.getDataType() == BigDecimal.class && context.useHighPrecisionJs();
         
-        return compareBulkJS(lhsString, lhs.getType(), rhsString, rhs.getType(), treatAsString(node),
+        return compareBulkJS(context, lhsString, lhs.getType(), rhsString, rhs.getType(), treatAsString(node),
                 "<>".equals(getName()), highPres, args);
     }
 }

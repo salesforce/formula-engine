@@ -12,11 +12,23 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.URI;
+import java.nio.channels.FileChannel;
+import java.nio.channels.SeekableByteChannel;
+import java.nio.file.AccessMode;
+import java.nio.file.DirectoryStream;
+import java.nio.file.LinkOption;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.FileAttribute;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +42,7 @@ import javax.script.ScriptException;
 
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Value;
+import org.graalvm.polyglot.io.FileSystem;
 import org.graalvm.polyglot.proxy.ProxyObject;
 
 import com.coveo.nashorn_modules.Require;
@@ -41,6 +54,7 @@ import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaEngine;
 import com.force.formula.util.FormulaDateUtil;
 import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
 
@@ -148,69 +162,7 @@ public class FormulaJsTestUtils {
      * @return a string to create a "$F" variable for evaluating FormulaEngine helper functions.
      */
     protected String getFunctionScript() {
-        StringBuilder fContext = new StringBuilder();
-        fContext.append("var $F={};").append("$F.nvl=function(a,b){return a!=null?a:b};")
-                .append("$F.anl=function(a) {for (var i in a) {"
-                        + "if (a[i] == null) { return true; } } return false; };")
-                .append("$F.noe=function noe(value,ifNull)"
-                        + "{if(value===undefined||value===null||value===''){return ifNull;}"
-                        + "if(Array.isArray(value)){return value.length===0?ifNull:value;}"
-                        + "else if(typeof value==='object'&&Object.prototype.toString.call(value)==='[object Object]'){return Object.keys(value).length===0?ifNull:value;}"
-                        + "return value;};")
-                .append("$F.lpad=function(a,b,c) {return !a||!b||b<1?null:(b<=a.length?a.substring(0,b):((Array(256).join(c)+'').substring(0,b-a.length))+a)};")
-
-                // For json
-                .append("$F.tostr=function(value)"
-                        + "{if(value===undefined||value===null||value===''){return value;}"
-                        + "return String(value);};")
-
-                // Chrome, Node & GraalJS have lenient date parsing for 'YYYY-MM-DD HH:MM:SS'.  Others require ecmascript.  Try both.  
-                .append("$F.parseDateTime=function(value)"
-                        + "{if(value===undefined||value===null||value===''){return null;}"
-                        + "var d = new Date(value.trim().replace(' ','T')+'Z'); return isNaN(d) ? new Date(value.trim() + ' GMT') : d;};")
-
-                
-                // Note, Javascript setMonths has strange behavior since it'll make January 30th + 1 month may be March.  And last day needs to remain last day to match oracle.
-                // So if it's the last day of the month, we add one to the day and add the month, then remove the day.  Otherwise we use the "set Date to 0 to be last day of previous month" javascript behavior 
-                // so Jan 30 + 1 month will be Feb 28 in a non-leap year 
-                .append("$F.addmonths=function(a,b) {if (a==null||b==null) return null;if (!b) return a;var lastDay=a.getUTCDay()==(new Date(Date.UTC(a.getUTCFullYear(),a.getUTCMonth()+1,0))).getUTCDay();"
-                        +"var d=new Date(a.getTime()+(lastDay?86400000:0));d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));"
-                        +"if (lastDay) return new Date(d.getTime()-86400000); if (d.getUTCDate()!=a.getUTCDate()){d.setUTCDate(0)};return d;};")
-                
-                // Use this if you want to support fractional dates
-        		//.append("$F.addmonths=function(a,b) {if (a==null||!b) return a;var d=new Date(a.getTime()+86400000);d.setUTCMonth(d.getUTCMonth()+Math.trunc(b));d.setUTCDate(d.getUTCDate()+Math.trunc((b%1)*365.24/12));return new Date(d.getTime()-86400000);};")
-
-                // ISO week/day functions
-        		.append("$F.isoweek=function(a) {if (!a) return a;"
-        				+ "var d = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));"
-        				+ "var dayNum = d.getUTCDay() || 7;"
-        				+ "d.setUTCDate(d.getUTCDate() + 4 - dayNum);"
-        				+ "var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));"
-        				+ "return Math.ceil((((d - yearStart)/86400000) + 1)/7);}\n")
-        		.append("$F.isoyear=function(a) {if (!a) return a;"
-        				+ "var d = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));"
-        				+ "var dayNum = d.getUTCDay() || 7;"
-        				+ "d.setUTCDate(d.getUTCDate() + 4 - dayNum);"
-        				+ "var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));"
-        				+ "return yearStart.getUTCFullYear();}\n")
-        		// Javascript doesn't have day of year either.
-        		.append("$F.dayofyear=function(a) {if (!a) return a;"
-        				+ "var d = new Date(Date.UTC(a.getFullYear(), a.getMonth(), a.getDate()));"
-        				+ "var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));"
-        				+ "return Math.ceil((1+(d - yearStart))/86400000);}\n")
-        		// Init cap... Normalize and use unicode to match postgres/oracle behavior
-        		.append("$F.initcap=function(a) {if (!a) return a;"
-        				+ "return a.toLowerCase().replace(/(?:^|[^\\p{Ll}\\p{Lm}\\p{Lu}\\p{N}])[\\p{Ll}]/gu, function (m) {return m.toUpperCase();})}\n")
-        		// Format duration is complicated.  Trunc seconds, then 
-        		.append("$F.formatduration=function(s,includeDays) {if (isNaN(s)) return null;"
-                        + "if (includeDays) {"
-        		        + " return Math.trunc(s/86400)+':'+(''+Math.trunc(s/3600)%24).padStart(2,'0')+':'+(''+Math.trunc(s/60)%60).padStart(2,'0')+':'+(''+Math.trunc(s%60)).padStart(2,'0');"
-        		        + "} else {"
-        		        + " return (''+Math.trunc(s/3600)).padStart(2,'0')+':'+(''+Math.trunc(s/60)%60).padStart(2,'0')+':'+(''+Math.trunc(s%60)).padStart(2,'0');"
-        		        + "}}\n")
-        		;
-
-        return fContext.toString();
+        return "$F;";  // Everything should be loaded from formulaEngine.js above
     }
 
     /**
@@ -473,7 +425,7 @@ public class FormulaJsTestUtils {
     protected void makeGraalBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
         Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
         bindScriptEngineGlobals(compEngine, bindings, engineBindings);
-
+        
         // Need native access for this. :-/
         // URL decimalUrl = FormulaJsTestUtils.class.getClassLoader().getResource("com/force/formula/decimal.js");
         // Object decObj = compEngine.eval("load('"+new File(decimalUrl.toURI()).getAbsolutePath()+"')");
@@ -513,13 +465,14 @@ public class FormulaJsTestUtils {
      * Load the file from the resource and put it on disk, so graalvm can load it normally.
      * @param resourcePath the path relative to this classloader
      * @param tmpName the tmpName to use for the jsfile
+     * @param ext the extension to use, like '.js'
      * @return a file that will be deleted on exit
      * @throws IOException if the file can't be found.
      */
-    private File makeJsFileFromResource(String resourcePath, String tmpName) throws IOException {
+    private static File makeJsFileFromResource(String resourcePath, String tmpName, String ext) throws IOException {
         InputStream decimalUrlStream = FormulaJsTestUtils.class.getClassLoader().getResourceAsStream(resourcePath);
         byte[] buffer = ByteStreams.toByteArray(decimalUrlStream);
-        File tmp = File.createTempFile(tmpName, ".js");
+        File tmp = File.createTempFile(tmpName, ext);
         tmp.deleteOnExit();
         Files.write(buffer, tmp);
         return tmp;
@@ -529,28 +482,34 @@ public class FormulaJsTestUtils {
         Context context = ROOT_CONTEXT.get();
         if (context == null) {
             Context.Builder builder = Context.newBuilder("js");
-            builder.allowNativeAccess(true);
-            builder.allowIO(true);
+            builder.fileSystem(new JarFS());
+            builder.allowIO(true);  // Needed to load modules
             builder.option("js.intl-402", "true"); // Support now ubiquitous Intl object for formatcurrency and the like.
             builder.option("engine.WarnInterpreterOnly", "false");  // Don't warn about being in openjdk with graaljs.
+
+            // This is required to try mjs (see below)
+            // builder.allowExperimentalOptions(true);
+            // builder.option("js.esm-eval-returns-exports", "true");
+
             context = builder.build();
 
-            try {
-                evalGraalContextGlobals(context);
+            context.eval("js", "load('com/force/formula/formulaEngine.js'); var $F = FormulaEngine;");
 
-                // Need native access for this. :-/.  It also requires a file on disk.
-                File tmp = makeJsFileFromResource("com/force/formula/decimal.js", "decimal");
-                context.eval("js", "load('" + tmp.getAbsolutePath() + "')");
-                context.eval("js",  "Object.defineProperty($F, 'Decimal', { value : Decimal});");
+            // You can't redefine stuff in modules, and you need the options above, and then it's still questionable
+            //File tmp = makeJsFileFromResource("com/force/formula/formulaEngine.mjs", "formulaEngine", ".mjs");
+            //Value feModule = context.eval(Source.newBuilder("js", "import {FormulaEngine} from '" + tmp.getAbsolutePath() + "'; FormulaEngine;", "test.mjs").build());
+            //context.getBindings("js").putMember("$F", feModule);
+            //context.getBindings("js").putMember("FormulaEngine", feModule);
+            
+            // Allow overrides
+            evalGraalContextGlobals(context);
+            context.eval("js", "load('com/force/formula/decimal.js')");
+            context.eval("js",  "Object.defineProperty($F, 'Decimal', { value : Decimal});");
+            
+            context.eval("js", "load('com/force/formula/jsonpath.js')");
+            context.eval("js",  "Object.defineProperty($F, 'jsonPath', { value : jsonPath});");
 
-                tmp = makeJsFileFromResource("com/force/formula/jsonpath.js", "jsonpath");
-                context.eval("js", "load('" + tmp.getAbsolutePath() + "')");
-                context.eval("js",  "Object.defineProperty($F, 'jsonPath', { value : jsonPath});");
-
-                ROOT_CONTEXT.set(context);
-            } catch (IOException x) {
-                throw new RuntimeException(x);
-            }
+            ROOT_CONTEXT.set(context);
         }
         return context;
     }
@@ -745,5 +704,56 @@ public class FormulaJsTestUtils {
             // Ignore it for now
         }
         return obj;
+    }
+    
+    /**
+     * Trivial Truffle Filesystem that calls into {@link #makeJsFileFromResource(String, String, String)}.
+     */
+    protected static class JarFS implements FileSystem {
+        JarFS() {
+        }
+        @Override
+        public Path parsePath(URI uri) {
+            return Paths.get(uri);
+        }
+        @Override
+        public Path parsePath(String path) {
+            return Paths.get(path);
+        }
+        @Override
+        public void checkAccess(Path path, Set<? extends AccessMode> modes, LinkOption... linkOptions) {
+        }
+        @Override
+        public void createDirectory(Path dir, FileAttribute<?>... attrs) {
+            throw new AssertionError();
+        }
+        @Override
+        public void delete(Path path) {
+            throw new AssertionError();
+        }
+        @Override
+        public SeekableByteChannel newByteChannel(Path path, Set<? extends OpenOption> options, FileAttribute<?>... attrs) throws IOException {
+            String resource = path.toString();
+            File f = makeJsFileFromResource(resource, "temp", resource.substring(resource.lastIndexOf('.')));
+            return FileChannel.open(f.toPath(), StandardOpenOption.READ);
+        }
+        @Override
+        public DirectoryStream<Path> newDirectoryStream(Path dir, DirectoryStream.Filter<? super Path> filter) {
+            throw new AssertionError();
+        }
+        @Override
+        public Path toAbsolutePath(Path path) {
+            return path.toAbsolutePath();
+        }
+        @Override
+        public Path toRealPath(Path path, LinkOption... linkOptions) {
+            return path;
+        }
+        @Override
+        public Map<String, Object> readAttributes(Path path, String attributes, LinkOption... options) {
+            // Size isn't really used.
+            return ImmutableMap.of("isRegularFile",  Boolean.TRUE,
+                    "size", 0L);
+        }
     }
 }

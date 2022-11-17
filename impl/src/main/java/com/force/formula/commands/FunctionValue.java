@@ -37,7 +37,7 @@ public class FunctionValue extends FormulaCommandInfoImpl {
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         if (context.useHighPrecisionJs()) {
-            return JsValue.forNonNullResult("$F.Decimal(" + args[0] + ")", args);
+            return JsValue.forNonNullResult(context.getJsEngMod() + ".Decimal(" + args[0] + ")", args);
         }
         return JsValue.forNonNullResult("Number(" + args[0] + ")", args);
     }

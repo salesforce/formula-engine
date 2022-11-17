@@ -3,10 +3,16 @@ package com.force.formula.commands;
 import java.math.BigDecimal;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -40,7 +46,7 @@ public class FunctionLen extends FormulaCommandInfoImpl {
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         // Yeah, this is absurd, but whaddayagonna do.  Swallow the guard and always return 0
-        String js = jsToDec(context, jsNvl2WithGuard(args[0], "("+args[0]+").length", jsToDec(context,"0"), true));  // Yeah, zero.  Weird.
+        String js = jsToDec(context, jsNvl2WithGuard(context, args[0], "("+args[0]+").length", jsToDec(context,"0"), true));  // Yeah, zero.  Weird.
         return new JsValue(js, null, false);
     }
 }

@@ -573,7 +573,6 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
      * Proceed through tree in InFix order. Eliminate all constant expression by evaluating them
      * and replacing them with their result at compile time.
      *
-     * @author Lars Hofhansl
      * @param ast the root AST of the formulat
      * @param context the context for the evaluation
      * @param properties the attributes of the parsed expression that will be updated while optimizing (see FormulaImpl)

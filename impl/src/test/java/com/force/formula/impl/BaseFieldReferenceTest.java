@@ -5,7 +5,10 @@
  */
 package com.force.formula.impl;
 
-import static com.force.formula.MockFormulaDataType.*;
+import static com.force.formula.MockFormulaDataType.BOOLEAN;
+import static com.force.formula.MockFormulaDataType.DATEONLY;
+import static com.force.formula.MockFormulaDataType.DOUBLE;
+import static com.force.formula.MockFormulaDataType.TEXT;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -110,7 +113,7 @@ public abstract class BaseFieldReferenceTest extends BaseCustomizableParserTest 
      * @param type the result type of the formula
      * @param formula the formula source to evaluate 
      * @param asZero the value that should be returned if null numbers are treated as zero
-     * @param asZero the value that should be returned if null numbers are treated as null
+     * @param asNull the value that should be returned if null numbers are treated as null
      */
     protected void validateFieldReferences(MockFormulaDataType type, String formula, Object asZero, Object asNull) throws Exception {
         Object value = null;

@@ -8,6 +8,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
+import com.force.formula.commands.FunctionAddMonths;
 import com.force.formula.impl.FormulaSqlHooks;
 
 /**
@@ -153,7 +154,7 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
     }
     
     /**
-     * @see specification in FunctionAddMonths.java
+     * @see FunctionAddMonths
      * @return the format to use for adding months.
      */
 	@Override

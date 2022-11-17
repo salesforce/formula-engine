@@ -651,7 +651,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     
     
     /**
-     * @return whether java & javascript should treat null months in ADDMONTHS() as zero, 
+     * @return whether java and javascript should treat null months in ADDMONTHS() as zero, 
      * and return the passed in date if true.  Defaults to false, which returns null.
      */
     default boolean functionHook_addNullMonthsAsZero() {

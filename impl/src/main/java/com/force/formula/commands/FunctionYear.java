@@ -44,7 +44,7 @@ public class FunctionYear extends FormulaCommandInfoImpl {
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         if (context.useHighPrecisionJs()) {
-            return JsValue.forNonNullResult("new $F.Decimal("+args[0].js+".getUTCFullYear())", args);
+            return JsValue.forNonNullResult("new " + context.getJsEngMod() + ".Decimal("+args[0].js+".getUTCFullYear())", args);
         }
         return JsValue.forNonNullResult(args[0]+".getUTCFullYear()", args);
     }

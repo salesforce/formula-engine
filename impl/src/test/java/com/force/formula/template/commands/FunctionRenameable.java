@@ -12,6 +12,7 @@ import com.force.formula.FormulaRuntimeContext;
 import com.force.formula.commands.AbstractFormulaCommand;
 import com.force.formula.commands.FormulaCommandInfo;
 import com.force.formula.commands.FormulaCommandInfoImpl;
+import com.force.formula.commands.FunctionFormat;
 import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.JsValue;
 import com.force.formula.impl.TableAliasRegistry;

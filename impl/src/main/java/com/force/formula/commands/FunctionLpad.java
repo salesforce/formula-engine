@@ -3,10 +3,16 @@ package com.force.formula.commands;
 import java.math.BigDecimal;
 import java.util.Deque;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.FormulaSqlHooks;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
 import com.force.formula.sql.SQLPair;
 
 /**
@@ -52,9 +58,9 @@ public class FunctionLpad extends FormulaCommandInfoImpl {
         // Per SQL convention, LPAD should return null if
         // 1) the original value is null
         // 2) the end length is null or < 1
-        String padValue = (node.getNumberOfChildren() == 3) ? jsNvl(args[2].js, "' '") : "' '";
+        String padValue = (node.getNumberOfChildren() == 3) ? jsNvl(context, args[2].js, "' '") : "' '";
         // The pad value can be null, we guard against it above
-        return JsValue.generate("$F.lpad("+args[0]+","+jsToNum(context, args[1].js)+","+padValue+")", args, args[0].couldBeNull || args[1].couldBeNull, args[0], args[1]);
+        return JsValue.generate(context.getJsEngMod() + ".lpad("+args[0]+","+jsToNum(context, args[1].js)+","+padValue+")", args, args[0].couldBeNull || args[1].couldBeNull, args[0], args[1]);
         // NOTE: This is incorrect.  It needs to check for the length being < args[1] and if so return a substring
         //return "(!("+args[0]+")||!("+args[1]+")||"+args[1]+"<1)?null:"+args[1]+"<"+(Array("+MAXPAD+").join("+padValue+")+"+args[0]+").slice(-"+args[1]+")";
     }

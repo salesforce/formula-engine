@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
+import com.force.formula.commands.FunctionAddMonths;
 import com.force.formula.impl.FormulaSqlHooks;
 import com.force.formula.sql.SQLPair;
 import com.force.formula.util.FormulaDateUtil;
@@ -201,7 +202,7 @@ public interface FormulaSqliteHooks extends FormulaSqlHooks {
 	
     
     /**
-     * @see specification in FunctionAddMonths.java
+     * @see FunctionAddMonths
      * @return the format to use for adding months.
      * 
      * This is made rather difficult because interval month isn't supported for DateTimes in spanner.

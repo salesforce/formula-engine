@@ -3,10 +3,24 @@ package com.force.formula.commands;
 import java.util.Deque;
 import java.util.List;
 
-import com.force.formula.*;
+import com.force.formula.FormulaCommand;
 import com.force.formula.FormulaCommandType.AllowedContext;
 import com.force.formula.FormulaCommandType.SelectorSection;
-import com.force.formula.impl.*;
+import com.force.formula.FormulaContext;
+import com.force.formula.FormulaDataType;
+import com.force.formula.FormulaEngine;
+import com.force.formula.FormulaException;
+import com.force.formula.FormulaFieldInfo;
+import com.force.formula.FormulaPicklistInfo;
+import com.force.formula.FormulaProperties;
+import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.InvalidFieldReferenceException;
+import com.force.formula.UnsupportedTypeException;
+import com.force.formula.impl.FormulaAST;
+import com.force.formula.impl.JsValue;
+import com.force.formula.impl.TableAliasRegistry;
+import com.force.formula.impl.WrongArgumentTypeException;
+import com.force.formula.impl.WrongNumberOfArgumentsException;
 import com.force.formula.parser.gen.FormulaTokenTypes;
 import com.force.formula.sql.SQLPair;
 import com.force.i18n.commons.text.TextUtil;
@@ -128,16 +142,16 @@ public class FunctionIsPickVal extends FormulaCommandInfoImpl
         final FormulaAST lhs = (FormulaAST) node.getFirstChild();
         final FormulaAST rhs = (FormulaAST) lhs.getNextSibling();
 
-        final String lhsString = OperatorEquality.wrapJsForEquality(args[0], lhs.getDataType());
-        final String rhsString = OperatorEquality.wrapJsForEquality(args[1], rhs.getDataType());
+        final String lhsString = OperatorEquality.wrapJsForEquality(context, args[0], lhs.getDataType());
+        final String rhsString = OperatorEquality.wrapJsForEquality(context, args[1], rhs.getDataType());
 
         JsValue[] values = new JsValue[2];
-        values[0] = OperatorEquality.compareBulkJS(lhsString, lhs.getType(), rhsString, rhs.getType(), true, false,
+        values[0] = OperatorEquality.compareBulkJS(context, lhsString, lhs.getType(), rhsString, rhs.getType(), true, false,
                 false, args); // Equality comparison JsValue
         values[1] = JsValue.generate(args[0] + "==null", args, false); // Null value comparison
         if ("\"\"".equals(args[1].js) || "''".equals(args[1].js)) {
-            return JsValue.generate((jsNvl(values[0].buildJSWithGuard(), "false") + " || "
-                    + jsNvl(values[1].buildJSWithGuard(), "false")), null, false);
+            return JsValue.generate((jsNvl(context, values[0].buildJSWithGuard(), "false") + " || "
+                    + jsNvl(context, values[1].buildJSWithGuard(), "false")), null, false);
         }
         return values[0];
     }

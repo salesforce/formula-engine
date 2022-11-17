@@ -35,7 +35,7 @@ public class ConstantNumber extends ConstantBase {
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         if (context.useHighPrecisionJs()) {
-            return new JsValue("new $F.Decimal('" + node.getText() + "')", null, false);
+            return new JsValue("new " + context.getJsEngMod() + ".Decimal('" + node.getText() + "')", null, false);
         }
         return new JsValue(node.getText(), null, false);
     }

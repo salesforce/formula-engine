@@ -100,8 +100,8 @@ public class FunctionLike extends FormulaCommandInfoImpl implements FormulaComma
                 + ".replaceAll(/([*?+^$(){}\\[])/g,'\\\\$1')"
                 + ".replaceAll(/_/g,'.').replaceAll(/%/g,'.*')"
                 + ".replaceAll(/\\f/g,'_').replaceAll(/\\t/g,'%')";
-        String regex = FormulaCommandInfoImpl.jsNvl2(args[1], "'^'+"+likeStr+"+'$'", "'^$'");
-        String js = "new RegExp("+regex+").test("+FormulaCommandInfoImpl.jsNvl(args[0].js, "''")+")";
+        String regex = FormulaCommandInfoImpl.jsNvl2(context, args[1], "'^'+"+likeStr+"+'$'", "'^$'");
+        String js = "new RegExp("+regex+").test("+FormulaCommandInfoImpl.jsNvl(context, args[0].js, "''")+")";
         return JsValue.generate(js, args, false);
     }
 

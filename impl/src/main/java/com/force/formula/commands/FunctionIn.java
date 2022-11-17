@@ -173,10 +173,10 @@ public class FunctionIn extends FormulaCommandInfoImpl implements FormulaCommand
             for (int i = 1; i < args.length; i++) {
                 // Decimal.js doesn't work right with Array includes...
                 if (type == BigDecimal.class && context.useHighPrecisionJs()) {
-                    js.append(jsNvl2(args[i], jsToNum(context, args[i].js),null)).append(",");
+                    js.append(jsNvl2(context, args[i], jsToNum(context, args[i].js),null)).append(",");
                 } else if (type == Date.class || type == FormulaDateTime.class) {
                     // Need to use getTime.
-                    js.append(jsNvl2(args[i], args[i].js + ".getTime()",null)).append(",");
+                    js.append(jsNvl2(context, args[i], args[i].js + ".getTime()",null)).append(",");
                 } else {
                     js.append(args[i]).append(",");
                 }
@@ -184,9 +184,9 @@ public class FunctionIn extends FormulaCommandInfoImpl implements FormulaCommand
             js.setLength(js.length()-1);
             Object value = args[0];
             if (type == BigDecimal.class && context.useHighPrecisionJs()) {
-                value = jsNvl2(args[0], jsToNum(context, args[0].js),null);
+                value = jsNvl2(context, args[0], jsToNum(context, args[0].js),null);
             } else if (type == Date.class || type == FormulaDateTime.class) {
-                value = jsNvl2(args[0], args[0].js + ".getTime()",null);
+                value = jsNvl2(context, args[0], args[0].js + ".getTime()",null);
             }           
             js.append("].filter(e=>e!=null).indexOf(").append(value).append(")>=0)");
         }

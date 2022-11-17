@@ -15,6 +15,7 @@ import com.force.formula.FormulaEngine;
 import com.force.formula.FormulaException;
 import com.force.formula.FormulaProperties;
 import com.force.formula.FormulaRuntimeContext;
+import com.force.formula.impl.BaseFormulaInfoImpl;
 import com.force.formula.impl.FormulaAST;
 import com.force.formula.impl.FormulaTypeUtils;
 import com.force.formula.impl.FormulaValidationHooks;

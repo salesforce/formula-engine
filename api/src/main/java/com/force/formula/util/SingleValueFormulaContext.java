@@ -22,7 +22,7 @@ import com.force.formula.UnsupportedTypeException;
 /**
  * Class for implementing a Formula Context with a single value, normally called "Value."
  * This is intended to be used for writing validation formulas of a single value like 
- * <tt>Value > 0</tt> 
+ * <tt>Value &gt; 0</tt> 
  *
  * @author stamm
  * @since 0.2.6
@@ -34,7 +34,10 @@ public class SingleValueFormulaContext<T> extends BaseRootFormulaContext {
     private final T value;
     
     /**
-     * @param outerContext
+     * @param topLevelFormulaType the top level formula type
+     * @param returnType the type to return for this formula
+     * @param dataType type type of the single value
+     * @param value the single value to return
      */
     public SingleValueFormulaContext(FormulaTypeSpec topLevelFormulaType, FormulaReturnType returnType, FormulaDataType dataType, T value) {
         super(topLevelFormulaType, returnType);
