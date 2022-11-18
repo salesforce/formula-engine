@@ -42,7 +42,7 @@ export class FormulaEngine {
      * @param {Object} value - the object to stringify
      * @returns {String} a stringified version of value
      */
-    tostr = function (value) {
+    tostr(value) {
         if (value === undefined || value === null || value === '') {
             return value;
         }
@@ -55,7 +55,7 @@ export class FormulaEngine {
      * @param {String} value - a string value that is similar to an ISO date format.
      * @returns {Date} - a date object that may be invalid
      */
-    parseDateTime = function (value) {
+    parseDateTime(value) {
         if (value === undefined || value === null || value === '') {
             return null;
         }
@@ -74,7 +74,7 @@ export class FormulaEngine {
      * @param {Number} months - the number of months to add to the date
      * @returns {Date} - the date with the numver of months added
      */
-    addmonths = function (d, months) {
+    addmonths(d, months) {
         if (d == null || d == null) {
             return null;
         }
@@ -98,7 +98,7 @@ export class FormulaEngine {
      * @param {Date} d - the date
      * @param {NUmber} - the ISO Week of the date
      */
-    isoweek = function (date) {
+    isoweek(date) {
         if (!date) {
             return date;
         }
@@ -114,7 +114,7 @@ export class FormulaEngine {
      * @param {Date} date - the date
      * @param {NUmber} - the ISO YEAR of the date
      */
-    isoyear = function (date) {
+    isoyear(date) {
         if (!date) {
             return date;
         }
@@ -145,7 +145,7 @@ export class FormulaEngine {
      * @param {String} str - the string
      * @returns {String} - the string with the first characters of words converted to uppercase
      */
-    initcap = function (str) {
+    initcap(str) {
         if (!str) {
             return str;
         }
@@ -159,7 +159,7 @@ export class FormulaEngine {
      * @param {Number} len - length to pad
      * @param {String} pad - the optional string to pad.
      */
-    lpad = function (str, len, pad) {
+    lpad(str, len, pad) {
         return !str || !len || len < 1 ? null : (len <= str.length ? str.substring(0, len) : ((Array(256).join(pad) + '').substring(0, len - str.length)) + str);
     }
 
@@ -168,7 +168,7 @@ export class FormulaEngine {
      * @param {Date} s - the date to format
      * @param {boolean} includeDays - whether to include days in the display
      */
-    formatduration = function (s, includeDays) {
+    formatduration(s, includeDays) {
         if (isNaN(s)) { // invalid date
             return null;
         }
@@ -176,6 +176,8 @@ export class FormulaEngine {
             return Math.trunc(s / 86400) + ':' + ('' + (Math.trunc(s / 3600) % 24)).padStart(2, '0') + ':' + ('' + (Math.trunc(s / 60) % 60)).padStart(2, '0') + ':' + ('' + Math.trunc(s % 60)).padStart(2, '0');
         }
         return ('' + Math.trunc(s / 3600)).padStart(2, '0') + ':' + ('' + (Math.trunc(s / 60) % 60)).padStart(2, '0') + ':' + ('' + Math.trunc(s % 60)).padStart(2, '0');
-    }
+    }  
+
+    // TODO: Put Decimal and jsonpath here...
 }
 /** version: 0.3.0 */
