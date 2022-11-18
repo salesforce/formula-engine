@@ -36,109 +36,121 @@ export class FormulaEngine {
     anl(tests) {
         return Array.isArray(tests) && tests.some(val => val === null || val === undefined);
     }
-    
+
     /**
      * Return the value as a string, while leaving null and undefined alone.
      * @param {Object} value - the object to stringify
      * @returns {String} a stringified version of value
      */
-    tostr(value) {
-        if(value===undefined||value===null||value==='') {
+    tostr = function (value) {
+        if (value === undefined || value === null || value === '') {
             return value;
-        }        
-        return String(value)
+        }
+        return String(value);
     }
-    
+
     /**
      * Chrome, Node & GraalJS have lenient date parsing for 'YYYY-MM-DD HH:MM:SS'.  Others require ecmascript ISO formatting only (with T & Z).
      * try both
      * @param {String} value - a string value that is similar to an ISO date format.
      * @returns {Date} - a date object that may be invalid
      */
-    parseDateTime(value) {
-        if (value===undefined||value===null||value==='') {
+    parseDateTime = function (value) {
+        if (value === undefined || value === null || value === '') {
             return null;
         }
-        var d = new Date(value.trim().replace(' ','T')+'Z'); 
+        const d = new Date(value.trim().replace(' ', 'T') + 'Z');
         return isNaN(d) ? new Date(value.trim() + ' GMT') : d;
     }
-    
+
     /**
      * ADDMONTHS()
-     * Note, Javascript setMonths has strange behavior since it'll make January 30th + 1 month may be March.  
+     * Note, Javascript setMonths has strange behavior since it'll make January 30th + 1 month may be March.
      * And last day needs to remain last day to match oracle.
-     * So if it's the last day of the month, we add one to the day and add the month, then remove the day.  
-     * Otherwise we use the "set Date to 0 to be last day of previous month" javascript behavior 
-     * so Jan 30 + 1 month will be Feb 28 in a non-leap year 
+     * So if it's the last day of the month, we add one to the day and add the month, then remove the day.
+     * Otherwise we use the "set Date to 0 to be last day of previous month" javascript behavior
+     * so Jan 30 + 1 month will be Feb 28 in a non-leap year
      * @param {Date} d - a date to add months to
      * @param {Number} months - the number of months to add to the date
      * @returns {Date} - the date with the numver of months added
      */
-    addmonths(d,months) {
-        if (d==null||d==null) return null;
-        if (!months) return d;
-        var lastDay=d.getUTCDay()==(new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+1,0))).getUTCDay();
-        var adj=new Date(d.getTime()+(lastDay?86400000:0));
-        adj.setUTCMonth(adj.getUTCMonth()+Math.trunc(months));
-        if (lastDay) {
-            return new Date(adj.getTime()-86400000); 
+    addmonths = function (d, months) {
+        if (d == null || d == null) {
+            return null;
         }
-        if (d.getUTCDate()!=adj.getUTCDate()) {
-            adj.setUTCDate(0)
+        if (!months) {
+            return d;
+        }
+        const lastDay = d.getUTCDay() === (new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0))).getUTCDay();
+        const adj = new Date(d.getTime() + (lastDay ? 86400000 : 0));
+        adj.setUTCMonth(adj.getUTCMonth() + Math.trunc(months));
+        if (lastDay) {
+            return new Date(adj.getTime() - 86400000);
+        }
+        if (d.getUTCDate() !== adj.getUTCDate()) {
+            adj.setUTCDate(0);
         }
         return adj;
     }
-    
+
     /**
      * ISOWEEK(Date)
      * @param {Date} d - the date
      * @param {NUmber} - the ISO Week of the date
      */
-    isoweek(date) {
-        if (!date) return date;
-        var d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-        var dayNum = d.getUTCDay() || 7
+    isoweek = function (date) {
+        if (!date) {
+            return date;
+        }
+        const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        const dayNum = d.getUTCDay() || 7;
         d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-        var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
-        return Math.ceil((((d - yearStart)/86400000) + 1)/7);
+        const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+        return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
     }
-    
+
     /**
      * ISOYEAR(Date)
      * @param {Date} date - the date
      * @param {NUmber} - the ISO YEAR of the date
      */
-    isoyear(date) {
-        if (!date) return date;
-        var d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-        var dayNum = d.getUTCDay() || 7
+    isoyear = function (date) {
+        if (!date) {
+            return date;
+        }
+        const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        const dayNum = d.getUTCDay() || 7;
         d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-        var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+        const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
         return yearStart.getUTCFullYear();
-    }
-    
+    };
+
     /**
      * DAYOFYEAR(Date)
      * @param {Date} d - the date
      * @param {Number} - the day of the year
      */
-    dayofyear(date) {
-        if (!date) return date;
-        var d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-        var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
-        return Math.ceil((1+(d - yearStart))/86400000);
+    dayofyear = function (date) {
+        if (!date) {
+            return date;
+        }
+        const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+        return Math.ceil((1 + (d - yearStart)) / 86400000);
     }
-    
-    
+
+
     /**
      * INITCAP(String) - Capitalize all the "first" characters in words
-     * @param {String} str - the string 
+     * @param {String} str - the string
      * @returns {String} - the string with the first characters of words converted to uppercase
      */
-    initcap(str) {
-        if (!str) return str;
+    initcap = function (str) {
+        if (!str) {
+            return str;
+        }
         // Init cap... Normalize and use unicode to match postgres/oracle behavior
-        return str.toLowerCase().replace(/(?:^|[^\p{Ll}\p{Lm}\p{Lu}\p{N}])[\p{Ll}]/gu, function (m) {return m.toUpperCase();});
+        return str.toLowerCase().replace(/(?:^|[^\p{Ll}\p{Lm}\p{Lu}\p{N}])[\p{Ll}]/gu, m => m.toUpperCase());
     }
 
     /**
@@ -146,29 +158,24 @@ export class FormulaEngine {
      * @param {String} str - the string to pad on the left
      * @param {Number} len - length to pad
      * @param {String} pad - the optional string to pad.
-     */    
-    lpad(str,len,pad) {
-        return !str||!len||len<1?null:(len<=str.length?str.substring(0,len):((Array(256).join(pad)+'').substring(0,len-str.length))+str);
+     */
+    lpad = function (str, len, pad) {
+        return !str || !len || len < 1 ? null : (len <= str.length ? str.substring(0, len) : ((Array(256).join(pad) + '').substring(0, len - str.length)) + str);
     }
-    
-        
+
     /**
      * FORMATDURATION() - Format the duration as defined by the unix epoch as hh:mm:ss or ddd:hh:mm:ss.
      * @param {Date} s - the date to format
      * @param {boolean} includeDays - whether to include days in the display
      */
-    formatduration(s, includeDays) {
+    formatduration = function (s, includeDays) {
         if (isNaN(s)) { // invalid date
-            return null; 
+            return null;
         }
         if (includeDays) {
-            return Math.trunc(s/86400)+':'+(''+Math.trunc(s/3600)%24).padStart(2,'0')+':'+(''+Math.trunc(s/60)%60).padStart(2,'0')+':'+(''+Math.trunc(s%60)).padStart(2,'0');
-        } else {
-            return (''+Math.trunc(s/3600)).padStart(2,'0')+':'+(''+Math.trunc(s/60)%60).padStart(2,'0')+':'+(''+Math.trunc(s%60)).padStart(2,'0');
+            return Math.trunc(s / 86400) + ':' + ('' + (Math.trunc(s / 3600) % 24)).padStart(2, '0') + ':' + ('' + (Math.trunc(s / 60) % 60)).padStart(2, '0') + ':' + ('' + Math.trunc(s % 60)).padStart(2, '0');
         }
-    }   
-    
-    
-    // TODO: Put Decimal and jsonpath here...
-};
+        return ('' + Math.trunc(s / 3600)).padStart(2, '0') + ':' + ('' + (Math.trunc(s / 60) % 60)).padStart(2, '0') + ':' + ('' + Math.trunc(s % 60)).padStart(2, '0');
+    }
+}
 /** version: 0.3.0 */
