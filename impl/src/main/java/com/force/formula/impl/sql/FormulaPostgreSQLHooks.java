@@ -86,6 +86,15 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
     default String sqlToChar() {
 		return "CAST(%s AS TEXT)";
     }
+
+    /**
+     * @return the format for String.format for converting from a datetime value to a string YYYY-MM-DD HH24:MI:SS,
+     * require a cast to ::timestamp in postgres
+     */
+    @Override
+    default String sqlToCharTimestamp() {
+        return "TO_CHAR((%s)::timestamp(0), 'YYYY-MM-DD HH24:MI:SS')";
+    }
     
     /**
      * @return the string to use for TO_TIMESTAMP to get seconds.microseconds.  It's a subtle difference
