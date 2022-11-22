@@ -36,7 +36,10 @@ public class UnsupportedTypeException extends FormulaException implements Formul
     }
 
     private static String createErrorMessage(String name, FormulaDataType dataType) {
-        if (dataType.isPickval()) {
+        if (dataType == null) {
+            return FormulaI18nUtils.getLocalizer().getLabel("FormulaFieldExceptionMessages",
+                    "UnsupportedTypeException", name);
+        } else if (dataType.isPickval()) {
             return createErrorMessageForPicklists(name, PICKLIST_SUFFIX);
         } else if (dataType.isMultiEnum()) {
             return createErrorMessageForPicklists(name, MSP_SUFFIX);
@@ -57,7 +60,9 @@ public class UnsupportedTypeException extends FormulaException implements Formul
 
     private String createHtmlFreeErrorMessage(String name, FormulaDataType dataType) {
         String suffix = null;
-        if (dataType.isPickval()) {
+        if (dataType == null){
+            suffix = null;
+        } else if (dataType.isPickval()) {
             suffix = PICKLIST_SUFFIX;
         } else if (dataType.isMultiEnum()) {
             suffix = MSP_SUFFIX;
