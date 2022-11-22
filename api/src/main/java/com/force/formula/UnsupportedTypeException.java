@@ -51,7 +51,6 @@ public class UnsupportedTypeException extends FormulaException implements Formul
 
     private static String createErrorMessage(String name, FormulaSchema.Field info) {
         return createErrorMessage(name, info.getDataType());
-
     }
 
     private static String createErrorMessageForPicklists(String name, String suffix){
