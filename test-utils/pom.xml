@@ -24,12 +24,6 @@
 		  <artifactId>guava</artifactId>
 		</dependency>
         <dependency>
-            <groupId>com.coveo</groupId>
-            <artifactId>nashorn-commonjs-modules</artifactId>
-            <version>1.0.9</version>
-		    <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.graalvm.sdk</groupId>
             <artifactId>graal-sdk</artifactId>
         </dependency>
