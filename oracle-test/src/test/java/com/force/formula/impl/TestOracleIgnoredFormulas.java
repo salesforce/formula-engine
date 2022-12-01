@@ -42,6 +42,6 @@ public class TestOracleIgnoredFormulas extends FormulaOracleTests {
 
     @Override
     protected boolean filterTests(FormulaTestCaseInfo testCase) {
-        return testCase.getTestLabels().contains("ignore") || testCase.getTestLabels().contains("badNashorn");
+        return testCase.getTestLabels().contains("ignore");
     }    
 }

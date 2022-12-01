@@ -21,7 +21,6 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
      <!-- TESTCASES for ISNUMBER() -->
-     <!-- TODO SLT: Ignore because isNan('&dash;&dash;1234') is wrong in Nashorn.. Note the double dash is two - -->
      <testcase name="testISNUMBER" devName="testISNUMBER"
          labelName="testISNUMBER" dataType="Double" scale="2" dataFile="valueFunctionData"
          code="if(ISNUMBER(customtext1__c),1,0)">

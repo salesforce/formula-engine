@@ -5,11 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URI;
@@ -34,7 +29,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.script.Bindings;
-import javax.script.Invocable;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -45,38 +39,40 @@ import org.graalvm.polyglot.Value;
 import org.graalvm.polyglot.io.FileSystem;
 import org.graalvm.polyglot.proxy.ProxyObject;
 
-import com.coveo.nashorn_modules.Require;
-import com.coveo.nashorn_modules.ResourceFolder;
 import com.force.formula.Formula;
 import com.force.formula.FormulaContext;
 import com.force.formula.FormulaDataType;
 import com.force.formula.FormulaDateTime;
 import com.force.formula.FormulaEngine;
 import com.force.formula.util.FormulaDateUtil;
-import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
 
+/**
+ * Utilities for managing Javascript to evaluate formulas.
+ * @author stamm
+ * @since 0.1
+ */
 public class FormulaJsTestUtils {
     private static final Logger logger = Logger.getLogger("com.force.formula.js");
     
     private static final AtomicReference<FormulaJsTestUtils> INSTANCE = new AtomicReference<>(new FormulaJsTestUtils());
     
+    /**
+     * @return get the JsTestUtils
+     */
     public static final FormulaJsTestUtils get() {
         return INSTANCE.get();
     }
     
+    /**
+     * param override set the JsTestUtils to use.
+     */
     protected static void setTestUtils(FormulaJsTestUtils override) {
         INSTANCE.set(override);
     }
     
-    /**
-     * Whether we are in GraalVM or not.  This is set to true to use graaljs even on openjdk
-     */
-    //public final static boolean IS_GRAAL = System.getProperty("java.vendor.version", "").contains("GraalVM");
-	public final static boolean IS_GRAAL = Boolean.TRUE;
-
     private AtomicReference<Bindings> BINDINGS = new AtomicReference<>();
     private AtomicReference<ScriptEngine> BINDINGS_ENGINE = new AtomicReference<>();
 
@@ -86,11 +82,7 @@ public class FormulaJsTestUtils {
      *         and the closing brace
      */
     public ScriptEngine getScriptEngine() {
-        if (IS_GRAAL) {
-            return getGraalEngine();
-        } else {
-            return getNashornEngine();
-        }
+        return getGraalEngine();
     }
 
     public Object evaluateFormula(Formula formula, FormulaDataType columnType, FormulaContext context,
@@ -99,7 +91,7 @@ public class FormulaJsTestUtils {
     }
 
     /**
-     * Evaluate the formula using Nashorn or Graal
+     * Evaluate the formula using Graal
      *
      * @param formula
      *            the formula to evaluate in javascript
@@ -119,36 +111,17 @@ public class FormulaJsTestUtils {
             Map<String, Object> jsMap, Map<String, Object> globalMap) {
         // Establish the context for the Javascript engine
    	
-    	if (IS_GRAAL) {
-            Context jsContext = getGraalContext();
-            if (jsMap != null) {
-                Object graaled = convertToGraal(jsContext, jsMap, context);
-                jsContext.getBindings("js").putMember("context", graaled);
-            }
-            if (globalMap != null) {
-                globalMap.entrySet().stream().forEach((e) -> jsContext.getBindings("js").putMember(e.getKey(),
-                        convertToGraal(jsContext, e.getValue(), context)));
-            }
-            Value result = jsContext.eval("js", formula.toJavascript());
-            return convertResultFromGraal(result, columnType);
-        } else {
-            Object result;
-            try {
-                ScriptEngine engine = getScriptEngine();
-                if (jsMap != null) {
-                    convertToNashorn(engine, jsMap, context);
-                    engine.getBindings(ScriptContext.GLOBAL_SCOPE).put("context", jsMap);
-                }
-                if (globalMap != null) {
-                    globalMap.entrySet().stream().forEach((e) -> engine.getBindings(ScriptContext.GLOBAL_SCOPE)
-                            .put(e.getKey(), convertToNashorn(engine, e.getValue(), context)));
-                }
-                result = engine.eval(formula.toJavascript());
-                return convertResultFromJs(result, engine, columnType);
-            } catch (ScriptException ex) {
-                throw new RuntimeException(ex);
-            }
+        Context jsContext = getGraalContext();
+        if (jsMap != null) {
+            Object graaled = convertToGraal(jsContext, jsMap, context);
+            jsContext.getBindings("js").putMember("context", graaled);
         }
+        if (globalMap != null) {
+            globalMap.entrySet().stream().forEach((e) -> jsContext.getBindings("js").putMember(e.getKey(),
+                    convertToGraal(jsContext, e.getValue(), context)));
+        }
+        Value result = jsContext.eval("js", formula.toJavascript());
+        return convertResultFromGraal(result, columnType);
     }
 
     /**
@@ -176,54 +149,9 @@ public class FormulaJsTestUtils {
         return systemContext.toString();
     }
     
-    // Nashorn only
-    String getLowerUpperScript() {
-        // Nashorn only
-        StringBuilder lowerUpper = new StringBuilder();
-        lowerUpper.append(
-                "String.prototype.toLocaleUpperCase = function(s){ if (!s.startsWith('tr')) return toUpperCase(this);"
-                        + "var string = this;"
-                        + "var letters = { \"i\": \"İ\", \"ş\": \"Ş\", \"ğ\": \"Ğ\", \"ü\": \"Ü\", \"ö\": \"Ö\", \"ç\": \"Ç\", \"ı\": \"I\" };"
-                        + "string = string.replace(/(([iışğüçö]))+/g, function(letter){ return letters[letter]; });"
-                        + "return string.toUpperCase();};");
-        lowerUpper.append(
-                "String.prototype.toLocaleLowerCase = function(s){ if (!s.startsWith('tr')) return toLowerCase(this);"
-                        + "var string = this;"
-                        + "var letters = { \"İ\": \"i\", \"I\": \"ı\", \"Ş\": \"ş\", \"Ğ\": \"ğ\", \"Ü\": \"ü\", \"Ö\": \"ö\", \"Ç\": \"ç\" };"
-                        + "string = string.replace(/(([İIŞĞÜÇÖ]))+/g, function(letter){ return letters[letter]; });"
-                        + "return string.toUpperCase();};");
-        lowerUpper.append("String");
-        return lowerUpper.toString();
-    }
-
-    public ScriptEngine getNashornEngine() {
-        Bindings bindings = BINDINGS.get();
-        if (bindings == null) {
-            // Create an engine just to compile the $AP
-            ScriptEngine compEngine = new ScriptEngineManager().getEngineByName("JavaScript");
-            BINDINGS_ENGINE.set(compEngine);
-
-
-            try {
-                bindings = compEngine.getBindings(ScriptContext.GLOBAL_SCOPE);
-                makeNashornBindings(compEngine, bindings);
-                BINDINGS.set(bindings);
-            } catch (ScriptException x) {
-                logger.log(Level.INFO, "Cannot compute generic bindings", x);
-                // Ignore script exception for now, and recreate it everytime
-            }
-        }
-        ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
-        engine.setBindings(bindings, ScriptContext.GLOBAL_SCOPE);
-        return engine;
-    }
-    
-    public ScriptEngine getBindingsEngineForUnwrappingStuff() {
-        return BINDINGS_ENGINE.get();
-    }
 
     /**
-     * Deal with Nashorn eval -&gt; Internal Formula differences
+     * Deal with Graal/JS eval -&gt; Internal Formula differences
      *
      * @param result the value returned from javascript
      * @param engine the javascript engine
@@ -231,38 +159,7 @@ public class FormulaJsTestUtils {
      * @return the value suitable for use in Java
      */
     public Object convertResultFromJs(Object result, ScriptEngine engine, FormulaDataType columnType) {
-        if (IS_GRAAL) {
-            return convertResultFromGraal(result, columnType);
-        } else {
-            return convertResultFromNashorn(result, engine, columnType);
-        }
-    }
-
-    /**
-     * Deal with Nashorn eval -&gt; Internal Formula differences
-     *
-     * @param result the value returned from javascript
-     * @param engine the javascript engine
-     * @param columnType the type expected for the result
-     * @return the value suitable for use in Java
-     */
-    public Object convertResultFromNashorn(Object result, ScriptEngine engine, FormulaDataType columnType) {
-        try {
-            result = convertFromNashorn(engine, result);
-        } catch (IllegalArgumentException ex) {
-            // If the date object is returned from a function in the bindings, it, uh, freaks out, because the engines
-            // are different
-            // This uses a hidden variable. Annoying, but necessary. That's also why this is in test code. Sorry.
-            result = convertFromNashorn(getBindingsEngineForUnwrappingStuff(),
-                    result);
-        }
-        if (columnType.isDateTime() && result instanceof Date) {
-            result = new FormulaDateTime((Date)result);
-        }
-        if (columnType.isTimeOnly() && result instanceof Date) {
-            result = FormulaEngine.getHooks().constructTime(((Date)result).getTime());
-        }
-        return result;
+        return convertResultFromGraal(result, columnType);
     }
 
     /**
@@ -335,6 +232,9 @@ public class FormulaJsTestUtils {
         return result;
     }
     
+    /**
+     * @return the graaljs engine using the ScriptEngine (JSR 223) interface
+     */
     public ScriptEngine getGraalEngine() {
         Bindings bindings = BINDINGS.get();
         if (bindings == null) {
@@ -383,37 +283,6 @@ public class FormulaJsTestUtils {
         bindScriptEngineGlobal(compEngine, bindings, getSystemContextScript(), "$System");
     }
     
-    /**
-     * Set the global context for nashorn evaluation 
-     * @param compEngine the scriptengine to use to evaluate
-     * @param bindings the bindings to assign the global variables to (global scope)
-     * @throws ScriptException if an exception occurs during binding
-     */
-    protected void makeNashornBindings(ScriptEngine compEngine, Bindings bindings) throws ScriptException {
-        Bindings engineBindings = compEngine.getBindings(ScriptContext.ENGINE_SCOPE);
-        bindScriptEngineGlobals(compEngine, bindings, engineBindings);
-        bindings.put("module", compEngine.eval("new Object()"));
-        bindings.put("String", compEngine.eval(getLowerUpperScript()));
-
-        ResourceFolder folder = ResourceFolder.create(FormulaJsTestUtils.class.getClassLoader(), "com/force/formula",
-                Charsets.UTF_8.toString());
-        // We want to load Decimal as a module into the bindngs, but the coveo stuff's interface is
-        // weird and requires access to the NashornScriptEngine directly. That's not cool.
-        for (Method m : Require.class.getDeclaredMethods()) {
-            if (m.getParameterCount() == 3) {
-                assert "enable".equals(m.getName()); // Avoid referencing NashornScriptEngine directly to avoid
-                                                     // "restriction" error
-                try {
-                    m.invoke(null, compEngine, folder, bindings);
-                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException x) {
-                    throw new RuntimeException(x);
-                }
-            }
-        }
-        Object decimal = compEngine.eval("require('./decimal.js')", engineBindings);
-        engineBindings.put("Decimal", decimal);
-        bindings.put("$F.Decimal", compEngine.eval("Object.defineProperty($F, 'Decimal', { value : Decimal});"));        
-    }
     
     /**
      * Set the global context for graal evaluation  using the javax.script.ScriptEngine 
@@ -478,6 +347,19 @@ public class FormulaJsTestUtils {
         return tmp;
     }
     
+    /**
+     * The context to be built, allowing for setting GraalJs options
+     * @param builder the context buidler
+     */
+    protected void setContextOptions(Context.Builder builder) {
+        // This is required to try mjs (see below)
+        // builder.allowExperimentalOptions(true);
+        // builder.option("js.esm-eval-returns-exports", "true");
+    }
+    
+    /**
+     * @return the graal context to use when evaluating a formula
+     */
     public Context getGraalContext() {
         Context context = ROOT_CONTEXT.get();
         if (context == null) {
@@ -487,9 +369,7 @@ public class FormulaJsTestUtils {
             builder.option("js.intl-402", "true"); // Support now ubiquitous Intl object for formatcurrency and the like.
             builder.option("engine.WarnInterpreterOnly", "false");  // Don't warn about being in openjdk with graaljs.
 
-            // This is required to try mjs (see below)
-            // builder.allowExperimentalOptions(true);
-            // builder.option("js.esm-eval-returns-exports", "true");
+            setContextOptions(builder);
 
             context = builder.build();
 
@@ -561,85 +441,11 @@ public class FormulaJsTestUtils {
             }
         }
         return jsMap;
-    }
-
-    
-    // Nashorn was removed in JDK 17, but this is here to support 11.
-    private static final Class<?> SCRIPT_OBJECT_MIRROR;
-    private static final MethodHandle SOM_HASMEMBER;
-    private static final MethodHandle SOM_CALLMEMBER;
-    static
-    {
-        Class<?> som;
-        MethodHandle hasMember;
-        MethodHandle callMember;
-        try {
-            som = Class.forName("jdk.nashorn.api.scripting.ScriptObjectMirror");
-            hasMember = MethodHandles.publicLookup().findVirtual(som, "hasMember", MethodType.methodType(String.class));
-            callMember = MethodHandles.publicLookup().findVirtual(som, "callMember", MethodType.methodType(String.class, Object[].class));
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException ex) {
-            som = null;
-            hasMember = null;
-            callMember = null;
-        }
-        SCRIPT_OBJECT_MIRROR = som;
-        SOM_HASMEMBER = hasMember;
-        SOM_CALLMEMBER = callMember;
-    }
-    
-
-    /**
-     * Convert an object from a nashorn type to a formula type.  Mostly around date &amp; number convertion.
-     * @param engine the nashorn script engine
-     * @param obj an object returned from nashorn
-     * @return a formula engine useful version.
-     */
-    public Object convertFromNashorn(ScriptEngine engine, Object obj) {
-        if (obj instanceof Number) {
-            if (obj instanceof BigDecimal) {
-                return obj;
-            } else if (obj instanceof Double) {
-                double val = ((Number)obj).doubleValue();
-                if (Double.isNaN(val) || Double.isInfinite(val)) return null;
-                if (val == 0) return BigDecimal.ZERO;
-                if (val == 1) return BigDecimal.ONE;
-                return new BigDecimal(val).setScale(7, RoundingMode.HALF_EVEN).stripTrailingZeros(); // NOPMD
-            } else {
-                return new BigDecimal(((Number)obj).intValue());
-            }
-        }
-        
-        if (SCRIPT_OBJECT_MIRROR != null && SCRIPT_OBJECT_MIRROR.isInstance(obj)) {
-            try {
-                if ((Boolean) SOM_HASMEMBER.invoke(obj, "getTime")) {
-                    // It's a ScriptObjectMirror with 'time'.  Assume date
-                    JsDateWrapper wrapper = ((Invocable)engine).getInterface(obj, JsDateWrapper.class);
-                    return new Date(wrapper.getTime());
-                } else {
-                    return new BigDecimal((String) SOM_CALLMEMBER.invoke(obj, "toString", null));
-                }
-            } catch (Throwable e) {
-                logger.log(Level.FINEST, "Can't convert from nashorn", e);
-            }
-        }
-        if ("".equals(obj)) return null;  // Oracle compatibility
-        return obj;
-    }
-    
-    /**
-     * Required implementation for Nashorn.  To be removed.
-     * @author stamm
-     * @since 0.0.2
-     */
-    public interface JsDateWrapper {
-        long getTime();
-        int getTimezoneOffset();
-    }
-    
+    }    
     
     /**
      * Convert an object from a Graal type to a formula type.  Mostly around date &amp; number convertion.
-     * @param obj an object returned from nashorn
+     * @param obj an object returned from graal
      * @param type the expected type of the value
      * @return a formula engine useful version.
      */
@@ -677,40 +483,12 @@ public class FormulaJsTestUtils {
         if ("".equals(obj)) return null;  // Oracle compatibility
         return obj;
     }  
-    
-    /**
-     * Convert an object from a formula type to a nashorn type.  Mostly to fix dates
-     * @param engine the nashorn script engine
-     * @param obj an object returned from formulas
-     * @param context the formula context
-     * @return a nashorn useful version.
-     */
-    @SuppressWarnings("unchecked")
-    public Object convertToNashorn(ScriptEngine engine, Object obj, FormulaContext context) {
-        try {
-            if (obj instanceof Date) {
-                return engine.eval("new Date("+((Date)obj).getTime()+")");
-            } else if (obj instanceof FormulaDateTime) {
-                return engine.eval("new Date("+((FormulaDateTime)obj).getTime()+")");
-            } else if (obj instanceof Number && context.useHighPrecisionJs()) {
-                return engine.eval("new $F.Decimal("+((Number)obj).toString()+")");
-            } else if (obj instanceof Map) {
-                // This'll help convert deep objects.  We'll do it in place to keep the cost down.
-                ((Map<?,Object>)obj).entrySet().stream().forEach((e)->e.setValue(convertToNashorn(engine, e.getValue(), context)));
-            }
-            // TODO: Convert BigDecimal -> Double?
-        } catch (ScriptException x) {
-            logger.log(Level.FINE, "Cannot convert to nashorn", x);
-            // Ignore it for now
-        }
-        return obj;
-    }
-    
+
     /**
      * Trivial Truffle Filesystem that calls into {@link #makeJsFileFromResource(String, String, String)}.
      */
     protected static class JarFS implements FileSystem {
-        JarFS() {
+        protected JarFS() {
         }
         @Override
         public Path parsePath(URI uri) {

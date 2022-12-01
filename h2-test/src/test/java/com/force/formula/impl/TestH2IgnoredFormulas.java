@@ -42,6 +42,6 @@ public class TestH2IgnoredFormulas extends FormulaH2Tests {
 
     @Override
     protected boolean filterTests(FormulaTestCaseInfo testCase) {
-        return testCase.getTestLabels().contains("ignore") || testCase.getTestLabels().contains("badNashorn");
+        return testCase.getTestLabels().contains("ignore");
     }    
 }
