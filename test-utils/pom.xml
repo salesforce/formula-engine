@@ -10,25 +10,19 @@
     <parent>
         <groupId>com.salesforce.formula</groupId>
         <artifactId>formula-engine</artifactId>
-        <version>0.3.8-SNAPSHOT</version>
+        <version>0.3.9-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.salesforce.formula</groupId>
             <artifactId>formula-engine-api</artifactId>
-            <version>0.3.8-SNAPSHOT</version>
+            <version>0.3.9-SNAPSHOT</version>
         </dependency>
 		<dependency>
 		  <groupId>com.google.guava</groupId>
 		  <artifactId>guava</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>com.coveo</groupId>
-            <artifactId>nashorn-commonjs-modules</artifactId>
-            <version>1.0.9</version>
-		    <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>org.graalvm.sdk</groupId>
             <artifactId>graal-sdk</artifactId>

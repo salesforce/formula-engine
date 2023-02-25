@@ -11,19 +11,19 @@
     <parent>
         <groupId>com.salesforce.formula</groupId>
         <artifactId>formula-engine</artifactId>
-        <version>0.3.8-SNAPSHOT</version>
+        <version>0.3.9-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.salesforce.formula</groupId>
             <artifactId>formula-engine-api</artifactId>
-            <version>0.3.8-SNAPSHOT</version>
+            <version>0.3.9-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.salesforce.formula</groupId>
             <artifactId>formula-engine-test-utils</artifactId>
-            <version>0.3.8-SNAPSHOT</version>
+            <version>0.3.9-SNAPSHOT</version>
 	    <scope>test</scope>
         </dependency>
         <dependency>
@@ -42,12 +42,6 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.coveo</groupId>
-            <artifactId>nashorn-commonjs-modules</artifactId>
-            <version>1.0.9</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
 	  <groupId>io.zonky.test</groupId>
