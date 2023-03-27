@@ -625,12 +625,12 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="customdatetime1" labelName="customdatetime1"
              dataType="DateTime"/>
      </testcase>
-    <testcase name="testMonths" devName="testMonths" labels="extended"
-              labelName="testMonths" dataType="Double" dataFile="month"
-              scale="2" precision="2" code="month(customdate1__c)">
-        <referencefield devName="customdate1" labelName="customdate1"
-                        dataType="Date"/>
-    </testcase>
+     <testcase name="testMonths" devName="testMonths" labels="extended"
+               labelName="testMonths" dataType="Double" dataFile="months"
+               scale="2" precision="12" code="month(customdate1__c)">
+         <referencefield devName="customdate1" labelName="customdate1"
+                         dataType="DateOnly"/>
+     </testcase>
      <testcase name="testMultiplySimple" devName="testMultiplySimple"
          labelName="testMultiplySimple" dataType="Double"
          dataFile="multiplySimple" scale="2"
