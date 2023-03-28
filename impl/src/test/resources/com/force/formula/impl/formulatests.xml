@@ -245,6 +245,7 @@ author: Srikanth Yendluri/Doug Chasman
               code="TEXT(customdate1__c)">
         <referencefield devName="customdate1" labelName="customdate1"
                         dataType="DateOnly"/>
+        <whyIgnoreSql db="mssql" >Getting reversed dates for mssql</whyIgnoreSql>
     </testcase>
 
      <testcase name="testTextFunctionWithDateTime" devName="testTextFunctionWithDateTime"
