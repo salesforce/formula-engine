@@ -342,7 +342,16 @@ public class OperatorAddOrSubtract extends FormulaCommandInfoImpl implements For
         } else {
             js = args[0] + operator + args[1];
         }
-        return JsValue.forNonNullResult(js, args);
+
+        /*
+         * We need to wrap the generated JS out of add/subtract operator in brackets, As the js can be consumed by division operator
+         * where sequence of execution changes the result if there were brackets in the denominator
+         *
+         * e.g. if expr = 9, and we need to evaluate {!expr}/({!expr} + 1),
+         * returns 2<incorrect> without brackets in the generated JS of add
+         * returns 0.9<correct> with brackets in the generated JS of add
+         */
+        return JsValue.forNonNullResult("(" + js + ")", args);
      }
 
 }

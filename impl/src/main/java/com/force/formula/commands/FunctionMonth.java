@@ -46,7 +46,7 @@ public class FunctionMonth extends FormulaCommandInfoImpl {
         if (context.useHighPrecisionJs()) {
             return JsValue.forNonNullResult("new " + context.getJsEngMod() + ".Decimal("+args[0].js+".getUTCMonth()+1)", args);
         }
-        return JsValue.forNonNullResult(jsToDec(context, args[0]+".getUTCMonth()+1"),args);
+        return JsValue.forNonNullResult(jsToDec(context, "(" + args[0] + ".getUTCMonth()+1 )"), args);
     }
 }
 

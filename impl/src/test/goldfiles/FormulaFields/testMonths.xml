@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMonths">
+   <testInstance formula="month(customdate1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>EXTRACT(MONTH FROM $!s0s!$.customdate1__c)::numeric</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>EXTRACT(MONTH FROM $!s0s!$.customdate1__c)::numeric</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new $F.Decimal(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCMonth()+1)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?(new $F.Decimal(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCMonth()+1)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCMonth()+1 )):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null)?((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getUTCMonth()+1 )):null</JsOutput>
+      <result>
+      <inputvalues>[2023:02:27]</inputvalues>
+         <formula>2</formula>
+         <sql>2</sql>
+         <javascript>2</javascript>
+         <javascriptLp>2</javascriptLp>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <sqlNullAsNull>2</sqlNullAsNull>
+         <javascriptNullAsNull>2</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
