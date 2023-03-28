@@ -64,7 +64,7 @@ public class FunctionText extends FormulaCommandInfoImpl implements FormulaComma
         Type clazz = toConvert.getDataType();
         if (clazz == Date.class) {
             // YYYY-MM-DD is 10 characters. 
-            return JsValue.forNonNullResult(args[0]+".toISOString().substring(10)", args);
+            return JsValue.forNonNullResult(args[0]+".toISOString().substring(0, 10)", args);
         } else if (clazz == FormulaDateTime.class) {
             // Need to convert from 'YYYY-MM-DDTHH:mm:ss.sssZ' to 'YYYY-MM-DD HH:mm:ssZ'
             return JsValue.forNonNullResult("("+args[0]+".toISOString().replace('T',' ').substring(0,19)+'Z')", args);  // Ecma's so close...

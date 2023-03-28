@@ -238,6 +238,14 @@ author: Srikanth Yendluri/Doug Chasman
          code="TEXT(DATE(2013,12,31))">
          <!-- VF doesn't support Date function and therefore testing only custom field and template(Custom buttons and links) context -->
      </testcase>
+
+    <testcase name="testTextFunctionWithCustomDate" devName="testTextFunctionWithCustomDate"
+              labelName="testTextFunctionWithCustomDate" dataType="Text" length="130" dataFile="textOfDate"
+              code="TEXT(customdate1__c)">
+        <referencefield devName="customdate1" labelName="customdate1"
+                        dataType="DateOnly"/>
+    </testcase>
+
      <testcase name="testTextFunctionWithDateTime" devName="testTextFunctionWithDateTime"
          labelName="testTextFunctionWithDateTime" dataType="Text" length="130" compareTemplate="formula"
          code="TEXT(DATETIMEVALUE('2013-12-31 01:02:03'))">
