@@ -1,0 +1,8 @@
+9, 9
+9, 9
+9, 9
+9, 9
+#({!customnumber1__c}/({!customnumber2__c} + 1))
+#({!customnumber1__c}/{!customnumber2__c} + 1)
+#({!customnumber1__c}/({!customnumber2__c} - 1))
+#({!customnumber1__c}/{!customnumber2__c} - 1)

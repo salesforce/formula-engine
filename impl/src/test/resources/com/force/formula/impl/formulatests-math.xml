@@ -51,6 +51,42 @@ author: Srikanth Yendluri/Doug Chasman
          <referencefield devName="custompercent1" labelName="custompercent1"
              dataType="Percent" scale="4" precision="14"/>
      </testcase>
+    <testcase name="testAddWithDivisionSimple" devName="testAddWithDivisionSimple"
+              labelName="testAddWithDivisionSimple" dataType="Double" dataFile="divisionWithTwoNumericFields"
+              swap="true" scale="2" precision="12" labels="math"
+              code="customnumber1__c/customnumber2__c + 1">
+        <referencefield devName="customnumber1" labelName="customnumber1"
+                        dataType="Double" scale="2" precision="12"/>
+        <referencefield devName="customnumber2" labelName="customnumber2"
+                        dataType="Double" scale="2" precision="12"/>
+    </testcase>
+    <testcase name="testAddWithDivision" devName="testAddWithDivision"
+              labelName="testAddWithDivision" dataType="Double" dataFile="divisionWithTwoNumericFields"
+              swap="true" scale="2" precision="12" labels="math"
+              code="customnumber1__c/(customnumber2__c + 1)">
+        <referencefield devName="customnumber1" labelName="customnumber1"
+                        dataType="Double" scale="2" precision="12"/>
+        <referencefield devName="customnumber2" labelName="customnumber2"
+                        dataType="Double" scale="2" precision="12"/>
+    </testcase>
+    <testcase name="testSubWithDivisionSimple" devName="testSubWithDivisionSimple"
+              labelName="testSubWithDivisionSimple" dataType="Double" dataFile="divisionWithTwoNumericFields"
+              swap="true" scale="2" precision="12" labels="math"
+              code="customnumber1__c/customnumber2__c - 1">
+        <referencefield devName="customnumber1" labelName="customnumber1"
+                        dataType="Double" scale="2" precision="12"/>
+        <referencefield devName="customnumber2" labelName="customnumber2"
+                        dataType="Double" scale="2" precision="12"/>
+    </testcase>
+    <testcase name="testSubWithDivision" devName="testSubWithDivision"
+              labelName="testSubWithDivision" dataType="Double" dataFile="divisionWithTwoNumericFields"
+              swap="true" scale="2" precision="12" labels="math"
+              code="customnumber1__c/(customnumber2__c - 1)">
+        <referencefield devName="customnumber1" labelName="customnumber1"
+                        dataType="Double" scale="2" precision="12"/>
+        <referencefield devName="customnumber2" labelName="customnumber2"
+                        dataType="Double" scale="2" precision="12"/>
+    </testcase>
      <testcase name="testSubSimple" devName="testSubSimple"
          labelName="testSubSimple" dataType="Double"
          dataFile="twoNumericFields" scale="2" labels="math"
