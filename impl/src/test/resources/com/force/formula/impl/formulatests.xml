@@ -240,7 +240,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
 
     <testcase name="testTextFunctionWithCustomDate" devName="testTextFunctionWithCustomDate" eval="formula,template"
-              labelName="testTextFunctionWithCustomDate" dataType="Text" length="130" dataFile="textOfDate" compareTemplate="formula"
+              labelName="testTextFunctionWithCustomDate" dataType="Text" length="130" compareTemplate="formula"
               code="TEXT(customdate1__c)">
         <referencefield devName="customdate1" labelName="customdate1"
                         dataType="DateOnly"/>
