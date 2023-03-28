@@ -239,8 +239,8 @@ author: Srikanth Yendluri/Doug Chasman
          <!-- VF doesn't support Date function and therefore testing only custom field and template(Custom buttons and links) context -->
      </testcase>
 
-    <testcase name="testTextFunctionWithCustomDate" devName="testTextFunctionWithCustomDate"
-              labelName="testTextFunctionWithCustomDate" dataType="Text" length="130" dataFile="textOfDate"
+    <testcase name="testTextFunctionWithCustomDate" devName="testTextFunctionWithCustomDate" eval="formula,template"
+              labelName="testTextFunctionWithCustomDate" dataType="Text" length="130" dataFile="textOfDate" compareTemplate="formula"
               code="TEXT(customdate1__c)">
         <referencefield devName="customdate1" labelName="customdate1"
                         dataType="DateOnly"/>
