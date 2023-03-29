@@ -5,48 +5,7 @@
  */
 package com.force.formula.impl;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.TimeZone;
-import java.util.stream.Collectors;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.junit.Assert;
-import org.xml.sax.SAXException;
-
-import com.force.formula.Formula;
-import com.force.formula.FormulaContext;
-import com.force.formula.FormulaDataType;
-import com.force.formula.FormulaEngine;
-import com.force.formula.FormulaEngineHooks;
-import com.force.formula.FormulaException;
-import com.force.formula.FormulaFactory;
-import com.force.formula.FormulaRuntimeContext;
-import com.force.formula.FormulaTestBase;
-import com.force.formula.FormulaTypeSpec;
-import com.force.formula.MockFormulaType;
-import com.force.formula.RuntimeFormulaInfo;
+import com.force.formula.*;
 import com.force.formula.impl.FormulaTestCaseInfo.CompareType;
 import com.force.formula.impl.FormulaTestCaseInfo.WhyIgnoreSql;
 import com.force.formula.impl.MapFormulaContext.MapEntity;
@@ -60,8 +19,17 @@ import com.google.common.io.CharSource;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import junit.framework.TestSuite;
+import org.junit.Assert;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.*;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Using the test case xml file and calls the api to create the fields (both
@@ -960,46 +928,5 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
             return "FormulaTestRunnable [name" + testCaseName + ",field=" + tcFieldInfo + "]";
         }
     }
-
-	/**
-	 * Allows pluggable testing of function evaluation through sql.  If you want fancier stuff, you can
-	 * override the whole class.
-	 * @since 0.1.0
-	 */ 
-	public interface DbTester extends AutoCloseable {
-		 String getDbTypeName();
-		
-		/**
-		 * Evaluate the sql for the formula using sql
-		 * @param formulaContext the formula context
-		 * @param entityObject an object representing the values to use for the particular row.  You may want to
-		 * insert this row into the DB when doing the valuation to make the DB substitution easier
-		 * @param formulaSource the source of the formula
-		 * @param nullAsNull whether null is treated as null or as blank/0
-		 * @return the result of evaluating the formula using a sql engine
-		 * @throws IOException if there is an IO issue with the sql engine
-		 * @throws SQLException if there is an issue evaluating the sql
-		 * @throws FormulaException if there is an issue evaluating the formula
-		 */
-		String evaluateSql(String name, FormulaRuntimeContext formulaContext, Object entityObject, String formulaSource, boolean nullAsNull) throws IOException, SQLException, FormulaException;
-
-		/**
-		 * Some JDBC drivers include a UUID in all exceptions, so this allows you to "remove" that.
-		 * @param e the exception thrown during evaluation
-		 * @return the message to use in GoldFiles for the exception.
-		 * @throws ArithmeticException if you want to treat this exception as a NULL instead of an error.  Suitable
-		 * if there is an architectural difference when running on different platforms (Linux vs Mac)
-		 */
-		default String getSqlExceptionMessage(Throwable e) {
-		    return e.getMessage();
-		}
-		
-		// Support close, if necessary.
-		@Override
-		default void close() throws Exception {
-		}
-		
-		
-	}
 
 }
