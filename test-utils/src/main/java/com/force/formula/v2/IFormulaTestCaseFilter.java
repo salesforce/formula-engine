@@ -1,4 +1,7 @@
 package com.force.formula.v2;
 
-public interface IFormulaTestCaseFilter {
+import java.util.List;
+
+public interface IFormulaTestCaseFilter<T> {
+    List<T> filter(List<T> formulaTestCaseInfo);
 }
