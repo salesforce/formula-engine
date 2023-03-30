@@ -16,6 +16,7 @@ import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
 import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.sql.EmbeddedH2Tester;
+import com.force.formula.DbTester;
 
 /**
  * Abstract class for testing formulas with embedded H2
