@@ -1,9 +1,8 @@
 package com.force.formula.v2;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.StringTokenizer;
-import java.util.TimeZone;
+import com.force.formula.v2.data.FormulaFieldDefinition;
+
+import java.util.*;
 
 public class Utils {
 
@@ -31,6 +30,16 @@ public class Utils {
             myCal.set(year, month, dayOfMonth, hourOfDay, minutes, seconds);
         }
         return myCal.getTime();
+    }
+
+    public static List<FormulaFieldDefinition> flattenFieldList(List<FormulaFieldDefinition> nestedFields) {
+        List<FormulaFieldDefinition> flattenedList = new LinkedList<>();
+        for (FormulaFieldDefinition field : nestedFields) {
+            if (field.getReferenceFields()!=null && !field.getReferenceFields().isEmpty())
+                flattenedList.addAll(flattenFieldList(field.getReferenceFields()));
+            flattenedList.add(field);
+        }
+        return flattenedList;
     }
 
 }

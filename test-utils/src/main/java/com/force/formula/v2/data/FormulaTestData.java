@@ -1,5 +1,6 @@
 package com.force.formula.v2.data;
 
+import com.force.formula.v2.Utils;
 import org.apache.commons.lang3.Validate;
 
 import java.util.*;
@@ -57,19 +58,10 @@ public class FormulaTestData {
     }
 
     private List<FormulaFieldDefinition> getAllFieldsForInputData(List<FormulaFieldDefinition> nestedFields){
-        List<FormulaFieldDefinition> flattenedList = flattenFieldList(nestedFields);
+        List<FormulaFieldDefinition> flattenedList = Utils.flattenFieldList(nestedFields);
         return flattenedList.stream()
                 .filter(fdi -> (fdi.getFormula()==null || fdi.getFormula()==""))
                 .collect(Collectors.toList());
     }
 
-    private List<FormulaFieldDefinition> flattenFieldList(List<FormulaFieldDefinition> nestedFields) {
-        List<FormulaFieldDefinition> flattenedList = new LinkedList<>();
-        for (FormulaFieldDefinition field : nestedFields) {
-            if (field.getReferenceFields()!=null && !field.getReferenceFields().isEmpty())
-                flattenedList.addAll(flattenFieldList(field.getReferenceFields()));
-            flattenedList.add(field);
-        }
-        return flattenedList;
-    }
 }
