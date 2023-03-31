@@ -5,14 +5,16 @@
  */
 package com.force.formula.impl;
 
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 import com.force.formula.*;
 import com.force.formula.FormulaSchema.Entity;
 import com.force.formula.util.FormulaTextUtil;
 import com.google.common.collect.ImmutableSet;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * A formula context that works on a Map (instead of a Bean/POJO), but with a "complex" schema
@@ -128,7 +130,7 @@ public class MapFormulaContext extends BaseObjectFormulaContext<Map<String,?>> {
         
         private static Function<MapField,String> TO_LOWER = (b)->b.getName().toLowerCase();
         
-        MapEntity(String name, Collection<MapFieldInfo> infos) {
+        public MapEntity(String name, Collection<MapFieldInfo> infos) {
             this.name = name;
             this.fields = infos.stream().map((a)->new MapField(this, a.name, a.dataType, a.formulaSource, null, a.scale)).collect(Collectors.toMap(TO_LOWER, (c)->c));
         }

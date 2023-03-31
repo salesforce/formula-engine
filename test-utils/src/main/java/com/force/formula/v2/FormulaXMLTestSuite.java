@@ -2,6 +2,7 @@ package com.force.formula.v2;
 
 import com.force.formula.DbTester;
 import com.force.formula.v2.data.FormulaTestDefinition;
+import com.force.formula.v2.impl.FormulaTestCase;
 import junit.framework.TestSuite;
 import org.apache.commons.lang3.Validate;
 
@@ -38,8 +39,8 @@ public abstract class FormulaXMLTestSuite extends TestSuite {
 
         //create test cases and add them to test suite
         for(FormulaTestDefinition testCaseInfo : filteredTestCaseInfos){
-         /*   FormulaTestCase formulaTestCase = new FormulaTestCase(testCaseInfo, this);
-            addTest(formulaTestCase); */
+            FormulaTestCase formulaTestCase = new FormulaTestCase(testCaseInfo, this);
+            addTest(formulaTestCase);
         }
 
         //Gold file to store intermediate state of the tests to help in debugging like SQL & JS generated
