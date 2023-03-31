@@ -62,6 +62,7 @@ public class FormulaTestCase extends FormulaTestBase {
     }
 
     private void compareGoldFileOutput(){
+        getGeneratedSqlAndJs();
      /*   try {
             File existingGoldFile = new File(this.testSuite.getGoldFileDirectoryPath() + "/" + this.testCase.getTestName()+ ".xml");
             existingGoldFile.getParentFile().mkdirs();
