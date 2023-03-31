@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<formula-test>
+    <testcase testName="testAddDateWithExpr"
+              fieldName="testAddDateWithExpr"
+              dataType="DateOnly"
+              formula="(customformula0__c+customnumber1__c+customformula1__c+customcurrency1__c)"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <referenceField
+                fieldName="customformula0"
+                dataType="DateOnly"
+                formula="(customdate1__c+custompercent1__c)">
+            <referenceField
+                    fieldName="customdate1"
+                    dataType="DateOnly"/>
+            <referenceField
+                    fieldName="custompercent1"
+                    dataType="Percent"/>
+        </referenceField>
+        <referenceField
+                fieldName="customnumber1"
+                dataType="Double"/>
+        <referenceField
+                fieldName="customformula1"
+                dataType="Double"
+                formula="(customdate2__c-customdate3__c)">
+            <referenceField
+                    fieldName="customdate2"
+                    dataType="DateOnly"/>
+            <referenceField
+                    fieldName="customdate3"
+                    dataType="DateOnly"/>
+        </referenceField>
+        <referenceField
+                fieldName="customcurrency1"
+                dataType="Currency"/>
+        <testData
+                input="3998:01:31, 200, 10, 3999:12:31, 3999:12:01, 0"
+                expectedOutput="Sat Mar 14 00:00:00 GMT 3998,
+                            3998-03-14 00:00:00.0,
+                            Sat Mar 14 00:00:00 GMT 3998,
+                            Sat Mar 14 00:00:00 GMT 3998,
+                            Sat Mar 14 00:00:00 GMT 3998,
+                            3998-03-14 00:00:00.0,
+                            Sat Mar 14 00:00:00 GMT 3998,
+                            Sat Mar 14 00:00:00 GMT 3998"/>
+        <testData
+                input="2004:12:31,,,2004:11:31,2004:12:31,0"
+                expectedOutput="Wed Dec 01 00:00:00 GMT 2004,
+                            2004-12-01 00:00:00.0,
+                            Wed Dec 01 00:00:00 GMT 2004,
+                            Wed Dec 01 00:00:00 GMT 2004,
+                            null,
+                            null,
+                            null,
+                            null"/>
+    </testcase>
+</formula-test>
