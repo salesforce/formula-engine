@@ -2,6 +2,7 @@ package com.force.formula.v2;
 
 import com.force.formula.MockFormulaDataType;
 import com.force.formula.commands.FormulaJsTestUtils;
+import com.force.formula.util.FormulaTextUtil;
 import com.force.formula.v2.data.FormulaFieldDefinition;
 import com.google.common.collect.ImmutableSet;
 
@@ -62,6 +63,27 @@ public class Utils {
         Map<String,Object> jsMap = new HashMap<>();
         jsMap.put("record", FormulaJsTestUtils.get().makeJSMap(record));
         return jsMap;
+    }
+
+    public static String getSQLOutput(String rawSql, String sqlGuard, boolean nullAsNull){
+        StringBuffer output = new StringBuffer();
+        output.append("    <SqlOutput nullAsNull=\""+nullAsNull+"\">\n");
+        output.append("       <Sql>");
+        output.append(FormulaTextUtil.escapeToXml(rawSql));
+        output.append("</Sql>\n");
+        output.append("       <Guard>");
+        output.append(FormulaTextUtil.escapeToXml(sqlGuard));
+        output.append("</Guard>\n");
+        output.append("    </SqlOutput>");
+        return output.toString();
+    }
+
+    public static String getJavascriptOutput(String jsCode, boolean highPrec, boolean nullAsNull){
+        StringBuffer output = new StringBuffer();
+        output.append("    <JsOutput highPrec=\""+highPrec+"\" nullAsNull=\""+nullAsNull+"\">");
+        output.append(FormulaTextUtil.escapeToXml(jsCode));
+        output.append("</JsOutput>\n");
+        return output.toString();
     }
 
 }
