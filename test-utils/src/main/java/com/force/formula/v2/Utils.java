@@ -1,6 +1,7 @@
 package com.force.formula.v2;
 
 import com.force.formula.MockFormulaDataType;
+import com.force.formula.commands.FormulaJsTestUtils;
 import com.force.formula.v2.data.FormulaFieldDefinition;
 import com.google.common.collect.ImmutableSet;
 
@@ -54,6 +55,13 @@ public class Utils {
                 throw new IllegalArgumentException("Given dataType is not supported: " + dataType);
             }
         return formulaDataType;
+    }
+
+    public static Map<String,Object> createJSMapFromTestInput(Map<String, Object> testInput){
+        Map<String,Object> record = testInput != null ? new HashMap<String,Object>(testInput) : new HashMap<String,Object>();
+        Map<String,Object> jsMap = new HashMap<>();
+        jsMap.put("record", FormulaJsTestUtils.get().makeJSMap(record));
+        return jsMap;
     }
 
 }
