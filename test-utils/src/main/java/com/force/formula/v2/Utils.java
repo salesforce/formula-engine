@@ -1,6 +1,8 @@
 package com.force.formula.v2;
 
+import com.force.formula.MockFormulaDataType;
 import com.force.formula.v2.data.FormulaFieldDefinition;
+import com.google.common.collect.ImmutableSet;
 
 import java.util.*;
 
@@ -40,6 +42,18 @@ public class Utils {
             flattenedList.add(field);
         }
         return flattenedList;
+    }
+
+    public static MockFormulaDataType getDataType(String dataType){
+        if (ImmutableSet.of("email", "url", "phone", "textarea").contains(dataType)) return MockFormulaDataType.TEXT;
+        if ("number".equals(dataType)) return MockFormulaDataType.DOUBLE;
+        if ("currency".equals(dataType)) return MockFormulaDataType.CURRENCY;
+        if ("percent".equals(dataType)) return MockFormulaDataType.PERCENT;
+        MockFormulaDataType formulaDataType = MockFormulaDataType.fromCamelCaseName(dataType);
+        if (formulaDataType == null) {
+                throw new IllegalArgumentException("Given dataType is not supported: " + dataType);
+            }
+        return formulaDataType;
     }
 
 }
