@@ -74,7 +74,7 @@ public class Utils {
         output.append("       <Guard>");
         output.append(FormulaTextUtil.escapeToXml(sqlGuard));
         output.append("</Guard>\n");
-        output.append("    </SqlOutput>");
+        output.append("    </SqlOutput>\n");
         return output.toString();
     }
 

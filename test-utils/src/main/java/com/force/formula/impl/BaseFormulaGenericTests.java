@@ -616,6 +616,8 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 		 * Postgres DB. Please talk to Declarative App Builder team for further assistance.
 		 */
 		private void printOutputSql(FieldDefinitionInfo fieldInfo, PrintStream xmlOut, boolean nullAsNull) throws Exception {
+			//Bug: The following expression has a bug where for nullAsNull, MockFormulaType.NULLASNULL needs to be used,
+			// not making a change here as this will impact all the goldfiles generated today
 			FormulaTypeSpec type = nullAsNull ? MockFormulaType.DEFAULT: MockFormulaType.NULLASNULL;
 			FormulaRuntimeContext formulaContext =  new MapFormulaContext(super.setupMockContext(fieldInfo.getReturnType()), mapEntity, type, null);
 			RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(type, formulaContext, fieldInfo.getFormula());

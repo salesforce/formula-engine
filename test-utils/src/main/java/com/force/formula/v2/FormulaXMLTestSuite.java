@@ -2,7 +2,6 @@ package com.force.formula.v2;
 
 import com.force.formula.DbTester;
 import com.force.formula.v2.data.FormulaTestDefinition;
-import com.force.formula.v2.impl.FormulaTestCase;
 import junit.framework.TestSuite;
 import org.apache.commons.lang3.Validate;
 

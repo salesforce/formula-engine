@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.TimeZone;
 
 @RunWith(AllTests.class)
-public class FormulaXMLTests extends FormulaXMLTestSuite {
+public class FormulaPostgresXMLTests extends FormulaXMLTestSuite {
 
-    public FormulaXMLTests(List<String> testDefinitionAbsoluteFilePaths, IFormulaTestDefinitionParser fileParser, IFormulaTestCaseFilter testCaseFilter, String goldFileDirectory) {
-        super("FormulaStandardTests", testDefinitionAbsoluteFilePaths, fileParser, testCaseFilter, goldFileDirectory);
+    public FormulaPostgresXMLTests(List<String> testDefinitionAbsoluteFilePaths, IFormulaTestDefinitionParser fileParser, IFormulaTestCaseFilter testCaseFilter, String goldFileDirectory) {
+        super("FormulaPostgresXMLTests", testDefinitionAbsoluteFilePaths, fileParser, testCaseFilter, goldFileDirectory);
     }
 
     /**
@@ -32,12 +32,13 @@ public class FormulaXMLTests extends FormulaXMLTestSuite {
     public static TestSuite suite() {
         List<String> xmlFiles = new ArrayList<>();
         xmlFiles.add("src/test/resources/com/force/formula/impl/formulaTestV2.xml");
+        //The following hook has Postgres as the database hook
         FormulaEngine.setHooks(new BaseCustomizableParserTest.FieldTestFormulaValidationHooks());
         FormulaEngine.setFactory(BaseFieldReferenceTest.TEST_FACTORY);
         TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
         IFormulaTestDefinitionParser<FormulaTestDefinition> parser = new FormulaTestDefinitionFileParser();
         String goldFileDirectory = "src/test/goldfiles/FormulaFields/v2/postgres";
-        return new FormulaXMLTests(xmlFiles, parser, null, goldFileDirectory);
+        return new FormulaPostgresXMLTests(xmlFiles, parser, null, goldFileDirectory);
     }
 
     @Override
