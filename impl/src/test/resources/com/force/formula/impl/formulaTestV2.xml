@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<formula-test>
+<formula-test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="formulaTestV2.xsd">
     <testcase testName="testAddDateWithExpr"
               fieldName="testAddDateWithExpr"
               dataType="DateOnly"
@@ -53,5 +54,19 @@
                             null,
                             null,
                             null"/>
+    </testcase>
+
+    <testcase testName="testUnixTimestampWithDate"
+              fieldName="testUnixTimestampWithDate"
+              dataType="Double"
+              formula="UNIXTIMESTAMP(customdate1__c)"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <referenceField fieldName="customdate1"
+                        dataType="DateOnly"/>
+        <testData input="" expectedOutput="null,null,null,null,null,null,null,null"/>
+        <testData input="2005:12:31" expectedOutput="1135987200,1135987200,1135987200,1135987200,1135987200,1135987200,1135987200,1135987200"/>
+        <testData input="2004:02:28:00:00:00" expectedOutput="1077926400,1077926400,1077926400,1077926400,1077926400,1077926400,1077926400,1077926400"/>
+        <testData input="4000:01:01" expectedOutput="64060588800,64060588800,64060588800,64060588800,64060588800,64060588800,64060588800,64060588800"/>
+        <testData input="3999:01:01" expectedOutput="64029052800,64029052800,64029052800,64029052800,64029052800,64029052800,64029052800,64029052800"/>
     </testcase>
 </formula-test>
