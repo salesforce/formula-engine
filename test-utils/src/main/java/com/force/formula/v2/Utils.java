@@ -38,10 +38,12 @@ public class Utils {
 
     public static List<FormulaFieldDefinition> flattenFieldList(List<FormulaFieldDefinition> nestedFields) {
         List<FormulaFieldDefinition> flattenedList = new LinkedList<>();
-        for (FormulaFieldDefinition field : nestedFields) {
-            if (field.getReferenceFields()!=null && !field.getReferenceFields().isEmpty())
-                flattenedList.addAll(flattenFieldList(field.getReferenceFields()));
-            flattenedList.add(field);
+        if(nestedFields!=null && !nestedFields.isEmpty()){
+            for (FormulaFieldDefinition field : nestedFields) {
+                if (field.getReferenceFields()!=null && !field.getReferenceFields().isEmpty())
+                    flattenedList.addAll(flattenFieldList(field.getReferenceFields()));
+                flattenedList.add(field);
+            }
         }
         return flattenedList;
     }

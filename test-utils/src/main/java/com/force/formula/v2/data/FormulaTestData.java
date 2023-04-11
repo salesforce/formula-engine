@@ -26,7 +26,7 @@ public class FormulaTestData {
         List<FormulaFieldDefinition> inputFields = getAllFieldsForInputData(referenceFields);
         String[] inputArray = input.trim().split(",");
 
-        Validate.isTrue(inputArray.length==inputFields.size(),"Each field needs to have a " +
+        Validate.isTrue((inputFields.size()==0)||((inputFields.size()>0) && (inputArray.length==inputFields.size())),"Each field needs to have a " +
                 "corresponding input value defined. Input Fields Size: " + inputFields.size()+" , Input Values Size: "
                 + inputArray.length);
         Validate.isTrue(executionPaths.size()==outputs.size(),"Each executionPath needs to have" +
@@ -64,4 +64,11 @@ public class FormulaTestData {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public String toString() {
+        return "FormulaTestData{" +
+                "input=" + input +
+                ", expectedOutput=" + expectedOutput +
+                '}';
+    }
 }

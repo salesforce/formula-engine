@@ -59,7 +59,8 @@ public class FormulaTestCase extends FormulaTestBase {
                                     testData.getInput(),
                                     this.testEntity,
                                     this.testSuite.getDbTester());
-                    assertEquals(this.testCase.getTestName() + " failed for execution path " + executionPath,
+                    assertEquals(this.testCase.getTestName() + " failed for execution path: " + executionPath
+                                + " and for testData: " + testData,
                             testData.getExpectedOutput().get(executionPath),
                             output);
                 }
