@@ -192,7 +192,7 @@ public enum ExecutionPaths implements IFormulaExecutor<MapFormulaContext.MapEnti
             }
             return outputValue == null ? "null" : outputValue;
         }catch(Throwable e){
-            return "Error: " + e.getMessage();
+            return "Error: " + e.getClass().getName();
         }
     }
 
