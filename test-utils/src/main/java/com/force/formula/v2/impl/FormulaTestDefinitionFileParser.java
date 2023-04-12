@@ -117,8 +117,10 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
                 }
                 Element field = (Element)tempNode;
                 String input = field.getAttribute("input").trim();
-                List<String> outputs = Arrays.asList(field.getAttribute("expectedOutput")
-                        .trim().split("\\s*,\\s*"));
+                List<String> outputs = Arrays.stream(field.getAttribute("expectedOutput").split("(?<!\\\\),"))
+                        .map(s -> s.replaceAll("\\\\,", ","))
+                        .map(String::trim)
+                        .collect(Collectors.toList());
                 testDataList.add(new FormulaTestData(input, outputs, executionPaths, referenceFields));
             }
         }

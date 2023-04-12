@@ -69,4 +69,14 @@
         <testData input="4000:01:01" expectedOutput="64060588800,64060588800,64060588800,64060588800,64060588800,64060588800,64060588800,64060588800"/>
         <testData input="3999:01:01" expectedOutput="64029052800,64029052800,64029052800,64029052800,64029052800,64029052800,64029052800,64029052800"/>
     </testcase>
+
+    <testcase testName="testMillisecWithValidDateTimeString3"
+              fieldName="testMillisecWithValidDateTimeString3"
+              dataType="Double"
+              formula="MilliSecond(TIMEVALUE(&quot;2015-03-17 17:00:00&quot;))"
+              executionPaths="sql">
+        <testData
+                  expectedOutput="Error: ERROR: function round(double precision\, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37"/>
+    </testcase>
+
 </formula-test>

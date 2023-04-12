@@ -3,6 +3,7 @@ package com.force.formula.v2;
 
 import com.force.formula.FormulaTestBase;
 import com.force.formula.impl.MapFormulaContext;
+import com.force.formula.util.FormulaTextUtil;
 import com.force.formula.v2.data.FormulaFieldDefinition;
 import com.force.formula.v2.data.FormulaTestData;
 import com.force.formula.v2.data.FormulaTestDefinition;
@@ -62,7 +63,7 @@ public class FormulaTestCase extends FormulaTestBase {
                     assertEquals(this.testCase.getTestName() + " failed for execution path: " + executionPath
                                 + " and for testData: " + testData,
                             testData.getExpectedOutput().get(executionPath),
-                            output);
+                            FormulaTextUtil.escapeToXml(output));
                 }
             }
         }

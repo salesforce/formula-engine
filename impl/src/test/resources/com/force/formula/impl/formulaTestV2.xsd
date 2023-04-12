@@ -113,7 +113,7 @@
 
     <xs:element name="testData">
         <xs:complexType>
-            <xs:attribute ref="input" use="required"/>
+            <xs:attribute ref="input"/>
             <xs:attribute ref="expectedOutput" use="required"/>
         </xs:complexType>
     </xs:element>
