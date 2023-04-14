@@ -19,12 +19,27 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Each test definition corresponds to a formula testcase which will be run by the test framework. Each formula testcase
+ * is part of some test suite that provides the testcase a database tester, sets appropriate properties and paths.
+ *
+ * Every testcase executes the formula for each defined execution path and then compares its output to the expected
+ * output. It also generates a gold file containing sql and javascript code that is compared with the earlier gold file
+ * output to show differences if any.
+ *
+ */
 public class FormulaTestCase extends FormulaTestBase {
 
     private final FormulaTestDefinition testCase;
     private final MapFormulaContext.MapEntity testEntity;
     private final FormulaXMLTestSuite testSuite;
 
+    /**
+     * A constructor to create an instance of formula test case from a formula test definition
+     *
+     * @param testCase formula test definition
+     * @param testSuite formula test suite which will contain this formula test case
+     */
     public FormulaTestCase(FormulaTestDefinition testCase, FormulaXMLTestSuite testSuite) {
         super(testCase.getTestName());
         this.testCase = testCase;
@@ -32,6 +47,12 @@ public class FormulaTestCase extends FormulaTestBase {
         this.testSuite = testSuite;
     }
 
+    /**
+     * Creates a test entity from the provided formula test definition to be used for evaluating formula output
+     *
+     * @param testCase formula test definition
+     * @return a test entity from the provided formula test definition to be used for evaluating formula output
+     */
     private MapFormulaContext.MapEntity createTestEntity(FormulaTestDefinition testCase){
         //In opensource, fields are created like following and are added to a testEntity which is composed of these fields
         //Creating MapFieldInfo is equivalent to creating custom fields in core.
@@ -44,12 +65,19 @@ public class FormulaTestCase extends FormulaTestBase {
         return new MapFormulaContext.MapEntity("testEntity", fields.values());
     }
 
+    /**
+     * Its the method that gets executed by the test framework to run this test case
+     */
     @Override
     public void runTest(){
         runTestCase();
         compareGoldFileOutput();
     }
 
+    /**
+     * Iterates over all execution paths defined for this test case for each of the test data and compare against
+     * expected outputs
+     */
     private void runTestCase(){
         for(String executionPath: this.testCase.getExecutionPaths()){
             if(ExecutionPaths.get(executionPath)!=null){
@@ -69,26 +97,34 @@ public class FormulaTestCase extends FormulaTestBase {
         }
     }
 
+    /**
+     * Compares the new gold files with the old ones to show differences if any
+     */
     private void compareGoldFileOutput(){
         File existingGoldFile = new File(this.testSuite.getGoldFileDirectoryPath() + "/" + this.testCase.getTestName()+ ".xml");
         existingGoldFile.getParentFile().mkdirs();
 
-        byte[] results = generateGoldFileContents().getBytes();
+        byte[] newGoldFileOutput = generateGoldFileContents().getBytes();
         boolean isTestPassed = true;
         StringBuilder testFailureMessage = new StringBuilder();
 
         try{
             if (existingGoldFile.exists()) {
-                isTestPassed = compareXmlResults(existingGoldFile, results, testFailureMessage);
+                isTestPassed = compareXmlResults(existingGoldFile, newGoldFileOutput, testFailureMessage);
             }
             //Write the new contents to the existing gold file
-            Files.write(results, existingGoldFile);
+            Files.write(newGoldFileOutput, existingGoldFile);
         }catch (IOException ex){
             fail("Exception occured while comparing gold file output"+ ex.getMessage());
         }
         assertTrue(testFailureMessage.toString(), isTestPassed);
     }
 
+    /**
+     * Generates the gold file output for this test case
+     *
+     * @return a gold file output for this test case
+     */
     private String generateGoldFileContents(){
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -106,13 +142,22 @@ public class FormulaTestCase extends FormulaTestBase {
         return sb.toString();
     }
 
-    protected boolean compareXmlResults(File f, byte[] xml, StringBuilder testFailureMsg) throws IOException {
-        byte[] contents = Files.asByteSource(f).read();
+    /**
+     * Compares an existing gold file contents with the newly generates gold file output
+     *
+     * @param existingGoldFile existing gold file
+     * @param newGoldFileOutput new generates gold file output
+     * @param testFailureMsg string builder to be used to append any failure messages that happen while comparing
+     * @return true if there is no mismatch between existing gold file and new generates gold file output, else false
+     * @throws IOException if there is an issue while reading the byte inputs
+     */
+    protected boolean compareXmlResults(File existingGoldFile, byte[] newGoldFileOutput, StringBuilder testFailureMsg) throws IOException {
+        byte[] existingGoldFileContents = Files.asByteSource(existingGoldFile).read();
 
-        if (!Arrays.equals(contents, xml)) {
+        if (!Arrays.equals(existingGoldFileContents, newGoldFileOutput)) {
             testFailureMsg.append("\n\nTESTCASE: " + this.testCase.getTestName() +
                     " Changes identified in generated SQL and Javascript.  Check gold file.\n");
-            appendDiffSnippet(contents, xml, testFailureMsg);
+            appendDiffSnippet(existingGoldFileContents, newGoldFileOutput, testFailureMsg);
             return false;
         } else {
             return true;
@@ -122,13 +167,15 @@ public class FormulaTestCase extends FormulaTestBase {
 
     /**
      * Append a diff snippet to go into the error log to make debugging easier if running remotely
-     * @param goldfile the contents of the goldfile
-     * @param results the contents of the result of the run
-     * @param testFailureMsg the failure message to append the diff to.
+     *
+     * @param existingGoldFileContents the contents of the goldfile
+     * @param newGoldFileOutput the contents of the new gold file output of the run
+     * @param testFailureMsg the failure message to append the diff to
+     * @throws IOException if there is an issue while reading the byte inputs
      */
-    protected void appendDiffSnippet(byte[] goldfile, byte[] results, StringBuilder testFailureMsg) throws IOException {
-        List<String> before = CharSource.wrap(new String(goldfile, Charsets.UTF_8)).lines().collect(Collectors.toList());
-        List<String> after = CharSource.wrap(new String(results, Charsets.UTF_8)).lines().collect(Collectors.toList());
+    protected void appendDiffSnippet(byte[] existingGoldFileContents, byte[] newGoldFileOutput, StringBuilder testFailureMsg) throws IOException {
+        List<String> before = CharSource.wrap(new String(existingGoldFileContents, Charsets.UTF_8)).lines().collect(Collectors.toList());
+        List<String> after = CharSource.wrap(new String(newGoldFileOutput, Charsets.UTF_8)).lines().collect(Collectors.toList());
 
         com.github.difflib.patch.Patch<String> patch = DiffUtils.diff(before, after);
         List<String> unifiedDiff = UnifiedDiffUtils.generateUnifiedDiff(this.testCase.getTestName(), this.testCase.getTestName()+".results", before, patch, 1);

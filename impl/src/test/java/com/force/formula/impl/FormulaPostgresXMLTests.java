@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
+/**
+ * A test suite that uses test xml file - formulaTestV2.xml to generate and run those tests using postgres database
+ */
 @RunWith(AllTests.class)
 public class FormulaPostgresXMLTests extends FormulaXMLTestSuite {
 
@@ -25,9 +28,15 @@ public class FormulaPostgresXMLTests extends FormulaXMLTestSuite {
     }
 
     /**
-     * As all the tests under this suite should run with same configurations, having a beforeTest() and afterTest() at
-     * suite level makes sense.
-     * @return
+     * Creates a test suite by providing
+     *      test xml file paths,
+     *      setting database specific hooks for postgres,
+     *      setting timezone for testing purposes,
+     *      supplying a parse to parse test xml file,
+     *      supplying a filter to filter out some test scenarios,
+     *      and a directory path for postgres specific gold files.
+     *
+     * @return a test suite created from the given test xml file
      */
     public static TestSuite suite() {
         List<String> xmlFiles = new ArrayList<>();
@@ -41,6 +50,11 @@ public class FormulaPostgresXMLTests extends FormulaXMLTestSuite {
         return new FormulaPostgresXMLTests(xmlFiles, parser, null, goldFileDirectory);
     }
 
+    /**
+     * Creates a postgres database tester
+     * @return a postgres database tester
+     * @throws IOException if there is an IO issue while creating database tester
+     */
     @Override
     protected DbTester constructDbTester() throws IOException {
         return new EmbeddedPostgresTester();

@@ -8,8 +8,18 @@ import com.google.common.collect.ImmutableSet;
 
 import java.util.*;
 
+/**
+ * A utility class contains a set of static utility methods used across the test framework
+ */
 public class Utils {
 
+    /**
+     * Creates a date object from its string value
+     *
+     * @param dateString a string representation of a DateTime or TimeOnly or DateOnly
+     * @param isDateOnly if true, then the time part of the Date object will be set to 0
+     * @return a Date object created from the string input value
+     */
     public static Date getDateObject(String dateString, Boolean isDateOnly) {
         Calendar myCal = Calendar.getInstance();
         myCal.clear();
@@ -36,6 +46,12 @@ public class Utils {
         return myCal.getTime();
     }
 
+    /**
+     * Returns the flattened ordered list of reference fields by removing all levels of nesting
+     *
+     * @param nestedFields a list of nested reference fields
+     * @return a flattened ordered list of reference fields by removing all levels of nesting
+     */
     public static List<FormulaFieldDefinition> flattenFieldList(List<FormulaFieldDefinition> nestedFields) {
         List<FormulaFieldDefinition> flattenedList = new LinkedList<>();
         if(nestedFields!=null && !nestedFields.isEmpty()){
@@ -48,6 +64,12 @@ public class Utils {
         return flattenedList;
     }
 
+    /**
+     * Gets the MockFormulaDataType from a given string dataType value
+     *
+     * @param dataType a string representing a dataType
+     * @return a MockFormulaDataType for a given string dataType value
+     */
     public static MockFormulaDataType getDataType(String dataType){
         if (ImmutableSet.of("email", "url", "phone", "textarea").contains(dataType)) return MockFormulaDataType.TEXT;
         if ("number".equals(dataType)) return MockFormulaDataType.DOUBLE;
@@ -60,6 +82,12 @@ public class Utils {
         return formulaDataType;
     }
 
+    /**
+     * Creates a javascript map from the given test input data
+     *
+     * @param testInput test input for the test case
+     * @return a js map created from the test input to be used for javascript execution
+     */
     public static Map<String,Object> createJSMapFromTestInput(Map<String, Object> testInput){
         Map<String,Object> record = testInput != null ? new HashMap<String,Object>(testInput) : new HashMap<String,Object>();
         Map<String,Object> jsMap = new HashMap<>();
@@ -67,6 +95,14 @@ public class Utils {
         return jsMap;
     }
 
+    /**
+     * Generates an xml formatted output for the given formula sql
+     *
+     * @param rawSql raw sql part of the formula sql
+     * @param sqlGuard sql guard part of the formula sql
+     * @param nullAsNull value of the formula engine property nullAsNull
+     * @return an xml formatted output for the given formula sql
+     */
     public static String getSQLOutput(String rawSql, String sqlGuard, boolean nullAsNull){
         StringBuffer output = new StringBuffer();
         output.append("    <SqlOutput nullAsNull=\""+nullAsNull+"\">\n");
@@ -80,6 +116,14 @@ public class Utils {
         return output.toString();
     }
 
+    /**
+     * Generates an xml formatted output for the given formula javascript
+     *
+     * @param jsCode javascript code
+     * @param highPrec value for the javascript high precision property
+     * @param nullAsNull value for the javascript nullAsNull property
+     * @return an xml formatted output for the given formula javascript
+     */
     public static String getJavascriptOutput(String jsCode, boolean highPrec, boolean nullAsNull){
         StringBuffer output = new StringBuffer();
         output.append("    <JsOutput highPrec=\""+highPrec+"\" nullAsNull=\""+nullAsNull+"\">");

@@ -24,6 +24,13 @@ import java.util.stream.Collectors;
 
 public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionParser<FormulaTestDefinition> {
 
+    /**
+     * A method that parses a list of test xml files to create formula test definitions to be used for testing
+     *
+     * @param absoluteFilePaths a list of file paths for test xml files that needs to be parsed
+     * @return a list of formula test definitions
+     * @throws FormulaFileParseException if there is an issue reading and parsing the provided file paths
+     */
     @Override
     public List<FormulaTestDefinition> parse(List<String> absoluteFilePaths) throws FormulaFileParseException {
         if (absoluteFilePaths != null) {
@@ -35,6 +42,12 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
         return Collections.emptyList();
     }
 
+    /**
+     * A method that parses a test xml file to create formula test definitions to be used for testing
+     *
+     * @param absoluteFilePath a file path for test xml file that needs to be parsed
+     * @return a list of formula test definitions obtained from the given test xml file
+     */
     private List<FormulaTestDefinition> parse(String absoluteFilePath){
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Document document;
@@ -50,6 +63,12 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
         return parseTestCaseDefinitions(document);
     }
 
+    /**
+     * A method that parses a test xml document node to create formula test definitions to be used for testing
+     *
+     * @param document a test xml document node that needs to be parsed
+     * @return a list of formula test definitions obtained from the given test xml document node
+     */
     private List<FormulaTestDefinition> parseTestCaseDefinitions(Document document){
         List<FormulaTestDefinition> testCaseInfos = new LinkedList<FormulaTestDefinition>();
 
@@ -84,6 +103,12 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
         return testCaseInfos.size()>0?testCaseInfos:null;
     }
 
+    /**
+     * Extracts a list of reference fields for a formula in the order they are defined in the test xml file
+     *
+     * @param element a test xml element node that needs to be parsed to get reference fields for the formula
+     * @return an ordered list of reference fields in the sequence they are defined in test xml file
+     */
     private List<FormulaFieldDefinition> extractReferenceFields(Element element){
         List<FormulaFieldDefinition> referenceFields = new LinkedList<>();
         if(element.hasChildNodes()){
@@ -106,6 +131,14 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
         return referenceFields.size()>0?referenceFields:null;
     }
 
+    /**
+     * Extracts a list of test data to be used for testing the formula
+     *
+     * @param element a test xml element node that needs to be parsed to test data to be used for testing the formula
+     * @param executionPaths an ordered list of execution paths that are defined in the test xml file
+     * @param referenceFields an ordered list of reference fields that are defined in the test xml file
+     * @return a list of test data against which the formula will be executed
+     */
     private List<FormulaTestData> extractTestData(Element element, List<String> executionPaths, List<FormulaFieldDefinition> referenceFields){
         List<FormulaTestData> testDataList = new LinkedList<>();
         if(element.hasChildNodes()){
