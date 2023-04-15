@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:attribute name="testName" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                The unique testcase name to identify a testcase.
+                It is a required input.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
+    <!-- attributes common to elements - testcase and referenceField -->
+    <xs:attribute name="fieldName" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                It is the fieldName that will be used for creating Formula field or Custom field.
+                It is a required input.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
+    <xs:attribute name="dataType" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                It is the dataType that will be used for creating Formula field or Custom field.
+                It is a required input. Its value depends on the FormulaEngineHook that is being used.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
+    <xs:attribute name="formula" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                It is the formula string that you would like to test.
+                It is a required input.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
+    <xs:attribute name="executionPaths" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                It is the comma separated list of execution paths for which the formula will be tested.
+                Each execution path can have a different output for the formula.
+                Currently supported execution paths are formula, sql, javascript, javascriptLp, formulaNullAsNull,
+                sqlNullAsNull, javascriptNullAsNull, javascriptLpNullAsNull.
+                formula - returns the output for the formula
+                sql - returns the sql output when the formula is executed against a particular database
+                javascript- returns the high precision javascript output when the formula is executed
+                javascriptLp - returns the low precision javascript output when the formula is executed
+                formulaNullAsNull - returns the output for the formula when the input null values are treated as nulls
+                sqlNullAsNull - returns the sql output when the formula is executed against a particular database and treat null input values as nulls
+                javascriptNullAsNull - returns the high precision javascript output when the formula is executed and null input values are treated as nulls
+                javascriptLpNullAsNull - returns the low precision javascript output when the formula is executed and null input values are treated as nulls
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
+    <xs:attribute name="input" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                It is the input value that needs to be used to test the formula.
+                The values are comma separated in the flattened order in which reference fields are defined.
+                It is the same format in which input was defined in the dataFiles earlier.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
+    <xs:attribute name="expectedOutput" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                It is the expected output for each execution paths defined in test case definition in the order in which
+                different execution paths are defined.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
+
+    <!-- definition of complex elements -->
+    <xs:element name="formula-test">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="testcase" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="testcase">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="referenceField" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="testData" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute ref="testName" use="required"/>
+            <xs:attribute ref="fieldName" use="required"/>
+            <xs:attribute ref="dataType" use="required"/>
+            <xs:attribute ref="formula" use="required"/>
+            <xs:attribute ref="executionPaths" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="referenceField">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="referenceField" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute ref="fieldName" use="required"/>
+            <xs:attribute ref="dataType" use="required"/>
+            <xs:attribute ref="formula"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="testData">
+        <xs:complexType>
+            <xs:attribute ref="input"/>
+            <xs:attribute ref="expectedOutput" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

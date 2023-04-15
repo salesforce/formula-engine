@@ -3,17 +3,16 @@
  */
 package com.force.formula.impl;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
+import com.force.formula.DbTester;
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
 import com.force.formula.sql.EmbeddedPostgresTester;
 import com.force.formula.sql.PostgreSQLContainerTester;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Abstract class for testing formulas with javascript and postgres

@@ -16,6 +16,7 @@ import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
 import com.force.formula.impl.sql.FormulaSqliteHooks;
 import com.force.formula.sql.EmbeddedSqliteTester;
+import com.force.formula.DbTester;
 
 /**
  * Abstract class for testing formulas with embedded Sqlite
