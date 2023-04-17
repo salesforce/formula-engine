@@ -70,13 +70,460 @@
         <testData input="3999:01:01" expectedOutput="64029052800,64029052800,64029052800,64029052800,64029052800,64029052800,64029052800,64029052800"/>
     </testcase>
 
-    <testcase testName="testMillisecWithValidDateTimeString3"
-              fieldName="testMillisecWithValidDateTimeString3"
+    <testcase testName="testDateTimeValueWithInvalidString"
+              fieldName="testDateTimeValueWithInvalidString"
+              dataType="DateOnly"
+              formula="DATETIMEVALUE(&quot;sample &quot;)"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <testData
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                  null,
+                  Error: Javascript cannot parse time,
+                  Error: Javascript cannot parse time,
+                  Error: com.force.formula.FormulaDateException,
+                  null,
+                  Error: Javascript cannot parse time,
+                  Error: Javascript cannot parse time"/>
+    </testcase>
+
+    <testcase testName="testDateTimeValueWithValidString"
+              fieldName="testDateTimeValueWithValidString"
+              dataType="DateOnly"
+              formula="DATETIMEVALUE(&quot;2005-11-15 17:00:00 &quot;)"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <testData
+                  expectedOutput="Tue Nov 15 17:00:00 GMT 2005,
+                                 2005-11-15 17:00:00.0,
+                                 Tue Nov 15 17:00:00 GMT 2005,
+                                 Tue Nov 15 17:00:00 GMT 2005,
+                                 Tue Nov 15 17:00:00 GMT 2005,
+                                 2005-11-15 17:00:00.0,
+                                 Tue Nov 15 17:00:00 GMT 2005,
+                                 Tue Nov 15 17:00:00 GMT 2005"/>
+    </testcase>
+
+    <testcase testName="testDateTimeValueWithValidInValid"
+              fieldName="testDateTimeValueWithValidInValid"
+              dataType="DateOnly"
+              formula="DATETIMEVALUE(customdate1__c)"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <referenceField fieldName="customdate1"
+                        dataType="Text"/>
+        <testData input="2011-01-29 00:00:09"
+                  expectedOutput="Sat Jan 29 00:00:09 GMT 2011,
+                                 2011-01-29 00:00:09.0,
+                                 Sat Jan 29 00:00:09 GMT 2011,
+                                 Sat Jan 29 00:00:09 GMT 2011,
+                                 Sat Jan 29 00:00:09 GMT 2011,
+                                 2011-01-29 00:00:09.0,
+                                 Sat Jan 29 00:00:09 GMT 2011,
+                                 Sat Jan 29 00:00:09 GMT 2011"/>
+         <testData input="2011-01-9 00:00:09"
+                  expectedOutput="Sun Jan 09 00:00:09 GMT 2011,
+                                 2011-01-09 00:00:09.0,
+                                 Sun Jan 09 00:00:09 GMT 2011,
+                                 Sun Jan 09 00:00:09 GMT 2011,
+                                 Sun Jan 09 00:00:09 GMT 2011,
+                                 2011-01-09 00:00:09.0,
+                                 Sun Jan 09 00:00:09 GMT 2011,
+                                 Sun Jan 09 00:00:09 GMT 2011"/>
+         <testData input="2011-1-29 00:00:00"
+                  expectedOutput="Sat Jan 29 00:00:00 GMT 2011,
+                                 2011-01-29 00:00:00.0,
+                                 Sat Jan 29 00:00:00 GMT 2011,
+                                 Sat Jan 29 00:00:00 GMT 2011,
+                                 Sat Jan 29 00:00:00 GMT 2011,
+                                 2011-01-29 00:00:00.0,
+                                 Sat Jan 29 00:00:00 GMT 2011,
+                                 Sat Jan 29 00:00:00 GMT 2011"/>
+         <testData input="2011-1-1 00:00:00"
+                  expectedOutput="Sat Jan 01 00:00:00 GMT 2011,
+                                 2011-01-01 00:00:00.0,
+                                 Sat Jan 01 00:00:00 GMT 2011,
+                                 Sat Jan 01 00:00:00 GMT 2011,
+                                 Sat Jan 01 00:00:00 GMT 2011,
+                                 2011-01-01 00:00:00.0,
+                                 Sat Jan 01 00:00:00 GMT 2011,
+                                 Sat Jan 01 00:00:00 GMT 2011"/>
+         <testData input="2011-01-1 1:00:00"
+                  expectedOutput="Sat Jan 01 01:00:00 GMT 2011,
+                                 2011-01-01 01:00:00.0,
+                                 Sat Jan 01 01:00:00 GMT 2011,
+                                 Sat Jan 01 01:00:00 GMT 2011,
+                                 Sat Jan 01 01:00:00 GMT 2011,
+                                 2011-01-01 01:00:00.0,
+                                 Sat Jan 01 01:00:00 GMT 2011,
+                                 Sat Jan 01 01:00:00 GMT 2011"/>
+         <testData input="2011-1-23 2:22:59"
+                  expectedOutput="Sun Jan 23 02:22:59 GMT 2011,
+                                 2011-01-23 02:22:59.0,
+                                 Sun Jan 23 02:22:59 GMT 2011,
+                                 Sun Jan 23 02:22:59 GMT 2011,
+                                 Sun Jan 23 02:22:59 GMT 2011,
+                                 2011-01-23 02:22:59.0,
+                                 Sun Jan 23 02:22:59 GMT 2011,
+                                 Sun Jan 23 02:22:59 GMT 2011"/>
+        <testData input="2012-2-7 5:22:33"
+                  expectedOutput="Tue Feb 07 05:22:33 GMT 2012,
+                                 2012-02-07 05:22:33.0,
+                                 Tue Feb 07 05:22:33 GMT 2012,
+                                 Tue Feb 07 05:22:33 GMT 2012,
+                                 Tue Feb 07 05:22:33 GMT 2012,
+                                 2012-02-07 05:22:33.0,
+                                 Tue Feb 07 05:22:33 GMT 2012,
+                                 Tue Feb 07 05:22:33 GMT 2012"/>
+        <testData input="2011-13-29 00:00:09"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Error: Javascript cannot parse time,
+                                 Error: Javascript cannot parse time,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Error: Javascript cannot parse time,
+                                 Error: Javascript cannot parse time"/>
+        <testData input="2012:02:02"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Error: Javascript cannot parse time,
+                                 Error: Javascript cannot parse time,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Error: Javascript cannot parse time,
+                                 Error: Javascript cannot parse time"/>
+        <testData input="2012-01-01 24:00:00"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Mon Jan 02 00:00:00 GMT 2012,
+                                 Mon Jan 02 00:00:00 GMT 2012,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Mon Jan 02 00:00:00 GMT 2012,
+                                 Mon Jan 02 00:00:00 GMT 2012"/>
+        <testData input="2012-01-01 23:60:00"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Error: Javascript cannot parse time,
+                                 Error: Javascript cannot parse time,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Error: Javascript cannot parse time,
+                                 Error: Javascript cannot parse time"/>
+        <testData input="2012-01-01 23:00:60"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Error: Javascript cannot parse time,
+                                 Error: Javascript cannot parse time,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Error: Javascript cannot parse time,
+                                 Error: Javascript cannot parse time"/>
+        <testData input="2012-01-01 23:59:59"
+                  expectedOutput="Sun Jan 01 23:59:59 GMT 2012,
+                                 2012-01-01 23:59:59.0,
+                                 Sun Jan 01 23:59:59 GMT 2012,
+                                 Sun Jan 01 23:59:59 GMT 2012,
+                                 Sun Jan 01 23:59:59 GMT 2012,
+                                 2012-01-01 23:59:59.0,
+                                 Sun Jan 01 23:59:59 GMT 2012,
+                                 Sun Jan 01 23:59:59 GMT 2012"/>
+        <testData input="2012-10-34 00:00:00"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Error: Javascript cannot parse time,
+                                 Error: Javascript cannot parse time,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 Error: Javascript cannot parse time,
+                                 Error: Javascript cannot parse time"/>
+        <testData input="2012-02-07 5:2:33"
+                  expectedOutput="Tue Feb 07 05:02:33 GMT 2012,
+                                 2012-02-07 05:02:33.0,
+                                 Tue Feb 07 05:02:33 GMT 2012,
+                                 Tue Feb 07 05:02:33 GMT 2012,
+                                 Tue Feb 07 05:02:33 GMT 2012,
+                                 2012-02-07 05:02:33.0,
+                                 Tue Feb 07 05:02:33 GMT 2012,
+                                 Tue Feb 07 05:02:33 GMT 2012"/>
+        <testData input="2012-02-07 5:22:3"
+                  expectedOutput="Tue Feb 07 05:22:03 GMT 2012,
+                                 2012-02-07 05:22:03.0,
+                                 Tue Feb 07 05:22:03 GMT 2012,
+                                 Tue Feb 07 05:22:03 GMT 2012,
+                                 Tue Feb 07 05:22:03 GMT 2012,
+                                 2012-02-07 05:22:03.0,
+                                 Tue Feb 07 05:22:03 GMT 2012,
+                                 Tue Feb 07 05:22:03 GMT 2012"/>
+    </testcase>
+
+    <testcase testName="testTimeValueWithValidString"
+              fieldName="testTimeValueWithValidString"
+              dataType="TimeOnly"
+              formula="TIMEVALUE(&quot;10:40:55.666&quot;)"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <testData
+                  expectedOutput="10:40:55.666,
+                                 10:40:55.666,
+                                 10:40:55.666,
+                                 10:40:55.666,
+                                 10:40:55.666,
+                                 10:40:55.666,
+                                 10:40:55.666,
+                                 10:40:55.666"/>
+    </testcase>
+
+    <testcase testName="testHourWithValidString"
+              fieldName="testHourWithValidString"
+              dataType="Double"
+              formula="Hour(TIMEVALUE(&quot;10:40:55.666&quot;))"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <testData
+                  expectedOutput="10,
+                                 10,
+                                 10,
+                                 10,
+                                 10,
+                                 10,
+                                 10,
+                                 10"/>
+    </testcase>
+
+    <testcase testName="testMinuteWithValidString"
+              fieldName="testMinuteWithValidString"
+              dataType="Double"
+              formula="Minute(TIMEVALUE(&quot;10:40:55.666&quot;))"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <referenceField fieldName="customdate1"
+                        dataType="Text"/>
+        <testData
+                  expectedOutput="40,
+                                 40,
+                                 40,
+                                 40,
+                                 40,
+                                 40,
+                                 40,
+                                 40"/>
+    </testcase>
+
+    <testcase testName="testSecondWithValidString"
+              fieldName="testSecondWithValidString"
+              dataType="Double"
+              formula="Second(TIMEVALUE(&quot;10:40:55.666&quot;))"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <referenceField fieldName="customdate1"
+                        dataType="Text"/>
+        <testData
+                  expectedOutput="55,
+                                 55,
+                                 55,
+                                 55,
+                                 55,
+                                 55,
+                                 55,
+                                 55"/>
+    </testcase>
+
+    <testcase testName="testMillisecWithValidString"
+              fieldName="testMillisecWithValidString"
+              dataType="Double"
+              formula="MilliSecond(TIMEVALUE(&quot;10:40:55.666&quot;))"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <testData input="10:40:55.666" 
+                  expectedOutput="666,
+                                 666,
+                                 666,
+                                 666,
+                                 666,
+                                 666,
+                                 666,
+                                 666"/>
+    </testcase>
+
+    <testcase testName="testMillisecWithValidDateTimeString"
+              fieldName="testMillisecWithValidDateTimeString"
               dataType="Double"
               formula="MilliSecond(TIMEVALUE(&quot;2015-03-17 17:00:00&quot;))"
-              executionPaths="sql">
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <referenceField fieldName="customdate1"
+                        dataType="Text"/>
+        <testData input="2015-03-17 17:00:00"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 Error: ERROR: function round(double precision\, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37,
+                                 0,
+                                 0,
+                                 Error: com.force.formula.FormulaDateException,
+                                 Error: ERROR: function round(double precision\, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37,
+                                 0,
+                                 0"/>
+    </testcase>
+
+    <testcase testName="testTimeValueWithValidInValid"
+              fieldName="testTimeValueWithValidInValid"
+              dataType="TimeOnly"
+              formula="TimeValue(DATETIMEVALUE(dateString__c))"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
+        <referenceField fieldName="dateString"
+                        dataType="Text"/>
+        <testData input="2011-01-29 00:00:09"
+                  expectedOutput="00:00:09,
+                                 00:00:09,
+                                 00:00:09,
+                                 00:00:09,
+                                 00:00:09,
+                                 00:00:09,
+                                 00:00:09,
+                                 00:00:09"/>
+        <testData input="2011-01-9 00:00:09"
+                  expectedOutput="00:00:09,
+                                 00:00:09,
+                                 00:00:09,
+                                 00:00:09,
+                                 00:00:09,
+                                 00:00:09,
+                                 00:00:09,
+                                 00:00:09"/>
+        <testData input="2011-1-29 00:00:00"
+                  expectedOutput="00:00,
+                                 00:00,
+                                 00:00,
+                                 00:00,
+                                 00:00,
+                                 00:00,
+                                 00:00,
+                                 00:00"/>
+        <testData input="2011-1-1 00:00:00"
+                  expectedOutput="00:00,
+                                 00:00,
+                                 00:00,
+                                 00:00,
+                                 00:00,
+                                 00:00,
+                                 00:00,
+                                 00:00"/>
+        <testData input="2011-01-1 1:00:00"
+                  expectedOutput="01:00,
+                                 01:00,
+                                 01:00,
+                                 01:00,
+                                 01:00,
+                                 01:00,
+                                 01:00,
+                                 01:00"/>
+        <testData input="2011-1-23 2:22:59"
+                  expectedOutput="02:22:59,
+                                 02:22:59,
+                                 02:22:59,
+                                 02:22:59,
+                                 02:22:59,
+                                 02:22:59,
+                                 02:22:59,
+                                 02:22:59"/>
+        <testData input="2012-2-7 5:22:33"
+                  expectedOutput="05:22:33,
+                                 05:22:33,
+                                 05:22:33,
+                                 05:22:33,
+                                 05:22:33,
+                                 05:22:33,
+                                 05:22:33,
+                                 05:22:33"/>
+        <testData input="2011-13-29 00:00:09"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00"/>
+        <testData input="2012:02:02"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00"/>
+        <testData input="2012-01-01 24:00:00"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00"/>
+        <testData input="2012-01-01 23:60:00"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00"/>
+        <testData input="2012-01-01 23:00:60"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00"/>
+        <testData input="2012-01-01 23:59:59"
+                  expectedOutput="23:59:59,
+                                 23:59:59,
+                                 23:59:59,
+                                 23:59:59,
+                                 23:59:59,
+                                 23:59:59,
+                                 23:59:59,
+                                 23:59:59"/>
+        <testData input="2012-10-34 00:00:00"
+                  expectedOutput="Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00,
+                                 Error: com.force.formula.FormulaDateException,
+                                 null,
+                                 00:00,
+                                 00:00"/>
+        <testData input="2012-02-07 5:2:33"
+                  expectedOutput="05:02:33,
+                                 05:02:33,
+                                 05:02:33,
+                                 05:02:33,
+                                 05:02:33,
+                                 05:02:33,
+                                 05:02:33,
+                                 05:02:33"/>
+        <testData input="2012-02-07 5:22:3"
+                  expectedOutput="05:22:03,
+                                 05:22:03,
+                                 05:22:03,
+                                 05:22:03,
+                                 05:22:03,
+                                 05:22:03,
+                                 05:22:03,
+                                 05:22:03"/>
+     </testcase>
+
+     <testcase testName="testHourWithAddOperator"
+              fieldName="testHourWithAddOperator"
+              dataType="Double"
+              formula="Hour(TIMEVALUE(&quot;10:40:55.666&quot;)+3600000)"
+              executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
         <testData
-                  expectedOutput="Error: ERROR: function round(double precision\, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37"/>
+                  expectedOutput="11,
+                                 11,
+                                 11,
+                                 11,
+                                 11,
+                                 11,
+                                 11,
+                                 11"/>
     </testcase>
 
 </formula-test>
