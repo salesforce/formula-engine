@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMillisecWithValidDateTimeString">
+    <JsOutput highPrec="true" nullAsNull="false">new Date(new Date(&quot;2015-03-17 17:00:00&quot;).setUTCFullYear(1970,0,1)).getMilliseconds()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(new Date(&quot;2015-03-17 17:00:00&quot;).setUTCFullYear(1970,0,1)).getMilliseconds()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">new Date(new Date(&quot;2015-03-17 17:00:00&quot;).setUTCFullYear(1970,0,1)).getMilliseconds()</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new Date(new Date(&quot;2015-03-17 17:00:00&quot;).setUTCFullYear(1970,0,1)).getMilliseconds()</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TRUNC(NULL -TRUNC(NULL/1000) * 1000)</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TRUNC(NULL -TRUNC(NULL/1000) * 1000)</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+</testCase>

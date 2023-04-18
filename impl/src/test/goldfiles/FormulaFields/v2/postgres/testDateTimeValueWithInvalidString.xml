@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateTimeValueWithInvalidString">
+    <JsOutput highPrec="true" nullAsNull="false">$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>NULL</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>NULL</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+</testCase>

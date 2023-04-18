@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTimeValueWithValidString">
+    <JsOutput highPrec="true" nullAsNull="false">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new Date(new Date(&quot;10:40:55.666&quot;).setUTCFullYear(1970,0,1))</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(TO_CHAR(TO_TIMESTAMP('10:40:55.666', 'HH24:mi:ss.MS'),'SSSS.MS') AS NUMERIC) * 1000</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(TO_CHAR(TO_TIMESTAMP('10:40:55.666', 'HH24:mi:ss.MS'),'SSSS.MS') AS NUMERIC) * 1000</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

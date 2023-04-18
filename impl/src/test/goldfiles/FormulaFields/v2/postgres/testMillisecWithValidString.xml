@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMillisecWithValidString">
+    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal('666')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">666</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">666</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new $F.Decimal('666')</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>666</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>666</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>
