@@ -15,7 +15,8 @@ import com.force.formula.util.BigDecimalHelper;
  * @author djacobs
  * @since 140
  */
-@AllowedContext(section = SelectorSection.MATH)  // Not supported in offline because of the precision loss.
+@AllowedContext(section = SelectorSection.MATH,isOffline=true)
+// We are enabling support for offline. But in case of High precision, result might be different than the result from SQL.
 public class OperatorPower extends BinaryMathCommandBehavior {
     private static final long serialVersionUID = 1L;
 
