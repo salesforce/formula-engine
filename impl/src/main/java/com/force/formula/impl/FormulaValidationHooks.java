@@ -670,4 +670,13 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
         // retrun OptimizedURLEncoder.encode(TextUtil.replaceIncompatibleCharacters(entry.toString(), urlEncoding), urlEncoding);
         return URLEncoder.encode(string, urlEncoding);
     }
+
+    /**
+     * When TRUE, CaseSafeId will use sql function to convert an ID, otherwise it will use inline sql to convert an ID.
+     *
+     * Default false
+     */
+    default boolean shouldOptimizeCaseSafeIdFunc() {
+        return false;
+    }
 }
