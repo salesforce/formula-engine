@@ -1,3 +1,6 @@
+#bazel file to work with for local build
+#https://confluence.internal.salesforce.com/display/COREBUILD/Work+With+Bazel+Packages#WorkWithBazelPackages-HowtousetheSNAPSHOTversionofoff-coreMavenartifactswithaBazelbuild
+
 load("@rules_java//java:defs.bzl", "java_import")
 
 package(default_visibility = ["//visibility:public"])
