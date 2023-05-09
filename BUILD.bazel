@@ -1,0 +1,22 @@
+load("@rules_java//java:defs.bzl", "java_import")
+
+package(default_visibility = ["//visibility:public"])
+
+java_import(
+    name = "com_salesforce_formula_formula_engine_api",
+    jars = glob(["api/target/formula-engine-*-SNAPSHOT.jar"]),
+    srcjar = glob(["api/target/formula-engine-*-SNAPSHOT-sources.jar"])[0],
+)
+
+java_import(
+    name = "com_salesforce_formula_formula_engine_impl",
+    jars = glob(["impl/target/formula-engine-*-SNAPSHOT.jar"]),
+    srcjar = glob(["impl/target/formula-engine-*-SNAPSHOT-sources.jar"])[0],
+)
+
+java_import(
+    name = "com_salesforce_formula_formula_engine_test_utils",
+    jars = glob(["test-utils/target/formula-engine-*-SNAPSHOT.jar"]),
+    srcjar = glob(["test-utils/target/formula-engine-*-SNAPSHOT-sources.jar"])[0],
+)
+
