@@ -15,7 +15,8 @@ import com.force.formula.util.BigDecimalHelper;
  * @author djacobs
  * @since 140
  */
-@AllowedContext(section = SelectorSection.MATH)  // Not supported in offline because of the precision loss.
+@AllowedContext(section = SelectorSection.MATH,isOffline=true)
+// We are enabling support for offline. But in case of High precision, result might be different than the result from SQL.
 public class OperatorPower extends BinaryMathCommandBehavior {
     private static final long serialVersionUID = 1L;
 
@@ -43,18 +44,20 @@ public class OperatorPower extends BinaryMathCommandBehavior {
     
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) {
+        // For small values close to zero
+        String guardZero = "(Math.log10(Math.abs("+args[0]+"))*"+args[1]+"<-39)";
+        // For big values of the order of 10^39, return null. This behaviour is same as SQL.
+        String guardBigNo = "(Math.log10(Math.abs("+args[0]+"))*"+args[1]+">39)";
         if (context.useHighPrecisionJs()) {
             // The next line works, but isn't secure, as it makes absurdly large numbers possible.
-            //return JsValue.generate("Decimal.pow("+args[0] + "," + args[1]+ ")", args, false);
-            
-            // Doing the guard was difficult as well
-            //String guard = "(Math.log(Math.abs("+args[0]+"))*"+args[1]+"<39)";
-            //return JsValue.generate("("+guard+"?Decimal.pow("+ args[0] + "," + args[1] + ") : new " + context.getJsModule() + ".Decimal(0))", args, false, args);
-            
-            // This reduces the precision of Pow, but is safe and matches java
-            return JsValue.generate("new " + context.getJsEngMod() + ".Decimal(Math.pow("+args[0] + "," + args[1]+ "))", args, false, args);
+            // return JsValue.generate("Decimal.pow("+args[0] + "," + args[1]+ ")", args, false);
+
+            // If isNaN(Math.pow(a,b)) or guardBigNo is true return null; else if guardZero is true return 0 else execute $F.Decimal(Math.pow(a,b));
+            // Using $F.Decimal(Math.pow(a,b)) Reduces the precision of Pow, but is safe and matches java.
+            return JsValue.generate("("+ guardBigNo + " || isNaN(Math.pow("+ args[0] + "," + args[1] + ")) ? null : (" +guardZero+" ? 0 : new " + context.getJsEngMod() + ".Decimal(Math.pow("+args[0] + "," + args[1]+ "))))", args, false, args);
         }
-        return JsValue.generate("Math.pow("+args[0] + "," + args[1]+ ")", args, false, args);
+        // If isNaN(Math.pow(a,b)) or guardBigNo is true return null; else if guardZero is true return 0 else execute Math.pow(a,b));
+        return JsValue.generate("("+ guardBigNo + " || isNaN(Math.pow("+ args[0] + "," + args[1] + ")) ? null : (" +guardZero+" ? 0 :Math.pow("+args[0] + "," + args[1]+ ")))", args, false, args);
     }
 
 

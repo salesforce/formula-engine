@@ -9,10 +9,10 @@
        <Sql>POWER($!s0s!$.customNumber1__c, $!s0s!$.customNumber2__c)</Sql>
        <Guard>TRUNC($!s0s!$.customNumber2__c)&lt;&gt;$!s0s!$.customNumber2__c OR($!s0s!$.customNumber1__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customNumber1__c))*$!s0s!$.customNumber2__c&gt;38)</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal(Math.pow($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')),$F.nvl(context.record.customNumber2__c,new $F.Decimal('0'))))</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(new $F.Decimal(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.pow($F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customNumber2__c,0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="false">((Math.log10(Math.abs($F.nvl(context.record.customNumber1__c,new $F.Decimal('0'))))*$F.nvl(context.record.customNumber2__c,new $F.Decimal('0'))&gt;39) || isNaN(Math.pow($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')),$F.nvl(context.record.customNumber2__c,new $F.Decimal('0')))) ? null : ((Math.log10(Math.abs($F.nvl(context.record.customNumber1__c,new $F.Decimal('0'))))*$F.nvl(context.record.customNumber2__c,new $F.Decimal('0'))&lt;-39) ? 0 : new $F.Decimal(Math.pow($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')),$F.nvl(context.record.customNumber2__c,new $F.Decimal('0'))))))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(((Math.log10(Math.abs(context.record.customNumber1__c))*context.record.customNumber2__c&gt;39) || isNaN(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c)) ? null : ((Math.log10(Math.abs(context.record.customNumber1__c))*context.record.customNumber2__c&lt;-39) ? 0 : new $F.Decimal(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c))))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((Math.log10(Math.abs($F.nvl(context.record.customNumber1__c,0)))*$F.nvl(context.record.customNumber2__c,0)&gt;39) || isNaN(Math.pow($F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customNumber2__c,0))) ? null : ((Math.log10(Math.abs($F.nvl(context.record.customNumber1__c,0)))*$F.nvl(context.record.customNumber2__c,0)&lt;-39) ? 0 :Math.pow($F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customNumber2__c,0))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(((Math.log10(Math.abs(context.record.customNumber1__c))*context.record.customNumber2__c&gt;39) || isNaN(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c)) ? null : ((Math.log10(Math.abs(context.record.customNumber1__c))*context.record.customNumber2__c&lt;-39) ? 0 :Math.pow(context.record.customNumber1__c,context.record.customNumber2__c)))):null</JsOutput>
       <result>
       <inputvalues>[, 24]</inputvalues>
          <formula>0</formula>
@@ -83,11 +83,11 @@
       <inputvalues>[-20, -40]</inputvalues>
          <formula>0</formula>
          <sql>0</sql>
-         <javascript>0E-32</javascript>
+         <javascript>0</javascript>
          <javascriptLp>0</javascriptLp>
          <formulaNullAsNull>0</formulaNullAsNull>
          <sqlNullAsNull>0</sqlNullAsNull>
-         <javascriptNullAsNull>0E-32</javascriptNullAsNull>
+         <javascriptNullAsNull>0</javascriptNullAsNull>
          <javascriptLpNullAsNull>0</javascriptLpNullAsNull>
       </result>
       <result>
@@ -138,22 +138,22 @@
       <inputvalues>[123456789, 123456789]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
          <sql>null</sql>
-         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
       <inputvalues>[123456789.123456789, 123456789.123456789]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
          <sql>null</sql>
-         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
@@ -171,11 +171,11 @@
       <inputvalues>[-123456789.123456789, -123456789.123456789]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
          <sql>null</sql>
-         <javascript>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: Character N is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
       <result>
@@ -292,11 +292,45 @@
       <inputvalues>[.0000000000001, -1000]</inputvalues>
          <formula>Error: com.force.formula.FormulaEvaluationException</formula>
          <sql>null</sql>
-         <javascript>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascript>
+         <javascript>null</javascript>
          <javascriptLp>null</javascriptLp>
          <formulaNullAsNull>Error: com.force.formula.FormulaEvaluationException</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>Error: Character I is neither a decimal digit number, decimal point, nor &quot;e&quot; notation exponential mark.</javascriptNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[0.9835,  200]</inputvalues>
+         <formula>0.0358816868010343262</formula>
+         <sql>0.0358816868010343</sql>
+         <javascript>0.03588168680103455</javascript>
+         <javascriptLp>0.0358817</javascriptLp>
+         <formulaNullAsNull>0.0358816868010343262</formulaNullAsNull>
+         <sqlNullAsNull>0.0358816868010343</sqlNullAsNull>
+         <javascriptNullAsNull>0.03588168680103455</javascriptNullAsNull>
+         <javascriptLpNullAsNull>0.0358817</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[1.129686539,  200]</inputvalues>
+         <formula>39047278784.6131473</formula>
+         <sql>39047278784.6131473092643293</sql>
+         <javascript>39047278784.61258</javascript>
+         <javascriptLp>39047278784.6125793</javascriptLp>
+         <formulaNullAsNull>39047278784.6131473</formulaNullAsNull>
+         <sqlNullAsNull>39047278784.6131473092643293</sqlNullAsNull>
+         <javascriptNullAsNull>39047278784.61258</javascriptNullAsNull>
+         <javascriptLpNullAsNull>39047278784.6125793</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 4088836041476081140000000000000000000000 viaSql null -->
+      <inputvalues>[1.83686539,  150]</inputvalues>
+         <formula>4088836041476081140000000000000000000000</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>4088836041476081140000000000000000000000</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
          <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
       </result>
    </testInstance>
