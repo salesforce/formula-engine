@@ -321,17 +321,5 @@
          <javascriptNullAsNull>39047278784.61258</javascriptNullAsNull>
          <javascriptLpNullAsNull>39047278784.6125793</javascriptLpNullAsNull>
       </result>
-      <result>
-      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula 4088836041476081140000000000000000000000 viaSql null -->
-      <inputvalues>[1.83686539,  150]</inputvalues>
-         <formula>4088836041476081140000000000000000000000</formula>
-         <sql>null</sql>
-         <javascript>null</javascript>
-         <javascriptLp>null</javascriptLp>
-         <formulaNullAsNull>4088836041476081140000000000000000000000</formulaNullAsNull>
-         <sqlNullAsNull>null</sqlNullAsNull>
-         <javascriptNullAsNull>null</javascriptNullAsNull>
-         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
-      </result>
    </testInstance>
 </testCase>
