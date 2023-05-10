@@ -657,7 +657,7 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     default boolean functionHook_addNullMonthsAsZero() {
         return false;
     }
-    
+
     /**
      * Encode the given string as a URL for use in embedding in a template.  If you do not want to do URL encoding, 
      * override to just return string.
@@ -669,5 +669,14 @@ public interface FormulaValidationHooks extends FormulaEngineHooks {
     default String templateUrlEncodeString(String string, String urlEncoding) throws UnsupportedEncodingException {
         // retrun OptimizedURLEncoder.encode(TextUtil.replaceIncompatibleCharacters(entry.toString(), urlEncoding), urlEncoding);
         return URLEncoder.encode(string, urlEncoding);
+    }
+
+    /**
+     * When TRUE, CaseSafeId will use sql function to convert an ID, otherwise it will use inline sql to convert an ID.
+     *
+     * Default false
+     */
+    default boolean shouldOptimizeCaseSafeIdFunc() {
+        return false;
     }
 }
