@@ -105,7 +105,7 @@ author: Srikanth Yendluri/Doug Chasman
      </testcase>
         <testcase name="testMultiplyWithExpr"
          devName="testMultiplyWithExpr" labelName="testMultiplyWithExpr"
-         dataType="Currency" dataFile="c" scale="2" labels="math"
+         dataType="Currency" dataFile="multiplyWithExpr" scale="2" labels="math"
          precision="12" code="(customformula0__c*customnumber1__c)">
          <referencefield devName="customformula0" labelName="customformula0"
              dataType="Double" scale="2" precision="12"
