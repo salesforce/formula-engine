@@ -10,7 +10,7 @@
   <parent>
     <groupId>com.salesforce.formula</groupId>
     <artifactId>formula-engine</artifactId>
-    <version>0.3.9.1</version>
+    <version>0.3.9.2-SNAPSHOT</version>
   </parent>
 
   <properties>
