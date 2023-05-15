@@ -12,7 +12,17 @@ author: Srikanth Yendluri/Doug Chasman
 <formula-test>
     <!--  Include math tests from the separate file -->
      <include href="formulatests-math.xml"/>
-
+    <testcase name="testEndsFunction" devName="testEndsFunction"
+              labelName="testEndsFunction" dataType="Boolean" eval="formula,template"
+              scale="2" precision="12"
+              code="ENDS(customtext1__c, customtext2__c)"
+              dataFile="mycustomtextpair">
+        <referencefield devName="customtext1" labelName="customtext1"
+                        dataType="Text" length="255"/>
+        <referencefield devName="customtext2" labelName="customtext2"
+                        dataType="Text" length="255"/>
+        <whyIgnoreSql db="h2" unimplemented="true">Reverse not in h2</whyIgnoreSql>
+    </testcase>
      <testcase name="testDateTimeValueWithInvalidString" devName="testDateTimeValueWithInvalidString"
          labelName="testDateTimeValueWithInvalidString" dataType="DateOnly" eval="formula,template"
          scale="2" precision="12"

@@ -27,6 +27,7 @@ import com.force.formula.commands.FunctionDate;
 import com.force.formula.commands.FunctionDateValue;
 import com.force.formula.commands.FunctionDatetimeValue;
 import com.force.formula.commands.FunctionDay;
+import com.force.formula.commands.FunctionEnds;
 import com.force.formula.commands.FunctionExponent;
 import com.force.formula.commands.FunctionFind;
 import com.force.formula.commands.FunctionFloor;
@@ -192,6 +193,7 @@ public class FormulaCommandTypeRegistryImpl implements FormulaCommandTypeRegistr
         types.add(new FunctionMid());
         types.add(new FunctionRight());
         types.add(new FunctionBegins());
+        types.add(new FunctionEnds());
         types.add(new FunctionContains());
         types.add(new FunctionSubstitute());
         types.add(new FunctionTrim());
