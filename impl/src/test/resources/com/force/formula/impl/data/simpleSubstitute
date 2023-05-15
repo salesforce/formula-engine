@@ -1,2 +1,28 @@
 ,,
 Golden File,Golden,Platinum
+Golden File,File,Bridge
+Gold,Golden,Platinum
+No match,First,Second
+Salesforce,,
+,old,
+,,new
+,old,new
+Golden File,,Platinum
+Golden File,File,
+Replace space, ,no
+Replace all x x x,x,z
+Replace all xxx,x,z
+Replace space and char xxx, x,z
+Dog is Dog,/dog/ig,Monkey
+Arrow ^,^,&
+Asterisk *,*,/
+Divide /,/,*
+Minus -,-,+
+Plus +,+,-
+Dot .,.,*
+AtRate @,@,#
+Hash #,#,@
+Percentage %,%,^
+Bracket (,(,[
+Quotes '','',noquotes
+Double Quotes "","",noquotes

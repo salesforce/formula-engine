@@ -9,10 +9,10 @@
        <Sql>REPLACE($!s0s!$.customtext1__c, $!s0s!$.customtext2__c, $!s0s!$.customtext3__c)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?((context.record.customtext2__c === null ? null : (context.record.customtext3__c === null ? context.record.customtext1__c.replaceAll(context.record.customtext2__c,&quot;&quot;) :context.record.customtext1__c.replaceAll(context.record.customtext2__c,context.record.customtext3__c)))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?((context.record.customtext2__c === null ? null : (context.record.customtext3__c === null ? context.record.customtext1__c.replaceAll(context.record.customtext2__c,&quot;&quot;) :context.record.customtext1__c.replaceAll(context.record.customtext2__c,context.record.customtext3__c)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?((context.record.customtext2__c === null ? null : (context.record.customtext3__c === null ? context.record.customtext1__c.replaceAll(context.record.customtext2__c,&quot;&quot;) :context.record.customtext1__c.replaceAll(context.record.customtext2__c,context.record.customtext3__c)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?((context.record.customtext2__c === null ? null : (context.record.customtext3__c === null ? context.record.customtext1__c.replaceAll(context.record.customtext2__c,&quot;&quot;) :context.record.customtext1__c.replaceAll(context.record.customtext2__c,context.record.customtext3__c)))):null</JsOutput>
       <result>
       <inputvalues>[, , ]</inputvalues>
          <formula>null</formula>
@@ -34,6 +34,293 @@
          <sqlNullAsNull>Platinum File</sqlNullAsNull>
          <javascriptNullAsNull>Platinum File</javascriptNullAsNull>
          <javascriptLpNullAsNull>Platinum File</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Golden File, File, Bridge]</inputvalues>
+         <formula>Golden Bridge</formula>
+         <sql>Golden Bridge</sql>
+         <javascript>Golden Bridge</javascript>
+         <javascriptLp>Golden Bridge</javascriptLp>
+         <formulaNullAsNull>Golden Bridge</formulaNullAsNull>
+         <sqlNullAsNull>Golden Bridge</sqlNullAsNull>
+         <javascriptNullAsNull>Golden Bridge</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Golden Bridge</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Gold, Golden, Platinum]</inputvalues>
+         <formula>Gold</formula>
+         <sql>Gold</sql>
+         <javascript>Gold</javascript>
+         <javascriptLp>Gold</javascriptLp>
+         <formulaNullAsNull>Gold</formulaNullAsNull>
+         <sqlNullAsNull>Gold</sqlNullAsNull>
+         <javascriptNullAsNull>Gold</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Gold</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[No match, First, Second]</inputvalues>
+         <formula>No match</formula>
+         <sql>No match</sql>
+         <javascript>No match</javascript>
+         <javascriptLp>No match</javascriptLp>
+         <formulaNullAsNull>No match</formulaNullAsNull>
+         <sqlNullAsNull>No match</sqlNullAsNull>
+         <javascriptNullAsNull>No match</javascriptNullAsNull>
+         <javascriptLpNullAsNull>No match</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Salesforce, , ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, old, ]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, , new]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[, old, new]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Golden File, , Platinum]</inputvalues>
+         <formula>null</formula>
+         <sql>null</sql>
+         <javascript>null</javascript>
+         <javascriptLp>null</javascriptLp>
+         <formulaNullAsNull>null</formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>null</javascriptNullAsNull>
+         <javascriptLpNullAsNull>null</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <!-- Test Case results don't match: If one is null, they all should be null. viaFormula Golden  viaSql null -->
+      <inputvalues>[Golden File, File, ]</inputvalues>
+         <formula>Golden </formula>
+         <sql>null</sql>
+         <javascript>Golden </javascript>
+         <javascriptLp>Golden </javascriptLp>
+         <formulaNullAsNull>Golden </formulaNullAsNull>
+         <sqlNullAsNull>null</sqlNullAsNull>
+         <javascriptNullAsNull>Golden </javascriptNullAsNull>
+         <javascriptLpNullAsNull>Golden </javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Replace space,  , no]</inputvalues>
+         <formula>Replacenospace</formula>
+         <sql>Replacenospace</sql>
+         <javascript>Replacenospace</javascript>
+         <javascriptLp>Replacenospace</javascriptLp>
+         <formulaNullAsNull>Replacenospace</formulaNullAsNull>
+         <sqlNullAsNull>Replacenospace</sqlNullAsNull>
+         <javascriptNullAsNull>Replacenospace</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Replacenospace</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Replace all x x x, x, z]</inputvalues>
+         <formula>Replace all z z z</formula>
+         <sql>Replace all z z z</sql>
+         <javascript>Replace all z z z</javascript>
+         <javascriptLp>Replace all z z z</javascriptLp>
+         <formulaNullAsNull>Replace all z z z</formulaNullAsNull>
+         <sqlNullAsNull>Replace all z z z</sqlNullAsNull>
+         <javascriptNullAsNull>Replace all z z z</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Replace all z z z</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Replace all xxx, x, z]</inputvalues>
+         <formula>Replace all zzz</formula>
+         <sql>Replace all zzz</sql>
+         <javascript>Replace all zzz</javascript>
+         <javascriptLp>Replace all zzz</javascriptLp>
+         <formulaNullAsNull>Replace all zzz</formulaNullAsNull>
+         <sqlNullAsNull>Replace all zzz</sqlNullAsNull>
+         <javascriptNullAsNull>Replace all zzz</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Replace all zzz</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Replace space and char xxx,  x, z]</inputvalues>
+         <formula>Replace space and charzxx</formula>
+         <sql>Replace space and charzxx</sql>
+         <javascript>Replace space and charzxx</javascript>
+         <javascriptLp>Replace space and charzxx</javascriptLp>
+         <formulaNullAsNull>Replace space and charzxx</formulaNullAsNull>
+         <sqlNullAsNull>Replace space and charzxx</sqlNullAsNull>
+         <javascriptNullAsNull>Replace space and charzxx</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Replace space and charzxx</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Dog is Dog, /dog/ig, Monkey]</inputvalues>
+         <formula>Dog is Dog</formula>
+         <sql>Dog is Dog</sql>
+         <javascript>Dog is Dog</javascript>
+         <javascriptLp>Dog is Dog</javascriptLp>
+         <formulaNullAsNull>Dog is Dog</formulaNullAsNull>
+         <sqlNullAsNull>Dog is Dog</sqlNullAsNull>
+         <javascriptNullAsNull>Dog is Dog</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Dog is Dog</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Arrow ^, ^, &amp;]</inputvalues>
+         <formula>Arrow &amp;</formula>
+         <sql>Arrow &amp;</sql>
+         <javascript>Arrow &amp;</javascript>
+         <javascriptLp>Arrow &amp;</javascriptLp>
+         <formulaNullAsNull>Arrow &amp;</formulaNullAsNull>
+         <sqlNullAsNull>Arrow &amp;</sqlNullAsNull>
+         <javascriptNullAsNull>Arrow &amp;</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Arrow &amp;</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Asterisk *, *, /]</inputvalues>
+         <formula>Asterisk /</formula>
+         <sql>Asterisk /</sql>
+         <javascript>Asterisk /</javascript>
+         <javascriptLp>Asterisk /</javascriptLp>
+         <formulaNullAsNull>Asterisk /</formulaNullAsNull>
+         <sqlNullAsNull>Asterisk /</sqlNullAsNull>
+         <javascriptNullAsNull>Asterisk /</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Asterisk /</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Divide /, /, *]</inputvalues>
+         <formula>Divide *</formula>
+         <sql>Divide *</sql>
+         <javascript>Divide *</javascript>
+         <javascriptLp>Divide *</javascriptLp>
+         <formulaNullAsNull>Divide *</formulaNullAsNull>
+         <sqlNullAsNull>Divide *</sqlNullAsNull>
+         <javascriptNullAsNull>Divide *</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Divide *</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Minus -, -, +]</inputvalues>
+         <formula>Minus +</formula>
+         <sql>Minus +</sql>
+         <javascript>Minus +</javascript>
+         <javascriptLp>Minus +</javascriptLp>
+         <formulaNullAsNull>Minus +</formulaNullAsNull>
+         <sqlNullAsNull>Minus +</sqlNullAsNull>
+         <javascriptNullAsNull>Minus +</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Minus +</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Plus +, +, -]</inputvalues>
+         <formula>Plus -</formula>
+         <sql>Plus -</sql>
+         <javascript>Plus -</javascript>
+         <javascriptLp>Plus -</javascriptLp>
+         <formulaNullAsNull>Plus -</formulaNullAsNull>
+         <sqlNullAsNull>Plus -</sqlNullAsNull>
+         <javascriptNullAsNull>Plus -</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Plus -</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Dot ., ., *]</inputvalues>
+         <formula>Dot *</formula>
+         <sql>Dot *</sql>
+         <javascript>Dot *</javascript>
+         <javascriptLp>Dot *</javascriptLp>
+         <formulaNullAsNull>Dot *</formulaNullAsNull>
+         <sqlNullAsNull>Dot *</sqlNullAsNull>
+         <javascriptNullAsNull>Dot *</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Dot *</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[AtRate @, @, #]</inputvalues>
+         <formula>AtRate #</formula>
+         <sql>AtRate #</sql>
+         <javascript>AtRate #</javascript>
+         <javascriptLp>AtRate #</javascriptLp>
+         <formulaNullAsNull>AtRate #</formulaNullAsNull>
+         <sqlNullAsNull>AtRate #</sqlNullAsNull>
+         <javascriptNullAsNull>AtRate #</javascriptNullAsNull>
+         <javascriptLpNullAsNull>AtRate #</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Hash #, #, @]</inputvalues>
+         <formula>Hash @</formula>
+         <sql>Hash @</sql>
+         <javascript>Hash @</javascript>
+         <javascriptLp>Hash @</javascriptLp>
+         <formulaNullAsNull>Hash @</formulaNullAsNull>
+         <sqlNullAsNull>Hash @</sqlNullAsNull>
+         <javascriptNullAsNull>Hash @</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Hash @</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Percentage %, %, ^]</inputvalues>
+         <formula>Percentage ^</formula>
+         <sql>Percentage ^</sql>
+         <javascript>Percentage ^</javascript>
+         <javascriptLp>Percentage ^</javascriptLp>
+         <formulaNullAsNull>Percentage ^</formulaNullAsNull>
+         <sqlNullAsNull>Percentage ^</sqlNullAsNull>
+         <javascriptNullAsNull>Percentage ^</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Percentage ^</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Bracket (, (, []</inputvalues>
+         <formula>Bracket [</formula>
+         <sql>Bracket [</sql>
+         <javascript>Bracket [</javascript>
+         <javascriptLp>Bracket [</javascriptLp>
+         <formulaNullAsNull>Bracket [</formulaNullAsNull>
+         <sqlNullAsNull>Bracket [</sqlNullAsNull>
+         <javascriptNullAsNull>Bracket [</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Bracket [</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Quotes '', '', noquotes]</inputvalues>
+         <formula>Quotes noquotes</formula>
+         <sql>Quotes noquotes</sql>
+         <javascript>Quotes noquotes</javascript>
+         <javascriptLp>Quotes noquotes</javascriptLp>
+         <formulaNullAsNull>Quotes noquotes</formulaNullAsNull>
+         <sqlNullAsNull>Quotes noquotes</sqlNullAsNull>
+         <javascriptNullAsNull>Quotes noquotes</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Quotes noquotes</javascriptLpNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[Double Quotes &quot;&quot;, &quot;&quot;, noquotes]</inputvalues>
+         <formula>Double Quotes noquotes</formula>
+         <sql>Double Quotes noquotes</sql>
+         <javascript>Double Quotes noquotes</javascript>
+         <javascriptLp>Double Quotes noquotes</javascriptLp>
+         <formulaNullAsNull>Double Quotes noquotes</formulaNullAsNull>
+         <sqlNullAsNull>Double Quotes noquotes</sqlNullAsNull>
+         <javascriptNullAsNull>Double Quotes noquotes</javascriptNullAsNull>
+         <javascriptLpNullAsNull>Double Quotes noquotes</javascriptLpNullAsNull>
       </result>
    </testInstance>
 </testCase>

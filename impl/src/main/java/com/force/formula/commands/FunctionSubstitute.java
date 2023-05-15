@@ -15,7 +15,7 @@ import com.force.formula.util.FormulaTextUtil;
  * @author dchasman
  * @since 144
  */
-@AllowedContext(section=SelectorSection.TEXT)
+@AllowedContext(section=SelectorSection.TEXT, isOffline=true)
 public class FunctionSubstitute extends FormulaCommandInfoImpl {
     public FunctionSubstitute() {
         super("SUBSTITUTE", String.class, new Class[] { String.class, String.class, String.class });
@@ -35,7 +35,12 @@ public class FunctionSubstitute extends FormulaCommandInfoImpl {
     
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        return JsValue.generate(args[0] + ".replace(" + args[1] + "," + args[2] + ")", args, false, args[0]); // TODO: Ignore other guards?
+        // If arg[1] is null return null, else if arg[2] is null then consider arg[2] as "" and call replaceAll(arg[1],"").
+        // FunctionSubstituteCommand.execute() also changes arg[2] to be "" in case of null.
+        // If arg[1] and arg[2] are not null, then call replaceAll(arg[1],arg[2]).
+        return JsValue.generate("(" + args[1]+ " === null ? null : ("
+            + args[2] + " === null ? " +args[0] + ".replaceAll(" + args[1] + ",\"\") :"+args[0] + ".replaceAll(" + args[1] + "," + args[2] + ")))",
+                                args, false, args[0]); // TODO: Ignore other guards?
     }
 
 }
