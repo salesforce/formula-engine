@@ -410,6 +410,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 			try {
 				File f = new File(getDirectory() + "/" + testCase.getName() + ".xml");
 				f.getParentFile().mkdirs();
+				f.setWritable(true);
 				
 				byte[] results = xml.toByteArray();
 				if (f.exists()) {
@@ -421,6 +422,7 @@ abstract public class BaseFormulaGenericTests extends TestSuite {
 								.disableHtmlEscaping().serializeNulls().create();
 				File jsonFile = new File(getJsonDirectory() + "/" + testCase.getName() + ".json");
 				jsonFile.getParentFile().mkdirs();
+				jsonFile.setWritable(true);
 				FileWriter fileWriter = new FileWriter(jsonFile);
 				gson.toJson(jestDataModel, fileWriter);
 				fileWriter.flush();
