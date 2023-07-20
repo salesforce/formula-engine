@@ -2,11 +2,11 @@
 <testCase name="testSubDateTimeGivingDateTime">
    <testInstance formula="(customdatetime1__c-customnumber1__c)" returntype="DateTime">
     <SqlOutput nullAsNull="true">
-       <Sql>($!s0s!$.customdatetime1__c-pg_catalog.make_interval(0,0,0,0,0,0,COALESCE($!s0s!$.customnumber1__c, 0)*86400))::timestamp(0)</Sql>
+       <Sql>($!s0s!$.customdatetime1__c-pg_catalog.make_interval(0,0,0,0,0,0,COALESCE($!s0s!$.customnumber1__c, 0)*86400.0))::timestamp(0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>($!s0s!$.customdatetime1__c-pg_catalog.make_interval(0,0,0,0,0,0,$!s0s!$.customnumber1__c*86400))::timestamp(0)</Sql>
+       <Sql>($!s0s!$.customdatetime1__c-pg_catalog.make_interval(0,0,0,0,0,0,$!s0s!$.customnumber1__c*86400.0))::timestamp(0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c))!=null)?((new Date(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)).getTime()-(Math.round(86400*($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))))*1000)))):null</JsOutput>
