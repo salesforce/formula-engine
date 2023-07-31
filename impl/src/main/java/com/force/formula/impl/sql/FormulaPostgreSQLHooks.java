@@ -158,7 +158,7 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
      */
 	@Override
     default String sqlTimeNow() {
-        return "EXTRACT(EPOCH FROM AGE(NOW()::timestamp, DATE_TRUNC('day', NOW()::timestamp)))::BIGINT::NUMERIC";
+        return "(EXTRACT(EPOCH FROM AGE(NOW()::timestamp, DATE_TRUNC('day', NOW()::timestamp)))*1000)::BIGINT::NUMERIC";
     }
     
     /**
