@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testCase name="testDateTimeValueWithInvalidString">
-   <testInstance formula="DATETIMEVALUE(&quot;sample &quot;)" returntype="DateOnly">
+<testCase name="testDateTimeValueWithTimeZone">
+   <testInstance formula="DATETIMEVALUE(&quot;2021-08-12 03:26:09+1100&quot;)" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
        <Sql>CONVERT(DATETIME,NULL)</Sql>
        <Guard>0=0</Guard>
@@ -11,9 +11,9 @@
     </SqlOutput>
       <result>
       <inputvalues>No data</inputvalues>
-         <formula>Error: com.force.formula.FormulaDateException</formula>
+         <formula>Thu Aug 12 03:26:09 GMT 2021</formula>
          <sql>null</sql>
-         <formulaNullAsNull>Error: com.force.formula.FormulaDateException</formulaNullAsNull>
+         <formulaNullAsNull>Thu Aug 12 03:26:09 GMT 2021</formulaNullAsNull>
          <sqlNullAsNull>null</sqlNullAsNull>
       </result>
    </testInstance>

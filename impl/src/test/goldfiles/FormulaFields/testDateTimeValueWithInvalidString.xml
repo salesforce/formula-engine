@@ -2,11 +2,11 @@
 <testCase name="testDateTimeValueWithInvalidString">
    <testInstance formula="DATETIMEVALUE(&quot;sample &quot;)" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>NULL</Sql>
+       <Sql>CAST(NULL AS DATE)</Sql>
        <Guard>0=0</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>NULL</Sql>
+       <Sql>CAST(NULL AS DATE)</Sql>
        <Guard>0=0</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">$F.parseDateTime(&quot;sample &quot;)</JsOutput>
