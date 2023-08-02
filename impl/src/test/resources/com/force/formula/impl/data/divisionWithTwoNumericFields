@@ -1,7 +1,6 @@
 9, 9
-9, 9
-9, 9
-9, 9
+9, 10
+12, 11
 #({!customnumber1__c}/({!customnumber2__c} + 1))
 #({!customnumber1__c}/{!customnumber2__c} + 1)
 #({!customnumber1__c}/({!customnumber2__c} - 1))

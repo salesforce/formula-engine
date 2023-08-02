@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMonths">
+   <testInstance formula="month(customdate1__c)" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>strftime('%m',$!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>strftime('%m',$!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[2023:02:27]</inputvalues>
+         <formula>2</formula>
+         <sql>2</sql>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <sqlNullAsNull>2</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>
