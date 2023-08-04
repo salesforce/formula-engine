@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextFunctionWithCustomDate">
+   <testInstance formula="TEXT(customdate1__c)" returntype="Text">
+    <SqlOutput nullAsNull="true">
+       <Sql>(FORMAT_TIMESTAMP('%Y-%m-%d', $!s0s!$.customdate1__c, 'UTC'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(FORMAT_TIMESTAMP('%Y-%m-%d', $!s0s!$.customdate1__c, 'UTC'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+   </testInstance>
+</testCase>

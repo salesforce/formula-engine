@@ -25,37 +25,26 @@
          <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
-      <inputvalues>[9,  9]</inputvalues>
-         <formula>2</formula>
-         <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
-         <formulaNullAsNull>2</formulaNullAsNull>
-         <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
+      <inputvalues>[9,  10]</inputvalues>
+         <formula>1.9</formula>
+         <sql>1.9</sql>
+         <javascript>1.9</javascript>
+         <javascriptLp>1.9</javascriptLp>
+         <formulaNullAsNull>1.9</formulaNullAsNull>
+         <sqlNullAsNull>1.9</sqlNullAsNull>
+         <javascriptNullAsNull>1.9</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.9</javascriptLpNullAsNull>
       </result>
       <result>
-      <inputvalues>[9,  9]</inputvalues>
-         <formula>2</formula>
-         <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
-         <formulaNullAsNull>2</formulaNullAsNull>
-         <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
-      </result>
-      <result>
-      <inputvalues>[9,  9]</inputvalues>
-         <formula>2</formula>
-         <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
-         <formulaNullAsNull>2</formulaNullAsNull>
-         <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
+      <inputvalues>[12,  11]</inputvalues>
+         <formula>2.09090909090909090909090909090909</formula>
+         <sql>2.0909090909090909</sql>
+         <javascript>2.090909090909091</javascript>
+         <javascriptLp>2.0909091</javascriptLp>
+         <formulaNullAsNull>2.09090909090909090909090909090909</formulaNullAsNull>
+         <sqlNullAsNull>2.0909090909090909</sqlNullAsNull>
+         <javascriptNullAsNull>2.090909090909091</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2.0909091</javascriptLpNullAsNull>
       </result>
    </testInstance>
    <testInstance formula="customnumber2__c/customnumber1__c + 1" returntype="Double" precision="12" scale="2">
@@ -83,37 +72,26 @@
          <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
       </result>
       <result>
-      <inputvalues>[ 9, 9]</inputvalues>
-         <formula>2</formula>
-         <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
-         <formulaNullAsNull>2</formulaNullAsNull>
-         <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
+      <inputvalues>[ 10, 9]</inputvalues>
+         <formula>2.11111111111111111111111111111111</formula>
+         <sql>2.1111111111111111</sql>
+         <javascript>2.111111111111111</javascript>
+         <javascriptLp>2.1111111</javascriptLp>
+         <formulaNullAsNull>2.11111111111111111111111111111111</formulaNullAsNull>
+         <sqlNullAsNull>2.1111111111111111</sqlNullAsNull>
+         <javascriptNullAsNull>2.111111111111111</javascriptNullAsNull>
+         <javascriptLpNullAsNull>2.1111111</javascriptLpNullAsNull>
       </result>
       <result>
-      <inputvalues>[ 9, 9]</inputvalues>
-         <formula>2</formula>
-         <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
-         <formulaNullAsNull>2</formulaNullAsNull>
-         <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
-      </result>
-      <result>
-      <inputvalues>[ 9, 9]</inputvalues>
-         <formula>2</formula>
-         <sql>2</sql>
-         <javascript>2</javascript>
-         <javascriptLp>2</javascriptLp>
-         <formulaNullAsNull>2</formulaNullAsNull>
-         <sqlNullAsNull>2</sqlNullAsNull>
-         <javascriptNullAsNull>2</javascriptNullAsNull>
-         <javascriptLpNullAsNull>2</javascriptLpNullAsNull>
+      <inputvalues>[ 11, 12]</inputvalues>
+         <formula>1.91666666666666666666666666666667</formula>
+         <sql>1.91666666666666666667</sql>
+         <javascript>1.9166666666666667</javascript>
+         <javascriptLp>1.9166667</javascriptLp>
+         <formulaNullAsNull>1.91666666666666666666666666666667</formulaNullAsNull>
+         <sqlNullAsNull>1.91666666666666666667</sqlNullAsNull>
+         <javascriptNullAsNull>1.9166666666666667</javascriptNullAsNull>
+         <javascriptLpNullAsNull>1.9166667</javascriptLpNullAsNull>
       </result>
    </testInstance>
 </testCase>
