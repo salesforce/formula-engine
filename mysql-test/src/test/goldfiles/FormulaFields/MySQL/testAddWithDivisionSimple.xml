@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithDivisionSimple">
+   <testInstance formula="customnumber1__c/customnumber2__c + 1" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>((COALESCE($!s0s!$.customnumber1__c, 0)/COALESCE($!s0s!$.customnumber2__c, 0))+1)</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber2__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c)+1)</Sql>
+       <Guard>$!s0s!$.customnumber2__c=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[9,  9]</inputvalues>
+         <formula>2</formula>
+         <sql>2</sql>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <sqlNullAsNull>2</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[9,  10]</inputvalues>
+         <formula>1.9</formula>
+         <sql>1.9</sql>
+         <formulaNullAsNull>1.9</formulaNullAsNull>
+         <sqlNullAsNull>1.9</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[12,  11]</inputvalues>
+         <formula>2.09090909090909090909090909090909</formula>
+         <sql>2.090909</sql>
+         <formulaNullAsNull>2.09090909090909090909090909090909</formulaNullAsNull>
+         <sqlNullAsNull>2.090909</sqlNullAsNull>
+      </result>
+   </testInstance>
+   <testInstance formula="customnumber2__c/customnumber1__c + 1" returntype="Double" precision="12" scale="2">
+    <SqlOutput nullAsNull="true">
+       <Sql>((COALESCE($!s0s!$.customnumber2__c, 0)/COALESCE($!s0s!$.customnumber1__c, 0))+1)</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(($!s0s!$.customnumber2__c/$!s0s!$.customnumber1__c)+1)</Sql>
+       <Guard>$!s0s!$.customnumber1__c=0</Guard>
+    </SqlOutput>
+      <result>
+      <inputvalues>[ 9, 9]</inputvalues>
+         <formula>2</formula>
+         <sql>2</sql>
+         <formulaNullAsNull>2</formulaNullAsNull>
+         <sqlNullAsNull>2</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ 10, 9]</inputvalues>
+         <formula>2.11111111111111111111111111111111</formula>
+         <sql>2.111111</sql>
+         <formulaNullAsNull>2.11111111111111111111111111111111</formulaNullAsNull>
+         <sqlNullAsNull>2.111111</sqlNullAsNull>
+      </result>
+      <result>
+      <inputvalues>[ 11, 12]</inputvalues>
+         <formula>1.91666666666666666666666666666667</formula>
+         <sql>1.916667</sql>
+         <formulaNullAsNull>1.91666666666666666666666666666667</formulaNullAsNull>
+         <sqlNullAsNull>1.916667</sqlNullAsNull>
+      </result>
+   </testInstance>
+</testCase>

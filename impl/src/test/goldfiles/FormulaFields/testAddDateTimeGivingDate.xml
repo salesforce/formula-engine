@@ -2,11 +2,11 @@
 <testCase name="testAddDateTimeGivingDate">
    <testInstance formula="(customdatetime1__c+customnumber1__c)" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>($!s0s!$.customdatetime1__c+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE($!s0s!$.customnumber1__c, 0)*86400))::timestamp(0)</Sql>
+       <Sql>($!s0s!$.customdatetime1__c+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE($!s0s!$.customnumber1__c, 0)*86400.0))::timestamp(0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>($!s0s!$.customdatetime1__c+pg_catalog.make_interval(0,0,0,0,0,0,$!s0s!$.customnumber1__c*86400))::timestamp(0)</Sql>
+       <Sql>($!s0s!$.customdatetime1__c+pg_catalog.make_interval(0,0,0,0,0,0,$!s0s!$.customnumber1__c*86400.0))::timestamp(0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c))!=null)?((new Date(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)).getTime()+(Math.round(86400*($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))))*1000)))):null</JsOutput>
@@ -280,11 +280,11 @@
    </testInstance>
    <testInstance formula="(customnumber1__c+customdatetime1__c)" returntype="DateOnly">
     <SqlOutput nullAsNull="true">
-       <Sql>(pg_catalog.make_interval(0,0,0,0,0,0,COALESCE($!s0s!$.customnumber1__c, 0)*86400)+$!s0s!$.customdatetime1__c)::timestamp(0)</Sql>
+       <Sql>(pg_catalog.make_interval(0,0,0,0,0,0,COALESCE($!s0s!$.customnumber1__c, 0)*86400.0)+$!s0s!$.customdatetime1__c)::timestamp(0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>(pg_catalog.make_interval(0,0,0,0,0,0,$!s0s!$.customnumber1__c*86400)+$!s0s!$.customdatetime1__c)::timestamp(0)</Sql>
+       <Sql>(pg_catalog.make_interval(0,0,0,0,0,0,$!s0s!$.customnumber1__c*86400.0)+$!s0s!$.customdatetime1__c)::timestamp(0)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c))!=null)?((new Date(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)).getTime()+(Math.round(86400*($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))))*1000)))):null</JsOutput>

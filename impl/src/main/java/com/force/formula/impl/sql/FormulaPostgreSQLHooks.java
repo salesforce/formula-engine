@@ -8,7 +8,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
-import com.force.formula.commands.FunctionAddMonths;
 import com.force.formula.impl.FormulaSqlHooks;
 
 /**
@@ -136,10 +135,10 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
     default String sqlAddDaysToDate(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType, boolean isAddition) {
         if (lhsDataType == Date.class || lhsDataType==FormulaDateTime.class) {
             // <date|timestamp> <+|-> <number>
-            return String.format("(%s%spg_catalog.make_interval(0,0,0,0,0,0,%s*86400))::timestamp(0)", lhsValue, isAddition ? "+" : "-", rhsValue);
+            return String.format("(%s%spg_catalog.make_interval(0,0,0,0,0,0,%s*86400.0))::timestamp(0)", lhsValue, isAddition ? "+" : "-", rhsValue);
         } else {
             // <number> + <date|timestamp>
-            return String.format("(pg_catalog.make_interval(0,0,0,0,0,0,%s*86400)%s%s)::timestamp(0)", lhsValue, isAddition ? "+" : "-", rhsValue);
+            return String.format("(pg_catalog.make_interval(0,0,0,0,0,0,%s*86400.0)%s%s)::timestamp(0)", lhsValue, isAddition ? "+" : "-", rhsValue);
         }
      }
     
@@ -159,7 +158,7 @@ public interface FormulaPostgreSQLHooks extends FormulaSqlHooks {
      */
 	@Override
     default String sqlTimeNow() {
-        return "EXTRACT(EPOCH FROM AGE(NOW()::timestamp, DATE_TRUNC('day', NOW()::timestamp)))::BIGINT::NUMERIC";
+        return "(EXTRACT(EPOCH FROM AGE(NOW()::timestamp, DATE_TRUNC('day', NOW()::timestamp)))*1000)::BIGINT::NUMERIC";
     }
     
     /**
