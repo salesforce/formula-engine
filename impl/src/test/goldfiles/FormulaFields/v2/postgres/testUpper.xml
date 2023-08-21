@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testUpper">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toUpperCase()):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>UPPER($!s0s!$.customText1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>UPPER($!s0s!$.customText1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -70,8 +70,8 @@ public class FormulaTestCase extends FormulaTestBase {
      */
     @Override
     public void runTest(){
-        runTestCase();
         compareGoldFileOutput();
+        runTestCase();
     }
 
     /**
@@ -90,8 +90,8 @@ public class FormulaTestCase extends FormulaTestBase {
                                     this.testSuite.getDbTester());
                     assertEquals(this.testCase.getTestName() + " failed for execution path: " + executionPath
                                 + " and for testData: " + testData,
-                            testData.getExpectedOutput().get(executionPath),
-                            FormulaTextUtil.escapeToXml(output));
+                            FormulaTextUtil.escapeToXml(testData.getExpectedOutput().get(executionPath)),
+                            FormulaTextUtil.escapeToXml(output).trim());
                 }
             }
         }

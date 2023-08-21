@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAbsUsesLen">
+    <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).abs()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.abs(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">Math.abs(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))).abs()</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ABS(COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ABS(COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

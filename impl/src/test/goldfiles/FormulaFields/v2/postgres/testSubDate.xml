@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDate">
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null)?((new $F.Decimal((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())/86400000))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null)?(((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())/86400000)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null)?(((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())/86400000)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0)))!=null&amp;&amp;($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0)))!=null)?((new $F.Decimal((($F.anl([context.record.customdate1__c])?null:new Date(new Date(context.record.customdate1__c).setUTCHours(0,0,0,0))).getTime()-($F.anl([context.record.customdate2__c])?null:new Date(new Date(context.record.customdate2__c).setUTCHours(0,0,0,0))).getTime())/86400000))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>((EXTRACT(EPOCH FROM $!s0s!$.customdate1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdate2__c))::numeric/86400)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>((EXTRACT(EPOCH FROM $!s0s!$.customdate1__c)-EXTRACT(EPOCH FROM $!s0s!$.customdate2__c))::numeric/86400)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

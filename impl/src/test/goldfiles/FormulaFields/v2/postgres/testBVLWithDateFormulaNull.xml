@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBVLWithDateFormulaNull">
+    <JsOutput highPrec="true" nullAsNull="false">(new Date(Date.UTC(new $F.Decimal('2000').toNumber(),new $F.Decimal('1').toNumber()-1,new $F.Decimal('1').toNumber())))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(new Date(Date.UTC(2000,1-1,1)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(new Date(Date.UTC(2000,1-1,1)))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new Date(Date.UTC(new $F.Decimal('2000').toNumber(),new $F.Decimal('1').toNumber()-1,new $F.Decimal('1').toNumber())))</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(2000 || '-' || 1 || '-' || 1, 'YYYY-MM-DD')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE(2000 || '-' || 1 || '-' || 1, 'YYYY-MM-DD')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

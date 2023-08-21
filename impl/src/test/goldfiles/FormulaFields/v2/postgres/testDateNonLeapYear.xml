@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateNonLeapYear">
+    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC(new $F.Decimal('2011').toNumber(),new $F.Decimal('2').toNumber()-1,$F.nvl(context.record.day__c,new $F.Decimal('0')).toNumber()))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC(2011,2-1,$F.nvl(context.record.day__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.day__c!=null)?(new Date(Date.UTC(2011,2-1,context.record.day__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.day__c!=null)?(new Date(Date.UTC(new $F.Decimal('2011').toNumber(),new $F.Decimal('2').toNumber()-1,context.record.day__c.toNumber()))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(2011 || '-' || 2 || '-' || CAST(FLOOR(COALESCE($!s0s!$.day__c, 0)) AS TEXT), 'YYYY-MM-DD')</Sql>
+       <Guard>COALESCE($!s0s!$.day__c, 0) is null OR COALESCE($!s0s!$.day__c, 0)&lt; 1 OR COALESCE($!s0s!$.day__c, 0) &gt;= 32 OR COALESCE($!s0s!$.day__c, 0) &gt;= 29</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE TO_DATE(2011 || '-' || 2 || '-' || CAST(FLOOR($!s0s!$.day__c) AS TEXT), 'YYYY-MM-DD') END</Sql>
+       <Guard>NOT ($!s0s!$.day__c IS NULL ) AND ($!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR $!s0s!$.day__c &gt;= 29)</Guard>
+    </SqlOutput>
+</testCase>

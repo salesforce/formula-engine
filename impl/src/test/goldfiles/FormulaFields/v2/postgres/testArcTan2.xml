@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testArcTan2">
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.atan2($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')),$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.atan2($F.nvl(context.record.customnumber1__c,0),$F.nvl(context.record.customnumber2__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">Math.atan2(context.record.customnumber1__c,context.record.customnumber2__c)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.Decimal.atan2(context.record.customnumber1__c,context.record.customnumber2__c)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ATAN2(COALESCE($!s0s!$.customnumber1__c, 0),COALESCE($!s0s!$.customnumber2__c, 0))::numeric(40,20)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ATAN2($!s0s!$.customnumber1__c,$!s0s!$.customnumber2__c)::numeric(40,20)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

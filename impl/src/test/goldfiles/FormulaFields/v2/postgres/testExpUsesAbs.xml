@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesAbs">
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.exp($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).abs())</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.exp(Math.abs($F.nvl(context.record.customnumber1__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.exp(Math.abs(context.record.customnumber1__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?($F.Decimal.exp(context.record.customnumber1__c.abs())):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>EXP(ABS(COALESCE($!s0s!$.customnumber1__c, 0))::numeric(40,20))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>EXP(ABS($!s0s!$.customnumber1__c)::numeric(40,20))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

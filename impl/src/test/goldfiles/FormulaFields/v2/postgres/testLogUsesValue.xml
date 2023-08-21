@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesValue">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c)).log(10)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(Math.log(Number(context.record.customtext1__c))/Math.LN10):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(Math.log(Number(context.record.customtext1__c))/Math.LN10):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c)).log(10)):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LOG(10, CAST($!s0s!$.customtext1__c AS NUMERIC))</Sql>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0','g') ~ '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$' OR CAST($!s0s!$.customtext1__c AS NUMERIC)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LOG(10, CAST($!s0s!$.customtext1__c AS NUMERIC))</Sql>
+       <Guard>NOT REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0','g') ~ '^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$' OR CAST($!s0s!$.customtext1__c AS NUMERIC)&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

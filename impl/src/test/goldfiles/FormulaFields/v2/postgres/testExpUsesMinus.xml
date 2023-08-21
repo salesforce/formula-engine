@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesMinus">
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.exp(($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')).sub($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.exp(($F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)-$F.nvl(context.record.customcurrency1__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.custompercent1__c!=null&amp;&amp;context.record.custompercent1__c/100.0!=null&amp;&amp;context.record.customcurrency1__c!=null)?(Math.exp((context.record.custompercent1__c/100.0-context.record.customcurrency1__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.custompercent1__c!=null&amp;&amp;context.record.custompercent1__c.div(100)!=null&amp;&amp;context.record.customcurrency1__c!=null)?($F.Decimal.exp((context.record.custompercent1__c.div(100).sub(context.record.customcurrency1__c)))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>EXP((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)-COALESCE($!s0s!$.customcurrency1__c, 0))::numeric(40,20))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>EXP((($!s0s!$.custompercent1__c / 100.0)-$!s0s!$.customcurrency1__c)::numeric(40,20))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

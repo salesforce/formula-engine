@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithDivision">
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).div(($F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).add(new $F.Decimal('1'))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">($F.nvl(context.record.customnumber1__c,0)/($F.nvl(context.record.customnumber2__c,0)+1))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber1__c!=null)?((context.record.customnumber1__c/(context.record.customnumber2__c+1))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber1__c!=null)?(context.record.customnumber1__c.div((context.record.customnumber2__c.add(new $F.Decimal('1'))))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(COALESCE($!s0s!$.customnumber1__c, 0)/(COALESCE($!s0s!$.customnumber2__c, 0)+1))</Sql>
+       <Guard>(COALESCE($!s0s!$.customnumber2__c, 0)+1)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>($!s0s!$.customnumber1__c/($!s0s!$.customnumber2__c+1))</Sql>
+       <Guard>($!s0s!$.customnumber2__c+1)=0</Guard>
+    </SqlOutput>
+</testCase>

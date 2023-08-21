@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAbsUsesLn">
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).ln().abs()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.abs(Math.log($F.nvl(context.record.customnumber1__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.abs(Math.log(context.record.customnumber1__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?((context.record.customnumber1__c).ln().abs()):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ABS(LN(COALESCE($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ABS(LN($!s0s!$.customnumber1__c))</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

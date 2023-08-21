@@ -53,7 +53,7 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
         Document document;
 
         try{
-            File file = new File(absoluteFilePath);
+            File file = new File(this.getClass().getClassLoader().getResource(absoluteFilePath).getFile());
             DocumentBuilder builder = factory.newDocumentBuilder();
             document = builder.parse(file);
         }catch (ParserConfigurationException| SAXException | IOException ex){

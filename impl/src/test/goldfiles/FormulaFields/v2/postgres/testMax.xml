@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMax">
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.max($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')),$F.nvl(context.record.customNumber2__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.max($F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customNumber2__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(Math.max(context.record.customNumber1__c,context.record.customNumber2__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?($F.Decimal.max(context.record.customNumber1__c,context.record.customNumber2__c)):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>GREATEST(COALESCE($!s0s!$.customNumber1__c, 0), COALESCE($!s0s!$.customNumber2__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>GREATEST($!s0s!$.customNumber1__c, $!s0s!$.customNumber2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

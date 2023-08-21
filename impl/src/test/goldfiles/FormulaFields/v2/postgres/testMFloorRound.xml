@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMFloorRound">
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).div($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))).mul($F.nvl(context.record.customnumber2__c,new $F.Decimal('0')))).toDP(18).floor()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(Math).floor(($F.nvl(context.record.customnumber1__c,0)/$F.nvl(context.record.customnumber2__c,0))*$F.nvl(context.record.customnumber2__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber2__c!=null)?((Math).floor((context.record.customnumber1__c/context.record.customnumber2__c)*context.record.customnumber2__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber2__c!=null)?((context.record.customnumber1__c.div(context.record.customnumber2__c).mul(context.record.customnumber2__c)).toDP(18).floor()):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>FLOOR(ROUND(((COALESCE($!s0s!$.customnumber1__c, 0)/COALESCE($!s0s!$.customnumber2__c, 0)) * COALESCE($!s0s!$.customnumber2__c, 0)),33))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber2__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>FLOOR(ROUND((($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) * $!s0s!$.customnumber2__c),33))</Sql>
+       <Guard>$!s0s!$.customnumber2__c=0</Guard>
+    </SqlOutput>
+</testCase>

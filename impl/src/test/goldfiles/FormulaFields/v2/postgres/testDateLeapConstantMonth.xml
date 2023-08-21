@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateLeapConstantMonth">
+    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,new $F.Decimal('0')).toNumber(),new $F.Decimal('2').toNumber()-1,$F.nvl(context.record.day__c,new $F.Decimal('0')).toNumber()))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,0),2-1,$F.nvl(context.record.day__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.year__c!=null&amp;&amp;context.record.day__c!=null)?(new Date(Date.UTC(context.record.year__c,2-1,context.record.day__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.year__c!=null&amp;&amp;context.record.day__c!=null)?(new Date(Date.UTC(context.record.year__c.toNumber(),new $F.Decimal('2').toNumber()-1,context.record.day__c.toNumber()))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(CAST(FLOOR(COALESCE($!s0s!$.year__c, 0)) AS TEXT) || '-' || 2 || '-' || CAST(FLOOR(COALESCE($!s0s!$.day__c, 0)) AS TEXT), 'YYYY-MM-DD')</Sql>
+       <Guard>COALESCE($!s0s!$.year__c, 0) is null OR COALESCE($!s0s!$.year__c, 0)&lt; 1 OR COALESCE($!s0s!$.year__c, 0)&gt; 9999 OR COALESCE($!s0s!$.day__c, 0) is null OR COALESCE($!s0s!$.day__c, 0)&lt; 1 OR COALESCE($!s0s!$.day__c, 0) &gt;= 32 OR  COALESCE($!s0s!$.day__c, 0) &gt;= EXTRACT(DAY FROM (date_trunc('month',TO_DATE(FLOOR(COALESCE($!s0s!$.year__c, 0)) || '-' || 2,'YYYY-MM'))+ interval '1 month -1 day')::timestamp(0))::numeric+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.year__c IS NULL THEN NULL WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE TO_DATE(CAST(FLOOR($!s0s!$.year__c) AS TEXT) || '-' || 2 || '-' || CAST(FLOOR($!s0s!$.day__c) AS TEXT), 'YYYY-MM-DD') END</Sql>
+       <Guard>NOT ($!s0s!$.year__c IS NULL OR $!s0s!$.day__c IS NULL ) AND ($!s0s!$.year__c is null OR $!s0s!$.year__c&lt; 1 OR $!s0s!$.year__c&gt; 9999 OR $!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR  $!s0s!$.day__c &gt;= EXTRACT(DAY FROM (date_trunc('month',TO_DATE(FLOOR($!s0s!$.year__c) || '-' || 2,'YYYY-MM'))+ interval '1 month -1 day')::timestamp(0))::numeric+1 )</Guard>
+    </SqlOutput>
+</testCase>

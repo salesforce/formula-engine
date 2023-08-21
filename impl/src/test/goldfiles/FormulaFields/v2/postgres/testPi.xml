@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testPi">
+    <JsOutput highPrec="true" nullAsNull="false">($F.Decimal.acos(-1)).mul('1e'+new $F.Decimal('12').toFixed(0)).round().div('1e'+new $F.Decimal('12').toFixed(0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Number(Number(Math.PI).toFixed(12&lt;=20?12:20))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">Number(Number(Math.PI).toFixed(12&lt;=20?12:20))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">($F.Decimal.acos(-1)).mul('1e'+new $F.Decimal('12').toFixed(0)).round().div('1e'+new $F.Decimal('12').toFixed(0))</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ROUND(PI()::numeric(40,20), 12::integer)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ROUND(PI()::numeric(40,20), 12::integer)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithIfExpr">
+    <JsOutput highPrec="true" nullAsNull="false">(($F.nvl($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')),new $F.Decimal('0')).add($F.nvl(($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')).add($F.nvl(context.record.customnumber2__c,new $F.Decimal('0')))),new $F.Decimal('0')))).add($F.nvl(context.record.customnumber3__c,new $F.Decimal('0'))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.nvl($F.nvl(context.record.customnumber1__c,0),0)+$F.nvl(($F.nvl(context.record.customcurrency1__c,0)+$F.nvl(context.record.customnumber2__c,0)),0))+$F.nvl(context.record.customnumber3__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber1__c!=null&amp;&amp;(context.record.customcurrency1__c+context.record.customnumber2__c)!=null&amp;&amp;context.record.customnumber3__c!=null)?(((context.record.customnumber1__c+(context.record.customcurrency1__c+context.record.customnumber2__c))+context.record.customnumber3__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber1__c!=null&amp;&amp;(context.record.customcurrency1__c.add(context.record.customnumber2__c))!=null&amp;&amp;context.record.customnumber3__c!=null)?(((context.record.customnumber1__c.add((context.record.customcurrency1__c.add(context.record.customnumber2__c)))).add(context.record.customnumber3__c))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>((COALESCE(COALESCE($!s0s!$.customnumber1__c, 0), 0)+COALESCE((COALESCE($!s0s!$.customcurrency1__c, 0)+COALESCE($!s0s!$.customnumber2__c, 0)), 0))+COALESCE($!s0s!$.customnumber3__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(($!s0s!$.customnumber1__c+($!s0s!$.customcurrency1__c+$!s0s!$.customnumber2__c))+$!s0s!$.customnumber3__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

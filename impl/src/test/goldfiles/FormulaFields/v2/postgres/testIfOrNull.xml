@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfOrNull">
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(($F.nvl((null)||(context.record.customcheckbox1__c),false)?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl(($F.nvl((context.record.customcheckbox1__c)||(null),false)?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(($F.nvl((null)||(context.record.customcheckbox1__c),false)?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl(($F.nvl((context.record.customcheckbox1__c)||(null),false)?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.nvl(($F.nvl((null)||(context.record.customcheckbox1__c),false)?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl(($F.nvl((context.record.customcheckbox1__c)||(null),false)?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.nvl(($F.nvl((null)||(context.record.customcheckbox1__c),false)?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl(($F.nvl((context.record.customcheckbox1__c)||(null),false)?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CONCAT(CASE WHEN ((1=0) OR (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1')) THEN 'T' ELSE 'F' END, CASE WHEN ((COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') OR (1=0)) THEN 'T' ELSE 'F' END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CONCAT(CASE WHEN ((1=0) OR (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1')) THEN 'T' ELSE 'F' END, CASE WHEN ((COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') OR (1=0)) THEN 'T' ELSE 'F' END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>
