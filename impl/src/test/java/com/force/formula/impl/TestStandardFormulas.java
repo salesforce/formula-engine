@@ -5,16 +5,15 @@
  */
 package com.force.formula.impl;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
+import junit.framework.TestSuite;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.junit.runners.AllTests;
 import org.xml.sax.SAXException;
 
-import junit.framework.TestSuite;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Contains non-extended tests for formulatests.xml
@@ -22,6 +21,7 @@ import junit.framework.TestSuite;
  * @since 212
  */
 @RunWith(AllTests.class)
+@Ignore //All XML defined tests are executed using FormulaPostgresXMLTests
 public class TestStandardFormulas extends FormulaPostgreSQLTests {
 
 	

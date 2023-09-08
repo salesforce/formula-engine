@@ -8,6 +8,9 @@ build dynamic ftests using specific data templates.
 
 author: Srikanth Yendluri/Doug Chasman
 -->
+
+<!-- All the following tests have been moved to formulaTestV2.xml and executed using FormulaPostgresXMLTests -->
+
 <formula-test>
 
      <!-- TESTCASES for VALUE() -->

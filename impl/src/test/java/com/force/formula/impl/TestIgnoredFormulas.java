@@ -5,17 +5,15 @@
  */
 package com.force.formula.impl;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
+import junit.framework.TestSuite;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.junit.runners.AllTests;
 import org.xml.sax.SAXException;
 
-import junit.framework.TestSuite;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Contains ignored or bad tests for formulatests.xml
@@ -25,7 +23,7 @@ import junit.framework.TestSuite;
  * @author stamm
  */
 @RunWith(AllTests.class)
-@Ignore  // Yes, ignore them.
+@Ignore  // Yes, ignore them. Also, All XML defined tests are executed using FormulaPostgresXMLTests
 public class TestIgnoredFormulas extends FormulaPostgreSQLTests {
 
     public TestIgnoredFormulas(String owner) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
