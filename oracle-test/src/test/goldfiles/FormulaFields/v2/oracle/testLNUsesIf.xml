@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesIf">
+    <SqlOutput nullAsNull="false">
+       <Sql>LN(NVL($!s0s!$.customnumber2__c, 0))</Sql>
+       <Guard>NVL($!s0s!$.customnumber2__c, 0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LN($!s0s!$.customnumber2__c)</Sql>
+       <Guard>$!s0s!$.customnumber2__c&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

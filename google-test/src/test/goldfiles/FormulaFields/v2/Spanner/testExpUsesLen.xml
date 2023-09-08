@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesLen">
+    <SqlOutput nullAsNull="false">
+       <Sql>EXP(COALESCE(LENGTH($!s0s!$.customtext1__c),0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>EXP(COALESCE(LENGTH($!s0s!$.customtext1__c),0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

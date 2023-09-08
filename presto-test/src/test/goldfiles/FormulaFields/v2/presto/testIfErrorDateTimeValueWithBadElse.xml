@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorDateTimeValueWithBadElse">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 0=0 THEN NULL ELSE NULL END</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 0=0 THEN NULL ELSE NULL END</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+</testCase>

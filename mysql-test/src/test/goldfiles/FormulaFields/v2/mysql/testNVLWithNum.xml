@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNVLWithNum">
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE($!s0s!$.customnumber1__c, 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE($!s0s!$.customnumber1__c, $!s0s!$.customcurrency1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBigDivideWithFunc">
+    <SqlOutput nullAsNull="false">
+       <Sql>(((COALESCE($!s0s!$.customnumber1__c, 0) * COALESCE($!s0s!$.customnumber2__c, 0))/POWER(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS STRING)) AS NUMERIC), COALESCE($!s0s!$.customnumber2__c, 0))) * POWER(COALESCE($!s0s!$.customnumber3__c, 0), COALESCE($!s0s!$.customnumber3__c, 0)))</Sql>
+       <Guard>TRUNC(COALESCE($!s0s!$.customnumber3__c, 0))&lt;&gt;COALESCE($!s0s!$.customnumber3__c, 0) OR(IF(COALESCE($!s0s!$.customnumber3__c, 0)&lt;&gt;0,LOG10(ABS(COALESCE($!s0s!$.customnumber3__c, 0)))*COALESCE($!s0s!$.customnumber3__c, 0)&gt;38,FALSE)) OR NOT REGEXP_CONTAINS(REGEXP_REPLACE((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS STRING)),'[0-9]+','0'),'^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$') OR TRUNC(COALESCE($!s0s!$.customnumber2__c, 0))&lt;&gt;COALESCE($!s0s!$.customnumber2__c, 0) OR(IF(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS STRING)) AS NUMERIC)&lt;&gt;0,LOG10(ABS(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS STRING)) AS NUMERIC)))*COALESCE($!s0s!$.customnumber2__c, 0)&gt;38,FALSE)) OR POWER(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS STRING)) AS NUMERIC), COALESCE($!s0s!$.customnumber2__c, 0))=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>((($!s0s!$.customnumber1__c * $!s0s!$.customnumber2__c)/POWER(CAST((CAST($!s0s!$.customnumber2__c AS STRING)) AS NUMERIC), $!s0s!$.customnumber2__c)) * POWER($!s0s!$.customnumber3__c, $!s0s!$.customnumber3__c))</Sql>
+       <Guard>TRUNC($!s0s!$.customnumber3__c)&lt;&gt;$!s0s!$.customnumber3__c OR(IF($!s0s!$.customnumber3__c&lt;&gt;0,LOG10(ABS($!s0s!$.customnumber3__c))*$!s0s!$.customnumber3__c&gt;38,FALSE)) OR NOT REGEXP_CONTAINS(REGEXP_REPLACE((CAST($!s0s!$.customnumber2__c AS STRING)),'[0-9]+','0'),'^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$') OR TRUNC($!s0s!$.customnumber2__c)&lt;&gt;$!s0s!$.customnumber2__c OR(IF(CAST((CAST($!s0s!$.customnumber2__c AS STRING)) AS NUMERIC)&lt;&gt;0,LOG10(ABS(CAST((CAST($!s0s!$.customnumber2__c AS STRING)) AS NUMERIC)))*$!s0s!$.customnumber2__c&gt;38,FALSE)) OR POWER(CAST((CAST($!s0s!$.customnumber2__c AS STRING)) AS NUMERIC), $!s0s!$.customnumber2__c)=0</Guard>
+    </SqlOutput>
+</testCase>

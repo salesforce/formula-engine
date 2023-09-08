@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFloorUsesMultiply">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN COALESCE((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0)&gt;=0 THEN FLOOR(ROUND(COALESCE((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0),33)) ELSE CEILING(ROUND(COALESCE((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) * COALESCE($!s0s!$.customcurrency1__c, 0)), 0),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.custompercent1__c / 100.0) * $!s0s!$.customcurrency1__c)&gt;=0 THEN FLOOR(ROUND((($!s0s!$.custompercent1__c / 100.0) * $!s0s!$.customcurrency1__c),33)) ELSE CEILING(ROUND((($!s0s!$.custompercent1__c / 100.0) * $!s0s!$.customcurrency1__c),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorTextTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 1=0 THEN NULL ELSE SUBSTR(CAST(CAST(date_parse($!s0s!$.dateString__c, '%H:%i:%s.%f') as TIME) AS VARCHAR),1,12) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 1=0 THEN NULL ELSE SUBSTR(CAST(CAST(date_parse($!s0s!$.dateString__c, '%H:%i:%s.%f') as TIME) AS VARCHAR),1,12) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

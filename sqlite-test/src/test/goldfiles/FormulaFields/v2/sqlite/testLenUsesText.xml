@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLenUsesText">
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(LENGTH((CAST(COALESCE($!s0s!$.customnumber1__c, 0) AS TEXT))),0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(LENGTH((CAST($!s0s!$.customnumber1__c AS TEXT))),0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

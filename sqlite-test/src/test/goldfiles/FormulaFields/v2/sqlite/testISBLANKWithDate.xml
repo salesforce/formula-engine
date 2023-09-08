@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISBLANKWithDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ($!s0s!$.customdate1__c IS NULL) THEN COALESCE($!s0s!$.customdate2__c,NULL) ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customdate1__c IS NULL) THEN COALESCE($!s0s!$.customdate2__c,NULL) ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

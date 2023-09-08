@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLike">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customtext__c COLLATE Latin1_General_100_BIN2 LIKE REPLACE($!s0s!$.customexpr__c,'[','\[') ESCAPE '\' THEN 'TRUE' ELSE 'FALSE' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customtext__c COLLATE Latin1_General_100_BIN2 LIKE REPLACE($!s0s!$.customexpr__c,'[','\[') ESCAPE '\' THEN 'TRUE' ELSE 'FALSE' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

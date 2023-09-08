@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateVarConstConst">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE(CONCAT(CONVERT(FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)),CHAR),'-',11,'-',25))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0) is null OR COALESCE($!s0s!$.customnumber1__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber1__c, 0)&gt; 9999</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customnumber1__c IS NULL THEN NULL ELSE DATE(CONCAT(CONVERT(FLOOR($!s0s!$.customnumber1__c),CHAR),'-',11,'-',25)) END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber1__c IS NULL ) AND ($!s0s!$.customnumber1__c is null OR $!s0s!$.customnumber1__c&lt; 1 OR $!s0s!$.customnumber1__c&gt; 9999)</Guard>
+    </SqlOutput>
+</testCase>

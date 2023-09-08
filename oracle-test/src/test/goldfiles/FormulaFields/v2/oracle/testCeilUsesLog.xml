@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCeilUsesLog">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN LOG(10, NVL($!s0s!$.customnumber1__c, 0))&gt;=0 THEN CEIL(ROUND(LOG(10, NVL($!s0s!$.customnumber1__c, 0)),33)) ELSE FLOOR(ROUND(LOG(10, NVL($!s0s!$.customnumber1__c, 0)),33)) END</Sql>
+       <Guard>NVL($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN LOG(10, $!s0s!$.customnumber1__c)&gt;=0 THEN CEIL(ROUND(LOG(10, $!s0s!$.customnumber1__c),33)) ELSE FLOOR(ROUND(LOG(10, $!s0s!$.customnumber1__c),33)) END</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

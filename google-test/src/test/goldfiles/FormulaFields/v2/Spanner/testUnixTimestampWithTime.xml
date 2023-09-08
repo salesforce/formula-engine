@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testUnixTimestampWithTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>TRUNC(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.dateString__c, 'UTC')),86400000)/1000)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TRUNC(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.dateString__c, 'UTC')),86400000)/1000)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

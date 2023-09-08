@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubtractTwoTimeFields">
+    <SqlOutput nullAsNull="false">
+       <Sql>(UNIX_TIMESTAMP(SUBTIME(TIME($!s0s!$.timeString2__c), TIME($!s0s!$.timeString1__c)))%86400)*1000</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(UNIX_TIMESTAMP(SUBTIME(TIME($!s0s!$.timeString2__c), TIME($!s0s!$.timeString1__c)))%86400)*1000</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+</testCase>

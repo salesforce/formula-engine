@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBVLWithDateFormulaNull">
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(2000 || '-' || 1 || '-' || 1, 'YYYY-MM-DD')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE(2000 || '-' || 1 || '-' || 1, 'YYYY-MM-DD')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

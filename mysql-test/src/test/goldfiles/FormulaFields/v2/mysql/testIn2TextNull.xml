@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2TextNull">
+    <SqlOutput nullAsNull="false">
+       <Sql>binary $!s0s!$.customtext__c IN ($!s0s!$.customin1__c,NULL)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>binary $!s0s!$.customtext__c IN ($!s0s!$.customin1__c,NULL)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

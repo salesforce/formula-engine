@@ -12,6 +12,7 @@ import java.util.List;
  * This json will be consumed by JSON tests
  * @author jkathiara
  */
+@Deprecated
 public class JestDataModel {
 
 	public String testSuiteName;

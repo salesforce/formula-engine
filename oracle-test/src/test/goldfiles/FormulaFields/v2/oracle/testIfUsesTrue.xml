@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfUsesTrue">
+    <SqlOutput nullAsNull="false">
+       <Sql>1</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>1</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

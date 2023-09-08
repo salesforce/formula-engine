@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateLeapYear">
+    <SqlOutput nullAsNull="false">
+       <Sql>PARSEDATETIME(2012 || '-' || 2 || '-' || CAST(FLOOR(COALESCE($!s0s!$.day__c, 0)) AS VARCHAR), 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard>COALESCE($!s0s!$.day__c, 0) is null OR COALESCE($!s0s!$.day__c, 0)&lt; 1 OR COALESCE($!s0s!$.day__c, 0) &gt;= 32 OR COALESCE($!s0s!$.day__c, 0) &gt;= 30</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE PARSEDATETIME(2012 || '-' || 2 || '-' || CAST(FLOOR($!s0s!$.day__c) AS VARCHAR), 'yyyy-M-d', 'en', 'UTC') END</Sql>
+       <Guard>NOT ($!s0s!$.day__c IS NULL ) AND ($!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR $!s0s!$.day__c &gt;= 30)</Guard>
+    </SqlOutput>
+</testCase>

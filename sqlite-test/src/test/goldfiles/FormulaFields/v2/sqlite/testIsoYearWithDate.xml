@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIsoYearWithDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>strftime('%Y',$!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>strftime('%Y',$!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

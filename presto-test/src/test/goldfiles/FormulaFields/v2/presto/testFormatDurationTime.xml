@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNCATE(TRUNCATE(ABS(CAST(DATE_DIFF('second',CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME),CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)) AS DECIMAL(38,10))),0)/3600)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS(CAST(DATE_DIFF('second',CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME),CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)) AS DECIMAL(38,10))),0)),'%i:%s'))</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNCATE(TRUNCATE(ABS(CAST(DATE_DIFF('second',CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME),CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)) AS DECIMAL(38,10))),0)/3600)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS(CAST(DATE_DIFF('second',CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME),CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME)) AS DECIMAL(38,10))),0)),'%i:%s'))</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+</testCase>

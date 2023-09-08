@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddHoursWithTwoCustFields">
+    <SqlOutput nullAsNull="false">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000+ROUND(MOD(TO_NUMBER(NVL($!s0s!$.customnumber1__c, 0)), 86400000))+86400000,86400000)</Sql>
+       <Guard> NOT REGEXP_LIKE ($!s0s!$.timeString__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */ </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>MOD(TO_NUMBER(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString__c, 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000+ROUND(MOD(TO_NUMBER($!s0s!$.customnumber1__c), 86400000))+86400000,86400000)</Sql>
+       <Guard> NOT REGEXP_LIKE ($!s0s!$.timeString__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$') /*comments to keep size */ </Guard>
+    </SqlOutput>
+</testCase>

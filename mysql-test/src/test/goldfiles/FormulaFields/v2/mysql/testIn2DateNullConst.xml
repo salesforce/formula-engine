@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2DateNullConst">
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customdate__c IN ($!s0s!$.customin1__c,DATE(CONCAT(2004,'-',2,'-',28)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customdate__c IN ($!s0s!$.customin1__c,DATE(CONCAT(2004,'-',2,'-',28)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

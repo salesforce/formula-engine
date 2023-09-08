@@ -5,29 +5,20 @@
  */
 package com.force.formula.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.force.formula.FormulaDataType;
 import com.force.formula.impl.BaseFormulaGenericTests.FormulaTestRunnable;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableMap;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author syendluri, adimayuga
  * @since 0.1.0 Member Variables: testCaseFieldInfo: referenceFields
  *        listOfFieldsUsedForRunnables
  */
-
+@Deprecated
 public class FormulaTestCaseInfo {
 
     // Whether to compare the results of the different evaluation methods.

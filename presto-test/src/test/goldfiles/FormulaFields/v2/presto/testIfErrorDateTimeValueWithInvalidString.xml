@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorDateTimeValueWithInvalidString">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 0=0 THEN date_parse(trim('2005-11-15 17:00:00 '), '%Y-%m-%d %H:%i:%s') ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 0=0 THEN date_parse(trim('2005-11-15 17:00:00 '), '%Y-%m-%d %H:%i:%s') ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

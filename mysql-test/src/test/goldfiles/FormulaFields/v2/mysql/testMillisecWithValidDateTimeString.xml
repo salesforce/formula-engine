@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMillisecWithValidDateTimeString">
+    <SqlOutput nullAsNull="false">
+       <Sql>1000*MICROSECOND(NULL)</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>1000*MICROSECOND(NULL)</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+</testCase>

@@ -166,6 +166,12 @@
         <version>2.13.4</version>
         <optional>true</optional>
       </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.13.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -511,8 +517,7 @@
         <module>google-test</module>
         <module>sqlite-test</module>
         <module>h2-test</module>
-        <!-- Running Presto is really slow, so comment it out for now -->
-        <!-- <module>presto-test</module> -->
+        <module>presto-test</module>
         <module>docs/coverage</module>
       </modules>
     </profile>

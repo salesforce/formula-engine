@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', TRIM($!s0s!$.dateString__c), 'UTC')</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', TRIM($!s0s!$.dateString__c), 'UTC')</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

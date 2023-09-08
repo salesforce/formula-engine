@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2DateNullConst">
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customdate__c IN ($!s0s!$.customin1__c,DATE(CAST(2004 as INT64),CAST(2 AS INT64),CAST(28 AS INT64)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customdate__c IN ($!s0s!$.customin1__c,DATE(CAST(2004 as INT64),CAST(2 AS INT64),CAST(28 AS INT64)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

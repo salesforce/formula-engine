@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateVarConstConst">
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(TO_CHAR(FLOOR(NVL($!s0s!$.customnumber1__c, 0))) || '-' || 11 || '-' || 25, 'YYYY-MM-DD')</Sql>
+       <Guard>NVL($!s0s!$.customnumber1__c, 0) is null OR NVL($!s0s!$.customnumber1__c, 0)&lt; 1 OR NVL($!s0s!$.customnumber1__c, 0)&gt; 9999</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customnumber1__c IS NULL THEN NULL ELSE TO_DATE(TO_CHAR(FLOOR($!s0s!$.customnumber1__c)) || '-' || 11 || '-' || 25, 'YYYY-MM-DD') END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber1__c IS NULL ) AND ($!s0s!$.customnumber1__c is null OR $!s0s!$.customnumber1__c&lt; 1 OR $!s0s!$.customnumber1__c&gt; 9999)</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesAbs">
+    <SqlOutput nullAsNull="false">
+       <Sql>LOG(10, ABS(NVL($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Guard>ABS(NVL($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LOG(10, ABS($!s0s!$.customnumber1__c))</Sql>
+       <Guard>ABS($!s0s!$.customnumber1__c)&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

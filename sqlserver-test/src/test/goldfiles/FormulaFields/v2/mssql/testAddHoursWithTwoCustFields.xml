@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddHoursWithTwoCustFields">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATEADD(millisecond,COALESCE($!s0s!$.customnumber1__c, 0),CAST($!s0s!$.timeString__c as TIME))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEADD(millisecond,$!s0s!$.customnumber1__c,CAST($!s0s!$.timeString__c as TIME))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

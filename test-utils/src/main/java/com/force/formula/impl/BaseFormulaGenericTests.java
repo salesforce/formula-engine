@@ -43,6 +43,7 @@ import java.util.stream.Collectors;
  * @author syendluri, dchasman, aballard
  * @since 0.1.0
  */
+@Deprecated
 abstract public class BaseFormulaGenericTests extends TestSuite {
 
 	// parameter testLabelsAttribute allows different xml attribute names to be used to specify ftest labels so that subclasses

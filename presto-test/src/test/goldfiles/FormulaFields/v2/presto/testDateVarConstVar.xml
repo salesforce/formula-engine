@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateVarConstVar">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(from_iso8601_date(CONCAT(CAST(CAST(FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) AS VARCHAR) AS VARCHAR),'-',CAST(12 AS VARCHAR),'-',CAST(CAST(FLOOR(COALESCE($!s0s!$.customnumber3__c, 0)) AS VARCHAR) AS VARCHAR))) AS TIMESTAMP)</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0) is null OR COALESCE($!s0s!$.customnumber1__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber1__c, 0)&gt; 9999 OR COALESCE($!s0s!$.customnumber3__c, 0) is null OR COALESCE($!s0s!$.customnumber3__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber3__c, 0) &gt;= 32</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customnumber1__c IS NULL THEN NULL WHEN $!s0s!$.customnumber3__c IS NULL THEN NULL ELSE CAST(from_iso8601_date(CONCAT(CAST(CAST(FLOOR($!s0s!$.customnumber1__c) AS VARCHAR) AS VARCHAR),'-',CAST(12 AS VARCHAR),'-',CAST(CAST(FLOOR($!s0s!$.customnumber3__c) AS VARCHAR) AS VARCHAR))) AS TIMESTAMP) END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber1__c IS NULL OR $!s0s!$.customnumber3__c IS NULL ) AND ($!s0s!$.customnumber1__c is null OR $!s0s!$.customnumber1__c&lt; 1 OR $!s0s!$.customnumber1__c&gt; 9999 OR $!s0s!$.customnumber3__c is null OR $!s0s!$.customnumber3__c&lt; 1 OR $!s0s!$.customnumber3__c &gt;= 32)</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfTextCompareEqualReturnDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (NVL($!s0s!$.customphone1__c, $!s0s!$.customphone2__c||'x')=NVL($!s0s!$.customphone2__c, $!s0s!$.customphone1__c||'x')) THEN NVL(($!s0s!$.customdatetime1__c-NVL($!s0s!$.customcurrency1__c, 0)),TO_DATE(NULL)) ELSE NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (NVL($!s0s!$.customphone1__c, $!s0s!$.customphone2__c||'x')=NVL($!s0s!$.customphone2__c, $!s0s!$.customphone1__c||'x')) THEN NVL(($!s0s!$.customdatetime1__c-$!s0s!$.customcurrency1__c),TO_DATE(NULL)) ELSE NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

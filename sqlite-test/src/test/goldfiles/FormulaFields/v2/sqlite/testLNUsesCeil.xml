@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesCeil">
+    <SqlOutput nullAsNull="false">
+       <Sql>(LOG10(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) END)*2.30258509299)</Sql>
+       <Guard>CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) END&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(LOG10(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL($!s0s!$.customnumber1__c) ELSE FLOOR($!s0s!$.customnumber1__c) END)*2.30258509299)</Sql>
+       <Guard>CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL($!s0s!$.customnumber1__c) ELSE FLOOR($!s0s!$.customnumber1__c) END&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

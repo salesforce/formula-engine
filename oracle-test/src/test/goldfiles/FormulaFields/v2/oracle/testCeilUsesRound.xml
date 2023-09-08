@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCeilUsesRound">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ROUND(NVL($!s0s!$.customnumber1__c, 0), NVL($!s0s!$.customnumber2__c, 0))&gt;=0 THEN CEIL(ROUND(ROUND(NVL($!s0s!$.customnumber1__c, 0), NVL($!s0s!$.customnumber2__c, 0)),33)) ELSE FLOOR(ROUND(ROUND(NVL($!s0s!$.customnumber1__c, 0), NVL($!s0s!$.customnumber2__c, 0)),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ROUND($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c)&gt;=0 THEN CEIL(ROUND(ROUND($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c),33)) ELSE FLOOR(ROUND(ROUND($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

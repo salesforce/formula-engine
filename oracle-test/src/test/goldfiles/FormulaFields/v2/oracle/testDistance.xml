@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDistance">
+    <SqlOutput nullAsNull="false">
+       <Sql>(CASE 'mi' WHEN 'mi' THEN 7917.522 WHEN 'km' THEN 12742.018 END*ASIN(SQRT((POWER(sin((NVL($!s0s!$.customNumber2__c, 0))*0.017453292519943295)*cos((NVL($!s0s!$.customNumber1__c, 0))*0.017453292519943295)- -0.70342048084620570,2)+POWER(cos((NVL($!s0s!$.customNumber2__c, 0))*0.017453292519943295)*cos((NVL($!s0s!$.customNumber1__c, 0))*0.017453292519943295)- -0.45015288660157460,2)+POWER(sin((NVL($!s0s!$.customNumber1__c, 0))*0.017453292519943295)- +0.55005636603021210,2)))/2))</Sql>
+       <Guard>(-122.61715) &lt; -180 OR 180 &lt; (-122.61715) OR NVL($!s0s!$.customNumber1__c, 0) &lt; -90 OR 90 &lt; NVL($!s0s!$.customNumber1__c, 0) OR NVL($!s0s!$.customNumber2__c, 0) &lt; -180 OR 180 &lt; NVL($!s0s!$.customNumber2__c, 0) OR (NVL($!s0s!$.customNumber1__c, 0) IS NULL AND NVL($!s0s!$.customNumber2__c, 0) IS NOT NULL) OR (NVL($!s0s!$.customNumber1__c, 0) IS NOT NULL AND NVL($!s0s!$.customNumber2__c, 0) IS NULL)  OR 'mi' NOT IN ('mi','km')</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(CASE 'mi' WHEN 'mi' THEN 7917.522 WHEN 'km' THEN 12742.018 END*ASIN(SQRT((POWER(sin(($!s0s!$.customNumber2__c)*0.017453292519943295)*cos(($!s0s!$.customNumber1__c)*0.017453292519943295)- -0.70342048084620570,2)+POWER(cos(($!s0s!$.customNumber2__c)*0.017453292519943295)*cos(($!s0s!$.customNumber1__c)*0.017453292519943295)- -0.45015288660157460,2)+POWER(sin(($!s0s!$.customNumber1__c)*0.017453292519943295)- +0.55005636603021210,2)))/2))</Sql>
+       <Guard>(-122.61715) &lt; -180 OR 180 &lt; (-122.61715) OR $!s0s!$.customNumber1__c &lt; -90 OR 90 &lt; $!s0s!$.customNumber1__c OR $!s0s!$.customNumber2__c &lt; -180 OR 180 &lt; $!s0s!$.customNumber2__c OR ($!s0s!$.customNumber1__c IS NULL AND $!s0s!$.customNumber2__c IS NOT NULL) OR ($!s0s!$.customNumber1__c IS NOT NULL AND $!s0s!$.customNumber2__c IS NULL)  OR 'mi' NOT IN ('mi','km')</Guard>
+    </SqlOutput>
+</testCase>

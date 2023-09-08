@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMax3">
+    <SqlOutput nullAsNull="false">
+       <Sql>GREATEST(NVL($!s0s!$.customNumber1__c, 0), NVL($!s0s!$.customNumber2__c, 0), NVL($!s0s!$.customNumber3__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>GREATEST($!s0s!$.customNumber1__c, $!s0s!$.customNumber2__c, $!s0s!$.customNumber3__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfReturningNullForNumericType">
+    <SqlOutput nullAsNull="false">
+       <Sql>NULL</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>NULL</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

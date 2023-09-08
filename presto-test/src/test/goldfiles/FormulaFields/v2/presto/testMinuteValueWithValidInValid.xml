@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMinuteValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>MINUTE(CAST(date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s') AS TIME))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>MINUTE(CAST(date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s') AS TIME))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationSecondsBool">
+    <SqlOutput nullAsNull="false">
+       <Sql>(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN CONCAT(FORMAT('%.0f',TRUNCATE(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)/86400)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)%86400),'%H:%i:%s')) ELSE CONCAT(FORMAT('%02.0f',TRUNCATE(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)/3600)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)),'%i:%s')) END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN CONCAT(FORMAT('%.0f',TRUNCATE(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)/86400)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)%86400),'%H:%i:%s')) ELSE CONCAT(FORMAT('%02.0f',TRUNCATE(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)/3600)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)),'%i:%s')) END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

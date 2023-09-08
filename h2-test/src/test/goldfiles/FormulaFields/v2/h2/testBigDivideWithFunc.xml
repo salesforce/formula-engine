@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBigDivideWithFunc">
+    <SqlOutput nullAsNull="false">
+       <Sql>(((COALESCE($!s0s!$.customnumber1__c, 0) * COALESCE($!s0s!$.customnumber2__c, 0))/POWER(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS VARCHAR)) AS DECIMAL(38,18)), COALESCE($!s0s!$.customnumber2__c, 0))) * POWER(COALESCE($!s0s!$.customnumber3__c, 0), COALESCE($!s0s!$.customnumber3__c, 0)))</Sql>
+       <Guard>TRUNC(COALESCE($!s0s!$.customnumber3__c, 0))&lt;&gt;COALESCE($!s0s!$.customnumber3__c, 0) OR(COALESCE($!s0s!$.customnumber3__c, 0)&lt;&gt;0 AND LOG(10,ABS(COALESCE($!s0s!$.customnumber3__c, 0)))*COALESCE($!s0s!$.customnumber3__c, 0)&gt;38) OR NOT REGEXP_LIKE(REGEXP_REPLACE((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS VARCHAR)),'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$') OR TRUNC(COALESCE($!s0s!$.customnumber2__c, 0))&lt;&gt;COALESCE($!s0s!$.customnumber2__c, 0) OR(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS VARCHAR)) AS DECIMAL(38,18))&lt;&gt;0 AND LOG(10,ABS(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS VARCHAR)) AS DECIMAL(38,18))))*COALESCE($!s0s!$.customnumber2__c, 0)&gt;38) OR POWER(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS VARCHAR)) AS DECIMAL(38,18)), COALESCE($!s0s!$.customnumber2__c, 0))=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>((($!s0s!$.customnumber1__c * $!s0s!$.customnumber2__c)/POWER(CAST((CAST($!s0s!$.customnumber2__c AS VARCHAR)) AS DECIMAL(38,18)), $!s0s!$.customnumber2__c)) * POWER($!s0s!$.customnumber3__c, $!s0s!$.customnumber3__c))</Sql>
+       <Guard>TRUNC($!s0s!$.customnumber3__c)&lt;&gt;$!s0s!$.customnumber3__c OR($!s0s!$.customnumber3__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customnumber3__c))*$!s0s!$.customnumber3__c&gt;38) OR NOT REGEXP_LIKE(REGEXP_REPLACE((CAST($!s0s!$.customnumber2__c AS VARCHAR)),'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$') OR TRUNC($!s0s!$.customnumber2__c)&lt;&gt;$!s0s!$.customnumber2__c OR(CAST((CAST($!s0s!$.customnumber2__c AS VARCHAR)) AS DECIMAL(38,18))&lt;&gt;0 AND LOG(10,ABS(CAST((CAST($!s0s!$.customnumber2__c AS VARCHAR)) AS DECIMAL(38,18))))*$!s0s!$.customnumber2__c&gt;38) OR POWER(CAST((CAST($!s0s!$.customnumber2__c AS VARCHAR)) AS DECIMAL(38,18)), $!s0s!$.customnumber2__c)=0</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfTextCompareEqualReturnDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (binary COALESCE($!s0s!$.customphone1__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customphone2__c, 'x'))=binary COALESCE($!s0s!$.customphone2__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customphone1__c, 'x'))) THEN COALESCE(DATE_SUB($!s0s!$.customdatetime1__c, INTERVAL ROUND(COALESCE($!s0s!$.customcurrency1__c, 0)*86400) SECOND),CAST(NULL AS DATE)) ELSE COALESCE($!s0s!$.customdatetime2__c,CAST(NULL AS DATE)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (binary COALESCE($!s0s!$.customphone1__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customphone2__c, 'x'))=binary COALESCE($!s0s!$.customphone2__c, CONCAT_WS(&quot;&quot;,$!s0s!$.customphone1__c, 'x'))) THEN COALESCE(DATE_SUB($!s0s!$.customdatetime1__c, INTERVAL ROUND($!s0s!$.customcurrency1__c*86400) SECOND),CAST(NULL AS DATE)) ELSE COALESCE($!s0s!$.customdatetime2__c,CAST(NULL AS DATE)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

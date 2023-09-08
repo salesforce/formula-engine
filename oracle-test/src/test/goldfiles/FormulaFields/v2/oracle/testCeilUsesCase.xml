@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCeilUsesCase">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN NVL($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN NVL($!s0s!$.customnumber2__c, 0) ELSE NVL($!s0s!$.customnumber3__c, 0) END&gt;=0 THEN CEIL(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN NVL($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN NVL($!s0s!$.customnumber2__c, 0) ELSE NVL($!s0s!$.customnumber3__c, 0) END,33)) ELSE FLOOR(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN NVL($!s0s!$.customnumber1__c, 0) WHEN $!s0s!$.customdate3__c THEN NVL($!s0s!$.customnumber2__c, 0) ELSE NVL($!s0s!$.customnumber3__c, 0) END,33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END&gt;=0 THEN CEIL(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END,33)) ELSE FLOOR(ROUND(CASE $!s0s!$.customdate1__c WHEN $!s0s!$.customdate2__c THEN $!s0s!$.customnumber1__c WHEN $!s0s!$.customdate3__c THEN $!s0s!$.customnumber2__c ELSE $!s0s!$.customnumber3__c END,33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

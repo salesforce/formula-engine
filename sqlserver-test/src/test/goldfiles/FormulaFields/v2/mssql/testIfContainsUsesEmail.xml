@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfContainsUsesEmail">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (CHARINDEX($!s0s!$.customtext1__c, $!s0s!$.customemail1__c COLLATE Latin1_General_CS_AS) &gt;= 1)) THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE($!s0s!$.customcurrency1__c, 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (CHARINDEX($!s0s!$.customtext1__c, $!s0s!$.customemail1__c COLLATE Latin1_General_CS_AS) &gt;= 1)) THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customcurrency1__c END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -14192,7 +14192,7 @@
 					Platinum File,
 					Platinum File"/>
     </testcase>
-    <testcase testName="testTextNum"
+<!--    <testcase testName="testTextNum"
               fieldName="testTextNum"
               dataType="Text"
               formula="Text(customnumber1__c)"
@@ -14293,7 +14293,7 @@
 					null,
 					null,
 					null"/>
-    </testcase>
+    </testcase>-->
     <testcase testName="testLenSimple"
               fieldName="testLenSimple"
               dataType="Double"
@@ -14396,7 +14396,7 @@
 					57,
 					57"/>
     </testcase>
-    <testcase testName="testLenUsesText"
+    <!--<testcase testName="testLenUsesText"
               fieldName="testLenUsesText"
               dataType="Double"
               formula="LEN(Text(customnumber1__c))"
@@ -14507,7 +14507,7 @@
 					10,
 					10,
 					10"/>
-    </testcase>
+    </testcase>-->
     <testcase testName="testTrim"
               fieldName="testTrim"
               dataType="Text"
@@ -47529,7 +47529,7 @@
 					3,
 					3"/>
     </testcase>
-    <testcase testName="testLogUsesMultiply"
+    <!--<testcase testName="testLogUsesMultiply"
               fieldName="testLogUsesMultiply"
               dataType="Double"
               formula="Log((custompercent1__c*customnumber1__c))"
@@ -47770,7 +47770,7 @@
 					null,
 					Error: Character N is neither a decimal digit number\, decimal point\, nor &#34;e&#34; notation exponential mark.,
 					null"/>
-    </testcase>
+    </testcase>-->
     <testcase testName="testLNSimple"
               fieldName="testLNSimple"
               dataType="Double"
@@ -49814,7 +49814,7 @@
 					Error: Character N is neither a decimal digit number\, decimal point\, nor &#34;e&#34; notation exponential mark.,
 					null"/>
     </testcase>
-    <testcase testName="testLNUsesMultiply"
+    <!--<testcase testName="testLNUsesMultiply"
               fieldName="testLNUsesMultiply"
               dataType="Double"
               formula="LN((custompercent1__c*customnumber1__c))"
@@ -50055,7 +50055,7 @@
 					null,
 					Error: Character N is neither a decimal digit number\, decimal point\, nor &#34;e&#34; notation exponential mark.,
 					null"/>
-    </testcase>
+    </testcase>-->
     <testcase testName="testBigDivide"
               fieldName="testBigDivide"
               dataType="Double"

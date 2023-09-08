@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIsoWeekWithDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>EXTRACT(ISO_WEEK from $!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>EXTRACT(ISO_WEEK from $!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

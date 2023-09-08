@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBVLWithDateFormulaNull">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE(CAST(2000 as INT64),CAST(1 AS INT64),CAST(1 AS INT64))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE(CAST(2000 as INT64),CAST(1 AS INT64),CAST(1 AS INT64))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

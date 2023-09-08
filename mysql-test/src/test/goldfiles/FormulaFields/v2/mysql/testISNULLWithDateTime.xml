@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISNULLWithDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ($!s0s!$.customdatetime1__c IS NULL) THEN COALESCE($!s0s!$.customdatetime2__c,CAST(NULL AS DATE)) ELSE CAST(NULL AS DATE) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customdatetime1__c IS NULL) THEN COALESCE($!s0s!$.customdatetime2__c,CAST(NULL AS DATE)) ELSE CAST(NULL AS DATE) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

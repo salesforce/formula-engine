@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFunctionRight">
+    <SqlOutput nullAsNull="false">
+       <Sql>REGEXP_SUBSTR($!s0s!$.customtext__c,'.{0,'||NVL(NVL($!s0s!$.customnumber__c, 0),0)||'}$',1,1,'n')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>REGEXP_SUBSTR($!s0s!$.customtext__c,'.{0,'||NVL($!s0s!$.customnumber__c,0)||'}$',1,1,'n')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

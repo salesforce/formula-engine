@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddMonths">
+    <SqlOutput nullAsNull="false">
+       <Sql>timestamp_add(timestamp(date_sub(date_add(date_add(DATE($!s0s!$.customdate1__c,'UTC'), interval  (CASE WHEN extract(day FROM (date_sub(date_add(DATE($!s0s!$.customdate1__c,'UTC'),interval 1 month), interval 1 day))) = extract(day FROM (timestamp_trunc($!s0s!$.customdate1__c, day, 'UTC'))) THEN 1 ELSE 0 END) day),interval CAST(TRUNC(COALESCE($!s0s!$.customnumber1__c, 0)) AS INT64) month),interval  (CASE WHEN extract(day FROM (date_sub(date_add(DATE($!s0s!$.customdate1__c,'UTC'),interval 1 month), interval 1 day))) = extract(day FROM (timestamp_trunc($!s0s!$.customdate1__c, day, 'UTC'))) THEN 1 ELSE 0 END) day),'UTC'), INTERVAL MOD(UNIX_MILLIS($!s0s!$.customdate1__c),86400000) MILLISECOND)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>timestamp_add(timestamp(date_sub(date_add(date_add(DATE($!s0s!$.customdate1__c,'UTC'), interval  (CASE WHEN extract(day FROM (date_sub(date_add(DATE($!s0s!$.customdate1__c,'UTC'),interval 1 month), interval 1 day))) = extract(day FROM (timestamp_trunc($!s0s!$.customdate1__c, day, 'UTC'))) THEN 1 ELSE 0 END) day),interval CAST(TRUNC($!s0s!$.customnumber1__c) AS INT64) month),interval  (CASE WHEN extract(day FROM (date_sub(date_add(DATE($!s0s!$.customdate1__c,'UTC'),interval 1 month), interval 1 day))) = extract(day FROM (timestamp_trunc($!s0s!$.customdate1__c, day, 'UTC'))) THEN 1 ELSE 0 END) day),'UTC'), INTERVAL MOD(UNIX_MILLIS($!s0s!$.customdate1__c),86400000) MILLISECOND)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

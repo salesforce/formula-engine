@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateTimeWithExpr">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATEADD(second,ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)*86400,0),DATEADD(second,ROUND(COALESCE((CAST(-DATEDIFF(MILLISECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400000), 0)*86400,0),DATEADD(second,ROUND(COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400,0),DATEADD(second,ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400,0),$!s0s!$.customdatetime1__c))))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEADD(second,ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)*86400,0),DATEADD(second,ROUND((CAST(-DATEDIFF(MILLISECOND,$!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c) AS DECIMAL(38,10))/86400000)*86400,0),DATEADD(second,ROUND(($!s0s!$.custompercent2__c / 100.0)*86400,0),DATEADD(second,ROUND(($!s0s!$.custompercent1__c / 100.0)*86400,0),$!s0s!$.customdatetime1__c))))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

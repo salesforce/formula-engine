@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLenUsesText">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(COALESCE(LENGTH((CAST(COALESCE($!s0s!$.customnumber1__c, 0) AS VARCHAR))),0) AS DECIMAL(38,18))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(COALESCE(LENGTH((CAST($!s0s!$.customnumber1__c AS VARCHAR))),0) AS DECIMAL(38,18))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

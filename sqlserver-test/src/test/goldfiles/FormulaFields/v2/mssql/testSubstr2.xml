@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubstr2">
+    <SqlOutput nullAsNull="false">
+       <Sql>SUBSTRING($!s0s!$.customtext__c, CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0) &gt;= 0 THEN (COALESCE($!s0s!$.customnumber1__c, 0)+1+ABS(COALESCE($!s0s!$.customnumber1__c, 0)-1))/2 ELSE NULLIF((LEN($!s0s!$.customtext__c) + 1 + COALESCE($!s0s!$.customnumber1__c, 0)+ABS(LEN($!s0s!$.customtext__c) + 1 + COALESCE($!s0s!$.customnumber1__c, 0)))/2,0) END, 1000000)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>SUBSTRING($!s0s!$.customtext__c, CASE WHEN $!s0s!$.customnumber1__c &gt;= 0 THEN ($!s0s!$.customnumber1__c+1+ABS($!s0s!$.customnumber1__c-1))/2 ELSE NULLIF((LEN($!s0s!$.customtext__c) + 1 + $!s0s!$.customnumber1__c+ABS(LEN($!s0s!$.customtext__c) + 1 + $!s0s!$.customnumber1__c))/2,0) END, 1000000)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

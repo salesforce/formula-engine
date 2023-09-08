@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTimeValueWithValidString">
+    <SqlOutput nullAsNull="false">
+       <Sql>MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', '10:40:55.666', 'UTC')),86400000)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', '10:40:55.666', 'UTC')),86400000)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

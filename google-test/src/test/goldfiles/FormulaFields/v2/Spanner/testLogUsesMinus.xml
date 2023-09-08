@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesMinus">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(LOG10((COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)-COALESCE($!s0s!$.customcurrency1__c, 0))) AS NUMERIC)</Sql>
+       <Guard>(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)-COALESCE($!s0s!$.customcurrency1__c, 0))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(LOG10((($!s0s!$.custompercent1__c / 100.0)-$!s0s!$.customcurrency1__c)) AS NUMERIC)</Sql>
+       <Guard>(($!s0s!$.custompercent1__c / 100.0)-$!s0s!$.customcurrency1__c)&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

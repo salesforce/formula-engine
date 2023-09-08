@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesPlus">
+    <SqlOutput nullAsNull="false">
+       <Sql>EXP(COALESCE((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0)+COALESCE($!s0s!$.customnumber1__c, 0)), 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>EXP((($!s0s!$.custompercent1__c / (DECIMAL '100.'))+$!s0s!$.customnumber1__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationWithFalse">
+    <SqlOutput nullAsNull="false">
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNCATE(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)/3600)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS(COALESCE($!s0s!$.customNumber1__c, 0)),0)),'%i:%s'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CONCAT(FORMAT('%02.0f',TRUNCATE(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)/3600)),':',DATE_FORMAT(from_unixtime(TRUNCATE(ABS($!s0s!$.customNumber1__c),0)),'%i:%s'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

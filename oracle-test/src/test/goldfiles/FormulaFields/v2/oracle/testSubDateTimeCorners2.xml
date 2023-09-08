@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTimeCorners2">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) ELSE FLOOR(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) ELSE FLOOR(ROUND(((($!s0s!$.customdatetime1__c-$!s0s!$.customdatetime2__c) * 1440) * 60),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

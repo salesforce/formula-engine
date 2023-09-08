@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMillisecWithValidDateTimeString">
+    <SqlOutput nullAsNull="false">
+       <Sql>TRUNC(NULL -TRUNC(NULL/1000) * 1000)</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TRUNC(NULL -TRUNC(NULL/1000) * 1000)</Sql>
+       <Guard>0=0</Guard>
+    </SqlOutput>
+</testCase>

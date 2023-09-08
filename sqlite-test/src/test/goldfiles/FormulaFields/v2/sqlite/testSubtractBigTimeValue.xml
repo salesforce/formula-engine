@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubtractBigTimeValue">
+    <SqlOutput nullAsNull="false">
+       <Sql>strftime('%H:%M:%f',$!s0s!$.dateString__c,(-(180000000/1000))|| ' seconds')</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>strftime('%H:%M:%f',$!s0s!$.dateString__c,(-(180000000/1000))|| ' seconds')</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

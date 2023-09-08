@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testUnixTimestampWithTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATEDIFF(second, '00:00:00', CAST($!s0s!$.dateString__c as TIME))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEDIFF(second, '00:00:00', CAST($!s0s!$.dateString__c as TIME))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

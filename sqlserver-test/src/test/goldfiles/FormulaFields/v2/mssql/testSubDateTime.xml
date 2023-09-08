@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>(CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400000)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400000)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

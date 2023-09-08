@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testPi">
+    <SqlOutput nullAsNull="false">
+       <Sql>ROUND(3.14159265358979323846, 12)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ROUND(3.14159265358979323846, 12)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

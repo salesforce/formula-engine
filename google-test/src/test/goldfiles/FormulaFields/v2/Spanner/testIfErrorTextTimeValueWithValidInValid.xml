@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorTextTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.dateString__c, 'UTC')),86400000)),'UTC') END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 1=0 THEN NULL ELSE FORMAT_TIMESTAMP('%H:%M:%E3S',timestamp_millis(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.dateString__c, 'UTC')),86400000)),'UTC') END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

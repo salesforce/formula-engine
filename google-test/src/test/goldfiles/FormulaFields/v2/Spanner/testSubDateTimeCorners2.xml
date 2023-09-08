@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTimeCorners2">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ((CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)/86400 * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)/86400 * 1440) * 60),33)) ELSE FLOOR(ROUND(((CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)/86400 * 1440) * 60),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ((CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)/86400 * 1440) * 60)&gt;=0 THEN CEIL(ROUND(((CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)/86400 * 1440) * 60),33)) ELSE FLOOR(ROUND(((CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)/86400 * 1440) * 60),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

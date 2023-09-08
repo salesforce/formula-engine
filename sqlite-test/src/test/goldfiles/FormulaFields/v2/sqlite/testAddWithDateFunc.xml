@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithDateFunc">
+    <SqlOutput nullAsNull="false">
+       <Sql>((((COALESCE(strftime('%d',$!s0s!$.customdate1__c), 0)+COALESCE(strftime('%Y',$!s0s!$.customdate2__c), 0))+COALESCE($!s0s!$.customnumber1__c, 0))+COALESCE(strftime('%m',$!s0s!$.customdate3__c), 0))+COALESCE(($!s0s!$.custompercent1__c / 100.0), 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>((((strftime('%d',$!s0s!$.customdate1__c)+strftime('%Y',$!s0s!$.customdate2__c))+$!s0s!$.customnumber1__c)+strftime('%m',$!s0s!$.customdate3__c))+($!s0s!$.custompercent1__c / 100.0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

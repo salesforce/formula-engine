@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAscii">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(CODEPOINT(CAST(SUBSTR($!s0s!$.customtext1__c,1,1) AS VARCHAR(1))) AS DECIMAL(38,18))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(CODEPOINT(CAST(SUBSTR($!s0s!$.customtext1__c,1,1) AS VARCHAR(1))) AS DECIMAL(38,18))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

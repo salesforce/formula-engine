@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testUpperLocale">
+    <SqlOutput nullAsNull="false">
+       <Sql>NLS_UPPER($!s0s!$.customText1__c,CASE WHEN SUBSTR($!s0s!$.customText2__c,1,2) = 'tr' THEN 'NLS_SORT=xturkish' ELSE 'NLS_SORT=xwest_european' END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>NLS_UPPER($!s0s!$.customText1__c,CASE WHEN SUBSTR($!s0s!$.customText2__c,1,2) = 'tr' THEN 'NLS_SORT=xturkish' ELSE 'NLS_SORT=xwest_european' END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTruncSimple">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customnumber1__c, 0)) &gt; 0 THEN FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)/POWER(10,-(COALESCE($!s0s!$.customnumber2__c, 0))))*POWER(10,-(COALESCE($!s0s!$.customnumber2__c, 0))) ELSE CEIL(COALESCE($!s0s!$.customnumber1__c, 0)*POWER(10,COALESCE($!s0s!$.customnumber2__c, 0)))/POWER(10,COALESCE($!s0s!$.customnumber2__c, 0)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customnumber1__c) &gt; 0 THEN FLOOR($!s0s!$.customnumber1__c/POWER(10,-($!s0s!$.customnumber2__c)))*POWER(10,-($!s0s!$.customnumber2__c)) ELSE CEIL($!s0s!$.customnumber1__c*POWER(10,$!s0s!$.customnumber2__c))/POWER(10,$!s0s!$.customnumber2__c) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

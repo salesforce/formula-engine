@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateWithExpr">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdate1__c, INTERVAL CAST(ROUND(TRUNC(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0))) AS INT64) DAY), INTERVAL CAST(ROUND(TRUNC(COALESCE($!s0s!$.customnumber1__c, 0))) AS INT64) DAY), INTERVAL CAST(ROUND(TRUNC(COALESCE(CAST(DATE_DIFF($!s0s!$.customdate2__c,$!s0s!$.customdate3__c,DAY) AS NUMERIC), 0))) AS INT64) DAY), INTERVAL CAST(ROUND(TRUNC(COALESCE($!s0s!$.customcurrency1__c, 0))) AS INT64) DAY)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdate1__c, INTERVAL CAST(ROUND(TRUNC(($!s0s!$.custompercent1__c / 100.0))) AS INT64) DAY), INTERVAL CAST(ROUND(TRUNC($!s0s!$.customnumber1__c)) AS INT64) DAY), INTERVAL CAST(ROUND(TRUNC(CAST(DATE_DIFF($!s0s!$.customdate2__c,$!s0s!$.customdate3__c,DAY) AS NUMERIC))) AS INT64) DAY), INTERVAL CAST(ROUND(TRUNC($!s0s!$.customcurrency1__c)) AS INT64) DAY)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

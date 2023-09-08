@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testModRounding">
+    <SqlOutput nullAsNull="false">
+       <Sql>((COALESCE($!s0s!$.customnumber1__c, 0) * 10000) % 2)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(($!s0s!$.customnumber1__c * 10000) % 2)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubtractTwoTimeFields">
+    <SqlOutput nullAsNull="false">
+       <Sql>(DATEDIFF(millisecond,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME))+86400000)%86400000</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(DATEDIFF(millisecond,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME))+86400000)%86400000</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>FORMAT('%.0f',FLOOR(FLOOR(ABS((unixepoch($!s0s!$.customdatetime1__c)-unixepoch($!s0s!$.customdatetime2__c))))/86400))||':'||TIME(FLOOR(ABS((unixepoch($!s0s!$.customdatetime1__c)-unixepoch($!s0s!$.customdatetime2__c)))),'unixepoch')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>FORMAT('%.0f',FLOOR(FLOOR(ABS((unixepoch($!s0s!$.customdatetime1__c)-unixepoch($!s0s!$.customdatetime2__c))))/86400))||':'||TIME(FLOOR(ABS((unixepoch($!s0s!$.customdatetime1__c)-unixepoch($!s0s!$.customdatetime2__c)))),'unixepoch')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

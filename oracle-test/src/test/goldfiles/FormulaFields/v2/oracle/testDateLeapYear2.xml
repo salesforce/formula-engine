@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateLeapYear2">
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(2012 || '-' || TO_CHAR(FLOOR(NVL($!s0s!$.month__c, 0))) || '-' || 29, 'YYYY-MM-DD')</Sql>
+       <Guard>NVL($!s0s!$.month__c, 0) is null  OR FLOOR(NVL($!s0s!$.month__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12)</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.month__c IS NULL THEN NULL ELSE TO_DATE(2012 || '-' || TO_CHAR(FLOOR($!s0s!$.month__c)) || '-' || 29, 'YYYY-MM-DD') END</Sql>
+       <Guard>NOT ($!s0s!$.month__c IS NULL ) AND ($!s0s!$.month__c is null  OR FLOOR($!s0s!$.month__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12))</Guard>
+    </SqlOutput>
+</testCase>

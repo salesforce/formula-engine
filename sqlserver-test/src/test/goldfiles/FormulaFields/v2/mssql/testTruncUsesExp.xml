@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTruncUsesExp">
+    <SqlOutput nullAsNull="false">
+       <Sql>ROUND(CAST(EXP(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,10)),CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN CEILING(ROUND(COALESCE($!s0s!$.customnumber2__c, 0),33)) ELSE FLOOR(ROUND(COALESCE($!s0s!$.customnumber2__c, 0),33)) END,1)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ROUND(CAST(EXP($!s0s!$.customnumber1__c) AS DECIMAL(38,10)),CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN CEILING(ROUND($!s0s!$.customnumber2__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber2__c,33)) END,1)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

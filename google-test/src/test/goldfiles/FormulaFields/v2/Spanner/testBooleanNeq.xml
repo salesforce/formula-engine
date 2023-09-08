@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBooleanNeq">
+    <SqlOutput nullAsNull="false">
+       <Sql>(CASE WHEN (COALESCE(CASE WHEN ($!s0s!$.customdate1__c&gt;$!s0s!$.customdate2__c) THEN '1' ELSE '0' END, '0') = '1') THEN 1 ELSE 0 END&lt;&gt;CASE WHEN ((COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') OR (COALESCE($!s0s!$.customcheckbox2__c, '0') = '1')) THEN 1 ELSE 0 END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(CASE WHEN (COALESCE(CASE WHEN ($!s0s!$.customdate1__c&gt;$!s0s!$.customdate2__c) THEN '1' ELSE '0' END, '0') = '1') THEN 1 ELSE 0 END&lt;&gt;CASE WHEN ((COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') OR (COALESCE($!s0s!$.customcheckbox2__c, '0') = '1')) THEN 1 ELSE 0 END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

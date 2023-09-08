@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCommentsInsideFormula">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (YEAR(__TODAY__)=2009) THEN 0 ELSE 0 END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (YEAR(__TODAY__)=2009) THEN 0 ELSE 0 END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

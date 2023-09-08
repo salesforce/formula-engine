@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesLn">
+    <SqlOutput nullAsNull="false">
+       <Sql>LOG(10, LN(NVL($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Guard>NVL($!s0s!$.customnumber1__c, 0)&lt;=0 OR LN(NVL($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LOG(10, LN($!s0s!$.customnumber1__c))</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0 OR LN($!s0s!$.customnumber1__c)&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateTimeGivingDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>TIMESTAMP_ADD($!s0s!$.customdatetime1__c, INTERVAL CAST(ROUND(COALESCE($!s0s!$.customnumber1__c, 0)*86400) AS INT64) SECOND)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TIMESTAMP_ADD($!s0s!$.customdatetime1__c, INTERVAL CAST(ROUND($!s0s!$.customnumber1__c*86400) AS INT64) SECOND)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

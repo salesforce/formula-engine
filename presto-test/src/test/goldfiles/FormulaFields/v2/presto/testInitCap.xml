@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testInitCap">
+    <SqlOutput nullAsNull="false">
+       <Sql>(array_join((transform((split(lower($!s0s!$.customtext1__c),' ')), x -&gt; concat(upper(substr(x,1,1)),substr(x,2,length(x))))),' ',''))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(array_join((transform((split(lower($!s0s!$.customtext1__c),' ')), x -&gt; concat(upper(substr(x,1,1)),substr(x,2,length(x))))),' ',''))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

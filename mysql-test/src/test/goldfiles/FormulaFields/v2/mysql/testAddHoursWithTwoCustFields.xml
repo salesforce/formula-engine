@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddHoursWithTwoCustFields">
+    <SqlOutput nullAsNull="false">
+       <Sql>TIME(DATE_ADD(TIME($!s0s!$.timeString__c),INTERVAL MOD(COALESCE($!s0s!$.customnumber1__c, 0)/1000,86400) SECOND))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TIME(DATE_ADD(TIME($!s0s!$.timeString__c),INTERVAL MOD($!s0s!$.customnumber1__c/1000,86400) SECOND))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

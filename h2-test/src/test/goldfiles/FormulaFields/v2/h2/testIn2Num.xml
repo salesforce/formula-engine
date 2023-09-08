@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2Num">
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE($!s0s!$.customnum__c, 0) IN (COALESCE($!s0s!$.customin1__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customnum__c IN ($!s0s!$.customin1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

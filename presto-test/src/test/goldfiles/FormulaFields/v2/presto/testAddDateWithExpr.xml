@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateWithExpr">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE_ADD('day', CAST(CAST(TRUNCATE(COALESCE($!s0s!$.customcurrency1__c, 0)) AS DECIMAL(38,18)) AS BIGINT), DATE_ADD('day', CAST(CAST(TRUNCATE(COALESCE((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdate2__c,$!s0s!$.customdate3__c) AS DECIMAL(38,10))/86400), 0)) AS DECIMAL(38,18)) AS BIGINT), DATE_ADD('day', CAST(CAST(TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0)) AS DECIMAL(38,18)) AS BIGINT), DATE_ADD('day', CAST(CAST(TRUNCATE(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0)) AS DECIMAL(38,18)) AS BIGINT), $!s0s!$.customdate1__c))))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE_ADD('day', CAST(CAST(TRUNCATE($!s0s!$.customcurrency1__c) AS DECIMAL(38,18)) AS BIGINT), DATE_ADD('day', CAST(CAST(TRUNCATE((CAST(-DATE_DIFF('SECOND',$!s0s!$.customdate2__c,$!s0s!$.customdate3__c) AS DECIMAL(38,10))/86400)) AS DECIMAL(38,18)) AS BIGINT), DATE_ADD('day', CAST(CAST(TRUNCATE($!s0s!$.customnumber1__c) AS DECIMAL(38,18)) AS BIGINT), DATE_ADD('day', CAST(CAST(TRUNCATE(($!s0s!$.custompercent1__c / (DECIMAL '100.'))) AS DECIMAL(38,18)) AS BIGINT), $!s0s!$.customdate1__c))))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

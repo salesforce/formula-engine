@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTimeGivingDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE_ADD('second', -CAST(ROUND(86400.0*COALESCE($!s0s!$.customnumber1__c, 0)) AS BIGINT), $!s0s!$.customdatetime1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE_ADD('second', -CAST(ROUND(86400.0*$!s0s!$.customnumber1__c) AS BIGINT), $!s0s!$.customdatetime1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

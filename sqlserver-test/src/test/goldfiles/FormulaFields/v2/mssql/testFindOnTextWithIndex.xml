@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFindOnTextWithIndex">
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(CHARINDEX($!s0s!$.customText1__c COLLATE Latin1_General_CS_AS, $!s0s!$.customText2__c, (COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1)+1+ABS(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1)-1))/2 ), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(CHARINDEX($!s0s!$.customText1__c COLLATE Latin1_General_CS_AS, $!s0s!$.customText2__c, (COALESCE($!s0s!$.customNumber__c, 1)+1+ABS(COALESCE($!s0s!$.customNumber__c, 1)-1))/2 ), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNullCompareWithEmptyString">
+    <SqlOutput nullAsNull="false">
+       <Sql>(NVL($!s0s!$.customText1__c, ''||'x')=$!s0s!$.customText1__c||'x')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(NVL($!s0s!$.customText1__c, ''||'x')=$!s0s!$.customText1__c||'x')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

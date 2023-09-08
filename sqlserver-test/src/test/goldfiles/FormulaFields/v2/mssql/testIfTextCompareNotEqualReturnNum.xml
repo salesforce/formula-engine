@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfTextCompareNotEqualReturnNum">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customtext2__c, 'x')) COLLATE Latin1_General_CS_AS&lt;&gt;COALESCE($!s0s!$.customtext2__c, CONCAT($!s0s!$.customtext1__c, 'x')) COLLATE Latin1_General_CS_AS) THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customtext2__c, 'x')) COLLATE Latin1_General_CS_AS&lt;&gt;COALESCE($!s0s!$.customtext2__c, CONCAT($!s0s!$.customtext1__c, 'x')) COLLATE Latin1_General_CS_AS) THEN $!s0s!$.customnumber1__c ELSE ($!s0s!$.custompercent1__c / 100.0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

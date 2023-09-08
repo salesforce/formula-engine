@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesCeil">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(CAST(LN(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(CAST(LN(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber1__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber1__c,33)) END) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber1__c,33)) ELSE FLOOR(ROUND($!s0s!$.customnumber1__c,33)) END&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

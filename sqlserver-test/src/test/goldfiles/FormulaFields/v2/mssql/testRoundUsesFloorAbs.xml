@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRoundUsesFloorAbs">
+    <SqlOutput nullAsNull="false">
+       <Sql>ROUND(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE CEILING(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END, ABS(COALESCE($!s0s!$.customnumber2__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ROUND(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEILING(ROUND($!s0s!$.customnumber1__c,33)) END, ABS($!s0s!$.customnumber2__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

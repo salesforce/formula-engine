@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testShortCircuitingWithNullTerms">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.customdate1__c&gt;PARSEDATETIME(2000 || '-' || 1 || '-' || 1, 'yyyy-M-d', 'en', 'UTC')) AND (CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))&gt;0)) THEN 'True' ELSE 'False' END</Sql>
+       <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.customdate1__c&gt;PARSEDATETIME(2000 || '-' || 1 || '-' || 1, 'yyyy-M-d', 'en', 'UTC')) AND (CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))&gt;0)) THEN 'True' ELSE 'False' END</Sql>
+       <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')</Guard>
+    </SqlOutput>
+</testCase>

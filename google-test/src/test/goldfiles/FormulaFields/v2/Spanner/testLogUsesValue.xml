@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesValue">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(LOG10(CAST($!s0s!$.customtext1__c AS NUMERIC)) AS NUMERIC)</Sql>
+       <Guard>NOT REGEXP_CONTAINS(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$') OR CAST($!s0s!$.customtext1__c AS NUMERIC)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(LOG10(CAST($!s0s!$.customtext1__c AS NUMERIC)) AS NUMERIC)</Sql>
+       <Guard>NOT REGEXP_CONTAINS(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\\.|\\.0|0\\.0)([Ee][+-]?0)?$') OR CAST($!s0s!$.customtext1__c AS NUMERIC)&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

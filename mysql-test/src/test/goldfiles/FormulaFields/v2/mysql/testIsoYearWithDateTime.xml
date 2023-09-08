@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIsoYearWithDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(DATE_FORMAT(TIMESTAMP($!s0s!$.dateString__c),'%x') AS DECIMAL(52,18))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(DATE_FORMAT(TIMESTAMP($!s0s!$.dateString__c),'%x') AS DECIMAL(52,18))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

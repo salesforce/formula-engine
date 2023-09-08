@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddHoursWithTwoCustFields">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(DATE_ADD('millisecond',CAST(COALESCE($!s0s!$.customnumber1__c, 0) AS BIGINT),CAST(date_parse($!s0s!$.timeString__c, '%H:%i:%s.%f') as TIME)) AS TIME)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(DATE_ADD('millisecond',CAST($!s0s!$.customnumber1__c AS BIGINT),CAST(date_parse($!s0s!$.timeString__c, '%H:%i:%s.%f') as TIME)) AS TIME)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

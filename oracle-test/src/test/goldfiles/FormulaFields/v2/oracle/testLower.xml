@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLower">
+    <SqlOutput nullAsNull="false">
+       <Sql>NLS_LOWER($!s0s!$.customText1__c,'NLS_SORT=xwest_european')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>NLS_LOWER($!s0s!$.customText1__c,'NLS_SORT=xwest_european')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

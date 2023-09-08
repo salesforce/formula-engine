@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateTimeText">
+    <SqlOutput nullAsNull="false">
+       <Sql>(COALESCE(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', $!s0s!$.customdatetime1__c, 'UTC'),'')||COALESCE('Z' ,''))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(COALESCE(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', $!s0s!$.customdatetime1__c, 'UTC'),'')||COALESCE('Z' ,''))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

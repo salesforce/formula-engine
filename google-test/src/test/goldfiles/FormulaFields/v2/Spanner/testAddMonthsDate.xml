@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddMonthsDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>date_sub(date_add(date_add($!s0s!$.customdate1__c, interval  (CASE WHEN extract(day FROM (date_sub(date_add(date_trunc($!s0s!$.customdate1__c, month),interval 1 month), interval 1 day))) = extract(day FROM (date_trunc($!s0s!$.customdate1__c, day))) THEN 1 ELSE 0 END) day),interval CAST(TRUNC(COALESCE($!s0s!$.customnumber1__c, 0)) AS INT64) month), interval  (CASE WHEN extract(day FROM (date_sub(date_add(date_trunc($!s0s!$.customdate1__c, month),interval 1 month), interval 1 day))) = extract(day FROM (date_trunc($!s0s!$.customdate1__c, day))) THEN 1 ELSE 0 END) day)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>date_sub(date_add(date_add($!s0s!$.customdate1__c, interval  (CASE WHEN extract(day FROM (date_sub(date_add(date_trunc($!s0s!$.customdate1__c, month),interval 1 month), interval 1 day))) = extract(day FROM (date_trunc($!s0s!$.customdate1__c, day))) THEN 1 ELSE 0 END) day),interval CAST(TRUNC($!s0s!$.customnumber1__c) AS INT64) month), interval  (CASE WHEN extract(day FROM (date_sub(date_add(date_trunc($!s0s!$.customdate1__c, month),interval 1 month), interval 1 day))) = extract(day FROM (date_trunc($!s0s!$.customdate1__c, day))) THEN 1 ELSE 0 END) day)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

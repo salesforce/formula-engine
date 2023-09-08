@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateWithExpr">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdate1__c, INTERVAL ROUND(TRUNCATE(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0),0)*86400) SECOND), INTERVAL ROUND(TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0),0)*86400) SECOND), INTERVAL ROUND(TRUNCATE(COALESCE((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate3__c)/86400), 0),0)*86400) SECOND), INTERVAL ROUND(TRUNCATE(COALESCE($!s0s!$.customcurrency1__c, 0),0)*86400) SECOND)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE_ADD(DATE_ADD(DATE_ADD(DATE_ADD($!s0s!$.customdate1__c, INTERVAL ROUND(TRUNCATE(($!s0s!$.custompercent1__c / 100.0),0)*86400) SECOND), INTERVAL ROUND(TRUNCATE($!s0s!$.customnumber1__c,0)*86400) SECOND), INTERVAL ROUND(TRUNCATE((-TIMESTAMPDIFF(SECOND,$!s0s!$.customdate2__c,$!s0s!$.customdate3__c)/86400),0)*86400) SECOND), INTERVAL ROUND(TRUNCATE($!s0s!$.customcurrency1__c,0)*86400) SECOND)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

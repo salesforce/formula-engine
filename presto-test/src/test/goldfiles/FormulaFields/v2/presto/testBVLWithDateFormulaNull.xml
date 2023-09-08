@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBVLWithDateFormulaNull">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(from_iso8601_date(CONCAT(CAST(2000 AS VARCHAR),'-',CAST(1 AS VARCHAR),'-',CAST(1 AS VARCHAR))) AS TIMESTAMP)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(from_iso8601_date(CONCAT(CAST(2000 AS VARCHAR),'-',CAST(1 AS VARCHAR),'-',CAST(1 AS VARCHAR))) AS TIMESTAMP)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

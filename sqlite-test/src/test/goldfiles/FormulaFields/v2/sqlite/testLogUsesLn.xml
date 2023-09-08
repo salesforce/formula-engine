@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesLn">
+    <SqlOutput nullAsNull="false">
+       <Sql>LOG10((LOG10(COALESCE($!s0s!$.customnumber1__c, 0))*2.30258509299))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0 OR (LOG10(COALESCE($!s0s!$.customnumber1__c, 0))*2.30258509299)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LOG10((LOG10($!s0s!$.customnumber1__c)*2.30258509299))</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0 OR (LOG10($!s0s!$.customnumber1__c)*2.30258509299)&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

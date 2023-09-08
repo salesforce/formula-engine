@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTimeValueWithValidString">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(PARSEDATETIME('10:40:55.666','HH:mm:ss[.SSS]','en','UTC') as TIME(3))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(PARSEDATETIME('10:40:55.666','HH:mm:ss[.SSS]','en','UTC') as TIME(3))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

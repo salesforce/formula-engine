@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFindOnTextWithIndex">
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(INSTR($!s0s!$.customText2__c, $!s0s!$.customText1__c, GREATEST(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1),1)), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(INSTR($!s0s!$.customText2__c, $!s0s!$.customText1__c, GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1)), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>SUBSTR(CAST(CAST(date_parse($!s0s!$.dateString__c, '%H:%i:%s.%f') as TIME) AS VARCHAR),1,12)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>SUBSTR(CAST(CAST(date_parse($!s0s!$.dateString__c, '%H:%i:%s.%f') as TIME) AS VARCHAR),1,12)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

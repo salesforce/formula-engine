@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testArcTan2">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(ATN2(COALESCE($!s0s!$.customnumber1__c, 0),COALESCE($!s0s!$.customnumber2__c, 0)) AS DECIMAL(38,18))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber2__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(ATN2($!s0s!$.customnumber1__c,$!s0s!$.customnumber2__c) AS DECIMAL(38,18))</Sql>
+       <Guard>$!s0s!$.customnumber2__c=0</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfOrNull">
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(CASE WHEN ((1=0) OR (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1')) THEN 'T' ELSE 'F' END,'')||COALESCE(CASE WHEN ((COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') OR (1=0)) THEN 'T' ELSE 'F' END,'')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(CASE WHEN ((1=0) OR (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1')) THEN 'T' ELSE 'F' END,'')||COALESCE(CASE WHEN ((COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') OR (1=0)) THEN 'T' ELSE 'F' END,'')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

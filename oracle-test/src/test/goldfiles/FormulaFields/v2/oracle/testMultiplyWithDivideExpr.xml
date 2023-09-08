@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMultiplyWithDivideExpr">
+    <SqlOutput nullAsNull="false">
+       <Sql>(NVL((NVL(($!s0s!$.custompercent1__c / 100.0), 0)/NVL($!s0s!$.customcurrency1__c, 0)), 0) * NVL($!s0s!$.customnumber1__c, 0))</Sql>
+       <Guard>NVL($!s0s!$.customcurrency1__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>((($!s0s!$.custompercent1__c / 100.0)/$!s0s!$.customcurrency1__c) * $!s0s!$.customnumber1__c)</Sql>
+       <Guard>$!s0s!$.customcurrency1__c=0</Guard>
+    </SqlOutput>
+</testCase>

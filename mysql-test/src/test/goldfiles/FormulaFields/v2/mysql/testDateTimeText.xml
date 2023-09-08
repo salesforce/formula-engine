@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateTimeText">
+    <SqlOutput nullAsNull="false">
+       <Sql>(CONCAT_WS(&quot;&quot;,CONVERT($!s0s!$.customdatetime1__c,CHAR), 'Z' ))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(CONCAT_WS(&quot;&quot;,CONVERT($!s0s!$.customdatetime1__c,CHAR), 'Z' ))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

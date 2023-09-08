@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateTimeValueWithValidString">
+    <SqlOutput nullAsNull="false">
+       <Sql>PARSEDATETIME(TRIM('2005-11-15 17:00:00 '), 'yyyy-M-d H:m:s', 'en', 'UTC')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>PARSEDATETIME(TRIM('2005-11-15 17:00:00 '), 'yyyy-M-d H:m:s', 'en', 'UTC')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

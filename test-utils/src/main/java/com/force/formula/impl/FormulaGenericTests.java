@@ -47,6 +47,7 @@ import java.util.logging.Logger;
  * @author syendluri, dchasman, aballard
  * @since 0.1.0
  */
+@Deprecated
 public abstract class FormulaGenericTests extends BaseFormulaGenericTests {
     private static final Logger logger = Logger.getLogger("com.force.formula");
 

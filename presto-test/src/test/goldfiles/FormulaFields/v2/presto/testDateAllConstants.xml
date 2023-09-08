@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateAllConstants">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(from_iso8601_date(CONCAT(CAST(2012 AS VARCHAR),'-',CAST(2 AS VARCHAR),'-',CAST(29 AS VARCHAR))) AS TIMESTAMP)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(from_iso8601_date(CONCAT(CAST(2012 AS VARCHAR),'-',CAST(2 AS VARCHAR),'-',CAST(29 AS VARCHAR))) AS TIMESTAMP)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

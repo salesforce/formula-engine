@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFloorRound">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ((COALESCE($!s0s!$.customnumber1__c, 0)/COALESCE($!s0s!$.customnumber2__c, 0)) * COALESCE($!s0s!$.customnumber2__c, 0))&gt;=0 THEN FLOOR(((COALESCE($!s0s!$.customnumber1__c, 0)/COALESCE($!s0s!$.customnumber2__c, 0)) * COALESCE($!s0s!$.customnumber2__c, 0))) ELSE CEIL(((COALESCE($!s0s!$.customnumber1__c, 0)/COALESCE($!s0s!$.customnumber2__c, 0)) * COALESCE($!s0s!$.customnumber2__c, 0))) END</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber2__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) * $!s0s!$.customnumber2__c)&gt;=0 THEN FLOOR((($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) * $!s0s!$.customnumber2__c)) ELSE CEIL((($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) * $!s0s!$.customnumber2__c)) END</Sql>
+       <Guard>$!s0s!$.customnumber2__c=0</Guard>
+    </SqlOutput>
+</testCase>

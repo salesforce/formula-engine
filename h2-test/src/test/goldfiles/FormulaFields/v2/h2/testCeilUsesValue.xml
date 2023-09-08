@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCeilUsesValue">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))&gt;=0 THEN CEIL(ROUND(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)),33)) ELSE FLOOR(ROUND(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)),33)) END</Sql>
+       <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN CAST($!s0s!$.customtext1__c AS DECIMAL(38,18))&gt;=0 THEN CEIL(ROUND(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)),33)) ELSE FLOOR(ROUND(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)),33)) END</Sql>
+       <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')</Guard>
+    </SqlOutput>
+</testCase>

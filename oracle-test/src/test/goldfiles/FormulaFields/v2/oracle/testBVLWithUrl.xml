@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBVLWithUrl">
+    <SqlOutput nullAsNull="false">
+       <Sql>NVL($!s0s!$.customurl1__c, $!s0s!$.customtextarea1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>NVL($!s0s!$.customurl1__c, $!s0s!$.customtextarea1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

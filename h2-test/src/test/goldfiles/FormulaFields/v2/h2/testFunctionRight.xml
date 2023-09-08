@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFunctionRight">
+    <SqlOutput nullAsNull="false">
+       <Sql>RIGHT($!s0s!$.customtext__c, GREATEST(COALESCE($!s0s!$.customnumber__c, 0),0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>RIGHT($!s0s!$.customtext__c, GREATEST($!s0s!$.customnumber__c,0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

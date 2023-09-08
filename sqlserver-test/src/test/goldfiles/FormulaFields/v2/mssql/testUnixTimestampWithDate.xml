@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testUnixTimestampWithDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATEDIFF_BIG(second, '1970-01-01', $!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEDIFF_BIG(second, '1970-01-01', $!s0s!$.customdate1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

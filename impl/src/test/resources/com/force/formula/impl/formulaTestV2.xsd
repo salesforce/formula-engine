@@ -38,6 +38,15 @@
         </xs:annotation>
     </xs:attribute>
 
+    <xs:attribute name="scale" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                The scale that should be used for a particular field.
+                By default, it is set to 2.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
     <xs:attribute name="executionPaths" type="xs:string">
         <xs:annotation>
             <xs:documentation>
@@ -96,6 +105,7 @@
             <xs:attribute ref="fieldName" use="required"/>
             <xs:attribute ref="dataType" use="required"/>
             <xs:attribute ref="formula" use="required"/>
+            <xs:attribute ref="scale"/>
             <xs:attribute ref="executionPaths" use="required"/>
         </xs:complexType>
     </xs:element>
@@ -108,6 +118,7 @@
             <xs:attribute ref="fieldName" use="required"/>
             <xs:attribute ref="dataType" use="required"/>
             <xs:attribute ref="formula"/>
+            <xs:attribute ref="scale"/>
         </xs:complexType>
     </xs:element>
 

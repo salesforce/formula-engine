@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithTextFunc">
+    <SqlOutput nullAsNull="false">
+       <Sql>((((NVL($!s0s!$.customnumber1__c, 0)+NVL(TO_NUMBER($!s0s!$.customtext1__c), 0))+NVL($!s0s!$.customnumber2__c, 0))+NVL(NVL(LENGTH($!s0s!$.customtext2__c),0), 0))+NVL((NVL(($!s0s!$.custompercent1__c / 100.0), 0) * NVL($!s0s!$.customcurrency1__c, 0)), 0))</Sql>
+       <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(((($!s0s!$.customnumber1__c+TO_NUMBER($!s0s!$.customtext1__c))+$!s0s!$.customnumber2__c)+NVL(LENGTH($!s0s!$.customtext2__c),0))+(($!s0s!$.custompercent1__c / 100.0) * $!s0s!$.customcurrency1__c))</Sql>
+       <Guard>NOT REGEXP_LIKE(REGEXP_REPLACE($!s0s!$.customtext1__c,'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$')</Guard>
+    </SqlOutput>
+</testCase>

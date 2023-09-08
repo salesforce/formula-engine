@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISBLANKWithCur">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customcurrency1__c, 0) IS NULL) THEN 0 ELSE COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customcurrency1__c IS NULL) THEN 0 ELSE ($!s0s!$.custompercent1__c / 100.0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

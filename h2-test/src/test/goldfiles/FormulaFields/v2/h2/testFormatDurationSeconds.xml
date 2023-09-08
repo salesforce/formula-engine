@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationSeconds">
+    <SqlOutput nullAsNull="false">
+       <Sql>NVL2(TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0))),TO_CHAR(TRUNC((TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0))))/3600),'FM99999909')||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0))))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(TRUNC(ABS(COALESCE($!s0s!$.customNumber1__c, 0)))),60),'FM09'),NULL)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>NVL2(TRUNC(ABS($!s0s!$.customNumber1__c)),TO_CHAR(TRUNC((TRUNC(ABS($!s0s!$.customNumber1__c)))/3600),'FM99999909')||':'||TO_CHAR(MOD(TRUNC((TRUNC(ABS($!s0s!$.customNumber1__c)))/60),60),'FM09')||':'||TO_CHAR(MOD(TRUNC(TRUNC(ABS($!s0s!$.customNumber1__c))),60),'FM09'),NULL)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

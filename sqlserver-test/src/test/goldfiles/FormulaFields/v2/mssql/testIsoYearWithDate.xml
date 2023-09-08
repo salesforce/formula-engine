@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIsoYearWithDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>YEAR(DATEADD(day, 26 - DATEPART(isoww, $!s0s!$.customdate1__c), $!s0s!$.customdate1__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>YEAR(DATEADD(day, 26 - DATEPART(isoww, $!s0s!$.customdate1__c), $!s0s!$.customdate1__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

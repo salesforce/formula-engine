@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfNullNullIf">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (NULL=0) THEN 'true' ELSE 'false' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (NULL=0) THEN 'true' ELSE 'false' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>
