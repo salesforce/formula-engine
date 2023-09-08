@@ -517,7 +517,8 @@
         <module>google-test</module>
         <module>sqlite-test</module>
         <module>h2-test</module>
-        <module>presto-test</module>
+        <!-- Running Presto is really slow, so comment it out as earlier -->
+        <!-- <module>presto-test</module> -->
         <module>docs/coverage</module>
       </modules>
     </profile>

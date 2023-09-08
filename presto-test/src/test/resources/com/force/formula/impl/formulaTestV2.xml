@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <formula-test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:noNamespaceSchemaLocation="/com/force/formula/impl/formulaTestV2.xsd">
-
-   <!--
-   For all testcases, all fields are created using a scale of 2 unless a scale is defined for that field.
-   See testMultiplyWithDivideExpr as an example.
-   -->
-
-
    <testcase testName="testDateTimeValueWithInvalidString"
              fieldName="testDateTimeValueWithInvalidString"
              dataType="DateOnly"
