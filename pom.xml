@@ -514,10 +514,9 @@
         <module>oracle-test</module>
         <module>mysql-test</module>
         <module>sqlserver-test</module>
-        <!-- Commenting Spanner as it is taking too long to execute in jenkins -->
-        <!-- <module>google-test</module> -->
         <module>sqlite-test</module>
         <module>h2-test</module>
+        <module>google-test</module>
         <!-- Running Presto is really slow, so comment it out as earlier -->
         <!-- <module>presto-test</module> -->
         <module>docs/coverage</module>

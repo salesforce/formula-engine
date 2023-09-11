@@ -77,6 +77,11 @@
           <artifactId>formula-engine-sqlite-test</artifactId>
           <version>${project.version}</version>
         </dependency>
+        <dependency>
+          <groupId>com.salesforce.formula</groupId>
+          <artifactId>formula-engine-google-test</artifactId>
+          <version>${project.version}</version>
+        </dependency>
       </dependencies>
     </profile>
     <profile>
@@ -85,16 +90,6 @@
         <dependency>
           <groupId>com.salesforce.formula</groupId>
           <artifactId>formula-engine-presto-test</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>google-spanner</id>
-      <dependencies>
-        <dependency>
-          <groupId>com.salesforce.formula</groupId>
-          <artifactId>formula-engine-google-test</artifactId>
           <version>${project.version}</version>
         </dependency>
       </dependencies>
