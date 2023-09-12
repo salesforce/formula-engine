@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNVLWithPer">
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0'))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,context.record.customnumber1__c)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,context.record.customnumber1__c)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(($!s0s!$.custompercent1__c / 100.0), $!s0s!$.customnumber1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

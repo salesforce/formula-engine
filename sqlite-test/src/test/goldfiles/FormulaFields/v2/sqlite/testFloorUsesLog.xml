@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFloorUsesLog">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN LOG10(COALESCE($!s0s!$.customnumber1__c, 0))&gt;=0 THEN FLOOR(LOG10(COALESCE($!s0s!$.customnumber1__c, 0))) ELSE CEIL(LOG10(COALESCE($!s0s!$.customnumber1__c, 0))) END</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN LOG10($!s0s!$.customnumber1__c)&gt;=0 THEN FLOOR(LOG10($!s0s!$.customnumber1__c)) ELSE CEIL(LOG10($!s0s!$.customnumber1__c)) END</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfContainsFunc">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.customtext2__c IS NULL) OR (STRPOS($!s0s!$.customtext1__c, $!s0s!$.customtext2__c) &gt;= 1)) THEN ABS(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN FLOOR(ROUND(COALESCE($!s0s!$.customnumber2__c, 0),33)) ELSE CEIL(ROUND(COALESCE($!s0s!$.customnumber2__c, 0),33)) END END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.customtext2__c IS NULL) OR (STRPOS($!s0s!$.customtext1__c, $!s0s!$.customtext2__c) &gt;= 1)) THEN COALESCE(ABS($!s0s!$.customnumber1__c),CAST(NULL AS DECIMAL(38,18))) ELSE COALESCE(CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber2__c,33)) ELSE CEIL(ROUND($!s0s!$.customnumber2__c,33)) END,CAST(NULL AS DECIMAL(38,18))) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

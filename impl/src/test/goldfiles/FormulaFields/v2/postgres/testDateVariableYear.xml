@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateVariableYear">
+    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,new $F.Decimal('0')).toNumber(),new $F.Decimal('2').toNumber()-1,new $F.Decimal('29').toNumber()))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,0),2-1,29))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.year__c!=null)?(new Date(Date.UTC(context.record.year__c,2-1,29))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.year__c!=null)?(new Date(Date.UTC(context.record.year__c.toNumber(),new $F.Decimal('2').toNumber()-1,new $F.Decimal('29').toNumber()))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(CAST(FLOOR(COALESCE($!s0s!$.year__c, 0)) AS TEXT) || '-' || 2 || '-' || 29, 'YYYY-MM-DD')</Sql>
+       <Guard>COALESCE($!s0s!$.year__c, 0) is null OR COALESCE($!s0s!$.year__c, 0)&lt; 1 OR COALESCE($!s0s!$.year__c, 0)&gt; 9999 OR  29 &gt;= EXTRACT(DAY FROM (date_trunc('month',TO_DATE(FLOOR(COALESCE($!s0s!$.year__c, 0)) || '-' || 2,'YYYY-MM'))+ interval '1 month -1 day')::timestamp(0))::numeric+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.year__c IS NULL THEN NULL ELSE TO_DATE(CAST(FLOOR($!s0s!$.year__c) AS TEXT) || '-' || 2 || '-' || 29, 'YYYY-MM-DD') END</Sql>
+       <Guard>NOT ($!s0s!$.year__c IS NULL ) AND ($!s0s!$.year__c is null OR $!s0s!$.year__c&lt; 1 OR $!s0s!$.year__c&gt; 9999 OR  29 &gt;= EXTRACT(DAY FROM (date_trunc('month',TO_DATE(FLOOR($!s0s!$.year__c) || '-' || 2,'YYYY-MM'))+ interval '1 month -1 day')::timestamp(0))::numeric+1 )</Guard>
+    </SqlOutput>
+</testCase>

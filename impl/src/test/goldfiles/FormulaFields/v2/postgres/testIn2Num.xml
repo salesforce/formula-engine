@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2Num">
+    <JsOutput highPrec="true" nullAsNull="false">([($F.nvl(context.record.customin1__c,new $F.Decimal('0')).toNumber())].filter(e=&gt;e!=null).indexOf(($F.nvl(context.record.customnum__c,new $F.Decimal('0')).toNumber()))&gt;=0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">([$F.nvl(context.record.customin1__c,0)].filter(e=&gt;e!=null).indexOf($F.nvl(context.record.customnum__c,0))&gt;=0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">([context.record.customin1__c].filter(e=&gt;e!=null).indexOf(context.record.customnum__c)&gt;=0)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">([($F.anl([context.record.customin1__c])?null:context.record.customin1__c.toNumber())].filter(e=&gt;e!=null).indexOf(($F.anl([context.record.customnum__c])?null:context.record.customnum__c.toNumber()))&gt;=0)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE($!s0s!$.customnum__c, 0) IN (COALESCE($!s0s!$.customin1__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customnum__c IN ($!s0s!$.customin1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

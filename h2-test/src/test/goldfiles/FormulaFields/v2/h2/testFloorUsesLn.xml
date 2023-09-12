@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFloorUsesLn">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN LN(COALESCE($!s0s!$.customnumber1__c, 0))&gt;=0 THEN FLOOR(ROUND(LN(COALESCE($!s0s!$.customnumber1__c, 0)),33)) ELSE CEIL(ROUND(LN(COALESCE($!s0s!$.customnumber1__c, 0)),33)) END</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN LN($!s0s!$.customnumber1__c)&gt;=0 THEN FLOOR(ROUND(LN($!s0s!$.customnumber1__c),33)) ELSE CEIL(ROUND(LN($!s0s!$.customnumber1__c),33)) END</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

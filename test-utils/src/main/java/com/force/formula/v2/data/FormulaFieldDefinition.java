@@ -32,7 +32,12 @@ public class FormulaFieldDefinition {
      */
     private List<FormulaFieldDefinition> referenceFields;
 
-    public FormulaFieldDefinition(String fieldName, FormulaDataType dataType, String formula, List<FormulaFieldDefinition> referenceFields) {
+    /**
+     * scale to be used for the field
+     */
+    private int scale;
+
+    public FormulaFieldDefinition(String fieldName, FormulaDataType dataType, String formula, List<FormulaFieldDefinition> referenceFields, int scale) {
         Validate.notEmpty(fieldName,"fieldName cannot be null or empty");
         Validate.notNull(dataType,"each field needs to have a dataType and it cannot be null");
         //formula for a custom reference field can be null or empty
@@ -41,6 +46,7 @@ public class FormulaFieldDefinition {
         this.dataType = dataType;
         this.formula = formula;
         this.referenceFields = referenceFields;
+        this.scale = scale;
     }
 
     /**
@@ -73,6 +79,10 @@ public class FormulaFieldDefinition {
      */
     public List<FormulaFieldDefinition> getReferenceFields() {
         return referenceFields;
+    }
+
+    public Integer getScale() {
+        return scale;
     }
 
     /**

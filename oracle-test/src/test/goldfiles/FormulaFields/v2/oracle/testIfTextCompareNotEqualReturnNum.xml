@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfTextCompareNotEqualReturnNum">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (NVL($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')&lt;&gt;NVL($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN NVL($!s0s!$.customnumber1__c, 0) ELSE NVL(($!s0s!$.custompercent1__c / 100.0), 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (NVL($!s0s!$.customtext1__c, $!s0s!$.customtext2__c||'x')&lt;&gt;NVL($!s0s!$.customtext2__c, $!s0s!$.customtext1__c||'x')) THEN $!s0s!$.customnumber1__c ELSE ($!s0s!$.custompercent1__c / 100.0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

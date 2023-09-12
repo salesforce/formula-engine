@@ -19,6 +19,7 @@ import java.io.IOException;
  * @author stamm
  * @since 0.1.11
  */
+@Deprecated
 public abstract class FormulaPostgreSQLTests extends FormulaGenericTests {
 	// If true, use docker for testing the postgres DB with testcontainers.org.  Otherwise, use embedded
 	// The embedded one is quicker and easier to manage.  Only difference as of Nov 2021 is an error message

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBVLWithDateFormulaNull">
+    <SqlOutput nullAsNull="false">
+       <Sql>PARSEDATETIME(2000 || '-' || 1 || '-' || 1, 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>PARSEDATETIME(2000 || '-' || 1 || '-' || 1, 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

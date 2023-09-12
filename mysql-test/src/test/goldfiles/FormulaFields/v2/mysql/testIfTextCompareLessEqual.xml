@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfTextCompareLessEqual">
+    <SqlOutput nullAsNull="false">
+       <Sql>(binary $!s0s!$.text1__c&lt;=binary $!s0s!$.text2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(binary $!s0s!$.text1__c&lt;=binary $!s0s!$.text2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

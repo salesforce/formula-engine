@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFunctionRight">
+    <SqlOutput nullAsNull="false">
+       <Sql>RIGHT($!s0s!$.customtext__c, ((COALESCE($!s0s!$.customnumber__c, 0) + ABS(COALESCE($!s0s!$.customnumber__c, 0)))/2))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>RIGHT($!s0s!$.customtext__c, (($!s0s!$.customnumber__c + ABS($!s0s!$.customnumber__c))/2))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

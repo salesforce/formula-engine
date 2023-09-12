@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBVLWithDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>NVL($!s0s!$.customdatetime1__c, $!s0s!$.customdatetime2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>NVL($!s0s!$.customdatetime1__c, $!s0s!$.customdatetime2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

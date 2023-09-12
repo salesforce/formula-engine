@@ -34,7 +34,8 @@ public class FormulaTestData {
     public FormulaTestData(String input, List<String> outputs, List<String> executionPaths, List<FormulaFieldDefinition> referenceFields) {
 
         List<FormulaFieldDefinition> inputFields = getAllFieldsForInputData(referenceFields);
-        String[] inputArray = input.trim().split(",");
+        //To make sure that split does not ignore the last empty input, we added a -1 in the following method call
+        String[] inputArray = input.trim().split(",",-1);
 
         Validate.isTrue((inputFields.size()==0)||((inputFields.size()>0) && (inputArray.length==inputFields.size())),"Each field needs to have a " +
                 "corresponding input value defined. Input Fields Size: " + inputFields.size()+" , Input Values Size: "

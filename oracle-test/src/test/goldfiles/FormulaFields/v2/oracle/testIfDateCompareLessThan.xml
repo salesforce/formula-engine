@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfDateCompareLessThan">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ($!s0s!$.customdate1__c&lt;$!s0s!$.customdate2__c) THEN NVL($!s0s!$.customdatetime1__c,TO_DATE(NULL)) ELSE NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customdate1__c&lt;$!s0s!$.customdate2__c) THEN NVL($!s0s!$.customdatetime1__c,TO_DATE(NULL)) ELSE NVL($!s0s!$.customdatetime2__c,TO_DATE(NULL)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorDateTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN  NOT REGEXP_LIKE ($!s0s!$.dateString__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$')/* Adding some comments to keep the same length for this guard as it was before improving to more robust guard*/ THEN TO_DATE('2005-11-15 17:00:00 ', 'YYYY-MM-DD HH24:MI:SS') ELSE TO_DATE($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS') END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN  NOT REGEXP_LIKE ($!s0s!$.dateString__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01]) ([01]?[0-9]|2[0-3]):[0-5]?\d:[0-5]?\d$')/* Adding some comments to keep the same length for this guard as it was before improving to more robust guard*/ THEN TO_DATE('2005-11-15 17:00:00 ', 'YYYY-MM-DD HH24:MI:SS') ELSE TO_DATE($!s0s!$.dateString__c, 'YYYY-MM-DD HH24:MI:SS') END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

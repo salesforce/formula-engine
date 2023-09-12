@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorTextTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 1=0 THEN NULL ELSE SUBSTRING(CONVERT(TIME($!s0s!$.dateString__c),CHAR),1,12) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 1=0 THEN NULL ELSE SUBSTRING(CONVERT(TIME($!s0s!$.dateString__c),CHAR),1,12) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

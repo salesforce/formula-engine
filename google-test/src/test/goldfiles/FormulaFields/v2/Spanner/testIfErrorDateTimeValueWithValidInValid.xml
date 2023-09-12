@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorDateTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 1=0 THEN PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', TRIM('2005-11-15 17:00:00 '), 'UTC') ELSE PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', TRIM($!s0s!$.dateString__c), 'UTC') END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 1=0 THEN PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', TRIM('2005-11-15 17:00:00 '), 'UTC') ELSE PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', TRIM($!s0s!$.dateString__c), 'UTC') END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

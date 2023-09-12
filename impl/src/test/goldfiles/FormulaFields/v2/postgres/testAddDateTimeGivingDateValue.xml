@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateTimeGivingDateValue">
+    <JsOutput highPrec="true" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c))!=null)?(new Date((new Date(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)).getTime()+(Math.round(86400*($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))))*1000))).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c))!=null)?(new Date((new Date(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)).getTime()+(Math.round(86400*($F.nvl(context.record.customnumber1__c,0)))*1000))).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c))!=null&amp;&amp;context.record.customnumber1__c!=null)?(new Date((new Date(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)).getTime()+(Math.round(86400*(context.record.customnumber1__c))*1000))).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c))!=null&amp;&amp;context.record.customnumber1__c!=null)?(new Date((new Date(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)).getTime()+(Math.round(86400*(context.record.customnumber1__c))*1000))).setUTCHours(0,0,0,0))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE_TRUNC('DAY', (($!s0s!$.customdatetime1__c+pg_catalog.make_interval(0,0,0,0,0,0,COALESCE($!s0s!$.customnumber1__c, 0)*86400.0))::timestamp(0) AT TIME ZONE 'UTC') AT TIME ZONE '__TZ_ID__')::timestamp</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE_TRUNC('DAY', (($!s0s!$.customdatetime1__c+pg_catalog.make_interval(0,0,0,0,0,0,$!s0s!$.customnumber1__c*86400.0))::timestamp(0) AT TIME ZONE 'UTC') AT TIME ZONE '__TZ_ID__')::timestamp</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

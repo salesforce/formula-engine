@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfTextCompareGreaterThan">
+    <SqlOutput nullAsNull="false">
+       <Sql>($!s0s!$.text1__c COLLATE Latin1_General_100_BIN2&gt;$!s0s!$.text2__c COLLATE Latin1_General_100_BIN2)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>($!s0s!$.text1__c COLLATE Latin1_General_100_BIN2&gt;$!s0s!$.text2__c COLLATE Latin1_General_100_BIN2)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

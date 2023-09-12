@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTruncUsesSqrt">
+    <SqlOutput nullAsNull="false">
+       <Sql>TRUNC(SQRT(NVL($!s0s!$.customnumber1__c, 0)), NVL($!s0s!$.customnumber2__c, 0))</Sql>
+       <Guard>NVL($!s0s!$.customnumber1__c, 0)&lt;0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TRUNC(SQRT($!s0s!$.customnumber1__c), $!s0s!$.customnumber2__c)</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;0</Guard>
+    </SqlOutput>
+</testCase>

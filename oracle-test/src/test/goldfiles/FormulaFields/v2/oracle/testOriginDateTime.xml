@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testOriginDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE('01-01-1900', 'DD-MM-YYYY')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE('01-01-1900', 'DD-MM-YYYY')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

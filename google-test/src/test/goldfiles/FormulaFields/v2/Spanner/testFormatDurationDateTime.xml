@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>CONCAT(FORMAT('%.0f',TRUNC(CAST(TRUNC(ABS(CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)),0) AS INT64)/86400)),':',FORMAT_TIMESTAMP('%H:%M:%S', timestamp_seconds(MOD(CAST(TRUNC(ABS(CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)),0) AS INT64),86400)),'UTC'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CONCAT(FORMAT('%.0f',TRUNC(CAST(TRUNC(ABS(CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)),0) AS INT64)/86400)),':',FORMAT_TIMESTAMP('%H:%M:%S', timestamp_seconds(MOD(CAST(TRUNC(ABS(CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)),0) AS INT64),86400)),'UTC'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

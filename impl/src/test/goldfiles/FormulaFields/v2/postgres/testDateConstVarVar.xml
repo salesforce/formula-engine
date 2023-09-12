@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateConstVarVar">
+    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC(new $F.Decimal('2012').toNumber(),$F.nvl(context.record.customnumber2__c,new $F.Decimal('0')).toNumber()-1,$F.nvl(context.record.customnumber3__c,new $F.Decimal('0')).toNumber()))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC(2012,$F.nvl(context.record.customnumber2__c,0)-1,$F.nvl(context.record.customnumber3__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber3__c!=null)?(new Date(Date.UTC(2012,context.record.customnumber2__c-1,context.record.customnumber3__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber3__c!=null)?(new Date(Date.UTC(new $F.Decimal('2012').toNumber(),context.record.customnumber2__c.toNumber()-1,context.record.customnumber3__c.toNumber()))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(2012 || '-' || CAST(FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) AS TEXT) || '-' || CAST(FLOOR(COALESCE($!s0s!$.customnumber3__c, 0)) AS TEXT), 'YYYY-MM-DD')</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber2__c, 0) is null  OR FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR COALESCE($!s0s!$.customnumber3__c, 0) is null OR COALESCE($!s0s!$.customnumber3__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber3__c, 0) &gt;= 32 OR  COALESCE($!s0s!$.customnumber3__c, 0) &gt;= EXTRACT(DAY FROM (date_trunc('month',TO_DATE(2012 || '-' || FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)),'YYYY-MM'))+ interval '1 month -1 day')::timestamp(0))::numeric+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customnumber2__c IS NULL THEN NULL WHEN $!s0s!$.customnumber3__c IS NULL THEN NULL ELSE TO_DATE(2012 || '-' || CAST(FLOOR($!s0s!$.customnumber2__c) AS TEXT) || '-' || CAST(FLOOR($!s0s!$.customnumber3__c) AS TEXT), 'YYYY-MM-DD') END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber2__c IS NULL OR $!s0s!$.customnumber3__c IS NULL ) AND ($!s0s!$.customnumber2__c is null  OR FLOOR($!s0s!$.customnumber2__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR $!s0s!$.customnumber3__c is null OR $!s0s!$.customnumber3__c&lt; 1 OR $!s0s!$.customnumber3__c &gt;= 32 OR  $!s0s!$.customnumber3__c &gt;= EXTRACT(DAY FROM (date_trunc('month',TO_DATE(2012 || '-' || FLOOR($!s0s!$.customnumber2__c),'YYYY-MM'))+ interval '1 month -1 day')::timestamp(0))::numeric+1 )</Guard>
+    </SqlOutput>
+</testCase>

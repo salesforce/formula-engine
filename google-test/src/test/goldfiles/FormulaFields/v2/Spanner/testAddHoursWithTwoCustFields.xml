@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddHoursWithTwoCustFields">
+    <SqlOutput nullAsNull="false">
+       <Sql>MOD(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.timeString__c, 'UTC')),86400000)+ROUND(MOD(CAST(COALESCE($!s0s!$.customnumber1__c, 0) AS NUMERIC), 86400000))+86400000,86400000)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>MOD(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.timeString__c, 'UTC')),86400000)+ROUND(MOD(CAST($!s0s!$.customnumber1__c AS NUMERIC), 86400000))+86400000,86400000)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

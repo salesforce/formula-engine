@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateConstVarVar">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE(CAST(2012 as INT64),CAST(CAST(FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) AS STRING) AS INT64),CAST(CAST(FLOOR(COALESCE($!s0s!$.customnumber3__c, 0)) AS STRING) AS INT64))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber2__c, 0) is null  OR FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR COALESCE($!s0s!$.customnumber3__c, 0) is null OR COALESCE($!s0s!$.customnumber3__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber3__c, 0) &gt;= 32 OR  COALESCE($!s0s!$.customnumber3__c, 0) &gt;= EXTRACT(DAY FROM DATE_SUB(DATE_ADD(DATE_TRUNC(DATE(CAST(2012 AS INT64),CAST(FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) AS INT64),1),month),interval 1 month), interval 1 day))+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customnumber2__c IS NULL THEN NULL WHEN $!s0s!$.customnumber3__c IS NULL THEN NULL ELSE DATE(CAST(2012 as INT64),CAST(CAST(FLOOR($!s0s!$.customnumber2__c) AS STRING) AS INT64),CAST(CAST(FLOOR($!s0s!$.customnumber3__c) AS STRING) AS INT64)) END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber2__c IS NULL OR $!s0s!$.customnumber3__c IS NULL ) AND ($!s0s!$.customnumber2__c is null  OR FLOOR($!s0s!$.customnumber2__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR $!s0s!$.customnumber3__c is null OR $!s0s!$.customnumber3__c&lt; 1 OR $!s0s!$.customnumber3__c &gt;= 32 OR  $!s0s!$.customnumber3__c &gt;= EXTRACT(DAY FROM DATE_SUB(DATE_ADD(DATE_TRUNC(DATE(CAST(2012 AS INT64),CAST(FLOOR($!s0s!$.customnumber2__c) AS INT64),1),month),interval 1 month), interval 1 day))+1 )</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testJsonValue">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(json_extract($!s0s!$.customjson__c,'$.Temperature') AS VARCHAR)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(json_extract($!s0s!$.customjson__c,'$.Temperature') AS VARCHAR)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

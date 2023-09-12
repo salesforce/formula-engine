@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTextFunctionWithDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>'2013-12-31 01:02:03Z'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>'2013-12-31 01:02:03Z'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

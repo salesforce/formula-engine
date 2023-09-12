@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFloorUsesAbs">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ABS(NVL($!s0s!$.customnumber1__c, 0))&gt;=0 THEN FLOOR(ROUND(ABS(NVL($!s0s!$.customnumber1__c, 0)),33)) ELSE CEIL(ROUND(ABS(NVL($!s0s!$.customnumber1__c, 0)),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ABS($!s0s!$.customnumber1__c)&gt;=0 THEN FLOOR(ROUND(ABS($!s0s!$.customnumber1__c),33)) ELSE CEIL(ROUND(ABS($!s0s!$.customnumber1__c),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

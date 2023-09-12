@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testJsonValue">
+    <SqlOutput nullAsNull="false">
+       <Sql>json_value($!s0s!$.customjson__c,CONCAT('$.', 'Temperature'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>json_value($!s0s!$.customjson__c,CONCAT('$.', 'Temperature'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

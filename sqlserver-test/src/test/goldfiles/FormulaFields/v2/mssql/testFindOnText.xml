@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFindOnText">
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(CHARINDEX('Text', $!s0s!$.customText1__c COLLATE Latin1_General_CS_AS), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(CHARINDEX('Text', $!s0s!$.customText1__c COLLATE Latin1_General_CS_AS), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

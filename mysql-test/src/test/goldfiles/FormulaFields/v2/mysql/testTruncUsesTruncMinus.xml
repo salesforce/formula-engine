@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTruncUsesTruncMinus">
+    <SqlOutput nullAsNull="false">
+       <Sql>TRUNCATE(TRUNCATE(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0),COALESCE($!s0s!$.customnumber1__c, 0)),COALESCE((COALESCE($!s0s!$.customcurrency1__c, 0)-COALESCE($!s0s!$.customcurrency2__c, 0)), 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TRUNCATE(TRUNCATE(($!s0s!$.custompercent1__c / 100.0),$!s0s!$.customnumber1__c),($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

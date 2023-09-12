@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMCeilSimple">
+    <SqlOutput nullAsNull="false">
+       <Sql>CEILING(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CEILING(ROUND($!s0s!$.customnumber1__c,33))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

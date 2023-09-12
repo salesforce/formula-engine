@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s')</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>date_parse(trim($!s0s!$.dateString__c), '%Y-%m-%d %H:%i:%s')</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

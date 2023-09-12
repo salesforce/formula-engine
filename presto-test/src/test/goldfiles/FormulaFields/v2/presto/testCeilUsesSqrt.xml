@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCeilUsesSqrt">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN SQRT(COALESCE($!s0s!$.customnumber1__c, 0))&gt;=0 THEN CEIL(ROUND(SQRT(COALESCE($!s0s!$.customnumber1__c, 0)),33)) ELSE FLOOR(ROUND(SQRT(COALESCE($!s0s!$.customnumber1__c, 0)),33)) END</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN SQRT($!s0s!$.customnumber1__c)&gt;=0 THEN CEIL(ROUND(SQRT($!s0s!$.customnumber1__c),33)) ELSE FLOOR(ROUND(SQRT($!s0s!$.customnumber1__c),33)) END</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;0</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testReverse">
+    <SqlOutput nullAsNull="false">
+       <Sql>REVERSE($!s0s!$.customtext1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>REVERSE($!s0s!$.customtext1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

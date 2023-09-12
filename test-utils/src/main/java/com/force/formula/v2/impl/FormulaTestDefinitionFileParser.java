@@ -7,6 +7,7 @@ import com.force.formula.v2.data.FormulaFieldDefinition;
 import com.force.formula.v2.data.FormulaTestData;
 import com.force.formula.v2.data.FormulaTestDefinition;
 import com.force.formula.v2.exception.FormulaFileParseException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -53,7 +54,7 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
         Document document;
 
         try{
-            File file = new File(absoluteFilePath);
+            File file = new File(this.getClass().getClassLoader().getResource(absoluteFilePath).getFile());
             DocumentBuilder builder = factory.newDocumentBuilder();
             document = builder.parse(file);
         }catch (ParserConfigurationException| SAXException | IOException ex){
@@ -85,6 +86,11 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
             String formulaFieldName = testCase.getAttribute("fieldName");
             String dataType = testCase.getAttribute("dataType");
             String formula = testCase.getAttribute("formula").trim();
+            String scaleValue = testCase.getAttribute("scale");
+            int scale = 2;
+            if(!StringUtils.isEmpty(scaleValue)){
+                scale = Integer.parseInt(scaleValue);
+            }
             List<String> executionPaths = Arrays.asList(testCase.getAttribute("executionPaths").trim().split("\\s*,\\s*"));
             List<FormulaFieldDefinition> referenceFields = extractReferenceFields(testCase);
             List<FormulaTestData> testData = extractTestData(testCase, executionPaths, referenceFields);
@@ -95,7 +101,7 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
 
             testCaseInfos.add(new FormulaTestDefinition(
                     testName,
-                    new FormulaFieldDefinition(formulaFieldName, formulaDataType, formula, referenceFields),
+                    new FormulaFieldDefinition(formulaFieldName, formulaDataType, formula, referenceFields, scale),
                     referenceFields,
                     executionPaths,
                     testData));
@@ -122,9 +128,14 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
                 String fieldName = field.getAttribute("fieldName");
                 String dataType = field.getAttribute("dataType");
                 String formula = field.getAttribute("formula").trim();
+                String scaleValue = field.getAttribute("scale");
+                int scale = 2;
+                if(!StringUtils.isEmpty(scaleValue)){
+                    scale = Integer.parseInt(scaleValue);
+                }
                 List<FormulaFieldDefinition> innerReferenceFields = extractReferenceFields(field);
                 FormulaDataType formulaDataType = Utils.getDataType(dataType);
-                referenceFields.add(new FormulaFieldDefinition(fieldName, formulaDataType, formula, innerReferenceFields));
+                referenceFields.add(new FormulaFieldDefinition(fieldName, formulaDataType, formula, innerReferenceFields, scale));
             }
         }
         //we don't want to return empty lists to keep things simple and uniform

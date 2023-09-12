@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorDateTimeValueWithInvalidString">
+    <JsOutput highPrec="true" nullAsNull="false">(Object.prototype.toString.call($F.parseDateTime(&quot;sample &quot;)) !== '[object Date]') || isNaN($F.parseDateTime(&quot;sample &quot;).getTime())?$F.parseDateTime(&quot;2005-11-15 17:00:00 &quot;):$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(Object.prototype.toString.call($F.parseDateTime(&quot;sample &quot;)) !== '[object Date]') || isNaN($F.parseDateTime(&quot;sample &quot;).getTime())?$F.parseDateTime(&quot;2005-11-15 17:00:00 &quot;):$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(Object.prototype.toString.call($F.parseDateTime(&quot;sample &quot;)) !== '[object Date]') || isNaN($F.parseDateTime(&quot;sample &quot;).getTime())?$F.parseDateTime(&quot;2005-11-15 17:00:00 &quot;):$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(Object.prototype.toString.call($F.parseDateTime(&quot;sample &quot;)) !== '[object Date]') || isNaN($F.parseDateTime(&quot;sample &quot;).getTime())?$F.parseDateTime(&quot;2005-11-15 17:00:00 &quot;):$F.parseDateTime(&quot;sample &quot;)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 0=0 THEN TO_TIMESTAMP('2005-11-15 17:00:00 ', 'YYYY-MM-DD HH24:MI:SS') ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 0=0 THEN TO_TIMESTAMP('2005-11-15 17:00:00 ', 'YYYY-MM-DD HH24:MI:SS') ELSE NULL END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

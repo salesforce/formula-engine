@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesMultiply">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(CAST(LOG10((COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0) * COALESCE($!s0s!$.customnumber1__c, 0))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>(COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0) * COALESCE($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(CAST(LOG10((($!s0s!$.custompercent1__c / (DECIMAL '100.')) * $!s0s!$.customnumber1__c)) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>(($!s0s!$.custompercent1__c / (DECIMAL '100.')) * $!s0s!$.customnumber1__c)&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMCeilRound">
+    <SqlOutput nullAsNull="false">
+       <Sql>CEILING(ROUND(((COALESCE($!s0s!$.customnumber1__c, 0)/COALESCE($!s0s!$.customnumber2__c, 0)) * COALESCE($!s0s!$.customnumber2__c, 0)),33))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber2__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CEILING(ROUND((($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) * $!s0s!$.customnumber2__c),33))</Sql>
+       <Guard>$!s0s!$.customnumber2__c=0</Guard>
+    </SqlOutput>
+</testCase>

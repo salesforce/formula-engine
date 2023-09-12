@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testChr">
+    <SqlOutput nullAsNull="false">
+       <Sql>NCHAR(ROUND(COALESCE($!s0s!$.customnumber__c, 0),0,1))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber__c, 0)&lt;1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>NCHAR(ROUND($!s0s!$.customnumber__c,0,1))</Sql>
+       <Guard>$!s0s!$.customnumber__c&lt;1</Guard>
+    </SqlOutput>
+</testCase>

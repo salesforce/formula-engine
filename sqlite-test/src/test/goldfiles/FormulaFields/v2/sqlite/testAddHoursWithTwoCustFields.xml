@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddHoursWithTwoCustFields">
+    <SqlOutput nullAsNull="false">
+       <Sql>strftime('%H:%M:%f',$!s0s!$.timeString__c,((COALESCE($!s0s!$.customnumber1__c, 0)/1000))|| ' seconds')</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>strftime('%H:%M:%f',$!s0s!$.timeString__c,(($!s0s!$.customnumber1__c/1000))|| ' seconds')</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

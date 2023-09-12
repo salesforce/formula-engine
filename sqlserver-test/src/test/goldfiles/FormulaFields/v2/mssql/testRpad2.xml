@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRpad2">
+    <SqlOutput nullAsNull="false">
+       <Sql>LEFT($!s0s!$.customText1__c+REPLICATE($!s0s!$.customText2__c,((COALESCE($!s0s!$.customNumber1__c, 0) + ABS(COALESCE($!s0s!$.customNumber1__c, 0)))/2)/LEN($!s0s!$.customText2__c)),((COALESCE($!s0s!$.customNumber1__c, 0) + ABS(COALESCE($!s0s!$.customNumber1__c, 0)))/2))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LEFT($!s0s!$.customText1__c+REPLICATE($!s0s!$.customText2__c,(($!s0s!$.customNumber1__c + ABS($!s0s!$.customNumber1__c))/2)/LEN($!s0s!$.customText2__c)),(($!s0s!$.customNumber1__c + ABS($!s0s!$.customNumber1__c))/2))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

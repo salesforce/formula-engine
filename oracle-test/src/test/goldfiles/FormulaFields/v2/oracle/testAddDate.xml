@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>($!s0s!$.customdate1__c+TRUNC(NVL($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>($!s0s!$.customdate1__c+TRUNC($!s0s!$.customnumber1__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

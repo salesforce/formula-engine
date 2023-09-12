@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBigDivideWithFunc">
+    <SqlOutput nullAsNull="false">
+       <Sql>(((NVL($!s0s!$.customnumber1__c, 0) * NVL($!s0s!$.customnumber2__c, 0))/POWER(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0)))), NVL($!s0s!$.customnumber2__c, 0))) * POWER(NVL($!s0s!$.customnumber3__c, 0), NVL($!s0s!$.customnumber3__c, 0)))</Sql>
+       <Guard>TRUNC(NVL($!s0s!$.customnumber3__c, 0))&lt;&gt;NVL($!s0s!$.customnumber3__c, 0) OR(NVL($!s0s!$.customnumber3__c, 0)&lt;&gt;0 AND LOG(10,ABS(NVL($!s0s!$.customnumber3__c, 0)))*NVL($!s0s!$.customnumber3__c, 0)&gt;38) OR NOT REGEXP_LIKE(REGEXP_REPLACE((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0))),'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$') OR TRUNC(NVL($!s0s!$.customnumber2__c, 0))&lt;&gt;NVL($!s0s!$.customnumber2__c, 0) OR(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0))))&lt;&gt;0 AND LOG(10,ABS(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0))))))*NVL($!s0s!$.customnumber2__c, 0)&gt;38) OR POWER(TO_NUMBER((TO_CHAR(NVL($!s0s!$.customnumber2__c, 0)))), NVL($!s0s!$.customnumber2__c, 0))=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>((($!s0s!$.customnumber1__c * $!s0s!$.customnumber2__c)/POWER(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c))), $!s0s!$.customnumber2__c)) * POWER($!s0s!$.customnumber3__c, $!s0s!$.customnumber3__c))</Sql>
+       <Guard>TRUNC($!s0s!$.customnumber3__c)&lt;&gt;$!s0s!$.customnumber3__c OR($!s0s!$.customnumber3__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customnumber3__c))*$!s0s!$.customnumber3__c&gt;38) OR NOT REGEXP_LIKE(REGEXP_REPLACE((TO_CHAR($!s0s!$.customnumber2__c)),'[0-9]+','0'),'^[+-]?(0|0\.|\.0|0\.0)([Ee][+-]?0)?$') OR TRUNC($!s0s!$.customnumber2__c)&lt;&gt;$!s0s!$.customnumber2__c OR(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c)))&lt;&gt;0 AND LOG(10,ABS(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c)))))*$!s0s!$.customnumber2__c&gt;38) OR POWER(TO_NUMBER((TO_CHAR($!s0s!$.customnumber2__c))), $!s0s!$.customnumber2__c)=0</Guard>
+    </SqlOutput>
+</testCase>

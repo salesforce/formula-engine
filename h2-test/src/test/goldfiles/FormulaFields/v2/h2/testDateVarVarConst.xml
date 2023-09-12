@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateVarVarConst">
+    <SqlOutput nullAsNull="false">
+       <Sql>PARSEDATETIME(CAST(FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) AS VARCHAR) || '-' || CAST(FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) AS VARCHAR) || '-' || 28, 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0) is null OR COALESCE($!s0s!$.customnumber1__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber1__c, 0)&gt; 9999 OR COALESCE($!s0s!$.customnumber2__c, 0) is null  OR FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= EXTRACT(DAY FROM dateadd(day,-1,dateadd(month,1,date_trunc(month,PARSEDATETIME(FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) || '-' || FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) || '-01','yyyy-M-d','en','UTC')))))+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customnumber1__c IS NULL THEN NULL WHEN $!s0s!$.customnumber2__c IS NULL THEN NULL ELSE PARSEDATETIME(CAST(FLOOR($!s0s!$.customnumber1__c) AS VARCHAR) || '-' || CAST(FLOOR($!s0s!$.customnumber2__c) AS VARCHAR) || '-' || 28, 'yyyy-M-d', 'en', 'UTC') END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber1__c IS NULL OR $!s0s!$.customnumber2__c IS NULL ) AND ($!s0s!$.customnumber1__c is null OR $!s0s!$.customnumber1__c&lt; 1 OR $!s0s!$.customnumber1__c&gt; 9999 OR $!s0s!$.customnumber2__c is null  OR FLOOR($!s0s!$.customnumber2__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  28 &gt;= EXTRACT(DAY FROM dateadd(day,-1,dateadd(month,1,date_trunc(month,PARSEDATETIME(FLOOR($!s0s!$.customnumber1__c) || '-' || FLOOR($!s0s!$.customnumber2__c) || '-01','yyyy-M-d','en','UTC')))))+1 )</Guard>
+    </SqlOutput>
+</testCase>

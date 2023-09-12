@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateVariableYear">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE(CONCAT(CONVERT(FLOOR(COALESCE($!s0s!$.year__c, 0)),CHAR),'-',2,'-',29))</Sql>
+       <Guard>COALESCE($!s0s!$.year__c, 0) is null OR COALESCE($!s0s!$.year__c, 0)&lt; 1 OR COALESCE($!s0s!$.year__c, 0)&gt; 9999 OR  29 &gt;= LAST_DAY(DATE(CONCAT(FLOOR(COALESCE($!s0s!$.year__c, 0)),'-',2,'-01')))+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.year__c IS NULL THEN NULL ELSE DATE(CONCAT(CONVERT(FLOOR($!s0s!$.year__c),CHAR),'-',2,'-',29)) END</Sql>
+       <Guard>NOT ($!s0s!$.year__c IS NULL ) AND ($!s0s!$.year__c is null OR $!s0s!$.year__c&lt; 1 OR $!s0s!$.year__c&gt; 9999 OR  29 &gt;= LAST_DAY(DATE(CONCAT(FLOOR($!s0s!$.year__c),'-',2,'-01')))+1 )</Guard>
+    </SqlOutput>
+</testCase>

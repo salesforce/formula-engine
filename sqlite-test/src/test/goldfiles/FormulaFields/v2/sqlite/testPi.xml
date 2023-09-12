@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testPi">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 12 &gt;= 0 THEN ROUND(PI(), 12) ELSE  ROUND(PI()*POWER(10,12))/POWER(10,12) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 12 &gt;= 0 THEN ROUND(PI(), 12) ELSE  ROUND(PI()*POWER(10,12))/POWER(10,12) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

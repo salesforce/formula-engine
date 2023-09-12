@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateNonLeapYear">
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE(2011 || '-' || 2 || '-' || TO_CHAR(FLOOR(NVL($!s0s!$.day__c, 0))), 'YYYY-MM-DD')</Sql>
+       <Guard>NVL($!s0s!$.day__c, 0) is null OR NVL($!s0s!$.day__c, 0)&lt; 1 OR NVL($!s0s!$.day__c, 0) &gt;= 32 OR NVL($!s0s!$.day__c, 0) &gt;= 29</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE TO_DATE(2011 || '-' || 2 || '-' || TO_CHAR(FLOOR($!s0s!$.day__c)), 'YYYY-MM-DD') END</Sql>
+       <Guard>NOT ($!s0s!$.day__c IS NULL ) AND ($!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR $!s0s!$.day__c &gt;= 29)</Guard>
+    </SqlOutput>
+</testCase>

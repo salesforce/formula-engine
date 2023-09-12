@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>MOD(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.dateString__c, 'UTC')),86400000)+ROUND(MOD(CAST(7200000 AS NUMERIC), 86400000))+86400000,86400000)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>MOD(MOD(UNIX_MILLIS(PARSE_TIMESTAMP('%H:%M:%E3S', $!s0s!$.dateString__c, 'UTC')),86400000)+ROUND(MOD(CAST(7200000 AS NUMERIC), 86400000))+86400000,86400000)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

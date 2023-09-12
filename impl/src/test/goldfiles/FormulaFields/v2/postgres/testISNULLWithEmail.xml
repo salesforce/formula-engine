@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISNULLWithEmail">
+    <JsOutput highPrec="true" nullAsNull="false">context.record.customtextarea1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">context.record.customtextarea1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">context.record.customtextarea1__c</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">context.record.customtextarea1__c</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customtextarea1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customtextarea1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

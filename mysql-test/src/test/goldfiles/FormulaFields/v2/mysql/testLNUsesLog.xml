@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesLog">
+    <SqlOutput nullAsNull="false">
+       <Sql>LN(LOG(10, COALESCE($!s0s!$.customnumber1__c, 0)))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0 OR LOG(10, COALESCE($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LN(LOG(10, $!s0s!$.customnumber1__c))</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0 OR LOG(10, $!s0s!$.customnumber1__c)&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

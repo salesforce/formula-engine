@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorSqrt">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN NVL($!s0s!$.customnumber1__c, 0)&lt;0 THEN (-1) ELSE SQRT(NVL($!s0s!$.customnumber1__c, 0)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customnumber1__c&lt;0 THEN (-1) ELSE SQRT($!s0s!$.customnumber1__c) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

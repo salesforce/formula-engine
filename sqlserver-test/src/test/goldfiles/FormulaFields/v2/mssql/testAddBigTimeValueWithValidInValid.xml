@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddBigTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATEADD(millisecond,93600000,CAST($!s0s!$.dateString__c as TIME))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEADD(millisecond,93600000,CAST($!s0s!$.dateString__c as TIME))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

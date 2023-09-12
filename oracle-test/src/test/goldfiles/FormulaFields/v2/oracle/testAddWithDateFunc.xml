@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithDateFunc">
+    <SqlOutput nullAsNull="false">
+       <Sql>((((NVL(EXTRACT(DAY FROM $!s0s!$.customdate1__c), 0)+NVL(EXTRACT(YEAR FROM $!s0s!$.customdate2__c), 0))+NVL($!s0s!$.customnumber1__c, 0))+NVL(EXTRACT(MONTH FROM $!s0s!$.customdate3__c), 0))+NVL(($!s0s!$.custompercent1__c / 100.0), 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>((((EXTRACT(DAY FROM $!s0s!$.customdate1__c)+EXTRACT(YEAR FROM $!s0s!$.customdate2__c))+$!s0s!$.customnumber1__c)+EXTRACT(MONTH FROM $!s0s!$.customdate3__c))+($!s0s!$.custompercent1__c / 100.0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

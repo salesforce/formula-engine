@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTruncUsesIf">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE($!s0s!$.customnumber2__c, 0) END) &gt; 0 THEN FLOOR(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE($!s0s!$.customnumber2__c, 0) END/POWER(10,-(COALESCE($!s0s!$.customnumber3__c, 0))))*POWER(10,-(COALESCE($!s0s!$.customnumber3__c, 0))) ELSE CEIL(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE($!s0s!$.customnumber2__c, 0) END*POWER(10,COALESCE($!s0s!$.customnumber3__c, 0)))/POWER(10,COALESCE($!s0s!$.customnumber3__c, 0)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customnumber2__c END) &gt; 0 THEN FLOOR(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customnumber2__c END/POWER(10,-($!s0s!$.customnumber3__c)))*POWER(10,-($!s0s!$.customnumber3__c)) ELSE CEIL(CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customnumber2__c END*POWER(10,$!s0s!$.customnumber3__c))/POWER(10,$!s0s!$.customnumber3__c) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

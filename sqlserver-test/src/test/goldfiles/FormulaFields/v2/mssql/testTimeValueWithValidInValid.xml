@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(CONVERT(DATETIME, $!s0s!$.dateString__c) as TIME)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(CONVERT(DATETIME, $!s0s!$.dateString__c) as TIME)</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

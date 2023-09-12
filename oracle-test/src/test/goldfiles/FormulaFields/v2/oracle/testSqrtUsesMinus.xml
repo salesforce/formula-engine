@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSqrtUsesMinus">
+    <SqlOutput nullAsNull="false">
+       <Sql>SQRT((NVL($!s0s!$.customcurrency1__c, 0)-NVL($!s0s!$.customcurrency2__c, 0)))</Sql>
+       <Guard>(NVL($!s0s!$.customcurrency1__c, 0)-NVL($!s0s!$.customcurrency2__c, 0))&lt;0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>SQRT(($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c))</Sql>
+       <Guard>($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c)&lt;0</Guard>
+    </SqlOutput>
+</testCase>

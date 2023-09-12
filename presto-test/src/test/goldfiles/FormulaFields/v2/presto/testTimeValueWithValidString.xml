@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTimeValueWithValidString">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(date_parse('10:40:55.666', '%H:%i:%s.%f') as TIME)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(date_parse('10:40:55.666', '%H:%i:%s.%f') as TIME)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

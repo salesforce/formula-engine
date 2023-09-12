@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNullNotEqualEmptyString">
+    <SqlOutput nullAsNull="false">
+       <Sql>(COALESCE($!s0s!$.customText1__c, CONCAT('', 'x')) COLLATE Latin1_General_CS_AS&lt;&gt;CONCAT($!s0s!$.customText1__c, 'x') COLLATE Latin1_General_CS_AS)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(COALESCE($!s0s!$.customText1__c, CONCAT('', 'x')) COLLATE Latin1_General_CS_AS&lt;&gt;CONCAT($!s0s!$.customText1__c, 'x') COLLATE Latin1_General_CS_AS)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

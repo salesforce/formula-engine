@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRoundUsesExp">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN CEIL(COALESCE($!s0s!$.customnumber2__c, 0)) ELSE FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) END &gt;= 0 THEN ROUND(EXP(COALESCE($!s0s!$.customnumber1__c, 0)), CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN CEIL(COALESCE($!s0s!$.customnumber2__c, 0)) ELSE FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) END) ELSE  ROUND(EXP(COALESCE($!s0s!$.customnumber1__c, 0))*POWER(10,CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN CEIL(COALESCE($!s0s!$.customnumber2__c, 0)) ELSE FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) END))/POWER(10,CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN CEIL(COALESCE($!s0s!$.customnumber2__c, 0)) ELSE FLOOR(COALESCE($!s0s!$.customnumber2__c, 0)) END) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN CEIL($!s0s!$.customnumber2__c) ELSE FLOOR($!s0s!$.customnumber2__c) END &gt;= 0 THEN ROUND(EXP($!s0s!$.customnumber1__c), CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN CEIL($!s0s!$.customnumber2__c) ELSE FLOOR($!s0s!$.customnumber2__c) END) ELSE  ROUND(EXP($!s0s!$.customnumber1__c)*POWER(10,CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN CEIL($!s0s!$.customnumber2__c) ELSE FLOOR($!s0s!$.customnumber2__c) END))/POWER(10,CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN CEIL($!s0s!$.customnumber2__c) ELSE FLOOR($!s0s!$.customnumber2__c) END) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

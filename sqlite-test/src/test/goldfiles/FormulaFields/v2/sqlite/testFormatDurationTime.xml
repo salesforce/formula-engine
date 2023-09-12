@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>FORMAT('%02.0f',FLOOR(FLOOR(ABS((unixepoch($!s0s!$.timeString1__c)-unixepoch($!s0s!$.timeString2__c))))/3600))||':'||strftime('%M:%S', FLOOR(ABS((unixepoch($!s0s!$.timeString1__c)-unixepoch($!s0s!$.timeString2__c)))), 'unixepoch')</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>FORMAT('%02.0f',FLOOR(FLOOR(ABS((unixepoch($!s0s!$.timeString1__c)-unixepoch($!s0s!$.timeString2__c))))/3600))||':'||strftime('%M:%S', FLOOR(ABS((unixepoch($!s0s!$.timeString1__c)-unixepoch($!s0s!$.timeString2__c)))), 'unixepoch')</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+</testCase>

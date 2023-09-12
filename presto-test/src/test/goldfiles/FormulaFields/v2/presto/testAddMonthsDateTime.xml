@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddMonthsDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>($!s0s!$.customdatetime1__c +  (CASE WHEN day(date_trunc('month', $!s0s!$.customdatetime1__c) + interval '1' month - interval '1' day) =       day(date_trunc('day', $!s0s!$.customdatetime1__c))  THEN interval '1' day ELSE interval '0' day END )  + ((interval '1' month)*TRUNCATE(COALESCE($!s0s!$.customnumber1__c, 0)))) -  (CASE WHEN day(date_trunc('month', $!s0s!$.customdatetime1__c) + interval '1' month - interval '1' day) =       day(date_trunc('day', $!s0s!$.customdatetime1__c))  THEN interval '1' day ELSE interval '0' day END ) </Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>($!s0s!$.customdatetime1__c +  (CASE WHEN day(date_trunc('month', $!s0s!$.customdatetime1__c) + interval '1' month - interval '1' day) =       day(date_trunc('day', $!s0s!$.customdatetime1__c))  THEN interval '1' day ELSE interval '0' day END )  + ((interval '1' month)*TRUNCATE($!s0s!$.customnumber1__c))) -  (CASE WHEN day(date_trunc('month', $!s0s!$.customdatetime1__c) + interval '1' month - interval '1' day) =       day(date_trunc('day', $!s0s!$.customdatetime1__c))  THEN interval '1' day ELSE interval '0' day END ) </Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

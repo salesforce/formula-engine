@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testJsonValue">
+    <JsOutput highPrec="true" nullAsNull="false">$F.tostr(JSON.parse(context.record.customjson__c||'{}')[&quot;Temperature&quot;])</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.tostr(JSON.parse(context.record.customjson__c||'{}')[&quot;Temperature&quot;])</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.tostr(JSON.parse(context.record.customjson__c||'{}')[&quot;Temperature&quot;])</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.tostr(JSON.parse(context.record.customjson__c||'{}')[&quot;Temperature&quot;])</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>json_extract_path_text($!s0s!$.customjson__c::json,'Temperature')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>json_extract_path_text($!s0s!$.customjson__c::json,'Temperature')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

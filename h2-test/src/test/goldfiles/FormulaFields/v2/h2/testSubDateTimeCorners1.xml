@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTimeCorners1">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (((CAST(-DATEDIFF(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400000) * 1440) * 60)&gt;=0 THEN FLOOR(ROUND((((CAST(-DATEDIFF(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400000) * 1440) * 60),33)) ELSE CEIL(ROUND((((CAST(-DATEDIFF(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400000) * 1440) * 60),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (((CAST(-DATEDIFF(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400000) * 1440) * 60)&gt;=0 THEN FLOOR(ROUND((((CAST(-DATEDIFF(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400000) * 1440) * 60),33)) ELSE CEIL(ROUND((((CAST(-DATEDIFF(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/86400000) * 1440) * 60),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

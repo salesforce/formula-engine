@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateLeapConstantMonth">
+    <SqlOutput nullAsNull="false">
+       <Sql>PARSEDATETIME(CAST(FLOOR(COALESCE($!s0s!$.year__c, 0)) AS VARCHAR) || '-' || 2 || '-' || CAST(FLOOR(COALESCE($!s0s!$.day__c, 0)) AS VARCHAR), 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard>COALESCE($!s0s!$.year__c, 0) is null OR COALESCE($!s0s!$.year__c, 0)&lt; 1 OR COALESCE($!s0s!$.year__c, 0)&gt; 9999 OR COALESCE($!s0s!$.day__c, 0) is null OR COALESCE($!s0s!$.day__c, 0)&lt; 1 OR COALESCE($!s0s!$.day__c, 0) &gt;= 32 OR  COALESCE($!s0s!$.day__c, 0) &gt;= EXTRACT(DAY FROM dateadd(day,-1,dateadd(month,1,date_trunc(month,PARSEDATETIME(FLOOR(COALESCE($!s0s!$.year__c, 0)) || '-' || 2 || '-01','yyyy-M-d','en','UTC')))))+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.year__c IS NULL THEN NULL WHEN $!s0s!$.day__c IS NULL THEN NULL ELSE PARSEDATETIME(CAST(FLOOR($!s0s!$.year__c) AS VARCHAR) || '-' || 2 || '-' || CAST(FLOOR($!s0s!$.day__c) AS VARCHAR), 'yyyy-M-d', 'en', 'UTC') END</Sql>
+       <Guard>NOT ($!s0s!$.year__c IS NULL OR $!s0s!$.day__c IS NULL ) AND ($!s0s!$.year__c is null OR $!s0s!$.year__c&lt; 1 OR $!s0s!$.year__c&gt; 9999 OR $!s0s!$.day__c is null OR $!s0s!$.day__c&lt; 1 OR $!s0s!$.day__c &gt;= 32 OR  $!s0s!$.day__c &gt;= EXTRACT(DAY FROM dateadd(day,-1,dateadd(month,1,date_trunc(month,PARSEDATETIME(FLOOR($!s0s!$.year__c) || '-' || 2 || '-01','yyyy-M-d','en','UTC')))))+1 )</Guard>
+    </SqlOutput>
+</testCase>

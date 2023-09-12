@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateTimeWithExpr">
+    <SqlOutput nullAsNull="false">
+       <Sql>TIMESTAMP_ADD(TIMESTAMP_ADD(TIMESTAMP_ADD(TIMESTAMP_ADD($!s0s!$.customdatetime1__c, INTERVAL CAST(ROUND(COALESCE(($!s0s!$.custompercent1__c / 100.0), 0)*86400) AS INT64) SECOND), INTERVAL CAST(ROUND(COALESCE(($!s0s!$.custompercent2__c / 100.0), 0)*86400) AS INT64) SECOND), INTERVAL CAST(ROUND(COALESCE(CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c,SECOND) AS NUMERIC)/86400, 0)*86400) AS INT64) SECOND), INTERVAL CAST(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)*86400) AS INT64) SECOND)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TIMESTAMP_ADD(TIMESTAMP_ADD(TIMESTAMP_ADD(TIMESTAMP_ADD($!s0s!$.customdatetime1__c, INTERVAL CAST(ROUND(($!s0s!$.custompercent1__c / 100.0)*86400) AS INT64) SECOND), INTERVAL CAST(ROUND(($!s0s!$.custompercent2__c / 100.0)*86400) AS INT64) SECOND), INTERVAL CAST(ROUND(CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime2__c,$!s0s!$.customdatetime3__c,SECOND) AS NUMERIC)/86400*86400) AS INT64) SECOND), INTERVAL CAST(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0)*86400) AS INT64) SECOND)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

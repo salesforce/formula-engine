@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMin">
+    <SqlOutput nullAsNull="false">
+       <Sql>LEAST(NVL($!s0s!$.customNumber1__c, 0), NVL($!s0s!$.customNumber2__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LEAST($!s0s!$.customNumber1__c, $!s0s!$.customNumber2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

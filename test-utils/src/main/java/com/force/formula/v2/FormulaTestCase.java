@@ -60,7 +60,7 @@ public class FormulaTestCase extends FormulaTestBase {
         Map<String, MapFormulaContext.MapFieldInfo> fields = new HashMap<>();
         for (FormulaFieldDefinition fieldInfo : fieldsToCreate) {
             fields.put(fieldInfo.getFieldName(),
-                    new MapFormulaContext.MapFieldInfo(fieldInfo.getFieldName(), fieldInfo.getDataType(), fieldInfo.getFormula(), 1));
+                    new MapFormulaContext.MapFieldInfo(fieldInfo.getFieldName(), fieldInfo.getDataType(), fieldInfo.getFormula(), fieldInfo.getScale()));
         }
         return new MapFormulaContext.MapEntity("testEntity", fields.values());
     }
@@ -70,8 +70,8 @@ public class FormulaTestCase extends FormulaTestBase {
      */
     @Override
     public void runTest(){
-        runTestCase();
         compareGoldFileOutput();
+        runTestCase();
     }
 
     /**
@@ -90,8 +90,8 @@ public class FormulaTestCase extends FormulaTestBase {
                                     this.testSuite.getDbTester());
                     assertEquals(this.testCase.getTestName() + " failed for execution path: " + executionPath
                                 + " and for testData: " + testData,
-                            testData.getExpectedOutput().get(executionPath),
-                            FormulaTextUtil.escapeToXml(output));
+                            FormulaTextUtil.escapeToXml(testData.getExpectedOutput().get(executionPath)),
+                            FormulaTextUtil.escapeToXml(output).trim());
                 }
             }
         }

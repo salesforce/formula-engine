@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesLn">
+    <SqlOutput nullAsNull="false">
+       <Sql>ROUND(EXP(LN(COALESCE($!s0s!$.customnumber1__c, 0))), 0)</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ROUND(EXP(LN($!s0s!$.customnumber1__c)), 0)</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfNumCompareEqual">
+    <JsOutput highPrec="true" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).eq($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')))?context.record.customtext1__c:context.record.customphone1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,0))==($F.nvl(context.record.customcurrency1__c,0))?context.record.customtext1__c:context.record.customphone1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((context.record.customnumber1__c)==(context.record.customcurrency1__c)?context.record.customtext1__c:context.record.customphone1__c)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null&amp;&amp;context.record.customcurrency1__c!=null &amp;&amp; ((context.record.customnumber1__c).eq(context.record.customcurrency1__c))?context.record.customtext1__c:context.record.customphone1__c)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customnumber1__c, 0)=COALESCE($!s0s!$.customcurrency1__c, 0)) THEN $!s0s!$.customtext1__c ELSE $!s0s!$.customphone1__c END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customnumber1__c=$!s0s!$.customcurrency1__c) THEN $!s0s!$.customtext1__c ELSE $!s0s!$.customphone1__c END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

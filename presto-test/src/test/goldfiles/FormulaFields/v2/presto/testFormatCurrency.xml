@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatCurrency">
+    <SqlOutput nullAsNull="false">
+       <Sql>CONCAT_WS('',$!s0s!$.isocode__c,' ',FORMAT(CASE WHEN $!s0s!$.isocode__c IN('JPY')THEN'%,.0f'WHEN $!s0s!$.isocode__c IN('KWD')THEN'%,.3f'ELSE'%,.2f'END,COALESCE($!s0s!$.customNumber1__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customNumber1__c IS NULL THEN NULL ELSE CONCAT_WS('',$!s0s!$.isocode__c,' ',FORMAT(CASE WHEN $!s0s!$.isocode__c IN('JPY')THEN'%,.0f'WHEN $!s0s!$.isocode__c IN('KWD')THEN'%,.3f'ELSE'%,.2f'END,$!s0s!$.customNumber1__c))END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesMOD">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(CAST(LN(MOD(COALESCE($!s0s!$.customnumber1__c, 0), COALESCE($!s0s!$.customnumber2__c, 0))) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>MOD(COALESCE($!s0s!$.customnumber1__c, 0), COALESCE($!s0s!$.customnumber2__c, 0))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(CAST(LN(MOD($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c)) AS DECIMAL(38,18)) AS DECIMAL(38,18))</Sql>
+       <Guard>MOD($!s0s!$.customnumber1__c, $!s0s!$.customnumber2__c)&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

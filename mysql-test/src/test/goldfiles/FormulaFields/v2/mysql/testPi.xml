@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testPi">
+    <SqlOutput nullAsNull="false">
+       <Sql>ROUND(PI(), 12)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ROUND(PI(), 12)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

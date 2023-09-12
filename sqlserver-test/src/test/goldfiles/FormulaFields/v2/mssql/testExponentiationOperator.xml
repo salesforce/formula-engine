@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExponentiationOperator">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(POWER(COALESCE($!s0s!$.customNumber1__c, 0), COALESCE($!s0s!$.customNumber2__c, 0)) AS DECIMAL(38,10))</Sql>
+       <Guard>ROUND(COALESCE($!s0s!$.customNumber2__c, 0),0,1)&lt;&gt;COALESCE($!s0s!$.customNumber2__c, 0) OR(COALESCE($!s0s!$.customNumber1__c, 0)&lt;&gt;0 AND LOG10(ABS(COALESCE($!s0s!$.customNumber1__c, 0)))*COALESCE($!s0s!$.customNumber2__c, 0)&gt;38)</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(POWER($!s0s!$.customNumber1__c, $!s0s!$.customNumber2__c) AS DECIMAL(38,10))</Sql>
+       <Guard>ROUND($!s0s!$.customNumber2__c,0,1)&lt;&gt;$!s0s!$.customNumber2__c OR($!s0s!$.customNumber1__c&lt;&gt;0 AND LOG10(ABS($!s0s!$.customNumber1__c))*$!s0s!$.customNumber2__c&gt;38)</Guard>
+    </SqlOutput>
+</testCase>

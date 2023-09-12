@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>(CAST(-DATE_DIFF('SECOND',$!s0s!$.customdate1__c,$!s0s!$.customdate2__c) AS DECIMAL(38,10))/86400)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(CAST(-DATE_DIFF('SECOND',$!s0s!$.customdate1__c,$!s0s!$.customdate2__c) AS DECIMAL(38,10))/86400)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

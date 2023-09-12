@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFindOnTextWithIndex">
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(CASE WHEN COALESCE(INSTR(binary SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1),1)),$!s0s!$.customText1__c),0) &gt; 0 THEN INSTR(binary SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1),1)),$!s0s!$.customText1__c) + GREATEST(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1),1) - 1 ELSE 0 END, 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(CASE WHEN COALESCE(INSTR(binary SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1)),$!s0s!$.customText1__c),0) &gt; 0 THEN INSTR(binary SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1)),$!s0s!$.customText1__c) + GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1) - 1 ELSE 0 END, 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

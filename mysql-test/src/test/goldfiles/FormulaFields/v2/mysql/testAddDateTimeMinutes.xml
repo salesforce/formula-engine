@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateTimeMinutes">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE_ADD($!s0s!$.customdatetime1__c, INTERVAL ROUND((COALESCE($!s0s!$.customnumber1__c, 0)/1440)*86400) SECOND)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE_ADD($!s0s!$.customdatetime1__c, INTERVAL ROUND(($!s0s!$.customnumber1__c/1440)*86400) SECOND)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

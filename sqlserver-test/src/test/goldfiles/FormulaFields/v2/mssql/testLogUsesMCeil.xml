@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesMCeil">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(LOG10(CEILING(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33))) AS DECIMAL(38,18))</Sql>
+       <Guard>CEILING(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(LOG10(CEILING(ROUND($!s0s!$.customnumber1__c,33))) AS DECIMAL(38,18))</Sql>
+       <Guard>CEILING(ROUND($!s0s!$.customnumber1__c,33))&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

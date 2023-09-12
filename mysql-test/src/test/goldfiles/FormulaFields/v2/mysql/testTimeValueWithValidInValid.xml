@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>TIME(TIMESTAMP($!s0s!$.dateString__c))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TIME(TIMESTAMP($!s0s!$.dateString__c))</Sql>
+       <Guard>1=0</Guard>
+    </SqlOutput>
+</testCase>

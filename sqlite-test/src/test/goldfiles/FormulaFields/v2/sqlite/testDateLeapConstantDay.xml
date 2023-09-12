@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateLeapConstantDay">
+    <SqlOutput nullAsNull="false">
+       <Sql>printf('%04d-%02d-%02d', CAST(FLOOR(COALESCE($!s0s!$.year__c, 0)) AS TEXT),CAST(FLOOR(COALESCE($!s0s!$.month__c, 0)) AS TEXT),29)</Sql>
+       <Guard>COALESCE($!s0s!$.year__c, 0) is null OR COALESCE($!s0s!$.year__c, 0)&lt; 1 OR COALESCE($!s0s!$.year__c, 0)&gt; 9999 OR COALESCE($!s0s!$.month__c, 0) is null  OR FLOOR(COALESCE($!s0s!$.month__c, 0)) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  29 &gt;= DATE(printf('%04d-%02d-01', FLOOR(COALESCE($!s0s!$.year__c, 0)),FLOOR(COALESCE($!s0s!$.month__c, 0))),'start of month','+1 month','-1 day')+1 </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.year__c IS NULL THEN NULL WHEN $!s0s!$.month__c IS NULL THEN NULL ELSE printf('%04d-%02d-%02d', CAST(FLOOR($!s0s!$.year__c) AS TEXT),CAST(FLOOR($!s0s!$.month__c) AS TEXT),29) END</Sql>
+       <Guard>NOT ($!s0s!$.year__c IS NULL OR $!s0s!$.month__c IS NULL ) AND ($!s0s!$.year__c is null OR $!s0s!$.year__c&lt; 1 OR $!s0s!$.year__c&gt; 9999 OR $!s0s!$.month__c is null  OR FLOOR($!s0s!$.month__c) NOT IN (1,2,3,4,5,6,7,8,9,10,11,12) OR  29 &gt;= DATE(printf('%04d-%02d-01', FLOOR($!s0s!$.year__c),FLOOR($!s0s!$.month__c)),'start of month','+1 month','-1 day')+1 )</Guard>
+    </SqlOutput>
+</testCase>

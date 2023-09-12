@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesMinus">
+    <SqlOutput nullAsNull="false">
+       <Sql>EXP((NVL(($!s0s!$.custompercent1__c / 100.0), 0)-NVL($!s0s!$.customcurrency1__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>EXP((($!s0s!$.custompercent1__c / 100.0)-$!s0s!$.customcurrency1__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

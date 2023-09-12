@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesFloor">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(EXP(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) ELSE CEILING(ROUND(COALESCE($!s0s!$.customnumber1__c, 0),33)) END) AS DECIMAL(38,10))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(EXP(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR(ROUND($!s0s!$.customnumber1__c,33)) ELSE CEILING(ROUND($!s0s!$.customnumber1__c,33)) END) AS DECIMAL(38,10))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

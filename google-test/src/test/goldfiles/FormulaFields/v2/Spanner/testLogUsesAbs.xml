@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLogUsesAbs">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(LOG10(ABS(COALESCE($!s0s!$.customnumber1__c, 0))) AS NUMERIC)</Sql>
+       <Guard>ABS(COALESCE($!s0s!$.customnumber1__c, 0))&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(LOG10(ABS($!s0s!$.customnumber1__c)) AS NUMERIC)</Sql>
+       <Guard>ABS($!s0s!$.customnumber1__c)&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

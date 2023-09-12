@@ -3,9 +3,11 @@
  */
 package com.force.formula.impl;
 
-import java.util.*;
-
 import com.force.formula.FormulaDataType;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author syendluri
@@ -13,6 +15,7 @@ import com.force.formula.FormulaDataType;
  * This is a template class that holds all the required information related to Custom or Formula field.
  * The constructor needs
  */
+@Deprecated
 public class FieldDefinitionInfo implements Cloneable {
 
     //    private String name;

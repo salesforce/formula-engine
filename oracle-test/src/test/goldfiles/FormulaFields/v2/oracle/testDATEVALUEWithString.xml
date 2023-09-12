@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDATEVALUEWithString">
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE($!s0s!$.customtext1__c, 'YYYY-MM-DD')</Sql>
+       <Guard> NOT REGEXP_LIKE ($!s0s!$.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') /*comments to keep size */ </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE($!s0s!$.customtext1__c, 'YYYY-MM-DD')</Sql>
+       <Guard> NOT REGEXP_LIKE ($!s0s!$.customtext1__c, '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$') /*comments to keep size */ </Guard>
+    </SqlOutput>
+</testCase>

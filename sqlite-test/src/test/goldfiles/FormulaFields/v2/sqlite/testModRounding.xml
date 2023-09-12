@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testModRounding">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN SIGN(2) = SIGN((COALESCE($!s0s!$.customnumber1__c, 0) * 10000)) THEN ((COALESCE($!s0s!$.customnumber1__c, 0) * 10000)  - (FLOOR((COALESCE($!s0s!$.customnumber1__c, 0) * 10000)/2) * 2)) ELSE ((COALESCE($!s0s!$.customnumber1__c, 0) * 10000)  - (CEIL((COALESCE($!s0s!$.customnumber1__c, 0) * 10000)/2) * 2)) END </Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN SIGN(2) = SIGN(($!s0s!$.customnumber1__c * 10000)) THEN (($!s0s!$.customnumber1__c * 10000)  - (FLOOR(($!s0s!$.customnumber1__c * 10000)/2) * 2)) ELSE (($!s0s!$.customnumber1__c * 10000)  - (CEIL(($!s0s!$.customnumber1__c * 10000)/2) * 2)) END </Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

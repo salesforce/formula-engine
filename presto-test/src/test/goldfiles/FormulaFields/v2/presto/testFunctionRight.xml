@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFunctionRight">
+    <SqlOutput nullAsNull="false">
+       <Sql>SUBSTR($!s0s!$.customtext__c, -GREATEST(CAST(COALESCE($!s0s!$.customnumber__c, 0) AS INTEGER), 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>SUBSTR($!s0s!$.customtext__c, -GREATEST(CAST($!s0s!$.customnumber__c AS INTEGER), 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

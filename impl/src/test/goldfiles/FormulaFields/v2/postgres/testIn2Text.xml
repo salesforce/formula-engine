@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2Text">
+    <JsOutput highPrec="true" nullAsNull="false">([context.record.customin1__c].filter(e=&gt;e!=null).indexOf(context.record.customtext__c)&gt;=0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">([context.record.customin1__c].filter(e=&gt;e!=null).indexOf(context.record.customtext__c)&gt;=0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">([context.record.customin1__c].filter(e=&gt;e!=null).indexOf(context.record.customtext__c)&gt;=0)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">([context.record.customin1__c].filter(e=&gt;e!=null).indexOf(context.record.customtext__c)&gt;=0)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customtext__c IN ($!s0s!$.customin1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customtext__c IN ($!s0s!$.customin1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

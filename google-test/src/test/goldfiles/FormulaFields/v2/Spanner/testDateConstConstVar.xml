@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateConstConstVar">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE(CAST(2012 as INT64),CAST(11 AS INT64),CAST(CAST(FLOOR(COALESCE($!s0s!$.customnumber3__c, 0)) AS STRING) AS INT64))</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber3__c, 0) is null OR COALESCE($!s0s!$.customnumber3__c, 0)&lt; 1 OR COALESCE($!s0s!$.customnumber3__c, 0) &gt;= 32 OR COALESCE($!s0s!$.customnumber3__c, 0) &gt;= 31</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customnumber3__c IS NULL THEN NULL ELSE DATE(CAST(2012 as INT64),CAST(11 AS INT64),CAST(CAST(FLOOR($!s0s!$.customnumber3__c) AS STRING) AS INT64)) END</Sql>
+       <Guard>NOT ($!s0s!$.customnumber3__c IS NULL ) AND ($!s0s!$.customnumber3__c is null OR $!s0s!$.customnumber3__c&lt; 1 OR $!s0s!$.customnumber3__c &gt;= 32 OR $!s0s!$.customnumber3__c &gt;= 31)</Guard>
+    </SqlOutput>
+</testCase>

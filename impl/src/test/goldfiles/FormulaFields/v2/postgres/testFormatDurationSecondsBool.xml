@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationSecondsBool">
+    <JsOutput highPrec="true" nullAsNull="false">$F.formatduration(Math.abs($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber()),context.record.customcheckbox1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.formatduration(Math.abs($F.nvl(context.record.customNumber1__c,0)),context.record.customcheckbox1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null)?($F.formatduration(Math.abs(context.record.customNumber1__c),context.record.customcheckbox1__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null)?($F.formatduration(Math.abs(context.record.customNumber1__c.toNumber()),context.record.customcheckbox1__c)):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN EXTRACT(HOUR FROM (INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))))::int/24||':'||TO_CHAR(EXTRACT(HOUR FROM (INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))))::int%24,'FM09')||':'||TO_CHAR((INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))),'MI:SS') ELSE TO_CHAR((INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))),'HH24:MI:SS') END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') THEN EXTRACT(HOUR FROM (INTERVAL '1 second' * ABS($!s0s!$.customNumber1__c)))::int/24||':'||TO_CHAR(EXTRACT(HOUR FROM (INTERVAL '1 second' * ABS($!s0s!$.customNumber1__c)))::int%24,'FM09')||':'||TO_CHAR((INTERVAL '1 second' * ABS($!s0s!$.customNumber1__c)),'MI:SS') ELSE TO_CHAR((INTERVAL '1 second' * ABS($!s0s!$.customNumber1__c)),'HH24:MI:SS') END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>IIF(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/1000)),0,1) IS NULL, NULL, CONCAT(CONVERT(int,(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/1000)),0,1))/86400),':',FORMAT(CONVERT(int,(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/1000)),0,1))/3600%24),'00'),':',FORMAT(CONVERT(int,((ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/1000)),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/1000)),0,1))%60),'00')))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>IIF(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/1000)),0,1) IS NULL, NULL, CONCAT(CONVERT(int,(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/1000)),0,1))/86400),':',FORMAT(CONVERT(int,(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/1000)),0,1))/3600%24),'00'),':',FORMAT(CONVERT(int,((ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/1000)),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c) AS DECIMAL(38,10))/1000)),0,1))%60),'00')))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

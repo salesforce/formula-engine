@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddDateTimeGivingDateValue">
+    <SqlOutput nullAsNull="false">
+       <Sql>TRUNC(CAST((FROM_TZ(CAST(($!s0s!$.customdatetime1__c+NVL($!s0s!$.customnumber1__c, 0)) AS TIMESTAMP), 'UTC') AT TIME ZONE '__TZ_ID__') AS DATE))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TRUNC(CAST((FROM_TZ(CAST(($!s0s!$.customdatetime1__c+$!s0s!$.customnumber1__c) AS TIMESTAMP), 'UTC') AT TIME ZONE '__TZ_ID__') AS DATE))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorDateTimeValueWithValidInValid">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 1=0 THEN TIMESTAMP('2005-11-15 17:00:00 ') ELSE TIMESTAMP($!s0s!$.dateString__c) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 1=0 THEN TIMESTAMP('2005-11-15 17:00:00 ') ELSE TIMESTAMP($!s0s!$.dateString__c) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfContainsUsesPhone">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (STRPOS($!s0s!$.customphone1__c, $!s0s!$.customtext1__c) &gt;= 1)) THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE(($!s0s!$.custompercent1__c / (DECIMAL '100.')), 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (STRPOS($!s0s!$.customphone1__c, $!s0s!$.customtext1__c) &gt;= 1)) THEN $!s0s!$.customnumber1__c ELSE ($!s0s!$.custompercent1__c / (DECIMAL '100.')) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

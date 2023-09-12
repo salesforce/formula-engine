@@ -1,23 +1,11 @@
 package com.force.formula.impl;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Predicate;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.force.formula.FormulaDataType;
+import com.force.formula.MockFormulaDataType;
+import com.force.formula.impl.FormulaTestCaseInfo.WhyIgnoreSql;
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -25,12 +13,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.force.formula.FormulaDataType;
-import com.force.formula.MockFormulaDataType;
-import com.force.formula.impl.FormulaTestCaseInfo.WhyIgnoreSql;
-import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.*;
+import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * Describe your class here.
@@ -38,6 +26,7 @@ import com.google.common.collect.ImmutableSet;
  * @author Srikanth L Yendluri, Adrienne Dimayuga
  * @since 0.1.0
  */
+@Deprecated
 public class FormulaTestUtils {
 
     public static final int MAX_FIELD_SIZE = 3;

@@ -166,6 +166,12 @@
         <version>2.13.4</version>
         <optional>true</optional>
       </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.13.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -508,10 +514,12 @@
         <module>oracle-test</module>
         <module>mysql-test</module>
         <module>sqlserver-test</module>
-        <module>google-test</module>
         <module>sqlite-test</module>
         <module>h2-test</module>
-        <!-- Running Presto is really slow, so comment it out for now -->
+        <!-- Google spanner is having issues with connection in Jenkins, so excluding these tests from maven build process-->
+        <!-- These tests can be executed by using the "google-spanner" profile e.g. `mvn -P google-spanner clean verify -B` -->
+        <!-- <module>google-test</module> -->
+        <!-- Running Presto is really slow, so comment it out as earlier -->
         <!-- <module>presto-test</module> -->
         <module>docs/coverage</module>
       </modules>
@@ -520,6 +528,12 @@
       <id>presto</id>
       <modules>
         <module>presto-test</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>google-spanner</id>
+      <modules>
+        <module>google-test</module>
       </modules>
     </profile>
   </profiles>

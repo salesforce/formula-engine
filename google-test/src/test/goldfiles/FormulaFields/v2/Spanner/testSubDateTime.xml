@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)/86400</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(TIMESTAMP_DIFF($!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c,SECOND) AS NUMERIC)/86400</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testOriginDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE(1900,1,1)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE(1900,1,1)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

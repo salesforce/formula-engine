@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFloorUsesAbs">
+    <JsOutput highPrec="true" nullAsNull="false">($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).abs().isPos()?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).abs().toDP(18).floor():$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).abs().toDP(18).ceil())</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((Math.abs($F.nvl(context.record.customnumber1__c,0)))&gt;=0?Math.floor(Math.abs($F.nvl(context.record.customnumber1__c,0))):Math.ceil(Math.abs($F.nvl(context.record.customnumber1__c,0))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(((Math.abs(context.record.customnumber1__c))&gt;=0?Math.floor(Math.abs(context.record.customnumber1__c)):Math.ceil(Math.abs(context.record.customnumber1__c)))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?((context.record.customnumber1__c.abs().isPos()?context.record.customnumber1__c.abs().toDP(18).floor():context.record.customnumber1__c.abs().toDP(18).ceil())):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ABS(COALESCE($!s0s!$.customnumber1__c, 0))&gt;=0 THEN FLOOR(ROUND(ABS(COALESCE($!s0s!$.customnumber1__c, 0)),33)) ELSE CEIL(ROUND(ABS(COALESCE($!s0s!$.customnumber1__c, 0)),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ABS($!s0s!$.customnumber1__c)&gt;=0 THEN FLOOR(ROUND(ABS($!s0s!$.customnumber1__c),33)) ELSE CEIL(ROUND(ABS($!s0s!$.customnumber1__c),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfTextCompareEqualReturnDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customphone1__c, COALESCE($!s0s!$.customphone2__c,'')||COALESCE('x',''))=COALESCE($!s0s!$.customphone2__c, COALESCE($!s0s!$.customphone1__c,'')||COALESCE('x',''))) THEN COALESCE(DATETIME($!s0s!$.customdatetime1__c, ROUND(-(COALESCE($!s0s!$.customcurrency1__c, 0)*86400))||' second'),NULL) ELSE COALESCE($!s0s!$.customdatetime2__c,NULL) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customphone1__c, COALESCE($!s0s!$.customphone2__c,'')||COALESCE('x',''))=COALESCE($!s0s!$.customphone2__c, COALESCE($!s0s!$.customphone1__c,'')||COALESCE('x',''))) THEN COALESCE(DATETIME($!s0s!$.customdatetime1__c, ROUND(-($!s0s!$.customcurrency1__c*86400))||' second'),NULL) ELSE COALESCE($!s0s!$.customdatetime2__c,NULL) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAbsUsesValue">
+    <SqlOutput nullAsNull="false">
+       <Sql>ABS(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)))</Sql>
+       <Guard>NOT ISNUMERIC($!s0s!$.customtext1__c)=1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ABS(CAST($!s0s!$.customtext1__c AS DECIMAL(38,18)))</Sql>
+       <Guard>NOT ISNUMERIC($!s0s!$.customtext1__c)=1</Guard>
+    </SqlOutput>
+</testCase>

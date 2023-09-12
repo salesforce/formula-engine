@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSqrtUsesPlus">
+    <SqlOutput nullAsNull="false">
+       <Sql>SQRT(COALESCE((COALESCE($!s0s!$.customnumber1__c, 0)+COALESCE($!s0s!$.customnumber2__c, 0)), 0))</Sql>
+       <Guard>COALESCE((COALESCE($!s0s!$.customnumber1__c, 0)+COALESCE($!s0s!$.customnumber2__c, 0)), 0)&lt;0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>SQRT(($!s0s!$.customnumber1__c+$!s0s!$.customnumber2__c))</Sql>
+       <Guard>($!s0s!$.customnumber1__c+$!s0s!$.customnumber2__c)&lt;0</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateAllConstants">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE(CONCAT(2012,'-',2,'-',29))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE(CONCAT(2012,'-',2,'-',29))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

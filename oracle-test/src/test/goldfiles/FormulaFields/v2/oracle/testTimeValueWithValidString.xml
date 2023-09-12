@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTimeValueWithValidString">
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_NUMBER(TO_CHAR(TO_TIMESTAMP('10:40:55.666', 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_NUMBER(TO_CHAR(TO_TIMESTAMP('10:40:55.666', 'HH24:mi:ss.FF3'),'SSSSS.FF3')) * 1000</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

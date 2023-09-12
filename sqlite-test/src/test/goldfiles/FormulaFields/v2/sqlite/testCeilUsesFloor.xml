@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCeilUsesFloor">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) END&gt;=0 THEN CEIL(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) END) ELSE FLOOR(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) END) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR($!s0s!$.customnumber1__c) ELSE CEIL($!s0s!$.customnumber1__c) END&gt;=0 THEN CEIL(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR($!s0s!$.customnumber1__c) ELSE CEIL($!s0s!$.customnumber1__c) END) ELSE FLOOR(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR($!s0s!$.customnumber1__c) ELSE CEIL($!s0s!$.customnumber1__c) END) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

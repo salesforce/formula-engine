@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>CONCAT(TRUNCATE((TRUNCATE(ABS(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)),0))/86400,0),':',TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)),0)%86400),'%H:%i:%s'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CONCAT(TRUNCATE((TRUNCATE(ABS(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)),0))/86400,0),':',TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS(-TIMESTAMPDIFF(SECOND,$!s0s!$.customdatetime1__c,$!s0s!$.customdatetime2__c)),0)%86400),'%H:%i:%s'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

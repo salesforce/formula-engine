@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNullCompareWithEmptyString">
+    <SqlOutput nullAsNull="false">
+       <Sql>(binary COALESCE($!s0s!$.customText1__c, CONCAT_WS(&quot;&quot;,'', 'x'))=binary CONCAT_WS(&quot;&quot;,$!s0s!$.customText1__c, 'x'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(binary COALESCE($!s0s!$.customText1__c, CONCAT_WS(&quot;&quot;,'', 'x'))=binary CONCAT_WS(&quot;&quot;,$!s0s!$.customText1__c, 'x'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

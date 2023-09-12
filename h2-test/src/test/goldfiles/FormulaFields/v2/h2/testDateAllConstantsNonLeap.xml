@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateAllConstantsNonLeap">
+    <SqlOutput nullAsNull="false">
+       <Sql>PARSEDATETIME(2011 || '-' || 2 || '-' || 29, 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard>1=1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>PARSEDATETIME(2011 || '-' || 2 || '-' || 29, 'yyyy-M-d', 'en', 'UTC')</Sql>
+       <Guard>1=1</Guard>
+    </SqlOutput>
+</testCase>

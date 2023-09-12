@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubtractTwoTimeFields">
+    <SqlOutput nullAsNull="false">
+       <Sql>(DATE_DIFF('millisecond',CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME),CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME))+86400000)%86400000</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(DATE_DIFF('millisecond',CAST(date_parse($!s0s!$.timeString1__c, '%H:%i:%s.%f') as TIME),CAST(date_parse($!s0s!$.timeString2__c, '%H:%i:%s.%f') as TIME))+86400000)%86400000</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+</testCase>

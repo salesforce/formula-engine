@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSqrtUsesLog">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN 15 &gt;= 0 THEN ROUND(SQRT(LOG10(COALESCE($!s0s!$.customnumber1__c, 0))), 15) ELSE  ROUND(SQRT(LOG10(COALESCE($!s0s!$.customnumber1__c, 0)))*POWER(10,15))/POWER(10,15) END</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;=0 OR LOG10(COALESCE($!s0s!$.customnumber1__c, 0))&lt;0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN 15 &gt;= 0 THEN ROUND(SQRT(LOG10($!s0s!$.customnumber1__c)), 15) ELSE  ROUND(SQRT(LOG10($!s0s!$.customnumber1__c))*POWER(10,15))/POWER(10,15) END</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;=0 OR LOG10($!s0s!$.customnumber1__c)&lt;0</Guard>
+    </SqlOutput>
+</testCase>

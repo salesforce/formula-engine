@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateAllConstantsNonLeap">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE(CAST(2011 as INT64),CAST(2 AS INT64),CAST(29 AS INT64))</Sql>
+       <Guard>1=1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE(CAST(2011 as INT64),CAST(2 AS INT64),CAST(29 AS INT64))</Sql>
+       <Guard>1=1</Guard>
+    </SqlOutput>
+</testCase>

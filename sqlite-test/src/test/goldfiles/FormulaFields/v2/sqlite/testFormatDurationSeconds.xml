@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationSeconds">
+    <SqlOutput nullAsNull="false">
+       <Sql>FORMAT('%02.0f',FLOOR(FLOOR(ABS(COALESCE($!s0s!$.customNumber1__c, 0)))/3600))||':'||strftime('%M:%S', FLOOR(ABS(COALESCE($!s0s!$.customNumber1__c, 0))), 'unixepoch')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>FORMAT('%02.0f',FLOOR(FLOOR(ABS($!s0s!$.customNumber1__c))/3600))||':'||strftime('%M:%S', FLOOR(ABS($!s0s!$.customNumber1__c)), 'unixepoch')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

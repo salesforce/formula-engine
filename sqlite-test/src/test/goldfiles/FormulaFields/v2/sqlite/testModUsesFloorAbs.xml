@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testModUsesFloorAbs">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN SIGN(ABS(COALESCE($!s0s!$.customnumber2__c, 0))) = SIGN(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) END) THEN (CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) END  - (FLOOR(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) END/ABS(COALESCE($!s0s!$.customnumber2__c, 0))) * ABS(COALESCE($!s0s!$.customnumber2__c, 0)))) ELSE (CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) END  - (CEIL(CASE WHEN COALESCE($!s0s!$.customnumber1__c, 0)&gt;=0 THEN FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) END/ABS(COALESCE($!s0s!$.customnumber2__c, 0))) * ABS(COALESCE($!s0s!$.customnumber2__c, 0)))) END </Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN SIGN(ABS($!s0s!$.customnumber2__c)) = SIGN(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR($!s0s!$.customnumber1__c) ELSE CEIL($!s0s!$.customnumber1__c) END) THEN (CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR($!s0s!$.customnumber1__c) ELSE CEIL($!s0s!$.customnumber1__c) END  - (FLOOR(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR($!s0s!$.customnumber1__c) ELSE CEIL($!s0s!$.customnumber1__c) END/ABS($!s0s!$.customnumber2__c)) * ABS($!s0s!$.customnumber2__c))) ELSE (CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR($!s0s!$.customnumber1__c) ELSE CEIL($!s0s!$.customnumber1__c) END  - (CEIL(CASE WHEN $!s0s!$.customnumber1__c&gt;=0 THEN FLOOR($!s0s!$.customnumber1__c) ELSE CEIL($!s0s!$.customnumber1__c) END/ABS($!s0s!$.customnumber2__c)) * ABS($!s0s!$.customnumber2__c))) END </Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

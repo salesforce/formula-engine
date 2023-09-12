@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testArcSine">
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.asin($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.asin($F.nvl(context.record.customnumber1__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.asin(context.record.customnumber1__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?($F.Decimal.asin(context.record.customnumber1__c)):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ASIN(COALESCE($!s0s!$.customnumber1__c, 0))::numeric(40,20)</Sql>
+       <Guard>COALESCE($!s0s!$.customnumber1__c, 0)&lt;-1 OR COALESCE($!s0s!$.customnumber1__c, 0)&gt;1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ASIN($!s0s!$.customnumber1__c)::numeric(40,20)</Sql>
+       <Guard>$!s0s!$.customnumber1__c&lt;-1 OR $!s0s!$.customnumber1__c&gt;1</Guard>
+    </SqlOutput>
+</testCase>

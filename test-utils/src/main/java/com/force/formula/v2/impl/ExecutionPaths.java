@@ -262,13 +262,13 @@ public enum ExecutionPaths implements IFormulaExecutor<MapFormulaContext.MapEnti
                     mockFormulaType,
                     testInput);
 
+            formulaRuntimeContext.setProperty(FormulaContext.HIGHPRECISION_JS, isHighPrecision);
+
             RuntimeFormulaInfo formulaInfo = FormulaEngine.getFactory().create(mockFormulaType,
                     formulaRuntimeContext,
                     formulaString);
 
             Formula formula = formulaInfo.getFormula();
-
-            formulaRuntimeContext.setProperty(FormulaContext.HIGHPRECISION_JS, isHighPrecision);
 
             Object result = FormulaJsTestUtils.get().evaluateFormula(formula,
                     formulaRuntimeContext.getFormulaReturnType().getDataType(),

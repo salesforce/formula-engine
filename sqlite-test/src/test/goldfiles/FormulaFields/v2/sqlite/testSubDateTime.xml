@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>(julianday($!s0s!$.customdatetime1__c)-julianday($!s0s!$.customdatetime2__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(julianday($!s0s!$.customdatetime1__c)-julianday($!s0s!$.customdatetime2__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddMonthsDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>date($!s0s!$.customdate1__c,  (CASE WHEN strftime('%d', $!s0s!$.customdate1__c, 'start of month', '+1 month', '-1 day') = strftime('%d', $!s0s!$.customdate1__c) THEN '1' ELSE '0' END) || ' day', CASE WHEN (COALESCE($!s0s!$.customnumber1__c, 0)) &gt; 0 THEN FLOOR(COALESCE($!s0s!$.customnumber1__c, 0)) ELSE CEIL(COALESCE($!s0s!$.customnumber1__c, 0)) END || ' month', '-' ||  (CASE WHEN strftime('%d', $!s0s!$.customdate1__c, 'start of month', '+1 month', '-1 day') = strftime('%d', $!s0s!$.customdate1__c) THEN '1' ELSE '0' END) || ' day')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>date($!s0s!$.customdate1__c,  (CASE WHEN strftime('%d', $!s0s!$.customdate1__c, 'start of month', '+1 month', '-1 day') = strftime('%d', $!s0s!$.customdate1__c) THEN '1' ELSE '0' END) || ' day', CASE WHEN ($!s0s!$.customnumber1__c) &gt; 0 THEN FLOOR($!s0s!$.customnumber1__c) ELSE CEIL($!s0s!$.customnumber1__c) END || ' month', '-' ||  (CASE WHEN strftime('%d', $!s0s!$.customdate1__c, 'start of month', '+1 month', '-1 day') = strftime('%d', $!s0s!$.customdate1__c) THEN '1' ELSE '0' END) || ' day')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

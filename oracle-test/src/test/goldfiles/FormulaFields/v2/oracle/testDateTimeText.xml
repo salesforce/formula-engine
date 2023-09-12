@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateTimeText">
+    <SqlOutput nullAsNull="false">
+       <Sql>(TO_CHAR($!s0s!$.customdatetime1__c, 'YYYY-MM-DD HH24:MI:SS') || 'Z' )</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(TO_CHAR($!s0s!$.customdatetime1__c, 'YYYY-MM-DD HH24:MI:SS') || 'Z' )</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

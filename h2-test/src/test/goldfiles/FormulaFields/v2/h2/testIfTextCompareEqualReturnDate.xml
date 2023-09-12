@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfTextCompareEqualReturnDate">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customemail1__c, 'x'))=COALESCE($!s0s!$.customemail1__c, CONCAT($!s0s!$.customtext1__c, 'x'))) THEN COALESCE($!s0s!$.customdate1__c,CAST(NULL AS DATE)) ELSE COALESCE(DATEADD(day,TRUNC(COALESCE($!s0s!$.customnumber1__c, 0)),$!s0s!$.customdate2__c),CAST(NULL AS DATE)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customtext1__c, CONCAT($!s0s!$.customemail1__c, 'x'))=COALESCE($!s0s!$.customemail1__c, CONCAT($!s0s!$.customtext1__c, 'x'))) THEN COALESCE($!s0s!$.customdate1__c,CAST(NULL AS DATE)) ELSE COALESCE(DATEADD(day,TRUNC($!s0s!$.customnumber1__c),$!s0s!$.customdate2__c),CAST(NULL AS DATE)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

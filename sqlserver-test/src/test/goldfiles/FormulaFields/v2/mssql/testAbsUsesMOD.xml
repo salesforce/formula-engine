@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAbsUsesMOD">
+    <SqlOutput nullAsNull="false">
+       <Sql>ABS((COALESCE($!s0s!$.customnumber1__c, 0) % COALESCE($!s0s!$.customnumber2__c, 0)))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ABS(($!s0s!$.customnumber1__c % $!s0s!$.customnumber2__c))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

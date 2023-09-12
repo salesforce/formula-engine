@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFloorUsesLen">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN NVL(LENGTH($!s0s!$.customtext1__c),0)&gt;=0 THEN FLOOR(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) ELSE CEIL(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN NVL(LENGTH($!s0s!$.customtext1__c),0)&gt;=0 THEN FLOOR(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) ELSE CEIL(ROUND(NVL(LENGTH($!s0s!$.customtext1__c),0),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

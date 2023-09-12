@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testChr">
+    <SqlOutput nullAsNull="false">
+       <Sql>CHR(NVL($!s0s!$.customnumber__c, 0) USING NCHAR_CS)</Sql>
+       <Guard>NVL($!s0s!$.customnumber__c, 0)&lt;1</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CHR($!s0s!$.customnumber__c USING NCHAR_CS)</Sql>
+       <Guard>$!s0s!$.customnumber__c&lt;1</Guard>
+    </SqlOutput>
+</testCase>

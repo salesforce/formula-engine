@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSimpleSubstitute">
+    <SqlOutput nullAsNull="false">
+       <Sql>REPLACE($!s0s!$.customtext1__c, $!s0s!$.customtext2__c, $!s0s!$.customtext3__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>REPLACE($!s0s!$.customtext1__c, $!s0s!$.customtext2__c, $!s0s!$.customtext3__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

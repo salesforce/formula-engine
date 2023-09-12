@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testTimeValueWithValidString">
+    <SqlOutput nullAsNull="false">
+       <Sql>'10:40:55.666'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>'10:40:55.666'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

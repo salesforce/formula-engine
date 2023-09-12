@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithDivision">
+    <SqlOutput nullAsNull="false">
+       <Sql>(COALESCE($!s0s!$.customnumber1__c, 0)/(COALESCE($!s0s!$.customnumber2__c, 0)+1))</Sql>
+       <Guard>(COALESCE($!s0s!$.customnumber2__c, 0)+1)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>($!s0s!$.customnumber1__c/($!s0s!$.customnumber2__c+1))</Sql>
+       <Guard>($!s0s!$.customnumber2__c+1)=0</Guard>
+    </SqlOutput>
+</testCase>

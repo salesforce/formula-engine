@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testBigDivideWithFunc">
+    <SqlOutput nullAsNull="false">
+       <Sql>(((COALESCE($!s0s!$.customnumber1__c, 0) * COALESCE($!s0s!$.customnumber2__c, 0))/POWER(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS TEXT)) AS NUMERIC), COALESCE($!s0s!$.customnumber2__c, 0))) * POWER(COALESCE($!s0s!$.customnumber3__c, 0), COALESCE($!s0s!$.customnumber3__c, 0)))</Sql>
+       <Guard>ROUND(COALESCE($!s0s!$.customnumber3__c, 0))&lt;&gt;COALESCE($!s0s!$.customnumber3__c, 0) OR(IIF(COALESCE($!s0s!$.customnumber3__c, 0)&lt;&gt;0,LOG10(ABS(COALESCE($!s0s!$.customnumber3__c, 0)))*COALESCE($!s0s!$.customnumber3__c, 0)&gt;38,FALSE)) OR NOT ABS((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS TEXT))) &gt; 0 || (CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS TEXT)) = 0 OR ROUND(COALESCE($!s0s!$.customnumber2__c, 0))&lt;&gt;COALESCE($!s0s!$.customnumber2__c, 0) OR(IIF(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS TEXT)) AS NUMERIC)&lt;&gt;0,LOG10(ABS(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS TEXT)) AS NUMERIC)))*COALESCE($!s0s!$.customnumber2__c, 0)&gt;38,FALSE)) OR POWER(CAST((CAST(COALESCE($!s0s!$.customnumber2__c, 0) AS TEXT)) AS NUMERIC), COALESCE($!s0s!$.customnumber2__c, 0))=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>((($!s0s!$.customnumber1__c * $!s0s!$.customnumber2__c)/POWER(CAST((CAST($!s0s!$.customnumber2__c AS TEXT)) AS NUMERIC), $!s0s!$.customnumber2__c)) * POWER($!s0s!$.customnumber3__c, $!s0s!$.customnumber3__c))</Sql>
+       <Guard>ROUND($!s0s!$.customnumber3__c)&lt;&gt;$!s0s!$.customnumber3__c OR(IIF($!s0s!$.customnumber3__c&lt;&gt;0,LOG10(ABS($!s0s!$.customnumber3__c))*$!s0s!$.customnumber3__c&gt;38,FALSE)) OR NOT ABS((CAST($!s0s!$.customnumber2__c AS TEXT))) &gt; 0 || (CAST($!s0s!$.customnumber2__c AS TEXT)) = 0 OR ROUND($!s0s!$.customnumber2__c)&lt;&gt;$!s0s!$.customnumber2__c OR(IIF(CAST((CAST($!s0s!$.customnumber2__c AS TEXT)) AS NUMERIC)&lt;&gt;0,LOG10(ABS(CAST((CAST($!s0s!$.customnumber2__c AS TEXT)) AS NUMERIC)))*$!s0s!$.customnumber2__c&gt;38,FALSE)) OR POWER(CAST((CAST($!s0s!$.customnumber2__c AS TEXT)) AS NUMERIC), $!s0s!$.customnumber2__c)=0</Guard>
+    </SqlOutput>
+</testCase>

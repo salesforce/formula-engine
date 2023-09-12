@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>IIF(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1) IS NULL, NULL, CONCAT(FORMAT(CONVERT(int,ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1)/3600),'########00'),':',FORMAT(CONVERT(int,((ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1))%60),'00')))</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>IIF(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1) IS NULL, NULL, CONCAT(FORMAT(CONVERT(int,ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1)/3600),'########00'),':',FORMAT(CONVERT(int,((ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1))/60)%60),'00'),':',FORMAT(CONVERT(int,(ROUND(ABS((CAST(-DATEDIFF_BIG(MILLISECOND,CAST($!s0s!$.timeString1__c as TIME),CAST($!s0s!$.timeString2__c as TIME)) AS DECIMAL(38,10))/1000)),0,1))%60),'00')))</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+</testCase>

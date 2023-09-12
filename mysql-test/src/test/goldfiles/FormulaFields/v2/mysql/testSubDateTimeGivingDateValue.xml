@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTimeGivingDateValue">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATE(ADDDATE(DATE_SUB($!s0s!$.customdatetime1__c, INTERVAL ROUND(COALESCE($!s0s!$.customnumber1__c, 0)*86400) SECOND),INTERVAL __TZ_OFFSET__ HOUR))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATE(ADDDATE(DATE_SUB($!s0s!$.customdatetime1__c, INTERVAL ROUND($!s0s!$.customnumber1__c*86400) SECOND),INTERVAL __TZ_OFFSET__ HOUR))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

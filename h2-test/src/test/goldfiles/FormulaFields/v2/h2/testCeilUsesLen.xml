@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testCeilUsesLen">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN COALESCE(LENGTH($!s0s!$.customtext1__c),0)&gt;=0 THEN CEIL(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0),33)) ELSE FLOOR(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN COALESCE(LENGTH($!s0s!$.customtext1__c),0)&gt;=0 THEN CEIL(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0),33)) ELSE FLOOR(ROUND(COALESCE(LENGTH($!s0s!$.customtext1__c),0),33)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

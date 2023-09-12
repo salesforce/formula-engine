@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testMax">
+    <SqlOutput nullAsNull="false">
+       <Sql>MAX(COALESCE($!s0s!$.customNumber1__c, 0), COALESCE($!s0s!$.customNumber2__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>MAX($!s0s!$.customNumber1__c, $!s0s!$.customNumber2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testModRounding">
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).mul(new $F.Decimal('10000')).mod(new $F.Decimal('2'))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(($F.nvl(context.record.customnumber1__c,0)*10000)%(2))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(((context.record.customnumber1__c*10000)%(2))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(context.record.customnumber1__c.mul(new $F.Decimal('10000')).mod(new $F.Decimal('2'))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>MOD((COALESCE($!s0s!$.customnumber1__c, 0) * 10000), 2)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>MOD(($!s0s!$.customnumber1__c * 10000), 2)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

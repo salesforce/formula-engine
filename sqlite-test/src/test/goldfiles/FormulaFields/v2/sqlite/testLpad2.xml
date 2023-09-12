@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLpad2">
+    <SqlOutput nullAsNull="false">
+       <Sql>substr(substr(replace(hex(zeroblob(MAX(COALESCE($!s0s!$.customNumber1__c, 0),0))),'00',$!s0s!$.customText2__c),1,MAX(COALESCE($!s0s!$.customNumber1__c, 0),0)-length($!s0s!$.customText1__c))||$!s0s!$.customText1__c,1,MAX(COALESCE($!s0s!$.customNumber1__c, 0),0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>substr(substr(replace(hex(zeroblob(MAX($!s0s!$.customNumber1__c,0))),'00',$!s0s!$.customText2__c),1,MAX($!s0s!$.customNumber1__c,0)-length($!s0s!$.customText1__c))||$!s0s!$.customText1__c,1,MAX($!s0s!$.customNumber1__c,0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

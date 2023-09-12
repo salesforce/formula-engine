@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRegex">
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN REGEXP_LIKE(COALESCE($!s0s!$.customtext__c,''),COALESCE(COALESCE('^','')||COALESCE($!s0s!$.customexpr__c,''),'')||COALESCE('$','')) THEN 'TRUE' ELSE 'FALSE' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN REGEXP_LIKE(COALESCE($!s0s!$.customtext__c,''),COALESCE(COALESCE('^','')||COALESCE($!s0s!$.customexpr__c,''),'')||COALESCE('$','')) THEN 'TRUE' ELSE 'FALSE' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

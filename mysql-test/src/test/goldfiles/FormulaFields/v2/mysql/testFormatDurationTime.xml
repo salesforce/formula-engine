@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationTime">
+    <SqlOutput nullAsNull="false">
+       <Sql>TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS(TIME_TO_SEC(TIMEDIFF(TIME($!s0s!$.timeString1__c),TIME($!s0s!$.timeString2__c)))),0)),'%H:%i:%s')</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TIME_FORMAT(SEC_TO_TIME(TRUNCATE(ABS(TIME_TO_SEC(TIMEDIFF(TIME($!s0s!$.timeString1__c),TIME($!s0s!$.timeString2__c)))),0)),'%H:%i:%s')</Sql>
+       <Guard>1=0 OR 1=0</Guard>
+    </SqlOutput>
+</testCase>

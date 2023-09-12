@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFindOnTextWithIndex">
+    <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,$F.nvl(context.record.customNumber__c,new $F.Decimal('0'))-1)+1):0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,$F.nvl(context.record.customNumber__c,0)-1)+1):0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,context.record.customNumber__c-1)+1):0)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(((context.record.customText2__c)?(context.record.customText2__c.indexOf(context.record.customText1__c,context.record.customNumber__c-1)+1):0)))</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(CASE WHEN COALESCE(STRPOS(SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1),1)::integer),$!s0s!$.customText1__c),0) &gt; 0 THEN STRPOS(SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1),1)::integer),$!s0s!$.customText1__c) + GREATEST(COALESCE(COALESCE($!s0s!$.customNumber__c, 0), 1),1) - 1 ELSE 0 END, 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(CASE WHEN COALESCE(STRPOS(SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1)::integer),$!s0s!$.customText1__c),0) &gt; 0 THEN STRPOS(SUBSTR($!s0s!$.customText2__c,GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1)::integer),$!s0s!$.customText1__c) + GREATEST(COALESCE($!s0s!$.customNumber__c, 1),1) - 1 ELSE 0 END, 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

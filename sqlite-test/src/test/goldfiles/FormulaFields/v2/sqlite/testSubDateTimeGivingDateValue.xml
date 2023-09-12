@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSubDateTimeGivingDateValue">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATETIME($!s0s!$.customdatetime1__c, ROUND(-(COALESCE($!s0s!$.customnumber1__c, 0)*86400))||' second')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATETIME($!s0s!$.customdatetime1__c, ROUND(-($!s0s!$.customnumber1__c*86400))||' second')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

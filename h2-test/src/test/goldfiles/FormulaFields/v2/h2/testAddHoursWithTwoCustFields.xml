@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddHoursWithTwoCustFields">
+    <SqlOutput nullAsNull="false">
+       <Sql>DATEADD(millisecond,COALESCE($!s0s!$.customnumber1__c, 0),CAST(PARSEDATETIME($!s0s!$.timeString__c,'HH:mm:ss[.SSS]','en','UTC') as TIME(3)))</Sql>
+       <Guard> NOT REGEXP_LIKE ($!s0s!$.timeString__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$')</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>DATEADD(millisecond,$!s0s!$.customnumber1__c,CAST(PARSEDATETIME($!s0s!$.timeString__c,'HH:mm:ss[.SSS]','en','UTC') as TIME(3)))</Sql>
+       <Guard> NOT REGEXP_LIKE ($!s0s!$.timeString__c, '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$')</Guard>
+    </SqlOutput>
+</testCase>

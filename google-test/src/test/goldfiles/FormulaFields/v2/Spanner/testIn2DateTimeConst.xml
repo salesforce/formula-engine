@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2DateTimeConst">
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customdate__c IN ($!s0s!$.customin1__c,PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', TRIM('2004-02-28 11:00:00'), 'UTC'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customdate__c IN ($!s0s!$.customin1__c,PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', TRIM('2004-02-28 11:00:00'), 'UTC'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

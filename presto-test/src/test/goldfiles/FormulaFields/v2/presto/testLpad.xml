@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLpad">
+    <SqlOutput nullAsNull="false">
+       <Sql>LPAD($!s0s!$.customText1__c, GREATEST(try_cast(COALESCE($!s0s!$.customNumber1__c, 0) as integer),0), ' ')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LPAD($!s0s!$.customText1__c, GREATEST(try_cast($!s0s!$.customNumber1__c as integer),0), ' ')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

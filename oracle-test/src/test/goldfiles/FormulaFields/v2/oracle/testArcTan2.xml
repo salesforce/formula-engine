@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testArcTan2">
+    <SqlOutput nullAsNull="false">
+       <Sql>ATAN2(NVL($!s0s!$.customnumber1__c, 0),NVL($!s0s!$.customnumber2__c, 0))</Sql>
+       <Guard>NVL($!s0s!$.customnumber2__c, 0)=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ATAN2($!s0s!$.customnumber1__c,$!s0s!$.customnumber2__c)</Sql>
+       <Guard>$!s0s!$.customnumber2__c=0</Guard>
+    </SqlOutput>
+</testCase>

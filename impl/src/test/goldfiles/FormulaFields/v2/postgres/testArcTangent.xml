@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testArcTangent">
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.atan($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.atan($F.nvl(context.record.customnumber1__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.atan(context.record.customnumber1__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?($F.Decimal.atan(context.record.customnumber1__c)):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>ATAN(COALESCE($!s0s!$.customnumber1__c, 0))::numeric(40,20)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>ATAN($!s0s!$.customnumber1__c)::numeric(40,20)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

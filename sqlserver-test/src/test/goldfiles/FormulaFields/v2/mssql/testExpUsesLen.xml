@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesLen">
+    <SqlOutput nullAsNull="false">
+       <Sql>CAST(EXP(COALESCE(LEN($!s0s!$.customtext1__c),0)) AS DECIMAL(38,10))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CAST(EXP(COALESCE(LEN($!s0s!$.customtext1__c),0)) AS DECIMAL(38,10))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

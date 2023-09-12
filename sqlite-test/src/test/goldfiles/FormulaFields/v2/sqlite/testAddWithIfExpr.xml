@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddWithIfExpr">
+    <SqlOutput nullAsNull="false">
+       <Sql>((COALESCE(COALESCE($!s0s!$.customnumber1__c, 0), 0)+COALESCE((COALESCE($!s0s!$.customcurrency1__c, 0)+COALESCE($!s0s!$.customnumber2__c, 0)), 0))+COALESCE($!s0s!$.customnumber3__c, 0))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(($!s0s!$.customnumber1__c+($!s0s!$.customcurrency1__c+$!s0s!$.customnumber2__c))+$!s0s!$.customnumber3__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

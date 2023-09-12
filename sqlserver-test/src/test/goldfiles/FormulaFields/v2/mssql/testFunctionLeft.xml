@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFunctionLeft">
+    <SqlOutput nullAsNull="false">
+       <Sql>SUBSTRING($!s0s!$.customtext__c, 1, ((COALESCE($!s0s!$.customnumber__c, 0) + ABS(COALESCE($!s0s!$.customnumber__c, 0)))/2))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>SUBSTRING($!s0s!$.customtext__c, 1, (($!s0s!$.customnumber__c + ABS($!s0s!$.customnumber__c))/2))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

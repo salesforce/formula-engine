@@ -10,6 +10,7 @@ import java.util.Map;
  * TestData object for JestDataModel
  * @author jkathiara
  */
+@Deprecated
 public class TestData {
 
 	public Map<String, String> inputs;

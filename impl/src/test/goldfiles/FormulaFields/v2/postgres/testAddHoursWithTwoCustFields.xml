@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddHoursWithTwoCustFields">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.timeString__c!=null)?((new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber()))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.timeString__c!=null)?((new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+$F.nvl(context.record.customnumber1__c,0)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.timeString__c!=null&amp;&amp;context.record.customnumber1__c!=null)?((new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+context.record.customnumber1__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.timeString__c!=null&amp;&amp;context.record.customnumber1__c!=null)?((new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+context.record.customnumber1__c.toNumber()))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>MOD(CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString__c, 'HH24:mi:ss.MS'),'SSSS.MS') AS NUMERIC) * 1000+ROUND(MOD(CAST(COALESCE($!s0s!$.customnumber1__c, 0) AS NUMERIC), 86400000))+86400000,86400000)</Sql>
+       <Guard> NOT $!s0s!$.timeString__c ~ '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$' </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>MOD(CAST(TO_CHAR(TO_TIMESTAMP($!s0s!$.timeString__c, 'HH24:mi:ss.MS'),'SSSS.MS') AS NUMERIC) * 1000+ROUND(MOD(CAST($!s0s!$.customnumber1__c AS NUMERIC), 86400000))+86400000,86400000)</Sql>
+       <Guard> NOT $!s0s!$.timeString__c ~ '^([01]\d|2[0-3]):[0-5][0-9]:[0-5][0-9]\.[0-9][0-9][0-9]$' </Guard>
+    </SqlOutput>
+</testCase>
