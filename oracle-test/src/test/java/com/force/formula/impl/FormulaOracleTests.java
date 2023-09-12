@@ -5,18 +5,16 @@
  */
 package com.force.formula.impl;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
+import com.force.formula.DbTester;
 import com.force.formula.FormulaEngine;
 import com.force.formula.impl.BaseCustomizableParserTest.FieldTestFormulaValidationHooks;
 import com.force.formula.impl.sql.FormulaDefaultSqlStyle;
 import com.force.formula.sql.OracleContainerTester;
-import com.force.formula.DbTester;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Abstract class for testing formulas with oracle-xe
@@ -25,6 +23,7 @@ import com.force.formula.DbTester;
  * @author stamm
  * @since 0.2.0
  */
+@Deprecated
 public abstract class FormulaOracleTests extends FormulaGenericTests {
 
 	// use a single DB with a docker container, and not three of them by sharing them.
