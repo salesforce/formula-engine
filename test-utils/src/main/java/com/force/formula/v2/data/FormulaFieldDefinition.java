@@ -1,11 +1,12 @@
 package com.force.formula.v2.data;
 
-import com.force.formula.FormulaDataType;
-import com.force.formula.v2.Utils;
-import org.apache.commons.lang3.Validate;
-
 import java.math.BigDecimal;
 import java.util.List;
+
+import org.apache.commons.lang3.Validate;
+
+import com.force.formula.FormulaDataType;
+import com.force.formula.v2.Utils;
 
 /**
  * A class that contains the definition of the formula field or the custom field defined in the testcase
@@ -91,6 +92,10 @@ public class FormulaFieldDefinition {
      * @return the field value after converting based on the field's data type
      */
     public Object createObjectWithGivenValue(String fieldValue){
+        if (fieldValue == null || fieldValue.length() == 0) {
+            return null;
+        }
+
         if (this.dataType.isNumber()) {
             if ("NULL".equalsIgnoreCase(fieldValue)) {
                 return null;
