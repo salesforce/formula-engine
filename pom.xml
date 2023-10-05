@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.salesforce.formula</groupId>
   <artifactId>formula-engine</artifactId>
-  <version>0.3.14-SNAPSHOT</version>
+  <version>0.3.14</version>
   <name>Formula Engine</name>
   <description>
     Implementation of a formula engine in the "salesforce" style, which
@@ -78,7 +78,7 @@
     <connection>scm:git:https://github.com/salesforce/formula-engine.git</connection>
     <developerConnection>scm:git:https://github.com/salesforce/formula-engine.git</developerConnection>
     <url>https://github.com/salesforce/formula-engine</url>
-    <tag>v0.1.2</tag>
+    <tag>v0.3.14</tag>
   </scm>
 
   <dependencyManagement>
