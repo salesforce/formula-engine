@@ -1,10 +1,14 @@
 package com.force.formula.v2.data;
 
-import com.force.formula.v2.Utils;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.Validate;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import com.force.formula.v2.Utils;
 
 /**
  * Each testcase will have a list of FormulaTestData. This provides the input and expected output values for each execution path
@@ -31,7 +35,7 @@ public class FormulaTestData {
      * @param executionPaths ordered list of execution paths as defined in the test xml file
      * @param referenceFields ordered list of reference fields as defined in the test xml file
      */
-    public FormulaTestData(String input, List<String> outputs, List<String> executionPaths, List<FormulaFieldDefinition> referenceFields) {
+    public FormulaTestData(String testCase, String input, List<String> outputs, List<String> executionPaths, List<FormulaFieldDefinition> referenceFields) {
 
         List<FormulaFieldDefinition> inputFields = getAllFieldsForInputData(referenceFields);
         //To make sure that split does not ignore the last empty input, we added a -1 in the following method call
@@ -44,11 +48,28 @@ public class FormulaTestData {
                 "an expectedOutput in order in which the execution paths are indexed or defined in the testcase");
 
         Map<String, Object> inputMap = new HashMap<>();
+        StringBuffer sb = new StringBuffer();
+        sb.append("testCase: ")
+          .append(testCase)
+          .append("input: ")
+          .append(input);
         for(int i=0;i<inputFields.size();i++){
-            if(inputArray[i]!=null && inputArray[i].length()>0){
-                inputMap.put(inputFields.get(i).getFieldName(),inputFields.get(i).createObjectWithGivenValue(inputArray[i]));
-            }else{
-                inputMap.put(inputFields.get(i).getFieldName(),null);
+            if (i != 0) {
+                sb.append(", ");
+            }
+            else {
+                sb.append(" ");
+            }
+            sb.append(inputFields.get(i).getFieldName() + "='" + inputArray[i] + "'");
+            try {
+                if(inputArray[i]!=null && inputArray[i].length()>0){
+                    inputMap.put(inputFields.get(i).getFieldName(),inputFields.get(i).createObjectWithGivenValue(inputArray[i]));
+                }else{
+                    inputMap.put(inputFields.get(i).getFieldName(),null);
+                }
+            }
+            catch (Exception e) {
+                throw new RuntimeException(sb.toString(), e);
             }
         }
         this.input = Collections.unmodifiableMap(inputMap);

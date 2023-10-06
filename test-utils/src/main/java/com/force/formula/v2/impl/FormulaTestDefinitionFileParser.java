@@ -1,12 +1,18 @@
 package com.force.formula.v2.impl;
 
-import com.force.formula.FormulaDataType;
-import com.force.formula.v2.IFormulaTestDefinitionParser;
-import com.force.formula.v2.Utils;
-import com.force.formula.v2.data.FormulaFieldDefinition;
-import com.force.formula.v2.data.FormulaTestData;
-import com.force.formula.v2.data.FormulaTestDefinition;
-import com.force.formula.v2.exception.FormulaFileParseException;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.w3c.dom.Document;
@@ -15,13 +21,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.force.formula.FormulaDataType;
+import com.force.formula.v2.IFormulaTestDefinitionParser;
+import com.force.formula.v2.Utils;
+import com.force.formula.v2.data.FormulaFieldDefinition;
+import com.force.formula.v2.data.FormulaTestData;
+import com.force.formula.v2.data.FormulaTestDefinition;
+import com.force.formula.v2.exception.FormulaFileParseException;
 
 public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionParser<FormulaTestDefinition> {
 
@@ -152,6 +158,7 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
      */
     private List<FormulaTestData> extractTestData(Element element, List<String> executionPaths, List<FormulaFieldDefinition> referenceFields){
         List<FormulaTestData> testDataList = new LinkedList<>();
+        String testCase = element.getAttribute("testName");
         if(element.hasChildNodes()){
             NodeList children = element.getChildNodes();
             for(int i=0;i<children.getLength();i++){
@@ -165,7 +172,7 @@ public class FormulaTestDefinitionFileParser implements IFormulaTestDefinitionPa
                         .map(s -> s.replaceAll("\\\\,", ","))
                         .map(String::trim)
                         .collect(Collectors.toList());
-                testDataList.add(new FormulaTestData(input, outputs, executionPaths, referenceFields));
+                testDataList.add(new FormulaTestData(testCase, input, outputs, executionPaths, referenceFields));
             }
         }
         //we don't want to return empty lists to keep things simple and uniform

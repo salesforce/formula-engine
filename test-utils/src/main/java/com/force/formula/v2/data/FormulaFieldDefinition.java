@@ -92,7 +92,7 @@ public class FormulaFieldDefinition {
      * @return the field value after converting based on the field's data type
      */
     public Object createObjectWithGivenValue(String fieldValue){
-        if (fieldValue == null || fieldValue.length() == 0) {
+        if (fieldValue == null || (this.dataType.isNumber() && fieldValue.trim().length() == 0)) {
             return null;
         }
 
