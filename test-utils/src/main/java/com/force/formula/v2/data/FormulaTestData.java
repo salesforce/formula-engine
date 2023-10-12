@@ -41,17 +41,25 @@ public class FormulaTestData {
         //To make sure that split does not ignore the last empty input, we added a -1 in the following method call
         String[] inputArray = input.trim().split(",",-1);
 
-        Validate.isTrue((inputFields.size()==0)||((inputFields.size()>0) && (inputArray.length==inputFields.size())),"Each field needs to have a " +
-                "corresponding input value defined. Input Fields Size: " + inputFields.size()+" , Input Values Size: "
-                + inputArray.length);
-        Validate.isTrue(executionPaths.size()==outputs.size(),"Each executionPath needs to have " +
-                "an expectedOutput in order in which the execution paths are indexed or defined in the testcase");
+        Validate.isTrue((inputFields.size()==0)||((inputFields.size()>0) && (inputArray.length==inputFields.size())),
+                        "Each field needs to have a corresponding input value defined. Input Fields Size: " +
+                        testCase + 
+                        " Input Values: " +  input +
+                        ", Input Field Size: " + inputFields.size() + 
+                        ", Input Values Size: " + inputArray.length
+                        );
+        Validate.isTrue(executionPaths.size()==outputs.size(),
+                        "Each executionPath needs to have an expectedOutput in order in which the execution paths are indexed or defined in the testcase: " +
+                        testCase + 
+                        " Input Value: " +  input + 
+                        ", expectedOutput: " + outputs
+                        );
 
         Map<String, Object> inputMap = new HashMap<>();
         StringBuffer sb = new StringBuffer();
         sb.append("testCase: ")
           .append(testCase)
-          .append("input: ")
+          .append(" input: ")
           .append(input);
         for(int i=0;i<inputFields.size();i++){
             if (i != 0) {
