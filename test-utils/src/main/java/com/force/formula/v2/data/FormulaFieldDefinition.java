@@ -97,7 +97,7 @@ public class FormulaFieldDefinition {
         }
 
         if (this.dataType.isNumber()) {
-            if ("NULL".equalsIgnoreCase(fieldValue)) {
+            if ("NULL".equalsIgnoreCase(fieldValue.trim())) {
                 return null;
             }
             return new BigDecimal(fieldValue.trim());
