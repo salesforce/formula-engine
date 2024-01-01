@@ -253,6 +253,23 @@ public interface FormulaEngineHooks {
     }
 
     /**
+     * Log information about a formula during design time when it is being parsed
+     * @param runTimeInitial the initial runtime
+     * @param formulaSize size of the formula in characters
+     * @param formulaSource the formula being evaluated
+     * @param commands all the commands used
+     * @param globalVariables all the global variables used
+     * @param polymorphicFields whether this formula had polymorphic fields
+     * @param returnType the string represented the data type of the formula being evaluated
+     * @param context the name of the formula context
+     * @param exception the exception generated
+     */
+    default void logFormulaDesignTime(long runTimeInitial, int formulaSize, String formulaSource, String commands, String globalVariables,
+                                      Boolean polymorphicFields, String returnType, String context, Exception exception) {
+        // nothing to do
+    }
+
+    /**
      * @return Whether or not we should log during runtime. This is to enable sampling in the core app.
      */
     default boolean shouldLogRuntime() {

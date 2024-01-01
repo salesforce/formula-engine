@@ -251,7 +251,8 @@ public abstract class BaseFormulaInfoImpl implements RuntimeFormulaInfo {
                 String dataTypeString = dataType != null ? dataType.getName() : null;
                 int length = originalSource != null ? originalSource.length() : 0;
                 if (isCreateOrEditFormula) {
-                    FormulaEngine.getHooks().logFormulaDesignTime(startTime, length, 
+                    FormulaEngine.getHooks().logFormulaDesignTime(startTime, length,
+                            this.source,
                             null, null, null,
                             dataTypeString,
                             contextName,
