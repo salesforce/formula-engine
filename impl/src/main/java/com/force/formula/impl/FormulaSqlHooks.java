@@ -104,6 +104,15 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     }
     
     /**
+     * Default to sqlToChar() but allows other hooks to override
+     *
+     * @return the string to use for String.format to convert number to text generically, without a format
+     */
+    default String sqlToCharNumber() {
+        return sqlToChar();
+    }
+
+    /**
      * @return the string to use for TO_TIMESTAMP to get seconds.microseconds.  It's a subtle difference
      */
     default String sqlSecsAndMsecs() {
