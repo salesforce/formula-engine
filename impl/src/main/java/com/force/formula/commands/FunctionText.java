@@ -165,7 +165,7 @@ public class FunctionText extends FormulaCommandInfoImpl implements FormulaComma
             if (clazz == FormulaTime.class)  {
             	sqlBuilder.append(String.format(hooks.sqlToCharTime(), args[0]));
             } else if (clazz == BigDecimal.class) {
-            	sqlBuilder.append("(").append(String.format(getSqlHooks(context).sqlToCharNumber(), args[0])).append(")");
+            	sqlBuilder.append("(").append(String.format(getSqlHooks(context).sqlToChar(), args[0])).append(")");
             } else  {
             	String toChar;
             	if (clazz == Date.class || parentType == Date.class) {
