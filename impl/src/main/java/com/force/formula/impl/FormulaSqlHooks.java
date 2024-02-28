@@ -461,7 +461,14 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
 		return "TO_CHAR(%s, 'YYYY-MM-DD')";
     }
     
-    
+    /**
+     * Default to sqlToChar(), other hooks can override.
+     * @return the format for String.format for converting from a date value to a string YYYY-MM-DD
+     */
+    default String sqlToCharNumber() {
+        return sqlToChar();
+    }
+
     /**
      * @return the format for String.format for converting a number to an interval suitable for to {@link #sqlIntervalToDurationString(String, boolean, String)}
      * @param dateType the date type for the interval
