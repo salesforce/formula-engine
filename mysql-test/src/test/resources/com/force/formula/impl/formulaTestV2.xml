@@ -12341,7 +12341,7 @@
                 expectedOutput="Error: com.force.formula.FormulaDateException,
 					null,
 					Error: com.force.formula.FormulaDateException,
-					Error: MONTH: 1 -&gt; 2"/>
+					null"/>
       <testData input="2005-03-32"
                 expectedOutput="Error: com.force.formula.FormulaDateException,
 					null,
