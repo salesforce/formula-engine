@@ -457,8 +457,6 @@
             <artifactId>maven-gpg-plugin</artifactId>
             <version>1.6</version>
             <configuration>
-              <keyname>0xD6275F50</keyname>
-              <passphraseServerId>0xD6275F50</passphraseServerId>
               <!-- Prevent gpg from using pinentry programs -->
               <gpgArguments>
                 <arg>--pinentry-mode</arg>
