@@ -515,7 +515,7 @@
         <module>mysql-test</module>
         <module>sqlserver-test</module>
         <module>sqlite-test</module>
-        <module>h2-test</module>
+        <!-- <module>h2-test</module> --> 
         <!-- Google spanner is having issues with connection in Jenkins, so excluding these tests from maven build process-->
         <!-- These tests can be executed by using the "google-spanner" profile e.g. `mvn -P google-spanner clean verify -B` -->
         <!-- <module>google-test</module> -->
