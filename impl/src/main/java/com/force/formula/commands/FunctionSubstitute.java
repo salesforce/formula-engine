@@ -40,7 +40,7 @@ public class FunctionSubstitute extends FormulaCommandInfoImpl {
         // If arg[1] and arg[2] are not null, then call replaceAll(arg[1],arg[2]).
         return JsValue.generate("(" + args[1]+ " === null ? null : ("
             + args[2] + " === null ? " +args[0] + ".replaceAll(" + args[1] + ",\"\") :"+args[0] + ".replaceAll(" + args[1] + "," + args[2] + ")))",
-                                args, false, args[0]); // TODO: Ignore other guards?
+                                args, false, args[0]);
     }
 
 }
