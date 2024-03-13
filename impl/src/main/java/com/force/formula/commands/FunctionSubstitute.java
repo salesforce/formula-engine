@@ -35,7 +35,21 @@ public class FunctionSubstitute extends FormulaCommandInfoImpl {
     
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
-        return JsValue.generate(args[0] + ".replace(" + args[1] + "," + args[2] + ")", args, false, args[0]); // TODO: Ignore other guards?
+        /**
+         * JS replaceAll natively returns the original string if arg[1] is null and replaces with null if arg[2] is null
+         * However, the SQL and Java implementation returns null if arg[1] is null and replaces with "" if arg[2] is null
+         * To align with SQL and Java implementation, we are putting JS guards on arg[1] and arg[2] of substitute function
+         * If arg[1] is null return null, else if arg[2] is null then consider arg[2] as "" and call replaceAll(arg[1],"")
+         * If arg[1] and arg[2] are not null, then call replaceAll(arg[1],arg[2])
+         * E.g.
+         *     SUBSTITUTE("Hello; Text;", null, ",") returns null
+         *     SUBSTITUTE("Hello; Text;", ";", null) returns "Hello Text"
+         *     SUBSTITUTE("Hello; Text;", ";", ',') returns "Hello, Text,"
+         */
+        return JsValue.generate("(" + args[1] + " === null ? null : (" + args[2] + " === null ? "
+                        + args[0] + ".replaceAll(" + args[1] + ",\"\") :"
+                        + args[0] + ".replaceAll(" + args[1] + "," + args[2] + ")))",
+                args, false, args[0]);
     }
 
 }

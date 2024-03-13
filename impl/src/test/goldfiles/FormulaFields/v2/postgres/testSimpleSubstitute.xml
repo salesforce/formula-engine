@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testCase name="testSimpleSubstitute">
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(context.record.customtext1__c.replace(context.record.customtext2__c,context.record.customtext3__c)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?((context.record.customtext2__c === null ? null : (context.record.customtext3__c === null ? context.record.customtext1__c.replaceAll(context.record.customtext2__c,&quot;&quot;) :context.record.customtext1__c.replaceAll(context.record.customtext2__c,context.record.customtext3__c)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?((context.record.customtext2__c === null ? null : (context.record.customtext3__c === null ? context.record.customtext1__c.replaceAll(context.record.customtext2__c,&quot;&quot;) :context.record.customtext1__c.replaceAll(context.record.customtext2__c,context.record.customtext3__c)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?((context.record.customtext2__c === null ? null : (context.record.customtext3__c === null ? context.record.customtext1__c.replaceAll(context.record.customtext2__c,&quot;&quot;) :context.record.customtext1__c.replaceAll(context.record.customtext2__c,context.record.customtext3__c)))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?((context.record.customtext2__c === null ? null : (context.record.customtext3__c === null ? context.record.customtext1__c.replaceAll(context.record.customtext2__c,&quot;&quot;) :context.record.customtext1__c.replaceAll(context.record.customtext2__c,context.record.customtext3__c)))):null</JsOutput>
     <SqlOutput nullAsNull="false">
        <Sql>REPLACE($!s0s!$.customtext1__c, $!s0s!$.customtext2__c, $!s0s!$.customtext3__c)</Sql>
        <Guard>null</Guard>
