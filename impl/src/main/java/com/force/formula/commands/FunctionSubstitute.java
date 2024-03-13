@@ -42,9 +42,9 @@ public class FunctionSubstitute extends FormulaCommandInfoImpl {
          * If arg[1] is null return null, else if arg[2] is null then consider arg[2] as "" and call replaceAll(arg[1],"")
          * If arg[1] and arg[2] are not null, then call replaceAll(arg[1],arg[2])
          * E.g.
-         *     SUBSTITUTE("Hello; Text;", null, ",") reutns null
-         *     SUBSTITUTE("Hello; Text;", ";", null) reutns "Hello Text"
-         *     SUBSTITUTE("Hello; Text;", ";", ',') reutns "Hello, Text,"
+         *     SUBSTITUTE("Hello; Text;", null, ",") returns null
+         *     SUBSTITUTE("Hello; Text;", ";", null) returns "Hello Text"
+         *     SUBSTITUTE("Hello; Text;", ";", ',') returns "Hello, Text,"
          */
         return JsValue.generate("(" + args[1] + " === null ? null : (" + args[2] + " === null ? "
                         + args[0] + ".replaceAll(" + args[1] + ",\"\") :"
