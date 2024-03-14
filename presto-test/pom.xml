@@ -9,7 +9,7 @@
   <parent>
     <groupId>com.salesforce.formula</groupId>
     <artifactId>formula-engine</artifactId>
-    <version>0.3.20</version>
+    <version>0.3.21-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -113,4 +113,3 @@
     </profile>
   </profiles>
 </project>
-
