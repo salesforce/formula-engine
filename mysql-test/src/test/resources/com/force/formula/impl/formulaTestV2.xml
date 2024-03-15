@@ -7954,6 +7954,51 @@
 					Platinum File,
 					Platinum File,
 					Platinum File"/>
+        <testData input="No match,First,Second"
+                  expectedOutput="No match,
+					No match,
+					No match,
+					No match"/>
+        <testData input="Salesforce,,"
+                  expectedOutput="null,
+					null,
+					null,
+					null"/>
+        <testData input=",old,"
+                  expectedOutput="null,
+					null,
+					null,
+					null"/>
+        <testData input=",,new"
+                  expectedOutput="null,
+					null,
+					null,
+					null"/>
+        <testData input=",old,new"
+                  expectedOutput="null,
+					null,
+					null,
+					null"/>
+        <testData input="Golden File,, Platinum"
+                  expectedOutput="null,
+					null,
+					null,
+					null"/>
+        <testData input="Replace Space, ,No"
+                  expectedOutput="ReplaceNoSpace,
+					ReplaceNoSpace,
+					ReplaceNoSpace,
+					ReplaceNoSpace"/>
+        <testData input="Replace All x x x,x,z"
+                  expectedOutput="Replace All z z z,
+					Replace All z z z,
+					Replace All z z z,
+					Replace All z z z"/>
+        <testData input="Replace All xxx,x,z"
+                  expectedOutput="Replace All zzz,
+					Replace All zzz,
+					Replace All zzz,
+					Replace All zzz"/>
    </testcase>
    <testcase testName="testTextNum"
              fieldName="testTextNum"
