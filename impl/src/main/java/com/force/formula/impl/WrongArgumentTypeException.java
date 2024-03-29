@@ -20,9 +20,15 @@ public class WrongArgumentTypeException extends FormulaException {
         super(createErrorMessage(function, expectedInputTypes, actual));
 
         Token token = actual.getToken();
-        location = token.getColumn();
-        text = token.getText();
-        type = token.getType();
+        if(token != null) {
+            location = token.getColumn();
+            text = token.getText();
+            type = token.getType();
+        } else {
+            location = null;
+            text = null;
+            type = null;
+        }
     }
 
     private static String createErrorMessage(String function, Type[] expectedInputTypes, FormulaAST actual) {
@@ -94,7 +100,7 @@ public class WrongArgumentTypeException extends FormulaException {
         return type;
     }
 
-    private final int location;
+    private final Integer location;
     private final String text;
-    private final int type;
+    private final Integer type;
 }
