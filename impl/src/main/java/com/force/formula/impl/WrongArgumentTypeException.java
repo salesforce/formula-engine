@@ -69,11 +69,12 @@ public class WrongArgumentTypeException extends FormulaException {
         super(createErrorMessage(function, expectedInputTypes, columnType));
 
         Token token = actual.getToken();
-        location = token.getColumn();
         if(token != null) {
+            location = token.getColumn();
             text = token.getText();
             type = token.getType();
         } else {
+            location = 0;
             text = "";
             type = 0;
         }
