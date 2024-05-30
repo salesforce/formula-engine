@@ -5,6 +5,7 @@
 package com.force.formula.util;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import com.force.formula.ContextualFormulaFieldInfo;
 import com.force.formula.DisplayField;
@@ -23,7 +24,7 @@ import com.force.formula.sql.SQLPair;
 import com.force.i18n.BaseLocalizer;
 
 /**
- * Example of a formula context that returns some fixed constants.  
+ * Example of a formula context that returns some fixed constants.
  * @author dchasman
  * @since 146
  */
@@ -67,11 +68,11 @@ public class SystemFormulaContext extends NullFormulaContext {
     @Override
     public ContextualFormulaFieldInfo lookup(String name, boolean isDynamicRefBase) throws InvalidFieldReferenceException, UnsupportedTypeException {
         if (ORIGIN_DATE_TIME.equalsIgnoreCase(name)) {
-        	FormulaSqlStyle style = FormulaEngine.getHooks().getSqlStyle();
-        	if (style != null && style.isMysqlStyle()) {
-        		return originDateTime_MYSQL;
-        	} else if (style != null && style.isTransactSqlStyle()) {
-        		return originDateTime_TSQL;
+            FormulaSqlStyle style = FormulaEngine.getHooks().getSqlStyle();
+            if (style != null && style.isMysqlStyle()) {
+                return originDateTime_MYSQL;
+            } else if (style != null && style.isTransactSqlStyle()) {
+                return originDateTime_TSQL;
             } else if (style != null && (style.isPrestoStyle() || style.isH2Style())) {
                 return originDateTime_PRESTO;
             } else if (style != null && style.isGoogleStyle()) {
@@ -98,7 +99,7 @@ public class SystemFormulaContext extends NullFormulaContext {
         return name;
     }
 
-    
+
     @Override
     public String fromDurableName(String reference) throws InvalidFieldReferenceException, UnsupportedTypeException {
         return reference;
@@ -150,7 +151,13 @@ public class SystemFormulaContext extends NullFormulaContext {
     private static DisplayField[] displayFields = new DisplayField[] { new DisplayField(SYSTEM_NAMESPACE, SYSTEM_NAMESPACE, originDateTime) };
 
     static {
-        Calendar c = FormulaI18nUtils.getLocalizer().getCalendar(BaseLocalizer.GMT);
+        Calendar c;
+        if ("th-TH".equals(FormulaI18nUtils.getLocalizer().getLocale().toLanguageTag())) {
+            c = Calendar.getInstance(Locale.US); // Use Gregorian instead of Buddhist, see W-15086056
+        }
+        else {
+            c = FormulaI18nUtils.getLocalizer().getCalendar(BaseLocalizer.GMT);
+        }
         c.clear();
         c.set(1900, 0, 1); // Months are zero-based in Java Calenders
 
