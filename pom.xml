@@ -16,11 +16,11 @@
     <graalvm.version>22.3.0</graalvm.version>
     <embedded-postgres.version>2.0.1</embedded-postgres.version>
     <testcontainers.version>1.17.3</testcontainers.version>
-    <javax.annotation.version>1.2</javax.annotation.version>
-    <!-- If the coverage threshold for a project is not met, the build will 
+    <jakarta.annotation.version>2.1.1</jakarta.annotation.version>
+    <!-- If the coverage threshold for a project is not met, the build will
       warn if false and fail if true -->
     <coverage.failIfBelowThreshold>true</coverage.failIfBelowThreshold>
-    <!-- When true, the build will fail if there are no tests present in 
+    <!-- When true, the build will fail if there are no tests present in
       a project -->
     <coverage.failIfNoTests>false</coverage.failIfNoTests>
     <!-- Each project can override this threshold -->
@@ -42,6 +42,7 @@
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
+
   </properties>
 
   <packaging>pom</packaging>
@@ -118,18 +119,18 @@
         <version>2.3.2</version>
       </dependency>
       <dependency>
-        <groupId>javax.annotation</groupId>
-        <artifactId>javax.annotation-api</artifactId>
-        <version>${javax.annotation.version}</version>
+        <groupId>jakarta.annotation</groupId>
+        <artifactId>jakarta.annotation-api</artifactId>
+        <version>${jakarta.annotation.version}</version>
       </dependency>
-      
+
       <!-- Embedded postgres validation -->
       <dependency>
         <groupId>io.zonky.test</groupId>
         <artifactId>embedded-postgres</artifactId>
         <version>${embedded-postgres.version}</version>
       </dependency>
-      
+
       <!-- GraalJS impl -->
       <dependency>
         <groupId>org.graalvm.sdk</groupId>
@@ -146,7 +147,7 @@
         <artifactId>regex</artifactId>
         <version>${graalvm.version}</version>
       </dependency>
-      
+
       <!-- For JSON Functions -->
       <dependency>
         <groupId>com.jayway.jsonpath</groupId>
@@ -184,11 +185,13 @@
           <artifactId>spring-boot-maven-plugin</artifactId>
           <version>${springframework.boot.version}</version>
         </plugin>
+        <!-- build coverage error affter adding eclipse antlr generator
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
           <version>0.8.8</version>
         </plugin>
+        -->
       </plugins>
     </pluginManagement>
     <plugins>
@@ -338,7 +341,7 @@
         </configuration>
         <executions>
           <execution>
-            <!-- Prepares a property pointing to the JaCoCo runtime agent 
+            <!-- Prepares a property pointing to the JaCoCo runtime agent
               that can be passed as a VM argument to the application under test. -->
             <id>prepare unit test JaCoCo runtime agent property</id>
             <goals>
@@ -358,7 +361,7 @@
             </goals>
           </execution>
           <execution>
-            <!-- Verifies that code coverage thresholds are met, checking 
+            <!-- Verifies that code coverage thresholds are met, checking
               instruction coverage per bundle by default -->
             <id>check code coverage threshold</id>
             <goals>
@@ -379,6 +382,29 @@
           </execution>
         </executions>
       </plugin>
+
+      <!-- temp to fix eclipse compiler error-->
+      <!--
+      <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.2.0</version>
+            <executions>
+                <execution>
+                    <phase>generate-sources</phase>
+                    <goals>
+                        <goal>add-source</goal>
+                    </goals>
+                    <configuration>
+                        <sources>
+                            <source>target/generated-sources/antlr</source>
+                        </sources>
+                    </configuration>
+                </execution>
+            </executions>
+      </plugin>
+      -->
+
     </plugins>
   </build>
   <profiles>
@@ -408,7 +434,7 @@
         </file>
       </activation>
       <dependencies>
-        <!-- Reinclude these to get the transitive dependencies and compile 
+        <!-- Reinclude these to get the transitive dependencies and compile
           scope -->
         <dependency>
           <groupId>org.graalvm.sdk</groupId>
@@ -517,7 +543,7 @@
         <!-- These tests can be executed by using the "mysql" profile e.g. `mvn -P mysql clean verify -B` -->
         <module>sqlserver-test</module>
         <module>sqlite-test</module>
-        <!-- <module>h2-test</module> --> 
+        <!-- <module>h2-test</module> -->
         <!-- Google spanner is having issues with connection in Jenkins, so excluding these tests from maven build process-->
         <!-- These tests can be executed by using the "google-spanner" profile e.g. `mvn -P google-spanner clean verify -B` -->
         <!-- <module>google-test</module> -->

@@ -1,10 +1,10 @@
 package com.force.formula.util;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.force.formula.FormulaGeolocation;
 import com.force.formula.FormulaGeolocation.GeolocationDisplayMode;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Service providing geo-location related features.
@@ -14,7 +14,7 @@ import com.force.formula.FormulaGeolocation.GeolocationDisplayMode;
  * @see FormulaGeolocation
  */
 public interface FormulaGeolocationService {
-    // TODO: find a better place ? 
+    // TODO: find a better place ?
     int DEFAULT_XYZ_LENGTH = 60;
     // Location delimiter
     String LOCATION_DELIMITER = "**";
@@ -33,7 +33,7 @@ public interface FormulaGeolocationService {
      */
     @Nonnull
     String computeXyzEncoded(@Nonnull FormulaGeolocation location);
-    
+
     /**
      * @return sql expressions for the x, y, and z components given a sql expression for the internal x-y-z-encoded representation.
      * @param xyzEncoded the XYZ coordiante for the location
@@ -43,18 +43,18 @@ public interface FormulaGeolocationService {
 
     /**
      * Returns sql expressions for the x, y, and z components given a pair of latitude and longitued values.
-     * @param latitude the latitude 
+     * @param latitude the latitude
      * @param longitude the longitude
-     * @return the three SQL expressions to get XYZ 
+     * @return the three SQL expressions to get XYZ
      */
     @Nonnull
     String[] getXyzStrings(double latitude, double longitude);
 
     /**
      * Returns sql expressions for the x, y, and z components given a pair of latitude and longitude sql expressions.
-     * @param latitude the latitude 
+     * @param latitude the latitude
      * @param longitude the longitude
-     * @return the three SQL expressions to get XYZ 
+     * @return the three SQL expressions to get XYZ
      */
     @Nonnull
     String[] getXyzStrings(@Nonnull String latitude, @Nonnull String longitude);
@@ -111,6 +111,6 @@ public interface FormulaGeolocationService {
      * @return  the square of the euclidian_distance_in_radius_of_the_earth from the arc_distance and the radius_of_earth.
      */
     double generateFilterSortDistanceRhs(double distance, DistanceUnit distanceUnit);
-    
+
     FormulaGeolocation[] getBoundingBox(FormulaGeolocation location, double distance, DistanceUnit distanceUnit);
 }

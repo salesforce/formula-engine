@@ -19,10 +19,10 @@
             <artifactId>formula-engine-api</artifactId>
             <version>0.3.23-SNAPSHOT</version>
         </dependency>
-		<dependency>
-		  <groupId>com.google.guava</groupId>
-		  <artifactId>guava</artifactId>
-		</dependency>
+        <dependency>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.graalvm.sdk</groupId>
             <artifactId>graal-sdk</artifactId>
@@ -36,48 +36,48 @@
           <groupId>io.github.java-diff-utils</groupId>
           <artifactId>java-diff-utils</artifactId>
           <version>4.11</version>
-        </dependency>  
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
         <!-- Have embedded postgres be an option (if you don't want docker in docker) -->
-		<dependency>
-		    <groupId>io.zonky.test</groupId>
-		    <artifactId>embedded-postgres</artifactId>
-		    <optional>true</optional>
-		</dependency> 
-		<!-- Prepare tests for other dbs -->       
-		<dependency>
-   	        <groupId>org.testcontainers</groupId>
-	        <artifactId>postgresql</artifactId>
+        <dependency>
+            <groupId>io.zonky.test</groupId>
+            <artifactId>embedded-postgres</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Prepare tests for other dbs -->
+        <dependency>
+               <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
             <version>${testcontainers.version}</version>
-		    <optional>true</optional>
-		</dependency>        
-		<dependency>
-   	        <groupId>org.testcontainers</groupId>
-	        <artifactId>mysql</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+               <groupId>org.testcontainers</groupId>
+            <artifactId>mysql</artifactId>
             <version>${testcontainers.version}</version>
-		    <optional>true</optional>
-		</dependency>        
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mariadb</artifactId>
             <version>${testcontainers.version}</version>
             <optional>true</optional>
-        </dependency>        
-	<dependency>
-   	  <groupId>org.testcontainers</groupId>
-	  <artifactId>oracle-xe</artifactId>
+        </dependency>
+    <dependency>
+         <groupId>org.testcontainers</groupId>
+      <artifactId>oracle-xe</artifactId>
           <version>${testcontainers.version}</version>
-	  <optional>true</optional>
-	</dependency>        
+      <optional>true</optional>
+    </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mssqlserver</artifactId>
             <version>${testcontainers.version}</version>
             <optional>true</optional>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>gcloud</artifactId>
@@ -85,22 +85,16 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.google.cloud</groupId>
-            <artifactId>google-cloud-spanner</artifactId>
-            <version>6.31.2</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>presto</artifactId>
             <version>${testcontainers.version}</version>
             <optional>true</optional>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>trino</artifactId>
             <version>${testcontainers.version}</version>
             <optional>true</optional>
-        </dependency>        
+        </dependency>
   </dependencies>
 </project>
