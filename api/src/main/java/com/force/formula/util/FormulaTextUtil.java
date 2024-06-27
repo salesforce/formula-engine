@@ -1,10 +1,11 @@
 package com.force.formula.util;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.concurrent.Immutable;
 
 import com.force.i18n.commons.text.DeferredStringBuilder;
 import com.force.i18n.commons.util.collection.IntHashMap;
@@ -12,10 +13,14 @@ import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.escape.Escaper;
 import com.google.common.escape.Escapers;
+import com.google.errorprone.annotations.Immutable;
+
+import jakarta.annotation.Nullable;
+
 
 /**
  * A package of generic text utility functions.
- * 
+ *
  * This is old enough that it was mostly implemented at salesforce, but replacements have been found
  *
  * @author davem,pnakada,jjordano,et. al.
@@ -23,22 +28,22 @@ import com.google.common.escape.Escapers;
  */
 public final class FormulaTextUtil {
 
-	private FormulaTextUtil() {}
+    private FormulaTextUtil() {}
 
-	
+
     private static final Escaper FORMULA_SEARCH_REPLACE = Escapers.builder()
-    		.addEscape('\\', "\\\\")
-    		.addEscape('\"', "\\\"")
-    		.addEscape('\r', "\\n")
-    		.addEscape('\n', "\\n")
-    		.addEscape('\t', "\\t")
-    		.build();
-    		
+            .addEscape('\\', "\\\\")
+            .addEscape('\"', "\\\"")
+            .addEscape('\r', "\\n")
+            .addEscape('\n', "\\n")
+            .addEscape('\t', "\\t")
+            .build();
+
     public static String escapeForFormulaString(String in) {
-    	return FORMULA_SEARCH_REPLACE.escape(in);
+        return FORMULA_SEARCH_REPLACE.escape(in);
     }
-    
-    
+
+
     /**
      * Escape output being sent to the user to be safe in HTML. Replaces &lt; &gt; &amp; &quot; etc. with their HTML escape
      * sequences. Does not translate \n's. Returns empty string if <code>value</code> is null.
@@ -117,20 +122,20 @@ public final class FormulaTextUtil {
             case '\u2028':   buf.append("<br>"); break;
             case '\u2029':   buf.append("<p>"); break;
             case '\u00a9':   buf.append("&copy;"); break;  // ©
-            default:                 
-	            if (Character.isHighSurrogate(c) && (i + 1) < length && Character.isSurrogatePair(c, value.charAt(i + 1))) {
-	                // Old browsers prefer decimal entity
-	                buf.append(codepointToCharRefDec(Character.codePointAt(value, i)));
-	                i++;
-	            } else {
-	                buf.appendQuicklyForEscapingWithoutSkips(c);
-	            }
+            default:
+                if (Character.isHighSurrogate(c) && (i + 1) < length && Character.isSurrogatePair(c, value.charAt(i + 1))) {
+                    // Old browsers prefer decimal entity
+                    buf.append(codepointToCharRefDec(Character.codePointAt(value, i)));
+                    i++;
+                } else {
+                    buf.appendQuicklyForEscapingWithoutSkips(c);
+                }
             }
         }
         return buf.toString();
     }
-   
-    
+
+
     /**
      * Generate the decimal XML character reference for specified Unicode code point.
      * Returns empty string for invalid code points.
@@ -145,8 +150,8 @@ public final class FormulaTextUtil {
         }
         return ""; // TODO: Should we throw new IllegalArgumentException("Invalid codepoint"); ?
     }
-   
-    
+
+
     /**
      * @param c the collection
      * @param delim
@@ -174,7 +179,7 @@ public final class FormulaTextUtil {
         }
         return sb.toString();
     }
-    
+
     /**
      * Note, if you are going to search/replace for the same set of source and target many times, you can get a
      * performance win by using the form of this call that takes a TrieMatcher instead.
@@ -226,7 +231,7 @@ public final class FormulaTextUtil {
 
         return sb.toString();
     }
-    
+
     /**
      * @param s the string to replace
      * @param src a single value to replace
@@ -279,7 +284,7 @@ public final class FormulaTextUtil {
         return buf.toString();
     }
 
-    
+
     private static final String[] JS_IN = new String[] { "\\", "'", "\n", "\r", "\"", "!--", "<", ">", "\u2028", "\u2029", "\u0000", "/*", "*/", "*", "&#39;" };
     private static final String[] JS_OUT = new String[] { "\\\\", "\\'", "\\n", "\\r", "\\\"", "\\!--", "\\u003C", "\\u003E", "\\n", "\\u2029", "", "\\/\\*", "\\*\\/", "\\*", "\\&#39;" };
 
@@ -300,7 +305,7 @@ public final class FormulaTextUtil {
     public static String escapeForJavascriptString(String in) {
         return TrieMatcher.replaceMultiple(in, JS_SEARCH_REPLACE);
     }
-    
+
     /**
      * Search and replace multiple strings in <code>s</code> given the the words and replacements given in
      * <code>TrieMatcher</code>.
@@ -343,7 +348,7 @@ public final class FormulaTextUtil {
             }
             foundMatch = true;
             if (dsb == null) {
-            	dsb = new StringBuilder(s.length() + 16);
+                dsb = new StringBuilder(s.length() + 16);
             }
 
             // Copy up to the match position
@@ -380,17 +385,17 @@ public final class FormulaTextUtil {
             return arg.substring(left, right + 1);
         }
     }
-    
+
     /**
      * Used by Formula Field: INITCAP() function.  Where the string is lowercased, except for the start
      * of each word.  This uses only unicode character sets to determine upper and lowercase (to match psql)
      * @param value the string to init cap
      * @return the string INITCAP'd the way the database does it.
-	 */
+     */
     public static String formulaInitCap(String value) {
-    	return formulaInitCap(value, false);
+        return formulaInitCap(value, false);
     }
-    
+
     /**
      * Used by Formula Field: INITCAP() function.  Where the string is lowercased, except for the start
      * of each word
@@ -409,28 +414,28 @@ public final class FormulaTextUtil {
         for (int i = 0; i < length; i++) {
             char c = value.charAt(i);
             if (ascii ? (c >= 'a' && c <= 'z') : Character.isLowerCase(c)) {
-            	if (isStart) {
-            		buf.append(Character.toUpperCase(c));
-            	} else {
-            		buf.append(c);
-            	}
-            	isStart = false;
+                if (isStart) {
+                    buf.append(Character.toUpperCase(c));
+                } else {
+                    buf.append(c);
+                }
+                isStart = false;
             } else if (ascii ? (c >= 'A' && c <= 'Z') : Character.isUpperCase(c)) {
-            	if (isStart) {
-            		buf.append(c);
-            	} else {
-            		buf.append(Character.toLowerCase(c));
-            	}
-            	isStart = false;
+                if (isStart) {
+                    buf.append(c);
+                } else {
+                    buf.append(Character.toLowerCase(c));
+                }
+                isStart = false;
             } else {
-            	isStart = ascii ? !(c >= '0' && c <= '9'): !Character.isDigit(c);   // alphanumeric
-            	buf.append(c);
+                isStart = ascii ? !(c >= '0' && c <= '9'): !Character.isDigit(c);   // alphanumeric
+                buf.append(c);
             }
         }
         return buf.toString();
     }
-    
-    
+
+
 
     /**
      * Removes enclosing single or double quotes provided the string's first and last character are the quotes
@@ -457,7 +462,7 @@ public final class FormulaTextUtil {
         return isEmptyOrWhitespace(str);
     }
 
-    
+
     public static boolean isEmptyOrWhitespace(CharSequence str) {
         int end = str.length();
         char c;
@@ -468,7 +473,7 @@ public final class FormulaTextUtil {
         }
         return true;
     }
-    
+
     /**
      * Compares two strings and returns true if they're equal to each other, where a null string and an empty string are
      * considered equal.
@@ -511,7 +516,7 @@ public final class FormulaTextUtil {
         }
         return true;
     }
-    
+
     private static final Pattern NUMERIC_PATTERN = Pattern.compile("[-+]?\\d*\\.?\\d+");
     /**
      * @return whether the string is numeric...  This isn't 100% fool proof, and isn't what is used for ISNUMBER(),
@@ -519,10 +524,10 @@ public final class FormulaTextUtil {
      * @param s the string to test
      */
     public static boolean isNumeric(String s) {
-    	if (s == null) return false;
-    	return NUMERIC_PATTERN.matcher(s).matches();
+        if (s == null) return false;
+        return NUMERIC_PATTERN.matcher(s).matches();
     }
-    
+
     /**
      * @param map the map to pretty print
      * @return a debug string for a map, one entry per line
@@ -531,11 +536,11 @@ public final class FormulaTextUtil {
         if (map == null) {
             return null;
         } else if (map.size() == 0) {
-        	return "";
+            return "";
         }
         return Joiner.on("\n").withKeyValueSeparator(" = ").join(map) + "\n";
     }
-    
+
     /**
      * Escapes <code>String</code>s into valid xml. Similar to <code>escapeInput</code> except that it will also
      * replace control characters with spaces.
@@ -565,7 +570,7 @@ public final class FormulaTextUtil {
     }
 
 
-    
+
     /**
      * Escapes <code>String</code>s into valid xml. Similar to <code>escapeInput</code> except that it will also
      * replace control characters with spaces.
@@ -775,7 +780,7 @@ public final class FormulaTextUtil {
          * @param start the 0-based position to start the search from.
          * @return null if no match found
          */
-        @CheckForNull
+        @Nullable
         public String findIn(CharSequence s, int start) {
             TrieMatch match = match(s, start);
             if (match == null) return null;
@@ -924,10 +929,10 @@ public final class FormulaTextUtil {
 
     /**
      * Struct returned by {@link TrieMatcher#match(CharSequence, int)} to represent a match.
-     * 
+     *
      * @author koliver
      * @see TrieMatcher
-     */    
+     */
     public static class TrieMatch {
 
         private final int position;
@@ -942,7 +947,7 @@ public final class FormulaTextUtil {
             this.word = word;
             this.replacement = replacement;
         }
-        
+
         /**
          * @return position of where the match was in the source.
          * Eg, <pre>
@@ -966,7 +971,7 @@ public final class FormulaTextUtil {
         public String getWord() {
             return this.word;
         }
-        
+
         /**
          * @return the replacement for word in the trie that matched.
          * Eg, <pre>
@@ -978,6 +983,6 @@ public final class FormulaTextUtil {
         public String getReplacement() {
             return this.replacement;
         }
-        
+
     }
 }

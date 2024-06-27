@@ -11,30 +11,30 @@
     <parent>
         <groupId>com.salesforce.formula</groupId>
         <artifactId>formula-engine</artifactId>
-        <version>0.3.23-SNAPSHOT</version>
+        <version>0.9.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.salesforce.formula</groupId>
             <artifactId>formula-engine-api</artifactId>
-            <version>0.3.23-SNAPSHOT</version>
+            <version>0.9.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.salesforce.formula</groupId>
             <artifactId>formula-engine-test-utils</artifactId>
-            <version>0.3.23-SNAPSHOT</version>
-	    <scope>test</scope>
+            <version>0.9.1-SNAPSHOT</version>
+        <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-	    <dependency>
-	      <groupId>com.google.guava</groupId>
-	      <artifactId>guava</artifactId>
-	    </dependency>
+        <dependency>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr-complete</artifactId>
@@ -44,16 +44,16 @@
             <artifactId>antlr4</artifactId>
         </dependency>
         <dependency>
-	  <groupId>io.zonky.test</groupId>
-	  <artifactId>embedded-postgres</artifactId>
-	  <scope>test</scope>
-	</dependency>
-	<dependency>
-	  <groupId>org.testcontainers</groupId>
-	  <artifactId>postgresql</artifactId>
+      <groupId>io.zonky.test</groupId>
+      <artifactId>embedded-postgres</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
           <version>${testcontainers.version}</version>
-	  <scope>test</scope>
-  	</dependency>
+      <scope>test</scope>
+      </dependency>
         <dependency>
           <groupId>org.graalvm.sdk</groupId>
           <artifactId>graal-sdk</artifactId>
@@ -64,17 +64,17 @@
           <artifactId>gson</artifactId>
           <version>2.9.0</version>
         </dependency>
-	<dependency>
-	  <groupId>jakarta.xml.bind</groupId>
-	  <artifactId>jakarta.xml.bind-api</artifactId>
-	  <scope>runtime</scope>
-	</dependency>
-	<dependency>
-	  <groupId>org.glassfish.jaxb</groupId>
-	  <artifactId>jaxb-runtime</artifactId>
-	  <version>2.3.0</version>
-	  <scope>runtime</scope>
-	</dependency>
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>2.3.0</version>
+      <scope>runtime</scope>
+    </dependency>
 
 
   <!--  Json Function Dependencies -->
@@ -101,13 +101,13 @@
     <build>
         <plugins>
             <plugin>
-            <!-- 
-            In JDK 17, use                 
+            <!--
+            In JDK 17, use
                 <groupId>org.omnifaces</groupId>
                 <artifactId>antlr-maven-plugin</artifactId>
                 <version>2.4</version>
              -->
-            
+
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>antlr-maven-plugin</artifactId>
                 <version>2.2</version>
@@ -143,65 +143,65 @@
                     </execution>
                 </executions>
             </plugin>
-          
-          <!-- Create a test jar for use in db-test modules -->  
+
+          <!-- Create a test jar for use in db-test modules -->
           <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-jar-plugin</artifactId>
-	        <version>${maven-jar-plugin.version}</version>
-	        <executions>
-	          <execution>
-	            <goals>
-	              <goal>test-jar</goal>
-	            </goals>
-	          </execution>
-	        </executions>
-	      </plugin>	    
-            
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>${maven-jar-plugin.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>test-jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
             <!-- Run impl tests in parallel
 
-                 Command below will run only one test. 
-                 mvn test -Dtest=TestExtendedFormulas#testAddWithCaseExpr -DfailIfNoTests=false 
-                 
-                 Command below will run test in the debug mode. 
+                 Command below will run only one test.
+                 mvn test -Dtest=TestExtendedFormulas#testAddWithCaseExpr -DfailIfNoTests=false
+
+                 Command below will run test in the debug mode.
                  mvn test -Dtest=TestExtendedFormulas#testAddWithCaseExpr -DfailIfNoTests=false -Dmaven.surefire.debug
             -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
-		<configuration>
- 		  <forkCount>3</forkCount>
-		  <reuseForks>true</reuseForks>
-		</configuration>
+        <configuration>
+           <forkCount>3</forkCount>
+          <reuseForks>true</reuseForks>
+        </configuration>
             </plugin>
-	    <!-- Add this to merge in tests from API branch -->
-	    <!--
-	    <plugin>
-	      <groupId>org.jacoco</groupId>
+        <!-- Add this to merge in tests from API branch -->
+        <!--
+        <plugin>
+          <groupId>org.jacoco</groupId>
               <artifactId>jacoco-maven-plugin</artifactId>
-	      <executions>
-		<execution>
-		  <id>merge-coverage-data</id>
-		  <phase>verify</phase>
-		  <goals>
-		    <goal>merge</goal>
-		  </goals>
-		  <configuration>
-		    <fileSets>
-		      <fileSet implementation="org.apache.maven.shared.model.fileset.FileSet">
-			<directory>${project.basedir}/..</directory>
-			<includes>
-			  <include>**/jacoco.exec</include>
-			</includes>
-		      </fileSet>
-		    </fileSets>
-		  </configuration>
-		</execution>
-	      </executions>
-	    </plugin>
-	    -->
-	    
+          <executions>
+        <execution>
+          <id>merge-coverage-data</id>
+          <phase>verify</phase>
+          <goals>
+            <goal>merge</goal>
+          </goals>
+          <configuration>
+            <fileSets>
+              <fileSet implementation="org.apache.maven.shared.model.fileset.FileSet">
+            <directory>${project.basedir}/..</directory>
+            <includes>
+              <include>**/jacoco.exec</include>
+            </includes>
+              </fileSet>
+            </fileSets>
+          </configuration>
+        </execution>
+          </executions>
+        </plugin>
+        -->
+
 
         </plugins>
     </build>

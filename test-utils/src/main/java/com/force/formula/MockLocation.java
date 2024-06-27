@@ -1,11 +1,11 @@
 /**
- * 
+ *
  */
 package com.force.formula;
 
-import javax.annotation.Nullable;
-
 import com.force.formula.util.FormulaGeolocationService;
+
+import jakarta.annotation.Nullable;
 
 /**
  * @author stamm
@@ -72,10 +72,10 @@ public class MockLocation implements FormulaGeolocation {
         if (this.xyzEncoded == null) {
             this.xyzEncoded = getGeolocationService().computeXyzEncoded(this);
         }
-        
+
         return this.xyzEncoded;
     }
-    
+
     private FormulaGeolocationService getGeolocationService() {
         return FormulaEngine.getHooks().getFormulaGeolocationService();
     }

@@ -3,13 +3,13 @@
   <artifactId>formula-engine-presto-test</artifactId>
   <name>Formula Engine Presto Test</name>
   <description>
-    Test of the formula engine when using Presto 
+    Test of the formula engine when using Presto
   </description>
 
   <parent>
     <groupId>com.salesforce.formula</groupId>
     <artifactId>formula-engine</artifactId>
-    <version>0.3.23-SNAPSHOT</version>
+    <version>0.9.1-SNAPSHOT</version>
   </parent>
 
   <properties>
