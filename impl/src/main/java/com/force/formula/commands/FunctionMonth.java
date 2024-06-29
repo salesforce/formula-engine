@@ -38,9 +38,10 @@ public class FunctionMonth extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.MONTHS, Date.class), args[0]), guards[0]);
+        String str = getSqlHooks(context).sqlNullCast(args[0], Date.class);
+        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.MONTHS, Date.class), str), guards[0]);
     }
-    
+
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         if (context.useHighPrecisionJs()) {
@@ -53,7 +54,7 @@ public class FunctionMonth extends FormulaCommandInfoImpl {
 class FunctionMonthCommand extends AbstractFormulaCommand {
     private static final long serialVersionUID = 1L;
 
-	public FunctionMonthCommand(FormulaCommandInfo formulaCommandInfo) {
+    public FunctionMonthCommand(FormulaCommandInfo formulaCommandInfo) {
         super(formulaCommandInfo);
     }
 

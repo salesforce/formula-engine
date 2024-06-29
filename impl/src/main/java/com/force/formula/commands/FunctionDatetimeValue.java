@@ -64,7 +64,7 @@ public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements For
                 } else {
                     // we know it's false
                     guard = SQLPair.generateGuard(guards, "0=0");
-                    sql = "NULL";
+                    sql = getSqlHooks(context).sqlNullCast("NULL", FormulaDateTime.class);
                 }
             } else {
                 // Guard protects against malformed dates as strings
@@ -73,14 +73,14 @@ public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements For
                         guards,
                         String
                             .format(
-                            		getSqlHooks(context).sqlDatetimeValueGuard(),
+                                    getSqlHooks(context).sqlDatetimeValueGuard(),
                                 args[0]));
             }
         }
 
         return new SQLPair(sql, guard);
-        
-        
+
+
     }
 
     @Override
@@ -94,7 +94,7 @@ public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements For
             return JsValue.forNonNullResult(context.getJsEngMod() + ".parseDateTime("+ args[0].js + ")", args);
         }
     }
-   
+
     @Override
     public Type validate(FormulaAST node, FormulaContext context, FormulaProperties properties) throws FormulaException {
         if (node.getNumberOfChildren() != 1) {
@@ -115,7 +115,7 @@ public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements For
 class OperatorDatetimeValueFormulaCommand extends AbstractFormulaCommand {
     private static final long serialVersionUID = 1L;
 
-	public OperatorDatetimeValueFormulaCommand(FormulaCommandInfo formulaCommandInfo) {
+    public OperatorDatetimeValueFormulaCommand(FormulaCommandInfo formulaCommandInfo) {
         super(formulaCommandInfo);
     }
 
@@ -130,11 +130,11 @@ class OperatorDatetimeValueFormulaCommand extends AbstractFormulaCommand {
             } else if (input instanceof Date) {
                 value = new FormulaDateTime((Date)input);
             } else {
-            	try {
-            		value = parseDateTime(checkStringType(input));
-            	} catch (FormulaDateException ex) {
-            		FormulaEngine.getHooks().handleFormulaDateException(ex);
-            	}
+                try {
+                    value = parseDateTime(checkStringType(input));
+                } catch (FormulaDateException ex) {
+                    FormulaEngine.getHooks().handleFormulaDateException(ex);
+                }
             }
         }
 

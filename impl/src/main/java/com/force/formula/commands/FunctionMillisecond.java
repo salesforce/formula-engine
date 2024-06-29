@@ -38,7 +38,8 @@ public class FunctionMillisecond extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.MILLIS, FormulaTime.class), args[0]), guards[0]);
+        String str = getSqlHooks(context).sqlNullCast(args[0], FormulaTime.class);
+        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.MILLIS, FormulaTime.class), str), guards[0]);
     }
 
     @Override
@@ -50,7 +51,7 @@ public class FunctionMillisecond extends FormulaCommandInfoImpl {
 class FunctionMillisecondCommand extends AbstractFormulaCommand {
     private static final long serialVersionUID = 1L;
 
-	public FunctionMillisecondCommand(FormulaCommandInfo formulaCommandInfo) {
+    public FunctionMillisecondCommand(FormulaCommandInfo formulaCommandInfo) {
         super(formulaCommandInfo);
     }
 

@@ -40,16 +40,17 @@ public class FunctionSecond extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.SECONDS, FormulaTime.class), args[0]), guards[0]);
+        String str = getSqlHooks(context).sqlNullCast(args[0], FormulaTime.class);
+        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.SECONDS, FormulaTime.class), str), guards[0]);
     }
-    
+
     public static String getSecondExpr(String arg, FormulaContext context)  {
         FormulaSqlStyle style = context.getSqlStyle();
-    	if (style.isMysqlStyle() || style.isPrestoStyle()) {
-    		return "SECOND(" + arg + ")";
-    	} else if (style.isTransactSqlStyle()) {
-    		return "DATEPART(second,"+arg+")";
-    	}
+        if (style.isMysqlStyle() || style.isPrestoStyle()) {
+            return "SECOND(" + arg + ")";
+        } else if (style.isTransactSqlStyle()) {
+            return "DATEPART(second,"+arg+")";
+        }
         return "TRUNC((" + arg + "-TRUNC(" + arg + "/" + FormulaDateUtil.MINUTE_IN_MILLIS+ ") * " + FormulaDateUtil.MINUTE_IN_MILLIS + ")/1000)";
     }
 
@@ -62,7 +63,7 @@ public class FunctionSecond extends FormulaCommandInfoImpl {
 class FunctionSecondCommand extends AbstractFormulaCommand {
     private static final long serialVersionUID = 1L;
 
-	public FunctionSecondCommand(FormulaCommandInfo formulaCommandInfo) {
+    public FunctionSecondCommand(FormulaCommandInfo formulaCommandInfo) {
         super(formulaCommandInfo);
     }
 

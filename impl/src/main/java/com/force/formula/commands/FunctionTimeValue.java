@@ -60,9 +60,10 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             guard = SQLPair.generateGuard(guards, null);
         }
         else if (inputDataType == FormulaDateTime.class) {
-            sql = getSqlHooks(context).sqlExtractTimeFromDateTime(args[0]);
+            String str = getSqlHooks(context).sqlNullCast(args[0], FormulaDateTime.class);
+            sql = getSqlHooks(context).sqlExtractTimeFromDateTime(str);
             guard = SQLPair.generateGuard(guards, null);
-        } 
+        }
         else {
             sql = getSqlHooks(context).sqlParseTime(args[0]);
 
@@ -74,7 +75,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
                 } else {
                     // we know it's false
                     guard = SQLPair.generateGuard(guards, "0=0");
-                    sql = "NULL";
+                    sql = getSqlHooks(context).sqlNullCast("NULL", FormulaTime.class);
                 }
             } else {
                 // Guard protects against malformed times as strings.
@@ -82,7 +83,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
                         .generateGuard(
                                 guards,
                                 String.format(
-                                		getSqlHooks(context).sqlTimeValueGuard(),
+                                        getSqlHooks(context).sqlTimeValueGuard(),
                                         args[0]));
             }
         }
@@ -118,7 +119,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
     public static class FunctionTimeValueCommand extends AbstractFormulaCommand {
         private static final long serialVersionUID = 1L;
 
-		public FunctionTimeValueCommand(FormulaCommandInfo formulaCommandInfo) {
+        public FunctionTimeValueCommand(FormulaCommandInfo formulaCommandInfo) {
             super(formulaCommandInfo);
         }
 
@@ -144,10 +145,10 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
                     }
                 } else {
                     try {
-						value  = parseTime(checkStringType(input));
-					} catch (FormulaDateException e) {
-						FormulaEngine.getHooks().handleFormulaTimeException(e);
-					}
+                        value  = parseTime(checkStringType(input));
+                    } catch (FormulaDateException e) {
+                        FormulaEngine.getHooks().handleFormulaTimeException(e);
+                    }
                 }
             }
 
@@ -175,7 +176,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             Date d = dateFormat.parse(input, p);
             FormulaTime ret = null;
             if (d != null)
-            	ret = FormulaEngine.getHooks().constructTime(d.getTime());
+                ret = FormulaEngine.getHooks().constructTime(d.getTime());
             if (ret == null || p.getIndex() != input.length() || p.getErrorIndex() != -1) {
                 throw new FormulaDateException("Invalid time format: " + input);
             }

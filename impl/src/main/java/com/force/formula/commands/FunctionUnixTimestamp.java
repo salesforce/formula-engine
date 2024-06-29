@@ -44,19 +44,21 @@ public class FunctionUnixTimestamp extends FormulaCommandInfoImpl implements For
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-    	Type type = ((FormulaAST)node.getFirstChild()).getDataType();
-    	if (type == FormulaTime.class) {
-            return new SQLPair(String.format(getSqlHooks(context).sqlGetTimeInSeconds(), args[0]), guards[0]);
-    	}
-        return new SQLPair(String.format(getSqlHooks(context).sqlGetEpoch(type), args[0]), guards[0]);
+        Type type = ((FormulaAST)node.getFirstChild()).getDataType();
+        if (type == FormulaTime.class) {
+            String str = getSqlHooks(context).sqlNullCast(args[0], FormulaTime.class);
+            return new SQLPair(String.format(getSqlHooks(context).sqlGetTimeInSeconds(), str), guards[0]);
+        }
+        String str = getSqlHooks(context).sqlNullCast(args[0], Date.class);
+        return new SQLPair(String.format(getSqlHooks(context).sqlGetEpoch(type), str), guards[0]);
     }
-  
+
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         return JsValue.forNonNullResult(jsToDec(context, "Math.trunc(("+args[0].js+").getTime()/1000)"), args);
     }
-    
-    
+
+
     @Override
     public Type validate(FormulaAST node, FormulaContext context, FormulaProperties properties)
             throws FormulaException {
@@ -71,29 +73,29 @@ public class FunctionUnixTimestamp extends FormulaCommandInfoImpl implements For
         return BigDecimal.class;
     }
 
-    
+
     static class FunctionUnixTimestampCommand extends AbstractFormulaCommand {
-	    private static final long serialVersionUID = 1L;
-	
-		public FunctionUnixTimestampCommand(FormulaCommandInfo formulaCommandInfo) {
-	        super(formulaCommandInfo);
-	    }
-	
-	    @Override
-	    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
-	    	Object obj = stack.pop();
-	    	if (obj instanceof FormulaTime) {
-	    		stack.push(new BigDecimal(((FormulaTime) obj).getTimeInSeconds()));
-	    	} else {
-		        Date d = checkDateType(obj);
-		        if (d == null)
-		            stack.push(null);
-		        else {
-		            Calendar c = FormulaI18nUtils.getLocalizer().getCalendar(BaseLocalizer.GMT);
-		            c.setTime(d);
-		            stack.push(new BigDecimal(c.getTimeInMillis()/1000));
-		        }
-	    	}
-	     }
+        private static final long serialVersionUID = 1L;
+
+        public FunctionUnixTimestampCommand(FormulaCommandInfo formulaCommandInfo) {
+            super(formulaCommandInfo);
+        }
+
+        @Override
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
+            Object obj = stack.pop();
+            if (obj instanceof FormulaTime) {
+                stack.push(new BigDecimal(((FormulaTime) obj).getTimeInSeconds()));
+            } else {
+                Date d = checkDateType(obj);
+                if (d == null)
+                    stack.push(null);
+                else {
+                    Calendar c = FormulaI18nUtils.getLocalizer().getCalendar(BaseLocalizer.GMT);
+                    c.setTime(d);
+                    stack.push(new BigDecimal(c.getTimeInMillis()/1000));
+                }
+            }
+         }
     }
 }

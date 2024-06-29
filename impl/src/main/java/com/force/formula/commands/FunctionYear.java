@@ -38,7 +38,8 @@ public class FunctionYear extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.YEARS, Date.class), args[0]), guards[0]);
+        String str = getSqlHooks(context).sqlNullCast(args[0], Date.class);
+        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.YEARS, Date.class), str), guards[0]);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class FunctionYear extends FormulaCommandInfoImpl {
 class FunctionYearCommand extends AbstractFormulaCommand {
     private static final long serialVersionUID = 1L;
 
-	public FunctionYearCommand(FormulaCommandInfo formulaCommandInfo) {
+    public FunctionYearCommand(FormulaCommandInfo formulaCommandInfo) {
         super(formulaCommandInfo);
     }
 

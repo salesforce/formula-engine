@@ -38,9 +38,10 @@ public class FunctionHour extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.HOURS, FormulaTime.class), args[0]), guards[0]);
+        String str = getSqlHooks(context).sqlNullCast(args[0], FormulaTime.class);
+        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.HOURS, FormulaTime.class), str), guards[0]);
     }
-    
+
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         if (context.useHighPrecisionJs()) {
@@ -53,7 +54,7 @@ public class FunctionHour extends FormulaCommandInfoImpl {
 class FunctionHourCommand extends AbstractFormulaCommand {
     private static final long serialVersionUID = 1L;
 
-	public FunctionHourCommand(FormulaCommandInfo formulaCommandInfo) {
+    public FunctionHourCommand(FormulaCommandInfo formulaCommandInfo) {
         super(formulaCommandInfo);
     }
 
