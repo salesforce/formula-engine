@@ -65,7 +65,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
         String sql;
         String guard;
         if (inputDataType == FormulaDateTime.class) {
-        	sql = getSqlHooks(context).sqlConvertDateTimeToDate(args[0], USERS_TIMEZONE_ID_MARKER, USERS_TIMEZONE_OFFSET_MARKER);
+            sql = getSqlHooks(context).sqlConvertDateTimeToDate(args[0], USERS_TIMEZONE_ID_MARKER, USERS_TIMEZONE_OFFSET_MARKER);
             guard = SQLPair.generateGuard(guards, null);
         } else {
             sql = String.format(getSqlHooks(context).sqlToDateIso(), args[0]);
@@ -78,7 +78,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
                 } else {
                     // we know it's false
                     guard = SQLPair.generateGuard(guards, "0=0");
-                    sql = String.format(getSqlHooks(context).sqlToDate(Date.class), "NULL");
+                    sql = getSqlHooks(context).sqlCastNull("NULL", Date.class);
                 }
             } else {
                 // Guard protects against malformed dates as strings. It assumes all months have 31 days. Validates invalid months. Accepts years from 0000-9999.
@@ -86,7 +86,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
                      .generateGuard(
                      guards,
                      String.format(
-                    	getSqlHooks(context).sqlDateValueGuard(),
+                        getSqlHooks(context).sqlDateValueGuard(),
                         args[0]));
                /*Other 2 options of guards, probably when we get versioning we can switch to either one of these:
 
@@ -159,7 +159,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
 
     public static class OperatorDateValueFormulaCommand extends AbstractFormulaCommand {
         private static final long serialVersionUID = 1L;
-		private final boolean isDateTime;
+        private final boolean isDateTime;
 
         public OperatorDateValueFormulaCommand(FormulaCommandInfo formulaCommandInfo, boolean isDateTime) {
             super(formulaCommandInfo);
@@ -189,11 +189,11 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
                         }
                     }
                 } else {
-                	try {
-                		value = parseDate(checkStringType(input));
-                	} catch (FormulaDateException x) {
-                		FormulaEngine.getHooks().handleFormulaDateException(x);
-                	}
+                    try {
+                        value = parseDate(checkStringType(input));
+                    } catch (FormulaDateException x) {
+                        FormulaEngine.getHooks().handleFormulaDateException(x);
+                    }
                 }
             }
 
@@ -208,7 +208,7 @@ public class FunctionDateValue extends FormulaCommandInfoImpl implements Formula
                 return false;
             }
         }
-        
+
         private static Pattern DATE_PATTERN = Pattern.compile("\\d{4}-.*");
 
         // Convert from string of the form "YYYY-MM-DD" to Date

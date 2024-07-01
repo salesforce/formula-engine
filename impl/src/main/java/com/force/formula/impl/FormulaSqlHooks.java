@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.force.formula.impl;
 
@@ -21,7 +21,7 @@ import com.google.common.collect.Multimaps;
 
 /**
  * A set of SQL hooks used in standard functionality to provide differences in SQL implementations.
- * 
+ *
  * @author stamm
  * @since 0.1.0
  */
@@ -35,52 +35,52 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default int getExternalPrecision() {
         return BigDecimalHelper.NUMBER_PRECISION_EXTERNAL;
     }
-    	
+
     // Handle plsql regexp differences (where oracle needs regexp_like and postgres wants ~ or similar to)
     /**
      * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for DateTime Value
      */
     default String sqlDatetimeValueGuard() {
-   	   return "1=0"; // assume null on error
+          return "1=0"; // assume null on error
     }
-    
+
     /**
      * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a date Value
      */
     default String sqlDateValueGuard() {
-	   return "1=0"; // assume null on error
+       return "1=0"; // assume null on error
     }
-    
+
     /**
      * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a date Value
      */
     default String sqlTimeValueGuard() {
-	   return "1=0"; // assume null on error
+       return "1=0"; // assume null on error
     }
-    
+
     /**
      * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for a number Value
      */
     default String sqlIsNumber() {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
-    
+
     /**
      * @return the function to use for NVL.  In postgres, it's usually coalesce, but in oracle, you want NVL.
      */
     default String sqlNvl() {
-		return "COALESCE";
+        return "COALESCE";
     }
-    
+
     /**
      * @return the string to use for String.format to convert something to date generically, without a specified type
-     * @deprecated use the version with a type, for those DBs that distinguish Date and Timestamp 
+     * @deprecated use the version with a type, for those DBs that distinguish Date and Timestamp
      */
     @Deprecated(forRemoval=true, since="0.3")
     default String sqlToDate() {
-		return "CAST(%s AS DATE)";
+        return "CAST(%s AS DATE)";
     }
-        
+
     /**
      * @return the string to use for String.format to convert something to date, with a specified type
      * @param type the type (whether FormulaDateTime.class or Date.class)
@@ -93,38 +93,38 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the string to use for String.format to convert something to number generically, without a format
      */
     default String sqlToNumber() {
-		return "CAST(%s AS NUMERIC)";
+        return "CAST(%s AS NUMERIC)";
     }
 
     /**
      * @return the string to use for String.format to convert something to text generically, without a format
      */
     default String sqlToChar() {
-		return "CAST(%s AS VARCHAR)";
+        return "CAST(%s AS VARCHAR)";
     }
-    
+
     /**
      * @return the string to use for TO_TIMESTAMP to get seconds.microseconds.  It's a subtle difference
      */
     default String sqlSecsAndMsecs() {
-		return "SSSS.MS";
+        return "SSSS.MS";
     }
-    
+
     /**
      * @return the string to use for TO_TIMESTAMP to get seconds.microseconds.  It's a subtle difference
      */
     default String sqlHMSAndMsecs() {
-		return "HH24:mi:ss.MS";
+        return "HH24:mi:ss.MS";
     }
-    
+
     /**
      * @return the string to use for TO_TIMESTAMP to get seconds.  It's a subtle difference
      */
     default String sqlSecsInDay() {
-		return "SSSS";
+        return "SSSS";
     }
-    
-    
+
+
     /**
      * @return extract the TIME value from a date time.  For those DBs with a useful time type this
      * could be easy, for others that pass around milliseconds, this converts to a number
@@ -141,17 +141,17 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlParseTime(String stringExpr) {
         return String.format(sqlToNumber(), String.format("TO_CHAR(TO_TIMESTAMP(%s, '"+sqlHMSAndMsecs()+"'),'"+sqlSecsAndMsecs()+"')", stringExpr)) + " * 1000" ;
     }
-    
+
     /**
      * @return the function to use for conversion to Date generically.
-     * @deprecated use the version with a type, for those DBs that distinguish Date and Timestamp 
+     * @deprecated use the version with a type, for those DBs that distinguish Date and Timestamp
      */
     @Deprecated(forRemoval=true, since="0.3")
     default String sqlNullToDate() {
-    	return String.format(sqlToDate(), "NULL");
+        return String.format(sqlToDate(), "NULL");
     }
 
-    
+
     /**
      * @return the function to use for conversion to Date specifically.
      * @param type the specific date time to use.
@@ -159,14 +159,14 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlNullToDate(Type type) {
         return String.format(sqlToDate(type), "NULL");
     }
-    
+
     /**
      * @return the function to use for conversion to Date generically.
      */
     default String sqlNullToNumber() {
-    	return String.format(sqlToNumber(), "NULL");
+        return String.format(sqlToNumber(), "NULL");
     }
-	
+
     /**
      * PSQL doesn't include a locale-specific upper function.  This allows the override of that function
      * if you have installed one locally, like icu_transform.
@@ -174,12 +174,12 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the sql expression to use for uppercase with a locale
      */
     default String sqlUpperCaseWithLocaleFormat(boolean hasLocaleOverride) {
-    	// You could do UPPER(%s COLLATE %s), but that doesn't work in general as collate isn't a parameter.
-    	return "UPPER(%s)";
+        // You could do UPPER(%s COLLATE %s), but that doesn't work in general as collate isn't a parameter.
+        return "UPPER(%s)";
     }
 
     /**
-     * PSQL doesn't include a locale-specific lower function.  This allows the override of that function 
+     * PSQL doesn't include a locale-specific lower function.  This allows the override of that function
      * if you have one locally, like icu_transform
      * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
      * @return the sql expression to use for lowercase with a locale
@@ -187,35 +187,35 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlLowerCaseWithLocaleFormat(boolean hasLocaleOverride) {
         return "LOWER(%s)";
     }
-    
-	
+
+
     /**
      * Perform the InitCap function to make "proper" names.
      * @param hasLocaleOverride if the locale override should be used.  If not, the second format argument will be 'en'
      * @return the sql expression to use for uppercase with a locale
      */
     default String sqlInitCap(boolean hasLocaleOverride) {
-    	return "INITCAP(%s COLLATE \"en_US\")";  // Use en_US so it isn't ascii only
+        return "INITCAP(%s COLLATE \"en_US\")";  // Use en_US so it isn't ascii only
     }
 
     /**
      * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
      */
     default String sqlChr() {
-    	return "CHR(%s)";
+        return "CHR(%s)";
     }
-    
+
     /**
      * @return the sql expression to convert a number to a string containing that number as a Unicode codepoint
      */
     default String sqlAscii() {
-    	return "ASCII(%s)";
+        return "ASCII(%s)";
     }
-    
+
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
      * missing from psql, but available in oracle.  This allows you to try and fix that.
-     * 
+     *
      * @param inSeconds should difference be returned in seconds or in days.  This will allow precision errors to be
      * handled better.
      * @deprecated use the version that passes in the DateType to support DBs that distinguish Date and Timestamp
@@ -223,19 +223,19 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     @Deprecated(forRemoval=true, since="0.3")
     default String sqlSubtractTwoTimestamps(boolean inSeconds) {
         return inSeconds ? "(%s-%s)*86400" : "(%s-%s)";
-    } 
-    
+    }
+
     /**
      * @return the function that allows subtraction of two timestamps to get the microsecond/day difference.  This is
      * missing from psql, but available in oracle.  This allows you to try and fix that.
-     * 
+     *
      * @param inSeconds should difference be returned in seconds or in days.  This will allow precision errors to be
      * handled better.
      * @param dateType the type of date being subtracted
      */
     default String sqlSubtractTwoTimestamps(boolean inSeconds, Type dateType) {
         return sqlSubtractTwoTimestamps(inSeconds);
-    } 
+    }
 
     /**
      * @return the function that allows subtraction of two time values to get the second/day difference.
@@ -243,8 +243,8 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     default String sqlSubtractTwoTimes() {
         return "((%s)-(%s))/1000";
-    } 
-    
+    }
+
     /**
      * Format the sql for adding a given number of days (fractionally) to a date
      * @param lhsValue the left hand side (must be date or datetime if subtraction)
@@ -255,9 +255,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return a SQL expression for adding the given number of days to the date
      */
     default String sqlAddDaysToDate(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType,  boolean isAddition) {
-    	return "(" + lhsValue + (isAddition ? "+" : "-") + rhsValue + ")";
-    } 
-    
+        return "(" + lhsValue + (isAddition ? "+" : "-") + rhsValue + ")";
+    }
+
     /**
      * Format the sql for adding a given number of milliseconds (fractionally) to a time
      * @param lhsValue the left hand side (must be date or datetime if subtraction)
@@ -279,7 +279,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     @Deprecated(forRemoval=true, since="0.3")
     default String sqlGetEpoch() {
-    	return "ROUND((%s - DATE '1970-01-01') * 86400)";
+        return "ROUND((%s - DATE '1970-01-01') * 86400)";
     }
 
     /**
@@ -289,49 +289,49 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlGetEpoch(Type dateType) {
         return sqlGetEpoch();
     }
-    
+
     /**
      * @return how to get the number of seconds in a day from a time value for String.format
      */
     default String sqlGetTimeInSeconds() {
-    	return sqlTrunc("%s/1000");
+        return sqlTrunc("%s/1000");
     }
 
     /**
      * @return how to get a DateTime from a unix epoch time, suitable for String.format
      */
     default String getDateFromUnixTime() {
-    	return "(DATE '1970-01-01' + (%s/86400))";
+        return "(DATE '1970-01-01' + (%s/86400))";
     }
-    
+
     /**
      * @return how to get the day of the week (1-7, with Sunday being 1) from the date provided, suitable for String.format
      */
     default String sqlGetWeekday() {
         return "TO_NUMBER(TO_CHAR(%s,'d'))";
     }
-    
+
     /**
      * @return how to get the ISO 8601 week number from a date or datetime, suitable for String.format
      */
     default String sqlGetIsoWeek() {
         return "TO_NUMBER(TO_CHAR(%s, 'IW'))";
     }
-        
+
     /**
      * @return how to get the ISO 8601 year number from a date or datetime, suitable for String.format
      */
     default String sqlGetIsoYear() {
         return "TO_NUMBER(TO_CHAR(%s, 'IYYY'))";
     }
-    
+
     /**
      * @return how to get the day of the year from a date or datetime, suitable for String.format
      */
     default String sqlGetDayOfYear() {
         return "TO_NUMBER(TO_CHAR(%s, 'DDD'))";
     }
-    
+
     /**
      * @return the sql expression used to extract the chrono unit from the given datetime field
      * @param field the ChronoField to use.  Will be in the set of
@@ -340,7 +340,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     default String sqlChronoUnit(ChronoUnit field, Type dateType) {
         switch (field) {
-        case YEARS: 
+        case YEARS:
             return "EXTRACT(YEAR FROM %s)";
         case MONTHS:
             return "EXTRACT(MONTH FROM %s)";
@@ -359,7 +359,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
             // convert muillisecs since midnight to minutes portion of time  trunc((args[0] -trunc(args[0]/60000) * 60000)/1000)
             return "TRUNC((%s-TRUNC(%<s/" + FormulaDateUtil.MINUTE_IN_MILLIS+ ") * " + FormulaDateUtil.MINUTE_IN_MILLIS + ")/1000)";
             // return "EXTRACT(SECOND FROM %s)";
-        case MILLIS:            
+        case MILLIS:
             // convert muillisecs since midnight to millseconds portion of time  trunc((args[0] -trunc(args[0]/1000) * 1000))
             return "TRUNC(%s -TRUNC(%<s/1000) * 1000)";
         default:
@@ -367,7 +367,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         }
         throw new UnsupportedOperationException();
     }
-    
+
 
     /**
      * @return how to construct a date from the given expressions for year, month and day
@@ -378,7 +378,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlConstructDate(String yearSql, String monthSql, String daySql) {
         return "TO_DATE(" + yearSql + " || '-' || " + monthSql + " || '-' || " + daySql + ", 'YYYY-MM-DD')";
     }
-    
+
     /**
      * Function right can be... complicated, especially in Oracle
      * @param stringArg the sql for the string value
@@ -388,30 +388,30 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlRight(String stringArg, String countArg) {
         return "RIGHT(" + stringArg + ", " + sqlEnsurePositive(countArg) + ")";
     }
-    
+
     /**
      * @return the the date.  Overridable in case you want to change the timezone functionality with ::timestamp.
      */
     default String sqlNow() {
         return "NOW()";
     }
-    
+
     /**
      * @return a date literal suitable for for representing "today"
-     * @param c the calendar to use 
+     * @param c the calendar to use
      */
     default String getDateLiteralFromCalendar(Calendar c) {
-    	return "DATE '" + c.get(Calendar.YEAR) + "-"
-    		    + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE) + "'";
+        return "DATE '" + c.get(Calendar.YEAR) + "-"
+                + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE) + "'";
     }
-    
+
     /**
      * @return the the current milliseconds of the day suitable.  You may want to use ::time instead, so overridable
      */
     default String sqlTimeNow() {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
-    
+
     /**
      * @return the expression to use for adding a number of months to a date
      * @param dateArg the argument of the date or datetime
@@ -420,9 +420,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     @Deprecated(forRemoval=true, since="0.3")
     default String sqlAddMonths(String dateArg, String numMonths) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
-    
+
     /**
      * @return the expression to use for adding a number of months to a date
      * @param dateArg the argument of the date or datetime
@@ -431,36 +431,36 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     default String sqlAddMonths(String dateArg, Type dateArgType, String numMonths) {
         return sqlAddMonths(dateArg, numMonths);
-    }    
-    
+    }
+
     /**
      * @return the format for converting to a datetime value
      */
     default String sqlToTimestampIso() {
-		return "TO_DATE(%s, 'YYYY-MM-DD HH24:MI:SS')";
+        return "TO_DATE(%s, 'YYYY-MM-DD HH24:MI:SS')";
     }
-    
+
     /**
      * @return the format for converting to a datetime value
      */
     default String sqlToDateIso() {
-		return "TO_DATE(%s, 'YYYY-MM-DD')";
+        return "TO_DATE(%s, 'YYYY-MM-DD')";
     }
-    
+
     /**
      * @return the format for String.format for converting from a datetime value to a string YYYY-MM-DD HH24:MI:SS
      */
     default String sqlToCharTimestamp() {
-		return "TO_CHAR(%s, 'YYYY-MM-DD HH24:MI:SS')";
+        return "TO_CHAR(%s, 'YYYY-MM-DD HH24:MI:SS')";
     }
-    
+
     /**
      * @return the format for String.format for converting from a date value to a string YYYY-MM-DD
      */
     default String sqlToCharDate() {
-		return "TO_CHAR(%s, 'YYYY-MM-DD')";
+        return "TO_CHAR(%s, 'YYYY-MM-DD')";
     }
-    
+
     /**
      * Default to sqlToChar(), other hooks can override.
      * @return the format for String.format for converting from a date value to a string YYYY-MM-DD
@@ -476,7 +476,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlIntervalFromSeconds(Type dateType) {
         return "(INTERVAL '1 second' * ABS(%s))";
     }
-    
+
     /**
      * @return the sql expression for converting from HH:MM:SS or (DDD:HH:MM:SS) if includeDays is true
      * @param intervalArg the argument resulting from the call to {@link #sqlIntervalFromSeconds(Type)}
@@ -493,25 +493,25 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         }
     }
 
-   
-   
+
+
 
     /**
      * @return the format for for String.format for getting the time value as HH:MM:SS.mmm
      */
     default String sqlToCharTime() {
         // time values are represented by millisecs since midnight.  Divide by 1000 to get it of the form SSSSS.FF3
-		return "TO_CHAR(TO_TIMESTAMP(TO_CHAR(%s/1000, 'FM99990D999'), '"+sqlSecsAndMsecs()+"'), '"+sqlHMSAndMsecs()+"')";
+        return "TO_CHAR(TO_TIMESTAMP(TO_CHAR(%s/1000, 'FM99990D999'), '"+sqlSecsAndMsecs()+"'), '"+sqlHMSAndMsecs()+"')";
     }
 
-        
+
     /**
      * @return the function to use for getting the last day of the month of a date.
      */
     default String sqlLastDayOfMonth() {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
-    
+
     /**
      * Use in the guard for FunctionDate, this returns a date in the given month and year.
      * @param yearValue a number or string representing the year
@@ -521,25 +521,25 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlDateFromYearAndMonth(String yearValue, String monthValue) {
         return "TO_DATE(" + yearValue + " || '-' || " + monthValue + ",'YYYY-MM')";
     }
-    
+
     /**
      * @return the format for concatenating strings
      * @param withSpaces whether spaces should be used around the "||" for compatibility
      */
     default String sqlConcat(boolean withSpaces) {
-		// Formula engine generally allows || with nulls, as it's less confusing
-		return "CONCAT(%s, %s)";
+        // Formula engine generally allows || with nulls, as it's less confusing
+        return "CONCAT(%s, %s)";
     }
 
     /**
-     * @return how to perform a regular expression check where the text matches java pattern matching... 
+     * @return how to perform a regular expression check where the text matches java pattern matching...
      * @param text the argument to validate
      * @param regexp the argument that comprises the regular expression
      */
     default String sqlRegexpLike(String text, String regexp) {
         return "REGEXP_LIKE(" + sqlNvl() + "(" + text + ",'')," + regexp + ")";
     }
-    
+
     /**
      * @return the formula for finding a substring in a string and returning the "position" 1-indexed.
      * In oracle and mysql, it's INSTR.
@@ -547,10 +547,10 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @param substrArg the value of the substring to search
      */
     default String sqlInstr2(String strArg, String substrArg) {
-		return String.format("INSTR(%s, %s)", strArg, substrArg);
+        return String.format("INSTR(%s, %s)", strArg, substrArg);
     }
-    
-    
+
+
     /**
      * @return the formula for finding a substring in a string and returning the "position" 1-indexed.
      * In oracle and mysql, it's INSTR.  Use binary for INSTR to keep it case sensitive
@@ -559,11 +559,11 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @param startLocation the value of the start location to use as the offset (1-indexed)
      */
     default String sqlInstr3(String strArg, String substrArg, String startLocation) {
-		return String.format("INSTR(%s, %s, %s)", strArg, substrArg, startLocation);
+        return String.format("INSTR(%s, %s, %s)", strArg, substrArg, startLocation);
     }
-    
+
     /**
-     * @return the formula for returning a substring from the given strarg to the right of 
+     * @return the formula for returning a substring from the given strarg to the right of
      * the startPosArg, where startPosArg can be negative, with zero startPosArg treated like 1.
      * @param strArg the value of the string to substring
      * @param startPosArg the number of the start position
@@ -571,9 +571,9 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlSubstrWithNegStart(String strArg, String startPosArg) {
         return getSubstringFunction() + "(" + strArg + ", " + sqlRoundScaleArg(startPosArg) + ")";
     }
-    
+
     /**
-     * @return the formula for returning a substring from the given strarg to the right of 
+     * @return the formula for returning a substring from the given strarg to the right of
      * the startPosArg, where startPosArg can be negative, with zero startPosArg treated like 1,
      * and lengthArgs treated as positive
      * @param strArg the value of the string to substring
@@ -583,7 +583,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlSubstrWithNegStart(String strArg, String startPosArg, String lengthArg) {
         return getSubstringFunction() + "(" + strArg + ", " + sqlRoundScaleArg(startPosArg) + ", " + sqlEnsurePositive(sqlRoundScaleArg(lengthArg)) + ")";
     }
-    
+
     /**
      * @return a sql expression to convert the date time to a date in the user's timezone
      * (__TZ_ID__)
@@ -592,12 +592,12 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @param userTzOffset a string representing the user timezone offset as a number.
      */
     default String sqlConvertDateTimeToDate(String dateTime, String userTimezone, String userTzOffset) {
-    	return dateTime;  // Ignore the timezone argument.  This is almost always wrong
+        return dateTime;  // Ignore the timezone argument.  This is almost always wrong
     }
-    
+
     /**
      * @param scale the number of digits to the right of the radix
-     * @return the SQL string to use to in TO_CHAR for the given scale.  This is used by 
+     * @return the SQL string to use to in TO_CHAR for the given scale.  This is used by
      * {@link #getCurrencyFormat(String, String, boolean)}
      */
     default StringBuilder getCurrencyMask(int scale) {
@@ -609,35 +609,35 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         mask.append('\'');
         return mask;
     }
-    
-	/**
-	 * Append the currency format to use for FORMAT_CURRENCY where the maskStr was generated above.
-	 * @param sql
-	 * @param isoCodeArg
-	 * @param amountArg
-	 * @param maskStr
-	 */
-	default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
+
+    /**
+     * Append the currency format to use for FORMAT_CURRENCY where the maskStr was generated above.
+     * @param sql
+     * @param isoCodeArg
+     * @param amountArg
+     * @param maskStr
+     */
+    default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence maskStr) {
         sql.append("CONCAT(").append(isoCodeArg).append(",' ',TO_CHAR(").append(amountArg).append(',').append(maskStr).append("))");
-	}
-	
+    }
+
     /**
      * String in many DBs are compared using special rules for equality
      * or inequality which doesn't match java/javascript.  This switches
      * equality to match by making them use binary, case-sensitive comparison.
-     * 
+     *
      * @param str the SQL expression for a string to be compared
      * @param forCompare is it for Greater/LessThan.  otherwise it's for equality which may want different rules.
      * @return the SQL expression that compare the strings using a binary expression
      */
 
     default Object sqlMakeStringComparable(Object str, boolean forCompare) {
-    	return str;
+        return str;
     }
-    
+
     /**
      * @return the SQL string to use to format currency.
-     * @param isoCodeArg the argument with the 3 character (ISO 4217) currency code 
+     * @param isoCodeArg the argument with the 3 character (ISO 4217) currency code
      * @param amountArg the argument with the numeric value of the currency
      * @param canAmountBeNull whether the argument can be null (should this be in a coalesce statement)
      */
@@ -655,7 +655,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
                 isoCodesByScale.put(scale, entry.getKey());
             }
         }
-        
+
         // Generate the format mask for the Oracle to_char() function.
         StringBuilder maskStr;
         if (isoCodesByScale.isEmpty()) {
@@ -673,7 +673,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
             }
             maskStr.append("ELSE").append(getCurrencyMask(2)).append("END");
         }
-    	
+
         // Assume postgres
         // NOTE: This doesn't do the grouping/decimal correction like in oracle, as it isn't possible with postgres
         StringBuilder sql = new StringBuilder(800);
@@ -688,14 +688,14 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         }
         return sql.toString();
     }
-    
+
     /**
      * Formulas are usually numeric, but some functions, like round or trunc, require a cast to ::int in postgres
      * @param argument scale argument
      * @return the argument converted to an integer for rounding
      */
     default String sqlRoundScaleArg(String argument) {
-    	return argument;
+        return argument;
     }
 
     /**
@@ -705,10 +705,10 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @return the argument converted from an integer to numeric for use
      */
     default String sqlMakeDecimal(String argument) {
-    	return argument;
+        return argument;
     }
-    
-    
+
+
     /**
      * @param argument the SQL argument that has a percent value stored in the DB (i.e. 100.0 is 100% and should be treated at 1)
      * @return a sql expression that will convert the arguemnt from a percent to a decimal fractions
@@ -716,23 +716,23 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlConvertPercent(String argument) {
         return "(" + argument + " / 100.0)";
     }
-    
+
     /**
      * @param argument the value to truncate
      * @return how to call truncate to drop all decimal places
      */
     default String sqlTrunc(String argument) {
-    	return "TRUNC(" + argument + ")";
+        return "TRUNC(" + argument + ")";
     }
-    
-    
+
+
     /**
      * @param argument the value to truncate
      * @param scale the scale to truncate to
      * @return how to call truncate to drop to the given number of decimal places
      */
     default String sqlTrunc(String argument, String scale) {
-    	return "TRUNC(" + argument + ", " + scale + ")";
+        return "TRUNC(" + argument + ", " + scale + ")";
     }
 
     /**
@@ -744,16 +744,16 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlRound(String argument, String scale) {
         return "ROUND(" + argument + ", " + scale + ")";
     }
-    
-    
+
+
     /**
      * @param argument the value to exponent.
      * @return how to call exponent on the function.  (i.e. 2^n)
      */
     default String sqlExponent(String argument) {
-    	return "EXP(" + argument + ")";
+        return "EXP(" + argument + ")";
     }
-    
+
     /**
      * @param argument the value to get the natural log.
      * @return how to call exponent on the function.  (i.e. log base e)
@@ -761,7 +761,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlLogBaseE(String argument) {
         return "LN(" + argument + ")";
     }
-    
+
     /**
      * @param argument the value to get the natural log.
      * @return how to call exponent on the function.  (i.e. log base e)
@@ -769,16 +769,16 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlLogBase10(String argument) {
         return "LOG(10, " + argument + ")";
     }
-    
+
     /**
-     * @param number the number to get the remainer 
-     * @param modulus the modulus 
+     * @param number the number to get the remainer
+     * @param modulus the modulus
      * @return how to do modulo operation
      */
     default String sqlMod(String number, String modulus) {
         return "MOD(" + number + ", " + modulus + ")";
     }
-    
+
     /**
      * @param argument the value that is a function call to a trig function.
      * @return how to call a trigonometric on the function and return the right numeric value (cast to decimal)
@@ -786,61 +786,61 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlTrigConvert(String argument) {
         return argument;
     }
-    
+
     /**
      * @param arg the numeric value to ensure that it is positive
      * @return a sql expression that will return the argument, or 0 if the argument is negative
      */
     default String sqlEnsurePositive(String arg) {
-    	return sqlGreatest(arg, "0");
+        return sqlGreatest(arg, "0");
     }
-    
+
     /**
      * @param arg1 the numeric value to compare
      * @param arg2 the other numeric value to compare
      * @return a sql expression that will return the max of the two arguments
      */
     default String sqlGreatest(String arg1, String arg2) {
-    	return "GREATEST(" + arg1 + "," + arg2 + ")";
+        return "GREATEST(" + arg1 + "," + arg2 + ")";
     }
-    
+
     /**
      * @return the sql guard and value for executing A^B.
      * @param args the arguments where arg[0] is the operands and arg[1] is the exponent
      * @param guards the guards to prevent errors when evaluating the args
-	 */
+     */
     default SQLPair getPowerSql( String[] args, String[] guards) {
         String sql = "POWER(" + args[0] + ", " + args[1] + ")";
         String guard = SQLPair.generateGuard(guards, "TRUNC(" + args[1] + ")<>" + args[1] +
-    	            " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");    	
+                    " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");
         return new SQLPair(sql, guard);
     }
-    
+
     /**
      * @param str the string to pad
      * @param amount the number of characters to ensure (which will be rounded with sqlScaleArg and sqlGreatest)
      * @param pad optional argument (may be null) with the string to pad with
-     * @return a sql expression that will return LPAD 
+     * @return a sql expression that will return LPAD
      */
     default String sqlLpad(String str, String amount, String pad) {
         if (pad != null) {
-        	return "LPAD(" + str + ", " + amount + ", " + pad + ")";
+            return "LPAD(" + str + ", " + amount + ", " + pad + ")";
         } else {
-        	return "LPAD(" + str + ", " + amount + ")";
+            return "LPAD(" + str + ", " + amount + ")";
         }
     }
-    
+
     /**
      * @param str the string to pad
      * @param amount the number of characters to ensure (which will be rounded with sqlScaleArg and sqlGreatest)
      * @param pad optional argument (may be null) with the string to pad with
-     * @return a sql expression that will return RPAD 
+     * @return a sql expression that will return RPAD
      */
     default String sqlRpad(String str, String amount, String pad) {
         if (pad != null) {
-        	return "RPAD(" + str + ", " + amount + ", " + pad + ")";
+            return "RPAD(" + str + ", " + amount + ", " + pad + ")";
         } else {
-        	return "RPAD(" + str + ", " + amount + ")";
+            return "RPAD(" + str + ", " + amount + ")";
         }
     }
 
@@ -851,5 +851,14 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     default String sqlLike(String str, String like) {
         return str + " LIKE " + like + " ESCAPE '\\'";
+    }
+
+    /**
+     * @return Cast NULL to the underline DB data type
+     * @param str the string to cast
+     * @param type the target data type
+     */
+    default String sqlCastNull(String str, Type type) {
+        return str; // default
     }
 }
