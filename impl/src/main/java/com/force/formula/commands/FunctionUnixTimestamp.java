@@ -46,10 +46,10 @@ public class FunctionUnixTimestamp extends FormulaCommandInfoImpl implements For
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
         Type type = ((FormulaAST)node.getFirstChild()).getDataType();
         if (type == FormulaTime.class) {
-            String str = getSqlHooks(context).sqlNullCast(args[0], FormulaTime.class);
+            String str = getSqlHooks(context).sqlCastNull(args[0], FormulaTime.class);
             return new SQLPair(String.format(getSqlHooks(context).sqlGetTimeInSeconds(), str), guards[0]);
         }
-        String str = getSqlHooks(context).sqlNullCast(args[0], Date.class);
+        String str = getSqlHooks(context).sqlCastNull(args[0], Date.class);
         return new SQLPair(String.format(getSqlHooks(context).sqlGetEpoch(type), str), guards[0]);
     }
 

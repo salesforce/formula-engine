@@ -39,7 +39,7 @@ public class FunctionWeekday extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String str = getSqlHooks(context).sqlNullCast(args[0], Date.class);
+        String str = getSqlHooks(context).sqlCastNull(args[0], Date.class);
         String sql = String.format( getSqlHooks(context).sqlGetWeekday(), str);
         return new SQLPair(sql, guards[0]);
     }

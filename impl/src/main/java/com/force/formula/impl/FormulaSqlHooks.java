@@ -858,7 +858,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      * @param str the string to cast
      * @param type the target data type
      */
-    default String sqlNullCast(String str, Type type) {
+    default String sqlCastNull(String str, Type type) {
         return str; // default
     }
 }

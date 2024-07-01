@@ -64,7 +64,7 @@ public class FunctionDatetimeValue extends FormulaCommandInfoImpl implements For
                 } else {
                     // we know it's false
                     guard = SQLPair.generateGuard(guards, "0=0");
-                    sql = getSqlHooks(context).sqlNullCast("NULL", FormulaDateTime.class);
+                    sql = getSqlHooks(context).sqlCastNull("NULL", FormulaDateTime.class);
                 }
             } else {
                 // Guard protects against malformed dates as strings

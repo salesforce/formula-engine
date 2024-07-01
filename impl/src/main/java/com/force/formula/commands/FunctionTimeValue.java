@@ -60,7 +60,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
             guard = SQLPair.generateGuard(guards, null);
         }
         else if (inputDataType == FormulaDateTime.class) {
-            String str = getSqlHooks(context).sqlNullCast(args[0], FormulaDateTime.class);
+            String str = getSqlHooks(context).sqlCastNull(args[0], FormulaDateTime.class);
             sql = getSqlHooks(context).sqlExtractTimeFromDateTime(str);
             guard = SQLPair.generateGuard(guards, null);
         }
@@ -75,7 +75,7 @@ public class FunctionTimeValue extends FormulaCommandInfoImpl implements Formula
                 } else {
                     // we know it's false
                     guard = SQLPair.generateGuard(guards, "0=0");
-                    sql = getSqlHooks(context).sqlNullCast("NULL", FormulaTime.class);
+                    sql = getSqlHooks(context).sqlCastNull("NULL", FormulaTime.class);
                 }
             } else {
                 // Guard protects against malformed times as strings.

@@ -40,7 +40,7 @@ public class FunctionSecond extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String str = getSqlHooks(context).sqlNullCast(args[0], FormulaTime.class);
+        String str = getSqlHooks(context).sqlCastNull(args[0], FormulaTime.class);
         return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.SECONDS, FormulaTime.class), str), guards[0]);
     }
 
