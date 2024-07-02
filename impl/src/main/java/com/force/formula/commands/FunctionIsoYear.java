@@ -43,17 +43,18 @@ public class FunctionIsoYear extends FormulaCommandInfoImpl implements FormulaCo
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-    	// Pass in the date twice because sqlserver uses is
-        return new SQLPair(String.format(getSqlHooks(context).sqlGetIsoYear(), args[0], args[0]), guards[0]);
+        // Pass in the date twice because sqlserver uses is
+        String str = getSqlHooks(context).sqlCastNull(args[0], Date.class);
+        return new SQLPair(String.format(getSqlHooks(context).sqlGetIsoYear(), str, str), guards[0]);
     }
-  
+
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         String js =  jsToDec(context, context.getJsEngMod() + ".isoyear(" + args[0] + ")");
         return JsValue.generate(js, args, true, args[0]);
     }
-    
-    
+
+
     @Override
     public Type validate(FormulaAST node, FormulaContext context, FormulaProperties properties)
             throws FormulaException {
@@ -68,22 +69,22 @@ public class FunctionIsoYear extends FormulaCommandInfoImpl implements FormulaCo
         return BigDecimal.class;
     }
 
-    
+
     static class FunctionIsoWeekNumberCommand extends AbstractFormulaCommand {
-	    private static final long serialVersionUID = 1L;
-	
-		public FunctionIsoWeekNumberCommand(FormulaCommandInfo formulaCommandInfo) {
-	        super(formulaCommandInfo);
-	    }
-	
-	    @Override
-	    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
-	        Date d = checkDateType(stack.pop());
-	        if (d == null)
-	            stack.push(null);
-	        else {
-	            stack.push(new BigDecimal(LocalDateTime.ofInstant(d.toInstant(), ZoneId.of("GMT")).get(IsoFields.WEEK_BASED_YEAR)));
-	        }
-	     }
+        private static final long serialVersionUID = 1L;
+
+        public FunctionIsoWeekNumberCommand(FormulaCommandInfo formulaCommandInfo) {
+            super(formulaCommandInfo);
+        }
+
+        @Override
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
+            Date d = checkDateType(stack.pop());
+            if (d == null)
+                stack.push(null);
+            else {
+                stack.push(new BigDecimal(LocalDateTime.ofInstant(d.toInstant(), ZoneId.of("GMT")).get(IsoFields.WEEK_BASED_YEAR)));
+            }
+         }
     }
 }

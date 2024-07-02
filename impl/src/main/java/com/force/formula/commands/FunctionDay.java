@@ -38,9 +38,10 @@ public class FunctionDay extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.DAYS, Date.class), args[0]), guards[0]);
+        String str = getSqlHooks(context).sqlCastNull(args[0], Date.class);
+        return new SQLPair(String.format(getSqlHooks(context).sqlChronoUnit(ChronoUnit.DAYS, Date.class), str), guards[0]);
     }
-    
+
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         if (context.useHighPrecisionJs()) {
@@ -54,7 +55,7 @@ public class FunctionDay extends FormulaCommandInfoImpl {
 class FunctionDayCommand extends AbstractFormulaCommand {
     private static final long serialVersionUID = 1L;
 
-	public FunctionDayCommand(FormulaCommandInfo formulaCommandInfo) {
+    public FunctionDayCommand(FormulaCommandInfo formulaCommandInfo) {
         super(formulaCommandInfo);
     }
 

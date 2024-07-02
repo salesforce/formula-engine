@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.force.formula.commands;
 
@@ -39,19 +39,20 @@ public class FunctionWeekday extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-    	String sql = String.format( getSqlHooks(context).sqlGetWeekday(), args[0]);
+        String str = getSqlHooks(context).sqlCastNull(args[0], Date.class);
+        String sql = String.format( getSqlHooks(context).sqlGetWeekday(), str);
         return new SQLPair(sql, guards[0]);
     }
-    
+
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         return JsValue.forNonNullResult(args[0]+".getUTCDay()+1",args);
     }
-    
+
     static class FunctionWeekdayCommand extends AbstractFormulaCommand {
         private static final long serialVersionUID = 1L;
 
-    	public FunctionWeekdayCommand(FormulaCommandInfo formulaCommandInfo) {
+        public FunctionWeekdayCommand(FormulaCommandInfo formulaCommandInfo) {
             super(formulaCommandInfo);
         }
 
@@ -60,7 +61,7 @@ public class FunctionWeekday extends FormulaCommandInfoImpl {
             Date d = checkDateType(stack.pop());
             Object result;
             if (d == null) {
-            	result = null;  // No NPEs if null
+                result = null;  // No NPEs if null
             } else {
                 Calendar c = FormulaI18nUtils.getLocalizer().getCalendar(BaseLocalizer.GMT);
                 c.setTime(d);

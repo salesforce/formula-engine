@@ -43,16 +43,17 @@ public class FunctionIsoWeek extends FormulaCommandInfoImpl implements FormulaCo
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        return new SQLPair(String.format(getSqlHooks(context).sqlGetIsoWeek(), args[0]), guards[0]);
+        String str = getSqlHooks(context).sqlCastNull(args[0], Date.class);
+        return new SQLPair(String.format(getSqlHooks(context).sqlGetIsoWeek(), str), guards[0]);
     }
-  
+
     @Override
     public JsValue getJavascript(FormulaAST node, FormulaContext context, JsValue[] args) throws FormulaException {
         String js =  jsToDec(context, context.getJsEngMod() + ".isoweek(" + args[0] + ")");
         return JsValue.generate(js, args, true, args[0]);
     }
-    
-    
+
+
     @Override
     public Type validate(FormulaAST node, FormulaContext context, FormulaProperties properties)
             throws FormulaException {
@@ -67,22 +68,22 @@ public class FunctionIsoWeek extends FormulaCommandInfoImpl implements FormulaCo
         return BigDecimal.class;
     }
 
-    
+
     static class FunctionIsoWeekCommand extends AbstractFormulaCommand {
-	    private static final long serialVersionUID = 1L;
-	
-		public FunctionIsoWeekCommand(FormulaCommandInfo formulaCommandInfo) {
-	        super(formulaCommandInfo);
-	    }
-	
-	    @Override
-	    public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
-	        Date d = checkDateType(stack.pop());
-	        if (d == null) {
-	            stack.push(null);
-		    } else {
-	            stack.push(new BigDecimal(LocalDateTime.ofInstant(d.toInstant(), ZoneId.of("GMT")).get(IsoFields.WEEK_OF_WEEK_BASED_YEAR)));	        	
-	        }
-	     }
+        private static final long serialVersionUID = 1L;
+
+        public FunctionIsoWeekCommand(FormulaCommandInfo formulaCommandInfo) {
+            super(formulaCommandInfo);
+        }
+
+        @Override
+        public void execute(FormulaRuntimeContext context, Deque<Object> stack) {
+            Date d = checkDateType(stack.pop());
+            if (d == null) {
+                stack.push(null);
+            } else {
+                stack.push(new BigDecimal(LocalDateTime.ofInstant(d.toInstant(), ZoneId.of("GMT")).get(IsoFields.WEEK_OF_WEEK_BASED_YEAR)));
+            }
+         }
     }
 }
