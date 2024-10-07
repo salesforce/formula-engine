@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <formula-test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:noNamespaceSchemaLocation="formulaTestV2.xsd">
+
+    <testcase testName="testABCD"
+              fieldName="testABCD"
+              dataType="Boolean"
+              formula="if(ISBLANK(a__c),FALSE, VALUE(a__c) == VALUE(b__c) &amp;&amp; VALUE(c__c) == VALUE(d__c))"
+              executionPaths="formula,sql,formulaNullAsNull,sqlNullAsNull">
+        <referenceField fieldName="a" dataType="Text"/>
+        <referenceField fieldName="b" dataType="Text"/>
+        <referenceField fieldName="c" dataType="Text"/>
+        <referenceField fieldName="d" dataType="Text"/>
+        <testData input="null,1,1,1" expectedOutput="false,false,false,false"/>
+        <testData input="1,null,1,1" expectedOutput="false,false,false,false"/>
+        <testData input="1,1,null,1" expectedOutput="false,false,false,false"/>
+        <testData input="1,1,1,null" expectedOutput="false,false,false,false"/>
+        <testData input="1,1,null,null" expectedOutput="false,false,false,false"/>
+        <testData input="1,null,1,null" expectedOutput="false,false,false,false"/>
+        <testData input="null,1,1,null" expectedOutput="false,false,false,false"/>
+        <testData input="1,null,null,1" expectedOutput="false,false,false,false"/>
+        <testData input="null,1,null,1" expectedOutput="false,false,false,false"/>
+        <testData input="null,null,1,1" expectedOutput="false,false,false,false"/>
+        <testData input="null,null,null,1" expectedOutput="false,false,false,false"/>
+        <testData input="1,null,null,null" expectedOutput="false,false,false,false"/>
+        <testData input="null,1,null,null" expectedOutput="false,false,false,false"/>
+        <testData input="null,null,1,null" expectedOutput="false,false,false,false"/>
+        <testData input="null,null,null,null" expectedOutput="false,false,false,false"/>
+        <testData input=",1,1,1" expectedOutput="false,false,false,false"/>
+        <testData input="1,,1,1" expectedOutput="false,false,false,false"/>
+        <testData input="1,1,,1" expectedOutput="false,false,false,false"/>
+        <testData input="1,1,1," expectedOutput="false,false,false,false"/>
+        <testData input="1,1,," expectedOutput="false,false,false,false"/>
+        <testData input="1,,1," expectedOutput="false,false,false,false"/>
+        <testData input=",1,1," expectedOutput="false,false,false,false"/>
+        <testData input="1,,,1" expectedOutput="false,false,false,false"/>
+        <testData input=",1,,1" expectedOutput="false,false,false,false"/>
+        <testData input=",,1,1" expectedOutput="false,false,false,false"/>
+        <testData input=",,,1" expectedOutput="false,false,false,false"/>
+        <testData input="1,,," expectedOutput="false,false,false,false"/>
+        <testData input=",1,," expectedOutput="false,false,false,false"/>
+        <testData input=",,1," expectedOutput="false,false,false,false"/>
+        <testData input=",,," expectedOutput="false,false,false,false"/>
+    </testcase>
+
     <testcase testName="testDateTimeValueWithInvalidString"
               fieldName="testDateTimeValueWithInvalidString"
               dataType="DateOnly"
