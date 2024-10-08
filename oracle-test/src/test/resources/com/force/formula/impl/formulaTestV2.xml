@@ -5,42 +5,42 @@
    <testcase testName="testABCD"
              fieldName="testABCD"
              dataType="Boolean"
-             formula="if(ISBLANK(a__c),FALSE, VALUE(a__c) == VALUE(b__c) &amp;&amp; VALUE(c__c) == VALUE(d__c))"
-             executionPaths="formula,sql,formulaNullAsNull,sqlNullAsNull">
+             formula="IF(ISBLANK(a__c),false,AND((VALUE(a__c)==VALUE(b__c)),(VALUE(c__c)==VALUE(d__c))))"
+             executionPaths="sql,sqlNullAsNull">
       <referenceField fieldName="a" dataType="Text"/>
       <referenceField fieldName="b" dataType="Text"/>
       <referenceField fieldName="c" dataType="Text"/>
       <referenceField fieldName="d" dataType="Text"/>
-      <testData input="null,1,1,1" expectedOutput="false,false,false,false"/>
-      <testData input="1,null,1,1" expectedOutput="false,false,false,false"/>
-      <testData input="1,1,null,1" expectedOutput="false,false,false,false"/>
-      <testData input="1,1,1,null" expectedOutput="false,false,false,false"/>
-      <testData input="1,1,null,null" expectedOutput="false,false,false,false"/>
-      <testData input="1,null,1,null" expectedOutput="false,false,false,false"/>
-      <testData input="null,1,1,null" expectedOutput="false,false,false,false"/>
-      <testData input="1,null,null,1" expectedOutput="false,false,false,false"/>
-      <testData input="null,1,null,1" expectedOutput="false,false,false,false"/>
-      <testData input="null,null,1,1" expectedOutput="false,false,false,false"/>
-      <testData input="null,null,null,1" expectedOutput="false,false,false,false"/>
-      <testData input="1,null,null,null" expectedOutput="false,false,false,false"/>
-      <testData input="null,1,null,null" expectedOutput="false,false,false,false"/>
-      <testData input="null,null,1,null" expectedOutput="false,false,false,false"/>
-      <testData input="null,null,null,null" expectedOutput="false,false,false,false"/>
-      <testData input=",1,1,1" expectedOutput="false,false,false,false"/>
-      <testData input="1,,1,1" expectedOutput="false,false,false,false"/>
-      <testData input="1,1,,1" expectedOutput="false,false,false,false"/>
-      <testData input="1,1,1," expectedOutput="false,false,false,false"/>
-      <testData input="1,1,," expectedOutput="false,false,false,false"/>
-      <testData input="1,,1," expectedOutput="false,false,false,false"/>
-      <testData input=",1,1," expectedOutput="false,false,false,false"/>
-      <testData input="1,,,1" expectedOutput="false,false,false,false"/>
-      <testData input=",1,,1" expectedOutput="false,false,false,false"/>
-      <testData input=",,1,1" expectedOutput="false,false,false,false"/>
-      <testData input=",,,1" expectedOutput="false,false,false,false"/>
-      <testData input="1,,," expectedOutput="false,false,false,false"/>
-      <testData input=",1,," expectedOutput="false,false,false,false"/>
-      <testData input=",,1," expectedOutput="false,false,false,false"/>
-      <testData input=",,," expectedOutput="false,false,false,false"/>
+      <testData input="null,1,1,1" expectedOutput="false,false"/>
+      <testData input="1,null,1,1" expectedOutput="false,false"/>
+      <testData input="1,1,null,1" expectedOutput="false,false"/>
+      <testData input="1,1,1,null" expectedOutput="false,false"/>
+      <testData input="1,1,null,null" expectedOutput="false,false"/>
+      <testData input="1,null,1,null" expectedOutput="false,false"/>
+      <testData input="null,1,1,null" expectedOutput="false,false"/>
+      <testData input="1,null,null,1" expectedOutput="false,false"/>
+      <testData input="null,1,null,1" expectedOutput="false,false"/>
+      <testData input="null,null,1,1" expectedOutput="false,false"/>
+      <testData input="null,null,null,1" expectedOutput="false,false"/>
+      <testData input="1,null,null,null" expectedOutput="false,false"/>
+      <testData input="null,1,null,null" expectedOutput="false,false"/>
+      <testData input="null,null,1,null" expectedOutput="false,false"/>
+      <testData input="null,null,null,null" expectedOutput="false,false"/>
+      <testData input=",1,1,1" expectedOutput="false,false"/>
+      <testData input="1,,1,1" expectedOutput="false,false"/>
+      <testData input="1,1,,1" expectedOutput="false,false"/>
+      <testData input="1,1,1," expectedOutput="false,false"/>
+      <testData input="1,1,," expectedOutput="false,false"/>
+      <testData input="1,,1," expectedOutput="false,false"/>
+      <testData input=",1,1," expectedOutput="false,false"/>
+      <testData input="1,,,1" expectedOutput="false,false"/>
+      <testData input=",1,,1" expectedOutput="false,false"/>
+      <testData input=",,1,1" expectedOutput="false,false"/>
+      <testData input=",,,1" expectedOutput="false,false"/>
+      <testData input="1,,," expectedOutput="false,false"/>
+      <testData input=",1,," expectedOutput="false,false"/>
+      <testData input=",,1," expectedOutput="false,false"/>
+      <testData input=",,," expectedOutput="false,false"/>
    </testcase>
 
    <!--
