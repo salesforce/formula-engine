@@ -16215,7 +16215,7 @@
 					-1.234,
 					-1.234,
 					-1.234"/>
-      <testData input="--1234"
+      <testData input="-1234"
                 expectedOutput="Error: com.force.formula.impl.InvalidNumericValueException,
 					null,
 					Error: com.force.formula.impl.InvalidNumericValueException,
@@ -16337,7 +16337,7 @@
 					1,
 					1,
 					1"/>
-      <testData input="--1234" expectedOutput="0,
+      <testData input="-1234" expectedOutput="0,
 					0,
 					0,
 					0"/>
@@ -27948,7 +27948,7 @@
    <testcase testName="testConstDoubleNegation"
              fieldName="testConstDoubleNegation"
              dataType="Double"
-             formula="customnumber__c -- 2 + customnumber__c - (2-4) + customnumber__c - (-2)"
+             formula="customnumber__c - 2 + customnumber__c - (2-4) + customnumber__c - (-2)"
              executionPaths="formula,sql,formulaNullAsNull,sqlNullAsNull">
       <referenceField fieldName="customnumber" dataType="Double"/>
       <testData input="" expectedOutput="6,
