@@ -6,10 +6,10 @@
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(new $F.Decimal(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c))):null</JsOutput>
     <SqlOutput nullAsNull="false">
        <Sql>POWER(COALESCE($!s0s!$.customNumber1__c, 0), COALESCE($!s0s!$.customNumber2__c, 0))</Sql>
-       <Guard>TRUNC(COALESCE($!s0s!$.customNumber2__c, 0))&lt;&gt;COALESCE($!s0s!$.customNumber2__c, 0) OR(COALESCE($!s0s!$.customNumber1__c, 0)&lt;&gt;0 AND LOG(10,ABS(COALESCE($!s0s!$.customNumber1__c, 0)))*COALESCE($!s0s!$.customNumber2__c, 0)&gt;38)</Guard>
+       <Guard>TRUNC(COALESCE($!s0s!$.customNumber2__c, 0))&lt;&gt;COALESCE($!s0s!$.customNumber2__c, 0) OR(COALESCE($!s0s!$.customNumber1__c, 0)=0 AND COALESCE($!s0s!$.customNumber2__c, 0)&lt;0) OR(COALESCE($!s0s!$.customNumber1__c, 0)&lt;&gt;0 AND LOG(10,ABS(COALESCE($!s0s!$.customNumber1__c, 0)))*COALESCE($!s0s!$.customNumber2__c, 0)&gt;38)</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="true">
        <Sql>POWER($!s0s!$.customNumber1__c, $!s0s!$.customNumber2__c)</Sql>
-       <Guard>TRUNC($!s0s!$.customNumber2__c)&lt;&gt;$!s0s!$.customNumber2__c OR($!s0s!$.customNumber1__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customNumber1__c))*$!s0s!$.customNumber2__c&gt;38)</Guard>
+       <Guard>TRUNC($!s0s!$.customNumber2__c)&lt;&gt;$!s0s!$.customNumber2__c OR($!s0s!$.customNumber1__c=0 AND $!s0s!$.customNumber2__c&lt;0) OR($!s0s!$.customNumber1__c&lt;&gt;0 AND LOG(10,ABS($!s0s!$.customNumber1__c))*$!s0s!$.customNumber2__c&gt;38)</Guard>
     </SqlOutput>
 </testCase>
