@@ -296,6 +296,25 @@
           </execution>
         </executions>
       </plugin>
+      <!-- compile generated Antl source code -->
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>3.2.0</version>
+            <executions>
+                <execution>
+                    <phase>generate-sources</phase>
+                    <goals>
+                        <goal>add-source</goal>
+                    </goals>
+                    <configuration>
+                        <sources>
+                            <source>target/generated-sources/antlr</source>
+                        </sources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
       <plugin>
         <!-- Runs the unit tests -->
         <groupId>org.apache.maven.plugins</groupId>
@@ -540,9 +559,12 @@
         <module>oracle-test</module>
         <!-- <module>mysql-test</module> -->
         <!-- MYSQL tests having issues in handling regular expressions, so excluding these tests from maven build process-->
-        <!-- These tests can be executed by using the "mysql" profile e.g. `mvn -P mysql clean verify -B` -->
-        <module>sqlserver-test</module>
-        <module>sqlite-test</module>
+	<!-- These tests can be executed by using the "mysql" profile e.g. `mvn -P mysql clean verify -B` -->
+
+	<!-- unable to connect to sqlserver on build server -->
+	<!-- <module>sqlserver-test</module> -->
+	<!-- <module>sqlite-test</module> -->
+
         <!-- <module>h2-test</module> -->
         <!-- Google spanner is having issues with connection in Jenkins, so excluding these tests from maven build process-->
         <!-- These tests can be executed by using the "google-spanner" profile e.g. `mvn -P google-spanner clean verify -B` -->
