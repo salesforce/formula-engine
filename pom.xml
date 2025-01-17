@@ -296,25 +296,6 @@
           </execution>
         </executions>
       </plugin>
-      <!-- compile generated Antl source code -->
-         <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <version>3.2.0</version>
-            <executions>
-                <execution>
-                    <phase>generate-sources</phase>
-                    <goals>
-                        <goal>add-source</goal>
-                    </goals>
-                    <configuration>
-                        <sources>
-                            <source>target/generated-sources/antlr</source>
-                        </sources>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
       <plugin>
         <!-- Runs the unit tests -->
         <groupId>org.apache.maven.plugins</groupId>
