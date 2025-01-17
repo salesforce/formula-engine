@@ -812,6 +812,7 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default SQLPair getPowerSql( String[] args, String[] guards) {
         String sql = "POWER(" + args[0] + ", " + args[1] + ")";
         String guard = SQLPair.generateGuard(guards, "TRUNC(" + args[1] + ")<>" + args[1] +
+                    " OR(" + args[0] + "=0 AND " + args[1] + "<0)" +
                     " OR(" + args[0] + "<>0 AND LOG(10,ABS(" + args[0] + "))*" + args[1] + ">38)");
         return new SQLPair(sql, guard);
     }
