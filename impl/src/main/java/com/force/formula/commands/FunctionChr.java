@@ -34,7 +34,7 @@ public class FunctionChr extends FormulaCommandInfoImpl {
 
     @Override
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards, TableAliasRegistry registry) {
-        String guard = SQLPair.generateGuard(guards, args[0] + "<1");
+        String guard = SQLPair.generateGuard(guards, args[0] + "<1 OR " + args[0] + ">1114111");
         return new SQLPair(String.format(getSqlHooks(context).sqlChr(), args[0]), guard);
     }
 
