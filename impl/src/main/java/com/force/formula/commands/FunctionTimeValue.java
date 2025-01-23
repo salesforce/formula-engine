@@ -34,7 +34,7 @@ import com.force.i18n.BaseLocalizer;
  * @author pjain
  * @since 208
  */
-@AllowedContext(section=SelectorSection.DATE_TIME, nonFlowOnly=true, isOffline=true)
+@AllowedContext(section=SelectorSection.DATE_TIME, isOffline=true)
 public class FunctionTimeValue extends FormulaCommandInfoImpl implements FormulaCommandValidator {
 
     protected final static String JS_FORMAT_TEMPLATE = "new Date(new Date(%s).setUTCFullYear(1970,0,1))";
