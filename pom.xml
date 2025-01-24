@@ -537,7 +537,8 @@
         <module>api</module>
         <module>impl</module>
         <module>test-utils</module>
-        <module>oracle-test</module>
+        <!-- Oracle tests run from within host -->
+        <!--<module>oracle-test</module>-->
         <!-- <module>mysql-test</module> -->
         <!-- MYSQL tests having issues in handling regular expressions, so excluding these tests from maven build process-->
 	<!-- These tests can be executed by using the "mysql" profile e.g. `mvn -P mysql clean verify -B` -->
