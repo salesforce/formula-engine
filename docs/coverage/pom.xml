@@ -57,12 +57,12 @@
     <profile>
       <id>db-tests</id>
       <dependencies>
+        <!-- Rely on host for tests of Oracle
         <dependency>
           <groupId>com.salesforce.formula</groupId>
           <artifactId>formula-engine-oracle-test</artifactId>
           <version>${project.version}</version>
         </dependency>
-        <!--
         <dependency>
           <groupId>com.salesforce.formula</groupId>
           <artifactId>formula-engine-sqlserver-test</artifactId>
