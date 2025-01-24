@@ -6,10 +6,10 @@
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber__c&amp;&amp;context.record.customnumber__c.toNumber()&gt;0?String.fromCodePoint(Math.trunc(context.record.customnumber__c.toNumber())):null)</JsOutput>
     <SqlOutput nullAsNull="false">
        <Sql>CHR(TRUNC(COALESCE($!s0s!$.customnumber__c, 0))::integer)</Sql>
-       <Guard>COALESCE($!s0s!$.customnumber__c, 0)&lt;1 OR COALESCE($!s0s!$.customnumber__c, 0)&gt;1114111</Guard>
+       <Guard>(COALESCE($!s0s!$.customnumber__c, 0)&lt;1 OR COALESCE($!s0s!$.customnumber__c, 0)&gt;1114111)</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="true">
        <Sql>CHR(TRUNC($!s0s!$.customnumber__c)::integer)</Sql>
-       <Guard>$!s0s!$.customnumber__c&lt;1 OR $!s0s!$.customnumber__c&gt;1114111</Guard>
+       <Guard>($!s0s!$.customnumber__c&lt;1 OR $!s0s!$.customnumber__c&gt;1114111)</Guard>
     </SqlOutput>
 </testCase>
