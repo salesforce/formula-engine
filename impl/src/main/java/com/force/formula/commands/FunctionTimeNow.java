@@ -16,7 +16,7 @@ import com.force.i18n.BaseLocalizer;
  * @author p
  * @since 140
  */
-@AllowedContext(section=SelectorSection.DATE_TIME, nonFlowOnly=true)
+@AllowedContext(section=SelectorSection.DATE_TIME)
 public class FunctionTimeNow extends FormulaCommandInfoImpl {
 
     public FunctionTimeNow() {
