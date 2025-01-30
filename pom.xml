@@ -185,13 +185,11 @@
           <artifactId>spring-boot-maven-plugin</artifactId>
           <version>${springframework.boot.version}</version>
         </plugin>
-        <!-- build coverage error affter adding eclipse antlr generator
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
           <version>0.8.8</version>
         </plugin>
-        -->
       </plugins>
     </pluginManagement>
     <plugins>
