@@ -90,7 +90,8 @@ public class FunctionIsNull extends FormulaCommandInfoImpl implements FormulaCom
 
         FormulaAST arg = (FormulaAST)node.getFirstChild();
         Type argDataType = arg.getDataType();
-        if (argDataType == Boolean.class)
+        boolean allowNullableBooleansInJs = context.allowNullableBooleansInJs();
+        if (argDataType == Boolean.class && !allowNullableBooleansInJs)
             throw new IllegalArgumentTypeException(node.getText());
         return Boolean.class;
     }
