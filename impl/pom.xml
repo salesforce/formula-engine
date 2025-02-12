@@ -98,30 +98,62 @@
 
     </dependencies>
 
+    <!-- Antlr 2 plugin uses security manager -->
+    <profiles>
+      <profile>
+        <id>modernJdk</id>
+        <activation>
+          <jdk>[17,)</jdk>        
+        </activation>
+        <build>
+          <plugins>
+              <plugin>
+                  <groupId>org.omnifaces</groupId>
+                  <artifactId>antlr-maven-plugin</artifactId>
+                  <version>2.4</version>
+                  <configuration>
+                      <grammars>*.g</grammars>
+                  </configuration>
+                  <executions>
+                      <execution>
+                          <goals>
+                              <goal>generate</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+              </plugin> 
+          </plugins>  
+        </build>
+      </profile>    
+      <profile>
+        <id>oldJdk</id>
+        <activation>
+          <jdk>(1.8,17)</jdk>        
+        </activation>
+        <build>
+          <plugins>
+              <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>antlr-maven-plugin</artifactId>
+                  <version>2.4</version>
+                  <configuration>
+                      <grammars>*.g</grammars>
+                  </configuration>
+                  <executions>
+                      <execution>
+                          <goals>
+                              <goal>generate</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+              </plugin> 
+          </plugins> 
+        </build> 
+      </profile>
+    </profiles>
+
     <build>
         <plugins>
-            <plugin>
-            <!--
-            In JDK 17, use
-                <groupId>org.omnifaces</groupId>
-                <artifactId>antlr-maven-plugin</artifactId>
-                <version>2.4</version>
-             -->
-
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>antlr-maven-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <grammars>*.g</grammars>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
