@@ -72,6 +72,7 @@ public class BaseCompositeFormulaContextTest {
 		Assert.assertEquals("name", test.getJavascriptReference());
 		Assert.assertEquals(null, test.getSqlStyle());
 		Assert.assertTrue(test.jsDatesAreStrings());
+		Assert.assertFalse(test.allowNullableBooleansInJs());
 		Assert.assertFalse(test.useHighPrecisionJs());
 		Assert.assertFalse(test.isCheckingSqlLengthLimit());
 		Assert.assertFalse(test.isNew());
