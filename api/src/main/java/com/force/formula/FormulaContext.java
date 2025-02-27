@@ -27,6 +27,8 @@ public interface FormulaContext extends Tokenizer {
     String HIGHPRECISION_JS = "com.force.formula.impl.HIGHPRECISION_JS";
     /** See {@link #jsDatesAreStrings} */
     String JS_DATES_ARE_STRINGS = "com.force.formula.impl.JS_DATES_ARE_STRINGS";
+    /** See {@link #allowNullableBooleansInJs} */
+    String ALLOW_NULLABLE_BOOLEANS_IN_JS = "com.force.formula.impl.ALLOW_NULLABLE_BOOLEANS_IN_JS";
 
     String IS_CREATE_OR_EDIT_FORMULA = "com.force.formula.impl.IS_CREATE_OR_EDIT_FORMULA";
     String FORCE_DISABLED = "com.force.formula.impl.FORCE_DISABLED";
@@ -187,6 +189,15 @@ public interface FormulaContext extends Tokenizer {
     default boolean jsDatesAreStrings() {
         Boolean val = getProperty(JS_DATES_ARE_STRINGS);
         return val == null ? true : val;
+    }
+
+    /**
+     * @return <code>true</code> when allowing boolean fields in JS to be compared to null.
+     * Otherwise a boolean can only be <code>true</code> or <code>false</code>.
+     */
+    default boolean allowNullableBooleansInJs() {
+        Boolean val = getProperty(ALLOW_NULLABLE_BOOLEANS_IN_JS);
+        return val == null ? false : val;
     }
     
     /**
