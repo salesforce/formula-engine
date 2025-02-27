@@ -25,7 +25,7 @@ import com.force.i18n.BaseLocalizer;
  * @author pjain
  * @since 208
  */
-@AllowedContext(section=SelectorSection.DATE_TIME, nonFlowOnly=true, isOffline=true)
+@AllowedContext(section=SelectorSection.DATE_TIME, isOffline=true)
 public class FunctionHour extends FormulaCommandInfoImpl {
     public FunctionHour() {
         super("HOUR", BigDecimal.class, new Class[] { FormulaTime.class});

@@ -27,7 +27,7 @@ import com.force.i18n.BaseLocalizer;
  * @author pjain
  * @since 208
  */
-@AllowedContext(section=SelectorSection.DATE_TIME, nonFlowOnly=true, isOffline=true)
+@AllowedContext(section=SelectorSection.DATE_TIME, isOffline=true)
 public class FunctionSecond extends FormulaCommandInfoImpl {
     public FunctionSecond() {
         super("SECOND", BigDecimal.class, new Class[] { FormulaTime.class});

@@ -25,7 +25,7 @@ import com.force.i18n.BaseLocalizer;
  * @author pjain
  * @since 208
  */
-@AllowedContext(section=SelectorSection.DATE_TIME, nonFlowOnly=true)
+@AllowedContext(section=SelectorSection.DATE_TIME)
 public class FunctionMillisecond extends FormulaCommandInfoImpl {
     public FunctionMillisecond() {
         super("MILLISECOND", BigDecimal.class, new Class[] { FormulaTime.class});
