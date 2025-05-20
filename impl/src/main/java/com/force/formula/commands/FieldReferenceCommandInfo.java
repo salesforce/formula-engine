@@ -52,10 +52,10 @@ import com.google.common.base.Splitter;
 
 /**
  * Abstract way to retrieve the value for associated field from the context and push onto the stack.
- * 
+ *
  * The intent for the developer is to extend this and implement the abstract functions and then register
  * that extension in the {@link FormulaFactory#getTypeRegistry()}
- * 
+ *
  * @author dchasman
  * @since 140
  */
@@ -127,7 +127,7 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
             returnType = FormulaTime.class;
         } else if (columnType.isBoolean()) {
             returnType = Boolean.class;
-        } else if (columnType.isId()) {
+        } else if (columnType.isId() || columnType.isLightReference()) {
             returnType = FormulaValidationHooks.get().constructIdType(domain);
         }
 
@@ -141,8 +141,8 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
     static ContextualFormulaFieldInfo lookup(FormulaContext context, FormulaFieldReference fieldReference) throws InvalidFieldReferenceException, UnsupportedTypeException {
         return FormulaEngine.getHooks().lookupFieldReferenceForCompile(context, fieldReference);
     }
-    
-    
+
+
     @Override
     public FormulaAST enrich(FormulaAST node, FormulaContext context, FormulaProperties properties)
         throws FormulaException {
@@ -223,12 +223,12 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
         ContextualFormulaFieldInfo formulaFieldInfo = lookup(context, fieldName, node.isDynamicReferenceBase());
         FormulaSchema.FieldOrColumn foci = (formulaFieldInfo!=null)?formulaFieldInfo.getFieldOrColumnInfo():null;
         FormulaSchema.Entity ei = (foci!=null) ? foci.getEntityInfo() : null;
-        
-        // Call parsehook 
+
+        // Call parsehook
         if (ei != null) {
             FormulaValidationHooks.get().parseHook_validateSqlFieldReference(ei, foci, context);
         }
-      
+
         if (formulaFieldInfo instanceof FormulaSQLProvider) {
             FormulaSQLProvider fsp = (FormulaSQLProvider)formulaFieldInfo;
             SQLPair sqlPair = fsp.getSQL(registry);
@@ -245,7 +245,7 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
         List<FormulaFieldReferenceInfo> fieldPath = getFieldPath(formulaFieldInfo);
 
         FormulaSqlHooks sqlHooks = getSqlHooks(context);
-        
+
         // Get SQL
         String sql;
         String guard;
@@ -270,11 +270,11 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
             ITableAliasRegistry nestedRegistry = formula.getTableAliasRegistry();
             sql = registry.translate(sql, nestedRegistry, fieldPath);
             guard = registry.translate(guard, nestedRegistry, fieldPath);
-        }        
-    
+        }
+
         // Allow overriding of the sql
         sql = FormulaValidationHooks.get().overrideFieldReferenceSql(formula, sql, fieldPath, formulaFieldInfo, registry);
-                
+
         if (formulaFieldInfo.getDataType().isBoolean()) {
             // Only bother with this if we are a database field; a formula's already a boolean so NVL would be a syntax error
             if (formulaFieldInfo.getFieldOrColumnInfo() != null && formulaFieldInfo.getFieldOrColumnInfo().getFieldInfo().isCalculated()) {
@@ -347,7 +347,7 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
             }
         }
     }
-    
+
     /**
      * Prevent NPE. e.g. $User.Manager.FirstName needs to make sure that
      * $User.Manager is defined.
@@ -412,7 +412,7 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
         return new JsValue(value,  guardJs, true);
     }
 
-    private String getClientFieldName(ContextualFormulaFieldInfo referencedFieldInfo, StringBuilder guard, 
+    private String getClientFieldName(ContextualFormulaFieldInfo referencedFieldInfo, StringBuilder guard,
             FieldOrColumn foci, boolean includeContextPrefix) {
         List<FormulaFieldReferenceInfo> fieldPath = null;
         StringBuilder path = new StringBuilder();
@@ -435,11 +435,11 @@ public class FieldReferenceCommandInfo extends FormulaCommandInfoImpl implements
                 path.append(info.getForeignKeyRelationshipName()).append(".");
             }
         }
-        
+
         return FormulaValidationHooks.get().parseHook_generateJsFieldReference(foci, path, includeContextPrefix);
 
     }
-    
+
     public static List<FormulaFieldReferenceInfo> getFieldPath(ContextualFormulaFieldInfo formulaFieldInfo) {
         return FormulaValidationHooks.get().getFieldPath(formulaFieldInfo, true);
     }
