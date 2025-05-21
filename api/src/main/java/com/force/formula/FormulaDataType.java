@@ -44,7 +44,7 @@ public interface FormulaDataType {
     /*
      * Broad categorizations of column types
      */
-    
+
     default boolean isCustom() {
         return false;
     }
@@ -78,7 +78,7 @@ public interface FormulaDataType {
     /**
      * True if the contents of fields of this type *may* be encrypted using the newer platform encryption framework.
      * (AtRest == new).
-     * 
+     *
      * Generally speaking, encryption will happen for fields that
      * <ul>
      * <li>are of a DataType that canBeEncryptedAtRest</li>
@@ -97,7 +97,7 @@ public interface FormulaDataType {
     boolean isDecimal();
     boolean isPercent();
     default boolean isNumber() {
-        return isInteger() || isDecimal() || isPercent();        
+        return isInteger() || isDecimal() || isPercent();
     }
     default boolean isCurrency()  {
         return false;
@@ -113,6 +113,7 @@ public interface FormulaDataType {
     default boolean isId() {
         return false;
     }
+
     default boolean isRaw() {
         return false;
     }
@@ -154,7 +155,7 @@ public interface FormulaDataType {
     /*
      * Schema properties
      */
-    
+
     /**
      * @return whether or not you should test for IdTraits.EMPTY_KEY for values.  In order to prevent outer joins,
      * and the performance issues associated with it, there are some "empty_key" rows with empty values to prevent
@@ -170,6 +171,14 @@ public interface FormulaDataType {
     default boolean isPickval() {
         return false;
     }
-    
+
+    /**
+     * Please try to avoid using this method, as it is Salesforce specific.
+     *
+     * @return <code>true<code/> if this is one of the experimental "light" ref types.
+     */
+    default boolean isLightReference() {
+        return false;
+    }
 
 }

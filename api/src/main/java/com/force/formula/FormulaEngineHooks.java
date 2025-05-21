@@ -18,7 +18,7 @@ import com.google.common.collect.Lists;
 /**
  * The formula engine needs to dig into the specific details of the api at times.
  * This interface is a central stop for all of these "hooks", but is provided with a default.
- * 
+ *
  * These are considered "global" for the runtime, but many of the methods take a FormulaContext
  * so that you can use that to switch behavior based on use case
  *
@@ -164,7 +164,7 @@ public interface FormulaEngineHooks {
     default FormulaGeolocationService getFormulaGeolocationService() {
     	return null;
     }
-    
+
     /**
      * Construct a Time object
      * @param millis the number of millis since midnight
@@ -210,7 +210,7 @@ public interface FormulaEngineHooks {
      * @param jsSize the size of the generated javascript in chars
      * @param context the name of the formula context
      * @param evaluate Whether this was evaluation or parsing of the formula
-     * @param exception the exception generated 
+     * @param exception the exception generated
      */
     default void logFormulaRuntime(long runTimeInitial, int formulaSize, String commands, String globalVariables,
             int sqlSize, int jsSize, String context, boolean evaluate, Exception exception) {
@@ -228,7 +228,7 @@ public interface FormulaEngineHooks {
      * @param jsSize the size of the generated javascript in chars
      * @param context the name of the formula context
      * @param evaluate Whether this was evaluation or parsing of the formula
-     * @param exception the exception generated 
+     * @param exception the exception generated
      * @param fieldName the name of the field associated with the context
      */
     default void logFormulaRuntime(long runTimeInitial, int formulaSize, String commands, String globalVariables,
@@ -245,7 +245,7 @@ public interface FormulaEngineHooks {
      * @param polymorphicFields whether this formula had polymorphic fields
      * @param returnType the string represented the data type of the formula being evaluated
      * @param context the name of the formula context
-     * @param exception the exception generated 
+     * @param exception the exception generated
      */
     default void logFormulaDesignTime(long runTimeInitial, int formulaSize, String commands, String globalVariables,
             Boolean polymorphicFields, String returnType, String context, Exception exception) {
@@ -258,7 +258,7 @@ public interface FormulaEngineHooks {
     default boolean shouldLogRuntime() {
         return false;
     }
-    
+
     /**
      * For the given field reference and target type, return the underlying value of that reference in the given context
      * @param fieldInfo the fieldInfo for the reference
@@ -273,10 +273,10 @@ public interface FormulaEngineHooks {
         // The caller may need to override this to handle custom data types that are context dependent
         return getAndConvertFieldReferenceValue(dataType, context, fieldReference, useUnderlyingType, false);
     }
-    
+
     /**
      * Get the value from the given context and then convert the type to the given.
-     * Caller should override this to deal with custom data types that are *not* context dependent.  
+     * Caller should override this to deal with custom data types that are *not* context dependent.
      * @param dt the target data type
      * @param context the formula context to use to evaluate the reference
      * @param fieldReference the field reference
@@ -313,7 +313,7 @@ public interface FormulaEngineHooks {
             }
         } else if (dt.isNumber()) {
             value = context.getNumber(fieldReference);
-        } else if (dt.isSimpleTextOrClob() || dt.isId() || dt.isTextEnum() || dt.isAnyPerson()) {
+        } else if (dt.isSimpleTextOrClob() || dt.isId() || dt.isLightReference() || dt.isTextEnum() || dt.isAnyPerson()) {
             value = context.getString(fieldReference, !useUnderlyingType);
             if (escapeStringForSQLGeneration) {
                 value = FormulaTextUtil.replaceSimple((String)value, "'", "''");
@@ -340,14 +340,14 @@ public interface FormulaEngineHooks {
      * @param value the value of the currency
      * @param isoCode the iso code of the currency
      * @param toCanonical whether to convert to the "canonical" currency
-     * 
+     *
      * Usually this is called in pairs, with (value, targetIsoCode, false) then (value, sourceIsoCode, true)
-     * @return the value converted to the 
+     * @return the value converted to the
      */
     default BigDecimal convertCurrency(BigDecimal value, String isoCode, boolean toCanonical) {
         return value;
     }
-       
+
     /**
      * Provide a hook for lookup of a field reference when you want to check for compilation (when you want to turn off security)
      * @param context the context used during compile
@@ -366,7 +366,7 @@ public interface FormulaEngineHooks {
     default FormulaInformationContext.Provider getInformationContextProvider() {
         return null;  // SfdcCtx.formula()
     }
-    
+
     /**
      * @param field the field to check
      * @return whether the field is currently readable for the user.  Often, the admin has to compile formulas for fields they can't read.
@@ -379,14 +379,14 @@ public interface FormulaEngineHooks {
      * For certain contexts, like SystemFormulaContext, date time needs to be generated by default, but doing it on every
      * instantiation is expensive.  This allows it to be generated by hand
      * @param name the name of the datatype to lookup.
-     * @return the data type 
-     */ 
+     * @return the data type
+     */
     default FormulaDataType getDataTypeByName(String name) {
-        return null; 
+        return null;
     }
-    
+
     /**
-     * Allow the indexability for a text formula to be overridable 
+     * Allow the indexability for a text formula to be overridable
      * @param context the formula context for the text function
      * @param picklistFieldName the name of the picklist field.
      * @param isDeterministic the default result (i.e. is it not TEXT(NOW())) or the like)
@@ -395,11 +395,11 @@ public interface FormulaEngineHooks {
     default boolean isTextFunctionIndexable(FormulaContext context, String picklistFieldName, boolean isDeterministic) {
         return false;
     }
-    
+
     /**
-     * Convert the stored value for a picklist to the "canonical" value to use in display.  An example would 
+     * Convert the stored value for a picklist to the "canonical" value to use in display.  An example would
      * be if you store a picklist value as a number, but you should evaulate the value as a string, this does that
-     * conversion. 
+     * conversion.
      * @param toConvert the value specified in the encoded formula for a picklist.  In general, it'll be a String
      * @param picklistFieldInfo the type of picklist to lookup
      * @return the canonical value to use for a picklist
@@ -408,7 +408,7 @@ public interface FormulaEngineHooks {
         return toConvert;
     }
 
-    
+
     /**
      * Convert the field value for which underlying values will match it the underlying engine
      * @param formulaFieldInfo the formula field being evaluated
@@ -434,11 +434,11 @@ public interface FormulaEngineHooks {
      * Pop full access rights after field reference DB lookups in the formula engine
      */
 	default void hook_popAccessRights() {}
-	
+
 	/**
 	 * Salesforce specific-ish, but allows formulas to have their access to field references limited by the namespace included.  Used in
 	 * FormulaImpl#getFieldPathIfDirectReferenceToAnotherField to validate that the access is available.
-     * Push given component namespace on the stack. 
+     * Push given component namespace on the stack.
      * This is useful mainly for Extension package. Extension package namespace is on the top of the stack, however in order to resolve field
      * we need to push field's namespace.
 	 * @param namespace the namespace associated with this field reference.
@@ -453,15 +453,15 @@ public interface FormulaEngineHooks {
     default String getDbTimeZoneID(TimeZone tz) {
     	return tz.getID();
     }
-    
+
     /**
-     * @return the salesforce style id converted to 18 characters, if it looks like an Id.  The implementation is 
+     * @return the salesforce style id converted to 18 characters, if it looks like an Id.  The implementation is
      * @param id the possible id to convert
      */
     default String convertIdTo18Digits(String id) {
     	return id;
     }
-    
+
     /**
      * For values that are decorated strings (like IDs that have a domain set), convert
      * them to a String for use in string operations.
