@@ -97,6 +97,7 @@
         <param name="java.lang.Integer">Number</param>
         <param name="java.util.Date">Date</param>
         <param name="com.force.formula.FormulaDateTime">DateTime</param>
+        <param name="com.force.formula.FormulaTime">Time</param>
         <param name="java.lang.Boolean">Boolean</param>
         <param name="common.config.currency.CurrencyData">Currency</param>
         <param name="com.force.formula.commands.ConstantNull">Null</param>
