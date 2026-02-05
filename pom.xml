@@ -272,12 +272,12 @@
         <artifactId>nexus-staging-maven-plugin</artifactId>
         <version>1.6.8</version>
         <extensions>true</extensions>
-        <configuration>
-          <!--
+        <configuration>        
           <serverId>sonatype-nexus-staging</serverId>
-          -->
- <serverId>https://ossrh-staging-api.central.sonatype.com/</serverId>
+          <!--
           <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+          -->
+          <nexusUrl>https://ossrh-staging-api.central.sonatype.com/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
@@ -526,7 +526,10 @@
             </executions>
             <configuration>
               <serverId>sonatype-nexus-staging</serverId>
+              <!--
               <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+              --> 
+              <nexusUrl>https://ossrh-staging-api.central.sonatype.com/</nexusUrl>
               <autoReleaseAfterClose>true</autoReleaseAfterClose>
               <stagingProgressTimeoutMinutes>15</stagingProgressTimeoutMinutes>
             </configuration>
