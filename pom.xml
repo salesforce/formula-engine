@@ -40,11 +40,8 @@
     <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
     <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-    <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
-    <!--
     <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
-    -->
-
+    
   </properties>
 
   <packaging>pom</packaging>
@@ -276,10 +273,7 @@
         <extensions>true</extensions>
         <configuration>        
           <serverId>sonatype-nexus-staging</serverId>
-          <!--
           <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-          -->
-          <nexusUrl>https://ossrh-staging-api.central.sonatype.com/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
@@ -468,17 +462,11 @@
       <distributionManagement>
         <repository>
           <id>sonatype-nexus-staging</id>
-          <!--
           <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-          -->
-          <url>https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/</url>
         </repository>
         <snapshotRepository>
           <id>sonatype-nexus-staging</id>
-          <!--
           <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-          -->
-          <url>https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots</url>         
         </snapshotRepository>
       </distributionManagement>
       <build>
@@ -528,10 +516,7 @@
             </executions>
             <configuration>
               <serverId>sonatype-nexus-staging</serverId>
-              <!--
               <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-              --> 
-              <nexusUrl>https://ossrh-staging-api.central.sonatype.com/</nexusUrl>
               <autoReleaseAfterClose>true</autoReleaseAfterClose>
               <stagingProgressTimeoutMinutes>15</stagingProgressTimeoutMinutes>
             </configuration>
