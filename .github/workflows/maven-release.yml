@@ -53,18 +53,18 @@ jobs:
           mvn -V -gs $GITHUB_WORKSPACE/generated-settings/settings.xml -B -P sign-artifacts,db-tests,presto,skip-presto-tests -e release:clean release:prepare && 
           echo "::set-output name=RELEASED_VERSION::$(grep scm.tag= release.properties | cut -d'=' -f2 | cut -c2-)"
       env:
-          MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
-          MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
-          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER_2 }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN_2 }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN_2 }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE_2 }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Perform Release
       run: >
           mvn -gs $GITHUB_WORKSPACE/generated-settings/settings.xml -B -P sign-artifacts,db-tests,releases,presto,skip-presto-tests -e release:perform
       env:
-          MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER }}
-          MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
-          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USER_2 }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN_2 }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN_2 }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE_2 }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Create Release Entry
@@ -75,3 +75,12 @@ jobs:
           body: ${{ github.event.inputs.release-body }}
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Encode credentials to Base64
+      run: |
+        ENCODED_CREDENTIALS=$(echo -n "${{ secrets.MAVEN_CENTRAL_USER_2 }}:${{ secrets.MAVEN_CENTRAL_TOKEN_2 }}" | base64)
+        echo "::set-output name=ENCODED_CREDENTIALS::$ENCODED_CREDENTIALS"
+      id: encode_credentials_step
+    - name: Ensure visibility in Central Publisher Portal
+      run: |
+        curl -H "Authorization: Bearer ${{ steps.encode_credentials_step.outputs.ENCODED_CREDENTIALS }}" -i -X POST https://ossrh-staging-api.central.sonatype.com/manual/upload/defaultRepository/com.salesforce.formula
+
