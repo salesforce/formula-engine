@@ -75,12 +75,14 @@ jobs:
           body: ${{ github.event.inputs.release-body }}
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Encode credentials to Base64
-      run: |
-        ENCODED_CREDENTIALS=$(echo -n "${{ secrets.MAVEN_CENTRAL_USER_2 }}:${{ secrets.MAVEN_CENTRAL_TOKEN_2 }}" | base64)
-        echo "::set-output name=ENCODED_CREDENTIALS::$ENCODED_CREDENTIALS"
-      id: encode_credentials_step
-    - name: Ensure visibility in Central Publisher Portal
-      run: |
-        curl -H "Authorization: Bearer ${{ steps.encode_credentials_step.outputs.ENCODED_CREDENTIALS }}" -i -X POST https://ossrh-staging-api.central.sonatype.com/manual/upload/defaultRepository/com.salesforce.formula
+# Commenting out this stuff to test if it is causing duplication of artifacts in Sonatype.
+# If we determine that it is needed, as declared by the Sonatype docs, then we'll restore it.         
+#    - name: Encode credentials to Base64
+#      run: |
+#        ENCODED_CREDENTIALS=$(echo -n "${{ secrets.MAVEN_CENTRAL_USER_2 }}:${{ secrets.MAVEN_CENTRAL_TOKEN_2 }}" | base64)
+#        echo "::set-output name=ENCODED_CREDENTIALS::$ENCODED_CREDENTIALS"
+#      id: encode_credentials_step
+#    - name: Ensure visibility in Central Publisher Portal
+#      run: |
+#        curl -H "Authorization: Bearer ${{ steps.encode_credentials_step.outputs.ENCODED_CREDENTIALS }}" -i -X POST https://ossrh-staging-api.central.sonatype.com/manual/upload/defaultRepository/com.salesforce.formula
 
