@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAbsUsesSqrt">
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.sqrt($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).abs()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.abs(Math.sqrt($F.nvl(context.record.customnumber1__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.abs(Math.sqrt(context.record.customnumber1__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?($F.Decimal.sqrt(context.record.customnumber1__c).abs()):null</JsOutput>
+</testCase>

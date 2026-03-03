@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISBLANKWithUrl">
+    <JsOutput highPrec="true" nullAsNull="false">((null==context.record.customurl1__c)?null:context.record.customtextarea1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((null==context.record.customurl1__c)?null:context.record.customtextarea1__c)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((null==context.record.customurl1__c)?null:context.record.customtextarea1__c)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">((null==context.record.customurl1__c)?null:context.record.customtextarea1__c)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN ($!s0s!$.customurl1__c IS NULL) THEN NULL ELSE $!s0s!$.customtextarea1__c END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customurl1__c IS NULL) THEN NULL ELSE $!s0s!$.customtextarea1__c END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testExpUsesLen">
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.exp((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.exp(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">Math.exp(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.Decimal.exp((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length))))</JsOutput>
+</testCase>

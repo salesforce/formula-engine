@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testHourWithValidString">
+    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal('10')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">10</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">10</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new $F.Decimal('10')</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>10</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>10</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

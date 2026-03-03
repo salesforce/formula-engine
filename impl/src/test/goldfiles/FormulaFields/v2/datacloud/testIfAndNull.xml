@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfAndNull">
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl((null!=null&amp;&amp;context.record.customcheckbox1__c!=null &amp;&amp; ((null)&amp;&amp;(context.record.customcheckbox1__c))?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl((context.record.customcheckbox1__c!=null&amp;&amp;null!=null &amp;&amp; ((context.record.customcheckbox1__c)&amp;&amp;(null))?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl((null!=null&amp;&amp;context.record.customcheckbox1__c!=null &amp;&amp; ((null)&amp;&amp;(context.record.customcheckbox1__c))?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl((context.record.customcheckbox1__c!=null&amp;&amp;null!=null &amp;&amp; ((context.record.customcheckbox1__c)&amp;&amp;(null))?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.nvl((null!=null&amp;&amp;context.record.customcheckbox1__c!=null &amp;&amp; ((null)&amp;&amp;(context.record.customcheckbox1__c))?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl((context.record.customcheckbox1__c!=null&amp;&amp;null!=null &amp;&amp; ((context.record.customcheckbox1__c)&amp;&amp;(null))?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.nvl((null!=null&amp;&amp;context.record.customcheckbox1__c!=null &amp;&amp; ((null)&amp;&amp;(context.record.customcheckbox1__c))?&quot;T&quot;:&quot;F&quot;),'')+$F.nvl((context.record.customcheckbox1__c!=null&amp;&amp;null!=null &amp;&amp; ((context.record.customcheckbox1__c)&amp;&amp;(null))?&quot;T&quot;:&quot;F&quot;),'')</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CONCAT(CASE WHEN ((1=0) AND (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1')) THEN 'T' ELSE 'F' END, CASE WHEN ((COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') AND (1=0)) THEN 'T' ELSE 'F' END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CONCAT(CASE WHEN ((1=0) AND (COALESCE($!s0s!$.customcheckbox1__c, '0') = '1')) THEN 'T' ELSE 'F' END, CASE WHEN ((COALESCE($!s0s!$.customcheckbox1__c, '0') = '1') AND (1=0)) THEN 'T' ELSE 'F' END)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

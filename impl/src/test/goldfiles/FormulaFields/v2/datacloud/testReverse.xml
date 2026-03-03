@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testReverse">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(context.record.customtext1__c.split(&quot;&quot;).reverse().join(&quot;&quot;)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(context.record.customtext1__c.split(&quot;&quot;).reverse().join(&quot;&quot;)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(context.record.customtext1__c.split(&quot;&quot;).reverse().join(&quot;&quot;)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(context.record.customtext1__c.split(&quot;&quot;).reverse().join(&quot;&quot;)):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>REVERSE($!s0s!$.customtext1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>REVERSE($!s0s!$.customtext1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAbsUsesExp">
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.exp($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))).abs()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.abs(Math.exp($F.nvl(context.record.customnumber1__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.abs(Math.exp(context.record.customnumber1__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?($F.Decimal.exp(context.record.customnumber1__c).abs()):null</JsOutput>
+</testCase>

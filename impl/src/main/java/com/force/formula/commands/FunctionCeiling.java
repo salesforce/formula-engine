@@ -47,11 +47,12 @@ public class FunctionCeiling extends UnaryMathCommandBehavior {
         FormulaSqlHooks hooks = (FormulaSqlHooks)context.getSqlStyle();
     	String ceil = hooks.isTransactSqlStyle() ? "CEILING" : "CEIL";
     	int precision = hooks.getExternalPrecision();
+    	String arg = hooks.sqlCeilFloorArg(args[0]);
         String sql;
         if (precision >= 0) { // If external precision is -1 don't reound before Ceil/Floor
-            sql = "CASE WHEN " + args[0] + ">=0 THEN "+ceil+"(ROUND(" + args[0] + ","+precision+")) ELSE FLOOR(ROUND(" + args[0] + ","+precision+")) END";
+            sql = "CASE WHEN " + args[0] + ">=0 THEN "+ceil+"(ROUND(" + arg + ","+precision+")) ELSE FLOOR(ROUND(" + arg + ","+precision+")) END";
         } else {
-            sql = "CASE WHEN " + args[0] + ">=0 THEN "+ceil+"(" + args[0] + ") ELSE FLOOR(" + args[0] + ") END";
+            sql = "CASE WHEN " + args[0] + ">=0 THEN "+ceil+"(" + arg + ") ELSE FLOOR(" + arg + ") END";
         }
         return new SQLPair(sql, guards[0]);
     }

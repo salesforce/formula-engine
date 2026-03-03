@@ -59,12 +59,23 @@ public abstract class FormulaXMLTestSuite extends TestSuite {
 
         //create test cases and add them to test suite
         for(FormulaTestDefinition testDefinition : filteredTestCaseInfos){
-            FormulaTestCase formulaTestCase = new FormulaTestCase(testDefinition, this);
+            FormulaTestCase formulaTestCase = createTestCase(testDefinition);
             addTest(formulaTestCase);
         }
 
         //Gold file to store intermediate state of the tests to help in debugging like SQL & JS generated
         this.goldFileDirectoryPath = goldFileDirectoryPath;
+    }
+
+    /**
+     * Factory method to create a test case from a test definition.
+     * Subclasses can override to create custom test case instances.
+     *
+     * @param testDefinition the test definition to create a test case from
+     * @return a FormulaTestCase instance
+     */
+    protected FormulaTestCase createTestCase(FormulaTestDefinition testDefinition) {
+        return new FormulaTestCase(testDefinition, this);
     }
 
     /**

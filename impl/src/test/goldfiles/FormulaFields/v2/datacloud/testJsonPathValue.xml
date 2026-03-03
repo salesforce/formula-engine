@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testJsonPathValue">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customjson__c!=null)?(typeof $F==='undefined'?undefined:(String($F.jsonPath(JSON.parse(context.record.customjson__c),&quot;$.Temperature&quot;)||''))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customjson__c!=null)?(typeof $F==='undefined'?undefined:(String($F.jsonPath(JSON.parse(context.record.customjson__c),&quot;$.Temperature&quot;)||''))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customjson__c!=null)?(typeof $F==='undefined'?undefined:(String($F.jsonPath(JSON.parse(context.record.customjson__c),&quot;$.Temperature&quot;)||''))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customjson__c!=null)?(typeof $F==='undefined'?undefined:(String($F.jsonPath(JSON.parse(context.record.customjson__c),&quot;$.Temperature&quot;)||''))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(jsonb_path_query($!s0s!$.customjson__c::jsonb,'$.Temperature') #&gt;&gt; '{}')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(jsonb_path_query($!s0s!$.customjson__c::jsonb,'$.Temperature') #&gt;&gt; '{}')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

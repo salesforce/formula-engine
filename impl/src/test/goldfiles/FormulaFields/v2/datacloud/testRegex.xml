@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testRegex">
+    <JsOutput highPrec="true" nullAsNull="false">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+</testCase>

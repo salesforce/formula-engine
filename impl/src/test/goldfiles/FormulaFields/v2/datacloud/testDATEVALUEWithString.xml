@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDATEVALUEWithString">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>TO_DATE($!s0s!$.customtext1__c, 'YYYY-MM-DD')</Sql>
+       <Guard> NOT $!s0s!$.customtext1__c ~ '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$' </Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>TO_DATE($!s0s!$.customtext1__c, 'YYYY-MM-DD')</Sql>
+       <Guard> NOT $!s0s!$.customtext1__c ~ '^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$' </Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIn2Date">
+    <JsOutput highPrec="true" nullAsNull="false">([($F.anl([($F.anl([context.record.customin1__c])?null:new Date(new Date(context.record.customin1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customin1__c])?null:new Date(new Date(context.record.customin1__c).setUTCHours(0,0,0,0))).getTime())].filter(e=&gt;e!=null).indexOf(($F.anl([($F.anl([context.record.customdate__c])?null:new Date(new Date(context.record.customdate__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate__c])?null:new Date(new Date(context.record.customdate__c).setUTCHours(0,0,0,0))).getTime()))&gt;=0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">([($F.anl([($F.anl([context.record.customin1__c])?null:new Date(new Date(context.record.customin1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customin1__c])?null:new Date(new Date(context.record.customin1__c).setUTCHours(0,0,0,0))).getTime())].filter(e=&gt;e!=null).indexOf(($F.anl([($F.anl([context.record.customdate__c])?null:new Date(new Date(context.record.customdate__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate__c])?null:new Date(new Date(context.record.customdate__c).setUTCHours(0,0,0,0))).getTime()))&gt;=0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">([($F.anl([($F.anl([context.record.customin1__c])?null:new Date(new Date(context.record.customin1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customin1__c])?null:new Date(new Date(context.record.customin1__c).setUTCHours(0,0,0,0))).getTime())].filter(e=&gt;e!=null).indexOf(($F.anl([($F.anl([context.record.customdate__c])?null:new Date(new Date(context.record.customdate__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate__c])?null:new Date(new Date(context.record.customdate__c).setUTCHours(0,0,0,0))).getTime()))&gt;=0)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">([($F.anl([($F.anl([context.record.customin1__c])?null:new Date(new Date(context.record.customin1__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customin1__c])?null:new Date(new Date(context.record.customin1__c).setUTCHours(0,0,0,0))).getTime())].filter(e=&gt;e!=null).indexOf(($F.anl([($F.anl([context.record.customdate__c])?null:new Date(new Date(context.record.customdate__c).setUTCHours(0,0,0,0)))])?null:($F.anl([context.record.customdate__c])?null:new Date(new Date(context.record.customdate__c).setUTCHours(0,0,0,0))).getTime()))&gt;=0)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customdate__c IN ($!s0s!$.customin1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customdate__c IN ($!s0s!$.customin1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>
