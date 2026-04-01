@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testCase name="testDateVariableYear">
-    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,new $F.Decimal('0')).toNumber(),new $F.Decimal('2').toNumber()-1,new $F.Decimal('29').toNumber()))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.year__c,0),2-1,29))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.year__c!=null)?(new Date(Date.UTC(context.record.year__c,2-1,29))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.year__c!=null)?(new Date(Date.UTC(context.record.year__c.toNumber(),new $F.Decimal('2').toNumber()-1,new $F.Decimal('29').toNumber()))):null</JsOutput>
-</testCase>

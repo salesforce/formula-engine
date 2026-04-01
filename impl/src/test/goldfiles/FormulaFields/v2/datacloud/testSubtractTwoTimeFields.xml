@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testCase name="testSubtractTwoTimeFields">
-    <JsOutput highPrec="true" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?(((new $F.Decimal(new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000).mod(86400000)))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?((((new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000)%86400000))):null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?((((new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000)%86400000))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?(((new $F.Decimal(new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()+86400000).mod(86400000)))):null</JsOutput>
-</testCase>

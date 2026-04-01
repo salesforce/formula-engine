@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testCase name="testIfReturningNullForDateType">
-    <JsOutput highPrec="true" nullAsNull="false">null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">null</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">null</JsOutput>
-</testCase>

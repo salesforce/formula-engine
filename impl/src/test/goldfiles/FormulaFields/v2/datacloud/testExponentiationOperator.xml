@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testCase name="testExponentiationOperator">
-    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal(Math.pow($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')),$F.nvl(context.record.customNumber2__c,new $F.Decimal('0'))))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.pow($F.nvl(context.record.customNumber1__c,0),$F.nvl(context.record.customNumber2__c,0))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c)):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(new $F.Decimal(Math.pow(context.record.customNumber1__c,context.record.customNumber2__c))):null</JsOutput>
-</testCase>
