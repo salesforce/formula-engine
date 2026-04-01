@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationSeconds">
+    <JsOutput highPrec="true" nullAsNull="false">$F.formatduration(Math.abs($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber()),false)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.formatduration(Math.abs($F.nvl(context.record.customNumber1__c,0)),false)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null)?($F.formatduration(Math.abs(context.record.customNumber1__c),false)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null)?($F.formatduration(Math.abs(context.record.customNumber1__c.toNumber()),false)):null</JsOutput>
+</testCase>

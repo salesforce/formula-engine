@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNullNotEqualEmptyString">
+    <JsOutput highPrec="true" nullAsNull="false">($F.noe(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),(&quot;&quot;)+'x'))!=($F.nvl(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),'')+'x')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">($F.noe(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),(&quot;&quot;)+'x'))!=($F.nvl(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),'')+'x')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">($F.noe(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),(&quot;&quot;)+'x'))!=($F.nvl(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),'')+'x')</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">($F.noe(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),(&quot;&quot;)+'x'))!=($F.nvl(($F.anl([context.record.customText1__c])?null:context.record.customText1__c),'')+'x')</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(COALESCE($!s0s!$.customText1__c, CONCAT(NULL, 'x'))&lt;&gt;CONCAT($!s0s!$.customText1__c, 'x'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(COALESCE($!s0s!$.customText1__c, CONCAT(NULL, 'x'))&lt;&gt;CONCAT($!s0s!$.customText1__c, 'x'))</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesValue">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c)).ln()):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(Math.log(Number(context.record.customtext1__c))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(Math.log(Number(context.record.customtext1__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(($F.Decimal(context.record.customtext1__c)).ln()):null</JsOutput>
+</testCase>

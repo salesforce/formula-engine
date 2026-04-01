@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testAddHoursWithTwoCustFields">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.timeString__c!=null)?((new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber()))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.timeString__c!=null)?((new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+$F.nvl(context.record.customnumber1__c,0)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.timeString__c!=null&amp;&amp;context.record.customnumber1__c!=null)?((new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+context.record.customnumber1__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.timeString__c!=null&amp;&amp;context.record.customnumber1__c!=null)?((new Date(new Date(new Date(context.record.timeString__c).setUTCFullYear(1970,0,1)).getTime()+context.record.customnumber1__c.toNumber()))):null</JsOutput>
+</testCase>

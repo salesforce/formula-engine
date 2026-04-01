@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLNUsesLen">
+    <JsOutput highPrec="true" nullAsNull="false">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))).ln()</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.log(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">Math.log(($F.anl([context.record.customtext1__c])?0:(context.record.customtext1__c).length))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">((new $F.Decimal(($F.anl([context.record.customtext1__c])?(new $F.Decimal(0)):(context.record.customtext1__c).length)))).ln()</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LN(COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric)</Sql>
+       <Guard>COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric&lt;=0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LN(COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric)</Sql>
+       <Guard>COALESCE(LENGTH($!s0s!$.customtext1__c),0)::numeric&lt;=0</Guard>
+    </SqlOutput>
+</testCase>

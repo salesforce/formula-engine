@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFindOnText">
+    <JsOutput highPrec="true" nullAsNull="false">(new $F.Decimal(((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new $F.Decimal(((context.record.customText1__c)?(context.record.customText1__c.indexOf(&quot;Text&quot;)+1):0)))</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE(STRPOS($!s0s!$.customText1__c, 'Text'), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE(STRPOS($!s0s!$.customText1__c, 'Text'), 0)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

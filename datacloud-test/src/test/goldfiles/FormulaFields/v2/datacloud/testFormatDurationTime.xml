@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationTime">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?($F.formatduration(Math.abs((new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime())/1000),false)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?($F.formatduration(Math.abs((new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime())/1000),false)):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?($F.formatduration(Math.abs((new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime())/1000),false)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.timeString1__c!=null&amp;&amp;context.record.timeString2__c!=null)?($F.formatduration(Math.abs((new Date(new Date(context.record.timeString1__c).setUTCFullYear(1970,0,1)).getTime()-new Date(new Date(context.record.timeString2__c).setUTCFullYear(1970,0,1)).getTime())/1000),false)):null</JsOutput>
+</testCase>

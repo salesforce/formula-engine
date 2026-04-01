@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorTextTimeValueWithValidInValid">
+    <JsOutput highPrec="true" nullAsNull="false">!(context.record.dateString__c!=null)?null:new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).toISOString().substring(11,23)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">!(context.record.dateString__c!=null)?null:new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).toISOString().substring(11,23)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">!(context.record.dateString__c!=null)?null:new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).toISOString().substring(11,23)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">!(context.record.dateString__c!=null)?null:new Date(new Date(context.record.dateString__c).setUTCFullYear(1970,0,1)).toISOString().substring(11,23)</JsOutput>
+</testCase>

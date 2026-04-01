@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfUsesFalse">
+    <JsOutput highPrec="true" nullAsNull="false">new $F.Decimal('0')</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">0</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">0</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">new $F.Decimal('0')</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>0</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>0</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

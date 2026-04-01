@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDistance">
+    <JsOutput highPrec="true" nullAsNull="false">typeof $formula==='undefined'?undefined:$formula.disance({latitude:$F.nvl(context.record.customNumber1__c,new $F.Decimal('0')),longitude:$F.nvl(context.record.customNumber2__c,new $F.Decimal('0'))},{latitude:new $F.Decimal('33.37088'),longitude:new $F.Decimal('122.61715').neg()},&quot;mi&quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">typeof $formula==='undefined'?undefined:$formula.disance({latitude:$F.nvl(context.record.customNumber1__c,0),longitude:$F.nvl(context.record.customNumber2__c,0)},{latitude:33.37088,longitude:(-122.61715)},&quot;mi&quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(typeof $formula==='undefined'?undefined:$formula.disance({latitude:context.record.customNumber1__c,longitude:context.record.customNumber2__c},{latitude:33.37088,longitude:(-122.61715)},&quot;mi&quot;)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null&amp;&amp;context.record.customNumber2__c!=null)?(typeof $formula==='undefined'?undefined:$formula.disance({latitude:context.record.customNumber1__c,longitude:context.record.customNumber2__c},{latitude:new $F.Decimal('33.37088'),longitude:new $F.Decimal('122.61715').neg()},&quot;mi&quot;)):null</JsOutput>
+</testCase>

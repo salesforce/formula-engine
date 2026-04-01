@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testISBLANKWithCur">
+    <JsOutput highPrec="true" nullAsNull="false">((null==$F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')))?new $F.Decimal('0'):$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c.div(100)):null,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">((null==$F.nvl(context.record.customcurrency1__c,0))?0:$F.nvl((context.record.custompercent1__c!=null)?(context.record.custompercent1__c/100.0):null,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">((null==context.record.customcurrency1__c)?0:(context.record.custompercent1__c!=null?(context.record.custompercent1__c/100.0):null))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">((null==context.record.customcurrency1__c)?new $F.Decimal('0'):(context.record.custompercent1__c!=null?(context.record.custompercent1__c.div(100)):null))</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (COALESCE($!s0s!$.customcurrency1__c, 0) IS NULL) THEN 0 ELSE COALESCE(($!s0s!$.custompercent1__c / 100.0), 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN ($!s0s!$.customcurrency1__c IS NULL) THEN 0 ELSE ($!s0s!$.custompercent1__c / 100.0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

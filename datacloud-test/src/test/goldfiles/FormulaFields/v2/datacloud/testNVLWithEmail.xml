@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNVLWithEmail">
+    <JsOutput highPrec="true" nullAsNull="false">context.record.customemail1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">context.record.customemail1__c</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">context.record.customemail1__c</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">context.record.customemail1__c</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>$!s0s!$.customemail1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>$!s0s!$.customemail1__c</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

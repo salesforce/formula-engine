@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDATEVALUEWithString">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext1__c!=null)?(new Date(new Date(context.record.customtext1__c).setUTCHours(0,0,0,0))):null</JsOutput>
+</testCase>

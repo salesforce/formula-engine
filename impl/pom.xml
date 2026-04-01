@@ -77,14 +77,6 @@
     </dependency>
 
 
-    <dependency>
-            <groupId>com.salesforce.datacloud</groupId>
-            <artifactId>jdbc</artifactId>
-            <version>0.41.0</version>
-            <classifier>shaded</classifier>
-            <scope>test</scope>
-        </dependency>
-
   <!--  Json Function Dependencies -->
        <dependency>
           <groupId>com.jayway.jsonpath</groupId>

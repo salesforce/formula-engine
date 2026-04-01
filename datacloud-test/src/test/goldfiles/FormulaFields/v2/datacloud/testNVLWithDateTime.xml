@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNVLWithDateTime">
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)),($F.anl([context.record.customdatetime2__c])?null:$F.parseDateTime(context.record.customdatetime2__c)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.nvl(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)),($F.anl([context.record.customdatetime2__c])?null:$F.parseDateTime(context.record.customdatetime2__c)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.nvl(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)),($F.anl([context.record.customdatetime2__c])?null:$F.parseDateTime(context.record.customdatetime2__c)))</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.nvl(($F.anl([context.record.customdatetime1__c])?null:$F.parseDateTime(context.record.customdatetime1__c)),($F.anl([context.record.customdatetime2__c])?null:$F.parseDateTime(context.record.customdatetime2__c)))</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>COALESCE($!s0s!$.customdatetime1__c, $!s0s!$.customdatetime2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>COALESCE($!s0s!$.customdatetime1__c, $!s0s!$.customdatetime2__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

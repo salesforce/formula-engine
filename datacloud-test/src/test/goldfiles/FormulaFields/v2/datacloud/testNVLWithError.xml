@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testNVLWithError">
+    <JsOutput highPrec="true" nullAsNull="false">$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).div($F.nvl(context.record.customnumber2__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">($F.nvl(context.record.customnumber1__c,0)/$F.nvl(context.record.customnumber2__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">$F.nvl((context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?((context.record.customnumber1__c/context.record.customnumber2__c)):null,context.record.customcurrency1__c)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">$F.nvl((context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null)?(context.record.customnumber1__c.div(context.record.customnumber2__c)):null,context.record.customcurrency1__c)</JsOutput>
+</testCase>
