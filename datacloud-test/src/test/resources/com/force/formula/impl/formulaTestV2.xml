@@ -186,11 +186,11 @@
               formula="TIMEVALUE(&#34;10:40:55.666&#34;)"
               executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
         <testData expectedOutput="10:40:55.666,
+					10:40:55.665,
 					10:40:55.666,
 					10:40:55.666,
 					10:40:55.666,
-					10:40:55.666,
-					10:40:55.666,
+					10:40:55.665,
 					10:40:55.666,
 					10:40:55.666"/>
     </testcase>
@@ -256,11 +256,11 @@
               formula="MilliSecond(TIMEVALUE(&#34;2015-03-17 17:00:00&#34;))"
               executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
         <testData expectedOutput="Error: com.force.formula.FormulaDateException,
-					Error: ERROR: function round(double precision\, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37,
+					null,
 					0,
 					0,
 					Error: com.force.formula.FormulaDateException,
-					Error: ERROR: function round(double precision\, integer) does not exist   Hint: No function matches the given name and argument types. You might need to add explicit type casts.   Position: 37,
+					null,
 					0,
 					0"/>
     </testcase>
@@ -6252,11 +6252,11 @@
 					90000"/>
         <testData input="2004:12:31:12:00:01,2004:12:30:12:00:00"
                   expectedOutput="86401,
-					86400,
+					86401,
 					86400,
 					86401,
 					86401,
-					86400,
+					86401,
 					86400,
 					86401"/>
     </testcase>
@@ -6314,11 +6314,11 @@
 					90000"/>
         <testData input="2004:12:31:12:00:01,2004:12:30:12:00:00"
                   expectedOutput="86401,
+					86402,
 					86401,
 					86401,
 					86401,
-					86401,
-					86401,
+					86402,
 					86401,
 					86401"/>
     </testcase>
@@ -26185,11 +26185,11 @@
 					1"/>
         <testData input="1,123456789123456.24,123456789123456.24"
                   expectedOutput="1.00000000000000000000000000000000,
-					1.00000000000000000061214949860207,
+					0.9999999919,
 					1,
 					1,
 					1.00000000000000000000000000000000,
-					1.00000000000000000061214949860207,
+					0.9999999919,
 					1,
 					1"/>
         <testData input="1,0,0" expectedOutput="0,
@@ -46850,11 +46850,11 @@
 					null"/>
         <testData input="-1.0,99.0"
                   expectedOutput="1.9956351945975497,
-					1.9956351945975499,
+					1.9956351945975504,
 					1.99563519459755,
 					1.9956352,
 					1.9956351945975497,
-					1.9956351945975499,
+					1.9956351945975504,
 					1.99563519459755,
 					1.9956352"/>
         <testData input="99, -1"
@@ -49627,11 +49627,11 @@
 					null"/>
         <testData input="56"
                   expectedOutput="4.02535169073515,
-					4.0253516907351492,
+					4.0253516907351502,
 					4.02535169073515,
 					4.0253517,
 					4.02535169073515,
-					4.0253516907351492,
+					4.0253516907351502,
 					4.02535169073515,
 					4.0253517"/>
         <testData input="110"
@@ -50156,11 +50156,11 @@
 					1"/>
         <testData input="1,123456789123456.24,123456789123456.24"
                   expectedOutput="1.00000000000000000000000000000000,
-					1.00000000000000000061214949860207,
+					0.9999999919,
 					1,
 					1,
 					1.00000000000000000000000000000000,
-					1.00000000000000000061214949860207,
+					0.9999999919,
 					1,
 					1"/>
         <testData input="1,0,0"

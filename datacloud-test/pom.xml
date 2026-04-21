@@ -92,6 +92,12 @@
           <!-- Required for Class.forName() to find the DataCloud JDBC driver in the shaded jar -->
           <useSystemClassLoader>true</useSystemClassLoader>
           <useManifestOnlyJar>false</useManifestOnlyJar>
+          <excludes>
+            <!-- DataCloudFormulaTestCase is not a standalone test; it is instantiated
+                 by FormulaDataCloudXMLTests via createTestCase(). Exclude it so Surefire
+                 does not try to run it directly (it lacks a no-arg/String constructor). -->
+            <exclude>**/DataCloudFormulaTestCase.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
     </plugins>

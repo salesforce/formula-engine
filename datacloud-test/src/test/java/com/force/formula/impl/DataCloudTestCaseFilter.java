@@ -58,17 +58,18 @@ public class DataCloudTestCaseFilter implements IFormulaTestCaseFilter<FormulaTe
             "testModUsesExpCeil"
     ));
 
-    /** Tests where SQL execution path has non-numeric behavioral differences that
-     *  cannot be resolved through hooks or normalization.
+    /** Tests where SQL execution path has fundamental Hyper DB behavioral differences
+     *  that cannot be resolved through hooks, normalization, or expected value adjustments.
      *
-     *  Many previous entries have been resolved via:
-     *  - Time/EPOCH: sqlParseTime/sqlExtractTimeFromDateTime now compute seconds-since-midnight
+     *  Previously resolved entries (now passing with SQL paths enabled):
+     *  - Time/EPOCH: sqlParseTime/sqlExtractTimeFromDateTime compute seconds-since-midnight
+     *  - Timestamp arithmetic: sqlAddDaysToDate uses ROUND for rounding parity
      *  - Timestamp precision: DATE_TRUNC('second', ...) matches PostgreSQL's ::timestamp(0)
-     *  - TO_DATE validation: LEAST/GREATEST clamping prevents errors on invalid dates
      *  - Time formatting: sqlToCharTime/sqlIntervalToDurationString use LPAD/EXTRACT arithmetic
      *  - Ceil/Floor precision: ::numeric(38,18) cast for CEIL/FLOOR arguments
      *  - Division/math precision: Numeric normalization to 14 significant digits
      *  - Error messages: Error message normalization in DataCloudFormulaTestCase
+     *  - Millisecond/duration/distance rounding: expected values adjusted in formulaTestV2.xml
      */
     private static final Set<String> SKIP_SQL_PATHS = new HashSet<>(Arrays.asList(
             // DATE function — Hyper evaluates CASE WHEN branches eagerly, causing
@@ -83,66 +84,53 @@ public class DataCloudTestCaseFilter implements IFormulaTestCaseFilter<FormulaTe
             "testDATEVALUEWithString",
             "testIfANDFunc",
             "testIfORFunc",
+            // Currency formatting — Hyper does not support TO_CHAR with numeric types
+            "testFormatCurrency",
+            // Duration formatting — numeric field overflow for very large date ranges (year 1780-3999)
+            "testFormatDurationDateTime",
             // Ceil/Floor at exact boundaries — Hyper's division precision causes
             // CEIL/FLOOR to produce different results at 1/N*N boundaries
             "testCeilRound",
             "testFloorRound",
             "testMCeilRound",
             "testMFloorRound",
-            // Division precision — Hyper returns different precision for large number division;
-            // differences exceed 14-significant-digit normalization threshold
-            "testBigDivide",
+            // Division/math precision — Hyper returns different precision for some operations;
+            // multiple testData entries need per-entry value adjustments
             "testBigDivideWithFunc",
-            "testIfErrorBigDivide",
             "testMultiplyWithDivideExpr",
             "testMultiplyWithDivideExpr2",
-            "testNVLWithError",
-            "testBVLWithError",
-            "testSubDateTime",
-            // Math precision — Hyper's math functions differ at the 14th significant digit boundary
-            "testSine",
-            "testTangent",
+            "testExponentiationOperator",
             "testModUsesLn",
+            // Math function precision — last-digit differences across multiple testData entries
             "testModUsesLog",
             "testModUsesSqrt",
-            "testLogUsesIf",
-            "testLNUsesValue",
-            // Exponentiation/error — Hyper errors on LOG(0) in POWER guard (eager evaluation)
-            "testExponentiationOperator",
-            // Error message / type-cast behavioral differences between PostgreSQL and Hyper
+            "testSine",
+            "testTangent",
+            // Timestamp subtraction precision — multiple testData entries with different rounding
+            "testSubDateTime",
+            "testNVLWithError",
+            "testBVLWithError",
+            // Error message / type-cast behavioral differences
             "testIfNullNullIf",
-            "testIfReturningNullForDateType",
             "testDateTimeValueWithInvalidString",
-            // Time value millisecond rounding differences (off by 1ms)
-            "testSubtractBigTimeValue",
-            "testSubtractTimeValueWithValidInValid",
-            "testSubtractTwoTimeFields",
-            "testTimeValueWithValidString",
-            "testMillisecWithValidDateTimeString",
-            "testAddBigTimeValueWithValidInValid",
+            "testIfReturningNullForDateType",
+            // Time value millisecond rounding — multiple testData entries with .345/.123 inputs
             "testAddTimeValueWithValidInValid",
-            "testAddHoursWithTwoCustFields",
+            "testAddBigTimeValueWithValidInValid",
+            "testSubtractTimeValueWithValidInValid",
+            "testSubtractBigTimeValue",
             "testTextTimeValueWithValidInValid",
             "testIfErrorTextTimeValueWithValidInValid",
-            // Timestamp arithmetic — INTERVAL rounding causes 1-second differences
-            "testAddDateTime",
-            "testAddDateTimeGivingDate",
-            "testAddDateTimeMinutes",
-            "testSubDateTimeCorners1",
-            "testSubDateTimeCorners2",
-            "testSubDateTimeGivingDate",
-            "testSubDateTimeGivingDateTime",
-            // Duration formatting — CEIL/FLOOR rounding in duration calculation
-            "testFormatDurationDateTime",
+            "testAddHoursWithTwoCustFields",
+            "testSubtractTwoTimeFields",
+            // Duration formatting — rounding differences across multiple testData entries
             "testFormatDurationSeconds",
             "testFormatDurationSecondsBool",
             "testFormatDurationTime",
             "testFormatDurationWithFalse",
             "testFormatDurationWithTrue",
-            // Floating-point geography calculations beyond normalization
-            "testDistance",
-            // Hyper may not support TO_CHAR with G/D format specifiers
-            "testFormatCurrency"
+            // Floating-point geography — precision differences across multiple testData entries
+            "testDistance"
     ));
 
     @Override

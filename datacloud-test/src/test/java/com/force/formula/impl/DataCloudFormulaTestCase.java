@@ -126,6 +126,9 @@ public class DataCloudFormulaTestCase extends FormulaTestCase {
                 || msg.contains("date out of range")) {
             return "Error: date/time field value out of range";
         }
+        if (msg.contains("cannot take logarithm of zero")) {
+            return "Error: cannot take logarithm of zero";
+        }
         return value;
     }
 }

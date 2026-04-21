@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testCase name="testExpUsesSqrt">
-    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.exp($F.Decimal.sqrt($F.nvl(context.record.customnumber1__c,new $F.Decimal('0'))))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="false">Math.exp(Math.sqrt($F.nvl(context.record.customnumber1__c,0)))</JsOutput>
-    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(Math.exp(Math.sqrt(context.record.customnumber1__c))):null</JsOutput>
-    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?($F.Decimal.exp($F.Decimal.sqrt(context.record.customnumber1__c))):null</JsOutput>
-</testCase>

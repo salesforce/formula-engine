@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.util.Date;
 
 import com.force.formula.FormulaDateTime;
+import com.force.formula.sql.SQLPair;
 
 /**
  * Implementation of FormulaSqlHooks for Salesforce DataCloud Hyper DB.
@@ -27,24 +28,26 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
 
     @Override
     default String sqlAddDaysToDate(Object lhsValue, Type lhsDataType, Object rhsValue, Type rhsDataType, boolean isAddition) {
-        // Wrap with DATE_TRUNC('second', ...) to match PostgreSQL's ::timestamp(0) behavior.
-        // Without this, sub-second precision from INTERVAL arithmetic leaks into results.
+        // Round the total seconds before creating the interval to match PostgreSQL's
+        // ::timestamp(0) rounding behavior. DATE_TRUNC truncates (loses 0.9s),
+        // while ::timestamp(0) rounds (0.5s+ rounds up). ROUND(...) before the
+        // interval creation gives identical results.
         if (lhsDataType == Date.class || lhsDataType == FormulaDateTime.class) {
-            return String.format("DATE_TRUNC('second', (%s%s(INTERVAL '1 second'*%s*86400.0)))::timestamp",
+            return String.format("(%s%s(INTERVAL '1 second'*ROUND(%s*86400.0)))::timestamp",
                     lhsValue, isAddition ? "+" : "-", rhsValue);
         } else {
-            return String.format("DATE_TRUNC('second', ((INTERVAL '1 second'*%s*86400.0)%s%s))::timestamp",
+            return String.format("((INTERVAL '1 second'*ROUND(%s*86400.0))%s%s)::timestamp",
                     lhsValue, isAddition ? "+" : "-", rhsValue);
         }
     }
 
     @Override
     default String sqlSubtractTwoTimestamps(boolean inSeconds, Type dateType) {
-        // Truncate both timestamps to whole seconds before computing epoch difference,
-        // matching PostgreSQL's ::timestamp(0) precision behavior.
+        // Round EPOCH values to whole seconds before subtraction to match PostgreSQL's
+        // ::timestamp(0) rounding behavior (::timestamp(0) rounds, not truncates).
         return inSeconds
-                ? "(EXTRACT(EPOCH FROM DATE_TRUNC('second', %s))-EXTRACT(EPOCH FROM DATE_TRUNC('second', %s)))::numeric"
-                : "((EXTRACT(EPOCH FROM DATE_TRUNC('second', %s))-EXTRACT(EPOCH FROM DATE_TRUNC('second', %s)))::numeric/86400)";
+                ? "(ROUND(EXTRACT(EPOCH FROM %s))-ROUND(EXTRACT(EPOCH FROM %s)))::numeric"
+                : "((ROUND(EXTRACT(EPOCH FROM %s))-ROUND(EXTRACT(EPOCH FROM %s)))::numeric/86400)";
     }
 
     // -------------------------------------------------------
@@ -85,6 +88,14 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
         return argument + "::numeric(38,18)";
     }
 
+    @Override
+    default int getExternalPrecision() {
+        // Hyper DB's NUMERIC precision limit is 38 total digits.
+        // PostgreSQL's default of 33 may exceed Hyper's capacity when combined
+        // with large integer parts. Use 18 to match the scale of numeric(38,18).
+        return 18;
+    }
+
     // -------------------------------------------------------
     // #4: Fix ::timestamp(0) in sqlToCharTimestamp, sqlAddMonths, sqlLastDayOfMonth
     //     Hyper DB does not support timestamp with precision specifier.
@@ -93,6 +104,7 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
 
     @Override
     default String sqlToCharTimestamp() {
+        // Use DATE_TRUNC here since TO_CHAR only formats, no rounding needed
         return "TO_CHAR(DATE_TRUNC('second', (%s)::timestamp), 'YYYY-MM-DD HH24:MI:SS')";
     }
 
@@ -160,8 +172,11 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
     default String sqlIntervalToDurationString(String intervalArg, boolean includeDays, String daysIsParam) {
         // Hyper doesn't support TO_CHAR(interval, 'HH24:MI:SS').
         // Use EXTRACT to get total seconds from the interval, then format manually.
+        // NOTE: Hyper's LPAD truncates strings longer than the pad width, so use
+        // GREATEST(2, LENGTH(...)) for hours which can exceed 2 digits.
         String totalSecs = "EXTRACT(EPOCH FROM " + intervalArg + ")::int";
-        String hh = "LPAD((" + totalSecs + "/3600)::text,2,'0')";
+        String hhRaw = "(" + totalSecs + "/3600)::text";
+        String hh = "LPAD(" + hhRaw + ",GREATEST(2,LENGTH(" + hhRaw + ")),'0')";
         String mm = "LPAD(((" + totalSecs + "%3600)/60)::text,2,'0')";
         String ss = "LPAD((" + totalSecs + "%60)::text,2,'0')";
         String hhmmss = hh + "||':'||" + mm + "||':'||" + ss;
@@ -184,8 +199,10 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
         // Compute seconds since midnight by subtracting the date portion.
         // EXTRACT(EPOCH FROM (ts - DATE_TRUNC('day', ts))) gives the time-of-day
         // in seconds, matching PostgreSQL's TO_CHAR(ts, 'SSSS.MS') semantics.
+        // Use ROUND(..., 3) to preserve millisecond precision that Hyper's
+        // floating-point EPOCH extraction may lose (e.g., 55.666 → 55.665999...).
         String ts = "TO_TIMESTAMP(" + stringExpr + ", '" + sqlHMSAndMsecs() + "')";
-        String secsSinceMidnight = "EXTRACT(EPOCH FROM (" + ts + " - DATE_TRUNC('day', " + ts + ")))";
+        String secsSinceMidnight = "ROUND(EXTRACT(EPOCH FROM (" + ts + " - DATE_TRUNC('day', " + ts + "))), 3)";
         return String.format(sqlToNumber(), secsSinceMidnight) + " * 1000";
     }
 
@@ -193,8 +210,9 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
     default String sqlExtractTimeFromDateTime(String dateTimeExpr) {
         // Hyper may not support TO_CHAR(timestamp, 'SSSS') for seconds-in-day.
         // Use EXTRACT(EPOCH FROM (ts - DATE_TRUNC('day', ts))) instead.
-        String secsSinceMidnight = "EXTRACT(EPOCH FROM (" + dateTimeExpr
-                + " - DATE_TRUNC('day', " + dateTimeExpr + ")))";
+        // ROUND preserves millisecond precision lost in floating-point EPOCH extraction.
+        String secsSinceMidnight = "ROUND(EXTRACT(EPOCH FROM (" + dateTimeExpr
+                + " - DATE_TRUNC('day', " + dateTimeExpr + "))), 3)";
         return String.format(sqlToNumber(), secsSinceMidnight) + " * 1000";
     }
 
@@ -204,4 +222,51 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
     //     No hook override needed - tests that use json_extract_path_text
     //     or #>> operator will fail and should be filtered out.
     // -------------------------------------------------------
+
+    // -------------------------------------------------------
+    // #7: POWER function — Hyper's LOG function may error on LOG(0) in the
+    //     guard expression even inside CASE WHEN (eager evaluation).
+    //     Use LN(ABS(x))/LN(10) instead of LOG(10,ABS(x)) for overflow
+    //     detection, and wrap the guard with a CASE to short-circuit on 0.
+    // -------------------------------------------------------
+
+    @Override
+    default SQLPair getPowerSql(String[] args, String[] guards) {
+        String sql = "POWER(" + args[0] + ", " + args[1] + ")";
+        // Hyper evaluates LOG(10,ABS(x)) eagerly even in guard expressions,
+        // which errors on x=0. Use a CASE to short-circuit the overflow check.
+        String guard = SQLPair.generateGuard(guards, "TRUNC(" + args[1] + ")<>" + args[1]
+                + " OR(" + args[0] + "=0 AND " + args[1] + "<0)"
+                + " OR(" + args[0] + "<>0 AND (CASE WHEN ABS(" + args[0] + ")=0 THEN 0 ELSE LN(ABS(" + args[0] + "))/LN(10) END)*" + args[1] + ">38)");
+        return new SQLPair(sql, guard);
+    }
+
+    // -------------------------------------------------------
+    // #8: Currency formatting — Hyper DB does not support G (grouping)
+    //     and D (decimal) format specifiers in TO_CHAR. Replace with
+    //     comma-based format masks (9,999,990.00) instead.
+    // -------------------------------------------------------
+
+    @Override
+    default StringBuilder getCurrencyMask(int scale) {
+        // Hyper doesn't support G/D locale-aware format specifiers.
+        // Use comma for grouping and period for decimal point.
+        StringBuilder mask = new StringBuilder(40).append("'FM9,999,999,999,999,999,990");
+        if (scale > 0) {
+            mask.append('.');
+            for (int i = 0; i < scale; i++) mask.append('0');
+        }
+        mask.append('\'');
+        return mask;
+    }
+
+    // -------------------------------------------------------
+    // #9: INITCAP — Hyper may not support COLLATE "en_US" with INITCAP.
+    //     Use plain INITCAP without collation specifier.
+    // -------------------------------------------------------
+
+    @Override
+    default String sqlInitCap(boolean hasLocaleOverride) {
+        return "INITCAP(%s)";
+    }
 }

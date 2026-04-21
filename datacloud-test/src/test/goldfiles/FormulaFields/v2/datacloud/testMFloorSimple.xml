@@ -5,11 +5,11 @@
     <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?((Math).floor(context.record.customnumber1__c)):null</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?((context.record.customnumber1__c).toDP(18).floor()):null</JsOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0)::numeric(38,18),33))</Sql>
+       <Sql>FLOOR(ROUND(COALESCE($!s0s!$.customnumber1__c, 0)::numeric(38,18),18))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="true">
-       <Sql>FLOOR(ROUND($!s0s!$.customnumber1__c::numeric(38,18),33))</Sql>
+       <Sql>FLOOR(ROUND($!s0s!$.customnumber1__c::numeric(38,18),18))</Sql>
        <Guard>null</Guard>
     </SqlOutput>
 </testCase>

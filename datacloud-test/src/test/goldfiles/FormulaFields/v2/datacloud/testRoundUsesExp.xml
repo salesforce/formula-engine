@@ -5,11 +5,11 @@
     <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber1__c!=null)?((((context.record.customnumber2__c)&gt;=0?Math.ceil(context.record.customnumber2__c):Math.floor(context.record.customnumber2__c))&gt;0)?Number(Number(Math.exp(context.record.customnumber1__c)).toFixed(((context.record.customnumber2__c)&gt;=0?Math.ceil(context.record.customnumber2__c):Math.floor(context.record.customnumber2__c))&lt;=20?((context.record.customnumber2__c)&gt;=0?Math.ceil(context.record.customnumber2__c):Math.floor(context.record.customnumber2__c)):20)):Math.round((Math.exp(context.record.customnumber1__c))*('1e'+((context.record.customnumber2__c)&gt;=0?Math.ceil(context.record.customnumber2__c):Math.floor(context.record.customnumber2__c))))/('1e'+((context.record.customnumber2__c)&gt;=0?Math.ceil(context.record.customnumber2__c):Math.floor(context.record.customnumber2__c)))):null</JsOutput>
     <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber1__c!=null)?(($F.Decimal.exp(context.record.customnumber1__c)).mul('1e'+(context.record.customnumber2__c.isPos()?context.record.customnumber2__c.toDP(18).ceil():context.record.customnumber2__c.toDP(18).floor()).toFixed(0)).round().div('1e'+(context.record.customnumber2__c.isPos()?context.record.customnumber2__c.toDP(18).ceil():context.record.customnumber2__c.toDP(18).floor()).toFixed(0))):null</JsOutput>
     <SqlOutput nullAsNull="false">
-       <Sql>ROUND(EXP(COALESCE($!s0s!$.customnumber1__c, 0)::numeric(38,18)), CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE($!s0s!$.customnumber2__c, 0)::numeric(38,18),33)) ELSE FLOOR(ROUND(COALESCE($!s0s!$.customnumber2__c, 0)::numeric(38,18),33)) END::integer)</Sql>
+       <Sql>ROUND(EXP(COALESCE($!s0s!$.customnumber1__c, 0)::numeric(38,18)), CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)&gt;=0 THEN CEIL(ROUND(COALESCE($!s0s!$.customnumber2__c, 0)::numeric(38,18),18)) ELSE FLOOR(ROUND(COALESCE($!s0s!$.customnumber2__c, 0)::numeric(38,18),18)) END::integer)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
     <SqlOutput nullAsNull="true">
-       <Sql>ROUND(EXP($!s0s!$.customnumber1__c::numeric(38,18)), CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber2__c::numeric(38,18),33)) ELSE FLOOR(ROUND($!s0s!$.customnumber2__c::numeric(38,18),33)) END::integer)</Sql>
+       <Sql>ROUND(EXP($!s0s!$.customnumber1__c::numeric(38,18)), CASE WHEN $!s0s!$.customnumber2__c&gt;=0 THEN CEIL(ROUND($!s0s!$.customnumber2__c::numeric(38,18),18)) ELSE FLOOR(ROUND($!s0s!$.customnumber2__c::numeric(38,18),18)) END::integer)</Sql>
        <Guard>null</Guard>
     </SqlOutput>
 </testCase>
