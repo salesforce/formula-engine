@@ -162,10 +162,12 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
     default String sqlToCharTime() {
         // Hyper doesn't support nested TO_CHAR(TO_TIMESTAMP(...)) for time formatting.
         // Build HH:MM:SS.mmm manually from milliseconds-since-midnight using arithmetic.
+        // Parenthesize (%1$s)::int so the cast applies to the full expression, not just
+        // the last literal in the substituted SQL (::int binds tighter than arithmetic).
         return "LPAD(TRUNC(%1$s/3600000)::int::text,2,'0') || ':' || "
                 + "LPAD((TRUNC(%1$s/60000)::int %% 60)::text,2,'0') || ':' || "
                 + "LPAD((TRUNC(%1$s/1000)::int %% 60)::text,2,'0') || '.' || "
-                + "LPAD((%1$s::int %% 1000)::text,3,'0')";
+                + "LPAD(((%1$s)::int %% 1000)::text,3,'0')";
     }
 
     @Override

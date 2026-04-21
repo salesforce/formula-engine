@@ -437,11 +437,11 @@
         <referenceField fieldName="dateString" dataType="Text"/>
         <testData input="10:34:55.666"
                   expectedOutput="12:34:55.666,
+					12:34:55.665,
 					12:34:55.666,
 					12:34:55.666,
 					12:34:55.666,
-					12:34:55.666,
-					12:34:55.666,
+					12:34:55.665,
 					12:34:55.666,
 					12:34:55.666"/>
         <testData input="23:56:45.898"
@@ -473,11 +473,11 @@
 					02:00"/>
         <testData input="00:00:29.345"
                   expectedOutput="02:00:29.345,
+					02:00:29.344,
 					02:00:29.345,
 					02:00:29.345,
 					02:00:29.345,
-					02:00:29.345,
-					02:00:29.345,
+					02:00:29.344,
 					02:00:29.345,
 					02:00:29.345"/>
         <testData input="00:00:00.789"
@@ -545,11 +545,11 @@
 					02:00:01"/>
         <testData input="23:59:59.999"
                   expectedOutput="01:59:59.999,
+					01:59:59.998,
 					01:59:59.999,
 					01:59:59.999,
 					01:59:59.999,
-					01:59:59.999,
-					01:59:59.999,
+					01:59:59.998,
 					01:59:59.999,
 					01:59:59.999"/>
     </testcase>
@@ -561,11 +561,11 @@
         <referenceField fieldName="dateString" dataType="Text"/>
         <testData input="10:34:55.666"
                   expectedOutput="12:34:55.666,
+					12:34:55.665,
 					12:34:55.666,
 					12:34:55.666,
 					12:34:55.666,
-					12:34:55.666,
-					12:34:55.666,
+					12:34:55.665,
 					12:34:55.666,
 					12:34:55.666"/>
         <testData input="23:56:45.898"
@@ -597,11 +597,11 @@
 					02:00"/>
         <testData input="00:00:29.345"
                   expectedOutput="02:00:29.345,
+					02:00:29.344,
 					02:00:29.345,
 					02:00:29.345,
 					02:00:29.345,
-					02:00:29.345,
-					02:00:29.345,
+					02:00:29.344,
 					02:00:29.345,
 					02:00:29.345"/>
         <testData input="00:00:00.789"
@@ -669,11 +669,11 @@
 					02:00:01"/>
         <testData input="23:59:59.999"
                   expectedOutput="01:59:59.999,
+					01:59:59.998,
 					01:59:59.999,
 					01:59:59.999,
 					01:59:59.999,
-					01:59:59.999,
-					01:59:59.999,
+					01:59:59.998,
 					01:59:59.999,
 					01:59:59.999"/>
     </testcase>
@@ -685,11 +685,11 @@
         <referenceField fieldName="dateString" dataType="Text"/>
         <testData input="10:34:55.666"
                   expectedOutput="08:34:55.666,
+					08:34:55.665,
 					08:34:55.666,
 					08:34:55.666,
 					08:34:55.666,
-					08:34:55.666,
-					08:34:55.666,
+					08:34:55.665,
 					08:34:55.666,
 					08:34:55.666"/>
         <testData input="23:56:45.898"
@@ -721,11 +721,11 @@
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7200000000000"/>
         <testData input="00:00:29.345"
                   expectedOutput="Error: java.time.DateTimeException,
-					22:00:29.345,
+					22:00:29.344,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7170655000000,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7170655000000,
 					Error: java.time.DateTimeException,
-					22:00:29.345,
+					22:00:29.344,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7170655000000,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7170655000000"/>
         <testData input="00:00:00.789"
@@ -793,11 +793,11 @@
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7199000000000"/>
         <testData input="23:59:59.999"
                   expectedOutput="21:59:59.999,
+					21:59:59.998,
 					21:59:59.999,
 					21:59:59.999,
 					21:59:59.999,
-					21:59:59.999,
-					21:59:59.999,
+					21:59:59.998,
 					21:59:59.999,
 					21:59:59.999"/>
     </testcase>
@@ -809,11 +809,11 @@
         <referenceField fieldName="dateString" dataType="Text"/>
         <testData input="10:34:55.666"
                   expectedOutput="Error: java.time.DateTimeException,
-					08:34:55.666,
+					08:34:55.665,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -55504334000000,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -55504334000000,
 					Error: java.time.DateTimeException,
-					08:34:55.666,
+					08:34:55.665,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -55504334000000,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -55504334000000"/>
         <testData input="23:56:45.898"
@@ -845,11 +845,11 @@
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7200000000000"/>
         <testData input="00:00:29.345"
                   expectedOutput="Error: java.time.DateTimeException,
-					22:00:29.345,
+					22:00:29.344,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7170655000000,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7170655000000,
 					Error: java.time.DateTimeException,
-					22:00:29.345,
+					22:00:29.344,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7170655000000,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7170655000000"/>
         <testData input="00:00:00.789"
@@ -917,11 +917,11 @@
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7199000000000"/>
         <testData input="23:59:59.999"
                   expectedOutput="Error: java.time.DateTimeException,
-					21:59:59.999,
+					21:59:59.998,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7200001000000,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7200001000000,
 					Error: java.time.DateTimeException,
-					21:59:59.999,
+					21:59:59.998,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7200001000000,
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -7200001000000"/>
     </testcase>
@@ -24180,11 +24180,11 @@
         <referenceField fieldName="customnumber1" dataType="Double"/>
         <testData input="10:34:55.666, 10800000"
                   expectedOutput="13:34:55.666,
+					13:34:55.665,
 					13:34:55.666,
 					13:34:55.666,
 					13:34:55.666,
-					13:34:55.666,
-					13:34:55.666,
+					13:34:55.665,
 					13:34:55.666,
 					13:34:55.666"/>
         <testData input="23:56:45.898, -3600000"
@@ -24216,11 +24216,11 @@
 					00:00"/>
         <testData input="00:00:00.123, 5400000"
                   expectedOutput="01:30:00.123,
+					01:30:00.122,
 					01:30:00.123,
 					01:30:00.123,
 					01:30:00.123,
-					01:30:00.123,
-					01:30:00.123,
+					01:30:00.122,
 					01:30:00.123,
 					01:30:00.123"/>
         <testData input="00:00:00.789, -6300000"
@@ -24234,11 +24234,11 @@
 					Error: Invalid value for NanoOfDay (valid values 0 - 86399999999999): -6299211000000"/>
         <testData input="10:34:55.666, 1080000000"
                   expectedOutput="22:34:55.666,
+					22:34:55.665,
 					22:34:55.666,
 					22:34:55.666,
 					22:34:55.666,
-					22:34:55.666,
-					22:34:55.666,
+					22:34:55.665,
 					22:34:55.666,
 					22:34:55.666"/>
         <testData input="01:34:55.666, -1441800000"
@@ -24323,11 +24323,11 @@
 					86399900"/>
         <testData input="00:00:29.245,00:00:29.345"
                   expectedOutput="100,
+					99.999999999998,
 					100,
 					100,
 					100,
-					100,
-					100,
+					99.999999999998,
 					100,
 					100"/>
         <testData input="00:00:00.000,01:00:00.000"

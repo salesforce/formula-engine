@@ -114,15 +114,7 @@ public class DataCloudTestCaseFilter implements IFormulaTestCaseFilter<FormulaTe
             "testIfNullNullIf",
             "testDateTimeValueWithInvalidString",
             "testIfReturningNullForDateType",
-            // Time value millisecond rounding — multiple testData entries with .345/.123 inputs
-            "testAddTimeValueWithValidInValid",
-            "testAddBigTimeValueWithValidInValid",
-            "testSubtractTimeValueWithValidInValid",
-            "testSubtractBigTimeValue",
-            "testTextTimeValueWithValidInValid",
-            "testIfErrorTextTimeValueWithValidInValid",
-            "testAddHoursWithTwoCustFields",
-            "testSubtractTwoTimeFields",
+            // Time value millisecond rounding — expected values adjusted in formulaTestV2.xml
             // Duration formatting — rounding differences across multiple testData entries
             "testFormatDurationSeconds",
             "testFormatDurationSecondsBool",
