@@ -94,13 +94,6 @@ public class DataCloudTestCaseFilter implements IFormulaTestCaseFilter<FormulaTe
             "testFloorRound",
             "testMCeilRound",
             "testMFloorRound",
-            // Division/math precision — Hyper returns different precision for some operations;
-            // multiple testData entries need per-entry value adjustments
-            "testBigDivideWithFunc",
-            "testMultiplyWithDivideExpr",
-            "testMultiplyWithDivideExpr2",
-            "testExponentiationOperator",
-            "testModUsesLn",
             // Math function precision — last-digit differences across multiple testData entries
             "testModUsesLog",
             "testModUsesSqrt",
