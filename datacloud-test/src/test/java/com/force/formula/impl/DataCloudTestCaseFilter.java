@@ -88,12 +88,6 @@ public class DataCloudTestCaseFilter implements IFormulaTestCaseFilter<FormulaTe
             "testFormatCurrency",
             // Duration formatting — numeric field overflow for very large date ranges (year 1780-3999)
             "testFormatDurationDateTime",
-            // Ceil/Floor at exact boundaries — Hyper's division precision causes
-            // CEIL/FLOOR to produce different results at 1/N*N boundaries
-            "testCeilRound",
-            "testFloorRound",
-            "testMCeilRound",
-            "testMFloorRound",
             // Math function precision — last-digit differences across multiple testData entries
             "testModUsesLog",
             "testModUsesSqrt",
