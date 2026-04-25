@@ -22085,11 +22085,11 @@
 					Fri Jan 15 00:00:00 GMT 9999"/>
         <testData input="0001-01-15"
                   expectedOutput="Sat Jan 15 00:00:00 GMT 1,
-					0001-01-15 00:00:00.0,
+					0001-01-17 00:00:00.0,
 					Mon Jan 17 00:00:00 GMT 1,
 					Mon Jan 17 00:00:00 GMT 1,
 					Sat Jan 15 00:00:00 GMT 1,
-					0001-01-15 00:00:00.0,
+					0001-01-17 00:00:00.0,
 					Mon Jan 17 00:00:00 GMT 1,
 					Mon Jan 17 00:00:00 GMT 1"/>
         <testData input="200-01-03"
@@ -22130,11 +22130,11 @@
 					Error: Javascript cannot parse time"/>
         <testData input="2005-02-31"
                   expectedOutput="Error: com.force.formula.FormulaDateException,
-					Error: ERROR: date/time field value out of range: &#34;2005-02-31&#34;,
+					Error: ERROR: day 31 is invalid. Give a day between 1 and 28.,
 					Thu Mar 03 00:00:00 GMT 2005,
 					Thu Mar 03 00:00:00 GMT 2005,
 					Error: com.force.formula.FormulaDateException,
-					Error: ERROR: date/time field value out of range: &#34;2005-02-31&#34;,
+					Error: ERROR: day 31 is invalid. Give a day between 1 and 28.,
 					Thu Mar 03 00:00:00 GMT 2005,
 					Thu Mar 03 00:00:00 GMT 2005"/>
         <testData input="2005-03-32"
@@ -22175,11 +22175,11 @@
 					Error: Javascript cannot parse time"/>
         <testData input="0000-12-12"
                   expectedOutput="Error: com.force.formula.FormulaDateException,
-					0001-12-12 00:00:00.0,
+					0001-12-14 00:00:00.0,
 					Tue Dec 14 00:00:00 GMT 1,
 					Tue Dec 14 00:00:00 GMT 1,
 					Error: com.force.formula.FormulaDateException,
-					0001-12-12 00:00:00.0,
+					0001-12-14 00:00:00.0,
 					Tue Dec 14 00:00:00 GMT 1,
 					Tue Dec 14 00:00:00 GMT 1"/>
         <testData input="0-12-12"
