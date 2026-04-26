@@ -87,11 +87,6 @@ public class DataCloudTestCaseFilter implements IFormulaTestCaseFilter<FormulaTe
             "testFormatCurrency",
             // Duration formatting — numeric field overflow for very large date ranges (year 1780-3999)
             "testFormatDurationDateTime",
-            // Math function precision — last-digit differences across multiple testData entries
-            "testModUsesLog",
-            "testModUsesSqrt",
-            "testSine",
-            "testTangent",
             // Error message / type-cast behavioral differences
             "testIfNullNullIf",
             "testDateTimeValueWithInvalidString",
