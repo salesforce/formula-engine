@@ -92,10 +92,6 @@ public class DataCloudTestCaseFilter implements IFormulaTestCaseFilter<FormulaTe
             "testModUsesSqrt",
             "testSine",
             "testTangent",
-            // Timestamp subtraction precision — multiple testData entries with different rounding
-            "testSubDateTime",
-            "testNVLWithError",
-            "testBVLWithError",
             // Error message / type-cast behavioral differences
             "testIfNullNullIf",
             "testDateTimeValueWithInvalidString",
