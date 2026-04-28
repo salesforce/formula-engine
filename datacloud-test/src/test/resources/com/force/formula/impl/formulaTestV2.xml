@@ -7,11 +7,11 @@
               formula="DATETIMEVALUE(&#34;sample &#34;)"
               executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
         <testData expectedOutput="Error: com.force.formula.FormulaDateException,
-					null,
+					Error: Operation not supported for type: com.salesforce.datacloud.jdbc.core.accessor.impl.VarCharVectorAccessor.,
 					Error: Javascript cannot parse time,
 					Error: Javascript cannot parse time,
 					Error: com.force.formula.FormulaDateException,
-					null,
+					Error: Operation not supported for type: com.salesforce.datacloud.jdbc.core.accessor.impl.VarCharVectorAccessor.,
 					Error: Javascript cannot parse time,
 					Error: Javascript cannot parse time"/>
     </testcase>
@@ -8485,65 +8485,65 @@
         <referenceField fieldName="customtext2" dataType="Text"/>
         <testData input="aaaa,aaaa"
                   expectedOutput="false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
 					false,
 					false,
 					false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
+					false,
+					false,
 					false,
 					false"/>
         <testData input="aaaa,bbbb"
                   expectedOutput="false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
 					false,
 					false,
 					false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
+					false,
+					false,
 					false,
 					false"/>
         <testData input="aaaa,"
                   expectedOutput="false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
 					false,
 					false,
 					false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
+					false,
+					false,
 					false,
 					false"/>
         <testData input=",bbbb"
                   expectedOutput="false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
 					false,
 					false,
 					false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
+					false,
+					false,
 					false,
 					false"/>
         <testData input=","
                   expectedOutput="false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
 					false,
 					false,
 					false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
+					false,
+					false,
 					false,
 					false"/>
         <testData input="aaaa,aaaa"
                   expectedOutput="false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
 					false,
 					false,
 					false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
+					false,
+					false,
 					false,
 					false"/>
         <testData input="aaaa,aaaa"
                   expectedOutput="false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
 					false,
 					false,
 					false,
-					Error: ERROR: operator does not exist: text = integer   Hint: No operator matches the given name and argument types. You might need to add explicit type casts.   Position: 177,
+					false,
+					false,
 					false,
 					false"/>
     </testcase>
@@ -22207,11 +22207,11 @@
               formula="if(true, if(false, null, null), TODAY())"
               executionPaths="formula,sql,javascript,javascriptLp,formulaNullAsNull,sqlNullAsNull,javascriptNullAsNull,javascriptLpNullAsNull">
         <testData expectedOutput="null,
+					Error: Operation not supported for type: com.salesforce.datacloud.jdbc.core.accessor.impl.VarCharVectorAccessor.,
 					null,
 					null,
 					null,
-					null,
-					null,
+					Error: Operation not supported for type: com.salesforce.datacloud.jdbc.core.accessor.impl.VarCharVectorAccessor.,
 					null,
 					null"/>
     </testcase>
