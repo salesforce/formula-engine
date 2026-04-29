@@ -176,7 +176,7 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
         // Use EXTRACT to get total seconds from the interval, then format manually.
         // NOTE: Hyper's LPAD truncates strings longer than the pad width, so use
         // GREATEST(2, LENGTH(...)) for hours which can exceed 2 digits.
-        String totalSecs = "EXTRACT(EPOCH FROM " + intervalArg + ")::int";
+        String totalSecs = "EXTRACT(EPOCH FROM " + intervalArg + ")::bigint";
         String hhRaw = "(" + totalSecs + "/3600)::text";
         String hh = "LPAD(" + hhRaw + ",GREATEST(2,LENGTH(" + hhRaw + ")),'0')";
         String mm = "LPAD(((" + totalSecs + "%3600)/60)::text,2,'0')";
