@@ -244,22 +244,35 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
     }
 
     // -------------------------------------------------------
-    // #8: Currency formatting — Hyper DB does not support G (grouping)
-    //     and D (decimal) format specifiers in TO_CHAR. Replace with
-    //     comma-based format masks (9,999,990.00) instead.
+    // #8: Currency formatting — Hyper DB does not support TO_CHAR with
+    //     numeric types at all. Use arithmetic and string ops instead.
+    //     getCurrencyMask returns the scale as a plain integer string;
+    //     appendCurrencyFormat builds the formatted number from parts.
     // -------------------------------------------------------
 
     @Override
     default StringBuilder getCurrencyMask(int scale) {
-        // Hyper doesn't support G/D locale-aware format specifiers.
-        // Use comma for grouping and period for decimal point.
-        StringBuilder mask = new StringBuilder(40).append("'FM9,999,999,999,999,999,990");
-        if (scale > 0) {
-            mask.append('.');
-            for (int i = 0; i < scale; i++) mask.append('0');
-        }
-        mask.append('\'');
-        return mask;
+        return new StringBuilder(6).append(' ').append(Integer.toString(scale)).append(' ');
+    }
+
+    @Override
+    default void appendCurrencyFormat(StringBuilder sql, String isoCodeArg, String amountArg, CharSequence scaleExpr) {
+        // Hyper does not support TO_CHAR with numeric types.
+        // Build formatted currency string using arithmetic and string ops.
+        // Insert comma grouping via: REVERSE → insert comma every 3 chars → REVERSE → trim leading comma.
+        String rounded = "ROUND(" + amountArg + "," + scaleExpr + ")";
+        String absRounded = "ABS(" + rounded + ")";
+        String intPart = "TRUNC(" + absRounded + ")::bigint::text";
+        String reversed = "REVERSE(" + intPart + ")";
+        String withCommas = "REGEXP_REPLACE(" + reversed + ",'(\\d{3})','\\1,','g')";
+        String grouped = "REGEXP_REPLACE(REVERSE(" + withCommas + "),'^,','')";
+        String sign = "CASE WHEN " + amountArg + "<0 THEN '-' ELSE '' END";
+
+        sql.append("CONCAT(").append(isoCodeArg).append(",' ',").append(sign).append(",").append(grouped);
+        sql.append(",CASE WHEN (").append(scaleExpr);
+        sql.append(")=0 THEN ''");
+        sql.append(" ELSE '.'||LPAD(((").append(absRounded).append("-TRUNC(").append(absRounded).append("))*POWER(10,").append(scaleExpr).append("))::bigint::text,(").append(scaleExpr).append("),'0')");
+        sql.append(" END)");
     }
 
     // -------------------------------------------------------

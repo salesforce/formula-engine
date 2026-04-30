@@ -82,9 +82,7 @@ public class DataCloudTestCaseFilter implements IFormulaTestCaseFilter<FormulaTe
             "testDateVarVarConst",
             "testDateVariableYear",
             "testIfANDFunc",
-            "testIfORFunc",
-            // Currency formatting — Hyper does not support TO_CHAR with numeric types
-            "testFormatCurrency"
+            "testIfORFunc"
     ));
 
     @Override
