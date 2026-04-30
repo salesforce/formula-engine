@@ -271,4 +271,9 @@ public interface FormulaDataCloudHooks extends FormulaPostgreSQLHooks {
     default String sqlInitCap(boolean hasLocaleOverride) {
         return "INITCAP(%s)";
     }
+
+    @Override
+    default String sqlDoubleToNumericCast() {
+        return "::numeric(38,18)";
+    }
 }

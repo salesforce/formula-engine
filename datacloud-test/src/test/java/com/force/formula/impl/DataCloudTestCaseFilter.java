@@ -84,9 +84,7 @@ public class DataCloudTestCaseFilter implements IFormulaTestCaseFilter<FormulaTe
             "testIfANDFunc",
             "testIfORFunc",
             // Currency formatting — Hyper does not support TO_CHAR with numeric types
-            "testFormatCurrency",
-            // Floating-point geography — precision differences across multiple testData entries
-            "testDistance"
+            "testFormatCurrency"
     ));
 
     @Override

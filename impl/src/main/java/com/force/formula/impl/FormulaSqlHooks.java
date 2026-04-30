@@ -873,4 +873,13 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
     default String sqlCastNull(String str, Type type) {
         return str; // default
     }
+
+    /**
+     * @return the SQL suffix to cast a double precision value to numeric, preserving decimal places.
+     * PostgreSQL's bare {@code ::numeric} infers full precision from the double; some databases
+     * (e.g., Hyper) require explicit precision to avoid truncation to integer.
+     */
+    default String sqlDoubleToNumericCast() {
+        return "::numeric";
+    }
 }
