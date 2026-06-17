@@ -96,5 +96,12 @@
             <version>${testcontainers.version}</version>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.salesforce.datacloud</groupId>
+            <artifactId>jdbc</artifactId>
+            <version>0.41.0</version>
+            <classifier>shaded</classifier>
+            <optional>true</optional>
+        </dependency>
   </dependencies>
 </project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfBeginsUsesEmail">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customemail1__c!=null&amp;&amp;context.record.customtext1__c!=null &amp;&amp; (!context.record.customtext1__c||context.record.customemail1__c.lastIndexOf($F.nvl(context.record.customtext1__c,''),0)===0)?$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')):$F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customemail1__c!=null&amp;&amp;context.record.customtext1__c!=null &amp;&amp; (!context.record.customtext1__c||context.record.customemail1__c.lastIndexOf($F.nvl(context.record.customtext1__c,''),0)===0)?$F.nvl(context.record.customnumber1__c,0):$F.nvl(context.record.customcurrency1__c,0))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customemail1__c!=null&amp;&amp;context.record.customtext1__c!=null &amp;&amp; (!context.record.customtext1__c||context.record.customemail1__c.lastIndexOf($F.nvl(context.record.customtext1__c,''),0)===0)?context.record.customnumber1__c:context.record.customcurrency1__c)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customemail1__c!=null&amp;&amp;context.record.customtext1__c!=null &amp;&amp; (!context.record.customtext1__c||context.record.customemail1__c.lastIndexOf($F.nvl(context.record.customtext1__c,''),0)===0)?context.record.customnumber1__c:context.record.customcurrency1__c)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (STRPOS($!s0s!$.customemail1__c, $!s0s!$.customtext1__c) = 1)) THEN COALESCE($!s0s!$.customnumber1__c, 0) ELSE COALESCE($!s0s!$.customcurrency1__c, 0) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN (($!s0s!$.customtext1__c IS NULL) OR (STRPOS($!s0s!$.customemail1__c, $!s0s!$.customtext1__c) = 1)) THEN $!s0s!$.customnumber1__c ELSE $!s0s!$.customcurrency1__c END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

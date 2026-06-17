@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>formula-engine-datacloud-test</artifactId>
+  <name>Formula Engine DataCloud Test</name>
+  <description>
+    Test of the formula engine when using Salesforce DataCloud Hyper DB.
+  </description>
+
+  <parent>
+    <groupId>com.salesforce.formula</groupId>
+    <artifactId>formula-engine</artifactId>
+    <version>0.9.11-SNAPSHOT</version>
+  </parent>
+
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.salesforce.formula</groupId>
+      <artifactId>formula-engine-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.salesforce.formula</groupId>
+      <artifactId>formula-engine-impl</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.salesforce.formula</groupId>
+      <artifactId>formula-engine-test-utils</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <!-- Get the test classes/resources for validation -->
+    <dependency>
+      <groupId>com.salesforce.formula</groupId>
+      <artifactId>formula-engine-impl</artifactId>
+      <version>${project.version}</version>
+      <classifier>tests</classifier>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+
+    <!--  Json Function Dependencies -->
+    <dependency>
+       <groupId>com.jayway.jsonpath</groupId>
+       <artifactId>json-path</artifactId>
+       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- DataCloud JDBC Driver -->
+    <dependency>
+      <groupId>com.salesforce.datacloud</groupId>
+      <artifactId>jdbc</artifactId>
+      <version>0.41.0</version>
+      <classifier>shaded</classifier>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <!-- Required for Class.forName() to find the DataCloud JDBC driver in the shaded jar -->
+          <useSystemClassLoader>true</useSystemClassLoader>
+          <useManifestOnlyJar>false</useManifestOnlyJar>
+          <excludes>
+            <!-- DataCloudFormulaTestCase is not a standalone test; it is instantiated
+                 by FormulaDataCloudXMLTests via createTestCase(). Exclude it so Surefire
+                 does not try to run it directly (it lacks a no-arg/String constructor). -->
+            <exclude>**/DataCloudFormulaTestCase.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

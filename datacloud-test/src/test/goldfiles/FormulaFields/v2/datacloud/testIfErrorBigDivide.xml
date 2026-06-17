@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfErrorBigDivide">
+    <JsOutput highPrec="true" nullAsNull="false">(isNaN($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).div($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))).mul($F.nvl(context.record.customnumber3__c,new $F.Decimal('0')))))?new $F.Decimal('0'):$F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).div($F.nvl(context.record.customnumber2__c,new $F.Decimal('0'))).mul($F.nvl(context.record.customnumber3__c,new $F.Decimal('0')))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(isNaN(($F.nvl(context.record.customnumber1__c,0)/$F.nvl(context.record.customnumber2__c,0))*$F.nvl(context.record.customnumber3__c,0)))?0:($F.nvl(context.record.customnumber1__c,0)/$F.nvl(context.record.customnumber2__c,0))*$F.nvl(context.record.customnumber3__c,0)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(!(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber3__c!=null) || isNaN((context.record.customnumber1__c/context.record.customnumber2__c)*context.record.customnumber3__c))?0:(context.record.customnumber1__c/context.record.customnumber2__c)*context.record.customnumber3__c</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(!(context.record.customnumber1__c!=null&amp;&amp;context.record.customnumber2__c!=null&amp;&amp;context.record.customnumber3__c!=null) || isNaN(context.record.customnumber1__c.div(context.record.customnumber2__c).mul(context.record.customnumber3__c)))?new $F.Decimal('0'):context.record.customnumber1__c.div(context.record.customnumber2__c).mul(context.record.customnumber3__c)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN COALESCE($!s0s!$.customnumber2__c, 0)=0 THEN 0 ELSE ((COALESCE($!s0s!$.customnumber1__c, 0)/COALESCE($!s0s!$.customnumber2__c, 0)) * COALESCE($!s0s!$.customnumber3__c, 0)) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customnumber2__c=0 THEN 0 ELSE (($!s0s!$.customnumber1__c/$!s0s!$.customnumber2__c) * $!s0s!$.customnumber3__c) END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -36,6 +36,17 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
         return BigDecimalHelper.NUMBER_PRECISION_EXTERNAL;
     }
 
+    /**
+     * Preprocess the argument for CEIL/FLOOR before applying ROUND.
+     * Override this to cast to a specific precision to absorb integer boundary noise
+     * in databases with different numeric precision than PostgreSQL.
+     * @param argument the SQL expression to preprocess
+     * @return the preprocessed argument, default returns unchanged
+     */
+    default String sqlCeilFloorArg(String argument) {
+        return argument;
+    }
+
     // Handle plsql regexp differences (where oracle needs regexp_like and postgres wants ~ or similar to)
     /**
      * @return how to do "not regexp_like", where the %s is used to represent the value to guard against for DateTime Value
@@ -861,5 +872,14 @@ public interface FormulaSqlHooks extends FormulaSqlStyle {
      */
     default String sqlCastNull(String str, Type type) {
         return str; // default
+    }
+
+    /**
+     * @return the SQL suffix to cast a double precision value to numeric, preserving decimal places.
+     * PostgreSQL's bare {@code ::numeric} infers full precision from the double; some databases
+     * (e.g., Hyper) require explicit precision to avoid truncation to integer.
+     */
+    default String sqlDoubleToNumericCast() {
+        return "::numeric";
     }
 }

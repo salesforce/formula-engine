@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFunctionRight">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customtext__c!=null)?((($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))&lt;=0)?'':context.record.customtext__c).slice(-($F.nvl(context.record.customnumber__c,new $F.Decimal('0'))))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customtext__c!=null)?((($F.nvl(context.record.customnumber__c,0)&lt;=0)?'':context.record.customtext__c).slice(-($F.nvl(context.record.customnumber__c,0)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customtext__c!=null&amp;&amp;context.record.customnumber__c!=null)?(((context.record.customnumber__c&lt;=0)?'':context.record.customtext__c).slice(-(context.record.customnumber__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customtext__c!=null&amp;&amp;context.record.customnumber__c!=null)?(((context.record.customnumber__c&lt;=0)?'':context.record.customtext__c).slice(-(context.record.customnumber__c))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>RIGHT($!s0s!$.customtext__c, GREATEST(COALESCE($!s0s!$.customnumber__c, 0), 0)::integer)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>RIGHT($!s0s!$.customtext__c, GREATEST($!s0s!$.customnumber__c, 0)::integer)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

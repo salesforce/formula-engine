@@ -569,6 +569,12 @@
         <module>mysql-test</module>
       </modules>
     </profile>
+    <profile>
+      <id>datacloud</id>
+      <modules>
+        <module>datacloud-test</module>
+      </modules>
+    </profile>
   </profiles>
 
   <reporting>

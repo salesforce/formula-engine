@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testFormatDurationWithTrue">
+    <JsOutput highPrec="true" nullAsNull="false">$F.formatduration(Math.abs($F.nvl(context.record.customNumber1__c,new $F.Decimal('0')).toNumber()),true)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">$F.formatduration(Math.abs($F.nvl(context.record.customNumber1__c,0)),true)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customNumber1__c!=null)?($F.formatduration(Math.abs(context.record.customNumber1__c),true)):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customNumber1__c!=null)?($F.formatduration(Math.abs(context.record.customNumber1__c.toNumber()),true)):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>(EXTRACT(EPOCH FROM (INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))))::bigint/86400)||':'||LPAD(((EXTRACT(EPOCH FROM (INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))))::bigint%86400)/3600)::text,2,'0')||':'||LPAD(((EXTRACT(EPOCH FROM (INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))))::bigint%3600)/60)::text,2,'0')||':'||LPAD((EXTRACT(EPOCH FROM (INTERVAL '1 second' * ABS(COALESCE($!s0s!$.customNumber1__c, 0))))::bigint%60)::text,2,'0')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>(EXTRACT(EPOCH FROM (INTERVAL '1 second' * ABS($!s0s!$.customNumber1__c)))::bigint/86400)||':'||LPAD(((EXTRACT(EPOCH FROM (INTERVAL '1 second' * ABS($!s0s!$.customNumber1__c)))::bigint%86400)/3600)::text,2,'0')||':'||LPAD(((EXTRACT(EPOCH FROM (INTERVAL '1 second' * ABS($!s0s!$.customNumber1__c)))::bigint%3600)/60)::text,2,'0')||':'||LPAD((EXTRACT(EPOCH FROM (INTERVAL '1 second' * ABS($!s0s!$.customNumber1__c)))::bigint%60)::text,2,'0')</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

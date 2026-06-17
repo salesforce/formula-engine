@@ -102,7 +102,7 @@ public class FunctionDistance extends FormulaCommandInfoImpl implements FormulaC
 
         // Needed because ASIN is double/double only.
         if (sqlStyle != null && sqlStyle.isPostgresStyle()) {
-            sql = sql + "::numeric";
+            sql = sql + getSqlHooks(context).sqlDoubleToNumericCast();
         }
         
         return new SQLPair(sql, SQLPair.generateGuard(guards, String.format(UNIT_GUARD_EXPRESSION, unit)));

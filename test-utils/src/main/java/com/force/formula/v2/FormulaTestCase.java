@@ -30,9 +30,9 @@ import java.util.stream.Collectors;
  */
 public class FormulaTestCase extends FormulaTestBase {
 
-    private final FormulaTestDefinition testCase;
-    private final MapFormulaContext.MapEntity testEntity;
-    private final FormulaXMLTestSuite testSuite;
+    protected final FormulaTestDefinition testCase;
+    protected final MapFormulaContext.MapEntity testEntity;
+    protected final FormulaXMLTestSuite testSuite;
 
     /**
      * A constructor to create an instance of formula test case from a formula test definition
@@ -76,9 +76,9 @@ public class FormulaTestCase extends FormulaTestBase {
 
     /**
      * Iterates over all execution paths defined for this test case for each of the test data and compare against
-     * expected outputs
+     * expected outputs. Subclasses can override to customize comparison behavior.
      */
-    private void runTestCase(){
+    protected void runTestCase(){
         for(String executionPath: this.testCase.getExecutionPaths()){
             if(ExecutionPaths.get(executionPath)!=null){
                 for(FormulaTestData testData: this.testCase.getTestData()){

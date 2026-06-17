@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLike">
+    <JsOutput highPrec="true" nullAsNull="false">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c.replaceAll(/\\%/g,'\t').replaceAll(/\\_/g,'\f').replaceAll(/([*?+^$(){}\[])/g,'\\$1').replaceAll(/_/g,'.').replaceAll(/%/g,'.*').replaceAll(/\f/g,'_').replaceAll(/\t/g,'%')+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c.replaceAll(/\\%/g,'\t').replaceAll(/\\_/g,'\f').replaceAll(/([*?+^$(){}\[])/g,'\\$1').replaceAll(/_/g,'.').replaceAll(/%/g,'.*').replaceAll(/\f/g,'_').replaceAll(/\t/g,'%')+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c.replaceAll(/\\%/g,'\t').replaceAll(/\\_/g,'\f').replaceAll(/([*?+^$(){}\[])/g,'\\$1').replaceAll(/_/g,'.').replaceAll(/%/g,'.*').replaceAll(/\f/g,'_').replaceAll(/\t/g,'%')+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(new RegExp(($F.anl([context.record.customexpr__c])?'^$':'^'+context.record.customexpr__c.replaceAll(/\\%/g,'\t').replaceAll(/\\_/g,'\f').replaceAll(/([*?+^$(){}\[])/g,'\\$1').replaceAll(/_/g,'.').replaceAll(/%/g,'.*').replaceAll(/\f/g,'_').replaceAll(/\t/g,'%')+'$')).test($F.nvl(context.record.customtext__c,''))?&quot;TRUE&quot;:&quot;FALSE&quot;)</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>CASE WHEN $!s0s!$.customtext__c LIKE $!s0s!$.customexpr__c ESCAPE '\' THEN 'TRUE' ELSE 'FALSE' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>CASE WHEN $!s0s!$.customtext__c LIKE $!s0s!$.customexpr__c ESCAPE '\' THEN 'TRUE' ELSE 'FALSE' END</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

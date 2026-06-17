@@ -45,11 +45,12 @@ public class FunctionMFloor extends UnaryMathCommandBehavior {
     public SQLPair getSQL(FormulaAST node, FormulaContext context, String[] args, String[] guards) {
         FormulaSqlHooks hooks = (FormulaSqlHooks)context.getSqlStyle();
         int precision = hooks.getExternalPrecision();
+        String arg = hooks.sqlCeilFloorArg(args[0]);
         String sql;
         if (precision >= 0) { // If external precision is -1 don't reound before Ceil/Floor
-            sql = "FLOOR(ROUND(" + args[0] + ","+precision+"))";
+            sql = "FLOOR(ROUND(" + arg + ","+precision+"))";
         } else {
-            sql = "FLOOR(" + args[0] + ")";
+            sql = "FLOOR(" + arg + ")";
         }
         return new SQLPair(sql, guards[0]);
     }

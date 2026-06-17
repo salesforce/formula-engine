@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testIfNotNull">
+    <JsOutput highPrec="true" nullAsNull="false">&quot;False&quot;</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">&quot;False&quot;</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">&quot;False&quot;</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">&quot;False&quot;</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>'False'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>'False'</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

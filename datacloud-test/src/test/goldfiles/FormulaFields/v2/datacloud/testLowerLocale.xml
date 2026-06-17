@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testLowerLocale">
+    <JsOutput highPrec="true" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleLowerCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleLowerCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleLowerCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customText1__c!=null)?(context.record.customText1__c.toLocaleLowerCase(($F.anl([context.record.customText2__c])?'en':context.record.customText2__c.replace(&quot;_&quot;,&quot;-&quot;)))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>LOWER($!s0s!$.customText1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>LOWER($!s0s!$.customText1__c)</Sql>
+       <Guard>null</Guard>
+    </SqlOutput>
+</testCase>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testDateVarConstConst">
+    <JsOutput highPrec="true" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.customnumber1__c,new $F.Decimal('0')).toNumber(),new $F.Decimal('11').toNumber()-1,new $F.Decimal('25').toNumber()))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">new Date(Date.UTC($F.nvl(context.record.customnumber1__c,0),11-1,25))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customnumber1__c!=null)?(new Date(Date.UTC(context.record.customnumber1__c,11-1,25))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customnumber1__c!=null)?(new Date(Date.UTC(context.record.customnumber1__c.toNumber(),new $F.Decimal('11').toNumber()-1,new $F.Decimal('25').toNumber()))):null</JsOutput>
+</testCase>

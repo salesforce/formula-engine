@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testCase name="testSqrtUsesMinus">
+    <JsOutput highPrec="true" nullAsNull="false">$F.Decimal.sqrt(($F.nvl(context.record.customcurrency1__c,new $F.Decimal('0')).sub($F.nvl(context.record.customcurrency2__c,new $F.Decimal('0')))))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="false">Math.sqrt(($F.nvl(context.record.customcurrency1__c,0)-$F.nvl(context.record.customcurrency2__c,0)))</JsOutput>
+    <JsOutput highPrec="false" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null)?(Math.sqrt((context.record.customcurrency1__c-context.record.customcurrency2__c))):null</JsOutput>
+    <JsOutput highPrec="true" nullAsNull="true">(context.record.customcurrency1__c!=null&amp;&amp;context.record.customcurrency2__c!=null)?($F.Decimal.sqrt((context.record.customcurrency1__c.sub(context.record.customcurrency2__c)))):null</JsOutput>
+    <SqlOutput nullAsNull="false">
+       <Sql>SQRT((COALESCE($!s0s!$.customcurrency1__c, 0)-COALESCE($!s0s!$.customcurrency2__c, 0)))</Sql>
+       <Guard>(COALESCE($!s0s!$.customcurrency1__c, 0)-COALESCE($!s0s!$.customcurrency2__c, 0))&lt;0</Guard>
+    </SqlOutput>
+    <SqlOutput nullAsNull="true">
+       <Sql>SQRT(($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c))</Sql>
+       <Guard>($!s0s!$.customcurrency1__c-$!s0s!$.customcurrency2__c)&lt;0</Guard>
+    </SqlOutput>
+</testCase>
