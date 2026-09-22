@@ -120,11 +120,8 @@ public interface FormulaDataType {
     default boolean isClob() {
         return false;
     }
-    default boolean isBlob() {
-        return false;
-    }
     default boolean isLob() {
-        return isClob() || isBlob();
+        return isClob();
     }
     /**
      * @return if this is a picklist value that can be only from a set of choices,

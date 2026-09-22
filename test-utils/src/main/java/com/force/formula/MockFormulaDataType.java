@@ -169,12 +169,7 @@ public enum MockFormulaDataType implements FormulaDataType {
 
     @Override
     public boolean isLob() {
-        return isBlob() || isClob();
-    }
-
-    @Override
-    public boolean isBlob() {
-        return false;
+        return isClob();
     }
 
     @Override
